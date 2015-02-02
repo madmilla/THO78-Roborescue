@@ -1,5 +1,4 @@
-# THO78-TeamDaniel 
-Roborescue project
+# THO78 Roborescue project
 
 Hogeschool Utrecht - 2015
 
