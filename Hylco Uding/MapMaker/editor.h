@@ -24,7 +24,8 @@ private slots:
     void on_Save_clicked();
 
 private:
-    int width=20,height=20;
+    int width;
+    int height;
 
     void mousePressEvent(QMouseEvent * event);
     void paintEvent(QPaintEvent * e);

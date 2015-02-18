@@ -14,9 +14,9 @@ Editor::Editor(QWidget *parent) :
     Types["wood"] = QBrush(QColor(139,69,19));
     Types["quad"] = QBrush(Qt::black,Qt::CrossPattern);
     Types["avu"] = QBrush(Qt::darkYellow,Qt::CrossPattern);
-    for(auto &e : Types)
+    for(auto & e : Types){
         ui->listWidget->addItem(e.first);
-
+    }
     for(int i = 0; i<20; i++){
         for(int j = 0; j<20;j++){
             array[i][j] = QJsonArray() ;
