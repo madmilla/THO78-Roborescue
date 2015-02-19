@@ -12,9 +12,12 @@ TARGET = MapSystem
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES +=\
+        mainwindow.cpp \
+    main.cpp \
+    Logic.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    Logic.h
 
 FORMS    += mainwindow.ui
