@@ -1,5 +1,5 @@
 #include <iostream>
-#include "TestSystem.h"
+#include "TestSystem/Logic.h"
 
 int main(int argc, char *argv[])
 {
