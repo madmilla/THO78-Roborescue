@@ -15,11 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
         mapdisplay.cpp \
-    editor.cpp
+    editor.cpp \
+    map.cpp \
+    test.cpp
 
 HEADERS  += mainwindow.h \
         mapdisplay.h \
-    editor.h
+    editor.h \
+    map.h
 
 FORMS    += mainwindow.ui \
         mapdisplay.ui \

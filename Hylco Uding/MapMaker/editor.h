@@ -5,6 +5,7 @@
 #include <QtGui>
 #include <QtCore>
 #include <QJsonArray>
+#include "map.h"
 #define MAX_MAP_SIZE 50
 namespace Ui {
 class Editor;
@@ -15,23 +16,17 @@ class Editor : public QDialog
     Q_OBJECT
 
 public:
-    explicit Editor(QWidget *parent = 0);
+    explicit Editor(int height, int width, QJsonObject json = QJsonObject(),QWidget *parent = 0 );
     ~Editor();
-    void setMap(QJsonObject json);
-    void setSize(int height, int width);
-
+    void saveFile();
 private slots:
     void on_Save_clicked();
 
 private:
-    int width;
-    int height;
-
     void mousePressEvent(QMouseEvent * event);
     void paintEvent(QPaintEvent * e);
-    QJsonArray array[MAX_MAP_SIZE][MAX_MAP_SIZE];
-    std::map<QString,QBrush> Types;
     Ui::Editor *ui;
+    Map * map;
 };
 
 #endif // EDITOR_H

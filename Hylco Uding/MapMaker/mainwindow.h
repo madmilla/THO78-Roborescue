@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QColor>
 #include <Qt>
+#include "QMessageBox"
 
 namespace Ui {
 class MainWindow;
