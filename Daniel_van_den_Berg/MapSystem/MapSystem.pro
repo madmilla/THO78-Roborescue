@@ -15,9 +15,9 @@ TEMPLATE = app
 SOURCES +=\
         mainwindow.cpp \
     main.cpp \
-    mapeditor.cpp
+    Logic.cpp
 
 HEADERS  += mainwindow.h \
-    mapeditor.h
+    Logic.h
 
 FORMS    += mainwindow.ui
