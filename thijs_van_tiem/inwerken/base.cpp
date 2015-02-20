@@ -3,7 +3,7 @@
 
 base::base()
 {
-    std::cout << "Hello world! owyeah"
+    std::cout << "dit is de test van de base van thijs van tiem";
 }
 
 base::~base()
