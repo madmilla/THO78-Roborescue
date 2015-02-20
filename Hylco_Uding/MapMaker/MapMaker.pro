@@ -16,8 +16,7 @@ SOURCES += main.cpp\
         mainwindow.cpp \
         mapdisplay.cpp \
     editor.cpp \
-    map.cpp \
-    test.cpp
+    map.cpp
 
 HEADERS  += mainwindow.h \
         mapdisplay.h \

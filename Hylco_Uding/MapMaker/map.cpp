@@ -1,5 +1,6 @@
 #include "map.h"
 #include <QDebug>
+Map::Map(){}
 Map::Map(int height, int width, QJsonObject json ):
     jsonMap(json),
     height(height),

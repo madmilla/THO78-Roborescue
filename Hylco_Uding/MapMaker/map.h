@@ -9,6 +9,7 @@
 class Map
 {
 public:
+    Map();
     Map(int height, int width, QJsonObject = QJsonObject());
     ~Map();
     std::map<QString, QBrush> getTypes();
