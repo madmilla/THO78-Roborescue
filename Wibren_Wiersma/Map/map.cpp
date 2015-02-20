@@ -62,7 +62,7 @@ void Map::save(){
     file.write(reinterpret_cast<char *>(&rows), UISize);
     file.write(reinterpret_cast<char *>(&colloms), UISize);
 
-    for(unsigned int r; r < rows; r++){
+    for(unsigned int r = 0; r < rows; r++){
         file.write(reinterpret_cast<char *>(data[r]), UISize * colloms);
     }
 
