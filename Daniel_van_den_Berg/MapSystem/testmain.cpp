@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-    std::cout << "This is the test application.";
+    std::cout << "This is the test application.\n";
     Logic *logic = new Logic();
     delete logic;
     return 0;
