@@ -90,11 +90,17 @@ void Map::createEmpty(std::string filename, unsigned int rows, unsigned int coll
     file.write(reinterpret_cast<char *>(&rows), UISize);
     file.write(reinterpret_cast<char *>(&colloms), UISize);
 
-    unsigned int temp[colloms] = {0};
+    unsigned int * temp = new unsigned int[colloms];
+
+    for(unsigned int c = 0; c < colloms; c++){
+        temp[c] = 0;
+    }
 
     for(unsigned int r = 0; r < rows; r++){
-        file.write(reinterpret_cast<char *>(&temp), UISize * colloms);
+        file.write(reinterpret_cast<char *>(temp), UISize * colloms);
     }
+
+    delete[] temp;
 
     file.close();
 }
