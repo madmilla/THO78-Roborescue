@@ -1,14 +1,23 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <iostream>
-#include "base.h"
+#include "file.h"
+#include <QtGui>
 
 int main(int argc, char *argv[])
 {
-    std::cout << "hello het werk \n";
-    //QApplication a(argc, argv);
-   // MainWindow w;
-    //w.show();
+    std::string name ="myReadFile.txt";
+    std::string namewrite = "output.txt";
+    file::file(name,namewrite);
 
-    //return a.exec();
+
+
+
+    QApplication a(argc, argv);
+    MainWindow window;
+    window.resize(640,480);
+    window.show();
+    window.setWindowTitle(QApplication::translate("het inwerk","Het inwerk project"));
+
+    return a.exec();
 }
