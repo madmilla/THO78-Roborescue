@@ -21,10 +21,11 @@
       return os.str() ;
     }
 
-void assert(std::string string, bool success){
+template <typename T>
+void assert(std::string string, T get, T shouldbe){
     std::cout << string;
-    if (!success){
-        std::cout << " failed.";
+    if (get != shouldbe){
+        std::cout << " failed.\nGot [" << to_string(get) << "]\nShould be [" << to_string(shouldbe) << "]\n";
         exit(-1);
     }
     std::cout << " succeeded.\n";
@@ -40,11 +41,11 @@ int main(int argc, char *argv[])
         std::string mapname = "testmap";
         mapname += to_string(rand());
     }
-    assert("Parsing map name",mapEditor->parseMapName("test.map") == "test");
+    assert("Parsing map name",mapEditor->parseMapName("test.map"),"test");
     mapEditor->createNewMap(mapname);
-    assert("Creating map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")));
+    assert("Creating map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),true);
     mapEditor->removeMap(mapname);
-    assert("Removing map "+mapname,!mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")));
+    assert("Removing map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),false);
 
     delete mapEditor;
     return 0;
