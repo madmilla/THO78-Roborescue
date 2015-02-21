@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <qmainwindow.h>
+#include <QtWidgets>
 #include "mapeditor.h"
 
 namespace Ui {
