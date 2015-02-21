@@ -6,6 +6,7 @@
 #include <string.h>
 #include <time.h>
 #include <QString>
+#include <regex>
 
 #include<sstream>
     template <typename T>
@@ -42,12 +43,12 @@ int main(int argc, char *argv[])
         mapname += to_string(rand());
     }
 
-    std::string s ("there is a subsequence in the string\n");
+    std::string s ("there is a subsequence in the string");
     std::regex e ("\\b(sub)([^ ]*)");   // matches words beginning by "sub"
 
       // using string/c-string (3) version:
     std::string a = std::regex_replace (s,e,"sub-$2");
-    assert("Regex",a,s);
+    assert("Regex",a,"there is a sub-sequence in the string");
 
     assert("Parsing map name",mapEditor->parseMapName("test.map"),"test");
     mapEditor->createNewMap(mapname);
