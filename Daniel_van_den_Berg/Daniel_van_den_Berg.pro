@@ -7,8 +7,7 @@ TARGET = Daniel_van_den_Berg
 INCLUDEPATH += .
 
 # Input
-HEADERS += MapSystem/mainwindow.h MapSystem/mapeditor.h
+HEADERS += MapSystem/mapeditor.h
 FORMS += MapSystem/mainwindow.ui
 SOURCES += test.cpp \
-           MapSystem/mainwindow.cpp \
            MapSystem/mapeditor.cpp
