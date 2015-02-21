@@ -38,11 +38,17 @@ int main(int argc, char *argv[])
     std::string mapname = "testmap";
     mapname += to_string(rand());
     while (mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map"))){
-        std::string mapname = "testmap";
+        mapname = "testmap";
         mapname += to_string(rand());
     }
 
-    assert("Parsing map name",mapEditor->parseMapName("test"),"test");
+    std::string s ("there is a subsequence in the string\n");
+    std::regex e ("\\b(sub)([^ ]*)");   // matches words beginning by "sub"
+
+      // using string/c-string (3) version:
+    std::string a = std::regex_replace (s,e,"sub-$2");
+    assert("Regex",a,s);
+
     assert("Parsing map name",mapEditor->parseMapName("test.map"),"test");
     mapEditor->createNewMap(mapname);
     assert("Creating map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),true);
