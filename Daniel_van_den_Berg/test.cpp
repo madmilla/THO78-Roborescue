@@ -35,10 +35,10 @@ int main(int argc, char *argv[])
     MapEditor *mapEditor = new MapEditor();
     srand(time(NULL));
     std::string mapname = "testmap";
-    mapname += std::to_string(rand());
+    mapname += to_string(rand());
     while (mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map"))){
         std::string mapname = "testmap";
-        mapname += std::to_string(rand());
+        mapname += to_string(rand());
     }
     mapEditor->createNewMap(mapname);
     assert("Creating map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")));
