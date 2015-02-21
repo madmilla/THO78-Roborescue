@@ -1,9 +1,9 @@
 #include <iostream>
-#include "TestSystem/Logic.h"
+#include "MapSystem/mapeditor.h"
 
 int main(int argc, char *argv[])
 {
-    Logic *logic = new Logic();
-    delete logic;
+    MapEditor mapEditor();
+	std::cout << mapEditor.getAvailableMaps();
 	return 0;
 }
