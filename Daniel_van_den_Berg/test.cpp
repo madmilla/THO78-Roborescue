@@ -20,15 +20,15 @@ int main(int argc, char *argv[])
     MapEditor *mapEditor = new MapEditor();
     qDebug() << "Showing all maps\n";
     qDebug() << mapEditor->getAvailableMaps().join("\n");
-    srand(time(null));
+    srand(time(NULL));
     std::string mapname = ""+rand();
-    while (mapEditor->getAvailableMaps().contains(tr(mapname))){
+    while (mapEditor->getAvailableMaps().contains(mapname)){
         mapname = ""+rand();
     }
     mapEditor->createNewMap(mapname);
-    assert("Creating map",mapEditor->getAvailableMaps().contains(tr(mapname+".map")));
+    assert("Creating map",mapEditor->getAvailableMaps().contains(mapname+".map"));
     mapEditor->removeMap(mapname);
-    assert("Removing map",!mapEditor->getAvailableMaps().contains(tr(mapname+".map")));
+    assert("Removing map",!mapEditor->getAvailableMaps().contains(mapname+".map"));
 
     delete mapEditor;
     return 0;
