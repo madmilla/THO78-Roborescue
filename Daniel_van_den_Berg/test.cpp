@@ -41,6 +41,9 @@ int main(int argc, char *argv[])
         std::string mapname = "testmap";
         mapname += to_string(rand());
     }
+    if(__cplusplus == 201103L) std::cout << "derp";
+    else if(__cplusplus == "199711L") std::cout << "herp"; else std::cout << "andere fancy versie";
+
     assert("Parsing map name",mapEditor->parseMapName("test.map"),"test");
     mapEditor->createNewMap(mapname);
     assert("Creating map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),true);
