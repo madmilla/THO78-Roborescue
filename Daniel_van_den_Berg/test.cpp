@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
         std::string mapname = "testmap";
         mapname += to_string(rand());
     }
+    assert("Parsing map name",mapEditor->parseMapName("test.map") == "test");
     mapEditor->createNewMap(mapname);
     assert("Creating map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")));
     mapEditor->removeMap(mapname);
