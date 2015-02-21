@@ -21,8 +21,8 @@
       return os.str() ;
     }
 
-template <typename T>
-void assert(std::string string, T get, T shouldbe){
+template <typename T, typename U>
+void assert(std::string string, T get, U shouldbe){
     std::cout << string;
     if (get != shouldbe){
         std::cout << " failed.\nGot [" << to_string(get) << "]\nShould be [" << to_string(shouldbe) << "]\n";
