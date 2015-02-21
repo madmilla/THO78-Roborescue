@@ -39,7 +39,7 @@ void MapEditor::removeMap(std::string mapName){
 
 std::string MapEditor::parseMapName(std::string text){
     std::regex regex("\\.map$");
-    return std::regex_replace(text,regex,"");
+    return std::regex_replace(text,regex,std::string(""));
 }
 
 QStringList MapEditor::getAvailableMaps(){
