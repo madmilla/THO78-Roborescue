@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string>
 #include <time.h>
-#include <QObject>
+#include <QString>
 
 void assert(std::string string, bool success){
     std::cout << string;
@@ -23,13 +23,13 @@ int main(int argc, char *argv[])
     qDebug() << mapEditor->getAvailableMaps().join("\n");
     srand(time(NULL));
     std::string mapname = ""+rand();
-    while (mapEditor->getAvailableMaps().contains(QObject::tr(mapname))){
+    while (mapEditor->getAvailableMaps().contains(QString.fromStdString(mapname+".map"))){
         mapname = ""+rand();
     }
     mapEditor->createNewMap(mapname);
-    assert("Creating map",mapEditor->getAvailableMaps().contains(QObject::tr(mapname+".map")));
+    assert("Creating map",mapEditor->getAvailableMaps().contains(QString.fromStdString(mapname+".map")));
     mapEditor->removeMap(mapname);
-    assert("Removing map",!mapEditor->getAvailableMaps().contains(QObject::tr(mapname+".map")));
+    assert("Removing map",!mapEditor->getAvailableMaps().contains(QString.fromStdString(mapname+".map")));
 
     delete mapEditor;
     return 0;
