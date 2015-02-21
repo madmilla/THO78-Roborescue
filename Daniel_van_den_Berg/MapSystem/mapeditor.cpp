@@ -1,6 +1,7 @@
 #include "mapeditor.h"
 #include <QDir>
 #include <iostream>
+#include <regex>
 
 MapEditor::MapEditor()
 {
@@ -8,6 +9,7 @@ MapEditor::MapEditor()
 }
 
 void MapEditor::load(std::string mapName){
+    mapName = parseMapName(mapName);
     std::string fileNameC = QDir::currentPath().toStdString() + "/maps/" + mapName + ".map";
     QString fileName = QString::fromUtf8(fileNameC.c_str());
     QFile file(fileName);
@@ -16,8 +18,28 @@ void MapEditor::load(std::string mapName){
 }
 
 void MapEditor::createNewMap(std::string mapName){
+    mapName = parseMapName(mapName);
     std::cout << "Creating "<<mapName<<"\n";
     std::flush(std::cout);
+    std::string fileNameC = QDir::currentPath().toStdString() + "/maps/" + mapName + ".map";
+    QString fileName = QString::fromUtf8(fileNameC.c_str());
+    QFile file(fileName);
+    file.open(QIODevice::WriteOnly);
+    file.close();
+}
+
+void MapEditor::removeMap(std::string mapName){
+    mapName = parseMapName(mapName);
+    std::string fileNameC = QDir::currentPath().toStdString() + "/maps/" + mapName + ".map";
+    QString fileName = QString::fromUtf8(fileNameC.c_str());
+    QFile file(fileName);
+    file.remove();
+    file.close();
+}
+
+std::string MapEditor::parseMapName(std::string text){
+    std::regex regex("\\.map$");
+    return std::regex_replace(text,regex,"");
 }
 
 QStringList MapEditor::getAvailableMaps(){

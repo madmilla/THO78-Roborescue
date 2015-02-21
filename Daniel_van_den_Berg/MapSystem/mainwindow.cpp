@@ -5,7 +5,6 @@
 #include <string>
 #include <QDir>
 #include <QMessageBox>
-#include <regex>
 #include <QInputDialog>
 #include <QLineEdit>
 
@@ -29,19 +28,19 @@ void MainWindow::on_Load_clicked()
         QMessageBox::information(this, tr("Waring"),tr("No file selected.") );
         return;
     }
-    std::regex regex("\\.map$");
 
     if (ui->fileManagerListWidget->currentItem()->text().toStdString() == "New map"){
         bool ok;
         QString text = QInputDialog::getText(
                     this, tr("QInputDialog::getText()"),
                     tr("Map name:"), QLineEdit::Normal,
-                    QDir::home().dirName(), &ok);
+                    "", &ok);
         if (ok && !text.isEmpty()){
-            mapEditor.createNewMap(std::regex_replace(text.toStdString(),regex,""));
+            mapEditor.createNewMap(text.toStdString());
         }
     }
-    mapEditor.load(std::regex_replace(ui->fileManagerListWidget->currentItem()->text().toStdString(),regex,""));
+    mapEditor.load(ui->fileManagerListWidget->currentItem()->text().toStdString());
+    loadMaps();
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -58,4 +57,15 @@ void MainWindow::loadMaps(){
 void MainWindow::on_pushButton_2_clicked()
 {
     mapEditor.saveMap();
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    if(ui->fileManagerListWidget->currentItem() == NULL || ui->fileManagerListWidget->currentItem()->text().toStdString() == "New map"){
+        QMessageBox::information(this, tr("Waring"),tr("No file selected.") );
+        return;
+    }
+
+    mapEditor.removeMap(ui->fileManagerListWidget->currentItem()->text().toStdString());
+    loadMaps();
 }
