@@ -19,17 +19,23 @@ void assert(std::string string, bool success){
 int main(int argc, char *argv[])
 {
     MapEditor *mapEditor = new MapEditor();
-    qDebug() << "Showing all maps\n";
+    qDebug() << "Showing all maps";
     qDebug() << mapEditor->getAvailableMaps().join("\n");
     srand(time(NULL));
-    std::string mapname = ""+rand();
-    while (mapEditor->getAvailableMaps().contains(QString.fromStdString(mapname+".map"))){
-        mapname = ""+rand();
+    std::string mapname = "testmap";
+    mapname += std::to_string(rand());
+    while (mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map"))){
+        std::string mapname = "testmap";
+        mapname += std::to_string(rand());
     }
     mapEditor->createNewMap(mapname);
-    assert("Creating map",mapEditor->getAvailableMaps().contains(QString.fromStdString(mapname+".map")));
+    assert("Creating map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")));
+    qDebug() << "Showing all maps";
+    qDebug() << mapEditor->getAvailableMaps().join("\n");
     mapEditor->removeMap(mapname);
-    assert("Removing map",!mapEditor->getAvailableMaps().contains(QString.fromStdString(mapname+".map")));
+    assert("Removing map "+mapname,!mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")));
+    qDebug() << "Showing all maps";
+    qDebug() << mapEditor->getAvailableMaps().join("\n");
 
     delete mapEditor;
     return 0;
