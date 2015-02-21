@@ -8,10 +8,10 @@ class MapEditor
 {
 public:
     MapEditor();
-    void MapEditor::load(std::string mapName);
-    QStringList MapEditor::getAvailableMaps();
-    void MapEditor::createNewMap(std::string mapName);
-    void MapEditor::saveMap();
+    void load(std::string mapName);
+    QStringList getAvailableMaps();
+    void createNewMap(std::string mapName);
+    void saveMap();
     ~MapEditor();
 };
 
