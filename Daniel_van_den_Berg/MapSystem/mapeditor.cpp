@@ -39,6 +39,8 @@ void MapEditor::removeMap(std::string mapName){
 
 std::string MapEditor::parseMapName(std::string text){
     std::regex regex("\\.map$");
+    std::cout << "Parsing [" << text << "] to [" << std::regex_replace(text,regex,std::string("")) << "]\n";
+    std::flush(std::cout);
     return std::regex_replace(text,regex,std::string(""));
 }
 
