@@ -16,7 +16,7 @@ MapLoadException::MapLoadException(const std::string &newError):
     //String holding the error.
     error{newError}
 {}
-const char * MapLoadException::what() const{
+const char * MapLoadException::what() const throw(){
     //Return messages as a c string.
     return error.c_str();
 }
@@ -43,8 +43,8 @@ isShowGrid{true}
 
 void MapUi::draw(QPainter &p) const{
     //For each tile:
-    for(int x=0;x<tiles.size();++x){
-        for(int y=0;y<tiles[x].size();++y){
+    for(int x=0;x< static_cast<int>(tiles.size());++x){
+        for(int y=0;y<static_cast<int>(tiles[x].size());++y){
             //Create a rectangle based on position and tile size.
             //We're going to draw this one later.
             QRect rect{x*tileSize, y*tileSize, tileSize, tileSize};
