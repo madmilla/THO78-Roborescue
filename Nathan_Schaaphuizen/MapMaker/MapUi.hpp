@@ -34,7 +34,7 @@ public:
     ///
     /// Get what went wrong.
     /// @return The error messages.
-    virtual const char * what() const override;
+    virtual const char * what() const throw() override;
 };
 
 
