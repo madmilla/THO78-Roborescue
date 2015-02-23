@@ -28,7 +28,7 @@ void Widget::paintEvent(QPaintEvent *event){
     //Create a new paint object which we going to use to paint on this widget.
     QPainter painter(this);
     //For all the drawables that have registered themselves:
-    for(int i=0; i<drawables.size(); ++i){
+    for(unsigned int i=0; i<drawables.size(); ++i){
         //Call the draw event.
         //The drawable instance itself will use the painter passed as parameter
         //to do the actual drawing.
@@ -61,7 +61,7 @@ bool Widget::eventFilter(QObject *obj, QEvent *event){
         //Create a mouse event from the general event.
         QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
         //For all the mouse listeners that have registered themselves:
-        for(int i=0; i<mouseListeners.size(); ++i){
+        for(unsigned int i=0; i<mouseListeners.size(); ++i){
             //Call the mouse button pressed event.
             //The mouselistener instance itself will react to the button.
             mouseListeners[i]->mouseButtonPressed(mouseEvent->button(), mouseEvent->x(), mouseEvent->y());

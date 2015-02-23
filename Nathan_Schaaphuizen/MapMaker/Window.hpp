@@ -27,6 +27,9 @@ class Window : public QMainWindow{
     Q_OBJECT
 
 private:
+    /// Widget we are drawing on.
+    Widget widget;
+
     /// Menu bar
     QMenuBar menuBar;
 
@@ -62,8 +65,6 @@ private:
     /// Grid action
     QAction editMenuMerge;
 
-    /// Widget we are drawing on.
-    Widget widget;
     /// Map we are using.
     MapUi map;
     /// Filename/Path of the currently loaded file.

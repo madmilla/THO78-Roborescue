@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = MapMaker
+TARGET = TestProject1
 TEMPLATE = app
 
 
@@ -27,3 +27,6 @@ HEADERS  += \
     MouseListener.hpp \
     MapUi.hpp
 
+FORMS    += \
+    Widget.ui \
+    Window.ui
