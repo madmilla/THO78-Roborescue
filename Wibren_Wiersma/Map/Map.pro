@@ -16,8 +16,13 @@ TEMPLATE = app
 
 SOURCES += map.cpp \
     mapreadfailure.cpp \
-    main.cpp
+    main.cpp \
+    mainwindow.cpp
 
 HEADERS  += map.h \
     mapobject.h \
-    mapreadfailure.h
+    mapreadfailure.h \
+    mainwindow.h
+
+FORMS += \
+    mainwindow.ui
