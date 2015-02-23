@@ -6,18 +6,23 @@
 
 QT       += core gui
 
+QMAKE_CXXFLAGS += -std=c++11
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = MapSystem
+TARGET = Map
 TEMPLATE = app
 
 
-SOURCES +=\
-        mainwindow.cpp \
+SOURCES += map.cpp \
+    mapreadfailure.cpp \
     main.cpp \
-    mapeditor.cpp
+    mainwindow.cpp
 
-HEADERS  += mainwindow.h \
-    mapeditor.h
+HEADERS  += map.h \
+    mapobject.h \
+    mapreadfailure.h \
+    mainwindow.h
 
-FORMS    += mainwindow.ui
+FORMS += \
+    mainwindow.ui

@@ -39,9 +39,8 @@ void MainWindow::on_Load_clicked()
             QJsonObject mainJson(file.object());
             QJsonObject subJson(mainJson["map"].toObject());
             if(!subJson.isEmpty()){
-                MapDisplay mapDisplay;
+                MapDisplay mapDisplay(subJson["height"].toInt(),subJson["width"].toInt(),subJson);
                 mapDisplay.setModal(false);
-                mapDisplay.setMap(subJson);
                 mapDisplay.exec();
             } else {
                 QMessageBox::information(this, tr("Waring"),tr("File isn't a valid JSON file") );
@@ -59,16 +58,15 @@ void MainWindow::on_Quit_clicked()
 
 void MainWindow::on_Editor_clicked()
 {
-    Editor editor;
-    editor.setModal(false);
+
     if(ui->listWidget->currentItem() != NULL){
         QFile loadFile(QDir::currentPath() + "/maps/" + ui->listWidget->currentItem()->text() );
         loadFile.open(QIODevice::ReadOnly);
         QJsonDocument file(QJsonDocument::fromJson(loadFile.readAll()));
         QJsonObject mainJson(file.object());
         QJsonObject subJson(mainJson["map"].toObject());
-        editor.setMap(subJson);
-        qDebug() << "Set the map";
+        Editor editor(subJson["height"].toInt(),subJson["width"].toInt(),subJson);
+        editor.setModal(false);
         editor.exec();
     }else {
         QMessageBox::information(this, tr("Waring"),tr("Didn't selected a file") );
@@ -87,9 +85,8 @@ void MainWindow::on_ReloadFiles_clicked()
 void MainWindow::on_Newmap_clicked()
 {
     if(ui->lineEdit->text() != "" && ui->lineEdit_2->text() != ""){
-        Editor editor;
+        Editor editor(ui->lineEdit->text().toInt(),ui->lineEdit_2->text().toInt());
         editor.setModal(false);
-        editor.setSize(ui->lineEdit->text().toInt(),ui->lineEdit_2->text().toInt());
         editor.exec();
     }else{
         QMessageBox::information(this, tr("Waring"),tr("Empty height and/or width") );

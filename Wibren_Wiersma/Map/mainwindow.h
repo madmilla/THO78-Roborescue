@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "mapeditor.h"
+#include "map.h"
 
 namespace Ui {
 class MainWindow;
@@ -15,20 +15,18 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
 private slots:
-    void on_Load_clicked();
-
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_3_clicked();
-
+    void openFile();
+    void createFile();
+    void saveFile();
+    void closeFile();
 private:
-    MapEditor mapEditor = MapEditor();
+    void openFile(std::string filename);
+    void setDisplayingFile(bool value);
+
     Ui::MainWindow *ui;
-    void MainWindow::loadMaps();
+    Map * map;
+    bool isDisplayingFile;
 };
 
 #endif // MAINWINDOW_H
