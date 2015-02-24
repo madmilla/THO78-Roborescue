@@ -14,7 +14,7 @@ class MapDisplay : public QDialog
     Q_OBJECT
 
 public:
-    explicit MapDisplay(int height, int width, QJsonObject json, QWidget *parent = 0);
+    explicit MapDisplay(QString filename, QWidget *parent = 0);
     ~MapDisplay();
 private:
     Ui::MapDisplay *ui;

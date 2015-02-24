@@ -3,13 +3,13 @@
 #include <QJsonArray>
 
 #include "QMessageBox"
-Editor::Editor(int height, int width, QJsonObject json,QWidget *parent) :
+Editor::Editor(QString filename, int height, int width, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Editor)
 {
     ui->setupUi(this);
-    json.isEmpty() ?  map = new Map(height,width) : map = new Map(height,width,json);
-    json.isEmpty() ?  ui->name->setText("NewMap") : ui->name->setText(json["title"].toString());
+    filename == "" ?  map = new Map(height,width) : map = new Map(filename);
+    filename == "" ?  ui->name->setText("NewMap") : ui->name->setText(filename);
     for(auto & e : map->getTypes()){
         ui->listWidget->addItem(e.first);
     }
@@ -65,38 +65,10 @@ Editor::~Editor()
 void Editor::on_Save_clicked()
 {
     if(ui->name->text() != ""){
-       saveFile();
+       map->saveFile(ui->name->text());
+       this->close();
     } else {
         QMessageBox::information(this, tr("Waring"),tr("Enter a Name") );
     }
 }
 
-void Editor::saveFile(){
-    QJsonObject main;
-    QJsonObject sub;
-    QJsonArray rows;
-    sub["title"] = ui->name->text();
-    sub["width"] = map->getWidth();
-    sub["height"] = map->getHeight();
-    QJsonObject *row;
-    QJsonArray *cellArray;
-    QJsonObject *cell;
-    for(int i = 0; i < map->getHeight(); i ++){
-        row = new QJsonObject;
-        cellArray = new QJsonArray;
-        for(int j = 0; j < map->getWidth(); j++){
-            cell = new QJsonObject;
-            cell->insert("cell",map->getPixel(i,j));
-            cellArray->append(*cell);
-        }
-        row->insert("row",*cellArray);
-        rows.append(*row);
-    }
-    sub["rows"] = rows;
-    main["map"] = sub;
-    QFile file("maps/"+ui->name->text() + ".map");
-    QJsonDocument saveDoc(main);
-    file.open(QIODevice::WriteOnly);
-    file.write(saveDoc.toJson());
-    this->close();
-}

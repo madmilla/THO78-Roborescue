@@ -3,9 +3,7 @@
 
 #include <QMainWindow>
 #include <QtCore>
-#include <QPainter>
-#include <QColor>
-#include <Qt>
+#include <QtGui>
 #include "QMessageBox"
 
 namespace Ui {

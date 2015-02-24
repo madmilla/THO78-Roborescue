@@ -1,12 +1,12 @@
 #include "mapdisplay.h"
 #include "ui_mapdisplay.h"
 
-MapDisplay::MapDisplay(int height, int width,QJsonObject json,QWidget *parent) :
+MapDisplay::MapDisplay(QString filename,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MapDisplay)
 {
     ui->setupUi(this);
-    map = map = new Map(height,width,json);
+    map = new Map(filename);
 }
 
 MapDisplay::~MapDisplay()

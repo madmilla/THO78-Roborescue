@@ -6,11 +6,16 @@
 #include <QString>
 #include <QBrush>
 #include <stdio.h>
+#include <QDir.h>
+#include <QFile>
+#include <QJsonDocument>
+#include <QMessageBox>
 class Map
 {
 public:
     Map();
-    Map(int height, int width, QJsonObject = QJsonObject());
+    Map(int height, int width,QJsonObject json = QJsonObject());
+    Map(QString filename);
     ~Map();
     std::map<QString, QBrush> getTypes();
     QBrush getType(QString type);
@@ -19,6 +24,7 @@ public:
     void deletePixel(int x, int y);
     int getHeight();
     int getWidth();
+    void saveFile(QString filename);
 private:
     QJsonArray array[MAX_SIZE][MAX_SIZE];
     std::map<QString,QBrush> Types;

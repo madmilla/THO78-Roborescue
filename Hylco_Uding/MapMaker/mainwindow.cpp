@@ -30,22 +30,10 @@ void MainWindow::paintEvent(QPaintEvent * e){
 void MainWindow::on_Load_clicked()
 {
     if(ui->listWidget->currentItem() != NULL){
-        qDebug() << QDir::currentPath() << "/maps/" << ui->listWidget->currentItem()->text();
-        QFile loadFile(QDir::currentPath() + "/maps/" + ui->listWidget->currentItem()->text() );
-        if(loadFile.exists()){
-            qDebug() << "Exist";
-            loadFile.open(QIODevice::ReadOnly);
-            QJsonDocument file(QJsonDocument::fromJson(loadFile.readAll()));
-            QJsonObject mainJson(file.object());
-            QJsonObject subJson(mainJson["map"].toObject());
-            if(!subJson.isEmpty()){
-                MapDisplay mapDisplay(subJson["height"].toInt(),subJson["width"].toInt(),subJson);
-                mapDisplay.setModal(false);
-                mapDisplay.exec();
-            } else {
-                QMessageBox::information(this, tr("Waring"),tr("File isn't a valid JSON file") );
-            }
-        }
+        MapDisplay mapDisplay(ui->listWidget->currentItem()->text());
+        mapDisplay.setModal(false);
+        mapDisplay.exec();
+
     } else {
          QMessageBox::information(this, tr("Waring"),tr("Didn't selected a file") );
     }
@@ -60,12 +48,7 @@ void MainWindow::on_Editor_clicked()
 {
 
     if(ui->listWidget->currentItem() != NULL){
-        QFile loadFile(QDir::currentPath() + "/maps/" + ui->listWidget->currentItem()->text() );
-        loadFile.open(QIODevice::ReadOnly);
-        QJsonDocument file(QJsonDocument::fromJson(loadFile.readAll()));
-        QJsonObject mainJson(file.object());
-        QJsonObject subJson(mainJson["map"].toObject());
-        Editor editor(subJson["height"].toInt(),subJson["width"].toInt(),subJson);
+        Editor editor(ui->listWidget->currentItem()->text());
         editor.setModal(false);
         editor.exec();
     }else {
@@ -85,7 +68,7 @@ void MainWindow::on_ReloadFiles_clicked()
 void MainWindow::on_Newmap_clicked()
 {
     if(ui->lineEdit->text() != "" && ui->lineEdit_2->text() != ""){
-        Editor editor(ui->lineEdit->text().toInt(),ui->lineEdit_2->text().toInt());
+        Editor editor("",ui->lineEdit->text().toInt(),ui->lineEdit_2->text().toInt());
         editor.setModal(false);
         editor.exec();
     }else{
