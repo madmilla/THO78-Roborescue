@@ -38,6 +38,15 @@ void MainWindow::openFile(std::string filename){
     try{
         map = new Map(filename);
         setDisplayingFile(true);
+        for(unsigned int r = 0; r < map->rowCount(); r++){
+            for(unsigned int c = 0; c < map->collomCount(); c++){
+                QLabel *label = new QLabel();
+                label->setText(QString::fromStdString(std::to_string((unsigned int)map->get(r, c))));
+                ui->gridLayout->addWidget(label, r, c);
+                ui->gridLayout->setAlignment(label, Qt::AlignHCenter);
+                gridContent.push_back(label);
+            }
+        }
     }catch(MapReadFailure prf){
         QMessageBox::critical(
                     this,
@@ -70,6 +79,11 @@ void MainWindow::closeFile(){
         delete map;
         map = nullptr;
         setDisplayingFile(false);
+        for(QLabel * label : gridContent){
+            ui->gridLayout->removeWidget(label);
+            delete label;
+        }
+        gridContent.clear();
     }
 }
 

@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
+
 #include "map.h"
 
 namespace Ui {
@@ -27,6 +29,7 @@ private:
     Ui::MainWindow *ui;
     Map * map;
     bool isDisplayingFile;
+    std::vector<QLabel*> gridContent;
 };
 
 #endif // MAINWINDOW_H
