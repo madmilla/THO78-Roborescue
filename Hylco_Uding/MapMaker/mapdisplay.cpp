@@ -15,11 +15,13 @@ MapDisplay::~MapDisplay()
 }
 
 void MapDisplay::mousePressEvent(QMouseEvent * event){
-   if(event->pos().x()<480)
-   ui->listWidget->clear();
-   QJsonArray cellTypes = map->getPixel(event->pos().x()/(480/map->getWidth()),event->pos().y()/(480/map->getHeight()));
-   for(int i = 0; i < cellTypes.size(); ++i)
-       ui->listWidget->addItem(cellTypes[i].toObject()["type"].toString());
+   if(event->pos().x()<480){
+       ui->listWidget->clear();
+       QJsonArray cellTypes = map->getPixel(event->pos().y()/(480/map->getHeight()),event->pos().x()/(480/map->getWidth()));
+       for(int i = 0; i < cellTypes.size(); ++i){
+           ui->listWidget->addItem(cellTypes[i].toObject()["type"].toString());
+       }
+   }
 }
 
 void MapDisplay::paintEvent(QPaintEvent *e){

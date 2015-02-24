@@ -20,10 +20,13 @@ public:
     std::map<QString, QBrush> getTypes();
     QBrush getType(QString type);
     QJsonArray getPixel(int x,int y);
+    void deleteType(int x, int y, QString type);
+    bool containsType(int x, int y, QString type);
     void setPixel(int x,int y, QJsonObject json);
     void deletePixel(int x, int y);
     int getHeight();
     int getWidth();
+    void clear();
     void saveFile(QString filename);
 private:
     QJsonArray array[MAX_SIZE][MAX_SIZE];
