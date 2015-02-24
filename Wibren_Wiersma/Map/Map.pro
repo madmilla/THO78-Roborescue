@@ -17,12 +17,15 @@ TEMPLATE = app
 SOURCES += map.cpp \
     mapreadfailure.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    tester.cpp
 
 HEADERS  += map.h \
     mapobject.h \
     mapreadfailure.h \
-    mainwindow.h
+    mainwindow.h \
+    test.h \
+    tester.h
 
 FORMS += \
     mainwindow.ui
