@@ -22,11 +22,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::paintEvent(QPaintEvent * e){
-
-}
-
-
 void MainWindow::on_Load_clicked()
 {
     if(ui->listWidget->currentItem() != NULL){

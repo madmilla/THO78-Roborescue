@@ -21,12 +21,6 @@ public:
 private:
 
     Ui::MainWindow *ui;
-
-
-
-protected:
-    void paintOnce();
-    void paintEvent(QPaintEvent *e);
 private slots:
     void on_Load_clicked();
     void on_Quit_clicked();
