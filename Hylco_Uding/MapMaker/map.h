@@ -6,7 +6,7 @@
 #include <QString>
 #include <QBrush>
 #include <stdio.h>
-#include <QDir.h>
+#include <QDir>
 #include <QFile>
 #include <QJsonDocument>
 #include <QMessageBox>
