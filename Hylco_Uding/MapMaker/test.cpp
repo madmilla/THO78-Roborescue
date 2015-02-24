@@ -16,7 +16,7 @@ void Test::assert(std::string string, bool success){
     }
     std::cout << " succeeded.\n";
 }
-void Test::run(){
+int Test::run(){
     cout << "========New Map  Test========" << endl;
     map = new Map(20,20);
     assert("Map Pixel Empty",map->getPixel(1,1).isEmpty());
@@ -39,6 +39,7 @@ void Test::run(){
     assert("Map pixel should be empty",map->getPixel(1,1).isEmpty());
     cout << "========All The Tests Have Succeeded========" << endl;
     cout << "========Ending the program now      ========" << endl;
+    return 0;
 }
 
 Test::~Test()

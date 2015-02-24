@@ -6,7 +6,7 @@ class Test
 {
 public:
     Test();
-    void run();
+    int run();
     void assert(std::string string, bool success);
     ~Test();
 private:
