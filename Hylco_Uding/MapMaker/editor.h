@@ -23,7 +23,7 @@ private slots:
     void on_clear_clicked();
 
 private:
-    void Editor::mouseMoveEvent(QMouseEvent * event);
+    void mouseMoveEvent(QMouseEvent * event);
     void mousePressEvent(QMouseEvent * event);
     void paintEvent(QPaintEvent * e);
     Ui::Editor *ui;
