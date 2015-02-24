@@ -34,7 +34,7 @@ Map::Map(QString filename){
     }
 }
 
-Map::Map(int height, int width,QJsonObject json):
+Map::Map(int height, int width):
     height(height),
     width(width)
 {
@@ -103,14 +103,14 @@ void Map::saveFile(QString filename){
     }
     sub["rows"] = rows;
     main["map"] = sub;
+    QDir dir(QDir::currentPath() + "/maps/");
+    if(!dir.exists())
+        dir.mkdir(QDir::currentPath() + "/maps/");
     QFile * file;
     if(filename.contains(".map")){
          file = new QFile("maps/"+filename);
-         qDebug() << "maps/" << filename;
     } else {
        file = new QFile("maps/"+filename + ".map");
-
-        qDebug() << "maps/" << filename;
     }
     QJsonDocument saveDoc(main);
     file->open(QIODevice::WriteOnly);

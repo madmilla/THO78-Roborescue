@@ -14,7 +14,7 @@ class Map
 {
 public:
     Map();
-    Map(int height, int width,QJsonObject json = QJsonObject());
+    Map(int height, int width);
     Map(QString filename);
     ~Map();
     std::map<QString, QBrush> getTypes();
