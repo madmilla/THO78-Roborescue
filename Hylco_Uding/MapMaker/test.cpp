@@ -31,7 +31,7 @@ int Test::run(){
     assert("Map Height",map->getWidth() == 20);
     assert("Map Width",map->getHeight() == 20);
     QJsonObject typeObject;
-    typeObject["type"] = "wood";
+    typeObject["type"] = QString("wood");
     map->setPixel(24,24,typeObject);
     assert("Map Pixel Shouldn't be empty",!map->getPixel(1,1).isEmpty());
     assert("Map pixel should contain wood",map->getPixel(1,1)[0].toObject()["type"].toString() ==  "wood");
