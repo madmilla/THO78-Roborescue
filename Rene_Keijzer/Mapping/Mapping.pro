@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    map.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    map.hpp \
+    noncopyable.hpp
 
 FORMS    += mainwindow.ui
