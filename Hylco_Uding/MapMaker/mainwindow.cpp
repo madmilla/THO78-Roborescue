@@ -5,6 +5,7 @@
 #include "mapdisplay.h"
 #include "editor.h"
 #include "QMessageBox"
+#include <QFileDialog>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -82,4 +83,15 @@ void MainWindow::on_Delete_clicked()
             QMessageBox::information(this, tr("Waring"),tr("File didn't exist") );
         }
     }
+}
+
+void MainWindow::on_addFile_clicked()
+{
+    QString path = QFileDialog::getOpenFileName(this);
+    qDebug() << path;
+    QFileInfo finfo(path);
+    QString filename = finfo.fileName();
+    qDebug() << filename;
+    QFile::copy(path, QDir::currentPath() + "/maps/" + filename);
+    on_ReloadFiles_clicked();
 }

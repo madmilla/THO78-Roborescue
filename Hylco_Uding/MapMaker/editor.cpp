@@ -27,6 +27,11 @@ void Editor::mousePressEvent(QMouseEvent * event){
                 map->setPixel(event->pos().x(), event->pos().y(),typeObject);
             }
         }
+    } else if(event->button() ==Qt::MiddleButton){
+        int index = ui->listWidget->currentRow();
+        if(++index == ui->listWidget->count())
+            index = 0;
+        ui->listWidget->setCurrentRow(index);
     } else {
         map->deletePixel(event->pos().x(), event->pos().y());
     }
@@ -86,9 +91,25 @@ void Editor::on_Save_clicked()
 {
     if(ui->name->text() != ""){
        map->saveFile(ui->name->text());
+       ui->Save->setEnabled(false);
        this->close();
     } else {
         QMessageBox::information(this, tr("Waring"),tr("Enter a Name") );
+    }
+}
+
+
+void Editor::closeEvent(QCloseEvent * event){
+    if(ui->Save->isEnabled()){
+    QMessageBox::StandardButton resBtn = QMessageBox::question( this, "Warning",
+                                                                tr("Are you sure to quit without saving?\n"),
+                                                                QMessageBox::No | QMessageBox::Yes,
+                                                                QMessageBox::Yes);
+        if (resBtn != QMessageBox::Yes) {
+            event->ignore();
+        } else {
+            event->accept();
+        }
     }
 }
 

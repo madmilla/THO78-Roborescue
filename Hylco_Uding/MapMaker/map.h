@@ -1,6 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
-#define MAX_SIZE 50
+
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QString>
@@ -10,6 +10,9 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QMessageBox>
+#define MAX_SIZE 50
+#define MAP_HEIGHT 480
+#define MAP_WIDTH 480
 class Map
 {
 public:
