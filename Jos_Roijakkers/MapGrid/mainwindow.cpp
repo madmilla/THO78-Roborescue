@@ -41,9 +41,9 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionNew_Grid_triggered()
 {
-    MapWindow mpWindow;
-    mpWindow.show();
-
+    mpWindow = new MapWindow(this);
+    mpWindow->show();
+    this->setVisible(false);
 }
 
 void MainWindow::on_actionLoad_triggered()
@@ -51,13 +51,6 @@ void MainWindow::on_actionLoad_triggered()
     loadDialog ldDialog;
     ldDialog.setModal(true);
     ldDialog.exec();
-}
-
-void MainWindow::on_actionSave_triggered()
-{
-    saveDialog svDialog;
-    svDialog.setModal(true);
-    svDialog.exec();
 }
 
 void MainWindow::on_actionOptions_triggered()

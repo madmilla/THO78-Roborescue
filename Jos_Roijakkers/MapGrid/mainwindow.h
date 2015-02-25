@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "mapwindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,13 +25,12 @@ private slots:
 
     void on_actionLoad_triggered();
 
-    void on_actionSave_triggered();
-
     void on_actionOptions_triggered();
 
 private:
     Ui::MainWindow *ui;
     int oldValue = 0;
+    MapWindow *mpWindow;
 };
 
 #endif // MAINWINDOW_H
