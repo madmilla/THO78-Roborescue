@@ -9,8 +9,8 @@ MapWindow::MapWindow(QWidget *MainWindow, QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->cancelButton,SIGNAL(clicked()),this,SLOT(close()));
-    for(int x = 0; x < 20; ++x){
-        for(int y = 0; y < 20; ++y){
+    for(int x = 0; x < cells; ++x){
+        for(int y = 0; y < cells; ++y){
             ui->tableWidget->setItem(x, y, new QTableWidgetItem());
         }
     }

@@ -22,6 +22,7 @@ private slots:
 private:
     Ui::MapWindow *ui;
     QWidget *MainWindow;
+    int cells = 20;
 };
 
 #endif // MAPWINDOW_H
