@@ -18,18 +18,21 @@ SOURCES += main.cpp\
     optionsdialog.cpp \
     savedialog.cpp \
     loaddialog.cpp \
-    mapdialog.cpp
+    mapwindow.cpp
 
 HEADERS  += mainwindow.h \
     exitDialog.h \
     optionsdialog.h \
     savedialog.h \
     loaddialog.h \
-    mapdialog.h
+    mapwindow.h
 
 FORMS    += mainwindow.ui \
     exitDialog.ui \
     optionsdialog.ui \
     savedialog.ui \
     loaddialog.ui \
-    mapdialog.ui
+    mapwindow.ui
+
+RESOURCES += \
+    resources.qrc

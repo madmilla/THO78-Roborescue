@@ -42,7 +42,7 @@
    <widget class="QDial" name="dial">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>390</x>
       <y>190</y>
       <width>50</width>
       <height>64</height>
@@ -79,31 +79,34 @@ Go build a map or somthing.</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>14</x>
       <y>100</y>
-      <width>321</width>
+      <width>301</width>
       <height>261</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>Resources/rock1--article_image.jpg</pixmap>
+     <pixmap resource="resources.qrc">:/Resources/Resources/rock1--article_image.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
    </widget>
-   <zorder>label_2</zorder>
    <zorder>label_3</zorder>
    <zorder>label</zorder>
    <zorder>dial</zorder>
+   <zorder>label_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -162,6 +165,8 @@ Go build a map or somthing.</string>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

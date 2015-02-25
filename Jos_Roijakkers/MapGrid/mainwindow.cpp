@@ -1,10 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "exitDialog.h"
-#include "mapdialog.h"
+#include "mapwindow.h"
 #include "loaddialog.h"
 #include "savedialog.h"
 #include "optionsdialog.h"
+#include "stdlib.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -40,9 +41,9 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionNew_Grid_triggered()
 {
-    mapDialog mpDialog;
-    mpDialog.setModal(true);
-    mpDialog.exec();
+    MapWindow mpWindow;
+    mpWindow.show();
+
 }
 
 void MainWindow::on_actionLoad_triggered()
@@ -65,3 +66,5 @@ void MainWindow::on_actionOptions_triggered()
     opDialog.setModal(true);
     opDialog.exec();
 }
+
+
