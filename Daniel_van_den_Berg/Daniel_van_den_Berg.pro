@@ -6,6 +6,8 @@ TEMPLATE = app
 TARGET = Daniel_van_den_Berg
 INCLUDEPATH += .
 
+message("Qt version $${QT_VERSION}.")
+
 # Input
 HEADERS += MapSystem/mapeditor.h
 FORMS += MapSystem/mainwindow.ui
