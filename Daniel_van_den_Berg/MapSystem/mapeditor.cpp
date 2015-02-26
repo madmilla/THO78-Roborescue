@@ -2,6 +2,7 @@
 #include <QDir>
 #include <iostream>
 #include <regex>
+#include <QByteArray>
 
 MapEditor::MapEditor()
 {
