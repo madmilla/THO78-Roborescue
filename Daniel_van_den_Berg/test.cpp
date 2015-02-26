@@ -23,17 +23,21 @@
     }
 
 template <typename T, typename U>
-void assert(std::string string, T get, U shouldbe){
+bool assert(std::string string, T get, U shouldbe){
     std::cout << string;
     if (get != shouldbe){
         std::cout << " failed.\nGot [" << to_string(get) << "]\nShould be [" << to_string(shouldbe) << "]\n";
-        exit(-1);
+        //exit(-1);
+        return false;
     }
     std::cout << " succeeded.\n";
+    return true;
 }
 
 int main(int argc, char *argv[])
 {
+    bool succeeded = true;
+
     MapEditor *mapEditor = new MapEditor();
     srand(time(NULL));
     std::string mapname = "testmap";
@@ -48,14 +52,23 @@ int main(int argc, char *argv[])
 
       // using string/c-string (3) version:
     std::string a = std::regex_replace (s,e,"sub-$2");
-    assert("Regex",a,"there is a sub-sequence in the string");
+    succeeded &= assert("Regex",a,"there is a sub-sequence in the string");
 
-    assert("Parsing map name",mapEditor->parseMapName("test.map"),"test");
+    succeeded &= assert("Parsing map name",mapEditor->parseMapName("test.map"),"test");
     mapEditor->createNewMap(mapname);
-    assert("Creating map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),true);
-    mapEditor->removeMap(mapname);
-    assert("Removing map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),false);
+    succeeded &= assert("Creating map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),true);
+
+    mapEditor->load(mapname);
+    succeeded &= assert("Loading map "+mapname,mapEditor->getLoadedMap() == mapname+".map",true);
+
+    assert("Placing object in map",mapEditor->placeObject(5,5,mapEditor->WALL),true);
+    assert("Placing object in map",mapEditor->placeObject(1,1,mapEditor->DRONE),true);
+
+    mapEditor->saveMap();
+
+    //mapEditor->removeMap(mapname);
+    succeeded &= assert("Removing map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),false);
 
     delete mapEditor;
-    return 0;
+    return (succeeded == true);
 }

@@ -10,4 +10,4 @@ INCLUDEPATH += .
 HEADERS += MapSystem/mapeditor.h
 FORMS += MapSystem/mainwindow.ui
 SOURCES += test.cpp \
-           MapSystem/mapeditor.cpp
+    MapSystem/mapeditor.cpp
