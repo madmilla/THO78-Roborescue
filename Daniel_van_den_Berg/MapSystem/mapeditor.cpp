@@ -50,10 +50,10 @@ void MapEditor::removeMap(std::string mapName){
     file.close();
 }
 
-bool MapEditor::placeObject(int x, int y, Objects object){
+bool MapEditor::placeObject(int x, int y, Objects object){/*
     if (jsonObject.find("objects") == jsonObject.end()){
         jsonObject.insert("objects","[]");
-    }
+    }*/
     QString objectString = "{\"type\":\"";
     objectString.append(QString::fromStdString(std::to_string(object)));
     objectString.append("\",\"x\":");
