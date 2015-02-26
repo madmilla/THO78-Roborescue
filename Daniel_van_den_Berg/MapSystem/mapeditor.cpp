@@ -37,7 +37,7 @@ void MapEditor::createNewMap(std::string mapName, int width, int height){
     arrayString += ",\"height\":";
     arrayString += std::to_string(height);
     arrayString += ",\"objects\":[]}";
-    file.write(QByteArray::fromStdString(arrayString));
+    file.write(QString::fromStdString(arrayString).toUtf8());
     file.close();
 }
 
