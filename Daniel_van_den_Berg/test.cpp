@@ -63,6 +63,7 @@ int main(int argc, char *argv[])
 
     assert("Placing object in map",mapEditor->placeObject(5,5,mapEditor->WALL),true);
     assert("Placing object in map",mapEditor->placeObject(1,1,mapEditor->DRONE),true);
+    assert("Placing outside of map gets rejected",mapEditor->placeObject(1,21,mapEditor->DRONE),false);
 
     mapEditor->saveMap();
 
@@ -70,5 +71,5 @@ int main(int argc, char *argv[])
     succeeded &= assert("Removing map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),false);
 
     delete mapEditor;
-    return (succeeded == true);
+    return (succeeded == true)?0:1;
 }

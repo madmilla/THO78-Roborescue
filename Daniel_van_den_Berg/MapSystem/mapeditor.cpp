@@ -54,6 +54,9 @@ bool MapEditor::placeObject(int x, int y, Objects object){/*
     if (jsonObject.find("objects") == jsonObject.end()){
         jsonObject.insert("objects","[]");
     }*/
+    if (x < 0 || y < 0 || x > jsonObject.value("width").toInt(20) || y > jsonObject.value("height").toInt(20)){
+        return false;
+    }
     QString objectString = "{\"type\":\"";
     objectString.append(QString::fromStdString(std::to_string(object)));
     objectString.append("\",\"x\":");
