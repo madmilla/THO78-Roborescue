@@ -1,5 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QApplication>
+#include <QFile>
+#include <QtGui>
+#include <stdio.h>
+#include <iostream>
+
 bool clicked = false;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -14,27 +20,48 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+QString test;
+QString objects[30][30];
+
+void MainWindow::readFile(QString filename)
+{
+    QFile file(filename);
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&file);
+    int ix = 0, iy = 0;
+    while(!file.atEnd())
+    {
+        QString line = in.readAll();
+        for(int i = 0; i < line.length(); i++)
+        {
+            test = line.at(i);
+            if(ix >= 20) { ix = 0; iy++; }
+            if(test == "x" || test == "o") { qDebug() << ix << "," << iy << ": " << test << endl; objects[ix][iy] = test; ix++;  }
+        }
+    }
+}
+
+
+
 void MainWindow::on_pushButton_clicked()
 {
-    char* text;
-    if(clicked == false)
-    {
-        clicked = true;
-        text = "test";
-    }
-    else
-    {
-        clicked = false;
-        text = "tekst";
-    }
-    ui->label->setText(text);
+     readFile("/home/owen/THO78-Roborescue/Owen_Hoogenboezem/mapping/test");
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    QRect rect(10.0, 20.0, 80.0, 60.0);
-    painter.drawRect(rect);
-    painter.fillRect(rect,Qt::red);
-
+    for(int iiy = 0; iiy < 2; iiy++){
+        for(int iix = 0; iix < 20; iix++){
+            QRect rect(100*iix,100*iiy, 100, 100);
+            if(objects[iix][iiy] == "x"){
+                painter.fillRect(rect,Qt::red);
+            }
+            else if(objects[iix][iiy] == "o")
+            {
+                painter.fillRect(rect,Qt::yellow);
+            }
+        }
+    }
 }
