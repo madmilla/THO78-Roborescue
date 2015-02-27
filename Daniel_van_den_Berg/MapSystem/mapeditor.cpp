@@ -57,17 +57,38 @@ bool MapEditor::placeObject(int x, int y, Objects object){/*
     if (x < 0 || y < 0 || x > jsonObject.value("width").toInt(20) || y > jsonObject.value("height").toInt(20)){
         return false;
     }
-    QString objectString = "{\"type\":\"";
-    objectString.append(QString::fromStdString(std::to_string(object)));
-    objectString.append("\",\"x\":");
-    objectString.append(QString::fromStdString(std::to_string(x)));
-    objectString.append(",\"y\":");
-    objectString.append(QString::fromStdString(std::to_string(y)));
-    objectString.append("}");
-    QJsonDocument obj = QJsonDocument::fromJson(objectString.toUtf8());
-    QJsonArray array = jsonObject["objects"].toArray();
-    array.append(obj.object());
-    jsonObject["objects"] = array;
+    QJsonObject obj = jsonObject["objects"].toObject();
+    QJsonObject xObj;
+    QString xString = QString::fromStdString(std::to_string(x));
+    QString yString = QString::fromStdString(std::to_string(y));
+    if (obj[xString] != NULL){
+        xObj = obj[xString].toObject();
+    }else{
+        xObj = QJsonObject();
+        obj[xString]=xObj;
+    }
+    QJsonObject yObj;
+    if (xObj[yString] != NULL){
+        yObj = xObj[yString].toObject();
+    }else{
+        yObj = QJsonObject();
+        xObj[yString]=yObj;
+    }
+
+    QJsonArray objectList;
+    if (yObj.contains("objects")){
+        objectList = yObj["objects"].toArray();
+    }else{
+        objectList = QJsonArray();
+        yObj.insert("objects",objectList);
+    }
+
+    objectList.append(object);
+
+    yObj["objects"] = objectList;
+    xObj[yString] = yObj;
+    obj[xString]=xObj;
+    jsonObject["objects"] = obj;
     return true;
 }
 
@@ -91,7 +112,52 @@ QStringList MapEditor::getAvailableMaps(){
     return directory.entryList(nameFilter);
 }
 
-void MapEditor::saveMap(){
+QJsonArray MapEditor::getObjectsAt(int x, int y){
+    QJsonObject obj = jsonObject["objects"].toObject();
+    QString xString = QString::fromStdString(std::to_string(x));
+    QString yString = QString::fromStdString(std::to_string(y));
+
+    if (obj[xString] == NULL){
+        return QJsonArray();
+    }
+    QJsonObject xObj = obj[xString].toObject();
+
+    if (xObj[yString] == NULL){
+        return QJsonArray();
+    }
+    QJsonObject yObj = xObj[yString].toObject();
+
+    return yObj["objects"].toArray();
+}
+
+bool MapEditor::removeObject(int x, int y,Objects object){
+    if (!getObjectsAt(x,y).contains(object)){
+        return false;
+    }
+
+    QJsonObject obj = jsonObject["objects"].toObject();
+    QString xString = QString::fromStdString(std::to_string(x));
+    QString yString = QString::fromStdString(std::to_string(y));
+
+    QJsonObject xObj = obj[xString].toObject();
+    QJsonObject yObj = xObj[yString].toObject();
+
+    QJsonArray objArray = yObj["objects"].toArray();
+    int i = 0;
+    for (; i < objArray.size(); i++){
+        if (objArray[i] == object){
+            break;
+        }
+    }
+    objArray.removeAt(i);
+    yObj["objects"] = objArray;
+    xObj[yString] = yObj;
+    obj[xString]=xObj;
+    jsonObject["objects"] = obj;
+    return true;
+}
+
+bool MapEditor::saveMap(){
     std::flush(std::cout);
 
     std::string mapName = parseMapName(loadedMap);
@@ -100,8 +166,9 @@ void MapEditor::saveMap(){
     QString fileName = QString::fromUtf8(fileNameC.c_str());
     QFile file(fileName);
     file.open(QIODevice::WriteOnly);
-    file.write(jsonDocument.toJson());
+    bool succeeded = (jsonDocument.toJson().length() == file.write(jsonDocument.toJson()));
     file.close();
+    return succeeded;
 }
 
 MapEditor::~MapEditor()

@@ -21,7 +21,9 @@ public:
     bool placeObject(int x, int y, Objects object);
     std::string getLoadedMap();
     std::string parseMapName(std::string text);
-    void saveMap();
+    QJsonArray getObjectsAt(int x, int y);
+    bool removeObject(int x, int y, Objects object);
+    bool saveMap();
     ~MapEditor();
 private:
     std::string loadedMap = "";

@@ -63,11 +63,23 @@ int main(int argc, char *argv[])
 
     assert("Placing object in map",mapEditor->placeObject(5,5,mapEditor->WALL),true);
     assert("Placing object in map",mapEditor->placeObject(1,1,mapEditor->DRONE),true);
+    assert("Placing object in map",mapEditor->placeObject(1,2,mapEditor->WALL),true);
+    assert("Placing object in map",mapEditor->placeObject(1,1,mapEditor->WALL),true);
     assert("Placing outside of map gets rejected",mapEditor->placeObject(1,21,mapEditor->DRONE),false);
 
-    mapEditor->saveMap();
+    QJsonArray objectsAtPosition = mapEditor->getObjectsAt(1,1);
+    succeeded &= assert("Getting objects at location",(objectsAtPosition.contains(mapEditor->DRONE) && objectsAtPosition.contains(mapEditor->WALL) && objectsAtPosition.size() == 2),true);
 
-    mapEditor->removeMap(mapname);
+    succeeded &= assert("Removing object at location",mapEditor->removeObject(1,1,mapEditor->WALL),true);
+    succeeded &= assert("Removing non-existing object at location gets rejected",mapEditor->removeObject(1,1,mapEditor->WALL),false);
+
+    objectsAtPosition = mapEditor->getObjectsAt(1,1);
+    succeeded &= assert("Getting objects at location",(objectsAtPosition.contains(mapEditor->DRONE) && objectsAtPosition.size() == 1),true);
+
+
+    succeeded &= assert("Saving map "+mapname, mapEditor->saveMap(),true);
+
+    //mapEditor->removeMap(mapname);
     succeeded &= assert("Removing map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),false);
 
     delete mapEditor;
