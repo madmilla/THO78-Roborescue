@@ -6,9 +6,9 @@
 
 
 MainWindow::MainWindow(ObjectMap & objectMap, QWidget *parent) :
+    ui(new Ui::MainWindow),
     objectMap(objectMap),
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent)
 {
 
     ui->setupUi(this);
