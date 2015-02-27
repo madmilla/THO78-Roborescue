@@ -110,6 +110,8 @@ void MainWindow::on_radioStaticObject_toggled(bool checked)
 
 void MainWindow::on_map_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
 {
+    previousRow++;
+    previousColumn++;
     ui->radioStaticObject->setCheckable(true);
     ui->radioDriveable->setCheckable(true);
 
