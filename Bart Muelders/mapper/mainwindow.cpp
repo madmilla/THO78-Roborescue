@@ -3,10 +3,10 @@
 #include <qdebug.h>
 #include <iostream>
 #include <string>
-#include <QFile>
-#include <QJsonDocument>
 
-MainWindow::MainWindow(QWidget *parent) :
+
+MainWindow::MainWindow(ObjectMap & objectMap, QWidget *parent) :
+    objectMap(objectMap),
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
-    loadMap();
+    refreshMap();
 }
 
 MainWindow::~MainWindow()
@@ -30,147 +30,110 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::saveMap(){
-    QFile file("test.map");
-    QJsonDocument saveDoc(json);
-    file.open(QIODevice::WriteOnly);
-    file.write(saveDoc.toJson());
-}
-
-
-void MainWindow::loadMap(){
-    QFile file("test.map");
-    if(file.exists()){
-        file.open(QIODevice::ReadOnly);
-        QJsonDocument jsonFile(QJsonDocument::fromJson(file.readAll()));
-        json = jsonFile.object();
-        refreshMap();
-    }
-    else{
-        clearMap();
-    }
-}
-
-
-void MainWindow::clearMap(){
-    for(int x = 0; x < 20; ++x){
-        QJsonObject yObjects;
-        for(int y = 0; y < 20; ++y){
-            QJsonObject cell;
-            cell["height"] = 0;
-            cell["object"] = false;
-            yObjects[QString::number(y)] = cell;
-        }
-        json[QString::number(x)] = yObjects;
-    }
-    refreshMap();
-}
-
-
 void MainWindow::refreshMap(){
     for(int x = 0; x < 20; ++x){
         for(int y = 0; y < 20; ++y){
-            if(isObject(x, y)){
+            if(objectMap.isObject(x, y)){
                 ui->map->item(x, y)->setText("");
                 ui->map->item(x, y)->setBackgroundColor(QColor(255,0,0));
             }
             else{
-                ui->map->item(x, y)->setText(QString::number(getHeight(x,y)));
-                ui->map->item(x, y)->setBackgroundColor(QColor(255 - getHeight(x,y),255 - getHeight(x,y),255 - getHeight(x,y)));
+                ui->map->item(x, y)->setText(QString::number(objectMap.getHeight(x,y)));
+                if(objectMap.vehiclePlaced() && objectMap.vehicleAt(x, y)){
+                    ui->map->item(x, y)->setBackgroundColor(QColor(255,255,0));
+                }
+                else{
+                    ui->map->item(x, y)->setBackgroundColor(QColor(255 - objectMap.getHeight(x,y),255 - objectMap.getHeight(x,y),255 - objectMap.getHeight(x,y)));
+                }
             }
         }
     }
 }
 
 
-void MainWindow::setHeight(int x, int y, int height)
-{
-    QJsonObject object = json[QString::number(x)].toObject()[QString::number(y)].toObject();
-    QJsonObject xObject = json[QString::number(x)].toObject();
-
-    object["height"] = height;
-    xObject[QString::number(y)] = object;
-
-    json[QString::number(x)] = xObject;
-}
-
-void MainWindow::setObject(int x, int y, bool object)
-{
-    QJsonObject o = json[QString::number(x)].toObject()[QString::number(y)].toObject();
-    QJsonObject xObject = json[QString::number(x)].toObject();
-
-    o["object"] = object;
-    xObject[QString::number(y)] = o;
-
-    json[QString::number(x)] = xObject;
-}
-
-
-bool MainWindow::isObject(int x, int y)
-{
-    return json[QString::number(x)].toObject()[QString::number(y)].toObject()["object"].toBool();
-}
-
-int MainWindow::getHeight(int x, int y)
-{
-    return json[QString::number(x)].toObject()[QString::number(y)].toObject()["height"].toInt();
-}
-
 void MainWindow::on_actionClear_clicked(){
-    clearMap();
+    objectMap.clear();
+    refreshMap();
 }
 
 
 void MainWindow::on_actionSave_clicked(){
-    saveMap();
+    objectMap.save();
 }
 
 
 void MainWindow::on_actionReload_clicked(){
-    loadMap();
+    objectMap.load();
+    refreshMap();
 }
 
 
 void MainWindow::on_heightSelection_valueChanged(int arg1)
 {
-    setHeight(ui->map->currentRow(), ui->map->currentColumn(), arg1);
+    objectMap.setHeight(ui->map->currentRow(), ui->map->currentColumn(), arg1);
     ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setText(QString::number(arg1));
-    ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setBackgroundColor(QColor(255 - arg1,255 - arg1, 255 - arg1));
+    if(!objectMap.vehicleAt(ui->map->currentRow(), ui->map->currentColumn())){
+        ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setBackgroundColor(QColor(255 - arg1,255 - arg1, 255 - arg1));
+    }
 }
 
 
 void MainWindow::on_radioDriveable_toggled(bool checked)
 {
     ui->heightSelection->setReadOnly(!checked);
+    ui->vehicleButton->setEnabled(checked);
+    if(checked){
+        int height = objectMap.getHeight(ui->map->currentRow(), ui->map->currentColumn());
 
-    int height = getHeight(ui->map->currentRow(), ui->map->currentColumn());
-
-    ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setText(QString::number(height));
-    ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setBackgroundColor(QColor(255 - height,255 - height, 255 - height));
+        ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setText(QString::number(height));
+        if(objectMap.vehicleAt(ui->map->currentRow(), ui->map->currentColumn())){
+            ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setBackgroundColor(QColor(255,255,0));
+        }
+        else{
+            ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setBackgroundColor(QColor(255 - height,255 - height, 255 - height));
+        }
+    }
 }
 
-void MainWindow::on_radioObject_toggled(bool checked)
+void MainWindow::on_radioStaticObject_toggled(bool checked)
 {
-   setObject(ui->map->currentRow(), ui->map->currentColumn(), checked);
+   objectMap.setObject(ui->map->currentRow(), ui->map->currentColumn(), checked);
 
-   ui->heightSelection->setValue(0);
+   if(checked){
+    ui->heightSelection->setValue(0);
 
-   ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setText("");
-   ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setBackgroundColor(QColor(255, 0, 0));
+    ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setText("");
+    ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setBackgroundColor(QColor(255, 0, 0));
+   }
 }
 
 
 void MainWindow::on_map_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
 {
-    //enealbe buttons
-    ui->radioObject->setCheckable(true);
+    ui->radioStaticObject->setCheckable(true);
     ui->radioDriveable->setCheckable(true);
 
-    bool object = isObject(currentRow, currentColumn);
+    bool object = objectMap.isObject(currentRow, currentColumn);
 
-    ui->radioObject->setChecked(object);
+    ui->vehicleButton->setEnabled(!object && !objectMap.vehicleAt(currentRow, currentColumn));
+
+    ui->radioStaticObject->setChecked(object);
     ui->radioDriveable->setChecked(!object);
     ui->heightSelection->setReadOnly(object);
 
-    ui->heightSelection->setValue(getHeight(currentRow, currentColumn));
+    ui->heightSelection->setValue(objectMap.getHeight(currentRow, currentColumn));
+}
+
+
+void MainWindow::on_vehicleButton_clicked()
+{
+    if(objectMap.vehiclePlaced()){
+        int vx = objectMap.vehicleLocation().x;
+        int vy = objectMap.vehicleLocation().y;
+        ui->map->item(vx, vy)->setBackgroundColor(QColor(255-objectMap.getHeight(vx, vy), 255-objectMap.getHeight(vx, vy), 255-objectMap.getHeight(vx, vy)));
+    }
+    objectMap.setVehicle(ui->map->currentRow(), ui->map->currentColumn());
+    ui->map->item(ui->map->currentRow(), ui->map->currentColumn())->setBackgroundColor(QColor(255, 255, 0));
+
+    ui->vehicleButton->setEnabled(false);
 }
