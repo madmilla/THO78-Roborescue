@@ -14,7 +14,6 @@ public:
     struct VehicleLocation{
         int x;
         int y;
-        VehicleLocation::VehicleLocation(int x, int y):x(x),y(y){}
     };
 
     void save();
