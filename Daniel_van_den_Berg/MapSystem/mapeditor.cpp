@@ -4,9 +4,13 @@
 #include <regex>
 #include <QByteArray>
 
+MapEditor &MapEditor::getInstance(){
+    static MapEditor instance;
+    return instance;
+}
+
 MapEditor::MapEditor()
 {
-
 }
 
 void MapEditor::load(std::string mapName){
@@ -98,6 +102,9 @@ std::string MapEditor::parseMapName(std::string text){
 }
 
 std::string MapEditor::getLoadedMap(){
+    if (loadedMap == ""){
+        return "";
+    }
     return loadedMap+".map";
 }
 

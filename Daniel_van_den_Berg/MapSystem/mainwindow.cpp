@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QLineEdit>
+#include <stdlib.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,10 +37,10 @@ void MainWindow::on_Load_clicked()
                     tr("Map name:"), QLineEdit::Normal,
                     "", &ok);
         if (ok && !text.isEmpty()){
-            mapEditor.createNewMap(text.toStdString());
+            MapEditor::getInstance().createNewMap(text.toStdString());
         }
     }
-    mapEditor.load(ui->fileManagerListWidget->currentItem()->text().toStdString());
+    MapEditor::getInstance().load(ui->fileManagerListWidget->currentItem()->text().toStdString());
     loadMaps();
 }
 
@@ -50,13 +51,13 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::loadMaps(){
     ui->fileManagerListWidget->clear();
-    ui->fileManagerListWidget->addItems(mapEditor.getAvailableMaps());
+    ui->fileManagerListWidget->addItems(MapEditor::getInstance().getAvailableMaps());
     ui->fileManagerListWidget->addItem("New map");
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    mapEditor.saveMap();
+    MapEditor::getInstance().saveMap();
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -66,6 +67,11 @@ void MainWindow::on_pushButton_3_clicked()
         return;
     }
 
-    mapEditor.removeMap(ui->fileManagerListWidget->currentItem()->text().toStdString());
+    MapEditor::getInstance().removeMap(ui->fileManagerListWidget->currentItem()->text().toStdString());
     loadMaps();
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    std::system("explorer .\\maps");
 }
