@@ -37,7 +37,7 @@ void MainWindow::readFile(QString filename)
         {
             test = line.at(i);
             if(ix >= 20) { ix = 0; iy++; }
-            if(test == "x" || test == "o") { qDebug() << ix << "," << iy << ": " << test << endl; objects[ix][iy] = test; ix++;  }
+            if(test == "x" || test == "o" || test == "d" || test == "-") { qDebug() << ix << "," << iy << ": " << test << endl; objects[ix][iy] = test; ix++;  }
         }
     }
 }
@@ -52,9 +52,9 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    for(int iiy = 0; iiy < 2; iiy++){
+    for(int iiy = 0; iiy < 20; iiy++){
         for(int iix = 0; iix < 20; iix++){
-            QRect rect(100*iix,100*iiy, 100, 100);
+            QRect rect(24*iix,20+(24*iiy), 24, 24);
             if(objects[iix][iiy] == "x"){
                 painter.fillRect(rect,Qt::red);
             }
@@ -62,6 +62,13 @@ void MainWindow::paintEvent(QPaintEvent *)
             {
                 painter.fillRect(rect,Qt::yellow);
             }
+            else if(objects[iix][iiy] == "d"){
+                painter.fillRect(rect,Qt::black);
+            }
+            else if(objects[iix][iiy] == "-"){
+                painter.fillRect(rect,Qt::blue);
+            }
         }
     }
+    update();
 }

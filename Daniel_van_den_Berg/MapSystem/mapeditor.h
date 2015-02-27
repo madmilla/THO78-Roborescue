@@ -52,9 +52,13 @@
 class MapEditor
 {
 public:
-    MapEditor();
-
     enum Objects{WALL=0,DRONE,TARGET};
+
+    /**
+     * @brief getInstance returns the active instance of MapEditor
+     * @return the current MapEditor
+     */
+    static MapEditor &getInstance();
 
     /**
      * @brief loads a map into the MapEditor.
@@ -128,11 +132,15 @@ public:
      * @return whether or not the map was saved successfully.
      */
     bool saveMap();
-    ~MapEditor();
+
 private:
     std::string loadedMap = "";
     QJsonDocument jsonDocument;
     QJsonObject jsonObject;
+    MapEditor(const MapEditor &);
+    MapEditor& operator=(const MapEditor &);
+    MapEditor();
+    ~MapEditor();
 };
 
 #endif // MAPEDITOR_H

@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include "mapeditor.h"
-
 namespace Ui {
 class MainWindow;
 }
@@ -14,7 +13,9 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    static MainWindow* MainWindow::getInstance();
     ~MainWindow();
+    MapEditor* getMapEditor();
 
 private slots:
     void on_Load_clicked();
@@ -25,8 +26,9 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_pushButton_4_clicked();
+
 private:
-    MapEditor mapEditor = MapEditor();
     Ui::MainWindow *ui;
     void MainWindow::loadMaps();
 };

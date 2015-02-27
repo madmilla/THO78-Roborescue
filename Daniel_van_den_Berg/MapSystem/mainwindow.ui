@@ -60,7 +60,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabFiles">
      <property name="sizePolicy">
@@ -130,6 +130,13 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="text">
+            <string>Show maps folder</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
@@ -155,6 +162,16 @@
      <attribute name="title">
       <string>View map</string>
      </attribute>
+     <widget class="MapViewWidget" name="widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>-1</y>
+        <width>401</width>
+        <height>301</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tabEditMap">
      <attribute name="title">
@@ -165,6 +182,14 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>MapViewWidget</class>
+   <extends>QWidget</extends>
+   <header>mapviewwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
