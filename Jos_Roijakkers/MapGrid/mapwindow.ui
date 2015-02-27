@@ -128,7 +128,7 @@
      <string>Cancel</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="randomButton">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -138,51 +138,51 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Random</string>
     </property>
    </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>60</y>
-      <width>83</width>
-      <height>130</height>
+      <x>580</x>
+      <y>80</y>
+      <width>141</width>
+      <height>211</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QRadioButton" name="Empty_radioButton">
        <property name="text">
-        <string>CheckBox</string>
+        <string>Empty</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_2">
+      <widget class="QRadioButton" name="Obstacle_radioButton">
        <property name="text">
-        <string>CheckBox</string>
+        <string>Obstacle</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_3">
+      <widget class="QRadioButton" name="Quadcopter_radioButton">
        <property name="text">
-        <string>CheckBox</string>
+        <string>Quadcopter</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_4">
+      <widget class="QRadioButton" name="ATV_radioButton">
        <property name="text">
-        <string>CheckBox</string>
+        <string>ATV</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_5">
+      <widget class="QRadioButton" name="Rosbee_radioButton">
        <property name="text">
-        <string>CheckBox</string>
+        <string>Rosbee</string>
        </property>
       </widget>
      </item>

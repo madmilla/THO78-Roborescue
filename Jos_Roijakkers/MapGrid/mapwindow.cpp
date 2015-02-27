@@ -33,3 +33,32 @@ void MapWindow::closeEvent(QCloseEvent *event)
     MainWindow->setVisible(true);
 }
 
+void MapWindow::on_Empty_radioButton_toggled(bool checked)
+{
+
+}
+
+void MapWindow::on_Obstacle_radioButton_toggled(bool checked)
+{
+
+}
+
+void MapWindow::on_Quadcopter_radioButton_toggled(bool checked)
+{
+
+}
+
+void MapWindow::on_ATV_radioButton_toggled(bool checked)
+{
+
+}
+
+void MapWindow::on_Rosbee_radioButton_toggled(bool checked)
+{
+
+}
+
+void MapWindow::on_randomButton_clicked()
+{
+
+}

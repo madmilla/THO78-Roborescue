@@ -30,6 +30,7 @@ void MainWindow::on_dial_sliderMoved(int position)
         ui->label_3->setGeometry(ui->label_3->pos().x(),ui->label_3->pos().y()-1,ui->label_3->height(),ui->label_3->width());
     }
     oldValue = position;
+    update();
 }
 
 void MainWindow::on_actionExit_triggered()
