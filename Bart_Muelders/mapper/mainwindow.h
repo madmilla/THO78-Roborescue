@@ -13,7 +13,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(ObjectMap & bjectMap, QWidget *parent = 0);
+    explicit MainWindow(ObjectMap & objectMap, QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
