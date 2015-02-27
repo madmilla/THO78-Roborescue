@@ -71,7 +71,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "Click", 0));
+        pushButton->setText(QApplication::translate("MainWindow", "Create map", 0));
     } // retranslateUi
 
 };
