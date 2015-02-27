@@ -105,7 +105,7 @@ bool ObjectMap::vehicleAt(int x, int y)
 
 ObjectMap::VehicleLocation ObjectMap::vehicleLocation()
 {
-    return ObjectMap::VehicleLocation(json["vehicle"].toObject()["x"].toInt(), json["vehicle"].toObject()["y"].toInt()) ;
+    return ObjectMap::VehicleLocation(json["vehicle"].toObject()["x"].toInt(), json["vehicle"].toObject()["y"].toInt());
 }
 
 
