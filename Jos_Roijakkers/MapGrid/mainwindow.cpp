@@ -42,6 +42,7 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionNew_Grid_triggered()
 {
+
     mpWindow = new MapWindow(this);
     mpWindow->show();
     this->setVisible(false);

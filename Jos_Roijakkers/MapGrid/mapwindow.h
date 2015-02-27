@@ -2,6 +2,9 @@
 #define MAPWINDOW_H
 
 #include <QMainWindow>
+#include <QJsonObject>
+#include <QFile>
+#include <QJsonDocument>
 
 namespace Ui {
 class MapWindow;
@@ -12,13 +15,13 @@ class MapWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MapWindow(QWidget * MainWindow,QWidget *parent = 0);
+    explicit MapWindow(QWidget * MainWindow, QWidget *parent = 0);
     ~MapWindow();
 
 private slots:
     void on_actionSave_triggered();
-    void closeEvent (QCloseEvent *event);
 
+    void closeEvent (QCloseEvent *event);
 
     void on_Empty_radioButton_toggled(bool checked);
 
@@ -32,10 +35,15 @@ private slots:
 
     void on_randomButton_clicked();
 
+
+
 private:
     Ui::MapWindow *ui;
     QWidget *MainWindow;
-    int cells = 20;
+    const int cellsX = 20;
+    const int cellsY = 20;
+    const QString fileName = "Maps";
+    QJsonObject json;
 };
 
 #endif // MAPWINDOW_H
