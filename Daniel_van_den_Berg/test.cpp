@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 
     succeeded &= assert("Saving map "+mapname, mapEditor->saveMap(),true);
 
-    //mapEditor->removeMap(mapname);
+    mapEditor->removeMap(mapname);
     succeeded &= assert("Removing map "+mapname,mapEditor->getAvailableMaps().contains(QString::fromStdString(mapname+".map")),false);
 
     delete mapEditor;

@@ -61,14 +61,14 @@ bool MapEditor::placeObject(int x, int y, Objects object){/*
     QJsonObject xObj;
     QString xString = QString::fromStdString(std::to_string(x));
     QString yString = QString::fromStdString(std::to_string(y));
-    if (obj[xString] != NULL){
+    if (obj.contains(xString)){
         xObj = obj[xString].toObject();
     }else{
         xObj = QJsonObject();
         obj[xString]=xObj;
     }
     QJsonObject yObj;
-    if (xObj[yString] != NULL){
+    if (xObj.contains(yString)){
         yObj = xObj[yString].toObject();
     }else{
         yObj = QJsonObject();
@@ -117,12 +117,12 @@ QJsonArray MapEditor::getObjectsAt(int x, int y){
     QString xString = QString::fromStdString(std::to_string(x));
     QString yString = QString::fromStdString(std::to_string(y));
 
-    if (obj[xString] == NULL){
+    if (!obj.contains(xString)){
         return QJsonArray();
     }
     QJsonObject xObj = obj[xString].toObject();
 
-    if (xObj[yString] == NULL){
+    if (!xObj.contains(yString)){
         return QJsonArray();
     }
     QJsonObject yObj = xObj[yString].toObject();
