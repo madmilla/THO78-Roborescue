@@ -76,7 +76,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioObject">
+   <widget class="QRadioButton" name="radioStaticObject">
     <property name="geometry">
      <rect>
       <x>500</x>
@@ -86,7 +86,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>object</string>
+     <string>static object</string>
     </property>
     <property name="checkable">
      <bool>false</bool>
@@ -124,14 +124,14 @@
      </font>
     </property>
     <property name="text">
-     <string>terain height</string>
+     <string>terrain height</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="areaType">
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>349</y>
+      <y>350</y>
       <width>101</width>
       <height>21</height>
      </rect>
@@ -163,7 +163,7 @@
     <property name="geometry">
      <rect>
       <x>480</x>
-      <y>341</y>
+      <y>340</y>
       <width>121</width>
       <height>21</height>
      </rect>
@@ -287,6 +287,57 @@
     <column/>
     <column/>
     <column/>
+   </widget>
+   <widget class="QPushButton" name="vehicleButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>323</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>place vehicle</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="Line" name="line_4">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>290</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="areaType_2">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>300</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>vehicle</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

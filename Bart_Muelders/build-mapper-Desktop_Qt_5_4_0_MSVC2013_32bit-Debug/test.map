@@ -190,7 +190,7 @@
         },
         "14": {
             "height": 0,
-            "object": true
+            "object": false
         },
         "15": {
             "height": 0,
@@ -1116,7 +1116,7 @@
         },
         "2": {
             "height": 0,
-            "object": true
+            "object": false
         },
         "3": {
             "height": 0,
@@ -1243,7 +1243,7 @@
             "object": false
         },
         "11": {
-            "height": 10,
+            "height": 0,
             "object": false
         },
         "12": {
@@ -1467,7 +1467,7 @@
             "object": false
         },
         "8": {
-            "height": 4,
+            "height": 0,
             "object": false
         },
         "9": {
@@ -1502,7 +1502,7 @@
         },
         "14": {
             "height": 0,
-            "object": true
+            "object": false
         },
         "15": {
             "height": 0,
@@ -1638,5 +1638,10 @@
             "height": 0,
             "object": false
         }
+    },
+    "vehicle": {
+        "isPlaced": false,
+        "x": 0,
+        "y": 0
     }
 }

@@ -31,6 +31,7 @@ private:
     Ui::MainWindow *ui;
     int oldValue = 0;
     MapWindow *mpWindow;
+    QString filename;
 };
 
 #endif // MAINWINDOW_H

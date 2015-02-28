@@ -19,9 +19,9 @@ Map::Map(std::string filename) :
         throw MapReadFailure{"Fail while reading rows or colloms"};
     }
 
-    data = new MapObject*[rows];
+    data = new unsigned int*[rows];
     for(unsigned int r = 0; r < rows; r++){
-        data[r] = new MapObject[colloms];
+        data[r] = new unsigned int[colloms];
     }
 
     for(unsigned int r = 0; r < rows; r++){
@@ -69,7 +69,7 @@ void Map::save(){
     file.close();
 }
 
-MapObject Map::get(unsigned int row, unsigned int collom){
+unsigned int Map::get(unsigned int row, unsigned int collom){
     if(row >= rows)
         throw std::range_error{"There are " + std::to_string(rows) + " rows, but request is: " + std::to_string(row)};
     if(collom >= colloms)
@@ -77,7 +77,7 @@ MapObject Map::get(unsigned int row, unsigned int collom){
     return data[row][collom];
 }
 
-void Map::set(MapObject value, unsigned int row, unsigned int collom){
+void Map::set(unsigned int value, unsigned int row, unsigned int collom){
     if(row >= rows)
         throw std::range_error{"There are " + std::to_string(rows) + " rows, but request is: " + std::to_string(row)};
     if(collom >= colloms)

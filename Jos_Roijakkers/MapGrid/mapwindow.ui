@@ -14,107 +14,6 @@
    <string>MapWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>30</y>
-      <width>480</width>
-      <height>480</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="autoScroll">
-     <bool>false</bool>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-    <property name="selectionMode">
-     <enum>QAbstractItemView::SingleSelection</enum>
-    </property>
-    <property name="gridStyle">
-     <enum>Qt::DashDotLine</enum>
-    </property>
-    <property name="rowCount">
-     <number>20</number>
-    </property>
-    <property name="columnCount">
-     <number>20</number>
-    </property>
-    <attribute name="horizontalHeaderVisible">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="horizontalHeaderCascadingSectionResizes">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>24</number>
-    </attribute>
-    <attribute name="horizontalHeaderMinimumSectionSize">
-     <number>24</number>
-    </attribute>
-    <attribute name="verticalHeaderVisible">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="verticalHeaderDefaultSectionSize">
-     <number>24</number>
-    </attribute>
-    <attribute name="verticalHeaderMinimumSectionSize">
-     <number>24</number>
-    </attribute>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-   </widget>
    <widget class="QPushButton" name="cancelButton">
     <property name="geometry">
      <rect>
@@ -128,7 +27,7 @@
      <string>Cancel</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="randomButton">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -138,51 +37,72 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Random</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>60</y>
-      <width>83</width>
-      <height>130</height>
+      <x>580</x>
+      <y>80</y>
+      <width>141</width>
+      <height>211</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QRadioButton" name="isEmpty">
        <property name="text">
-        <string>CheckBox</string>
+        <string>Empty</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_2">
+      <widget class="QRadioButton" name="isQuadcopter">
        <property name="text">
-        <string>CheckBox</string>
+        <string>Quadcopter</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_3">
+      <widget class="QRadioButton" name="isATV">
        <property name="text">
-        <string>CheckBox</string>
+        <string>ATV</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_4">
+      <widget class="QRadioButton" name="isRosbee">
        <property name="text">
-        <string>CheckBox</string>
+        <string>Rosbee</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_5">
+      <widget class="QRadioButton" name="isGrass">
        <property name="text">
-        <string>CheckBox</string>
+        <string>Grass</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="isConcrete">
+       <property name="text">
+        <string>Concrete</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="isDirt">
+       <property name="text">
+        <string>Dirt</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="isWater">
+       <property name="text">
+        <string>Water</string>
        </property>
       </widget>
      </item>

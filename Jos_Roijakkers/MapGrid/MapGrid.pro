@@ -17,21 +17,24 @@ SOURCES += main.cpp\
     exitDialog.cpp \
     optionsdialog.cpp \
     savedialog.cpp \
-    loaddialog.cpp \
-    mapwindow.cpp
+    mapwindow.cpp \
+    map.cpp \
+    cell.cpp \
+    displaymap.cpp
 
 HEADERS  += mainwindow.h \
     exitDialog.h \
     optionsdialog.h \
     savedialog.h \
-    loaddialog.h \
-    mapwindow.h
+    mapwindow.h \
+    map.h \
+    cell.h \
+    displaymap.h
 
 FORMS    += mainwindow.ui \
     exitDialog.ui \
     optionsdialog.ui \
     savedialog.ui \
-    loaddialog.ui \
     mapwindow.ui
 
 RESOURCES += \
