@@ -74,6 +74,9 @@ void MainWindow::on_RadioQuad_clicked(bool checked)
     else{
 
     }
+   // ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
+    //boolcel->toggleQuad();
+
 }
 
 void MainWindow::on_RadioATV_clicked(bool checked)
@@ -85,6 +88,7 @@ void MainWindow::on_RadioATV_clicked(bool checked)
     else{
 
     }
+    //ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
 }
 
 void MainWindow::on_RadioRosbee_clicked(bool checked)
@@ -96,6 +100,7 @@ void MainWindow::on_RadioRosbee_clicked(bool checked)
     else{
 
     }
+   // ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
 }
 
 void MainWindow::on_RadioConcrete_clicked(bool checked)
@@ -108,6 +113,7 @@ void MainWindow::on_RadioConcrete_clicked(bool checked)
     else{
 
     }
+    ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
 }
 
 
@@ -121,11 +127,7 @@ void MainWindow::on_RadioGreen_clicked(bool checked)
 
     }
    ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
-    //for(int i=0; i <20; i++){
-        //for(int x=0; x<20; x++){
-            //ui->tableWidget->setItem(i,x,activemap->getcel(i,x)->formatCell());
-        //}
-    //}
+
 }
 
 
@@ -138,6 +140,7 @@ void MainWindow::on_RadioWater_clicked(bool checked)
     else{
 
     }
+    ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
 }
 
 

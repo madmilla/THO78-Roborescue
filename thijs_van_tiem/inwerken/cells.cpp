@@ -34,11 +34,21 @@ QTableWidgetItem * cells::formatCell()
         break;
 
         case(terreinTypen::none):
-            item->setBackground(Qt::gray);
+
         break;
 
     }
     return item;
+    //if(!quadPresent){
+    //    item->setBackground(Qt::magenta);
+    //}
+   // if(!rosbeePresent){
+    //    item->setBackground(Qt::yellow);
+   // }
+    //if(!atvPresent){
+    //    item->setBackground(Qt::red);
+
+   // }
      // ifjes onder switch die naderhand quad en atv en rosbee toevoegen
 }
 

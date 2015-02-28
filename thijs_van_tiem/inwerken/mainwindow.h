@@ -44,6 +44,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    //cells * boolcel = new cells;
     cells * activecell; //pointer naar de actieve cel op dat moment
     map * activemap; // pointer na map zodat je getcell kan gebruiken
 

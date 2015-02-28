@@ -4,7 +4,7 @@
 #include <QtCore>
 #include <iostream>
 
-int map(MainWindow &window){
+int map(MainWindow &window){ // deze functie wordt niet meer gebruikt
 
 
   QGridLayout *layout = new QGridLayout;
