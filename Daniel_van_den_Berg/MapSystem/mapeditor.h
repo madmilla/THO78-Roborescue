@@ -133,6 +133,22 @@ public:
      */
     bool saveMap();
 
+    /**
+     * @brief getMapWidth
+     * @return the width of the currently loaded map.
+     */
+    int getMapWidth();
+
+    /**
+     * @brief getMapHeight
+     * @return the height of the currently loaded map.
+     */
+    int getMapHeight();
+
+    template <typename T>
+    static Objects toObject(T a){
+        return static_cast<Objects>(a);
+    }
 private:
     std::string loadedMap = "";
     QJsonDocument jsonDocument;

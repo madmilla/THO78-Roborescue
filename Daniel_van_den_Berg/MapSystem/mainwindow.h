@@ -17,6 +17,9 @@ public:
     ~MainWindow();
     MapEditor* getMapEditor();
 
+    static MapEditor::Objects MainWindow::selectedObject;
+    static int MainWindow::shouldEdit;
+
 private slots:
     void on_Load_clicked();
 
@@ -27,6 +30,10 @@ private slots:
     void on_pushButton_3_clicked();
 
     void on_pushButton_4_clicked();
+
+    void on_listWidget_clicked(const QModelIndex &index);
+
+    void on_tabWidget_currentChanged(int index);
 
 private:
     Ui::MainWindow *ui;
