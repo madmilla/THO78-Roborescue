@@ -108,6 +108,20 @@ std::string MapEditor::getLoadedMap(){
     return loadedMap+".map";
 }
 
+int MapEditor::getMapWidth(){
+    if (jsonObject.contains("width")){
+        return jsonObject["width"].toInt();
+    }
+    return 0;
+}
+
+int MapEditor::getMapHeight(){
+    if (jsonObject.contains("height")){
+        return jsonObject["height"].toInt();
+    }
+    return 0;
+}
+
 QStringList MapEditor::getAvailableMaps(){
     QStringList nameFilter("*.map");
     QDir directory(QDir::currentPath() + "/maps");

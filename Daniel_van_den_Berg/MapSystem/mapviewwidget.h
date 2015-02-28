@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QBrush>
 #include "mapeditor.h"
+#include <map>
 
 
 namespace Ui {
@@ -23,9 +24,16 @@ private slots:
 
 private:
     Ui::MapViewWidget *ui;
+    void MapViewWidget::mousePressEvent(QMouseEvent *) override;
     void paintEvent(QPaintEvent * paintEvent) override;
 
-    QBrush droneBrush = QBrush(Qt::red);
+    std::map<MapEditor::Objects,QBrush> objectBrushes;
+
+    /*QBrush objectBrushes[] = {
+        MapEditor::DRONE=QBrush(Qt::green),
+        MapEditor::WALL=QBrush(Qt::red)
+    };*/
+    QBrush backgroundBrush = QBrush(QColor(128,128,128,255));
 };
 
 #endif // MAPVIEWWIDGET_H

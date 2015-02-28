@@ -18,14 +18,15 @@ SOURCES += map.cpp \
     mapreadfailure.cpp \
     main.cpp \
     mainwindow.cpp \
-    tester.cpp
+    tester.cpp \
+    gridpart.cpp
 
 HEADERS  += map.h \
-    mapobject.h \
     mapreadfailure.h \
     mainwindow.h \
     test.h \
-    tester.h
+    tester.h \
+    gridpart.h
 
 FORMS += \
     mainwindow.ui
