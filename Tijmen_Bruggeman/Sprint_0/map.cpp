@@ -30,7 +30,7 @@ void Map::paintEvent(QPaintEvent *e){
                 return;
             }
             current_map[YPosition][XPosition] = current_object;
-            update();
+
         }
     }
     QPainter painter(this);
@@ -83,6 +83,9 @@ void Map::paintEvent(QPaintEvent *e){
             }
             y++;
         }
+    }
+    if(mousePressed){
+        update();
     }
 }
 void Map::setMap(QVector<QString> v, QString filename){
