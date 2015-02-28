@@ -48,9 +48,7 @@ private:
     int screen_height = 480;
     int screen_witdh = 480;
     void mousePressEvent(QMouseEvent * event);
-    void mouseReleaseEvent(QMouseEvent * event);
     bool editing = false;
-    bool mousePressed = false;
     int objectSize;
     QString fileName;
     enum Objects{

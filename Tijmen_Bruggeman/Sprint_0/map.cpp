@@ -18,21 +18,6 @@ void Map::show_map(){
     exec();
 }
 void Map::paintEvent(QPaintEvent *e){
-    if(mousePressed && editing){
-        QPoint point = this->mapFromGlobal(QCursor::pos());
-        if(point.x()<480){
-            if(point.x()<0){return;}
-            else if(point.y()<0){ return;}
-            if(!editing){return;}
-            int XPosition = (point.x() - (point.x()% objectSize))/objectSize;
-            int YPosition = (point.y() - (point.y()% objectSize))/objectSize;
-            if((YPosition> current_map.size()-1)|| XPosition> current_map[1].length()-1){
-                return;
-            }
-            current_map[YPosition][XPosition] = current_object;
-            update();
-        }
-    }
     QPainter painter(this);
     if(current_map.size() == 0){
         painter.drawLine(10,10,100,100);
@@ -99,8 +84,8 @@ void Map::setMap(QVector<QString> v, QString filename){
     }
 }
 void Map::mousePressEvent(QMouseEvent * event){
-    mousePressed = true;
     if(event->pos().x()<480){
+        QPainter painter(this);
         if(!editing){return;}
         int XPosition = (event->pos().x() - (event->pos().x()% objectSize))/objectSize;
         int YPosition = (event->pos().y() - (event->pos().y()% objectSize))/objectSize;
@@ -110,9 +95,6 @@ void Map::mousePressEvent(QMouseEvent * event){
         current_map[YPosition][XPosition] = current_object;
         update();
     }
-}
-void Map::mouseReleaseEvent(QMouseEvent *event){
-    mousePressed = false;
 }
 
 void Map::on_pushButton_clicked()
