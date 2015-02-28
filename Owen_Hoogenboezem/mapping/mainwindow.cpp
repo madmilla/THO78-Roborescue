@@ -5,8 +5,7 @@
 #include <QtGui>
 #include <stdio.h>
 #include <iostream>
-
-bool clicked = false;
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,28 +20,23 @@ MainWindow::~MainWindow()
 }
 
 
-QString test;
-QString objects[30][30];
-
 void MainWindow::readFile(QString filename)
 {
     QFile file(filename);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
-    int ix = 0, iy = 0;
+    cX = 0, cY = 0;
     while(!file.atEnd())
     {
         QString line = in.readAll();
         for(int i = 0; i < line.length(); i++)
         {
-            test = line.at(i);
-            if(ix >= 20) { ix = 0; iy++; }
-            if(test == "x" || test == "o" || test == "d" || test == "-") { qDebug() << ix << "," << iy << ": " << test << endl; objects[ix][iy] = test; ix++;  }
+            character = line.at(i);
+            if(cX >= 20) { cX = 0; cY++; }
+            if(character == "x" || character == "o" || character == "d" || character == "-") { objects[cX][cY] = character; cX++;  }
         }
     }
 }
-
-
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -52,23 +46,31 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    for(int iiy = 0; iiy < 20; iiy++){
-        for(int iix = 0; iix < 20; iix++){
-            QRect rect(24*iix,20+(24*iiy), 24, 24);
-            if(objects[iix][iiy] == "x"){
+    for(int iY = 0; iY < 20; iY++){
+        for(int iX = 0; iX < 20; iX++){
+            QRect rect(24*iX,10+(24*iY), 24, 24);
+            if(objects[iX][iY] == "x"){
                 painter.fillRect(rect,Qt::red);
             }
-            else if(objects[iix][iiy] == "o")
+            else if(objects[iX][iY] == "o")
             {
                 painter.fillRect(rect,Qt::yellow);
             }
-            else if(objects[iix][iiy] == "d"){
+            else if(objects[iX][iY] == "d"){
                 painter.fillRect(rect,Qt::black);
             }
-            else if(objects[iix][iiy] == "-"){
+            else if(objects[iX][iY] == "-"){
                 painter.fillRect(rect,Qt::blue);
             }
         }
     }
     update();
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QMessageBox legend(this);
+    legend.setDetailedText("Black: rock\nBlue: water\nYellow: dirt\nRed: gravel");
+    legend.setText("mapping legend");
+    legend.exec();
 }

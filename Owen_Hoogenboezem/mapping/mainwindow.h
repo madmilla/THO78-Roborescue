@@ -19,8 +19,13 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
+    QString character;
+    QString objects[30][30];
+    int cX, cY;
 protected:
     void paintEvent(QPaintEvent *);
 };
