@@ -38,7 +38,6 @@ int main(int argc, char *argv[])
     window.setWindowTitle(QApplication::translate("het inwerk","Het inwerk project"));
 
     //map(window);
-    window.resize(640,480);
     window.show();
 
     return a.exec();

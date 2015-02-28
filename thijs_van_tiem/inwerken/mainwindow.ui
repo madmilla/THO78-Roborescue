@@ -97,7 +97,7 @@
     <column/>
     <column/>
    </widget>
-   <widget class="QRadioButton" name="radioButton">
+   <widget class="QRadioButton" name="RadioEmpty">
     <property name="geometry">
      <rect>
       <x>700</x>
@@ -110,24 +110,24 @@
      <string>Empty</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_2">
+   <widget class="QRadioButton" name="RadioConcrete">
     <property name="geometry">
      <rect>
       <x>700</x>
-      <y>150</y>
-      <width>82</width>
+      <y>230</y>
+      <width>111</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Obstacle</string>
+     <string>Concrete object</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_3">
+   <widget class="QRadioButton" name="RadioQuad">
     <property name="geometry">
      <rect>
       <x>700</x>
-      <y>180</y>
+      <y>140</y>
       <width>82</width>
       <height>17</height>
      </rect>
@@ -136,11 +136,11 @@
      <string>QuadCopter</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_4">
+   <widget class="QRadioButton" name="RadioATV">
     <property name="geometry">
      <rect>
       <x>700</x>
-      <y>220</y>
+      <y>170</y>
       <width>82</width>
       <height>17</height>
      </rect>
@@ -149,17 +149,43 @@
      <string>ATV</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_5">
+   <widget class="QRadioButton" name="RadioRosbee">
     <property name="geometry">
      <rect>
       <x>700</x>
-      <y>250</y>
+      <y>200</y>
       <width>82</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
      <string>Rosbee</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="RadioGreen">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>260</y>
+      <width>111</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Grass object</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="RadioWater">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>290</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Water object</string>
     </property>
    </widget>
   </widget>
