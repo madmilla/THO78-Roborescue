@@ -6,6 +6,7 @@
 
 class Map : public QObject
 {
+    Q_OBJECT
 public:
     Map();
     ~Map();
@@ -14,15 +15,6 @@ public:
 private:
     std::vector<Cell> cells;
     Cell* activeCell;
-
-private slots:
-    void isGrass(bool);
-    void isConcrete(bool);
-    void isDirt(bool);
-    void isWater(bool);
-    void isQuadcopter(bool);
-    void isATV(bool);
-    void isRosbee(bool);
 };
 
 #endif // MAP_H

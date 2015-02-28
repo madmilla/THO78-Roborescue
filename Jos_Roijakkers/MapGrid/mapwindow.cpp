@@ -13,6 +13,7 @@ MapWindow::MapWindow(QWidget *MainWindow,QWidget *parent) :
     DisplayMap* displayWidget = new DisplayMap(this);
     Map* map = new Map();
     displayWidget->setCurrentMap(map);
+    connect(ui->isGrass,SIGNAL(clicked(bool)),displayWidget,SLOT(isGrass(bool)));
 
     connect(ui->cancelButton,SIGNAL(clicked()),this,SLOT(close()));
 }

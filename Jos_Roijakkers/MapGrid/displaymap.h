@@ -23,6 +23,13 @@ private:
 
 private slots:
     void currentCellChanged(int currentRow, int currentColumn);
+    void isGrass(bool);
+    void isConcrete(bool);
+    void isDirt(bool);
+    void isWater(bool);
+    void isQuadcopter(bool);
+    void isATV(bool);
+    void isRosbee(bool);
 };
 
 #endif // DISPLAYMAP_H
