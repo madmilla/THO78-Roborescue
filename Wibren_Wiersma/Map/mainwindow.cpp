@@ -5,12 +5,14 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QInputDialog>
+#include <QGraphicsScene>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     map{nullptr},
-    isDisplayingFile{false}
+    isDisplayingFile{false},
+    currentHover{nullptr}
 {
     ui->setupUi(this);
 
@@ -40,11 +42,9 @@ void MainWindow::openFile(std::string filename){
         setDisplayingFile(true);
         for(unsigned int r = 0; r < map->rowCount(); r++){
             for(unsigned int c = 0; c < map->collomCount(); c++){
-                QLabel *label = new QLabel();
-                label->setText(QString::fromStdString(std::to_string((unsigned int)map->get(r, c))));
-                ui->gridLayout->addWidget(label, r, c);
-                ui->gridLayout->setAlignment(label, Qt::AlignHCenter);
-                gridContent.push_back(label);
+                GridPart * gp = new GridPart(map->get(r, c), this);
+                ui->gridLayout->addWidget(gp->getWidget(), r, c);
+                gridContent.push_back(gp);
             }
         }
     }catch(MapReadFailure prf){
@@ -79,9 +79,8 @@ void MainWindow::closeFile(){
         delete map;
         map = nullptr;
         setDisplayingFile(false);
-        for(QLabel * label : gridContent){
-            ui->gridLayout->removeWidget(label);
-            delete label;
+        for(GridPart * content : gridContent){
+            delete content;
         }
         gridContent.clear();
     }

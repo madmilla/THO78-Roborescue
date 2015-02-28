@@ -4,13 +4,11 @@
 #include <string>
 #include <vector>
 
-#include "mapobject.h"
-
 class Map
 {
 private:
     std::string filename;
-    MapObject** data;
+    unsigned int** data;
     unsigned int rows;
     unsigned int colloms;
 
@@ -21,8 +19,8 @@ public:
 
     void save();
 
-    MapObject get(unsigned int row, unsigned int collom);
-    void set(MapObject value, unsigned int row, unsigned int collom);
+    unsigned int get(unsigned int row, unsigned int collom);
+    void set(unsigned int value, unsigned int row, unsigned int collom);
 
     unsigned int rowCount() {return rows;}
     unsigned int collomCount() {return colloms;}

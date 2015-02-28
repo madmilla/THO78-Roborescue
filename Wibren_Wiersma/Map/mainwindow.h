@@ -2,9 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QLabel>
+#include <QMouseEvent>
 
 #include "map.h"
+#include "gridpart.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,7 +30,8 @@ private:
     Ui::MainWindow *ui;
     Map * map;
     bool isDisplayingFile;
-    std::vector<QLabel*> gridContent;
+    std::vector<GridPart*> gridContent;
+    GridPart * currentHover;
 };
 
 #endif // MAINWINDOW_H
