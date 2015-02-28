@@ -21,8 +21,6 @@ DisplayMap::DisplayMap(QWidget* parent):
     horizontalHeader()->setDefaultSectionSize(24);
     verticalHeader()->setDefaultSectionSize(24);
     connect(this,SIGNAL(currentCellChanged(int,int,int,int)),this,SLOT(currentCellChanged(int,int)));
-
-
 }
 
 DisplayMap::~DisplayMap()

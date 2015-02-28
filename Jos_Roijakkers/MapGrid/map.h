@@ -20,6 +20,9 @@ private slots:
     void isConcrete(bool);
     void isDirt(bool);
     void isWater(bool);
+    void isQuadcopter(bool);
+    void isATV(bool);
+    void isRosbee(bool);
 };
 
 #endif // MAP_H

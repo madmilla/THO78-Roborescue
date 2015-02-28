@@ -51,37 +51,58 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QRadioButton" name="Empty_radioButton">
+      <widget class="QRadioButton" name="isEmpty">
        <property name="text">
         <string>Empty</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="Obstacle_radioButton">
-       <property name="text">
-        <string>Obstacle</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="Quadcopter_radioButton">
+      <widget class="QRadioButton" name="isQuadcopter">
        <property name="text">
         <string>Quadcopter</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="ATV_radioButton">
+      <widget class="QRadioButton" name="isATV">
        <property name="text">
         <string>ATV</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="Rosbee_radioButton">
+      <widget class="QRadioButton" name="isRosbee">
        <property name="text">
         <string>Rosbee</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="isGrass">
+       <property name="text">
+        <string>Grass</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="isConcrete">
+       <property name="text">
+        <string>Concrete</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="isDirt">
+       <property name="text">
+        <string>Dirt</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="isWater">
+       <property name="text">
+        <string>Water</string>
        </property>
       </widget>
      </item>

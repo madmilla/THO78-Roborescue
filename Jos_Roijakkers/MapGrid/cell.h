@@ -23,7 +23,7 @@ public:
     {
         QUADCOPTER,
         ATV,
-        ROSBEE,
+        ROSBEE
     };
 
     void setTerrainType(TERRAINTYPE Terrain);

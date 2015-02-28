@@ -44,4 +44,3 @@ void MapWindow::on_randomButton_clicked()
 
 }
 
-
