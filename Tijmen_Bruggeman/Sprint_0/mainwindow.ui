@@ -62,19 +62,6 @@
      <string notr="true"/>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>0</y>
-      <width>131</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Map content</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="XSizeField">
     <property name="geometry">
      <rect>
@@ -134,6 +121,45 @@
      </rect>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>0</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Map content</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>0</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Loaded maps</string>
+    </property>
+   </widget>
+   <zorder>Load_map</zorder>
+   <zorder>Show_map</zorder>
+   <zorder>textEdit</zorder>
+   <zorder>label</zorder>
+   <zorder>XSizeField</zorder>
+   <zorder>YSizeField</zorder>
+   <zorder>label_2</zorder>
+   <zorder>NewButton</zorder>
+   <zorder>listWidget</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_3</zorder>
+   <zorder>listWidget</zorder>
+   <zorder>label</zorder>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
