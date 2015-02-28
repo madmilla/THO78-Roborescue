@@ -29,8 +29,20 @@
       <height>32</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="text">
      <string>Open file...</string>
+    </property>
+    <property name="autoRepeatDelay">
+     <number>1000</number>
     </property>
    </widget>
    <widget class="QPushButton" name="exitButton">
@@ -46,7 +58,7 @@
      <string>Exit</string>
     </property>
    </widget>
-   <widget class="QFrame" name="mapFrame">
+   <widget class="QGraphicsView" name="mapView">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -55,26 +67,20 @@
       <height>480</height>
      </rect>
     </property>
-    <property name="baseSize">
-     <size>
-      <width>480</width>
-      <height>480</height>
-     </size>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>2</number>
-    </property>
-    <property name="midLineWidth">
-     <number>2</number>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
    </widget>
-   <widget class="QFrame" name="legendFrame">
+   <widget class="QGraphicsView" name="legendView">
     <property name="geometry">
      <rect>
       <x>500</x>
@@ -83,17 +89,14 @@
       <height>480</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <property name="lineWidth">
-     <number>2</number>
-    </property>
-    <property name="midLineWidth">
-     <number>2</number>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
    </widget>
   </widget>

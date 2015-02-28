@@ -559,6 +559,13 @@ moc_mainwindow.cpp: ../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Ver
 		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QFileDialog \
 		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qfiledialog.h \
+		../Qt_mapping/mapProcessor.h \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QFrame \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qframe.h \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
 		../Qt_mapping/mainwindow.h
 	/Users/DLeijen/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/DLeijen/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I'/Users/DLeijen/THO78-Roborescue/Daan_Leijen/Qt Mapping/Qt_mapping' -I/Users/DLeijen/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/DLeijen/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/DLeijen/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/DLeijen/Qt5.4.1/5.4/clang_64/lib ../Qt_mapping/mainwindow.h -o moc_mainwindow.cpp
 
@@ -589,10 +596,15 @@ main.o: ../Qt_mapping/main.cpp ../Qt_mapping/mainwindow.h \
 		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QFileDialog \
 		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qfiledialog.h \
-		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
-		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qapplication.h \
+		../Qt_mapping/mapProcessor.h \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QFrame \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qframe.h \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
 		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
-		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Qt_mapping/main.cpp
 
 mainwindow.o: ../Qt_mapping/mainwindow.cpp ../Qt_mapping/mainwindow.h \
@@ -602,6 +614,13 @@ mainwindow.o: ../Qt_mapping/mainwindow.cpp ../Qt_mapping/mainwindow.h \
 		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QFileDialog \
 		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qfiledialog.h \
+		../Qt_mapping/mapProcessor.h \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QFrame \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qframe.h \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		../../../../Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Qt_mapping/mainwindow.cpp
 

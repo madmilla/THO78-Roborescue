@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QString>
 #include <QFileDialog>
-#include <mapProcessor.h>
+#include "mapProcessor.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,9 +19,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_openFileButton_clicked();
+    void exit();
 
-    void on_exitButton_clicked();
+    void openFile();
 
 private:
     Ui::MainWindow *ui;
