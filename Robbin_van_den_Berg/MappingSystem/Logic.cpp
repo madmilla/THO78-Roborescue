@@ -9,7 +9,7 @@ Logic::~Logic(void)
 {
 }
 
-void Logic::helloWord()
+void Logic::helloWorld()
 {
     std::cout << "Hello world!";
 }
