@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-    if(argc > 1 && strcmp("-t", argv[1]) == 0){
+    if(argc > 1 && (strcmp("-test", argv[1]) == 0)){
         Map map("map.dat");
         std::cout << "Testing 20x20"<< std::endl;
         if(map.width() != 20 && map.height() != 20){
