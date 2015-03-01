@@ -1,5 +1,6 @@
 #include "map.h"
 #include <iostream>
+#include <stdexcept>
 
 int main(int argc, char *argv[]){
     Map *map = new Map();
@@ -21,7 +22,7 @@ int main(int argc, char *argv[]){
 		map->get(20, 2);
         std::cout << "FAILURE EXCEPTION :(";
         return -1;
-    }catch(int e){
+    }catch(const std::invalid_argument& ia){
 		
 	}
 
@@ -29,7 +30,7 @@ int main(int argc, char *argv[]){
 		map->set(2, 2, 3);
         std::cout << "FAILURE EXCEPTION 2 :(";
         return -1;
-    }catch(int e){
+    }catch(const std::invalid_argument& ia){
 		
 	}
 
