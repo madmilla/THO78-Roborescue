@@ -9,14 +9,14 @@
 
 
 Window::Window(Grid& grid):
-  m_grid(grid),
   m_boxLayout(new QVBoxLayout(this)),
   m_menuBar(new QMenuBar()),
   m_fileMenu(new QMenu("File")),
   m_new(new QAction{"New",nullptr}),
   m_save(new QAction{"Save",nullptr}),
   m_load(new QAction{"Load",nullptr}),
-  m_exit(new QAction{"Exit",nullptr})
+  m_exit(new QAction{"Exit",nullptr}),
+  m_grid(grid)
 {
     this->setMouseTracking(true);
     this->resize(QSize(800,600));
@@ -39,8 +39,8 @@ void Window::load(){
 }
 
 void Window::create(){
-    QVector2D newSize({float(QInputDialog::getInt(this,"Grid width","Width:")),
-                      float(QInputDialog::getInt(this,"Grid height","Height:"))});
+    QVector2D newSize({static_cast<float>(QInputDialog::getInt(this,"Grid width","Width:")),
+                      static_cast<float>(QInputDialog::getInt(this,"Grid height","Height:"))});
     m_grid.newCleanGrid(newSize);
     update();
 }
@@ -57,7 +57,7 @@ void Window::paintEvent(QPaintEvent *){
 
 void Window::mousePressEvent(QMouseEvent * mouseEvent){
     cout << mouseEvent->x() <<  ',' << mouseEvent->y() << endl;
-    Tile* tile = m_grid.tileAt({float(mouseEvent->x()),float(mouseEvent->y())});
+    Tile* tile = m_grid.tileAt({static_cast<float>(mouseEvent->x()),static_cast<float>(mouseEvent->y())});
     if (tile) {
         m_grid.selectTile(tile);
         update();

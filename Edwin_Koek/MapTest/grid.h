@@ -19,8 +19,8 @@ public:
 
 
 
-    const QVector2D getTileSize();
-    const QVector2D getGridSize();
+    QVector2D getTileSize();
+    QVector2D getGridSize();
     Tile* getStartTile();
     void draw(QPainter& painter);
     void selectTile(Tile *tile);
@@ -28,12 +28,11 @@ public:
     void colorTile(QColor color);
     void newCleanGrid(QVector2D gridSize);
 
-    const TileType colorToType(QColor color);
-    const QColor typeToColor(TileType type);
+    TileType colorToType(QColor color);
+    QColor typeToColor(TileType type);
 private:
     Tile* m_selectedTile;
     Tile* m_droneStartTile;
-
     QVector2D m_gridSize;
     QVector2D m_tileSize;
     vector<Tile> m_grid;

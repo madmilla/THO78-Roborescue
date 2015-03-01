@@ -13,8 +13,8 @@ Grid::Grid():
 void Grid::load(const QString path){
     if(!path.isNull()){
         m_image = QImage(path);
-        m_gridSize = {float(m_image.size().width()),float(m_image.size().height())};
-        m_tileSize = {800/float(m_image.size().width()),600/float(m_image.size().height())};
+        m_gridSize = {static_cast<float>(m_image.size().width()),static_cast<float>(m_image.size().height())};
+        m_tileSize = {800/static_cast<float>(m_image.size().width()),600/static_cast<float>(m_image.size().height())};
         m_grid.clear();
         for(int y = 0; y < m_gridSize.y(); y++){
             for(int x = 0; x < m_gridSize.x();x++){
@@ -60,12 +60,12 @@ const Tile* Grid::tileAt(QVector2D tilePos) const{
     }
 }
 
-const QVector2D Grid::getTileSize()
+QVector2D Grid::getTileSize()
 {
     return m_tileSize;
 }
 
-const QVector2D Grid::getGridSize()
+QVector2D Grid::getGridSize()
 {
     return m_gridSize;
 }
@@ -114,7 +114,7 @@ void Grid::newCleanGrid(QVector2D gridSize){
     m_image = QImage(int(gridSize.x()),int(gridSize.y()),QImage::Format_ARGB32);
     m_image.fill(Qt::white);
     m_gridSize = gridSize;
-    m_tileSize = {800/float(gridSize.x()),600/float(gridSize.y())};
+    m_tileSize = {800/static_cast<float>(gridSize.x()),600/static_cast<float>(gridSize.y())};
     m_grid.clear();
     for(int y = 0; y < m_gridSize.y(); y++){
         for(int x = 0; x < m_gridSize.x();x++){
@@ -126,7 +126,7 @@ void Grid::newCleanGrid(QVector2D gridSize){
     }
 }
 
-const TileType Grid::colorToType(QColor color){
+TileType Grid::colorToType(QColor color){
     for(auto p : m_colorMap){
         if(p.second == color){
             return p.first;
@@ -135,7 +135,7 @@ const TileType Grid::colorToType(QColor color){
     return TileType::Undefined;
 }
 
-const QColor Grid::typeToColor(TileType type){
+QColor Grid::typeToColor(TileType type){
     for(auto p : m_colorMap){
         if(p.first == type){
             return p.second;
