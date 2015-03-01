@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "qdebug.h"
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -47,13 +47,14 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionSave_triggered()
 {
     qDebug() << "Save pressed \n";
-    //QString name = QFileDialog::getSaveFileName(this, tr("Save file"), QString(), tr("Data (*.dat)"));
-    //savefile(name);
+    QString name = QFileDialog::getSaveFileName(this, tr("Save file"), QString(), tr("Data (*.txt)"));
+    savefile(name);
 }
 
 void MainWindow::on_actionLoad_triggered()
 {
     qDebug() << "Load pressed \n";
+    loadFile();
 }
 
 void MainWindow::on_RadioEmpty_clicked(bool checked)
@@ -152,18 +153,37 @@ void MainWindow::on_RadioWater_clicked(bool checked)
 
 void MainWindow::savefile(const QString &name)
 {
-    //QFile Filename(name);
-    //if (Filename.open(QIODevice::WriteOnly | QIODevice::Text)){
-        //QTextStream out(&Filename);
-        //for(int r=0; r< ui->grid->rowCount(); ++r){
-            //for(int k=0 k < ui->grid->colomCount(); ++c){
-                //out <<(int)activemap->getcel(r,k)->;
-            //
-        //}
+    QFile file(name);
+
+    if (file.open(QFile::WriteOnly))
+    {
+        QTextStream data( &file );
+        for (int r = 0; r < ui->tableWidget->rowCount(); ++r){
+            for( int c = 0; c < ui->tableWidget->columnCount(); ++c ){
+                data << (int)activemap->getcel(r,c)->omgeving << " ";
+                std::cout << (int)activemap->getcel(r,c)->omgeving;
+            }
+        }
+      file.close();
+    }
+}
 
 
+void MainWindow::loadFile()
+{
+    fileName = QFileDialog::getOpenFileName(this, ("Open File"), NULL, ("Data (*.txt)"));
 
-    //}
+    std::ifstream loadFile(fileName.toStdString().c_str());
+    if(loadFile){
+        for (int r = 0; r < ui->tableWidget->rowCount(); ++r){
+            for( int c = 0; c < ui->tableWidget->columnCount(); ++c ){
+                int i;
+                loadFile >> i;
+                std::cout << i;
+                ui->tableWidget->setItem(r,c,activecell->formatCellLoad(i));
+            }
+        }
+    }
 
 
 }

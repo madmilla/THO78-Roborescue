@@ -51,17 +51,44 @@ QTableWidgetItem * cells::formatCell()
 
     }
     return item;
-    //if(!quadPresent){
-    //    item->setBackground(Qt::magenta);
-    //}
-   // if(!rosbeePresent){
-    //    item->setBackground(Qt::yellow);
-   // }
-    //if(!atvPresent){
-    //    item->setBackground(Qt::red);
 
-   // }
-     // ifjes onder switch die naderhand quad en atv en rosbee toevoegen
+}
+
+QTableWidgetItem * cells::formatCellLoad(int p)
+{
+    QTableWidgetItem * item = new QTableWidgetItem;
+    switch(p){
+        case(0):
+            item->setBackground(Qt::blue);
+        break;
+
+        case(1):
+            item->setBackground(Qt::black);
+        break;
+
+        case(2):
+            item->setBackground(Qt::green);
+        break;
+
+        case(3):
+        item->setBackground(Qt::magenta);
+        break;
+
+        case(4):
+        item->setBackground(Qt::yellow);
+        break;
+
+        case(5):
+        item->setBackground(Qt::red);
+        break;
+
+        case(6):
+
+        break;
+
+    }
+    return item;
+
 }
 
 void  cells::changeTerrein(terreinTypen typen){

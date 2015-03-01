@@ -2,9 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+
 #include "iostream"
 #include "cells.h"
 #include "map.h"
+#include "qdebug.h"
+#include <QFile>
+#include <QFileDialog>
+#include <iostream>
+#include <fstream>
 
 
 namespace Ui {
@@ -46,8 +52,11 @@ private slots:
 
     void savefile(const QString &name);
 
+    void loadFile();
+
 
 private:
+    QString fileName;
     Ui::MainWindow *ui;
     //cells * boolcel = new cells;
     cells * activecell; //pointer naar de actieve cel op dat moment

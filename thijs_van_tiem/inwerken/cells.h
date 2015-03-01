@@ -26,6 +26,7 @@ public:
     //cell moet zichzelf kunnen formateren naar een qwidgettable
     // een cell klasse is pure logica en op deze manier wordt het grafisch weergeven
     QTableWidgetItem * formatCell();
+    QTableWidgetItem * formatCellLoad(int p);
 
     void changeTerrein(terreinTypen typen);
     void toggleQuad();
