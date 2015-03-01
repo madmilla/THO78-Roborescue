@@ -13,7 +13,7 @@ public:
     static const int FREE = 0;
     static const int BLOCK = 1;
     static const int QUAD = 2;
-    static const int ALLOWED_VALUES[] = {FREE, BLOCK, QUAD};
+    static const int ALLOWED_VALUES[];
 
     Map();
     ~Map();
