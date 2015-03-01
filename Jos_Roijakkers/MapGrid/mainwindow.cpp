@@ -14,6 +14,7 @@
 #include "displaymap.h"
 
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -50,9 +51,7 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionNew_Grid_triggered()
 {
-    Map* newMap = new Map();
-    mpWindow->setMap(newMap);
-    this->setVisible(false);
+    //this->setVisible(false);
 }
 
 void MainWindow::on_actionLoad_triggered()
