@@ -24,11 +24,13 @@ void Map::setActiveCell(int row, int column)
 
 std::istream& operator>>(std::istream& stream, Map& map)
 {
-    for(int column = 0; column < columns; column++){
-        for(int row = 0; row < rows; row++){
+    for(int column = 0; column < columns; column++)
+    {
+        for(int row = 0; row < rows; row++)
+        {
             Cell cells;
             stream >> cells;
-            map.cells.push_back(cells);
+            map.cells[column * columns + row] = cells;
         }
     }
     return stream;

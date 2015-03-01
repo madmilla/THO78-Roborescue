@@ -2,7 +2,7 @@
 
 Cell::Cell():
     QTableWidgetItem(),
-    Terrain(TERRAINTYPE::CONCRETE),
+    Terrain(TERRAINTYPE::EMPTY),
     Vehicle(VEHICLETYPE::QUADCOPTER),
     QuadcopterPresent(false),
     ATVPresent(false),
@@ -84,28 +84,30 @@ void Cell::clearTile()
 std::istream& operator>>(std::istream& stream, Cell& cell)
 {
     std::string type;
-    int quadPresent = 0;
-    stream >> type >> quadPresent;
-    if(type.compare("GRASS"))
+    stream >> type;
+    if(type == "GRASS")
     {
+        std::cout << type << std::endl;
+        std::cout.flush();
         cell.setTerrainType(Cell::TERRAINTYPE::GRASS);
     }
-    else if(type.compare("CONRETE"))
+    else if(type == "CONRETE")
     {
         cell.setTerrainType(Cell::TERRAINTYPE::CONCRETE);
     }
-    else if(type.compare("WATER"))
+    else if(type == "WATER")
     {
         cell.setTerrainType(Cell::TERRAINTYPE::WATER);
     }
-    else if(type.compare("DIRT"))
+    else if(type == "DIRT")
     {
         cell.setTerrainType(Cell::TERRAINTYPE::DIRT);
     }
-    else if (type.compare("EMPTY"))
+    else
     {
         cell.setTerrainType(Cell::TERRAINTYPE::EMPTY);
     }
+
     return stream;
 }
 

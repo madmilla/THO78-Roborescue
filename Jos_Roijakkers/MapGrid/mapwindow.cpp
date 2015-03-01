@@ -34,6 +34,7 @@ void MapWindow::setMap(Map * map)
 {
     currentmap = map;
     displayWidget->setCurrentMap(currentmap);
+    show();
 }
 
 void MapWindow::on_actionSave_triggered()
