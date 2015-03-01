@@ -3,7 +3,6 @@
 #include <qfiledialog.h>
 #include <qjsondocument.h>
 #include "map.hpp"
-#include <QtDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

@@ -13,7 +13,7 @@ Map::Map(std::string loc) : location{loc}
 }
 void Map::save(std::string loc){
      if(loc == ""){loc = location;}
-     std::ofstream output(loc + ".dat");
+     std::ofstream output(std::string(loc + ".dat"));
      int x = 0;
      for(auto item : mapping){
         x++;
