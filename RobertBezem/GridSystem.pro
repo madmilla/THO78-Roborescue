@@ -8,11 +8,11 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 SOURCES += \
     main.cpp \
     drawWindow.cpp \
-    mainwindow.cpp
+    mainWindow.cpp
 
 HEADERS += \
     drawWindow.h \
-    mainwindow.h
+    mainWindow.h
 
 RESOURCES += \
     icons.qrc
