@@ -28,9 +28,16 @@ public:
          bool quadcopter = false,
          bool rosbee = false,
          bool ATV = false);
+
     void setTerrainType(TERRAIN_TYPE type);
+    TERRAIN_TYPE getTerrainType();
+
     void addVehicle(VEHICLE_TYPE type);
+    bool isQuadcopterPresent();
+    bool isRosbeePresent();
+    bool isATVPresent();
     void removeVehicle(VEHICLE_TYPE type);
+
     void clearTile();
     friend std::ostream& operator<<(std::ostream& stream, Tile& tile);
     friend std::istream& operator>>(std::istream& stream, Tile& tile);

@@ -1,7 +1,9 @@
 #include "map.h"
 #include <iostream>
 
-Map::Map()
+Map::Map():
+    nrOfRows(0),
+    nrOfColumns(0)
 {
 }
 

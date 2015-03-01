@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     mapdisplaywidget.cpp \
     mapgraphicsview.cpp \
     newdialog.cpp \
-    discarddialog.cpp
+    discarddialog.cpp \
+    test.cpp
 
 HEADERS  += mainwindow.h \
     map.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     mapdisplaywidget.h \
     mapgraphicsview.h \
     newdialog.h \
-    discarddialog.h
+    discarddialog.h \
+    test.h
 
 FORMS    += mainwindow.ui \
     newdialog.ui \
