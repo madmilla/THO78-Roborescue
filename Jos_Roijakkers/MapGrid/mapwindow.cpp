@@ -10,9 +10,8 @@ MapWindow::MapWindow(QWidget *MainWindow,QWidget *parent) :
     MainWindow(MainWindow)
 {
     ui->setupUi(this);
-    DisplayMap* displayWidget = new DisplayMap(this);
-    Map* map = new Map();
-    displayWidget->setCurrentMap(map);
+    displayWidget = new DisplayMap(this);
+
     connect(ui->isGrass,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isGrass_toggled(bool)));
     connect(ui->isConcrete,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isConcrete_toggled(bool)));
     connect(ui->isDirt,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isDirt_toggled(bool)));
@@ -29,6 +28,12 @@ MapWindow::MapWindow(QWidget *MainWindow,QWidget *parent) :
 MapWindow::~MapWindow()
 {
     delete ui;
+}
+
+void MapWindow::setMap(Map * map)
+{
+    currentmap = map;
+    displayWidget->setCurrentMap(currentmap);
 }
 
 void MapWindow::on_actionSave_triggered()

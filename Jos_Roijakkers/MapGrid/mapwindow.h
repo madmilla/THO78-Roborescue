@@ -6,7 +6,8 @@
 namespace Ui {
 class MapWindow;
 }
-
+class Map;
+class DisplayMap;
 class MapWindow : public QMainWindow
 {
     Q_OBJECT
@@ -14,6 +15,7 @@ class MapWindow : public QMainWindow
 public:
     explicit MapWindow(QWidget * MainWindow, QWidget *parent = 0);
     ~MapWindow();
+    void setMap(Map*);
 
 
 private slots:
@@ -25,9 +27,12 @@ private slots:
 
     void on_actionClear_triggered();
 
+
 private:
     Ui::MapWindow *ui;
     QWidget *MainWindow;
+    Map* currentmap;
+    DisplayMap* displayWidget;
 
 };
 
