@@ -12,6 +12,8 @@ private:
     unsigned int rows;
     unsigned int colloms;
 
+    std::vector<std::string> dataNames;
+
     static const int UISize = 4;
 public:
     Map(std::string filename);
@@ -26,6 +28,11 @@ public:
     unsigned int collomCount() {return colloms;}
 
     static void createEmpty(std::string filename, unsigned int rows, unsigned int colloms);
+
+    std::vector<std::string> & names(){
+        return dataNames;
+    }
+
 };
 
 #endif // MAP_H

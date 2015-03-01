@@ -23,6 +23,8 @@ private slots:
     void createFile();
     void saveFile();
     void closeFile();
+    void addName();
+    void editAction();
 private:
     void openFile(std::string filename);
     void setDisplayingFile(bool value);

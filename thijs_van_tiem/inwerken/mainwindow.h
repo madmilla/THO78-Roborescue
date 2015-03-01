@@ -6,6 +6,7 @@
 #include "cells.h"
 #include "map.h"
 
+
 namespace Ui {
 class MainWindow;
 }
@@ -17,6 +18,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
 
 
 private slots:
@@ -41,6 +43,9 @@ private slots:
     void on_RadioConcrete_clicked(bool checked);
 
     void on_RadioWater_clicked(bool checked);
+
+    void savefile(const QString &name);
+
 
 private:
     Ui::MainWindow *ui;

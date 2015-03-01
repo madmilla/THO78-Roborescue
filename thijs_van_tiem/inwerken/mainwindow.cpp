@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "qdebug.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -46,6 +47,8 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionSave_triggered()
 {
     qDebug() << "Save pressed \n";
+    //QString name = QFileDialog::getSaveFileName(this, tr("Save file"), QString(), tr("Data (*.dat)"));
+    //savefile(name);
 }
 
 void MainWindow::on_actionLoad_triggered()
@@ -69,13 +72,15 @@ void MainWindow::on_RadioQuad_clicked(bool checked)
 {
     if(checked){
         qDebug() << "Quad geselecteerd \n";
-
+        activecell->changeTerrein(terreinTypen::quad);
     }
     else{
 
     }
-   // ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
-    //boolcel->toggleQuad();
+        ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
+
+
+
 
 }
 
@@ -83,24 +88,25 @@ void MainWindow::on_RadioATV_clicked(bool checked)
 {
     if(checked){
         qDebug() << "ATV geselecteerd \n";
+        activecell->changeTerrein(terreinTypen::atv);
 
     }
     else{
 
     }
-    //ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
+    ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
 }
 
 void MainWindow::on_RadioRosbee_clicked(bool checked)
 {
     if(checked){
         qDebug() << "ROSBEE geselecteerd \n";
-
+        activecell->changeTerrein(terreinTypen::rosbee);
     }
     else{
 
     }
-   // ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
+   ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
 }
 
 void MainWindow::on_RadioConcrete_clicked(bool checked)
@@ -126,6 +132,7 @@ void MainWindow::on_RadioGreen_clicked(bool checked)
     else{
 
     }
+
    ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
 
 }
@@ -143,5 +150,22 @@ void MainWindow::on_RadioWater_clicked(bool checked)
     ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
 }
 
+void MainWindow::savefile(const QString &name)
+{
+    //QFile Filename(name);
+    //if (Filename.open(QIODevice::WriteOnly | QIODevice::Text)){
+        //QTextStream out(&Filename);
+        //for(int r=0; r< ui->grid->rowCount(); ++r){
+            //for(int k=0 k < ui->grid->colomCount(); ++c){
+                //out <<(int)activemap->getcel(r,k)->;
+            //
+        //}
+
+
+
+    //}
+
+
+}
 
 // meest recent ingedrukt table opvragen met currentCollom en CurrentRow
