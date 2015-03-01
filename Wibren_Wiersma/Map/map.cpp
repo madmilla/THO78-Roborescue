@@ -12,6 +12,24 @@ Map::Map(std::string filename) :
         throw MapReadFailure{"Cannot open file: " + filename};
     }
 
+    //load dataNames
+    unsigned int dataNamesCount;
+    file.read(reinterpret_cast<char *>(&dataNamesCount), UISize);
+    char * dataNames = new char[dataNamesCount];
+    file.read(dataNames, dataNamesCount);
+    int start = 0;
+    for(unsigned int i = 0; i < dataNamesCount; i++){
+        if(dataNames[i] == '\0'){
+            this->dataNames.push_back(std::string(dataNames + start));
+            start = i + 1;
+        }
+    }
+    delete dataNames;
+
+    if(!file.good()){
+        throw MapReadFailure{"Fail while reading dataNames"};
+    }
+
     file.read(reinterpret_cast<char *>(&rows), UISize);
     file.read(reinterpret_cast<char *>(&colloms), UISize);
 
@@ -59,6 +77,19 @@ Map::~Map()
 
 void Map::save(){
     std::ofstream file{filename, std::ios::out | std::ios::binary};
+
+    //save dataNames
+    unsigned int strlen = dataNames.size();
+    for(std::string dataName : dataNames){
+        strlen += dataName.length();
+    }
+
+    file.write(reinterpret_cast<char *>(&strlen), UISize);
+
+    for(std::string dataName : dataNames){
+        file.write(dataName.c_str(), dataName.size() + 1);
+    }
+
     file.write(reinterpret_cast<char *>(&rows), UISize);
     file.write(reinterpret_cast<char *>(&colloms), UISize);
 
@@ -87,6 +118,12 @@ void Map::set(unsigned int value, unsigned int row, unsigned int collom){
 
 void Map::createEmpty(std::string filename, unsigned int rows, unsigned int colloms){
     std::ofstream file{filename, std::ios::out | std::ios::binary};
+    std::string block0Name = "Air";
+    unsigned int strlen = block0Name.size() + 1;
+
+    file.write(reinterpret_cast<char *>(&strlen), UISize);
+    file.write(block0Name.c_str(), block0Name.size() + 1);
+
     file.write(reinterpret_cast<char *>(&rows), UISize);
     file.write(reinterpret_cast<char *>(&colloms), UISize);
 
