@@ -3,11 +3,13 @@
 
 Map::Map()
 {
+    qDebug() << "Creating map";
 }
 
 
 Map::~Map()
 {
+    qDebug() << "Deleting map";
 }
 
 QColor Map::getColor(int x, int y)
@@ -16,7 +18,7 @@ QColor Map::getColor(int x, int y)
     {
         if (object.location == QPoint(x, y))
         {
-            qDebug() << "Found object at x:" << x << " and y:" << y;
+            //qDebug() << "Found object at x:" << x << " and y:" << y;
             return object.color;
         }
     }
@@ -29,19 +31,19 @@ void Map::setColor(int x, int y, QColor color)
     {
         if (object.location == QPoint(x, y))
         {
-            qDebug() << "Found object at x:" << x << " and y:" << y;
+            //qDebug() << "Found object at x:" << x << " and y:" << y;
             object.color = color;
             return;
         }
     }
-    qDebug() << "Adding new object at x:" << x << " and y:" << y;
+    //qDebug() << "Adding new object at x:" << x << " and y:" << y;
     addObject(Object(color, QPoint(x,y)));
 }
 
 void Map::addObject(Object object)
 {
     objects.push_back(object);
-    qDebug() << "Objects: " << objects.size();
+    //qDebug() << "Objects: " << objects.size();
 }
 
 std::vector<Object>& Map::getObjects()

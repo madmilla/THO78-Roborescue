@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "mapviewer.h"
+#include "mapsystem.h"
 
 namespace Ui {
 class MainWindow;
@@ -14,6 +15,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    MainWindow(MapSystem* mapSystem, QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
@@ -37,6 +39,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    MapSystem* mapSystem;
     void enableRadioButtons(bool);
 };
 

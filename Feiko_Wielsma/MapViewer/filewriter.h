@@ -8,7 +8,7 @@ class FileWriter
 public:
     FileWriter( Map* map);
     ~FileWriter();
-    void saveFile(QWidget* parent);
+    void saveFile(QString fileName);
 private:
     Map* map;
 

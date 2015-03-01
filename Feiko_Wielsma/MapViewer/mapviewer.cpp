@@ -16,26 +16,18 @@ MapViewer::MapViewer(QWidget * parent)
     };
     objectColorMap = mapData;
     selectedObject = ObjectType::Empty;
+    qDebug() << "Creating Mapviewer";
 }
 
 
 MapViewer::~MapViewer()
 {
-    delete map;
+
 }
 
 void MapViewer::setMap(Map* newMap)
 {
-    if(map != nullptr)
-    {
-        delete map;
-    }
     map = newMap;
-}
-
-Map* MapViewer::getMap()
-{
-    return map;
 }
 
 void MapViewer::setSelectedObject(ObjectType objectType)
@@ -51,8 +43,8 @@ void MapViewer::mousePressEvent(QMouseEvent *event)
 
         auto xPosition = mousePosition.x() / GRID_SIZE;
         auto yPosition = mousePosition.y() / GRID_SIZE;
-        qDebug() << "x: " << xPosition;
-        qDebug() << "y: " << yPosition;
+        //qDebug() << "x: " << xPosition;
+       // qDebug() << "y: " << yPosition;
 
         map->setColor(xPosition, yPosition, objectColorMap[selectedObject]);
 
@@ -79,7 +71,7 @@ void MapViewer::drawCell(QPainter& painter, int x, int y)
 {
     if (map != nullptr)
     {
-        qDebug() << "Getting map color data";
+        //qDebug() << "Getting map color data";
         painter.fillRect(
             x*(CELL_WIDTH + CELL_PADDING + CELL_BORDER_SIZE),
             y*(CELL_HEIGHT + CELL_PADDING + CELL_BORDER_SIZE),
@@ -97,7 +89,7 @@ void MapViewer::drawCell(QPainter& painter, int x, int y)
     }
     else
     {
-        qDebug() << "Map not set";
+        //qDebug() << "Map not set";
     }
 
 }

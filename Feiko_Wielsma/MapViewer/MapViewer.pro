@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     map.cpp \
     fileloader.cpp \
     object.cpp \
-    filewriter.cpp
+    filewriter.cpp \
+    mapsystem.cpp
 
 HEADERS  += mainwindow.h \
     mapviewer.h \
     map.h \
     fileloader.h \
     object.h \
-    filewriter.h
+    filewriter.h \
+    mapsystem.h
 
 FORMS    += mainwindow.ui
 

@@ -1,4 +1,4 @@
-#include <QFileDialog>
+
 #include "filewriter.h"
 
 FileWriter::FileWriter(Map *map)
@@ -13,10 +13,9 @@ FileWriter::~FileWriter()
 
 }
 
-void FileWriter::saveFile(QWidget* parent)
+void FileWriter::saveFile(QString fileName)
 {
-    auto fileName = QFileDialog::getSaveFileName(parent,
-                      "Save Map", "/home/", "Map Files (*.map)");
+
     QFile file (fileName);
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);

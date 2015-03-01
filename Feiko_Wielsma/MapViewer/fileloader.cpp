@@ -10,13 +10,8 @@ FileLoader::~FileLoader()
 {
 }
 
-Map* FileLoader::openMap(QWidget* parent)
+Map* FileLoader::openMap(QString fileName, Map* map)
 {
-    Map* map = new Map();
-
-    auto fileName = QFileDialog::getOpenFileName(parent,
-        "Open Map", "/home/", "Map Files (*.map)");
-
     QFile file(fileName);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
 
@@ -42,30 +37,30 @@ void FileLoader::processLine(QString line, Map* map)
         QString key = kvList[0], value = kvList[1];
         if (key == "x")
         {
-            qDebug() << "x=" << value;
+            //qDebug() << "x=" << value;
             point.setX(value.toInt());
         }
         else if (key == "y")
         {
-            qDebug() << "y=" << value;
+            //qDebug() << "y=" << value;
             point.setY(value.toInt());
         }
         else if (key == "cr")
         {
-            qDebug() << "red=" << value;
+            //qDebug() << "red=" << value;
             color.setRed(value.toInt());
         }
         else if (key == "cg")
         {
-            qDebug() << "green=" << value;
+            //qDebug() << "green=" << value;
             color.setGreen(value.toInt());
         }
         else if (key == "cb")
         {
-            qDebug() << "blue=" << value;
+            //qDebug() << "blue=" << value;
             color.setBlue(value.toInt());
         }
     }
     map->addObject(Object(color, point));
-    qDebug() << line;
+    //qDebug() << line;
 }

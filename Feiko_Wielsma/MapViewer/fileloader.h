@@ -10,7 +10,7 @@ class FileLoader
 public:
     FileLoader();
     ~FileLoader();
-    Map* openMap(QWidget* parent);
+    Map* openMap(QString fileName, Map* map);
 private:
     void processLine(QString line, Map* map);
 };

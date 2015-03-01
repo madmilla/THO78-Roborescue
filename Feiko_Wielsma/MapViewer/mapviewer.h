@@ -23,12 +23,12 @@ public:
     MapViewer(QWidget* parent = 0);
     ~MapViewer();
     void setMap(Map* newMap);
-    Map* getMap();
     void setSelectedObject(ObjectType);
 private:
+    void drawCell(QPainter& painter, int x, int y);
+
     std::map<ObjectType, QColor> objectColorMap;
 
-    void drawCell(QPainter& painter, int x, int y);
     Map* map = nullptr;
     ObjectType selectedObject;
 

@@ -1,14 +1,24 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include <QtWidgets>
+#include <QFileDialog>
 
 #include "fileloader.h"
 #include "filewriter.h"
-#include <QtWidgets>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    enableRadioButtons(false);
+}
+
+MainWindow::MainWindow(MapSystem* mapSystem, QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow),
+    mapSystem{mapSystem}
 {
     ui->setupUi(this);
     enableRadioButtons(false);
@@ -22,34 +32,47 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionNew_triggered()
 {
     enableRadioButtons(true);
-    ui->mapViewer->setMap(new Map);
+    qDebug() << "Trying to get new map";
+    Map * m = mapSystem->createNewMap();
+    qDebug() << "Trying to set new map";
+    ui->mapViewer->setMap(m);
     ui->mapViewer->repaint();
     qDebug("New");
 }
 
 void MainWindow::on_actionOpen_triggered()
 {
-    enableRadioButtons(true);
-    FileLoader fileLoader;
-    ui->mapViewer->setMap(fileLoader.openMap(this));
+    auto fileName = QFileDialog::getOpenFileName(this,
+        "Open Map", "/home/", "Map Files (*.map)");
+
+    qDebug() << "Trying to open map";
+    if(fileName != "")
+    {
+        Map * m = mapSystem->openMap(fileName);
+        ui->mapViewer->setMap(m);
+        enableRadioButtons(true);
+    }
     qDebug("Open");
 }
 
 void MainWindow::on_actionSave_as_triggered()
 {
-    Map* map = ui->mapViewer->getMap();
-    if(map == nullptr)
+    if(mapSystem->canSave())
+    {
+        auto fileName = QFileDialog::getSaveFileName(this,
+                          "Save Map", "/home/", "Map Files (*.map)");
+        if(fileName != "")
+        {
+            mapSystem->saveMap(fileName);
+        }
+    }
+    else
     {
         QMessageBox saveErrorBox;
         saveErrorBox.setText("Unable to save.");
         saveErrorBox.setInformativeText("Please open a map first before trying to save.");
         saveErrorBox.setDefaultButton(QMessageBox::Ok);
-        int ret = saveErrorBox.exec();
-    }
-    else
-    {
-        FileWriter fileWriter(map);
-        fileWriter.saveFile(this);
+        saveErrorBox.exec();
     }
 }
 
@@ -66,6 +89,7 @@ void MainWindow::enableRadioButtons(bool b)
     ui->quadButton->setEnabled(b);
     ui->treeButton->setEnabled(b);
     ui->emptyButton->setEnabled(b);
+    ui->actionSave_as->setEnabled(b);
 }
 
 void MainWindow::on_emptyButton_clicked()
