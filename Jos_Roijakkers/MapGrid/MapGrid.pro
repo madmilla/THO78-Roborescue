@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     mapwindow.cpp \
     map.cpp \
     cell.cpp \
-    displaymap.cpp
+    displaymap.cpp \
+    test.cpp
 
 HEADERS  += mainwindow.h \
     exitDialog.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     mapwindow.h \
     map.h \
     cell.h \
-    displaymap.h
+    displaymap.h \
+    test.h
 
 FORMS    += mainwindow.ui \
     exitDialog.ui \
