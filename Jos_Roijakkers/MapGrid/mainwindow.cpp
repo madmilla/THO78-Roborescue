@@ -55,19 +55,10 @@ void MainWindow::on_actionNew_Grid_triggered()
 void MainWindow::on_actionLoad_triggered()
 {
     filename = QFileDialog::getOpenFileName(this, tr("open map"), QString(), tr("Map File (*.map);;All Files(*)"));
-    if (filename.isEmpty())
+    if (!filename.isEmpty())
     {
-        return;
-    }
-    else
-    {
-        QFile file(filename);
-        if (!file.open(QIODevice::WriteOnly))
-        {
-            QMessageBox::information(this, tr("Unable to open file"),
-            file.errorString());
-        }
-        return;
+     //  std::ifstream mapFile;
+     //  mapFile.open(filename.toStdString());
     }
 }
 

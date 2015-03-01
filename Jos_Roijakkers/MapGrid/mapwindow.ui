@@ -51,30 +51,30 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QRadioButton" name="isEmpty">
-       <property name="text">
-        <string>Empty</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="isQuadcopter">
+      <widget class="QCheckBox" name="isQuadcopter">
        <property name="text">
         <string>Quadcopter</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="isATV">
+      <widget class="QCheckBox" name="isATV">
        <property name="text">
         <string>ATV</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="isRosbee">
+      <widget class="QCheckBox" name="isRosbee">
        <property name="text">
         <string>Rosbee</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="isEmpty">
+       <property name="text">
+        <string>Empty</string>
        </property>
       </widget>
      </item>

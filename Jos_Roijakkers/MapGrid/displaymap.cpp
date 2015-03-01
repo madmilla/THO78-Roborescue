@@ -4,7 +4,9 @@
 
 DisplayMap::DisplayMap(QWidget* parent):
     QTableWidget(rows,columns,parent),
-    currentmap( nullptr )
+    currentmap( nullptr ),
+    currentcell(nullptr),
+    currentType(Cell::TERRAINTYPE::EMPTY)
 {
     setRowCount(rows);
     setColumnCount(columns);
@@ -45,10 +47,11 @@ void DisplayMap::currentCellChanged(int currentRow, int currentColumn)
 {
     if(currentmap){
         currentcell = currentmap->getCell(currentRow,currentColumn);
+        currentcell->setTerrainType(currentType);
     }
 }
 
-void DisplayMap::isATV(bool checked)
+void DisplayMap::on_isATV_toggled(bool checked)
 {
     if(checked){
         currentcell->addVehicle(Cell::VEHICLETYPE::ATV);
@@ -58,7 +61,7 @@ void DisplayMap::isATV(bool checked)
     }
 }
 
-void DisplayMap::isQuadcopter(bool checked)
+void DisplayMap::on_isQuadcopter_toggled(bool checked)
 {
     if(checked){
         currentcell->addVehicle(Cell::VEHICLETYPE::QUADCOPTER);
@@ -68,7 +71,7 @@ void DisplayMap::isQuadcopter(bool checked)
     }
 }
 
-void DisplayMap::isRosbee(bool checked)
+void DisplayMap::on_isRosbee_toggled(bool checked)
 {
     if(checked){
         currentcell->addVehicle(Cell::VEHICLETYPE::ROSBEE);
@@ -78,43 +81,63 @@ void DisplayMap::isRosbee(bool checked)
     }
 }
 
-void DisplayMap::isGrass(bool checked)
+void DisplayMap::on_isGrass_toggled(bool checked)
 {
     if(checked){
-        currentcell->setTerrainType(Cell::TERRAINTYPE::GRASS);
+        currentType = Cell::TERRAINTYPE::GRASS;
+        currentcell->setTerrainType(currentType);
     }
     else{
-        currentcell->setTerrainType(Cell::TERRAINTYPE::EMPTY);
+        currentType = Cell::TERRAINTYPE::EMPTY;
+        currentcell->setTerrainType(currentType);
     }
 }
 
-void DisplayMap::isDirt(bool checked)
+void DisplayMap::on_isDirt_toggled(bool checked)
 {
     if(checked){
-        currentcell->setTerrainType(Cell::TERRAINTYPE::DIRT);
+        currentType = Cell::TERRAINTYPE::DIRT;
+        currentcell->setTerrainType(currentType);
     }
     else{
-        currentcell->setTerrainType(Cell::TERRAINTYPE::EMPTY);
+        currentType = Cell::TERRAINTYPE::EMPTY;
+        currentcell->setTerrainType(currentType);
     }
 }
 
-void DisplayMap::isConcrete(bool checked)
+void DisplayMap::on_isConcrete_toggled(bool checked)
 {
     if(checked){
-        currentcell->setTerrainType(Cell::TERRAINTYPE::CONCRETE);
+        currentType = Cell::TERRAINTYPE::CONCRETE;
+        currentcell->setTerrainType(currentType);
     }
     else{
-        currentcell->setTerrainType(Cell::TERRAINTYPE::EMPTY);
+        currentType = Cell::TERRAINTYPE::EMPTY;
+        currentcell->setTerrainType(currentType);
     }
 }
 
-void DisplayMap::isWater(bool checked)
+void DisplayMap::on_isWater_toggled(bool checked)
 {
     if(checked){
-        currentcell->setTerrainType(Cell::TERRAINTYPE::WATER);
+        currentType = Cell::TERRAINTYPE::WATER;
+        currentcell->setTerrainType(currentType);
     }
     else{
-        currentcell->setTerrainType(Cell::TERRAINTYPE::EMPTY);
+        currentType = Cell::TERRAINTYPE::EMPTY;
+        currentcell->setTerrainType(currentType);
+    }
+}
+
+void DisplayMap::on_isEmpty_toggled(bool checked)
+{
+    if(checked){
+        currentType = Cell::TERRAINTYPE::EMPTY;
+        currentcell->setTerrainType(currentType);
+    }
+    else{
+        currentType = Cell::TERRAINTYPE::EMPTY;
+        currentcell->setTerrainType(currentType);
     }
 }
 

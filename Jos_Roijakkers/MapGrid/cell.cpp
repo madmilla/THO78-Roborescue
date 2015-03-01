@@ -3,6 +3,7 @@
 Cell::Cell():
     QTableWidgetItem(),
     Terrain(TERRAINTYPE::CONCRETE),
+    Vehicle(VEHICLETYPE::QUADCOPTER),
     QuadcopterPresent(false),
     ATVPresent(false),
     RosbeePresent(false)
@@ -38,15 +39,19 @@ void Cell::setTerrainType(Cell::TERRAINTYPE TerrainType)
 
 void Cell::addVehicle(VEHICLETYPE VehicleType)
 {
+    Vehicle = VehicleType;
     switch(VehicleType)
     {
     case(VEHICLETYPE::QUADCOPTER):
+        setBackground((QColor(Qt::magenta)));
         QuadcopterPresent = true;
         break;
     case(VEHICLETYPE::ATV):
+        setBackground((QColor(Qt::black)));
         ATVPresent = true;
         break;
     case(VEHICLETYPE::ROSBEE):
+        setBackground((QColor(Qt::red)));
         RosbeePresent = true;
         break;
     }

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QTableWidgetItem>
 
+
 class Cell : public QTableWidgetItem
 {
 public:
@@ -36,6 +37,7 @@ private:
     bool ATVPresent;
     bool RosbeePresent;
     TERRAINTYPE Terrain;
+    VEHICLETYPE Vehicle;
 };
 
 #endif // CELL_H

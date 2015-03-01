@@ -13,7 +13,15 @@ MapWindow::MapWindow(QWidget *MainWindow,QWidget *parent) :
     DisplayMap* displayWidget = new DisplayMap(this);
     Map* map = new Map();
     displayWidget->setCurrentMap(map);
-    connect(ui->isGrass,SIGNAL(clicked(bool)),displayWidget,SLOT(isGrass(bool)));
+    connect(ui->isGrass,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isGrass_toggled(bool)));
+    connect(ui->isConcrete,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isConcrete_toggled(bool)));
+    connect(ui->isDirt,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isDirt_toggled(bool)));
+    connect(ui->isWater,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isWater_toggled(bool)));
+    connect(ui->isEmpty,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isEmpty_toggled(bool)));
+    connect(ui->isQuadcopter,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isQuadcopter_toggled(bool)));
+    connect(ui->isATV,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isATV_toggled(bool)));
+    connect(ui->isRosbee,SIGNAL(toggled(bool)),displayWidget,SLOT(on_isRosbee_toggled(bool)));
+
 
     connect(ui->cancelButton,SIGNAL(clicked()),this,SLOT(close()));
 }
