@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QList>
 #include <QMessageBox>
+#include "mappinglogic.h"
 
 MainWindow::MainWindow(MappingLogic * mapper,QWidget *parent) :
     QMainWindow(parent),
@@ -28,10 +29,9 @@ void MainWindow::handleButton()
 {
     QItemSelectionModel *select = ui->tableWidget->selectionModel();
     QModelIndexList list = select->selectedIndexes();
-    for(QModelIndex index : list)
-    {
-        setCellstatus(index.row(),index.column(),ui->comboBox_2->currentIndex());
-        mapper->set_tile(index.row(),index.column(),ui->comboBox_2->currentIndex());
+    for(QList<QModelIndex>::iterator it = list.begin(); it != list.end(); ++it) {
+        setCellstatus(it->row(),it->column(),ui->comboBox_2->currentIndex());
+        mapper->set_tile(it->row(),it->column(),ui->comboBox_2->currentIndex());
     }
 }
 void MainWindow::setItemColor(QTableWidgetItem * item,int status)
@@ -60,9 +60,10 @@ void MainWindow::setItemColor(QTableWidgetItem * item,int status)
 void MainWindow::LoadGrid()
 {
     ui->tableWidget->clearContents();
-    for(MapTile * t : mapper->getTiles())
+    QList<MapTile *> maptiles = mapper->getTiles();
+    for(QList<MapTile *>::iterator it = maptiles.begin(); it != maptiles.end(); ++it)
     {
-        setCellstatus(t->getx(), t->gety(), t->getstatus());
+        setCellstatus((*it)->getx(), (*it)->gety(), (*it)->getstatus());
     }
 }
 

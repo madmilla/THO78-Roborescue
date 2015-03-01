@@ -43,16 +43,16 @@ void MappingLogic::load_file()
 void MappingLogic::save_file()
 {
     std::ofstream output("map.txt");
-    for (MapTile * i : tiles )
+    for(QList<MapTile *>::iterator it = tiles.begin(); it != tiles.end(); ++it)
     {
-        if(i->getstatus() != 0)
+        if((*it)->getstatus() != 0)
         {
         output << ' ';
-        output << i->getx();
+        output << (*it)->getx();
         output << ' ';
-        output << i->gety();
+        output << (*it)->gety();
         output << ' ';
-        output << i->getstatus();
+        output << (*it)->getstatus();
         }
     }
     output.close();
@@ -62,12 +62,12 @@ void MappingLogic::set_tile(int x,int y,int status)
 {
 
     bool set = false;
-    for (MapTile * i : tiles )
+    for(QList<MapTile *>::iterator it = tiles.begin(); it != tiles.end(); ++it)
     {
-        if(i->getx() == x && i->gety() == y)
+        if((*it)->getx() == x && (*it)->gety() == y)
         {
 
-            i->setstatus(status);
+            (*it)->setstatus(status);
             set = true;
         }
     }
@@ -83,11 +83,11 @@ void MappingLogic::set_tile(int x,int y,int status)
 
 int MappingLogic::get_tile(int x, int y)
 {
-    for (MapTile * i : tiles )
+    for(QList<MapTile *>::iterator it = tiles.begin(); it != tiles.end(); ++it)
     {
-        if(i->getx() == x && i->gety() == y)
+        if((*it)->getx() == x && (*it)->gety() == y)
         {
-            return i->getstatus();
+            return (*it)->getstatus();
         }
     }
     return 0;
