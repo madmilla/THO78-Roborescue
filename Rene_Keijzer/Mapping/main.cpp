@@ -22,7 +22,6 @@ int main(int argc, char *argv[])
             std::cout << "Map 0x0 Didn't load correctly";
             return 1;
         }
-    return 0;
     }else{
 
     QApplication a(argc, argv);
