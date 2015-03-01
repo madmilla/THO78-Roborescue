@@ -41,7 +41,7 @@ void Window::load(){
 void Window::create(){
     float x = static_cast<float>(QInputDialog::getInt(this,"Grid width","Width:"));
     float y = static_cast<float>(QInputDialog::getInt(this,"Grid height","Height:"));
-    QVector2D newSize({x,y});
+    QVector2D newSize(x,y);
     m_grid.newCleanGrid(newSize);
     update();
 }
