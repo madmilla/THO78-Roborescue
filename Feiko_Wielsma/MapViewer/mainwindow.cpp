@@ -45,7 +45,7 @@ void MainWindow::on_actionOpen_triggered()
     auto fileName = QFileDialog::getOpenFileName(this,
         "Open Map", "/home/", "Map Files (*.map)");
 
-    qDebug() << "Trying to open map";
+    qDebug() << "Trying to open map: " << fileName;
     if(fileName != "")
     {
         Map * m = mapSystem->openMap(fileName);

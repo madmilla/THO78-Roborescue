@@ -11,8 +11,8 @@ public:
     ~Map();
 
     void addObject(Object);
-    QColor getColor(int x, int y);
-    void setColor(int x, int y, QColor color);
+    ObjectType getType(int x, int y);
+    void setType(int x, int y, ObjectType type);
     std::vector<Object>& getObjects();
 private:
     std::vector<Object> objects;

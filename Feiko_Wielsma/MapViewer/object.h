@@ -2,13 +2,21 @@
 #define OBJECT_H
 #include <QtGui>
 
+enum class ObjectType {
+    Empty,
+    Wall,
+    Tree,
+    Quad,
+    ATV
+};
+
 class Object
 {
 public:
-    Object(QColor color, QPoint location);
+    Object(ObjectType type, QPoint position);
     ~Object();
-    QColor color;
-    QPoint location;
+    ObjectType type;
+    QPoint position;
 };
 
 #endif

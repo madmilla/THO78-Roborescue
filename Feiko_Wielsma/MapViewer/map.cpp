@@ -12,32 +12,32 @@ Map::~Map()
     qDebug() << "Deleting map";
 }
 
-QColor Map::getColor(int x, int y)
+ObjectType Map::getType(int x, int y)
 {
     for (auto &object : objects)
     {
-        if (object.location == QPoint(x, y))
+        if (object.position == QPoint(x, y))
         {
             //qDebug() << "Found object at x:" << x << " and y:" << y;
-            return object.color;
+            return object.type;
         }
     }
-    return QColor(255, 255, 255);
+    return ObjectType::Empty;
 }
 
-void Map::setColor(int x, int y, QColor color)
+void Map::setType(int x, int y, ObjectType type)
 {
     for (auto &object : objects)
     {
-        if (object.location == QPoint(x, y))
+        if (object.position == QPoint(x, y))
         {
             //qDebug() << "Found object at x:" << x << " and y:" << y;
-            object.color = color;
+            object.type = type;
             return;
         }
     }
     //qDebug() << "Adding new object at x:" << x << " and y:" << y;
-    addObject(Object(color, QPoint(x,y)));
+    addObject(Object(type, QPoint(x,y)));
 }
 
 void Map::addObject(Object object)

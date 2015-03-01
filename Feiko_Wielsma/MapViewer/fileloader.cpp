@@ -1,5 +1,6 @@
 #include <QFileDialog>
 #include "fileloader.h"
+#include <map>
 
 FileLoader::FileLoader()
 {
@@ -28,8 +29,16 @@ Map* FileLoader::openMap(QString fileName, Map* map)
 
 void FileLoader::processLine(QString line, Map* map)
 {
-    QPoint point;
-    QColor color;
+    std::map<QString, ObjectType> stringToTypeMap =
+    {
+        {QString("empty"), ObjectType::Empty},
+        {QString("wall"), ObjectType::Wall},
+        {QString("tree"), ObjectType::Tree},
+        {QString("quad"), ObjectType::Quad},
+        {QString("atv"), ObjectType::ATV}
+    };
+    QPoint position;
+    ObjectType type;
     QStringList keyValuePairs = line.split(", ");
     for (auto kvp : keyValuePairs)
     {
@@ -37,30 +46,16 @@ void FileLoader::processLine(QString line, Map* map)
         QString key = kvList[0], value = kvList[1];
         if (key == "x")
         {
-            //qDebug() << "x=" << value;
-            point.setX(value.toInt());
+            position.setX(value.toInt());
         }
         else if (key == "y")
         {
-            //qDebug() << "y=" << value;
-            point.setY(value.toInt());
+            position.setY(value.toInt());
         }
-        else if (key == "cr")
+        else if (key == "type")
         {
-            //qDebug() << "red=" << value;
-            color.setRed(value.toInt());
-        }
-        else if (key == "cg")
-        {
-            //qDebug() << "green=" << value;
-            color.setGreen(value.toInt());
-        }
-        else if (key == "cb")
-        {
-            //qDebug() << "blue=" << value;
-            color.setBlue(value.toInt());
+            type = stringToTypeMap[value];
         }
     }
-    map->addObject(Object(color, point));
-    //qDebug() << line;
+    map->addObject(Object(type, position));
 }

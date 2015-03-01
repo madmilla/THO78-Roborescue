@@ -1,10 +1,10 @@
 #include "object.h"
 
 
-Object::Object(QColor color, QPoint location)
+Object::Object(ObjectType type, QPoint position)
     :
-    color{color},
-    location{location}
+    type{type},
+    position{position}
 {
 }
 

@@ -46,7 +46,7 @@ void MapViewer::mousePressEvent(QMouseEvent *event)
         //qDebug() << "x: " << xPosition;
        // qDebug() << "y: " << yPosition;
 
-        map->setColor(xPosition, yPosition, objectColorMap[selectedObject]);
+        map->setType(xPosition, yPosition, selectedObject);
 
         this->repaint();
     }
@@ -77,7 +77,7 @@ void MapViewer::drawCell(QPainter& painter, int x, int y)
             y*(CELL_HEIGHT + CELL_PADDING + CELL_BORDER_SIZE),
             CELL_WIDTH,
             CELL_HEIGHT,
-            QBrush(map->getColor(x,y))
+            QBrush(objectColorMap[map->getType(x,y)])
             );
 
         painter.drawRect(

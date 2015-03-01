@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     fileloader.cpp \
     object.cpp \
     filewriter.cpp \
-    mapsystem.cpp
+    mapsystem.cpp \
+    maptester.cpp
 
 HEADERS  += mainwindow.h \
     mapviewer.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     fileloader.h \
     object.h \
     filewriter.h \
-    mapsystem.h
+    mapsystem.h \
+    maptester.h
 
 FORMS    += mainwindow.ui
 

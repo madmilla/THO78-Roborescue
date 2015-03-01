@@ -1,18 +1,21 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include "mapsystem.h"
+#include "maptester.h"
 #include <iostream>
 #include <string>
 
 int main(int argc, char *argv[])
 {
-    if(argc > 1 && std::string(argv[1]) == "--test")
+    bool debug = true;
+    if(argc > 1 && std::string(argv[1]) == "--test" || debug)
     {
         std::cout << "Console\n";
         MapSystem * mapSystem = new MapSystem;
-
+        MapTester mapTester(mapSystem);
+        bool testsSucceeded = mapTester.runTests();
         delete mapSystem;
-        return 0;
+        return testsSucceeded;
     }
     else
     {

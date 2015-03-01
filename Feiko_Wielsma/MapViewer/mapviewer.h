@@ -7,13 +7,7 @@
 //std lib map for key value pair
 #include <map>
 
-enum class ObjectType {
-    Empty,
-    Wall,
-    Tree,
-    Quad,
-    ATV
-};
+
 
 class MapViewer : public QWidget
 {
