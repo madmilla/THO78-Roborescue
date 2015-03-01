@@ -7,10 +7,10 @@
 
 int main(int argc, char *argv[])
 {
-    bool debug = true;
+    bool debug = false;
     if(argc > 1 && std::string(argv[1]) == "--test" || debug)
     {
-        std::cout << "Console\n";
+        std::cout << "Test\n";
         MapSystem * mapSystem = new MapSystem;
         MapTester mapTester(mapSystem);
         bool testsSucceeded = mapTester.runTests();
