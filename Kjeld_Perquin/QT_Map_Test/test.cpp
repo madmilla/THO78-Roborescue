@@ -3,6 +3,11 @@
 #include "map.h"
 #include "tile.h"
 
+Test::Test():
+    errors(0)
+    {
+    }
+
 void Test::assert(bool testSucceeded, const std::string& testName)
 {
     std::cout << "TEST: " + testName << std::endl;
