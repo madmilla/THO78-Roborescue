@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-    if(argc == 1 && argv[0] == "--test")
+    if(argc > 1 && argv[1] == "--test")
     {
         std::cout << "Console\n";
         MapSystem * mapSystem = new MapSystem;
