@@ -4,11 +4,20 @@
 
 int main(int argc, char *argv[])
 {
-    MapSystem * mapSystem = new MapSystem;
-    QApplication a(argc, argv);
-    MainWindow w (mapSystem);
-    w.show();
-    delete mapSystem;
+    if(argc == 1 && argv[0] == "--test")
+    {
+        MapSystem * mapSystem = new MapSystem;
 
-    return a.exec();
-}
+        delete mapSystem;
+        return 0;
+    }
+    else
+    {
+        MapSystem * mapSystem = new MapSystem;
+        QApplication a(argc, argv);
+        MainWindow w (mapSystem);
+        w.show();
+        delete mapSystem;
+
+        return a.exec();
+    }
