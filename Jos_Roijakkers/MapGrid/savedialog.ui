@@ -39,14 +39,23 @@
     <string>Cancel</string>
    </property>
   </widget>
-  <widget class="QListWidget" name="listWidget">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>231</width>
-     <height>281</height>
+     <x>20</x>
+     <y>60</y>
+     <width>241</width>
+     <height>101</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Courier New</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Under Construction</string>
    </property>
   </widget>
  </widget>

@@ -23,8 +23,6 @@ private slots:
 
     void closeEvent (QCloseEvent *event);
 
-    void on_randomButton_clicked();
-
     void on_actionClear_triggered();
 
 

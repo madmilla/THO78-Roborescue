@@ -54,8 +54,3 @@ void MapWindow::closeEvent(QCloseEvent *event)
     MainWindow->setVisible(true);
 }
 
-void MapWindow::on_randomButton_clicked()
-{
-
-}
-
