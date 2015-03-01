@@ -6,7 +6,7 @@ class Logic
 public:
     Logic();
     ~Logic();
-    void helloWord();
+    void helloWorld();
 };
 
 #endif // LOGIC_H
