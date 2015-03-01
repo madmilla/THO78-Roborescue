@@ -5,7 +5,7 @@
 int main(int argc, char *argv[])
 {
     Logic logic;
-    delete logic;
+    logic.helloWord();
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

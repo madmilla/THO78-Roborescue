@@ -3,9 +3,13 @@
 
 Logic::Logic()
 {
-    std::cout << "Hello World!";
 }
 
-Logic::~Logic() {
+Logic::~Logic(void)
+{
+}
 
+void Logic::helloWord()
+{
+    std::cout << "Hello world!";
 }
