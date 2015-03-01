@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
         MapTester mapTester(mapSystem);
         bool testsSucceeded = mapTester.runTests();
         delete mapSystem;
-        return testsSucceeded;
+        return !testsSucceeded;
     }
     else
     {

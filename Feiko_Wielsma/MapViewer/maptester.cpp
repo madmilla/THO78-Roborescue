@@ -87,7 +87,7 @@ bool MapTester::runTests()
     if(testsSucceeded)
     {
         std::cout << "####################################\n" <<
-                     "All tests passed! Testing succesfull\n"
+                     "All tests passed! Testing succesful\n"
                      "####################################\n";
     }
     else
