@@ -21,11 +21,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void readFile(QString filename);
+    void writeFile(QString filename);
     void messages(QString type);
+    QString checkType(QString character);
 private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked(); //export to file "objects"
 
 private:
     Ui::MainWindow *ui;

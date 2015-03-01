@@ -55,10 +55,38 @@ void MainWindow::readFile(QString filename)
     }
 }
 
+void MainWindow::writeFile(QString filename)
+{
+    QFile output(filename);
+    output.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&output);
+    QString type;
+    for(int iY = 0; iY < MAX; iY++)
+    {
+        for(int iX = 0; iX < MAX; iX++)
+        {
+            type = checkType(objects[iX][iY]);
+            out << iX << "," << iY << ": " << type << endl;
+        }
+    }
+}
+
 void MainWindow::on_pushButton_clicked()
 {
      readFile("/home/owen/THO78-Roborescue/Owen_Hoogenboezem/mapping/test");
 }
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    messages("legend");
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    writeFile("/home/owen/THO78-Roborescue/Owen_Hoogenboezem/mapping/objects");
+}
+
+
 
 void MainWindow::paintEvent(QPaintEvent *)
 {
@@ -86,7 +114,27 @@ void MainWindow::paintEvent(QPaintEvent *)
     update();
 }
 
-void MainWindow::on_pushButton_2_clicked()
+
+
+QString MainWindow::checkType(QString character)
 {
-    messages("legend");
+    QString type;
+    if(character == GRAVEL)
+    {
+        type = "gravel";
+    }
+    else if(character == DIRT)
+    {
+        type = "dirt";
+    }
+    else if(character == ROCK)
+    {
+        type = "rock";
+    }
+    else if(character == WATER)
+    {
+        type = "water";
+    }
+    return type;
 }
+
