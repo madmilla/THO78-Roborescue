@@ -7,6 +7,7 @@ class Test
 public:
     Test();
     ~Test();
+    bool run();
 };
 
 #endif // TEST_H

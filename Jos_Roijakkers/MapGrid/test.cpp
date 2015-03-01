@@ -9,3 +9,8 @@ Test::~Test()
 {
 
 }
+
+bool Test::run()
+{
+    return false;
+}
