@@ -19,11 +19,27 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::messages(QString type)
+{
+    if(type == "error")
+    {
+        QMessageBox errorMsg(this);
+        errorMsg.setText("FILE NOT FOUND");
+        errorMsg.exec();
+    }
+    else if(type == "legend")
+    {
+        QMessageBox legend(this);
+        legend.setDetailedText("Black: rock\nBlue: water\nYellow: dirt\nRed: gravel");
+        legend.setText("mapping legend");
+        legend.exec();
+    }
+}
 
 void MainWindow::readFile(QString filename)
 {
     QFile file(filename);
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) { messages("error"); }
     QTextStream in(&file);
     cX = 0, cY = 0;
     while(!file.atEnd())
@@ -32,8 +48,9 @@ void MainWindow::readFile(QString filename)
         for(int i = 0; i < line.length(); i++)
         {
             character = line.at(i);
-            if(cX >= 20) { cX = 0; cY++; }
-            if(character == "x" || character == "o" || character == "d" || character == "-") { objects[cX][cY] = character; cX++;  }
+            character.remove("\n");
+            if(cX >= MAX) { cX = 0; cY++; }
+            if(character == GRAVEL || character == DIRT || character == ROCK || character == WATER) { objects[cX][cY] = character; cX++;  }
         }
     }
 }
@@ -46,22 +63,24 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    for(int iY = 0; iY < 20; iY++){
-        for(int iX = 0; iX < 20; iX++){
-            QRect rect(24*iX,10+(24*iY), 24, 24);
-            if(objects[iX][iY] == "x"){
-                painter.fillRect(rect,Qt::red);
+    for(int iY = 0; iY < MAX; iY++){
+        for(int iX = 0; iX < MAX; iX++){
+            QRect rect(CUBE * iX ,10+ (CUBE*iY), CUBE, CUBE);
+            QColor colour = Qt::white;
+            if(objects[iX][iY] == GRAVEL){
+                colour = Qt::red;
             }
-            else if(objects[iX][iY] == "o")
+            else if(objects[iX][iY] == DIRT)
             {
-                painter.fillRect(rect,Qt::yellow);
+                colour = Qt::yellow;
             }
-            else if(objects[iX][iY] == "d"){
-                painter.fillRect(rect,Qt::black);
+            else if(objects[iX][iY] == ROCK){
+                colour = Qt::black;
             }
-            else if(objects[iX][iY] == "-"){
-                painter.fillRect(rect,Qt::blue);
+            else if(objects[iX][iY] == WATER){
+                colour = Qt::blue;
             }
+            painter.fillRect(rect,colour);
         }
     }
     update();
@@ -69,8 +88,5 @@ void MainWindow::paintEvent(QPaintEvent *)
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    QMessageBox legend(this);
-    legend.setDetailedText("Black: rock\nBlue: water\nYellow: dirt\nRed: gravel");
-    legend.setText("mapping legend");
-    legend.exec();
+    messages("legend");
 }
