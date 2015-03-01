@@ -51,7 +51,9 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionNew_Grid_triggered()
 {
-    //this->setVisible(false);
+    Map* newMap = new Map();
+    mpWindow->setMap(newMap);
+    this->setVisible(false);
 }
 
 void MainWindow::on_actionLoad_triggered()
