@@ -3,11 +3,12 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <iostream>
+#include <string>
 
 int main(int argc, char *argv[])
 {
     MappingLogic mappinglogic;
-    if(argc > 1 && std::strcmp("-test",argv[1]) == 0)
+    if(argc > 1 && strcmp("-test",argv[1]) == 0)
     {
         //Test 1
         //setting tiles and saving them
