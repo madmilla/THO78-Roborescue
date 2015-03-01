@@ -1,7 +1,8 @@
 #include "mapProcessor.h"
 
 mapProcessor::mapProcessor() {
-
+    mapScene = new QGraphicsScene();
+    legendScene = new QGraphicsScene();
 }
 
 mapProcessor::~mapProcessor() {
@@ -12,13 +13,19 @@ bool mapProcessor::processMap(QString mapFile, QGraphicsView* map, QGraphicsView
     QFile file(mapFile);
     char **mapArray;
 
-    QGraphicsScene *mapScene = new QGraphicsScene();
+    mapScene->clear();
     map->setScene(mapScene);
-    QGraphicsScene *legendScene = new QGraphicsScene();
+    legendScene->clear();
     legend->setScene(legendScene);
 
     uint charsPerString = 20;
     uint totalStrings = 20;
+
+    rectangles.clear();
+    for (uint i = 0; i < totalStrings; i++)
+        rectangles[i].resize(charsPerString);
+
+    rectangles.resize(totalStrings);
 
     int quadcopterCount = 0;
     int targetCount = 0;
@@ -42,6 +49,7 @@ bool mapProcessor::processMap(QString mapFile, QGraphicsView* map, QGraphicsView
             }
         }
     }
+
     else { //Processes a map file that isn't empty
         for (uint i = 0; i < charsPerString; i++) {
             QString str = file.readLine();
@@ -64,6 +72,7 @@ bool mapProcessor::processMap(QString mapFile, QGraphicsView* map, QGraphicsView
 
     //Closes the map file
     file.close();
+    qDebug() << "Done processing file!";
 
     //Draw the map and legend
     for (uint i = 0; i < charsPerString; i++) {
@@ -101,50 +110,49 @@ bool mapProcessor::processMap(QString mapFile, QGraphicsView* map, QGraphicsView
                     rect->setBrush(QBrush(Qt::cyan, Qt::CrossPattern));
                     break;
             }
-
-            mapScene->addItem(rect);
+            rectangles[i][j] = rect;
+            qDebug() << "Added a rectangle to the vector!";
+        }
+    }
+    //Draw the map and legend
+    for (uint i = 0; i < charsPerString; i++) {
+        for (ulong j = 0; j < totalStrings; j++) {
+            mapScene->addItem(rectangles[i][j]);
         }
     }
 
-    /*
     QFont font;
     font.setPixelSize(10);
     font.setBold(true);
     font.setFamily("Calibri");
 
-    QPainterPath quadText;
     QString quadString = QString("Quadcopters: %1").arg(quadcopterCount);
     quadText.addText(10, 10, font,  quadString);
     legendScene->addPath(quadText, QPen(QBrush(Qt::red), 1), QBrush(Qt::red));
 
-    QPainterPath targetText;
     QString targetString = QString("Targets: %1").arg(targetCount);
     targetText.addText(10, 40, font,  targetString);
     legendScene->addPath(targetText, QPen(QBrush(Qt::yellow), 1), QBrush(Qt::yellow));
 
-    QPainterPath rosbeeText;
     QString rosbeeString = QString("Rosbees: %1").arg(rosbeeCount);
     rosbeeText.addText(10, 70, font,  rosbeeString);
     legendScene->addPath(rosbeeText, QPen(QBrush(Qt::green), 1), QBrush(Qt::green));
 
-    QPainterPath uatvText;
     QString uatvString = QString("Unmanned ATVs: %1").arg(uatvCount);
     uatvText.addText(10, 100, font,  uatvString);
     legendScene->addPath(uatvText, QPen(QBrush(Qt::blue), 1), QBrush(Qt::blue));
 
-    QPainterPath obstacleText;
     QString obstacleString = QString("Obstacles: %1").arg(obstacleCount);
     obstacleText.addText(10, 130, font,  obstacleString);
     legendScene->addPath(obstacleText, QPen(QBrush(Qt::black), 1), QBrush(Qt::black));
-    */
 
     for (uint i = 0; i < totalStrings; i++)
         free(mapArray[i]);
 
     free(mapArray);
 
-    map->show();
-    legend->show();
+    //map->show();
+    //legend->show();
     qDebug() << "Finished processing!";
     return true;
 }

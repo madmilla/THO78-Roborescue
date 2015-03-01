@@ -5,6 +5,7 @@
 #include <QString>
 #include <QFileDialog>
 #include "mapProcessor.h"
+#include <QThread>
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,7 @@ private slots:
     void openFile();
 
 private:
+    mapProcessor m;
     Ui::MainWindow *ui;
     QString mapFile;
 };
