@@ -3,19 +3,18 @@
 
 #include <QPalette>
 #include <QWidget>
-#include <QLabel>
+#include <QTableWidgetItem>
+#include "map.h"
 
 class GridPart
 {
 public:
-    GridPart(unsigned int data, QWidget * parent);
+    GridPart(unsigned int data);
 
-    QWidget * getWidget(){
-        return &widget;
-    }
+    QTableWidgetItem * getWidget();
+
+    static void changeData(unsigned int newData, QTableWidgetItem * twi);
 private:
-    QPalette palette;
-    QLabel widget;
     QColor normalColor;
 };
 
