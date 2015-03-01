@@ -1,6 +1,7 @@
 #include "map.h"
 #include <iostream>
 #include <fstream>
+#include <stdexcept>
 
 Map::Map()
 {
@@ -18,11 +19,26 @@ Map::~Map()
 
 int Map::get(int x, int y)
 {
+    if(x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT ){
+        throw std::invalid_argument("Index out of bounce");
+    }
     return objectMatrix[x][y];
 }
 
 void Map::set(int x, int y, int value)
 {
+    if(x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT ){
+        throw std::invalid_argument("Index out of bounce");
+    }
+    bool found = false;
+    for(int i = 0; i < ALLOWED_VALUES.length; i++){
+        if(value == ALLOWED_VALUES[i]){
+            found = true;
+        }
+    }
+    if(!found){
+        throw std::invalid_argument("Incorrect value given");
+    }
     objectMatrix[x][y] = value;
 }
 
