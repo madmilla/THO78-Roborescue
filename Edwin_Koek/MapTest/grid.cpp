@@ -10,7 +10,7 @@ Grid::Grid():
                {TileType::Undefined,Qt::white}})
 {}
 
-const void Grid::load(const QString path){
+void Grid::load(const QString path){
     if(!path.isNull()){
         m_image = QImage(path);
         m_gridSize = {float(m_image.size().width()),float(m_image.size().height())};
@@ -27,14 +27,10 @@ const void Grid::load(const QString path){
     }
 }
 
-const void Grid::save(const QString path){
+void Grid::save(const QString path){
     if(!path.isNull()){
         m_image.save(path);
     }
-}
-
-const void Grid::placeDrone(){
-
 }
 
 Tile *Grid::tileAt(QVector2D tilePos){
@@ -91,17 +87,17 @@ void Grid::draw(QPainter& painter){
     }
 }
 
-const void Grid::selectTile(Tile* tile){
+void Grid::selectTile(Tile* tile){
     m_selectedTile = tile;
 }
 
-const void Grid::setStartTile(){
+void Grid::setStartTile(){
     if(m_selectedTile->getTileType() == TileType::Walkable){
         m_droneStartTile = m_selectedTile;
     }
 }
 
-const void Grid::colorTile(QColor color){
+void Grid::colorTile(QColor color){
     if(m_selectedTile != nullptr){
         m_selectedTile->setTileColor(color);
         m_selectedTile->setTileType(colorToType(color));
@@ -114,7 +110,7 @@ const void Grid::colorTile(QColor color){
     }
 }
 
-const void Grid::newCleanGrid(QVector2D gridSize){
+void Grid::newCleanGrid(QVector2D gridSize){
     m_image = QImage(int(gridSize.x()),int(gridSize.y()),QImage::Format_ARGB32);
     m_image.fill(Qt::white);
     m_gridSize = gridSize;

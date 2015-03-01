@@ -33,19 +33,19 @@ Window::Window(Grid& grid):
     this->layout()->setMenuBar(m_menuBar);
 }
 
-const void Window::load(){
+void Window::load(){
     QString path = QFileDialog::getOpenFileName(0,"Select map","","Images (*.png *.xpm *.jpg)");
     m_grid.load(path);
 }
 
-const void Window::create(){
+void Window::create(){
     QVector2D newSize({float(QInputDialog::getInt(this,"Grid width","Width:")),
                       float(QInputDialog::getInt(this,"Grid height","Height:"))});
     m_grid.newCleanGrid(newSize);
     update();
 }
 
-const void Window::save(){
+void Window::save(){
     QString path = QFileDialog::getSaveFileName(0,"Save map","","Images (*.png *.xpm *.jpg)");
     m_grid.save(path);
 }
@@ -86,9 +86,6 @@ void Window::keyPressEvent(QKeyEvent * keyEvent){
         update();
     }else if(keyEvent->key() == Qt::Key::Key_S){
         m_grid.setStartTile();
-        update();
-    }else if(keyEvent->key() == Qt::Key::Key_D){
-        m_grid.placeDrone();
         update();
     }
 }

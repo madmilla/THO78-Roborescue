@@ -12,9 +12,9 @@ class QAction;
 class Window : public QWidget {
 public:
     Window(Grid &grid);
-    const void load();
-    const void create();
-    const void save();
+    void load();
+    void create();
+    void save();
 protected:
     void paintEvent(QPaintEvent *) override;
     void mousePressEvent(QMouseEvent *) override;

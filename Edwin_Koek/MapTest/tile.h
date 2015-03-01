@@ -19,7 +19,6 @@ public:
     void drawTile(QPainter& painter, bool selected = false, bool startTile = false);
     QVector2D getPosition();
     TileType getTileType();
-    const void setSelected();
     void setTileType(TileType type);
     void setTileColor(QColor color);
 private:

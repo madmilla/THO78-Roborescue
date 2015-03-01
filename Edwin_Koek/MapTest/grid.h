@@ -11,10 +11,8 @@ using namespace std;
 class Grid{
 public:
     Grid();
-    const void load(const QString path);
-    const void save(const QString path);
-
-    const void placeDrone();
+    void load(const QString path);
+    void save(const QString path);
 
     Tile* tileAt(QVector2D tilePos);
     const Tile* tileAt(QVector2D tilePos) const;
@@ -25,10 +23,10 @@ public:
     const QVector2D getGridSize();
     Tile* getStartTile();
     void draw(QPainter& painter);
-    const void selectTile(Tile *tile);
-    const void setStartTile();
-    const void colorTile(QColor color);
-    const void newCleanGrid(QVector2D gridSize);
+    void selectTile(Tile *tile);
+    void setStartTile();
+    void colorTile(QColor color);
+    void newCleanGrid(QVector2D gridSize);
 
     const TileType colorToType(QColor color);
     const QColor typeToColor(TileType type);
