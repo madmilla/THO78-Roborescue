@@ -22,6 +22,7 @@ private:
     Cell::TERRAINTYPE currentType;
 
 
+
 private slots:
     void currentCellChanged(int currentRow, int currentColumn);
     void on_isGrass_toggled(bool checked);

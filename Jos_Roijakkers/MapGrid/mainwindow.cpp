@@ -8,6 +8,10 @@
 #include <QFileDialog>
 #include <QString>
 #include <QMessageBox>
+#include <iostream>
+#include <fstream>
+#include "map.h"
+#include "displaymap.h"
 
 
 
@@ -54,11 +58,18 @@ void MainWindow::on_actionNew_Grid_triggered()
 
 void MainWindow::on_actionLoad_triggered()
 {
-    filename = QFileDialog::getOpenFileName(this, tr("open map"), QString(), tr("Map File (*.map);;All Files(*)"));
+    filename = QFileDialog::getOpenFileName(this, tr("Load"), QString(), tr("All Files (*)"));
     if (!filename.isEmpty())
     {
-     //  std::ifstream mapFile;
-     //  mapFile.open(filename.toStdString());
+       std::ifstream mapFile;
+       mapFile.open(filename.toStdString().c_str());
+
+       if(mapFile)
+       {
+           Map* newMap = new Map();
+           mapFile >> *newMap;
+           mapFile.close();
+       }
     }
 }
 

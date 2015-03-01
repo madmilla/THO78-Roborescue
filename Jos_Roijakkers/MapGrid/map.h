@@ -12,6 +12,7 @@ public:
     ~Map();
     Cell* getCell(int row, int column);
     void setActiveCell(int, int);
+    friend std::istream& operator>>(std::istream& stream, Map& map);
 private:
     std::vector<Cell> cells;
     Cell* activeCell;

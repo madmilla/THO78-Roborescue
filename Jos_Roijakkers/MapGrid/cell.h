@@ -32,6 +32,7 @@ public:
     void removeVehicle(VEHICLETYPE Vehicle);
     void clearTile();
     friend std::ostream& operator<<(std::ostream& stream,Cell& cell);
+    friend std::istream& operator>>(std::istream& stream, Cell& cell);
 private:
     bool QuadcopterPresent;
     bool ATVPresent;

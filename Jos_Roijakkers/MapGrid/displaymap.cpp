@@ -85,11 +85,9 @@ void DisplayMap::on_isGrass_toggled(bool checked)
 {
     if(checked){
         currentType = Cell::TERRAINTYPE::GRASS;
-        currentcell->setTerrainType(currentType);
     }
     else{
         currentType = Cell::TERRAINTYPE::EMPTY;
-        currentcell->setTerrainType(currentType);
     }
 }
 
@@ -97,11 +95,9 @@ void DisplayMap::on_isDirt_toggled(bool checked)
 {
     if(checked){
         currentType = Cell::TERRAINTYPE::DIRT;
-        currentcell->setTerrainType(currentType);
     }
     else{
         currentType = Cell::TERRAINTYPE::EMPTY;
-        currentcell->setTerrainType(currentType);
     }
 }
 
@@ -109,11 +105,9 @@ void DisplayMap::on_isConcrete_toggled(bool checked)
 {
     if(checked){
         currentType = Cell::TERRAINTYPE::CONCRETE;
-        currentcell->setTerrainType(currentType);
     }
     else{
         currentType = Cell::TERRAINTYPE::EMPTY;
-        currentcell->setTerrainType(currentType);
     }
 }
 
@@ -121,11 +115,9 @@ void DisplayMap::on_isWater_toggled(bool checked)
 {
     if(checked){
         currentType = Cell::TERRAINTYPE::WATER;
-        currentcell->setTerrainType(currentType);
     }
     else{
         currentType = Cell::TERRAINTYPE::EMPTY;
-        currentcell->setTerrainType(currentType);
     }
 }
 
@@ -133,11 +125,10 @@ void DisplayMap::on_isEmpty_toggled(bool checked)
 {
     if(checked){
         currentType = Cell::TERRAINTYPE::EMPTY;
-        currentcell->setTerrainType(currentType);
     }
     else{
         currentType = Cell::TERRAINTYPE::EMPTY;
-        currentcell->setTerrainType(currentType);
     }
 }
+
 

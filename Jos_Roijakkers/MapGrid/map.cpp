@@ -1,5 +1,5 @@
 #include "map.h"
-
+#include "displaymap.h"
 
 Map::Map()
 {
@@ -20,6 +20,18 @@ Cell *Map::getCell(int row, int column)
 void Map::setActiveCell(int row, int column)
 {
     activeCell = getCell(row,column);
+}
+
+std::istream& operator>>(std::istream& stream, Map& map)
+{
+    for(int column = 0; column < columns; column++){
+        for(int row = 0; row < rows; row++){
+            Cell cells;
+            stream >> cells;
+            map.cells.push_back(cells);
+        }
+    }
+    return stream;
 }
 
 

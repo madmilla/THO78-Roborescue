@@ -81,7 +81,35 @@ void Cell::clearTile()
     RosbeePresent = false;
 }
 
-std::ostream& operator<<(std::ostream &stream, Cell& cell)
+std::istream& operator>>(std::istream& stream, Cell& cell)
+{
+    std::string type;
+    int quadPresent = 0;
+    stream >> type >> quadPresent;
+    if(type.compare("GRASS"))
+    {
+        cell.setTerrainType(Cell::TERRAINTYPE::GRASS);
+    }
+    else if(type.compare("CONRETE"))
+    {
+        cell.setTerrainType(Cell::TERRAINTYPE::CONCRETE);
+    }
+    else if(type.compare("WATER"))
+    {
+        cell.setTerrainType(Cell::TERRAINTYPE::WATER);
+    }
+    else if(type.compare("DIRT"))
+    {
+        cell.setTerrainType(Cell::TERRAINTYPE::DIRT);
+    }
+    else if (type.compare("EMPTY"))
+    {
+        cell.setTerrainType(Cell::TERRAINTYPE::EMPTY);
+    }
+    return stream;
+}
+
+std::istream& operator<<(std::istream &stream, Cell& cell)
 {
     return stream;
 }
