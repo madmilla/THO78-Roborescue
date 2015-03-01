@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
 		map->get(20, 2);
         std::cout << "FAILURE EXCEPTION :(";
         return -1;
-	}catch(exception &e){
+    }catch(int e){
 		
 	}
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]){
 		map->set(2, 2, 3);
         std::cout << "FAILURE EXCEPTION 2 :(";
         return -1;
-	}catch(exception &e){
+    }catch(int e){
 		
 	}
 
