@@ -6,6 +6,9 @@ enum class terreinTypen { //selecteer het typen wat je ter plekken nodig hebt
     water,
     concrete,
     green,
+    quad,
+    rosbee,
+    atv,
     none
 };
 

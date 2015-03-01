@@ -115,12 +115,12 @@
      <rect>
       <x>700</x>
       <y>230</y>
-      <width>111</width>
+      <width>161</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Concrete object</string>
+     <string>Concrete object (black)</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="RadioQuad">
@@ -128,12 +128,12 @@
      <rect>
       <x>700</x>
       <y>140</y>
-      <width>82</width>
+      <width>131</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>QuadCopter</string>
+     <string>QuadCopter (magenta)</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="RadioATV">
@@ -146,7 +146,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>ATV</string>
+     <string>ATV (red)</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="RadioRosbee">
@@ -154,12 +154,12 @@
      <rect>
       <x>700</x>
       <y>200</y>
-      <width>82</width>
+      <width>161</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Rosbee</string>
+     <string>Rosbee (yellow)</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="RadioGreen">
@@ -167,12 +167,12 @@
      <rect>
       <x>700</x>
       <y>260</y>
-      <width>111</width>
+      <width>141</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Grass object</string>
+     <string>Grass object (Green)</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="RadioWater">
@@ -180,12 +180,12 @@
      <rect>
       <x>700</x>
       <y>290</y>
-      <width>82</width>
+      <width>131</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Water object</string>
+     <string>Water object (blue)</string>
     </property>
    </widget>
   </widget>

@@ -33,6 +33,18 @@ QTableWidgetItem * cells::formatCell()
             item->setBackground(Qt::green);
         break;
 
+        case(terreinTypen::quad):
+        item->setBackground(Qt::magenta);
+        break;
+
+        case(terreinTypen::rosbee):
+        item->setBackground(Qt::yellow);
+        break;
+
+        case(terreinTypen::atv):
+        item->setBackground(Qt::red);
+        break;
+
         case(terreinTypen::none):
 
         break;

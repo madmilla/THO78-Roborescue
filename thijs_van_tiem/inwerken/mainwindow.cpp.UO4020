@@ -47,8 +47,8 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionSave_triggered()
 {
     qDebug() << "Save pressed \n";
-    //QString name = QFileDialog::getSaveFileName(this, tr("Save file"), QString(), tr("Data (*.dat)"));
-    //savefile(name);
+    QString name = QFileDialog::getSaveFileName(this, tr("Save file"), QString(), tr("Data (*.dat)"));
+    savefile(name);
 }
 
 void MainWindow::on_actionLoad_triggered()
@@ -150,20 +150,20 @@ void MainWindow::on_RadioWater_clicked(bool checked)
     ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activemap->getcel(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
 }
 
-void MainWindow::savefile(const QString &name)
+/*void save::savefile(const QString &name)
 {
-    //QFile Filename(name);
-    //if (Filename.open(QIODevice::WriteOnly | QIODevice::Text)){
-        //QTextStream out(&Filename);
-        //for(int r=0; r< ui->grid->rowCount(); ++r){
-            //for(int k=0 k < ui->grid->colomCount(); ++c){
-                //out <<(int)activemap->getcel(r,k)->;
-            //
-        //}
+    QFile Filename(name);
+    if (Filename.open(QIODevice::WriteOnly | QIODevice::Text)){
+        QTextStream out(&Filename);
+        for(int r=0; r< ui->grid->rowCount(); ++r){
+            for(int k=0; k < ui->grid->colomCount(); ++c){
+                out <<(int)activemap->getcel(r,k)->omgeving;
+            }
+        }
 
 
 
-    //}
+    }*/
 
 
 }
