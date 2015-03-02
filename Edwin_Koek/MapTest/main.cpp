@@ -93,14 +93,14 @@ int main()
 
     cout << "Loading good map..." << endl;
 
-    grid.load("debug/goodtestmap.png");
+    grid.load("maps/goodtestmap.png");
     testMap(grid,"Good map",277,31,88,4,0);
 
     cout << endl << endl;
 
     cout << "Loading bad map..." << endl;
 
-    grid.load("debug/badtestmap.png");
+    grid.load("maps/badtestmap.png");
     testMap(grid,"Bad map",0,0,10,0,1540);
 
     cout << endl << endl;
@@ -133,7 +133,7 @@ int main()
     grid.load("debug/goodtestmap.png");
     cout << "Loading clean 20x20 map..." << endl;
 
-    grid.load("debug/newcleanmap.png");
+    grid.load("maps/newcleanmap.png");
     testMap(grid,"Edited 20x20 map",1,1,1,1,396);
 
 }
