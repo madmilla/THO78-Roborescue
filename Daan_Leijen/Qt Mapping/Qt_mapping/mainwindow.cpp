@@ -21,7 +21,12 @@ void MainWindow::exit() { //Close the main window, exiting the program.
 void MainWindow::openFile() { //Opens a file dialog, passes selected file to mapProcessor
     QFileDialog fileDialog;
     mapFile = fileDialog.getOpenFileName(this,tr("Open map file"), "/", tr("Text files (*.txt)"));
-    if (!mapFile.isEmpty()) {
-        m.processMap(mapFile, ui->mapView, ui->legendView);
+    if(m.processMap(mapFile, ui->mapView, ui->legendView)){
+        ui->mapView->update();
+        qDebug() << "map updated!";
+        ui->mapView->show();
+        ui->legendView->update();
+        qDebug() << "legend updated!";
+        ui->legendView->show();
     }
 }

@@ -15,6 +15,9 @@ private:
     std::vector<std::string> dataNames;
 
     static const int UISize = 4;
+
+    Map(const Map&) = delete;
+    Map & operator=(const Map&) = delete;
 public:
     Map(std::string filename);
     ~Map();

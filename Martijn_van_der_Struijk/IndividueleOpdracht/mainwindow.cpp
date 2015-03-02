@@ -35,13 +35,38 @@ void MainWindow::on_actionNew_triggered()
 void MainWindow::on_actionSave_triggered()
 {
     saveFile = QFileDialog::getSaveFileName(this, tr("Save file"), QString(), tr("Data (*.txt)"));
-    savefile(saveFile);
+    activemap->saveFile(saveFile);
 
 }
 
 void MainWindow::on_actionLoad_triggered()
 {
-    loadFile();
+    fileName = QFileDialog::getOpenFileName(this, ("Open File"), NULL, ("Data (*.txt)"));
+    activemap->loadFile(fileName);
+      for (int r = 0; r < ui->grid->rowCount() ; ++r){
+          for( int c = 0; c < ui->grid->columnCount() ; ++c ){
+          int i = (int)activemap->getcel(r,c)->t;
+
+          ui->grid->setItem(r,c,activeGrid->terrainTypeInt(i));
+          if(i==3){
+              quadCopter = true;
+              quadX = r;
+              quadY = c;
+          }
+          else if(i==4){
+              rosbee = true;
+              rosbeeX= r;
+              rosbeeY=c;
+          }
+
+          else if(i==5){
+              atv = true;
+              atvX = r;
+              atvY = c;
+          }
+          }
+
+      }
 
 }
 
@@ -149,58 +174,9 @@ void MainWindow::on_None_on_clicked(bool checked)
 
 
 
-void MainWindow::savefile(const QString &name)
-{
-    QFile file(name);
-
-    if (file.open(QFile::WriteOnly))
-    {
-        QTextStream data( &file );
-        for (int r = 0; r < ui->grid->rowCount(); ++r){
-            for( int c = 0; c < ui->grid->columnCount(); ++c ){
-                data << (int)activemap->getcel(r,c)->t << " ";
-                std::cout << (int)activemap->getcel(r,c)->t;
-            }
-        }
-      file.close();
-    }
-}
 
 
-void MainWindow::loadFile()
-{
 
-      fileName = QFileDialog::getOpenFileName(this, ("Open File"), NULL, ("Data (*.txt)"));
-      std::ifstream loadFile;
-      loadFile.open(fileName.toStdString().c_str());
-      if(loadFile){
-        for (int r = 0; r < ui->grid->rowCount() ; ++r){
-            for( int c = 0; c < ui->grid->columnCount() ; ++c ){
-            int i;
-            loadFile >> i;
-            ui->grid->setItem(r,c,activeGrid->terrainTypeInt(i));
-            if(i==3){
-                quadCopter = true;
-                quadX = r;
-                quadY = c;
-            }
-            else if(i==4){
-                rosbee = true;
-                rosbeeX= r;
-                rosbeeY=c;
-            }
-
-            else if(i==5){
-                atv = true;
-                atvX = r;
-                atvY = c;
-            }
-            }
-
-        }
-
-     }
-}
 
 
 

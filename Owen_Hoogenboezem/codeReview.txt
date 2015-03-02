@@ -1,0 +1,42 @@
+Code review
+Code van Owen Hoogenboezem
+Reviewd door Thomas Fink
+
+File mainwindow.cpp
+Klasse MainWindow
+
+QString line = in.readAll();
+for(int i = 0; i < line.length(); i++)
+{
+	character = line.at(i);
+	character.remove("\n");
+	if(cX >= MAX) { cX = 0; cY++; }
+	if(character == GRAVEL || character == DIRT || character == ROCK || character == WATER) { objects[cX][cY] = character; cX++;  }
+}
+
+Je probeert hier op elke char "\n" te verwijderen, dit is een beetje vreemd.
+
+cX = 0, cY = 0;
+Deze zijn in de header gedefineerd maar worden alleen in de functie "readFile" gebruikt, dit is dus overbodig.
+
+void MainWindow::on_pushButton_clicked()
+{
+     readFile("/home/owen/THO78-Roborescue/Owen_Hoogenboezem/mapping/test");
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    messages("legend");
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    writeFile("/home/owen/THO78-Roborescue/Owen_Hoogenboezem/mapping/objects");
+}
+
+De namen van deze bovenstaande functies zijn niet heek duidelijk over wat ze doen.
+Ook zijn de files paths gehardcode, ik zou dit persoonlijk niet doen.
+
+QString MainWindow::checkType(QString character)
+
+Een string de naam character geven is een beetje misleidend.

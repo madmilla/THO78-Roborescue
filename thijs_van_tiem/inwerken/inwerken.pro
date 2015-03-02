@@ -14,12 +14,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    base.cpp \
     map.cpp \
     cells.cpp
 
 HEADERS  += mainwindow.h \
-    base.h \
     map.h \
     cells.h
 

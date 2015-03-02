@@ -58,7 +58,7 @@
      <string>Exit</string>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="mapView">
+   <widget class="drawArea" name="mapView">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -80,7 +80,7 @@
      <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="legendView">
+   <widget class="drawArea" name="legendView">
     <property name="geometry">
      <rect>
       <x>500</x>
@@ -127,6 +127,13 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>drawArea</class>
+   <extends>QGraphicsView</extends>
+   <header>drawarea.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

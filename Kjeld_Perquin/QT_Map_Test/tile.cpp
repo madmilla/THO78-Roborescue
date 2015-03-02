@@ -34,6 +34,11 @@ void Tile::setTerrainType(TERRAIN_TYPE type)
     }
 }
 
+Tile::TERRAIN_TYPE Tile::getTerrainType()
+{
+    return terrainType;
+}
+
 void Tile::addVehicle(VEHICLE_TYPE type)
 {
     switch(type)
@@ -48,6 +53,21 @@ void Tile::addVehicle(VEHICLE_TYPE type)
         ATVPresent = true;
         break;
     }
+}
+
+bool Tile::isQuadcopterPresent()
+{
+    return quadcopterPresent;
+}
+
+bool Tile::isRosbeePresent()
+{
+    return rosbeePresent;
+}
+
+bool Tile::isATVPresent()
+{
+    return ATVPresent;
 }
 
 void Tile::removeVehicle(VEHICLE_TYPE type)

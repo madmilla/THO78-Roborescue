@@ -1,0 +1,20 @@
+
+*.stash
+
+*.o
+
+*.user
+
+*.o
+
+*.o
+
+*.plist
+
+Daan_Leijen/Qt Mapping/build-Qt_mapping-Desktop_Qt_5_4_1_clang_64bit-Debug/Qt_mapping.app/Contents/PkgInfo
+
+Daan_Leijen/Qt Mapping/build-Qt_mapping-Desktop_Qt_5_4_1_clang_64bit-Debug/Qt_mapping.app/Contents/MacOS/Qt_mapping
+
+*.lproj
+
+Daan_Leijen/Qt Mapping/build-Qt_mapping-Desktop_Qt_5_4_1_clang_64bit-Debug/Makefile

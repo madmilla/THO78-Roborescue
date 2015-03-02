@@ -46,13 +46,11 @@ private:
     Ui::Map *ui;
     std::vector<QString> map;
     void paintEvent(QPaintEvent* e);
-    void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void addImage(const QString & name);
     std::vector<QPixmap> images;
     Objects selected_object;
     bool edit_mode;
-    bool isLeft, isRight;
 };
 
 #endif // MAP_H

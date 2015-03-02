@@ -3,7 +3,8 @@
 
 Map::Map(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Map)
+    ui(new Ui::Map),
+    edit_mode { false}
 {
     ui->setupUi(this);
 
@@ -18,7 +19,6 @@ Map::Map(QWidget *parent) :
     ui->muur->setEnabled(false);
     ui->plant->setEnabled(false);
     ui->tafel->setEnabled(false);
-    edit_mode = false;
 }
 
 Map::~Map()
@@ -75,14 +75,8 @@ void Map::paintEvent(QPaintEvent* e) {
     update();
 }
 
-void Map::mousePressEvent(QMouseEvent *event)
-{
-    isLeft = event->button() == Qt::LeftButton;
-    isRight = event->button() == Qt::RightButton;
-}
-
- void Map::mouseMoveEvent(QMouseEvent *event) {
-     if(edit_mode && (isLeft || isRight)) {
+void Map::mouseMoveEvent(QMouseEvent *event) {
+     if(edit_mode) {
          const int grootte = 480/static_cast<int>(map.size());
 
          int x = event->pos().x();

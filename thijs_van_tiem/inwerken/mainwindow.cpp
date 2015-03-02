@@ -180,6 +180,7 @@ void MainWindow::loadFile()
                 int i;
                 loadFile >> i;
                 std::cout << i;
+                activemap->getcel(r,c)->omgeving = (terreinTypen)i;
                 ui->tableWidget->setItem(r,c,activecell->formatCellLoad(i));
             }
         }

@@ -95,37 +95,7 @@ void  cells::changeTerrein(terreinTypen typen){
     omgeving = typen;
 }
 
-void cells::toggleQuad()
-{
-    if(quadPresent){
-        quadPresent = false;
-    }
-    else{
-        quadPresent = true;
-    }
-}
 
-void cells::toggleAtv()
-{
-    if(atvPresent){
-        atvPresent = false;
-    }
-    else{
-       atvPresent = true;
-    }
-
-}
-
-void cells::toggleRosbee()
-{
-    if(rosbeePresent){
-        rosbeePresent = false;
-    }
-    else{
-        rosbeePresent = true;
-    }
-
-}
 
 
 // iedere cel eigen identiteit (kleur)
