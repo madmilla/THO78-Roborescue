@@ -1,6 +1,8 @@
 
 #include "gridpart.h"
-#include <iostream>
+//#include <iostream>
+//#include <QtGlobal>
+//#include <QDebug>
 
 struct colorStruct{
     unsigned char R, G, B, none;
@@ -34,7 +36,11 @@ GridPart::GridPart(unsigned int data){
         else if(dataColor > 8 * 2) dataColor -= 2;
         else if(dataColor > 8) dataColor -= 1;
         dataColor -= 1;
-        normalColor = QColor::fromHsv(360 / 28 * dataColor, 255, 255);
+        if(dataColor % 2){
+           normalColor = QColor::fromHsv(360 / 28 * dataColor, 255, 128);
+        }else{
+           normalColor = QColor::fromHsv(360 / 28 * dataColor, 128, 255);
+        }
     }
 }
 
@@ -68,7 +74,15 @@ void GridPart::changeData(unsigned int newData,  QTableWidgetItem * twi){
          else if(dataColor > 8 * 2) dataColor -= 2;
          else if(dataColor > 8) dataColor -= 1;
          dataColor -= 1;
-         normalColor = QColor::fromHsv(360 / 28 * dataColor, 255, 255);
+         if(dataColor % 2){
+            normalColor = QColor::fromHsv(360 / 28 * dataColor, 255, 128);
+         }else{
+            normalColor = QColor::fromHsv(360 / 28 * dataColor, 128, 255);
+         }
      }
+     //int h,s,v;
+     //normalColor.getHsv(&h, &s, &v);
+     //qDebug() << h << '/' << s << '/' << v << '\n';
+
     twi->setBackgroundColor(normalColor);
 }
