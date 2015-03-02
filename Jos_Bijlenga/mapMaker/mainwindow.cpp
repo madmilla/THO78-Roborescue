@@ -1,30 +1,60 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <qmessagebox.h>
+#include "maplogic.h"
+#include <QCursor>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    logic = new mapLogic(this);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete logic;
 }
 
-void MainWindow::on_actionLoad_2_triggered(){
-    std::cout << "hoihoihoi";
-}
-
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_actionOpen_triggered()
 {
-    QString filename = QFileDialog::getOpenFileName(
-                this,
-                tr("Open map file"),
-                "C://",
-                "Map file (*.map)"
-                );
-    QMessageBox::information(this, tr(""), filename);
+    logic->openFile();
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+
+}
+
+void MainWindow::on_actionNew_triggered()
+{
+
+}
+
+void MainWindow::paintEvent(QPaintEvent *e){
+    QPainter painter(this);
+
+    //FillRect background(0, 0, 400, 300, Qt::white);
+    painter.fillRect(0, 20, 400, 320, Qt::white);
+
+    QPen gridPen(Qt::black);
+    int cellWidth = 20;
+    int cellHeight = 15;
+
+    painter.setPen(gridPen);
+    //Draw vertical lines
+    for(int i = 0; i < 20; i++){
+        painter.drawLine(i*cellWidth, 0, i*cellWidth, 320);
+    }
+    //Draw horizontal lines
+    for(int i = 0; i < 20; i++){
+        painter.drawLine(0, i*cellHeight+20, 400, i*cellHeight+20);
+    }
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *e){
+    QPoint mPos = e->pos();
+    std::cout << QString::number(mPos.x()).toUtf8().constData() << "; " << QString::number(mPos.y()).toUtf8().constData() << "\n";
+    logic->mouseClicked(mPos);
 }

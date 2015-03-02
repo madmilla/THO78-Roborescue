@@ -1,15 +1,17 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "maplogic.h"
 #include <iostream>
 #include <QMainWindow>
 #include <QtGui>
-#include <QFileDialog>
+#include <QDialog>
+#include <QtCore>
+#include <QCursor>
 
 namespace Ui {
 class MainWindow;
 }
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -19,12 +21,17 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_actionOpen_triggered();
+    void on_actionSave_triggered();
+    void on_actionNew_triggered();
 
 private:
     Ui::MainWindow *ui;
-    QFileDialog *fDialog;
-    void on_actionLoad_2_triggered();
+    mapLogic * logic;
+
+protected:
+    void paintEvent(QPaintEvent *e);
+    void mousePressEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 };
 
 #endif // MAINWINDOW_H

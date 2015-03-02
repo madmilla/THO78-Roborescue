@@ -20,3 +20,5 @@ HEADERS  += mainwindow.h \
     maplogic.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES +=
