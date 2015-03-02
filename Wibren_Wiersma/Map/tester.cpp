@@ -65,11 +65,11 @@ class EditMapTest : public Test{
                 }
             }
 
-            map.set(1, 25, 30);
+            map.set(1, 15, 9);
 
             for(unsigned int r = 0; r < map.rowCount(); r++){
                 for(unsigned int c = 0; c < map.collomCount(); c++){
-                    if(r == 25 && c == 30){
+                    if(r == 15 && c == 9){
                         if(map.get(r, c) != 1){
                             std::cerr << "Value is not set to 1 / edit only 1 test\n";
                             return succeed = false;
@@ -101,19 +101,19 @@ class SaveMapTest : public Test{
         try{
             Map map{filename};
 
-            map.set(1, 25, 30);
+            map.set(1, 15, 9);
 
             map.save();
-            map = Map{filename};
+            Map map2{filename};
 
-            for(unsigned int r = 0; r < map.rowCount(); r++){
-                for(unsigned int c = 0; c < map.collomCount(); c++){
-                    if(r == 25 && c == 30){
-                        if(map.get(r, c) != 1){
+            for(unsigned int r = 0; r < map2.rowCount(); r++){
+                for(unsigned int c = 0; c < map2.collomCount(); c++){
+                    if(r == 15 && c == 9){
+                        if(map2.get(r, c) != 1){
                             std::cerr << "Value is not set to 1\n";
                             return succeed = false;
                         }
-                    } else if(map.get(r, c) != 0){
+                    } else if(map2.get(r, c) != 0){
                         std::cerr << "Value is not 0\n";
                         return succeed = false;
                     }
@@ -154,13 +154,13 @@ class NamesTest : public Test{
 
             map.save();
 
-            map = Map{filename};
+            Map map2{filename};
 
-            if(map.names().at(1) != "Wall"){
+            if(map2.names().at(1) != "Wall"){
                 std::cerr << "Wall is not added or not on right position / Saved\n";
                 return succeed = false;
             }
-            if(map.names().at(2) != "Me"){
+            if(map2.names().at(2) != "Me"){
                 std::cerr << "Me is not added or not on right position / Saved\n";
                 return succeed = false;
             }
