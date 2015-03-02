@@ -97,7 +97,6 @@ void MainWindow::emptyButtonPressed()
     activeCell->changeTerrain(terrainType::none);
     ui->terrainLabel->setText(activeCell->getTerrainAsText());
     ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activeMap->getCell(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
-    qDebug().noquote() << activeMap->writeOut();
 }
 
 void MainWindow::quadButtonPressed()
@@ -207,9 +206,7 @@ void MainWindow::loadFile()
         in.setVersion(QDataStream::Qt_4_5);
         QString s;
         in >> s;
-        //qDebug().noquote() << s;
         QStringList list = s.split("\n");
-        //qDebug().noquote() << list[0];
         int row, column;
         int i = 0;
         while(!list[i].isEmpty())
@@ -231,7 +228,6 @@ void MainWindow::loadFile()
                     if(QString::compare(list2[1],"Water")==0)
                     {
                         activeMap->getCell(row-1,column-1)->changeTerrain(terrainType::water);
-                        //ui->tableWidget->setItem(row-1,column-1,activeMap->getCell(row-1,column-1)->formatCell());
                     }
                     else if(QString::compare(list2[1],"Concrete")==0)
                     {
