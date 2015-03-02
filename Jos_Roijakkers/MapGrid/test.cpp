@@ -38,8 +38,7 @@ int Test::run()
 
     if(errDetect > 0)
     {
-        std::cout << "TEST FAILED" << std::endl <<
-                     "I Found : " << errDetect << " Errors.. " << std::endl;
+        std::cout << "TEST FAILED" << std::endl << "I Found : " << errDetect << " Errors.. " << std::endl;
         return -1;
     }
     std::cout << "TEST SUCCESS" << std::endl;
