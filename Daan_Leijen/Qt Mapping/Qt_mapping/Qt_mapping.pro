@@ -15,9 +15,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    mapProcessor.cpp
+    mapProcessor.cpp \
+    mapRectangle.cpp
 
 HEADERS  += mainwindow.h \
-    mapProcessor.h
+    mapProcessor.h \
+    mapRectangle.h
 
 FORMS    += mainwindow.ui

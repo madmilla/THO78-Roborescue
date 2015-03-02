@@ -1,6 +1,8 @@
 #include "mapProcessor.h"
 
-mapProcessor::mapProcessor() {
+mapProcessor::mapProcessor():
+    rectangles(TOTAL_STRINGS*CHARS_PER_STRING)
+{
     mapScene = new QGraphicsScene();
     legendScene = new QGraphicsScene();
 }
@@ -9,34 +11,14 @@ mapProcessor::~mapProcessor() {
 
 }
 
-bool mapProcessor::processMap(QString mapFile, QGraphicsView* map, QGraphicsView* legend) {
+bool mapProcessor::processMap(QString mapFile, QGraphicsView* map) {
     QFile file(mapFile);
     char **mapArray;
 
-    mapScene->clear();
-    map->setScene(mapScene);
-    legendScene->clear();
-    legend->setScene(legendScene);
+    mapArray = static_cast<char**>(malloc(sizeof(char) * TOTAL_STRINGS));
 
-    uint charsPerString = 20;
-    uint totalStrings = 20;
-
-    rectangles.clear();
-    for (uint i = 0; i < totalStrings; i++)
-        rectangles[i].resize(charsPerString);
-
-    rectangles.resize(totalStrings);
-
-    int quadcopterCount = 0;
-    int targetCount = 0;
-    int obstacleCount = 0;
-    int uatvCount = 0;
-    int rosbeeCount = 0;
-
-    mapArray = static_cast<char**>(malloc(sizeof(char) * totalStrings));
-
-    for (uint i = 0; i < totalStrings; i++)
-        mapArray[i] = static_cast<char*>(malloc(charsPerString));
+    for (uint i = 0; i < TOTAL_STRINGS; i++)
+        mapArray[i] = static_cast<char*>(malloc(CHARS_PER_STRING));
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
              return false;
@@ -51,20 +33,20 @@ bool mapProcessor::processMap(QString mapFile, QGraphicsView* map, QGraphicsView
     }
 
     else { //Processes a map file that isn't empty
-        for (uint i = 0; i < charsPerString; i++) {
+        for (uint i = 0; i < CHARS_PER_STRING; i++) {
             QString str = file.readLine();
             str.remove('\n');
-            if (static_cast<uint>(str.length()) > charsPerString){
+            if (static_cast<uint>(str.length()) > CHARS_PER_STRING){
                 qDebug("Line %u is too long!", i);
                 qDebug() << str;
                 return false;
             }
-            if (static_cast<uint>(str.length()) < charsPerString){
+            if (static_cast<uint>(str.length()) < CHARS_PER_STRING){
                 qDebug("Line %u is too short!", i);
                 qDebug() << str;
                 return false;
             }
-            for (ulong j = 0; j < totalStrings; j++) {
+            for (ulong j = 0; j < TOTAL_STRINGS; j++) {
                 mapArray[i][j] = tolower(str.at(j).toLatin1());
             }
         }
@@ -74,52 +56,59 @@ bool mapProcessor::processMap(QString mapFile, QGraphicsView* map, QGraphicsView
     file.close();
     qDebug() << "Done processing file!";
 
-    //Draw the map and legend
-    for (uint i = 0; i < charsPerString; i++) {
-        for (ulong j = 0; j < totalStrings; j++) {
-            QGraphicsRectItem *rect = new QGraphicsRectItem();
-
+    //Fill rectangles vector
+    for (uint i = 0; i < CHARS_PER_STRING; i++) {
+        for (ulong j = 0; j < TOTAL_STRINGS; j++) {
+            rectangles[i*CHARS_PER_STRING + j] = mapRectangle(
+                        QRectF(j * (map->width()/CHARS_PER_STRING), i * (map->height()/TOTAL_STRINGS), map->width()/CHARS_PER_STRING, map->height()/TOTAL_STRINGS),
+                        mapArray[i][j]);
             switch (mapArray[i][j]){
+                case 'e':
+                    break;
                 case 'q':
                     quadcopterCount++;
-                    rect->setRect(i * (map->width()/charsPerString), j * (map->height()/totalStrings), map->width()/charsPerString, map->height()/totalStrings);
-                    rect->setBrush(QBrush(Qt::red));
                     break;
                 case 't':
                     targetCount++;
-                    rect->setRect(i * (map->width()/charsPerString), j * (map->height()/totalStrings), map->width()/charsPerString, map->height()/totalStrings);
-                    rect->setBrush(QBrush(Qt::yellow));
                     break;
                 case 'r':
                     rosbeeCount++;
-                    rect->setRect(i * (map->width()/charsPerString), j * (map->height()/totalStrings), map->width()/charsPerString, map->height()/totalStrings);
-                    rect->setBrush(QBrush(Qt::green));
                     break;
                 case 'u':
                     uatvCount++;
-                    rect->setRect(i * (map->width()/charsPerString), j * (map->height()/totalStrings), map->width()/charsPerString, map->height()/totalStrings);
-                    rect->setBrush(QBrush(Qt::blue));
                     break;
                 case 'o':
                     obstacleCount++;
-                    rect->setRect(i * (map->width()/charsPerString), j * (map->height()/totalStrings), map->width()/charsPerString, map->height()/totalStrings);
-                    rect->setBrush(QBrush(Qt::black));
                     break;
                 default:
-                    rect->setRect(i * (map->width()/charsPerString), j * (map->height()/totalStrings), map->width()/charsPerString, map->height()/totalStrings);
-                    rect->setBrush(QBrush(Qt::cyan, Qt::CrossPattern));
                     break;
             }
-            rectangles[i][j] = rect;
             qDebug() << "Added a rectangle to the vector!";
         }
     }
+
+    for (uint i = 0; i < TOTAL_STRINGS; i++)
+        free(mapArray[i]);
+
+    free(mapArray);
+
+    qDebug() << "Finished processing!";
+    return true;
+}
+
+bool mapProcessor::drawMap(QGraphicsView *map, QGraphicsView *legend){
+    mapScene->clear();
+    map->setScene(mapScene);
+    legendScene->clear();
+    legend->setScene(legendScene);
+
     //Draw the map and legend
-    for (uint i = 0; i < charsPerString; i++) {
-        for (ulong j = 0; j < totalStrings; j++) {
-            mapScene->addItem(rectangles[i][j]);
-        }
+    /*
+    for (int i = 0; i < rectangles.size(); i++){
+        mapScene->addItem(rectangles[i]);
+        //qDebug() << "Added item to scene!";
     }
+    */
 
     QFont font;
     font.setPixelSize(10);
@@ -146,13 +135,8 @@ bool mapProcessor::processMap(QString mapFile, QGraphicsView* map, QGraphicsView
     obstacleText.addText(10, 130, font,  obstacleString);
     legendScene->addPath(obstacleText, QPen(QBrush(Qt::black), 1), QBrush(Qt::black));
 
-    for (uint i = 0; i < totalStrings; i++)
-        free(mapArray[i]);
+    map->show();
+    legend->show();
 
-    free(mapArray);
-
-    //map->show();
-    //legend->show();
-    qDebug() << "Finished processing!";
     return true;
 }
