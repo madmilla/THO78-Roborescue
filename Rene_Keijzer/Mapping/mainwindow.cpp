@@ -24,8 +24,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionLoad_triggered()
 {
-      QString filename = QFileDialog::getOpenFileName();
-      map = new Map(filename.toStdString());
+      QString fileName = QFileDialog::getOpenFileName();
+      map = new Map(fileName.toStdString());
       ui->tableWidget->clearContents();
       ui->tableWidget->setColumnCount(map->width());
       ui->tableWidget->setRowCount(map->height());
