@@ -28,3 +28,6 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
         mapdisplay.ui \
     editor.ui
+
+RESOURCES += \
+    resource.qrc

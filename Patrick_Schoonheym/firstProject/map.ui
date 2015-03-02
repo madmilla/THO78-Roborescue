@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Map</class>
+ <widget class="QDialog" name="Map">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>540</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>520</width>
+    <height>480</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QCheckBox" name="beker">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>40</y>
+     <width>81</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>beker</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="deur">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>90</y>
+     <width>81</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>deur</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="muur">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>140</y>
+     <width>81</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>muur</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="plant">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>190</y>
+     <width>81</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>plant</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="edit_button">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>440</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>edit</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="tafel">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>240</y>
+     <width>81</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>tafel</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

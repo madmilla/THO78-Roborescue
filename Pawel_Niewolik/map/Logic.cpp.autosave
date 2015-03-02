@@ -1,0 +1,12 @@
+#include "Logic.h"
+#include <iostream>
+Logic::Logic()
+{
+    std::cout << "Hello word\n";
+}
+
+Logic::~Logic()
+{
+
+}
+

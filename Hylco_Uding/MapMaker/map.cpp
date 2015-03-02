@@ -56,6 +56,19 @@ Map::Map(int height, int width):
 std::map<QString, QBrush> Map::getTypes(){
     return Types;
 }
+bool Map::containsType(int x, int y,QString type){
+    for(int cellTypeIndex = 0; cellTypeIndex < array[y/(480/height)][x/(480/width)].size(); ++cellTypeIndex){
+        if(array[y/(480/height)][x/(480/width)][cellTypeIndex].toObject()["type"] == type)
+            return true;
+    }
+    return false;
+}
+void Map::deleteType(int x, int y, QString type){
+    for(int cellTypeIndex = 0; cellTypeIndex < array[y/(480/height)][x/(480/width)].size(); ++cellTypeIndex){
+            if(array[y/(480/height)][x/(480/width)][cellTypeIndex].toObject()["type"] == type)
+                array[y/(480/height)][x/(480/width)].removeAt(cellTypeIndex);
+    }
+}
 
 QBrush Map::getType(QString type){
     return Types[type];
@@ -78,6 +91,13 @@ int Map::getHeight(){
 
 int Map::getWidth(){
     return width;
+}
+void Map::clear(){
+    for(int i = 0; i<height; i++){
+        for(int j = 0; j<width;j++){
+            array[i][j] = QJsonArray() ;
+        }
+    }
 }
 
 void Map::saveFile(QString filename){

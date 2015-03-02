@@ -19,14 +19,7 @@ public:
     ~MainWindow();
 
 private:
-
     Ui::MainWindow *ui;
-
-
-
-protected:
-    void paintOnce();
-    void paintEvent(QPaintEvent *e);
 private slots:
     void on_Load_clicked();
     void on_Quit_clicked();
@@ -34,6 +27,7 @@ private slots:
     void on_ReloadFiles_clicked();
     void on_Newmap_clicked();
     void on_Delete_clicked();
+    void on_addFile_clicked();
 };
 
 #endif // MAINWINDOW_H

@@ -19,13 +19,38 @@ Editor::Editor(QString filename, int height, int width, QWidget *parent) :
 void Editor::mousePressEvent(QMouseEvent * event){
     if(event->button() == Qt::LeftButton){
         if(ui->listWidget->currentItem() != NULL){
-            QJsonObject typeObject;
-            typeObject["type"] = ui->listWidget->currentItem()->text();
-            map->setPixel(event->pos().x(), event->pos().y(),typeObject);
+            if(map->containsType(event->pos().x(), event->pos().y(),ui->listWidget->currentItem()->text())){
+                map->deleteType(event->pos().x(), event->pos().y(),ui->listWidget->currentItem()->text());
+            } else {
+                QJsonObject typeObject;
+                typeObject["type"] = ui->listWidget->currentItem()->text();
+                map->setPixel(event->pos().x(), event->pos().y(),typeObject);
+            }
         }
+    } else if(event->button() ==Qt::MiddleButton){
+        int index = ui->listWidget->currentRow();
+        if(++index == ui->listWidget->count())
+            index = 0;
+        ui->listWidget->setCurrentRow(index);
     } else {
         map->deletePixel(event->pos().x(), event->pos().y());
     }
+    this->repaint();
+}
+
+void Editor::mouseMoveEvent(QMouseEvent * event){
+    if(event->pos().x()> 0 && event->pos().x()< 480 && event->pos().y()> 0 && event->pos().y()< 480){
+        if(event->buttons() == Qt::LeftButton){
+            if(ui->listWidget->currentItem() != NULL){
+                if(!map->containsType(event->pos().x(), event->pos().y(),ui->listWidget->currentItem()->text())){
+                    QJsonObject typeObject;
+                    typeObject["type"] = ui->listWidget->currentItem()->text();
+                    map->setPixel(event->pos().x(), event->pos().y(),typeObject);
+                }
+            }
+        }
+    }
+
     this->repaint();
 }
 
@@ -66,9 +91,31 @@ void Editor::on_Save_clicked()
 {
     if(ui->name->text() != ""){
        map->saveFile(ui->name->text());
+       ui->Save->setEnabled(false);
        this->close();
     } else {
         QMessageBox::information(this, tr("Waring"),tr("Enter a Name") );
     }
 }
 
+
+void Editor::closeEvent(QCloseEvent * event){
+    if(ui->Save->isEnabled()){
+    QMessageBox::StandardButton resBtn = QMessageBox::question( this, "Warning",
+                                                                tr("Are you sure to quit without saving?\n"),
+                                                                QMessageBox::No | QMessageBox::Yes,
+                                                                QMessageBox::Yes);
+        if (resBtn != QMessageBox::Yes) {
+            event->ignore();
+        } else {
+            event->accept();
+        }
+    }
+}
+
+
+void Editor::on_clear_clicked()
+{
+    map->clear();
+    this->repaint();
+}

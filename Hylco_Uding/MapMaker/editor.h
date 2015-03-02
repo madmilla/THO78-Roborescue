@@ -20,7 +20,10 @@ public:
 private slots:
     void on_Save_clicked();
 
+    void on_clear_clicked();
+    void closeEvent(QCloseEvent *);
 private:
+    void mouseMoveEvent(QMouseEvent * event);
     void mousePressEvent(QMouseEvent * event);
     void paintEvent(QPaintEvent * e);
     Ui::Editor *ui;
