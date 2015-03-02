@@ -22,6 +22,7 @@ void MainWindow::openFile() { //Opens a file dialog, passes selected file to map
     QFileDialog fileDialog;
     mapFile = fileDialog.getOpenFileName(this,tr("Open map file"), "/", tr("Text files (*.txt)"));
     if (!mapFile.isEmpty()) {
-        m.processMap(mapFile, ui->mapView, ui->legendView);
+        if(m.processMap(mapFile, ui->mapView))
+            m.drawMap(ui->mapView, ui->legendView);
     }
 }

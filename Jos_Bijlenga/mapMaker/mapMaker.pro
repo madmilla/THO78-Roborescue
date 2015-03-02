@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-02-28T16:51:59
+# Project created by QtCreator 2015-03-02T13:07:01
 #
 #-------------------------------------------------
 
@@ -8,18 +8,15 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG   -= x86_64
-TARGET = Qt_mapping
+TARGET = mapMaker
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    mapProcessor.cpp \
-    mapRectangle.cpp
+    maplogic.cpp
 
 HEADERS  += mainwindow.h \
-    mapProcessor.h \
-    mapRectangle.h
+    maplogic.h
 
 FORMS    += mainwindow.ui
