@@ -4,9 +4,9 @@
 #include "cell.h"
 #include "mapwindow.h"
 
-Test::Test()
+Test::Test():
+    errDetect(0)
 {
-
 }
 
 Test::~Test()
@@ -14,8 +14,42 @@ Test::~Test()
 
 }
 
+void Test::assert(bool testSuccess, const std::string& testName)
+{
+    std::cout << "TEST: " + testName << std::endl;
+    if(!testSuccess)
+    {
+        std::cout << "FAILED" << std::endl << std::endl;
+        errDetect++;
+        return;
+    }
+    std::cout << "Success" << std::endl << std::endl;
+}
 
 int Test::run()
 {
+    std::cout << "Start Testing\n";
+    std::cout << "Testing cells\n";
+    Cell* testCell = new Cell();
+    assert(testCell->getTerrainType() == Cell::TERRAINTYPE::EMPTY, "Terrain is empty");
+    assert(testCell->isQuadcopterPresent() == false, "no Quadcopter present");
+    assert(testCell->isATVPresent() == false, "no ATV present");
+    assert(testCell->isRosbeePresent() == false, "no Rosbee present");
+
+    assert(testCell->getTerrainType() == Cell::TERRAINTYPE::CONCRETE, "Terrain is water");
+    assert(testCell->isQuadcopterPresent() == true, "Quadcopter is present");
+    assert(testCell->isRosbeePresent() == true, "Rosbee is present");
+    assert(testCell->isATVPresent() == true, "ATV is present");
+
+
+
+
+    if(errDetect > 0)
+    {
+        std::cout << "TEST FAILED" << std::endl <<
+                     "I Found : " << errDetect << " Errors.. " << std::endl;
+        return -1;
+    }
+    std::cout << "TEST SUCCESS" << std::endl;
     return 0;
 }

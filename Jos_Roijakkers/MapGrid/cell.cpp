@@ -37,6 +37,11 @@ void Cell::setTerrainType(Cell::TERRAINTYPE TerrainType)
     }
 }
 
+Cell::TERRAINTYPE Cell::getTerrainType()
+{
+    return Terrain;
+}
+
 void Cell::addVehicle(VEHICLETYPE VehicleType)
 {
     Vehicle = VehicleType;
@@ -79,6 +84,21 @@ void Cell::clearTile()
     QuadcopterPresent = false;
     ATVPresent = false;
     RosbeePresent = false;
+}
+
+bool Cell::isQuadcopterPresent()
+{
+    return QuadcopterPresent;
+}
+
+bool Cell::isRosbeePresent()
+{
+    return RosbeePresent;
+}
+
+bool Cell::isATVPresent()
+{
+    return ATVPresent;
 }
 
 std::istream& operator>>(std::istream& stream, Cell& cell)

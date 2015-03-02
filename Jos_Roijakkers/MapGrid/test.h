@@ -7,6 +7,8 @@
 class Test
 {
 private:
+    void assert(bool testSuccess, const std::string &testName);
+    int errDetect;
 
 public:
     Test();

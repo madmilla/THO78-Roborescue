@@ -28,9 +28,13 @@ public:
     };
 
     void setTerrainType(TERRAINTYPE Terrain);
+    TERRAINTYPE getTerrainType();
     void addVehicle(VEHICLETYPE Vehicle);
     void removeVehicle(VEHICLETYPE Vehicle);
     void clearTile();
+    bool isQuadcopterPresent();
+    bool isRosbeePresent();
+    bool isATVPresent();
     friend std::ostream& operator<<(std::ostream& stream,Cell& cell);
     friend std::istream& operator>>(std::istream& stream, Cell& cell);
 private:
