@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    map.cpp
+    map.cpp \
+    test.cpp
 
 HEADERS  += mainwindow.h \
-    map.h
+    map.h \
+    test.h
 
 FORMS    += mainwindow.ui \
     map.ui
