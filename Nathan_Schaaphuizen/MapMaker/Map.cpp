@@ -29,16 +29,19 @@ void Map::resize(unsigned int mapSize){
 
 
 void Map::addTile(unsigned int x, unsigned int y, const TileType &tileType){
-    //Get the maxium of the axis.
-    int maxSize = std::max(x,y);
-    //Check if position is outside bounds.
-    if(maxSize >= tileCount){
-        //Resize the map to fit the new position.
-        //Make map 1 larger than position, because we start from 0.
-        resize(maxSize+1);
+    //Check if position is in positive range
+    if(x < maxMapSize && y < maxMapSize){
+        //Get the maxium of the axis.
+        int maxSize = std::max(x,y);
+        //Check if position is outside bounds.
+        if(maxSize >= tileCount){
+            //Resize the map to fit the new position.
+            //Make map 1 larger than position, because we start from 0.
+            resize(maxSize+1);
+        }
+        //Set tile to new type.
+        tiles[x][y] = static_cast<unsigned char>(tileType);
     }
-    //Set tile to new type.
-    tiles[x][y] = static_cast<unsigned char>(tileType);
 }
 
 
