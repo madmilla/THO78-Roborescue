@@ -29,9 +29,7 @@ public:
     QTableWidgetItem * formatCellLoad(int p);
 
     void changeTerrein(terreinTypen typen);
-    void toggleQuad();
-    void toggleAtv();
-    void toggleRosbee();
+
 
     cells();
     ~cells();
