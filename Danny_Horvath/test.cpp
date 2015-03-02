@@ -1,4 +1,5 @@
 #include <iostream>
+#include "MapProgram/mainwindow.h"
 #include "MapProgram/mapdisplay.h"
 
 int main(int argc, char *argv[])
