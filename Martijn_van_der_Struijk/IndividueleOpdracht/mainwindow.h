@@ -31,20 +31,14 @@ private slots:
     void on_None_on_clicked(bool checked);
     void on_actionNew_triggered();
     void on_actionSave_triggered();
-    void savefile(const QString &name);
-
     void on_actionLoad_triggered();
 
 private:
     bool quadCopter = false;
     bool atv = false;
     bool rosbee = false;
-    void MainWindow::loadFile();
-    //bool quadCopter = false;
     int quadX, quadY;
-    //bool atv = false;
     int atvX, atvY;
-    //bool rosbee = false;
     int rosbeeX, rosbeeY;
     QString saveFile;
     QString fileName;

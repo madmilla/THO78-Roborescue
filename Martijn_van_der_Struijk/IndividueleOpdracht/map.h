@@ -3,11 +3,14 @@
 
 #include "item.h"
 #include <QTextStream>
-
+#include <iostream>
+#include <fstream>
+#include <QFile>
 class map
 {
 public:
-
+    void loadFile(QString fileName);
+    void saveFile(QString fileName);
     item *getcel(int x,int y);
 
     map();
