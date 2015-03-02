@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 #include <QFile>
-#include "map.h"
+#include "mapEditors.h"
 #include <QTextStream>
+#include "map.h"
 namespace Ui {
 class MainWindow;
 }
@@ -27,7 +28,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Map * map = new Map();
+    MapEditor * mapEditor = new MapEditor();
 };
 
 #endif // MAINWINDOW_H

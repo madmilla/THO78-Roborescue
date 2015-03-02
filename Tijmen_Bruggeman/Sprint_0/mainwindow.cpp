@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <iostream>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -24,7 +24,7 @@ void MainWindow::on_Load_map_clicked()
 
 void MainWindow::on_Show_map_clicked()
 {
-    map->show_map();
+    mapEditor->show_map();
 }
 
 
@@ -35,34 +35,17 @@ void MainWindow::on_NewButton_clicked()
     int XSize = ui->XSizeField->displayText().toInt(&xBool);
     int YSize = ui->YSizeField->displayText().toInt(&yBool);
     if(xBool && yBool && YSize!=1){
-        QVector<QString> load_map;
-        for(int x = 0; x < YSize; x++){
-            QString line;
-            for(int i = 0; i < XSize; i++){
-                line.append("X");
-            }
-            load_map.push_back(line);
-        }
-        map->setMap(load_map, "NEW MAP");
-        map->show();
+        Map map("NEW FILE", XSize, YSize);
+        mapEditor->setMap(&map);
+        mapEditor->show_map();
     }
 }
 void MainWindow::on_listWidget_currentTextChanged(const QString &currentText)
 {
-    QFile file(currentText);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        return;
+    Map * map = new Map(currentText);
+    ui->textEdit->clear();
+    for(QString line : map->getMap()){
+        ui->textEdit->append(line);
     }
-    QVector<QString> load_map;
-    QTextStream stream(&file);
-    ui->textEdit->setPlainText(file.readAll());
-    file.seek(0);
-    QString line = stream.readLine();
-
-    while(!line.isNull()){
-        load_map.push_back(line);
-        line = stream.readLine();
-    }
-    map->setMap(load_map,currentText);
-    file.close();
+    mapEditor->setMap(map);
 }
