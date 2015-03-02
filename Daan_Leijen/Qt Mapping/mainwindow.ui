@@ -131,7 +131,7 @@
   <customwidget>
    <class>drawArea</class>
    <extends>QGraphicsView</extends>
-   <header>drawarea.h</header>
+   <header>drawArea.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
