@@ -2,8 +2,8 @@
 #define MAP_H
 
 #include <QWidget>
-#include <QFile>
 #include <QTableWidget>
+#include "maplogic.h"
 
 namespace Ui {
 class Map;
@@ -16,16 +16,16 @@ class Map : public QWidget
 public:
     explicit Map(QString filename, QWidget *parent = 0);
     ~Map();
+    void updateMap(int y, int x, int newContent);
+    int getMapData(int y, int x);
 
 private:
     Ui::Map *ui;
-    QString filename;
     QTableWidget * table;
-    QVector< QVector< int > > mapLayout;
+
+    MapLogic* mapLogic;
 
     void showMap();
-    void loadMap(QString &filename);
-    void updateMap(int x, int y, int newContent);
 
     Qt::GlobalColor getColorById(int id);
 

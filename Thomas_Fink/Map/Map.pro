@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     map.cpp \
-    test.cpp
+    test.cpp \
+    maplogic.cpp
 
 HEADERS  += mainwindow.h \
     map.h \
-    test.h
+    test.h \
+    maplogic.h
 
 FORMS    += mainwindow.ui \
     map.ui
