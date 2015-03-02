@@ -36,14 +36,6 @@ int Test::run()
     assert(testCell->isATVPresent() == false, "no ATV present");
     assert(testCell->isRosbeePresent() == false, "no Rosbee present");
 
-    assert(testCell->getTerrainType() == Cell::TERRAINTYPE::CONCRETE, "Terrain is water");
-    assert(testCell->isQuadcopterPresent() == true, "Quadcopter is present");
-    assert(testCell->isRosbeePresent() == true, "Rosbee is present");
-    assert(testCell->isATVPresent() == true, "ATV is present");
-
-
-
-
     if(errDetect > 0)
     {
         std::cout << "TEST FAILED" << std::endl <<
