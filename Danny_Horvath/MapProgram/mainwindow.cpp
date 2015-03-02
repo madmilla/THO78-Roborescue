@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete m;
     delete ui;
 }
 
