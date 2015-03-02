@@ -11,7 +11,7 @@ public:
     ~map();
 
     cell* getCell(int x, int y);
-    std::string writeOut();
+    QString writeOut();
 
 private:
     cell cells[20][20]; // twodimensional

@@ -109,26 +109,34 @@ QString cell::getTerrainAsText()
     return s;
 }
 
-std::string cell::writeOut()
+QString cell::writeOut()
 {
-    switch(surrounding)
+    QString s = "";
+    s += getTerrainAsText();
+    s += "\n";
+    if(quadPresent)
     {
-        case(terrainType::water):
-            qDebug() << "terrain: " << "water";
-            break;
-        case(terrainType::concrete):
-            qDebug() << "terrain: " << "concrete";
-            break;
-        case(terrainType::grass):
-            qDebug() << "terrain: " << "grass";
-            break;
-        case(terrainType::wall):
-            qDebug() << "terrain: " << "wall";
-            break;
-        case(terrainType::none):
-            qDebug() << "terrain: " << "none";
-            break;
+        s += "quadcopter: true\n";
     }
-    qDebug() << "rosbee: " << rosbeePresent << "\nATV: " << ATVPresent << "\nquadcopter: " << quadPresent << "\n;";
-    return "";
+    else
+    {
+        s += "quadcopter: false\n";
+    }
+    if(ATVPresent)
+    {
+        s += "ATV: true\n";
+    }
+    else
+    {
+        s += "ATV: false\n";
+    }
+    if(rosbeePresent)
+    {
+        s += "rosbee: true\n";
+    }
+    else
+    {
+        s += "rosbee: false\n";
+    }
+    return s;
 }

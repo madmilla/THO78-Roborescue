@@ -37,7 +37,7 @@ public:
     void removeVehicle(vehicleType vehicle);
     void changeTerrain(terrainType terrain);
     QString getTerrainAsText();
-    std::string writeOut();
+    QString writeOut();
 };
 
 #endif // CELL_H

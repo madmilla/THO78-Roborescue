@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include <QFile>
 #include "cell.h"
 #include "map.h"
 
@@ -27,8 +28,8 @@ private slots:
     void quadButtonPressed();
     void ATVButtonPressed();
     void rosbeeButtonPressed();
-   // void saveFile();
-    //void loadFile();
+    void saveFile();
+    void loadFile();
 
 private:
     void connectAllSlots();

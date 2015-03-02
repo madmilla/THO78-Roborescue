@@ -97,7 +97,7 @@ void MainWindow::emptyButtonPressed()
     activeCell->changeTerrain(terrainType::none);
     ui->terrainLabel->setText(activeCell->getTerrainAsText());
     ui->tableWidget->setItem(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn(),activeMap->getCell(ui->tableWidget->currentRow(),ui->tableWidget->currentColumn())->formatCell());
-    activeMap->writeOut();
+    qDebug().noquote() << activeMap->writeOut();
 }
 
 void MainWindow::quadButtonPressed()
@@ -148,6 +148,8 @@ void MainWindow::rosbeeButtonPressed()
 void MainWindow::connectAllSlots()
 {
     connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(close()));
+    connect(ui->actionSave,SIGNAL(triggered()),this,SLOT(saveFile()));
+    connect(ui->actionLoad,SIGNAL(triggered()),this,SLOT(loadFile()));
 
     connect(ui->pushButtonQuad,SIGNAL(clicked()),this,SLOT(quadButtonPressed()));
     connect(ui->pushButtonATV,SIGNAL(clicked()),this,SLOT(ATVButtonPressed()));
@@ -161,9 +163,9 @@ void MainWindow::connectAllSlots()
     connect(ui->tableWidget,SIGNAL(currentCellChanged(int,int,int,int)),this,SLOT(currentCellChanged(int,int,int,int)));
 }
 
-/*void MainWindow::saveFile()
+void MainWindow::saveFile()
 {
-    QString fileName = QFileDialog::getSaveFileName(this,tr("Save Address Book"), "",tr("Map file (*.mpf);;All Files (*)"));
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save Map File"), "",tr("Map file (*.map);;All Files (*)"));
     if (fileName.isEmpty())
     {
         return;
@@ -178,14 +180,113 @@ void MainWindow::connectAllSlots()
         }
         QDataStream out(&file);
         out.setVersion(QDataStream::Qt_4_5);
-        out << contacts;
-        for(int x = 0; x < 20; ++x)
+        QString s = activeMap->writeOut();
+        out << s;
+
+    }
+}
+
+void MainWindow::loadFile()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Open Map File"), "",tr("Map file (*.map);;All Files (*)"));
+    if (fileName.isEmpty())
+    {
+        return;
+    }
+    else
+    {
+        QFile file(fileName);
+
+        if (!file.open(QIODevice::ReadOnly))
         {
-            for(int y = 0; y < 20; ++y)
+            QMessageBox::information(this, tr("Unable to open file"),file.errorString());
+            return;
+        }
+
+        QDataStream in(&file);
+        in.setVersion(QDataStream::Qt_4_5);
+        QString s;
+        in >> s;
+        //qDebug().noquote() << s;
+        QStringList list = s.split("\n");
+        //qDebug().noquote() << list[0];
+        int row, column;
+        int i = 0;
+        while(!list[i].isEmpty())
+        {
+            QString s2 = list[i];
+            QStringList list2 = s2.split(" ");
+            if(QString::compare(list2[0],";")!=0)
             {
-                out << activeMap->getCell(x,y);
+                if(QString::compare(list2[0],"row:")==0)
+                {
+                    row = list2[1].toInt();
+                }
+                if(QString::compare(list2[0],"column:")==0)
+                {
+                    column = list2[1].toInt();
+                }
+                if(QString::compare(list2[0],"terrain:")==0)
+                {
+                    if(QString::compare(list2[1],"Water")==0)
+                    {
+                        activeMap->getCell(row-1,column-1)->changeTerrain(terrainType::water);
+                        //ui->tableWidget->setItem(row-1,column-1,activeMap->getCell(row-1,column-1)->formatCell());
+                    }
+                    else if(QString::compare(list2[1],"Concrete")==0)
+                    {
+                        activeMap->getCell(row-1,column-1)->changeTerrain(terrainType::concrete);
+                    }
+                    else if(QString::compare(list2[1],"Grass")==0)
+                    {
+                        activeMap->getCell(row-1,column-1)->changeTerrain(terrainType::grass);
+                    }
+                    else if(QString::compare(list2[1],"Wall")==0)
+                    {
+                        activeMap->getCell(row-1,column-1)->changeTerrain(terrainType::wall);
+                    }
+                    else if(QString::compare(list2[1],"Empty")==0)
+                    {
+                        activeMap->getCell(row-1,column-1)->changeTerrain(terrainType::none);
+                    }
+                }
+                if(QString::compare(list2[0],"quadcopter:")==0)
+                {
+                    if(QString::compare(list2[1],"true")==0)
+                    {
+                        activeMap->getCell(row-1,column-1)->quadPresent = true;
+                    }
+                    else
+                    {
+                        activeMap->getCell(row-1,column-1)->quadPresent = false;
+                    }
+                }
+                if(QString::compare(list2[0],"ATV:")==0)
+                {
+                    if(QString::compare(list2[1],"true")==0)
+                    {
+                        activeMap->getCell(row-1,column-1)->ATVPresent = true;
+                    }
+                    else
+                    {
+                        activeMap->getCell(row-1,column-1)->ATVPresent = false;
+                    }
+                }
+                if(QString::compare(list2[0],"rosbee:")==0)
+                {
+                    if(QString::compare(list2[1],"true")==0)
+                    {
+                        activeMap->getCell(row-1,column-1)->rosbeePresent = true;
+                    }
+                    else
+                    {
+                        activeMap->getCell(row-1,column-1)->rosbeePresent = false;
+                    }
+                }
             }
+            ui->tableWidget->setItem(row-1,column-1,activeMap->getCell(row-1,column-1)->formatCell());
+            i++;
         }
     }
-}*/
+}
 
