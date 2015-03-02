@@ -1,13 +1,14 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "Logic.h"
+#include "Mapping.h"
 
 int main(int argc, char *argv[])
 {
-    Logic logic;
-    logic.helloWord();
+
     QApplication a(argc, argv);
     MainWindow w;
+    w.setFixedSize(480, 480);
+    Mapping mapping;
     w.show();
 
     return a.exec();

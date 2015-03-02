@@ -14,9 +14,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    Logic.cpp
+    Mapping.cpp
 
 HEADERS  += mainwindow.h \
-    Logic.h
+    Mapping.h
 
 FORMS    += mainwindow.ui
