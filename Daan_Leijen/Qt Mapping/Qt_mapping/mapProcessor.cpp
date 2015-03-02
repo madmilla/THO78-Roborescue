@@ -1,7 +1,6 @@
 #include "mapProcessor.h"
 
-mapProcessor::mapProcessor():
-    rectangles(TOTAL_STRINGS*CHARS_PER_STRING)
+mapProcessor::mapProcessor()
 {
     mapScene = new QGraphicsScene();
     legendScene = new QGraphicsScene();
@@ -11,7 +10,9 @@ mapProcessor::~mapProcessor() {
 
 }
 
-bool mapProcessor::processMap(QString mapFile, QGraphicsView* map) {
+bool mapProcessor::processMap(QString mapFile, drawArea* map, drawArea *legend) {
+    if (!mapFile.isEmpty())
+        return false;
     QFile file(mapFile);
     char **mapArray;
 
@@ -54,8 +55,11 @@ bool mapProcessor::processMap(QString mapFile, QGraphicsView* map) {
 
     //Closes the map file
     file.close();
-    qDebug() << "Done processing file!";
+    //qDebug() << "Done processing file!";
 
+    QVector<mapRectangle> rectangles(TOTAL_STRINGS * CHARS_PER_STRING);
+
+    int quadcopterCount = 0, targetCount = 0, obstacleCount = 0, uatvCount = 0, rosbeeCount = 0;
     //Fill rectangles vector
     for (uint i = 0; i < CHARS_PER_STRING; i++) {
         for (ulong j = 0; j < TOTAL_STRINGS; j++) {
@@ -83,9 +87,21 @@ bool mapProcessor::processMap(QString mapFile, QGraphicsView* map) {
                 default:
                     break;
             }
-            qDebug() << "Added a rectangle to the vector!";
+            //qDebug() << "Added a rectangle to the vector!";
         }
     }
+    if (map) //Map may be null for testing
+        map->setRectangles(rectangles);
+
+    QVector<QString> strings(5);
+    strings.append(QString("Quadcopters: %1").arg(quadcopterCount));
+    strings.append(QString("Targets: %1").arg(targetCount));
+    strings.append(QString("Rosbees: %1").arg(rosbeeCount));
+    strings.append(QString("Unmanned ATVs: %1").arg(uatvCount));
+    strings.append(QString("Obstacles: %1").arg(obstacleCount));
+
+    if (legend) //legend may be null for testing
+        legend->setStrings(strings);
 
     for (uint i = 0; i < TOTAL_STRINGS; i++)
         free(mapArray[i]);
@@ -93,50 +109,5 @@ bool mapProcessor::processMap(QString mapFile, QGraphicsView* map) {
     free(mapArray);
 
     qDebug() << "Finished processing!";
-    return true;
-}
-
-bool mapProcessor::drawMap(QGraphicsView *map, QGraphicsView *legend){
-    mapScene->clear();
-    map->setScene(mapScene);
-    legendScene->clear();
-    legend->setScene(legendScene);
-
-    //Draw the map and legend
-    /*
-    for (int i = 0; i < rectangles.size(); i++){
-        mapScene->addItem(rectangles[i]);
-        //qDebug() << "Added item to scene!";
-    }
-    */
-
-    QFont font;
-    font.setPixelSize(10);
-    font.setBold(true);
-    font.setFamily("Calibri");
-
-    QString quadString = QString("Quadcopters: %1").arg(quadcopterCount);
-    quadText.addText(10, 10, font,  quadString);
-    legendScene->addPath(quadText, QPen(QBrush(Qt::red), 1), QBrush(Qt::red));
-
-    QString targetString = QString("Targets: %1").arg(targetCount);
-    targetText.addText(10, 40, font,  targetString);
-    legendScene->addPath(targetText, QPen(QBrush(Qt::yellow), 1), QBrush(Qt::yellow));
-
-    QString rosbeeString = QString("Rosbees: %1").arg(rosbeeCount);
-    rosbeeText.addText(10, 70, font,  rosbeeString);
-    legendScene->addPath(rosbeeText, QPen(QBrush(Qt::green), 1), QBrush(Qt::green));
-
-    QString uatvString = QString("Unmanned ATVs: %1").arg(uatvCount);
-    uatvText.addText(10, 100, font,  uatvString);
-    legendScene->addPath(uatvText, QPen(QBrush(Qt::blue), 1), QBrush(Qt::blue));
-
-    QString obstacleString = QString("Obstacles: %1").arg(obstacleCount);
-    obstacleText.addText(10, 130, font,  obstacleString);
-    legendScene->addPath(obstacleText, QPen(QBrush(Qt::black), 1), QBrush(Qt::black));
-
-    map->show();
-    legend->show();
-
     return true;
 }

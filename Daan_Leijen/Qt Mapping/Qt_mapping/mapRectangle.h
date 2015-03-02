@@ -3,12 +3,15 @@
 
 #include <QRect>
 
-class mapRectangle
-{
+class mapRectangle{
+
 public:
     mapRectangle(QRectF rect, char rectType);
     mapRectangle();
     ~mapRectangle();
+    char getType();
+    QRectF getRectangle();
+
 private:
     QRectF rectangle;
     char type;
