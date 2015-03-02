@@ -88,7 +88,6 @@ bool testMap(Grid& grid,
 int main()
 {
     Grid grid;
-    int walkable = 0,dangerous = 0,blocked = 0,object = 0,undefined = 0;
     cout << endl << "STARTING TEST" << endl;
 
     cout << "Loading good map..." << endl;
@@ -128,9 +127,9 @@ int main()
 
     cout << "Saving and loading the clean 20x20 map" << endl;
     cout << "Saving clean 20x20 map..." << endl;
-    grid.save("debug/newcleanmap.png");
+    grid.save("maps/newcleanmap.png");
     cout << "Loading good map (just to be sure the save works properly)..." << endl;
-    grid.load("debug/goodtestmap.png");
+    grid.load("maps/goodtestmap.png");
     cout << "Loading clean 20x20 map..." << endl;
 
     grid.load("maps/newcleanmap.png");
