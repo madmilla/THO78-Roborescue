@@ -120,9 +120,6 @@ int main()
     grid.selectTile(grid.tileAt(QVector2D(grid.getTileSize().x() * 1 ,grid.getTileSize().y() * 1)));
     grid.colorTile(grid.typeToColor(TileType::Object));
 
-
-
-    walkable = 0,dangerous = 0,blocked = 0,object = 0,undefined = 0;
     cout << endl;
 
     cout << "Saving and loading the clean 20x20 map" << endl;
