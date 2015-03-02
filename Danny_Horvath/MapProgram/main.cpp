@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     else{
         QApplication a(argc, argv);
         MainWindow w;
-        qDebug() << "start";
+        std::cout << "start";
         w.show();
         return a.exec();
     }
