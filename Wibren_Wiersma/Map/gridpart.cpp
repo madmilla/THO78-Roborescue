@@ -2,13 +2,13 @@
 #include "gridpart.h"
 #include <iostream>
 
-struct color{
+struct colorStruct{
     unsigned char R, G, B, none;
 };
 
 union colorTabel{
     unsigned int colorRepressentation;
-    color color;
+    colorStruct color;
 };
 
 GridPart::GridPart(unsigned int data){
@@ -19,12 +19,23 @@ GridPart::GridPart(unsigned int data){
             break;
         }
     }
-    colorTabel tabel;
-    tabel.colorRepressentation = 0x00FFFFFF * dataColor / 32;
-    if(tabel.color.none != 0){
-        std::cerr << "Color problem none set. None:" << (int)tabel.color.none << "\n";
+    if(dataColor == 32){
+       normalColor = QColor(255, 255, 255);
+    }else if(dataColor == 0){
+       normalColor = QColor(0, 0, 0);
+    }else if(dataColor == 8){
+        normalColor = QColor::fromHsv(0, 0, 64);
+    } else if(dataColor == 8 * 2){
+        normalColor = QColor::fromHsv(0, 0, 64 * 2);
+    } else if(dataColor == 8 * 3){
+        normalColor = QColor::fromHsv(0, 0, 64 * 3);
+    } else{
+        if(dataColor > 8 * 3) dataColor -= 3;
+        else if(dataColor > 8 * 2) dataColor -= 2;
+        else if(dataColor > 8) dataColor -= 1;
+        dataColor -= 1;
+        normalColor = QColor::fromHsv(360 / 28 * dataColor, 255, 255);
     }
-    normalColor = QColor{(int)tabel.color.R, (int)tabel.color.G, (int)tabel.color.B};
 }
 
 QTableWidgetItem * GridPart::getWidget(){
@@ -41,12 +52,23 @@ void GridPart::changeData(unsigned int newData,  QTableWidgetItem * twi){
             break;
         }
     }
-    colorTabel tabel;
-    tabel.colorRepressentation = 0x00FFFFFF * dataColor / 32;
-    std::cout << dataColor << '/' << tabel.colorRepressentation << '\n';
-    if(tabel.color.none != 0){
-        std::cerr << "Color problem none set. None:" << (int)tabel.color.none << "\n";
-    }
-    QColor normalColor = QColor{(int)tabel.color.R, (int)tabel.color.G, (int)tabel.color.B};
+     QColor normalColor;
+     if(dataColor == 32){
+        normalColor = QColor(255, 255, 255);
+     }else if(dataColor == 0){
+        normalColor = QColor(0, 0, 0);
+     }else if(dataColor == 8){
+         normalColor = QColor::fromHsv(0, 0, 64);
+     } else if(dataColor == 8 * 2){
+         normalColor = QColor::fromHsv(0, 0, 64 * 2);
+     } else if(dataColor == 8 * 3){
+         normalColor = QColor::fromHsv(0, 0, 64 * 3);
+     } else{
+         if(dataColor > 8 * 3) dataColor -= 3;
+         else if(dataColor > 8 * 2) dataColor -= 2;
+         else if(dataColor > 8) dataColor -= 1;
+         dataColor -= 1;
+         normalColor = QColor::fromHsv(360 / 28 * dataColor, 255, 255);
+     }
     twi->setBackgroundColor(normalColor);
 }

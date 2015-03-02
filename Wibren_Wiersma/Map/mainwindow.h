@@ -25,6 +25,7 @@ private slots:
     void closeFile();
     void addName();
     void editAction();
+    void editCell(int row, int collom);
 private:
     void openFile(std::string filename);
     void setDisplayingFile(bool value);

@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionCreate_new, SIGNAL(triggered()), this, SLOT(createFile()));
     connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
     connect(ui->actionClose, SIGNAL(triggered()), this, SLOT(closeFile()));
+    connect(ui->tableWidget, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(editCell(int,int)));
 }
 
 MainWindow::~MainWindow() {
@@ -155,8 +156,17 @@ void MainWindow::editAction(){
         if(i != map->names().size()){
             for(QTableWidgetItem * twi : ui->tableWidget->selectedItems()){
                 map->set(i, twi->row(), twi->column());
-                GridPart::changeData(i, twi);
+                if(i == 0){
+                    GridPart::changeData(i, twi);
+                }else{
+                    GridPart::changeData(1 << (i - 1), twi);
+                }
             }
         }
     }
+}
+
+void MainWindow::editCell(int row, int collom){
+    row = collom * 2; collom = row * 3;//resolve warning
+    ui->menuEdit->exec(QCursor::pos());
 }
