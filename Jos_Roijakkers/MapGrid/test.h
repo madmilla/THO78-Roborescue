@@ -1,13 +1,17 @@
 #ifndef TEST_H
 #define TEST_H
 
+#include <iostream>
+
 
 class Test
 {
+private:
+
 public:
     Test();
     ~Test();
-    bool run();
+    int run();
 };
 
 #endif // TEST_H

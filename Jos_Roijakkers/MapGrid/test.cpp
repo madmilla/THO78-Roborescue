@@ -1,5 +1,8 @@
 #include "test.h"
-#include "iostream"
+#include <iostream>
+#include "map.h"
+#include "cell.h"
+#include "mapwindow.h"
 
 Test::Test()
 {
@@ -11,9 +14,8 @@ Test::~Test()
 
 }
 
-bool Test::run()
-{
-    std::cout << "running Test";
 
+int Test::run()
+{
     return 0;
 }
