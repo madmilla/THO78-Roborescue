@@ -1,12 +1,11 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "Logic.h"
+
 int main(int argc, char *argv[])
 {
-    Logic * logic = new Logic();
-    delete logic;
     QApplication a(argc, argv);
-  //  MainWindow w;
+    MainWindow w;
+    w.setWindowTitle("Map reader");
     w.show();
 
     return a.exec();

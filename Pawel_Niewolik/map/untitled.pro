@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-02-26T09:23:52
+# Project created by QtCreator 2015-03-01T20:16:28
 #
 #-------------------------------------------------
 
@@ -8,15 +8,13 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = map
+TARGET = untitled
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    Logic.cpp
+        mainwindow.cpp
 
-HEADERS  += mainwindow.h \
-    Logic.h
+HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
