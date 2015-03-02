@@ -1,6 +1,6 @@
 #include "test.h"
 int main(){
-
-	run();
+	test testp;
+	testp.run();
 
 }
