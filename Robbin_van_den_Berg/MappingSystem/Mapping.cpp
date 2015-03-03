@@ -2,8 +2,6 @@
 #include <iostream>
 #include <QFile>
 #include <QTextStream>
-#include <QString>
-#include <QVector>
 #include <QtDebug>
 
 Mapping::Mapping():
