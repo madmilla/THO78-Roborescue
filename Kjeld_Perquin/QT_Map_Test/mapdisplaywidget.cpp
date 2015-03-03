@@ -9,6 +9,12 @@ MapDisplayWidget::MapDisplayWidget(QWidget *parent):
     currentTile(nullptr),
     currentType(Tile::TERRAIN_TYPE::NONE)
 {
+    applyInitialSettings();
+    connect(this,SIGNAL(currentCellChanged(int,int,int,int)),this,SLOT(currentTileChanged(int,int)));
+}
+
+void MapDisplayWidget::applyInitialSettings()
+{
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -17,7 +23,6 @@ MapDisplayWidget::MapDisplayWidget(QWidget *parent):
     verticalHeader()->hide();
     setEditTriggers(NoEditTriggers);
     setGeometry(200,50,480,480);
-    connect(this,SIGNAL(currentCellChanged(int,int,int,int)),this,SLOT(currentTileChanged(int,int)));
 }
 
 void MapDisplayWidget::setCurrentMap(Map* map)
@@ -28,6 +33,8 @@ void MapDisplayWidget::setCurrentMap(Map* map)
     {
         for(int j = 0; j < currentMap->getColumns(); j++)
         {
+            std::cout << i << ',' << j << std::endl;
+            std::cout.flush();
             setItem(i,j,currentMap->getTile(i,j));
         }
     }
@@ -39,7 +46,8 @@ void MapDisplayWidget::fitToMap()
     int nrOfCols = currentMap->getColumns();
     int tileWidth = 480/nrOfCols;
     int tileHeight = 480/nrOfRows;
-    int length = tileWidth > tileHeight ? tileWidth : tileHeight;
+    //
+    int length = tileWidth < tileHeight ? tileWidth : tileHeight;
     horizontalHeader()->setDefaultSectionSize(length);
     verticalHeader()->setDefaultSectionSize(length);
     setColumnCount(nrOfCols);

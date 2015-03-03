@@ -2,18 +2,10 @@
 #include <QWheelEvent>
 
 MapGraphicsView::MapGraphicsView(QWidget* parent):
-    QGraphicsView(parent),
-    scene( new QGraphicsScene(this) )
+    QGraphicsView(parent)
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-    setScene(scene);
     setDragMode(ScrollHandDrag);
-}
-
-void MapGraphicsView::addItem(QGraphicsItem *item)
-{
-    scene->addItem(item);
-    update();
 }
 
 void MapGraphicsView::wheelEvent(QWheelEvent *event)

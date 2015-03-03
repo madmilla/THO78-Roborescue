@@ -23,11 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     view->setScene(scene);
     setCentralWidget(view);
 
-    connect(ui->actionGrassTile,SIGNAL(triggered()),display,SLOT(setGrassTile()));
-    connect(ui->actionDirtTile,SIGNAL(triggered()),display,SLOT(setDirtTile()));
-    connect(ui->actionConcreteTile,SIGNAL(triggered()),display,SLOT(setConcreteTile()));
-    connect(ui->actionWaterTile,SIGNAL(triggered()),display,SLOT(setWaterTile()));
-    connect(ui->actionEmptyTile,SIGNAL(triggered()),display,SLOT(setEmptyTile()));
+    connectSignals();
 }
 
 MainWindow::~MainWindow()
@@ -35,7 +31,21 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::saveMap()
+void MainWindow::connectSignals()
+{
+    connect(ui->actionNew,SIGNAL(triggered()),this,SLOT(newActionTriggered()));
+    connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(openActionTriggered()));
+    connect(ui->actionSave,SIGNAL(triggered()),this,SLOT(saveActionTriggered()));
+    connect(ui->actionSave_As,SIGNAL(triggered()),this,SLOT(saveAsActionTriggered()));
+
+    connect(ui->actionGrassTile,SIGNAL(triggered()),display,SLOT(setGrassTile()));
+    connect(ui->actionDirtTile,SIGNAL(triggered()),display,SLOT(setDirtTile()));
+    connect(ui->actionConcreteTile,SIGNAL(triggered()),display,SLOT(setConcreteTile()));
+    connect(ui->actionWaterTile,SIGNAL(triggered()),display,SLOT(setWaterTile()));
+    connect(ui->actionEmptyTile,SIGNAL(triggered()),display,SLOT(setEmptyTile()));
+}
+
+void MainWindow::saveOrDiscardChanges()
 {
     DiscardDialog discardDialog;
     if(discardDialog.exec() == QDialog::Accepted)
@@ -44,11 +54,11 @@ void MainWindow::saveMap()
     }
 }
 
-void MainWindow::on_actionNew_triggered()
+void MainWindow::newActionTriggered()
 {
     if(!saved)
     {
-        saveMap();
+        saveOrDiscardChanges();
     }
     NewDialog dialog(this);
     if(dialog.exec() == QDialog::Accepted)
@@ -60,60 +70,66 @@ void MainWindow::on_actionNew_triggered()
     }
 }
 
-void MainWindow::on_actionOpen_triggered()
+void MainWindow::openActionTriggered()
 {
     if(!saved)
     {
-        saveMap();
+        saveOrDiscardChanges();
     }
     filename = QFileDialog::getOpenFileName(this, tr("Open Map"), QString(), tr("Map File (*.map);;All Files(*)"));
     if(!filename.isEmpty())
     {
-        std::ifstream mapFile;
-        mapFile.open(filename.toStdString().c_str());
-        if(mapFile)
-        {
-            int rows, cols;
-            mapFile >> rows >> cols;
-            currentMap = new Map(rows,cols);
-            mapFile >> *currentMap;
-            mapFile.close();
-            display->setCurrentMap(currentMap);
-        }
+        loadMapFile();
     }
 }
 
-void MainWindow::on_actionSave_triggered()
+void MainWindow::saveActionTriggered()
 {
     if(currentMap)
     {
         filename = QFileDialog::getSaveFileName(this, tr("Save Map"), QString(), tr("Map File (*.map);;All Files(*)"));
         if(!filename.isEmpty())
         {
-            std::ofstream mapFile;
-            mapFile.open(filename.toStdString().c_str());
-            mapFile << *currentMap;
-            mapFile.close();
-            saved = true;
+            saveMapFile();
         }
     }
 }
 
-void MainWindow::on_actionSave_As_triggered()
+void MainWindow::saveAsActionTriggered()
 {
     if(currentMap)
     {
         if(!filename.isEmpty())
         {
-            std::ofstream mapFile;
-            mapFile.open(filename.toStdString().c_str());
-            mapFile << *currentMap;
-            mapFile.close();
-            saved = true;
+            saveMapFile();
         }
         else
         {
             emit ui->actionSave->triggered();
         }
+    }
+}
+
+void MainWindow::saveMapFile()
+{
+    std::ofstream mapFile;
+    mapFile.open(filename.toStdString().c_str());
+    mapFile << *currentMap;
+    mapFile.close();
+    saved = true;
+}
+
+void MainWindow::loadMapFile()
+{
+    std::ifstream mapFile;
+    mapFile.open(filename.toStdString().c_str());
+    if(mapFile)
+    {
+        int rows, cols;
+
+        currentMap = new Map(rows,cols);
+        mapFile >> *currentMap;
+        mapFile.close();
+        display->setCurrentMap(currentMap);
     }
 }

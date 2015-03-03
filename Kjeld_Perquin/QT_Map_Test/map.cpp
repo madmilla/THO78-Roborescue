@@ -1,24 +1,17 @@
 #include "map.h"
 #include <iostream>
 
-Map::Map():
-    nrOfRows(0),
-    nrOfColumns(0)
-{
-}
-
 Map::Map(int rows, int columns):
     nrOfRows(rows),
     nrOfColumns(columns)
 {
-    for(int i = 0; i < nrOfRows * nrOfColumns; i++)
-    {
-        tiles.push_back(new Tile);
-    }
+    resizeTileContainer();
 }
 
 Tile* Map::getTile(int row, int column)
 {
+    std::cout << row * nrOfColumns + column << tiles.size() <<  std::endl;
+    std::cout.flush();
     return tiles[row * nrOfColumns + column];
 }
 
@@ -32,14 +25,25 @@ int Map::getColumns()
     return nrOfColumns;
 }
 
+void Map::resizeTileContainer()
+{
+    int newSize = nrOfRows * nrOfColumns - tiles.size();
+    for(int i = 0; i < newSize ; ++i)
+    {
+        tiles.push_back(new Tile());
+    }
+}
+
 std::ostream& operator<<(std::ostream& stream, Map& map)
 {
+    //First output the number of rows and number of columns.
     stream << map.nrOfRows << ' ' << map.nrOfColumns << std::endl;
-    for(int columns = 0; columns < map.nrOfColumns; columns++)
+    //Then output every tile in the map from left to right and top to bottom.
+    for(int rows = 0; rows < map.nrOfRows; rows++)
     {
-        for(int rows = 0; rows < map.nrOfRows; rows++)
+        for(int columns = 0; columns < map.nrOfColumns; columns++)
         {
-            stream << *map.tiles[columns*map.nrOfColumns + rows] << std::endl;
+            stream << *map.tiles[rows * map.nrOfColumns + columns] << std::endl;
         }
     }
     return stream;
@@ -47,13 +51,19 @@ std::ostream& operator<<(std::ostream& stream, Map& map)
 
 std::istream& operator>>(std::istream& stream, Map& map)
 {
-    for(int columns = 0; columns < map.nrOfColumns; columns++)
+    //First read in the map size.
+    stream >> map.nrOfRows >> map.nrOfColumns;
+    //Then resize the vector of tiles accordingly.
+    map.resizeTileContainer();
+    //Then read in every tile and saving them from
+    //left to right and top to bottom.
+    for(int rows = 0; rows < map.nrOfRows; ++rows)
     {
-        for(int rows = 0; rows < map.nrOfRows; rows++)
+        for(int columns = 0; columns < map.nrOfColumns; ++columns)
         {
             Tile *tile = new Tile;
             stream >> *tile;
-            map.tiles[columns*map.nrOfColumns + rows] = tile;
+            map.tiles[rows*map.nrOfColumns + columns] = tile;
         }
     }
     return stream;

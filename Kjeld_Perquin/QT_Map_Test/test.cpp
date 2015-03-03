@@ -3,11 +3,6 @@
 #include "map.h"
 #include "tile.h"
 
-Test::Test():
-    errors(0)
-    {
-    }
-
 void Test::assert(bool testSucceeded, const std::string& testName)
 {
     std::cout << "TEST: " + testName << std::endl;
@@ -22,6 +17,7 @@ void Test::assert(bool testSucceeded, const std::string& testName)
 
 int Test::runTests()
 {
+    errors = 0;
     std::cout << "########STARTING TEST########" << std::endl;
     std::cout << "########MAP CONSTRUCTORS########" << std::endl;
     Map* testMap = new Map();
@@ -42,13 +38,15 @@ int Test::runTests()
 
     std::cout << "########TILE CONSTRUCTORS########" << std::endl;
     Tile* testTile = new Tile();
-    assert(testTile->getTerrainType() == Tile::TERRAIN_TYPE::NONE, "Tile terrain is empty");
+    assert(testTile->getTerrainType() == Tile::TERRAIN_TYPE::NONE,
+           "Tile terrain is empty");
     assert(testTile->isQuadcopterPresent() == false, "Tile has no quadcopter");
     assert(testTile->isRosbeePresent() == false, "Tile has no rosbee");
     assert(testTile->isATVPresent() == false, "Tile has no ATV");
 
     testTile = new Tile(Tile::TERRAIN_TYPE::WATER, true, true, true);
-    assert(testTile->getTerrainType() == Tile::TERRAIN_TYPE::WATER, "Tile terrain is water");
+    assert(testTile->getTerrainType() == Tile::TERRAIN_TYPE::WATER,
+           "Tile terrain is water");
     assert(testTile->isQuadcopterPresent() == true, "Tile has a quadcopter");
     assert(testTile->isRosbeePresent() == true, "Tile has a rosbee");
     assert(testTile->isATVPresent() == true, "Tile has a ATV");
@@ -58,7 +56,8 @@ int Test::runTests()
     testTile->removeVehicle(Tile::VEHICLE_TYPE::QUADCOPTER);
     testTile->removeVehicle(Tile::VEHICLE_TYPE::ROSBEE);
     testTile->removeVehicle(Tile::VEHICLE_TYPE::ATV);
-    assert(testTile->getTerrainType() == Tile::TERRAIN_TYPE::GRASS, "Tile terrain is grass");
+    assert(testTile->getTerrainType() == Tile::TERRAIN_TYPE::GRASS,
+           "Tile terrain is grass");
     assert(testTile->isQuadcopterPresent() == false, "Tile has no quadcopter");
     assert(testTile->isRosbeePresent() == false, "Tile has no rosbee");
     assert(testTile->isATVPresent() == false, "Tile has no ATV");
@@ -71,7 +70,8 @@ int Test::runTests()
     assert(testTile->isATVPresent() == true, "Tile has a ATV");
 
     testTile->clearTile();
-    assert(testTile->getTerrainType() == Tile::TERRAIN_TYPE::NONE, "Tile terrain is empty");
+    assert(testTile->getTerrainType() == Tile::TERRAIN_TYPE::NONE,
+           "Tile terrain is empty");
     assert(testTile->isQuadcopterPresent() == false, "Tile has no quadcopter");
     assert(testTile->isRosbeePresent() == false, "Tile has no rosbee");
     assert(testTile->isATVPresent() == false, "Tile has no ATV");

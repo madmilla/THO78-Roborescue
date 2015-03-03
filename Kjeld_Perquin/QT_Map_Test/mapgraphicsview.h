@@ -7,9 +7,18 @@ class MapGraphicsView : public QGraphicsView
 {
 public:
     MapGraphicsView(QWidget* parent = nullptr);
-    void addItem(QGraphicsItem* item);
+
 private:
-    QGraphicsScene *scene;
+
+    /*!
+     * \brief Override of the mousewheel event.
+     *
+     * Catches the mousewheel events registered inside this QGraphicsView
+     * and zooms in/out accordingly and doesn't pass it further down to refrain
+     * from activating the normal mousewheel handling.
+     *
+     * \param event The registered mousewheel event
+     */
     void wheelEvent(QWheelEvent *event) override;
 };
 #endif // MAPGRAPHICSVIEW_H
