@@ -8,10 +8,10 @@ class Mapping
 public:
     Mapping();
     ~Mapping();
-    void saveMap(QString fileName);
-    void loadMap(QString fileName);
-    void setObject(int posX, int posY);
-    void setActiveObject(int obj);
+    bool saveMap(QString fileName);
+    bool loadMap(QString fileName);
+    bool setObject(int posX, int posY);
+    bool setActiveObject(int obj);
     QVector< QVector<int> > getMap();
 private:
     static const int size = 20;

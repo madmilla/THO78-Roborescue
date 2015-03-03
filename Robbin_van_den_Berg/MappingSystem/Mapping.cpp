@@ -16,7 +16,7 @@ Mapping::~Mapping(void)
 {
 }
 
-void Mapping::saveMap(QString fileName)
+bool Mapping::saveMap(QString fileName)
 {
     QFile outfile(fileName);
     if(!outfile.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -31,9 +31,10 @@ void Mapping::saveMap(QString fileName)
         }
         out << endl;
     }
+    outfile.close();
 }
 
-void Mapping::loadMap(QString fileName){
+bool Mapping::loadMap(QString fileName){
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
@@ -51,19 +52,21 @@ void Mapping::loadMap(QString fileName){
         x = 0;
         y++;
     }
+    file.close();
 }
 
 QVector< QVector<int> > Mapping::getMap() {
     return grid;
 }
 
-void Mapping::setObject(int posX, int posY) {
+bool Mapping::setObject(int posX, int posY) {
     if(posX >= 0 && posX < size && posY >= 0 && posY < size) {
         grid[posY][posX] = activeObject;
     }
 }
 
-void Mapping::setActiveObject(int obj) {
+int Mapping::setActiveObject(int obj) {
     activeObject = obj;
+    return activeObject;
 }
 
