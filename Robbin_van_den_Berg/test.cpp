@@ -1,8 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
 #include <assert.h>
-#include <QString>
-#include <QVector>
 #include "MappingSystem/Mapping.h"
 
 int main(int argc, char *argv[])
