@@ -7,6 +7,7 @@ class Test
 public:
     Test();
     ~Test();
+    int run();
 };
 
 #endif // TEST_H

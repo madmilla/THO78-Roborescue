@@ -126,6 +126,11 @@ void Grid::newCleanGrid(QVector2D gridSize){
     }
 }
 
+vector<Tile> Grid::getGrid()
+{
+    return m_grid;
+}
+
 TileType Grid::colorToType(QColor color){
     for(auto p : m_colorMap){
         if(p.second == color){

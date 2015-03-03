@@ -3,10 +3,20 @@
 
 #include <QMainWindow>
 #include <vector>
+#include <QGraphicsScene>
+#include <QtGui>
+#include <QTableWidgetItem>
+#include <QWidget>
+#include "Map.h"
 
 namespace Ui {
 class MainWindow;
 }
+
+class QAction;
+class QActionGroup;
+class QLabel;
+class QMenu;
 
 class MainWindow : public QMainWindow
 {
@@ -15,16 +25,20 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void paintEvent(QPaintEvent *);
-    void getMap(QString filename);
     void showMap();
+private slots:
+    void saveMap();
+    void loadMap();
+    void closeMap();
 
 private:
     Ui::MainWindow *ui;
-    QString myMap[20][20];
-    QString quadCopterLocationX;
-    QString quadCopterLocationY;
-    int xLength, yLength;
+    QMenu *fileMenu;
+    QAction *newAct;
+    QAction *loadAct;
+    QAction *saveAct;
+    QAction *closeAct;
+    Map *map;
 };
 
 #endif // MAINWINDOW_H

@@ -17,8 +17,6 @@ public:
     Tile* tileAt(QVector2D tilePos);
     const Tile* tileAt(QVector2D tilePos) const;
 
-
-
     QVector2D getTileSize();
     QVector2D getGridSize();
     Tile* getStartTile();
@@ -27,6 +25,8 @@ public:
     void setStartTile();
     void colorTile(QColor color);
     void newCleanGrid(QVector2D gridSize);
+
+    vector<Tile> getGrid();
 
     TileType colorToType(QColor color);
     QColor typeToColor(TileType type);

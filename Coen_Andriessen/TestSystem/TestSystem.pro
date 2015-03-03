@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    Logic.cpp
+    Logic.cpp \
+    Map.cpp
 
 HEADERS  += mainwindow.h \
-    Logic.h
+    Logic.h \
+    Map.h
 
 FORMS    += mainwindow.ui
 

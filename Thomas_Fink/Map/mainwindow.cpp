@@ -45,7 +45,7 @@ void MainWindow::on_createEmptyMapButton_clicked(){
     if (ok && !text.isEmpty()){
         if(!QFile::copy("defaultMap.default", text + ".map")){
             QMessageBox msgBox;
-            msgBox.setText("Name already used");
+            msgBox.setText("Name already used or default map missing");
             msgBox.exec();
         }
     }
