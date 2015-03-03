@@ -1,28 +1,34 @@
-#include "window.h"
-#include "grid.h"
+/// @file main.cpp
+/// @author Edwin Koek
+/// @version 1.0
+
 #include <QApplication>
 #include <iostream>
+
+#include "window.h"
+#include "grid.h"
+
 using namespace std;
 
 void printMap(Grid& grid){
     cout << endl;
-    for(int y = 0; y < grid.getGridSize().y(); y++){
-        for(int x = 0; x < grid.getGridSize().x(); x++){
+    for(int y = 0; y < grid.getGridSize().y(); ++y){
+        for(int x = 0; x < grid.getGridSize().x(); ++x){
             switch(grid.getGrid()[(y * grid.getGridSize().x()) + x].getTileType()){
             case TileType::Walkable:
-                cout<<"W ";
+                cout<< "W ";
                 break;
             case TileType::Dangerous:
-                cout<<"D ";
+                cout<< "D ";
                 break;
             case TileType::Blocked:
-                cout<<"B ";
+                cout<< "B ";
                 break;
             case TileType::Object:
-                cout<<"O ";
+                cout<< "O ";
                 break;
             case TileType::Undefined:
-                cout<<"U ";
+                cout<< "U ";
                 break;
             }
         }
@@ -31,7 +37,7 @@ void printMap(Grid& grid){
     cout << endl;
 }
 
-bool testMap(Grid& grid,
+bool isValidMap(Grid& grid,
              string mapName,
              int expWalkable = 0,
              int expDangerous = 0,
@@ -68,17 +74,17 @@ bool testMap(Grid& grid,
         cout << blocked << " blocked tiles " << expBlocked << " expected" <<endl;
         cout << object << " objects " << expObject << " expected" <<endl;
         cout << undefined << " undefined tiles " << expUndefined << " expected" << endl;
-        if(walkable == expWalkable && dangerous == expDangerous && blocked == expBlocked
-                && object == expObject && undefined == expUndefined){
+
+        if(walkable == expWalkable && dangerous == expDangerous
+                && blocked == expBlocked && object == expObject
+                && undefined == expUndefined){
             cout << "All values are expected" << endl;
             return true;
-        }
-        else{
+        } else{
             cout << "Unexpected values" << endl;
             return false;
         }
-    }
-    else{
+    }else{
         cout << "Load failed" << endl;
         return false;
     }
@@ -93,31 +99,41 @@ int main()
     cout << "Loading good map..." << endl;
 
     grid.load("maps/goodtestmap.png");
-    testMap(grid,"Good map",277,31,88,4,0);
+    //The numbers represent the known numbers of expected tiles
+    //in the test image
+    isValidMap(grid,"Good map",277,31,88,4,0);
 
     cout << endl << endl;
 
     cout << "Loading bad map..." << endl;
 
     grid.load("maps/badtestmap.png");
-    testMap(grid,"Bad map",0,0,10,0,1540);
+    //The numbers represent the known numbers of expected tiles
+    //in the test image
+    isValidMap(grid,"Bad map",0,0,10,0,1540);
 
     cout << endl << endl;
 
     cout << "Creating clean 20x20 map..." << endl;
     grid.newCleanGrid(QVector2D(20,20));
-    testMap(grid,"New 20x20 map",0,0,0,0,400);
+    //The numbers represent the known numbers of expected tiles
+    //in the test image
+    isValidMap(grid,"New 20x20 map",0,0,0,0,400);
 
     cout << endl;
 
-    cout << "Selecting and editing first 4 tiles to Walkable - Dangerous - Blocked - Object" << endl;
-    grid.selectTile(grid.tileAt(QVector2D(grid.getTileSize().x() * 0 ,grid.getTileSize().y() * 0)));
+    cout << "Selecting and editing tiles at (0,0),(1,0),(0,1),(1,1) to W,D,B,O" << endl;
+    grid.selectTile(grid.tileAt(QVector2D(grid.getTileSize().x() * 0 ,
+                                          grid.getTileSize().y() * 0)));
     grid.colorTile(grid.typeToColor(TileType::Walkable));
-    grid.selectTile(grid.tileAt(QVector2D(grid.getTileSize().x() * 1 ,grid.getTileSize().y() * 0)));
+    grid.selectTile(grid.tileAt(QVector2D(grid.getTileSize().x() * 1 ,
+                                          grid.getTileSize().y() * 0)));
     grid.colorTile(grid.typeToColor(TileType::Dangerous));
-    grid.selectTile(grid.tileAt(QVector2D(grid.getTileSize().x() * 0 ,grid.getTileSize().y() * 1)));
+    grid.selectTile(grid.tileAt(QVector2D(grid.getTileSize().x() * 0 ,
+                                          grid.getTileSize().y() * 1)));
     grid.colorTile(grid.typeToColor(TileType::Blocked));
-    grid.selectTile(grid.tileAt(QVector2D(grid.getTileSize().x() * 1 ,grid.getTileSize().y() * 1)));
+    grid.selectTile(grid.tileAt(QVector2D(grid.getTileSize().x() * 1 ,
+                                          grid.getTileSize().y() * 1)));
     grid.colorTile(grid.typeToColor(TileType::Object));
 
     cout << endl;
@@ -130,7 +146,9 @@ int main()
     cout << "Loading clean 20x20 map..." << endl;
 
     grid.load("maps/newcleanmap.png");
-    testMap(grid,"Edited 20x20 map",1,1,1,1,396);
+    //The numbers represent the known numbers of expected tiles
+    //in the test image
+    isValidMap(grid,"Edited 20x20 map",1,1,1,1,396);
 
 }
 

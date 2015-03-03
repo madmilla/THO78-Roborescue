@@ -1,5 +1,10 @@
-#ifndef TILE
-#define TILE
+/// @file tile.h
+/// @author Edwin Koek
+/// @version 1.0
+
+#ifndef TILE_H
+#define TILE_H
+
 #include <QWidget>
 #include <QPainter>
 #include <QVector2D>
@@ -14,9 +19,12 @@ enum class TileType{
 
 class Tile{
 public:
-    Tile(TileType tileType,QColor tileColor, QVector2D pos, QVector2D size);
+    Tile(TileType tileType,QColor tileColor,QVector2D pos,QVector2D size);
 
-    void drawTile(QPainter& painter, bool selected = false, bool startTile = false);
+    void drawTile(QPainter& painter,
+                  bool selected = false,
+                  bool startTile = false);
+
     QVector2D getPosition();
     TileType getTileType();
     void setTileType(TileType type);

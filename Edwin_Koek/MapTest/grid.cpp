@@ -1,5 +1,10 @@
-#include "grid.h"
+/// @file grid.cpp
+/// @author Edwin Koek
+/// @version 1.0
+
 #include <iostream>
+
+#include "grid.h"
 
 Grid::Grid():
     m_selectedTile(nullptr),
@@ -13,8 +18,10 @@ Grid::Grid():
 void Grid::load(const QString path){
     if(!path.isNull()){
         m_image = QImage(path);
-        m_gridSize = {static_cast<float>(m_image.size().width()),static_cast<float>(m_image.size().height())};
-        m_tileSize = {800/static_cast<float>(m_image.size().width()),600/static_cast<float>(m_image.size().height())};
+        m_gridSize = {static_cast<float>(m_image.size().width()),
+                      static_cast<float>(m_image.size().height())};
+        m_tileSize = {800/static_cast<float>(m_image.size().width()),
+                      600/static_cast<float>(m_image.size().height())};
         m_grid.clear();
         for(int y = 0; y < m_gridSize.y(); y++){
             for(int x = 0; x < m_gridSize.x();x++){
@@ -38,8 +45,7 @@ Tile *Grid::tileAt(QVector2D tilePos){
             || 0 > tilePos.x() || tilePos.x() > m_gridSize.x() * m_tileSize.x()){
         cout << "tileAt: Tile position out of bounds" << endl;
         return nullptr;
-    }
-    else{
+    } else{
         int x = floor(tilePos.x() / m_tileSize.x());
         int y = floor(tilePos.y() / m_tileSize.y());
         return &m_grid.at((m_gridSize.x() * y) + x);
@@ -52,8 +58,7 @@ const Tile* Grid::tileAt(QVector2D tilePos) const{
             || 0 > tilePos.x() || tilePos.x() > m_gridSize.x() * m_tileSize.x()){
         cout << "tileAt: Tile position out of bounds" << endl;
         return nullptr;
-    }
-    else{
+    }else{
         int x = floor(tilePos.x() / m_tileSize.x());
         int y = floor(tilePos.y() / m_tileSize.y());
         return &m_grid.at((m_gridSize.x() * y) + x);
@@ -104,7 +109,8 @@ void Grid::colorTile(QColor color){
         int x = floor(m_selectedTile->getPosition().x() / m_tileSize.x());
         int y = floor(m_selectedTile->getPosition().y() / m_tileSize.y());
         m_image.setPixel(x,y,color.rgb());
-        if(m_selectedTile == m_droneStartTile && m_droneStartTile->getTileType() != TileType::Walkable){
+        if(m_selectedTile == m_droneStartTile
+                && m_droneStartTile->getTileType() != TileType::Walkable){
             m_droneStartTile = nullptr;
         }
     }
@@ -114,7 +120,8 @@ void Grid::newCleanGrid(QVector2D gridSize){
     m_image = QImage(int(gridSize.x()),int(gridSize.y()),QImage::Format_ARGB32);
     m_image.fill(Qt::white);
     m_gridSize = gridSize;
-    m_tileSize = {800/static_cast<float>(gridSize.x()),600/static_cast<float>(gridSize.y())};
+    m_tileSize = {800/static_cast<float>(gridSize.x()),
+                  600/static_cast<float>(gridSize.y())};
     m_grid.clear();
     for(int y = 0; y < m_gridSize.y(); y++){
         for(int x = 0; x < m_gridSize.x();x++){

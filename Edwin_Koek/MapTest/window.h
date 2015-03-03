@@ -1,8 +1,13 @@
-#ifndef WINDOW
-#define WINDOW
-#include "grid.h"
+/// @file window.h
+/// @author Edwin Koek
+/// @version 1.0
+
+#ifndef WINDOW_H
+#define WINDOW_H
 
 #include <QWidget>
+
+#include "grid.h"
 
 class QVBoxLayout;
 class QMenuBar;

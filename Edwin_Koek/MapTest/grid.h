@@ -1,9 +1,14 @@
-#ifndef GRID
-#define GRID
+/// @file grid.h
+/// @author Edwin Koek
+/// @version 1.0
+
+#ifndef GRID_H
+#define GRID_H
 
 #include <vector>
 #include <QVector2D>
 #include <QImage>
+
 #include "tile.h"
 
 using namespace std;

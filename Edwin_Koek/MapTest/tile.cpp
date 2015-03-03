@@ -1,13 +1,17 @@
+/// @file tile.cpp
+/// @author Edwin Koek
+/// @version 1.0
+
 #include "tile.h"
 
-Tile::Tile(TileType tileType,QColor tileColor, QVector2D pos, QVector2D size):
+Tile::Tile(TileType tileType,QColor tileColor,QVector2D pos,QVector2D size):
     m_tileType(tileType),
     m_pos(pos),
     m_size(size),
     m_tileColor(tileColor)
 {}
 
-void Tile::drawTile(QPainter& painter, bool selected, bool startTile){
+void Tile::drawTile(QPainter& painter,bool selected,bool startTile){
     painter.fillRect(m_pos.x(),m_pos.y(),m_size.x(),m_size.y(),m_tileColor);
 
     if(selected) {

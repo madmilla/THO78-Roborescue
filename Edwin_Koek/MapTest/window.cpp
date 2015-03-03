@@ -1,4 +1,7 @@
-#include "window.h"
+/// @file window.cpp
+/// @author Edwin Koek
+/// @version 1.0
+
 #include <QLayout>
 #include <QMenuBar>
 #include <QAction>
@@ -6,6 +9,9 @@
 #include <iostream>
 #include <QInputEvent>
 #include <QInputDialog>
+
+#include "window.h"
+
 
 
 Window::Window(Grid& grid):
@@ -34,7 +40,8 @@ Window::Window(Grid& grid):
 }
 
 void Window::load(){
-    QString path = QFileDialog::getOpenFileName(0,"Select map","","Images (*.png *.xpm *.jpg)");
+    QString path = QFileDialog::getOpenFileName(0,"Select map","",
+                                                "Images (*.png *.xpm *.jpg)");
     m_grid.load(path);
 }
 
@@ -47,7 +54,8 @@ void Window::create(){
 }
 
 void Window::save(){
-    QString path = QFileDialog::getSaveFileName(0,"Save map","","Images (*.png *.xpm *.jpg)");
+    QString path = QFileDialog::getSaveFileName(0,"Save map","",
+                                                "Images (*.png *.xpm *.jpg)");
     m_grid.save(path);
 }
 
@@ -58,7 +66,8 @@ void Window::paintEvent(QPaintEvent *){
 
 void Window::mousePressEvent(QMouseEvent * mouseEvent){
     cout << mouseEvent->x() <<  ',' << mouseEvent->y() << endl;
-    Tile* tile = m_grid.tileAt({static_cast<float>(mouseEvent->x()),static_cast<float>(mouseEvent->y())});
+    Tile* tile = m_grid.tileAt({static_cast<float>(mouseEvent->x()),
+                                static_cast<float>(mouseEvent->y())});
     if (tile) {
         m_grid.selectTile(tile);
         update();
