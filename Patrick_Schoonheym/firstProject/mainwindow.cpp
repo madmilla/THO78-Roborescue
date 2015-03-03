@@ -8,44 +8,54 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->textEdit->setReadOnly(true);
     ui->StartButton->setEnabled(false);
+
+    addImage(":/images/beker.jpg");
+    addImage(":/images/deur.jpg");
+    addImage(":/images/muur.jpg");
+    addImage(":/images/plant.jpg");
+    addImage(":/images/tafel.jpg");
+
+    SCREEN_SIZE.setX(480);
+    SCREEN_SIZE.setY(480);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    for(auto & map : maps) {
-        delete map;
+
+    for(auto& gui : guis) {
+        delete gui;
     }
 }
 
-void MainWindow::readFile(const QString & name) {
-    QFile file(name);
-    if(!file.open(QFile::ReadOnly | QFile::Text)) {
+void MainWindow::addImage(const QString & name) {
+    QPixmap image;
+
+    if(!image.load(name)) {
         qDebug() << "could not load image with path" << name << "\n";
         return;
     }
-
-    QTextStream file_stream(&file);
-    while(!file_stream.atEnd()) {
-        map_data.push_back(file_stream.readLine());
-    }
-    file.close();
+    images.push_back(image);
 }
 
 void MainWindow::on_openFileButton_clicked()
 {
-    map_data.clear();
+    map = nullptr;
     ui->textEdit->clear();
 
     const char* name = "Open File";
     const char* path = "C:/Users/Patrick/Documents/firstProject/Maps/";
     const char* extension = "All Files (*.*);; Map Files (*.map*)";
 
-    QString fileName = QFileDialog::getOpenFileName(this, tr(name), path, extension);
-    readFile(fileName);
+    mapName = QFileDialog::getOpenFileName(this, tr(name), path, extension);
 
-    if(!map_data.empty()) {
-        for(const auto & line : map_data) {
+    map = new Map{};
+    if(!map->readFile(mapName)) {
+        return;
+    }
+
+    if(map->hasData()) {
+        for(const auto & line : map->getMap()) {
             ui->textEdit->append(line);
         }
         ui->StartButton->setEnabled(true);
@@ -56,8 +66,13 @@ void MainWindow::on_openFileButton_clicked()
 }
 
 void MainWindow::on_StartButton_clicked() {
-    Map* map = new Map{};
-    map->setMap(map_data);
-    map->show();
-    maps.push_back(map);
+
+    if(!map->legit_char_checker() || !map->legit_size_checker()) {
+        qDebug() << "map is corrupted\n";
+        return;
+    }
+
+    Gui* gui = new Gui{SCREEN_SIZE, images, map};
+    gui->show();
+    guis.push_back(gui);
 }

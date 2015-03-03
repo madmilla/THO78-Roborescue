@@ -3,13 +3,11 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
-#include <QFile>
 #include <QDebug>
 #include <vector>
-#include <QTextStream>
 #include <string>
-#include <QTableView>
 #include "map.h"
+#include "gui.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,7 +20,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void readFile(const QString & name);
+    void addImage(const QString & name);
 
 private slots:
     void on_openFileButton_clicked();
@@ -31,8 +29,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    std::vector<QString> map_data;
-    std::vector<Map*> maps;
+    std::vector<QPixmap> images;
+    std::vector<Gui*> guis;
+    QPoint SCREEN_SIZE;
+    QString mapName;
+    Map* map;
 };
 
 #endif // MAINWINDOW_H

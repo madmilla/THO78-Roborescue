@@ -14,13 +14,18 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    map.cpp
+    gui.cpp \
+    map.cpp \
+    test.cpp
 
 HEADERS  += mainwindow.h \
-    map.h
+    gui.h \
+    gui.h \
+    map.h \
+    test.h
 
 FORMS    += mainwindow.ui \
-    map.ui
+    gui.ui
 
 RESOURCES += \
     textures.qrc
