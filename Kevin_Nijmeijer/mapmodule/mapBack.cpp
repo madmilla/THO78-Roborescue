@@ -20,11 +20,11 @@ int mapBack::colorAt(int x, int y)
     case '1':
         return 0x000000;
     case '2':
-        return 0x000000;
+        return 0xFF0000;
     case '3':
-        return 0x000000;
+        return 0x00FF00;
     case '4':
-        return 0x000000;
+        return 0x0000FF;
     default:
         return 0xFFFFFF;
     }
@@ -105,11 +105,11 @@ void mapBack::copyMap(char *mArray)
 
 
     //Debug loaded map into console
-    for (int j = 0; j<400; j++)
-    {
-        std::cout<<currentMap[j];
-    }
-    std::cout<<std::endl;
+    //for (int j = 0; j<400; j++)
+    //{
+    //    std::cout<<currentMap[j];
+    //}
+    //std::cout<<std::endl;
 
 }
 

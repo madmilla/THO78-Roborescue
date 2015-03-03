@@ -36,16 +36,23 @@ private slots:
     void open();
     void save();
     void exit();
+    void insAtv();
+    void insRosbee();
+    void insDrone();
 
 private:
     void createActions();
     void createMenus();
     void displayMap();
     QMenu* fileMenu;
+    QMenu* addObjMenu;
     QAction* newAction;
     QAction* openAction;
     QAction* saveAction;
     QAction* closeAction;
+    QAction* addRosbee;
+    QAction* addAtv;
+    QAction* addDrone;
 
     QTableWidget* mapTableWidget;
 

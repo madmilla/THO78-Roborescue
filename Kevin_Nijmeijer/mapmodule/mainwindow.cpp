@@ -11,13 +11,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
+    mb = new mapBack();
     QWidget* widget = new QWidget;
     setCentralWidget(widget);
 
     QWidget* topFiller = new QWidget;
     //topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QTableWidget* mapTableWidget = new QTableWidget(this);
+    mapTableWidget = new QTableWidget(this);
     mapTableWidget->setRowCount(20);
     mapTableWidget->setColumnCount(20);
     for (int i = 0; i<20; i++)
@@ -78,6 +79,21 @@ void MainWindow::exit()
     this->close();
 }
 
+void MainWindow::insAtv()
+{
+
+}
+
+void MainWindow::insDrone()
+{
+
+}
+
+void MainWindow::insRosbee()
+{
+
+}
+
 void MainWindow::createActions()
 {
     newAction = new QAction(tr("&New"), this);
@@ -99,27 +115,42 @@ void MainWindow::createActions()
     closeAction->setShortcuts(QKeySequence::Quit);
     closeAction->setStatusTip(tr("Exit the application"));
     connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
+
+    addAtv = new QAction(tr("&ATV"),this);
+    addAtv->setStatusTip(tr("Insert all terrain vehicle at selected location"));
+    connect(addAtv, SIGNAL(triggered()), this, SLOT(insAtv()));
+
+
+    addDrone = new QAction(tr("&Drone"),this);
+    addDrone->setStatusTip(tr("Insert quadcopter drone at selected location"));
+    connect(addDrone, SIGNAL(triggered()), this, SLOT(insDrone()));
+
+    addRosbee = new QAction(tr("&Rosbee"),this);
+    addRosbee->setStatusTip(tr("Insert Rosbee-LiDAR unit at selected location"));
+    connect(addRosbee, SIGNAL(triggered()), this, SLOT(insRosbee()));
+
 }
 
 void MainWindow::displayMap()
 {
-    std::cout<<"DisplayStart"<<std::endl;
+    //std::cout<<"DisplayStart"<<std::endl;
     for (int k=0; k<20; k++)
     {
-        std::cout<<"k change"<<std::endl;
+        //std::cout<<"k change"<<std::endl;
 
         for(int l=0; l<20; l++)
         {
-            std::cout<<"l change"<<std::endl;
-            QTableWidgetItem* tempitem = new QTableWidgetItem();
-            std::cout<<"made widgetitem"<<std::endl;
+
+            //std::cout<<"l change"<<std::endl;
+            QTableWidgetItem* tempitem = new QTableWidgetItem("O");
+            //std::cout<<"made widgetitem"<<std::endl;
 
             tempitem->setBackgroundColor(mb->colorAt(l,k));
-            std::cout<<"color requested"<<std::endl;
+            //std::cout<<"color requested"<<std::endl;
             mapTableWidget->setItem(k,l,tempitem);
-            std::cout<<"item set"<<std::endl;
+            //std::cout<<"item set"<<std::endl;
 
-            //delete tempitem;
+            //delete mapTableWidget;
 
 
         }
@@ -138,6 +169,11 @@ void MainWindow::createMenus()
     fileMenu->addAction(saveAction);
     fileMenu->addSeparator();
     fileMenu->addAction(closeAction);
+
+    addObjMenu = menuBar()->addMenu(tr("&Insert"));
+    addObjMenu->addAction(addRosbee);
+    addObjMenu->addAction(addAtv);
+    addObjMenu->addAction(addDrone);
 }
 
 MainWindow::~MainWindow()
