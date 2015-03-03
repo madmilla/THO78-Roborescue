@@ -16,17 +16,33 @@ mapBack::mapBack()
 int mapBack::colorAt(int x, int y)
 {
     //QColor::QColor temp = new QColor();
-    switch(currentMap[y*20+x]){
+    switch(currentMap[y*20+x])
+    {
     case '1':
-        return 0x000000;
+        return 0x888888;
     case '2':
-        return 0xFF0000;
+        return 0xFF8888;
     case '3':
-        return 0x00FF00;
+        return 0x88FF88;
     case '4':
-        return 0x0000FF;
+        return 0x8888FF;
     default:
         return 0xFFFFFF;
+    }
+}
+
+QString mapBack::setRobot(int i)
+{
+    switch (i)
+    {
+    case 1:
+        return "A";
+    case 2:
+        return "Q";
+    case 3:
+        return "R";
+    default:
+        return " ";
     }
 }
 

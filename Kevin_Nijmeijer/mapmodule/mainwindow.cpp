@@ -81,17 +81,23 @@ void MainWindow::exit()
 
 void MainWindow::insAtv()
 {
-
+    QTableWidgetItem* atvI = new QTableWidgetItem(mb->setRobot(1));
+    atvI->setBackgroundColor(mb->colorAt(mapTableWidget->currentColumn(),mapTableWidget->currentRow()));
+    mapTableWidget->setItem(mapTableWidget->currentRow(),mapTableWidget->currentColumn(),atvI);
 }
 
 void MainWindow::insDrone()
 {
-
+    QTableWidgetItem* droneI = new QTableWidgetItem(mb->setRobot(2));
+    droneI->setBackgroundColor(mb->colorAt(mapTableWidget->currentColumn(),mapTableWidget->currentRow()));
+    mapTableWidget->setItem(mapTableWidget->currentRow(),mapTableWidget->currentColumn(),droneI);
 }
 
 void MainWindow::insRosbee()
 {
-
+    QTableWidgetItem* rosI = new QTableWidgetItem(mb->setRobot(3));
+    rosI->setBackgroundColor(mb->colorAt(mapTableWidget->currentColumn(),mapTableWidget->currentRow()));
+    mapTableWidget->setItem(mapTableWidget->currentRow(),mapTableWidget->currentColumn(),rosI);
 }
 
 void MainWindow::createActions()
@@ -142,7 +148,7 @@ void MainWindow::displayMap()
         {
 
             //std::cout<<"l change"<<std::endl;
-            QTableWidgetItem* tempitem = new QTableWidgetItem("O");
+            QTableWidgetItem* tempitem = new QTableWidgetItem();
             //std::cout<<"made widgetitem"<<std::endl;
 
             tempitem->setBackgroundColor(mb->colorAt(l,k));

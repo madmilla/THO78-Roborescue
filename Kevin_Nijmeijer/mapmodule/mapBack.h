@@ -17,6 +17,7 @@ public:
     void loader(QString filename);
     void loadEmpty();
     int colorAt(int x, int y);
+    QString setRobot(int i);
     //void save(char* savename);
 
     char currentMap[400];
