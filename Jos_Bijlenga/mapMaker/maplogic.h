@@ -30,13 +30,14 @@ public:
     void saveFile();
     void mouseClicked(QPoint pos);
     int getCellType();
+    int ** getMap();
+    int ** create2DArray(unsigned height, unsigned width);
 
     QString toString();
 private:
     QWidget * inst;
     QString curFile;
-    int map[WIDTH][HEIGHT];
-    QPainter * painter;
+    int ** map;
 };
 
 #endif // MAPLOGIC_H

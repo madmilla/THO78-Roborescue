@@ -33,6 +33,8 @@ void MainWindow::on_actionNew_triggered()
 }
 
 void MainWindow::paintEvent(QPaintEvent *e){
+    (void)e;
+    int ** map = logic->getMap();
     QPainter painter(this);
 
     //FillRect background(0, 0, 400, 300, Qt::white);
@@ -50,6 +52,15 @@ void MainWindow::paintEvent(QPaintEvent *e){
     //Draw horizontal lines
     for(int i = 0; i < 20; i++){
         painter.drawLine(0, i*cellHeight+20, 400, i*cellHeight+20);
+    }
+
+    //Drawing the map
+    for(int i = 0; i < 20; i++){
+        for(int j = 0; j < 20; i++){
+            //Draw rectangle
+            //map[x][y]
+
+        }
     }
 }
 

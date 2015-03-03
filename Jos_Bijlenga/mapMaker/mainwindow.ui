@@ -37,6 +37,10 @@
   <property name="windowTitle">
    <string>mapMaker</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../../../../../Pictures/1425409561_175210.ico</normaloff>../../../../../../Pictures/1425409561_175210.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
