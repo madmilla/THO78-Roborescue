@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 
     //If either the boolean runTest equals true or the '-test' argument has
     //been passed to this program start the testing procedure.
-    if(runTest || argc > 1 && strcmp(argv[1], "-test") == 0)
+    if(runTest || (argc > 1 && strcmp(argv[1], "-test") == 0))
     {
         Test test;
         return test.runTests();

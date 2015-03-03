@@ -33,8 +33,6 @@ void MapDisplayWidget::setCurrentMap(Map* map)
     {
         for(int j = 0; j < currentMap->getColumns(); j++)
         {
-            std::cout << i << ',' << j << std::endl;
-            std::cout.flush();
             setItem(i,j,currentMap->getTile(i,j));
         }
     }

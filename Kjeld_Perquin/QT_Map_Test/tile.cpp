@@ -5,8 +5,8 @@ Tile::Tile(TERRAIN_TYPE type, bool quadcopter, bool rosbee, bool ATV):
     QTableWidgetItem(),
     terrainType(type),
     quadcopterPresent(quadcopter),
-    rosbeePresent(rosbee),
     ATVPresent(ATV),
+    rosbeePresent(rosbee),
     metaEnum(metaObject()->enumerator(metaObject()->indexOfEnumerator("TERRAIN_TYPE")))
 {
 }

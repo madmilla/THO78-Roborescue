@@ -10,8 +10,6 @@ Map::Map(int rows, int columns):
 
 Tile* Map::getTile(int row, int column)
 {
-    std::cout << row * nrOfColumns + column << tiles.size() <<  std::endl;
-    std::cout.flush();
     return tiles[row * nrOfColumns + column];
 }
 
@@ -27,7 +25,7 @@ int Map::getColumns()
 
 void Map::resizeTileContainer()
 {
-    int newSize = nrOfRows * nrOfColumns - tiles.size();
+    size_t newSize = nrOfRows * nrOfColumns - tiles.size();
     for(int i = 0; i < newSize ; ++i)
     {
         tiles.push_back(new Tile());
@@ -39,9 +37,9 @@ std::ostream& operator<<(std::ostream& stream, Map& map)
     //First output the number of rows and number of columns.
     stream << map.nrOfRows << ' ' << map.nrOfColumns << std::endl;
     //Then output every tile in the map from left to right and top to bottom.
-    for(int rows = 0; rows < map.nrOfRows; rows++)
+    for(int rows = 0; rows < map.nrOfRows; ++rows)
     {
-        for(int columns = 0; columns < map.nrOfColumns; columns++)
+        for(int columns = 0; columns < map.nrOfColumns; ++columns)
         {
             stream << *map.tiles[rows * map.nrOfColumns + columns] << std::endl;
         }
@@ -53,7 +51,7 @@ std::istream& operator>>(std::istream& stream, Map& map)
 {
     //First read in the map size.
     stream >> map.nrOfRows >> map.nrOfColumns;
-    //Then resize the vector of tiles accordingly.
+    //Then resize the container.
     map.resizeTileContainer();
     //Then read in every tile and saving them from
     //left to right and top to bottom.

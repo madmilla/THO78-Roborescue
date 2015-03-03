@@ -112,8 +112,7 @@ void MainWindow::saveAsActionTriggered()
 
 void MainWindow::saveMapFile()
 {
-    std::ofstream mapFile;
-    mapFile.open(filename.toStdString().c_str());
+    std::ofstream mapFile(filename.toStdString().c_str());
     mapFile << *currentMap;
     mapFile.close();
     saved = true;
@@ -121,13 +120,10 @@ void MainWindow::saveMapFile()
 
 void MainWindow::loadMapFile()
 {
-    std::ifstream mapFile;
-    mapFile.open(filename.toStdString().c_str());
+    std::ifstream mapFile(filename.toStdString().c_str());
     if(mapFile)
     {
-        int rows, cols;
-
-        currentMap = new Map(rows,cols);
+        currentMap = new Map();
         mapFile >> *currentMap;
         mapFile.close();
         display->setCurrentMap(currentMap);

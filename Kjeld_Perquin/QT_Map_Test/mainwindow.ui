@@ -81,8 +81,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset>
-     <normaloff>../../../../../Desktop/grassTile.png</normaloff>../../../../../Desktop/grassTile.png</iconset>
+    <iconset resource="tileimages.qrc">
+     <normaloff>:/images/grassTile.png</normaloff>:/images/grassTile.png</iconset>
    </property>
    <property name="text">
     <string>grassTile</string>
@@ -93,8 +93,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset>
-     <normaloff>../../../../../Desktop/concreteTile.png</normaloff>../../../../../Desktop/concreteTile.png</iconset>
+    <iconset resource="tileimages.qrc">
+     <normaloff>:/images/concreteTile.png</normaloff>:/images/concreteTile.png</iconset>
    </property>
    <property name="text">
     <string>concreteTile</string>
@@ -105,8 +105,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset>
-     <normaloff>../../../../../Desktop/dirtTile.png</normaloff>../../../../../Desktop/dirtTile.png</iconset>
+    <iconset resource="tileimages.qrc">
+     <normaloff>:/images/dirtTile.png</normaloff>:/images/dirtTile.png</iconset>
    </property>
    <property name="text">
     <string>dirtTile</string>
@@ -117,8 +117,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset>
-     <normaloff>../../../../../Desktop/waterTile.png</normaloff>../../../../../Desktop/waterTile.png</iconset>
+    <iconset resource="tileimages.qrc">
+     <normaloff>:/images/waterTile.png</normaloff>:/images/waterTile.png</iconset>
    </property>
    <property name="text">
     <string>waterTile</string>
@@ -129,8 +129,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset>
-     <normaloff>../../../../../Desktop/emptyTile.png</normaloff>../../../../../Desktop/emptyTile.png</iconset>
+    <iconset resource="tileimages.qrc">
+     <normaloff>:/images/emptyTile.png</normaloff>:/images/emptyTile.png</iconset>
    </property>
    <property name="text">
     <string>emptyTile</string>
@@ -138,6 +138,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="tileimages.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -3,6 +3,8 @@
 #include <QGraphicsView>
 #include <QGraphicsRectItem>
 
+const double SCALE_FACTOR(1.15);
+
 class MapGraphicsView : public QGraphicsView
 {
 public:

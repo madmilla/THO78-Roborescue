@@ -35,6 +35,7 @@ FORMS    += mainwindow.ui \
     newdialog.ui \
     discarddialog.ui
 
-RESOURCES +=
+RESOURCES += \
+    tileimages.qrc
 
 DISTFILES +=

@@ -11,13 +11,16 @@ MapGraphicsView::MapGraphicsView(QWidget* parent):
 void MapGraphicsView::wheelEvent(QWheelEvent *event)
 {
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-    double scaleFactor = 1.15;
+    //If the mousewheel is scrolled upwards scale the view up
     if(event->delta() > 0)
     {
-        scale(scaleFactor,scaleFactor);
+        scale(SCALE_FACTOR,SCALE_FACTOR);
     }
+    //Otherwise scale it down
     else
     {
-        scale(1.0/scaleFactor, 1.0/scaleFactor);
+        scale(1.0/SCALE_FACTOR, 1.0/SCALE_FACTOR);
     }
+    //DO NOT call the handler of the superclass because it's default behaviour
+    //is to show scroll bars.
 }
