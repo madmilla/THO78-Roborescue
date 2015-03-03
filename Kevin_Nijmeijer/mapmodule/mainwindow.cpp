@@ -1,9 +1,6 @@
-//#include <QtGui>
-//#include <QVBoxLayout>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <iostream>
-//#include "mapio.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(widget);
 
     QWidget* topFiller = new QWidget;
-    //topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     mapTableWidget = new QTableWidget(this);
     mapTableWidget->setRowCount(20);
@@ -29,12 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mapTableWidget->setShowGrid(false);
     mapTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     mapTableWidget->setSortingEnabled(false);
-    //mapTableWidget->horizontalHeader()->setFixedWidth(20);
-    //mapTableWidget->verticalHeader()->setFixedHeight(20);
-
 
     QWidget* bottomFiller = new QWidget;
-    //bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(5);
@@ -48,8 +40,6 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle(tr("Map Module"));
     setMinimumSize(520,580);
     resize(520,580);
-
-
 }
 
 void MainWindow::newFile()
@@ -60,7 +50,6 @@ void MainWindow::newFile()
 
 void MainWindow::open()
 {
-
     QFileDialog fileDialog;
     filename = fileDialog.getOpenFileName(this,tr("Open file"), "/", tr("Text files (*.txt)"));
     if (!filename.isEmpty()) {
@@ -134,41 +123,23 @@ void MainWindow::createActions()
     addRosbee = new QAction(tr("&Rosbee"),this);
     addRosbee->setStatusTip(tr("Insert Rosbee-LiDAR unit at selected location"));
     connect(addRosbee, SIGNAL(triggered()), this, SLOT(insRosbee()));
-
 }
 
 void MainWindow::displayMap()
 {
-    //std::cout<<"DisplayStart"<<std::endl;
     for (int k=0; k<20; k++)
     {
-        //std::cout<<"k change"<<std::endl;
-
         for(int l=0; l<20; l++)
         {
-
-            //std::cout<<"l change"<<std::endl;
             QTableWidgetItem* tempitem = new QTableWidgetItem();
-            //std::cout<<"made widgetitem"<<std::endl;
-
             tempitem->setBackgroundColor(mb->colorAt(l,k));
-            //std::cout<<"color requested"<<std::endl;
             mapTableWidget->setItem(k,l,tempitem);
-            //std::cout<<"item set"<<std::endl;
-
-            //delete mapTableWidget;
-
-
         }
     }
-    //std::cout<<std::endl;
 }
-
-
 
 void MainWindow::createMenus()
 {
-
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(newAction);
     fileMenu->addAction(openAction);

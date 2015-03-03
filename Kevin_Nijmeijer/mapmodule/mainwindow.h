@@ -7,14 +7,11 @@
 #include <QFileDialog>
 #include <QTableWidget>
 #include "mapBack.h"
-//#include "mapio.h"
 
 
 class QAction;
 class QActionGroup;
 class QMenu;
-//class mapio;
-
 
 namespace Ui {
 class MainWindow;
@@ -27,9 +24,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-protected:
-    //void contextMenuEvent(QContextMenuEvent *event);
 
 private slots:
     void newFile();
@@ -59,8 +53,6 @@ private:
     mapBack* mb;
     QString filename;
     Ui::MainWindow *ui;
-
-
 };
 
 #endif // MAINWINDOW_H

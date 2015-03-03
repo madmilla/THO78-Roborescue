@@ -5,8 +5,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QColor>
-//#include <QVector2D>
-//#include "mainwindow.h"
 
 class mapBack
 {
@@ -19,11 +17,9 @@ public:
     int colorAt(int x, int y);
     QString setRobot(int i);
     //void save(char* savename);
-
     char currentMap[400];
 
 private:
-
     void copyMap(char*mArray);
 };
 
