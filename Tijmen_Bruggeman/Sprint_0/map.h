@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <iostream>
+#include <qdebug.h>
 class Map
 {
 private:

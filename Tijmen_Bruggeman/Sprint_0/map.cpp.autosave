@@ -33,7 +33,9 @@ Map::Map(QString fileName, int width, int height):
     }
 }
 void Map::setObject(QChar object,int x, int y){
-    map[y][x] = object;
+    if(x < mapWidth && y < mapHeiht){
+        map[y][x] = object;    
+    }
 }
 QVector<QString> Map::getMap(){
     return map;

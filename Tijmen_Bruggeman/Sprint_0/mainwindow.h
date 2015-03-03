@@ -3,9 +3,10 @@
 
 #include <QMainWindow>
 #include <QFile>
-#include "mapEditors.h"
+#include "mapEditor.h"
 #include <QTextStream>
 #include "map.h"
+#include <iostream>
 namespace Ui {
 class MainWindow;
 }
