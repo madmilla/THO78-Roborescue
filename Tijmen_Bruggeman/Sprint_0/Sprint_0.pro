@@ -16,12 +16,12 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     test.cpp \
     map.cpp \
-    mapeditor.cpp
+    mapEditor.cpp
 
 HEADERS  += mainwindow.h \
     test.h \
     map.h \
-    mapeditor.h
+    mapEditor.h
 
 FORMS    += mainwindow.ui \
     mapeditor.ui
