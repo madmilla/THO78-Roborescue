@@ -9,7 +9,6 @@ int main(int argc, char *argv[])
         std::cout << "this is a test\n";
         Test test;
         test.Test_1();
-        return 1;
     }
     else{
         std::cout << "this is not a test\n";
