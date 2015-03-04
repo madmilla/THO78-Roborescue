@@ -4,9 +4,9 @@
 #include <vector>
 #include <QString>
 #include <QPoint>
-#include <qDebug>
 #include <QFile>
 #include <QTextStream>
+#include <iostream>
 
 class Map
 {

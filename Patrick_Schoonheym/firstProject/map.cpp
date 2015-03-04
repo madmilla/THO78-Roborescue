@@ -13,7 +13,7 @@ Map::~Map()
 const bool Map::readFile(const QString & name) {
     QFile file(name);
     if(!file.open(QFile::ReadOnly | QFile::Text)) {
-        qDebug() << "could not load image with path" << name << "\n";
+        std::cout << "could not load image with path" << name.toStdString() << std::endl;
         return false;
     }
 
@@ -68,14 +68,11 @@ const bool Map::hasData() {
 }
 
 const bool Map::legit_size_checker() {
-    size_t size = map[0].length();
+    const int size = getWidth();
 
     for(const auto & s : map) {
-        for(const QChar & c : s) {
-
-            if(size != s.length()) {
-                return false;
-            }
+        if(size != s.length()) {
+            return false;
         }
     }
     return true;

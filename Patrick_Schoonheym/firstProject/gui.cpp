@@ -142,7 +142,7 @@ void Gui::on_edit_button_clicked() {
         QFile file(name);
 
         if(!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
-            qDebug() << "could not load image with path" << name << "\n";
+            std::cout << "could not load image with path" << name.toStdString() << "\n";
         }
         else {
             QTextStream stream( &file );

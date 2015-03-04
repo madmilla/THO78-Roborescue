@@ -7,8 +7,8 @@
 #include "map.h"
 #include <QMouseEvent>
 #include <QFileDialog>
-#include <QDebug>
 #include <QTextStream>
+#include <iostream>
 
 enum Objects : const char { BEKER = '0', DEUR = '1', MUUR = '2', PLANT = '3', TAFEL = '4' };
 

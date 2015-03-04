@@ -32,7 +32,7 @@ void MainWindow::addImage(const QString & name) {
     QPixmap image;
 
     if(!image.load(name)) {
-        qDebug() << "could not load image with path" << name << "\n";
+        std::cout << "could not load image with path" << name.toStdString() << std::endl;
         return;
     }
     images.push_back(image);
@@ -68,7 +68,7 @@ void MainWindow::on_openFileButton_clicked()
 void MainWindow::on_StartButton_clicked() {
 
     if(!map->legit_char_checker() || !map->legit_size_checker()) {
-        qDebug() << "map is corrupted\n";
+        std::cout << "map is corrupted" << std::endl;
         return;
     }
 
