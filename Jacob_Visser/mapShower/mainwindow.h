@@ -10,7 +10,8 @@
 #include <QListWidgetItem>
 #include <QLabel>
 #include <QDebug>
-#include "mapCreator.h"
+#include <cstddef>
+#include "Libs/mapCreator.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,12 +33,12 @@ private:
     void createMenus();
     void showMap(objectMap& map);
     QString getIcon(object obj);
-    objectMap *map = NULL;
-    QMenu *fileMenu = NULL;
-    QAction *newAct = NULL;
-    QAction *openAct = NULL;
-    QWidget *tileMap= NULL;
-    QVBoxLayout *verticalLines = NULL;
+    objectMap map;
+    QMenu *fileMenu = nullptr;
+    QAction *newAct = nullptr;
+    QAction *openAct = nullptr;
+    QWidget tileMap;
+    QVBoxLayout verticalLines;
     std::vector<QHBoxLayout *> horizontalLines;
 
 private slots:

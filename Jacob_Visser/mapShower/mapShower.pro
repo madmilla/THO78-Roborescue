@@ -14,9 +14,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    mapCreator.cpp
+    Libs/mapCreator.cpp
 
 HEADERS  += mainwindow.h \
-    mapCreator.h
+    mapCreator.h \
+    Libs/mapCreator.h
 
 FORMS    += mainwindow.ui
