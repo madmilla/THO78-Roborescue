@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     createActions();
     createMenus();
+
 }
 
 MainWindow::~MainWindow()
@@ -37,23 +38,69 @@ void MainWindow::createMenus(){
     fileMenu->addSeparator();
 }
 
-void MainWindow::showMap(Qstring fileName){
-    for(int i = 0; i < objectMap.getSize(toStdString(fileName)).y; i++){
-        for(int j = 0; j < objectMap.getSize(toStdString(fileName).x); j++ ){
 
+void MainWindow::showMap(objectMap& map){
+    if(tileMap != NULL){
+        delete tileMap;
+        tileMap = NULL;
+    }
+    if(verticalLines != NULL){
+        delete verticalLines;
+        verticalLines = NULL;
+    }
+    tileMap = new QWidget;
+    verticalLines = new QVBoxLayout;
+    for(int i = 1; i <= map.getSize().y; i++){ //Y!
+        horizontalLines.push_back(new QHBoxLayout);
+        verticalLines->addLayout(horizontalLines[i-1]);
+        //voeg horizontale + verticale lijnen toe
+        for(int j = 1; j <= map.getSize().x; j++ ){ //X!
+            object obj = (object)map.getObject(j, i);
+            QImage image(getIcon(obj));
+            QLabel * picLabel = new QLabel;
+            picLabel->setPixmap(QPixmap::fromImage(image).scaled(26, 26, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            horizontalLines[i-1]->addWidget(picLabel);
         }
     }
+    tileMap->setLayout(verticalLines);
+    setCentralWidget(tileMap);
+    show();
 }
 
 void MainWindow::newFile(){
-    QString fileName = QFileDialog::getSaveFileName(this,  //load map
-             tr("Save Address Book"), "",
-             tr("Map (*.txt);;All Files (*)"));
-    objectMap(20, 20, fileName); //20 is coded map size
-    showMap(fileName);
+    if(map != NULL){
+        delete map;
+        map = NULL;
+    }
+    QStringList filePath = QFileDialog::getSaveFileName(this,  //load map
+             tr("Save Address Book"), "mapje",
+             tr("Map (*.txt);;All Files (*)")).split("/");
+    if(filePath.isEmpty()){
+        return;
+    }
+    QStringList file = filePath.value(filePath.length() -1).split(".");
+    QString fileName = file.value(file.length() -2);
+
+
+
+
+    map =  new objectMap(20, 20, fileName.toStdString()); //20 is coded map size
+    qDebug() << "file: "<< fileName;
+    showMap(*map);
  }
 
  void MainWindow::open(){
 
+ }
+
+ QString MainWindow::getIcon(object obj){
+     QString pathName;
+     for(auto &object : objectss){
+         if(obj == object.obj){
+
+             pathName = QString::fromStdString(object.path);
+         }
+     }
+     return pathName;
  }
 

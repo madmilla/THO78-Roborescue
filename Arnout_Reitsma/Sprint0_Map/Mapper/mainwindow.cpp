@@ -3,10 +3,8 @@
 #include <QApplication>
 #include <QFile>
 #include <QtGui>
-#include <stdio.h>
-#include <iostream>
 #include <QMessageBox>
-#include <ctype.h>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,9 +26,14 @@ void MainWindow::messages(QString type)
         errorMsg.setText("File not found");
         errorMsg.exec();
     }
+    else if(type == "readerror"){
+        QMessageBox errorMsg(this);
+        errorMsg.setText("File not correct");
+        errorMsg.exec();
+    }
 }
 
-void MainWindow::readFile(QString filename)
+void MainWindow::loadFile(QString filename)
 {
     QFile file(filename);
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) { messages("error"); }
@@ -43,22 +46,24 @@ void MainWindow::readFile(QString filename)
         {
             character = line.at(i);
             character.remove("\n");
-            if(cX >= MAX)
+            if(cX >= MAX){
                 cX = 0; cY++;
-            if(character.toInt())
+            }
+            if(character.toInt()){
                 objects[cX][cY] = character; cX++;
+            }
         }
     }
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_loadButton_clicked()
 {
-    readFile(":/new/prefix1/map1.map");
+    loadFile(":/new/prefix1/map1.map");
     loadButtonClicked = true;
     clearButtonClicked = false;
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_clearButton_clicked()
 {
     clearButtonClicked = true;
 }
@@ -93,9 +98,8 @@ void MainWindow::paintEvent(QPaintEvent *)
                 }
             }
             else{
-             colour = Qt::white;
+               colour = Qt::white;
             }
-
             painter.fillRect(rect,colour);
         }
     }

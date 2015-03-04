@@ -20,7 +20,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="loadButton">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -33,7 +33,7 @@
      <string>Load and display map</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="clearButton">
     <property name="geometry">
      <rect>
       <x>260</x>

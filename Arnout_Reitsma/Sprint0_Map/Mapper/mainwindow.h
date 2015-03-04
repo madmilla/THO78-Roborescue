@@ -2,14 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#define CUBE (480/20)   //480x480 field, 20x20 characters in map file
+#define CUBE 24
 #define MAX 20
-#define WALL "1"
-#define STONE "2"
-#define GRASS "3"
-#define TREE "4"
-#define WATER "5"
-
 
 namespace Ui {
 class MainWindow;
@@ -22,14 +16,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void readFile(QString filename);
-    void writeFile(QString filename);
+    void loadFile(QString filename);
     void messages(QString type);
-    QString checkType(QString character);
 private slots:
-
-    void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
+    void on_loadButton_clicked();
+    void on_clearButton_clicked();
 
 private:
     bool loadButtonClicked;

@@ -1,11 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QString>
 #include <vector>
+#include <QListWidgetItem>
+#include <QLabel>
+#include <QDebug>
 #include "mapCreator.h"
 
 namespace Ui {
@@ -26,11 +30,14 @@ private:
     Ui::MainWindow *ui;
     void createActions();
     void createMenus();
-    void showMap(QString fileName);
-    QMenu *fileMenu;
-    QAction *newAct;
-    QAction *openAct;
-    std::vector<QVBoxLayout *> verticalLines;
+    void showMap(objectMap& map);
+    QString getIcon(object obj);
+    objectMap *map = NULL;
+    QMenu *fileMenu = NULL;
+    QAction *newAct = NULL;
+    QAction *openAct = NULL;
+    QWidget *tileMap= NULL;
+    QVBoxLayout *verticalLines = NULL;
     std::vector<QHBoxLayout *> horizontalLines;
 
 private slots:
