@@ -11,10 +11,10 @@ class Test
 {
 private:
     Map* map;
-    const std::string & name;
+    QString name;
 
 public:
-    Test(const std::string & name);
+    Test(QString name);
     ~Test();
     void start();
 };

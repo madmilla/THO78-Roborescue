@@ -4,8 +4,8 @@
 
 int main(int argc, char* argv[])
 {
-    if(argv[1] == "test") {
-        Test test{"test.map"};
+    if(argc > 1 && strcmp(argv[1], "test") == 0) {
+        Test test{"C:/Users/Patrick/Documents/firstProject/maps/fout.map"};
         return test.start();
     }
     else {

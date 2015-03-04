@@ -1,6 +1,6 @@
 #include "test.h"
 
-Test::Test(const std::string & name):
+Test::Test(QString name):
     name { name }
 {
 
@@ -17,18 +17,20 @@ void Test::start() {
 
     map = new Map{};
 
-    if(!map->readFile(QString(name.c_str()))) {
-        std::cout << "could not open file with path " << name << std::endl;
+
+    if(!map->readFile(name)) {
+        std::cout << "could not open file with path " << name.toStdString() << std::endl;
     }
     else {
         std::cout << "the map is succesfully opened" << std::endl;
     }
 
-    if(!map->hasData()) {
+    if(map->hasData()) {
         std::cout << "the map contains data" << std::endl;
     }
     else {
         std::cout << "the map contains nothing" << std::endl;
+        return;
     }
 
     if(!map->legit_size_checker()) {
@@ -44,5 +46,6 @@ void Test::start() {
     else {
         std::cout << "the map contains valid characters" << std::endl;
     }
+    std::cout << std::endl << "-----------stop test-----------" << std::endl;
 }
 
