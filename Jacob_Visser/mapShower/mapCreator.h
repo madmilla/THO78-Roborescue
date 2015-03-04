@@ -7,15 +7,29 @@
 #include <fstream>
 #include <iomanip>
 
-enum object{	//!max 255 objecten!
-	empty,
-	tree,
-	water,
-	quadcopter,
-	atv,
-	rosbee,
-	stone
+enum class object{	//!max 255 objecten!
+    empty = 0,
+    tree = 1,
+    water = 2,
+    quadcopter = 3,
+    atv = 4,
+    rosbee = 5,
+    stone = 6,
 };
+
+static struct {object obj; std::string path;} objectss[] = {
+{object::empty, "Images/free.jpg"},
+{object::tree, "Images/tree.jpg"},
+{object::water, "Images/water.jpg"},
+{object::quadcopter, "Images/quadcopter.jpg"},
+{object::atv, "Images/atv.jpg"},
+{object::rosbee, "Images/rosbee.jpg"},
+{object::stone, "Images/stone.jpg"},
+
+
+};
+
+
 
 struct size { int x; int y; }; //for easy returning size of map
 typedef struct size Size;
@@ -25,12 +39,12 @@ public:
 	objectMap(int width, int height, std::string mapName) :
 		width{ width }, height{ height }, name{ "Maps/" + mapName + ".txt" } {
 
-		int nameAmount = 1;
-		while (fileExists(name)){
-			name = mapName + " (" + std::to_string(nameAmount) + ").txt";
-			std::cout << "file already exists, renaming to: " + name << std::endl;
-			++nameAmount;
-		}
+//		int nameAmount = 1;
+//		while (fileExists(name)){
+//            name = "Maps/" + mapName + " (" + std::to_string(nameAmount) + ").txt";
+//            std::cout << "file already exists, renaming to: " + name << std::endl;
+//			++nameAmount;
+//		}
 
 		std::ofstream mapFile;
 		mapFile.open(name);
@@ -47,9 +61,9 @@ public:
 
 
 	void setObject(int x, int y, object thing);
-	object getObject(int x, int y);
+    int getObject(int x, int y);
     Size getSize();
-    static Size getSize(std::string fileName);
+    //static Size getSize(std::string fileName);
 
 
 private:

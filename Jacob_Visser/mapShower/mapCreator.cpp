@@ -16,11 +16,11 @@ void objectMap::setObject(int x, int y, object thing){
 		mapFile >> buffer;
 		mapFile.seekp(mapFile.tellg() += 1);
 	}
-	mapFile << std::hex << std::setw(2) << std::setfill('0') << thing << " "; //Change the object
+    mapFile << std::hex << std::setw(2) << std::setfill('0') << (int)thing << " "; //Change the object
 	mapFile.close();
 }
 
-object objectMap::getObject(int x, int y){
+int objectMap::getObject(int x, int y){
 	std::string	buffer;
 	std::ifstream mapFile;
 	mapFile.open(name);
@@ -30,8 +30,11 @@ object objectMap::getObject(int x, int y){
 	for (int i = 1; i <= x; i++){			//Get to the x position
 		mapFile >> buffer;
 	}
-
-	return (object)std::stoi(buffer);
+    if(buffer.empty()){
+        std::cout << "EMPTY" << x << "  " << y << std::endl;
+        return -1;
+    }
+    return std::stoi(buffer);
 }
 
 Size objectMap::getSize(){
@@ -41,21 +44,22 @@ Size objectMap::getSize(){
     return map;
 }
 
-static Size objectMap::getSize(std::string fileName){
-    size mapSize;
-    std::ifstream mapFile;
-    mapFile.open(fileName);
+// Size objectMap::getSize(std::string fileName){
+//    size mapSize;
+//    std::ifstream mapFile;
+//    mapFile.open(fileName);
 
-    std::string tmp;
-    std::getline(mapFile, tmp);
-    mapSize.x = tmp.getSize()/3; //object size in file == 2 + 1 space
-    int ySize = 0;
-    while(tmp != EOF){
-        ++ySize;
-        std::getline(mapFile, tmp);
-    }
-    mapSize.y = ySize;
-}
+//    std::string tmp;
+//    std::getline(mapFile, tmp);
+//    mapSize.x = (int)tmp.length()/3; //object size in file == 2 + 1 space
+//    int ySize = 0;
+//    while(!std::cin.eof()){
+//        ++ySize;
+//        std::getline(mapFile, tmp);
+//    }
+//    mapSize.y = ySize;
+//    return mapSize;
+//}
 
 //int main(){
 //	objectMap mapje(20, 20, std::string("mapje"));
