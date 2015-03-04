@@ -6,26 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>320</height>
+    <width>481</width>
+    <height>481</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>400</width>
-    <height>320</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>400</width>
-    <height>320</height>
+    <width>481</width>
+    <height>481</height>
    </size>
   </property>
   <property name="baseSize">
    <size>
-    <width>400</width>
-    <height>320</height>
+    <width>481</width>
+    <height>481</height>
    </size>
   </property>
   <property name="font">
@@ -39,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../../../../Pictures/1425409561_175210.ico</normaloff>../../../../../../Pictures/1425409561_175210.ico</iconset>
+    <normaloff>../../../../../Pictures/1425409561_175210.ico</normaloff>../../../../../Pictures/1425409561_175210.ico</iconset>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -47,7 +41,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>481</width>
      <height>21</height>
     </rect>
    </property>

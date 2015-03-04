@@ -6,8 +6,16 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QDialog>
+#include <QColor>
 #include <QtCore>
 #include <QCursor>
+
+//const int EMPTY = 0;
+//const int OBJECT = 1;
+//const int COPTER = 2;
+//const int WIDTH = 20;
+//const int HEIGHT = 20;
+//const int OFFSET = 20;
 
 namespace Ui {
 class MainWindow;

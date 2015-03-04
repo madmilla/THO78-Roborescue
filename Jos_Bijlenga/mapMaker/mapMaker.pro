@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QMAKE_CXXFLAGS += -std=c++0x
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,10 +15,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    maplogic.cpp
+    maplogic.cpp \
+    tester.cpp
 
 HEADERS  += mainwindow.h \
-    maplogic.h
+    maplogic.h \
+    tester.h
 
 FORMS    += mainwindow.ui
 
