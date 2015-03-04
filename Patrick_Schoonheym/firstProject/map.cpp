@@ -10,7 +10,7 @@ Map::~Map()
 
 }
 
-const bool Map::readFile(const QString & name) {
+bool Map::readFile(const QString & name) {
     QFile file(name);
     if(!file.open(QFile::ReadOnly | QFile::Text)) {
         std::cout << "could not load image with path" << name.toStdString() << std::endl;
@@ -26,11 +26,11 @@ const bool Map::readFile(const QString & name) {
     return true;
 }
 
-const int Map::getHeight() {
+int Map::getHeight() {
     return static_cast<int>(map.size());
 }
 
-const int Map::getWidth() {
+int Map::getWidth() {
     return static_cast<int>(map.back().length());
 }
 
@@ -38,7 +38,7 @@ std::vector<QString>& Map::getMap() {
     return map;
 }
 
-const bool Map::legit_char_checker() {
+bool Map::legit_char_checker() {
     const QChar values[] = {'0', '1', '2', '3', '4' };
 
     for(const auto & s : map) {
@@ -60,14 +60,14 @@ const bool Map::legit_char_checker() {
     return true;
 }
 
-const bool Map::hasData() {
+bool Map::hasData() {
     if(getHeight() == 0 || getWidth() == 0) {
         return false;
     }
     return true;
 }
 
-const bool Map::legit_size_checker() {
+bool Map::legit_size_checker() {
     const int size = getWidth();
 
     for(const auto & s : map) {

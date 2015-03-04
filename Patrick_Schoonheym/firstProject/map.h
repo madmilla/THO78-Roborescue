@@ -16,13 +16,13 @@ private:
 public:
     Map();
     ~Map();
-    const int getHeight();
-    const int getWidth();
+    int getHeight();
+    int getWidth();
     std::vector<QString>& getMap();
-    const bool legit_char_checker();
-    const bool readFile(const QString & name);
-    const bool hasData();
-    const bool legit_size_checker();
+    bool legit_char_checker();
+    bool readFile(const QString & name);
+    bool hasData();
+    bool legit_size_checker();
 };
 
 #endif // MAP_H

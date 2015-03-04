@@ -2,7 +2,7 @@
 #include <QApplication>
 #include "test.h"
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     if(argc > 1 && strcmp(argv[1], "test") == 0) {
         Test test{"C:/Users/Patrick/Documents/firstProject/maps/fout.map"};
@@ -14,5 +14,4 @@ int main(int argc, char* argv[])
         w.show();
         return a.exec();
     }
-    return 0;
 }
