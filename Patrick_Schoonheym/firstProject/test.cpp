@@ -11,12 +11,11 @@ Test::~Test()
     delete map;
 }
 
-void Test::start() {
+bool Test::start() {
 
     std::cout << "-----------start test-----------" << std::endl << std::endl;
 
     map = new Map{};
-
 
     if(!map->readFile(name)) {
         std::cout << "could not open file with path " << name.toStdString() << std::endl;
@@ -30,7 +29,7 @@ void Test::start() {
     }
     else {
         std::cout << "the map contains nothing" << std::endl;
-        return;
+        return true;
     }
 
     if(!map->legit_size_checker()) {
@@ -47,5 +46,7 @@ void Test::start() {
         std::cout << "the map contains valid characters" << std::endl;
     }
     std::cout << std::endl << "-----------stop test-----------" << std::endl;
+
+    return false;
 }
 

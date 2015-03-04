@@ -16,7 +16,7 @@ private:
 public:
     Test(QString name);
     ~Test();
-    void start();
+    bool start();
 };
 
 #endif // TEST_H
