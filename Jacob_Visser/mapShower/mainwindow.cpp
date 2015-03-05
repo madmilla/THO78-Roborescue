@@ -29,6 +29,11 @@ void MainWindow::createActions(){
      openAct->setShortcuts(QKeySequence::Open); //control+o werkt ook om te openen
      openAct->setStatusTip(tr("Open an existing file"));
      connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
+
+     exitAct = new QAction(tr("E&xit"), this);
+     exitAct->setShortcuts(QKeySequence::Quit);
+     exitAct->setStatusTip(tr("Exit the application"));
+     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 }
 
 void MainWindow::createMenus(){
@@ -36,6 +41,7 @@ void MainWindow::createMenus(){
     fileMenu->addAction(newAct);
     fileMenu->addAction(openAct);
     fileMenu->addSeparator();
+    fileMenu->addAction(exitAct);
 }
 
 

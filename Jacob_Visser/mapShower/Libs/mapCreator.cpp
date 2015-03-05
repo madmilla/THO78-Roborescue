@@ -51,7 +51,7 @@ Size objectMap::getSize(){
 
     std::string tmp;
     std::getline(mapFile, tmp);
-    mapSize.x = (int)tmp.length()/3; //object size in file == 2 + 1 space
+    mapSize.x = (int)tmp.length()/3; //object size in file == 2, + 1 space
     int ySize = 0;
     while(!mapFile.eof()){
         ++ySize;

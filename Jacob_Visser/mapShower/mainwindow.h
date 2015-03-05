@@ -34,9 +34,10 @@ private:
     void showMap(objectMap& map);
     QString getIcon(object obj);
     objectMap map;
-    QMenu *fileMenu = nullptr;
-    QAction *newAct = nullptr;
-    QAction *openAct = nullptr;
+    QMenu *fileMenu;
+    QAction *newAct;
+    QAction *openAct;
+    QAction *exitAct;
     QWidget tileMap;
     QVBoxLayout verticalLines;
     std::vector<QHBoxLayout *> horizontalLines;
