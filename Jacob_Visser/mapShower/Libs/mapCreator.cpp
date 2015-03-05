@@ -2,7 +2,7 @@
 
 bool objectMap::fileExists(std::string fileName){
 	struct stat buffer;
-	return (stat(name.c_str(), &buffer) == 0); //check if file exists
+    return (stat(fileName.c_str(), &buffer) == 0); //check if file exists
 }
 
 void objectMap::setObject(int x, int y, object thing){

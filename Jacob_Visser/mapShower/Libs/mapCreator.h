@@ -41,8 +41,15 @@ public:
         height = mapSize.y;
     }
 
-	objectMap(int width, int height, std::string mapName) :
-		width{ width }, height{ height }, name{ "Maps/" + mapName + ".txt" } {
+    objectMap(int width, int height, std::string mapName) :
+        name{ "Maps/" + mapName + ".txt" } {
+
+        if(width > 0){
+            this->width = width;
+        }
+        if(height > 0){
+            this->height = height;
+        }
 
 //		int nameAmount = 1;
 //		while (fileExists(name)){
@@ -50,6 +57,7 @@ public:
 //            std::cout << "file already exists, renaming to: " + name << std::endl;
 //			++nameAmount;
 //		}
+
 
 		std::ofstream mapFile;
 		mapFile.open(name);

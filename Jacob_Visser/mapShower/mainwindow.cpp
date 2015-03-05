@@ -47,7 +47,7 @@ void MainWindow::createMenus(){
 
 void MainWindow::showMap(objectMap& map){
         QLayoutItem *item;
-        for(int i = 0; i < horizontalLines.size(); ++i){
+        for(int i = 0; i < (int)horizontalLines.size(); ++i){
 
             while ((item = horizontalLines[i]->takeAt(0)) != 0) {
                 delete item;
