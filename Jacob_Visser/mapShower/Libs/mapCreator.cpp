@@ -5,7 +5,13 @@ bool objectMap::fileExists(std::string fileName){
     return (stat(fileName.c_str(), &buffer) == 0); //check if file exists
 }
 
-void objectMap::setObject(int x, int y, object thing){
+int objectMap::setObject(int x, int y, object thing){
+    if(!(x > 0)){
+        return -1;
+    }
+    if(!(y > 0)){
+        return -1;
+    }
 	std::string	buffer;
 	std::fstream mapFile;
 	mapFile.open(name);
@@ -18,9 +24,16 @@ void objectMap::setObject(int x, int y, object thing){
 	}
     mapFile << std::hex << std::setw(2) << std::setfill('0') << (int)thing << " "; //Change the object
 	mapFile.close();
+    return 0;
 }
 
 int objectMap::getObject(int x, int y){
+    if(!(x > 0)){
+        return -1;
+    }
+    if(!(y > 0)){
+        return -1;
+    }
 	std::string	buffer;
 	std::ifstream mapFile;
 	mapFile.open(name);
@@ -48,7 +61,12 @@ Size objectMap::getSize(){
     size mapSize;
     std::ifstream mapFile;
     mapFile.open(fileName);
-
+    if(!mapFile.is_open()){
+        Size error;
+        error.x = -1;
+        error.y = -1;
+        return error;
+    }
     std::string tmp;
     std::getline(mapFile, tmp);
     mapSize.x = (int)tmp.length()/3; //object size in file == 2, + 1 space
@@ -58,19 +76,9 @@ Size objectMap::getSize(){
         std::getline(mapFile, tmp);
     }
     mapSize.y = ySize;
+    mapFile.close();
+
     return mapSize;
 }
 
-//int main(){
-//	objectMap mapje(20, 20, std::string("mapje"));
-//
-//	mapje.setObject(1, 1, tree);
-//	mapje.setObject(10, 10, tree);
-//	mapje.setObject(20, 20, water);
-//
-//	std::cout << mapje.getObject(20, 20);
-//
-//	int tmp;
-//	std::cin >> tmp;
-//	return 0;
-//}
+

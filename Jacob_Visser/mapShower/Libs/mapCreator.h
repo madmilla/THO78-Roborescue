@@ -47,8 +47,14 @@ public:
         if(width > 0){
             this->width = width;
         }
+        else{
+            return;
+        }
         if(height > 0){
             this->height = height;
+        }
+        else{
+            return;
         }
 
 //		int nameAmount = 1;
@@ -73,7 +79,7 @@ public:
 	}
 
 
-	void setObject(int x, int y, object thing);
+    int setObject(int x, int y, object thing);
     int getObject(int x, int y);
     Size getSize();
     Size getSize(std::string fileName);
