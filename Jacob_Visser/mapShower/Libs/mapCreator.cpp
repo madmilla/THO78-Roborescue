@@ -80,5 +80,3 @@ Size objectMap::getSize(){
 
     return mapSize;
 }
-
-
