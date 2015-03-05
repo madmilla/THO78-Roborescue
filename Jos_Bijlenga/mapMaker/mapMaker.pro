@@ -12,9 +12,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = mapMaker
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
-        mainwindow.cpp \
+    mainwindow.cpp \
     maplogic.cpp \
     tester.cpp
 
@@ -23,5 +22,3 @@ HEADERS  += mainwindow.h \
     tester.h
 
 FORMS    += mainwindow.ui
-
-RESOURCES +=

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "mapLogic.h"
+#include "maplogic.h"
 #include <iostream>
 #include <string>
 #include "tester.h"
