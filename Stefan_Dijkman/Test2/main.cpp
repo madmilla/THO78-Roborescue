@@ -5,8 +5,8 @@
 #include <fstream>
 
 void test(const char* path);
-const char* path1 = "/home/stefan/QtProjects/Test2/testMapGoed.txt";
-const char* path2 = "/home/stefan/QtProjects/Test2/testMapFout.txt";
+const char* path1 = "Stefan_Dijkman/Test2/testMapGoed.txt";
+const char* path2 = "Stefan_Dijkman/Test2/testMapFout.txt";
 
 // normal main
 int main(int argc, char *argv[])
