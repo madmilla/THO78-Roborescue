@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 void test(const char* path);
 const char* path1 = "Stefan_Dijkman/Test2/testMapGoed.txt";
