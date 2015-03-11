@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>557</width>
+    <width>685</width>
     <height>486</height>
    </rect>
   </property>
@@ -151,13 +151,56 @@
     <column/>
     <column/>
    </widget>
+   <widget class="QRadioButton" name="radioButton">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>100</y>
+      <width>82</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Free</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_2">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>180</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Obstacle</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_3">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>270</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Atv</string>
+    </property>
+   </widget>
+   <zorder>radioButton_3</zorder>
+   <zorder>tableWidget</zorder>
+   <zorder>radioButton</zorder>
+   <zorder>radioButton_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>557</width>
+     <width>685</width>
      <height>21</height>
     </rect>
    </property>

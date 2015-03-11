@@ -30,13 +30,25 @@ private slots:
     void clearButton();
     void saveButton();
 
+
+    void on_radioButton_3_clicked(bool checked);
+
+    void on_radioButton_2_clicked(bool checked);
+
+    void on_radioButton_clicked(bool checked);
+
+    void cellSelected(int nRow, int nCol);
+
 private:
     Ui::MainWindow *ui;
     int MapObjects[MAX][MAX];
     QString filename;
     void showOnBoard();
     void printOnScreen(int x, int y, QColor color);
+    void printAndSave(int x, int y, int color);
+    int mode = 0;
    // QString checkType(QString character);
+
 
 \
 
