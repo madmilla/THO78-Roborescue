@@ -47,13 +47,6 @@ private:
     void printOnScreen(int x, int y, QColor color);
     void printAndSave(int x, int y, int color);
     int mode = 0;
-   // QString checkType(QString character);
-
-
-\
-
-
-
 };
 
 #endif // MAINWINDOW_H

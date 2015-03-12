@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tableWidget, SIGNAL( cellPressed (int, int) ),
                 this, SLOT( cellSelected( int, int ) ) );
 
+    clearButton();
+
 
 }
 void MainWindow::cellSelected(int nRow, int nCol)
