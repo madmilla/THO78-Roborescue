@@ -3,7 +3,7 @@
 #include "serial.h"
 #include "ioDevice.h"
 #include "someClass.h"
-#include "mavlink.h"
+#include "mavlinkSubject.h"
 #include <string>
 #include <iostream>
 #include <cstring>
@@ -11,31 +11,33 @@
 
 // application reads from the specified serial port and reports the collected data
 int main() {
-	SomeClass * s = new SomeClass();
 	std::cout << "Welcome to the serial test app!\n\n";
-
+	std::string port = "";
 	#if defined(_WIN64) || defined(_WIN32)
-	std::string port = "\\\\.\\COM";
+	port = "\\\\.\\COM";
 	#elif defined(linux)
-	std::string port = "/dev/tty";
+	port = "/dev/tty";
 	#else
 	Error OS not defined.
 	#endif
 
-	{
-		std::cout << "Com port to connect to: " << port;
-		std::string line = "";
-		while (line.compare("") == 0) {
-			std::getline(std::cin, line);
-		}
-		port += line;
+	
+	std::cout << "Com port to connect to: " << port;
+	std::string line = "";
+	while (line.compare("") == 0) {
+		std::getline(std::cin, line);
 	}
+	port += line;
+	
 
 	char in = ' ';
 	while (in != '1' && in != '2') {
 		std::cout << "1 for send, 2 for receive.\n";
 		std::cin >> in;
 	}
+	
+	MavlinkSubject * m = new MavlinkSubject();
+	SomeClass * s = new SomeClass(m);
 	if (in == '1') {
 		IoDevice* SP = new Serial(port);
 		while (SP->isConnected()) {
@@ -77,8 +79,8 @@ int main() {
 			std::cout << "Data sent with telemetry\n";
 		}
 	} else if (in == '2') {
-		Mavlink::getInstance()->start(port);
-		Mavlink::getInstance()->update();
+		m->start(port);
+		m->update();
 		/* while (SP->isConnected()) {
 
 			mavlink_message_t receiveMessage;

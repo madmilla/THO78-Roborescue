@@ -1,9 +1,13 @@
 #include "someClass.h"
 #include <iostream>
 SomeClass::SomeClass(){
-	Mavlink::getInstance()->addListener(MAVLINK_MSG_ID_ARRAY_TEST_0,this);
-	Mavlink::getInstance()->addListener(MAVLINK_MSG_ID_ARRAY_TEST_0,this);
-	Mavlink::getInstance()->addListener(MAVLINK_MSG_ID_ARRAY_TEST_0,this);
+	
+}
+
+SomeClass::SomeClass(MavlinkSubject * m){
+	m->addListener(this);
+	m->addListener(this);
+	m->addListener(this);
 }
 void SomeClass::update(mavlink_message_t* msg){
 	switch (msg->msgid) {
