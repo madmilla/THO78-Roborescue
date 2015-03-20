@@ -2,7 +2,7 @@
 //#include <tchar.h>
 #include "serial.h"
 #include "ioDevice.h"
-#include "someClass.h"
+#include "someListener.h"
 #include "mavlinkSubject.h"
 #include <string>
 #include <iostream>
@@ -37,7 +37,7 @@ int main() {
 	}
 	
 	MavlinkSubject * m = new MavlinkSubject();
-	SomeClass * s = new SomeClass(m);
+	SomeListener * s = new SomeListener(m);
 	if (in == '1') {
 		IoDevice* SP = new Serial(port);
 		while (SP->isConnected()) {

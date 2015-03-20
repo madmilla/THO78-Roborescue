@@ -1,8 +1,8 @@
 #include "mavlinkSubject.h"
 #include "mavlinkListener.h"
-class SomeClass : public MavlinkListener{
+class SomeListener : public MavlinkListener{
 	public:
-		SomeClass();
-		SomeClass(MavlinkSubject * m);
+		SomeListener();
+		SomeListener(MavlinkSubject * m);
 		void update(mavlink_message_t* msg) override;
 };

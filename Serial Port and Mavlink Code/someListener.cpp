@@ -1,15 +1,15 @@
-#include "someClass.h"
+#include "someListener.h"
 #include <iostream>
-SomeClass::SomeClass(){
+SomeListener::SomeListener(){
 	
 }
 
-SomeClass::SomeClass(MavlinkSubject * m){
+SomeListener::SomeListener(MavlinkSubject * m){
 	m->addListener(this);
 	m->addListener(this);
 	m->addListener(this);
 }
-void SomeClass::update(mavlink_message_t* msg){
+void SomeListener::update(mavlink_message_t* msg){
 	switch (msg->msgid) {
 		case MAVLINK_MSG_ID_ARRAY_TEST_0:
 		{
