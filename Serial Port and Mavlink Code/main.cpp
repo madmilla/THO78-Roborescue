@@ -37,7 +37,8 @@ int main() {
 	}
 	
 	MavlinkSubject * m = new MavlinkSubject();
-	m->start(port);
+	IoDevice* ioDevice = new Serial(port);
+	m->start(ioDevice);
 	SomeListener * s = new SomeListener(m);
 	if (in == '1') {
 		while (1) {

@@ -3,9 +3,8 @@
 MavlinkSubject::MavlinkSubject(){
 }
 
-void MavlinkSubject::start(std::string & portname){
-	std::cout << portname;
-	SP = new Serial(portname);
+void MavlinkSubject::start(IoDevice *ioDevice){
+	SP = ioDevice;
 }
 
 void MavlinkSubject::stop(){
