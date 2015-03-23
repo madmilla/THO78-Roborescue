@@ -8,6 +8,8 @@
 #include <vector>
 #include "mavlinkListener.h"
 #include <iostream>
+#include "mutex.h"
+
 class MavlinkSubject {
 
 	public:
@@ -15,11 +17,13 @@ class MavlinkSubject {
 		void start(std::string & portname);
 		void stop();
 		void addListener(MavlinkListener * ml);
-		void update();
+		void sendMessage(mavlink_message_t & msg);
+		bool update();
 	
 	private:
 		std::vector <MavlinkListener *> list;
 		IoDevice * SP;
+		mutex sendMutex;
 };
 
 #endif
