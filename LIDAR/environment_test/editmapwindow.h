@@ -2,6 +2,7 @@
 #define EDITMAPWINDOW_H
 
 #include <QDialog>
+#include "map.h"
 
 namespace Ui {
 class EditMapWindow;
@@ -12,7 +13,7 @@ class EditMapWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditMapWindow(QWidget *parent = 0);
+    explicit EditMapWindow(Map* map, QWidget *parent = 0);
     void showMap(Map* map);
     ~EditMapWindow();
 
@@ -23,6 +24,8 @@ private slots:
 
 private:
     Ui::EditMapWindow *ui;
+    Map *map;
+    QVector<QVector< int > > mapLayout;
 };
 
 #endif // EDITMAPWINDOW_H

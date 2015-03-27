@@ -28,6 +28,11 @@ private:
     Ui::MainWindow *ui;
     Map *map;
     EditMapWindow* editMapWindow;
+
+    int newMapBeignSize = 100;
+    int newMapMinSize = 10;
+    int newMapMaxSize = 1000;
+    int newMapStepSize = 10;
 };
 
 #endif // MAINWINDOW_H

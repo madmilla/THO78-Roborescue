@@ -1,11 +1,13 @@
 #include "editmapwindow.h"
 #include "ui_editmapwindow.h"
 
-EditMapWindow::EditMapWindow(QWidget *parent) :
+EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::EditMapWindow)
+    ui(new Ui::EditMapWindow),
+    map(map)
 {
     ui->setupUi(this);
+    showMap(map);
 }
 
 EditMapWindow::~EditMapWindow()

@@ -3,8 +3,7 @@
 #include <QVector>
 #include <iostream>
 
-Map::Map(QString fileName)
-{
+Map::Map(QString fileName){
     if(!fileName.isEmpty()){
         QFile file(fileName);
         file.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -21,9 +20,13 @@ Map::Map(QString fileName)
             y++;
         }
         height = mapLayout.size();
-        width = mapLayout[1].length();
+        width = mapLayout[0].length();
         file.close();
     }
+}
+
+Map::~Map(){
+
 }
 
 void Map::setMapObject(int object,int x, int y){
@@ -32,13 +35,13 @@ void Map::setMapObject(int object,int x, int y){
     }
 }
 
-QVector<QVector< int > > Map::getMap()
-{
+QVector<QVector< int > > Map::getMapContent(){
     return mapLayout;
 }
 
-Map::~Map()
-{
-
+void Map::setMapContent(QVector<QVector< int > > newMapLayout){
+     mapLayout = newMapLayout;
 }
+
+
 

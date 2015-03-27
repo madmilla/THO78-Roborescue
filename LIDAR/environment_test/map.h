@@ -10,6 +10,7 @@ public:
     Map();
     Map(QString mapContent);
     QVector<QVector< int > > getMap();
+    void setMap(QVector<QVector< int > > newMapLayout);
     void setMapObject(int object,int x, int y);
     ~Map();
 private:
