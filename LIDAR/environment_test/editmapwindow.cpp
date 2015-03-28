@@ -10,22 +10,18 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
     showMap(map);
 }
 
-EditMapWindow::~EditMapWindow()
-{
+EditMapWindow::~EditMapWindow(){
     delete ui;
 }
 
-void EditMapWindow::showMap(Map *map)
-{
+void EditMapWindow::showMap(Map *map){
     mapLayout = map->getMap();
 }
 
-void EditMapWindow::on_obstacleButton_clicked()
-{
+void EditMapWindow::on_obstacleButton_clicked(){
 
 }
 
-void EditMapWindow::on_saveMapButton_clicked()
-{
+void EditMapWindow::on_saveMapButton_clicked(){
 
 }
