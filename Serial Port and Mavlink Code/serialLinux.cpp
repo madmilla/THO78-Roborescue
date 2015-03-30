@@ -1,3 +1,7 @@
+/**
+* @Author Marten Wensink
+*/
+
 #include "serial.h"
 #include <sys/types.h>
 #include <termios.h>

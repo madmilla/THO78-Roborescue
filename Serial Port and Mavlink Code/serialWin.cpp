@@ -1,3 +1,6 @@
+/**
+* @Author see http://playground.arduino.cc/Interfacing/CPPWindows
+*/
 #include "serial.h"
 #include "serialWin.h"
 #include <iostream>

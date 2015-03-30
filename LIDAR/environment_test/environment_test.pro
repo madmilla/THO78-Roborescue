@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-03-11T14:10:56
+# Project created by QtCreator 2015-03-18T11:43:29
 #
 #-------------------------------------------------
 
@@ -13,8 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    editmapwindow.cpp \
+    map.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    editmapwindow.h \
+    map.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    editmapwindow.ui

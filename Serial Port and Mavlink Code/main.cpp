@@ -37,10 +37,11 @@ int main() {
 	}
 	
 	MavlinkSubject * m = new MavlinkSubject();
+	IoDevice* ioDevice = new Serial(port);
+	m->start(ioDevice);
 	SomeListener * s = new SomeListener(m);
 	if (in == '1') {
-		IoDevice* SP = new Serial(port);
-		while (SP->isConnected()) {
+		while (1) {
 			std::cout << "Message to send:";
 			std::string line;
 			std::getline(std::cin, line);
@@ -54,33 +55,14 @@ int main() {
 			char msgText[32];
 			std::fill(msgText,msgText+32,' ');
 			std::strcpy(msgText, line.c_str());
+			
 			mavlink_msg_array_test_0_pack(1, 2, msg, 50, msgText);
-
-			unsigned char* buffer =
-					new unsigned char[MAVLINK_NUM_NON_PAYLOAD_BYTES
-							+ (uint16_t) msg->len];
-
-			int length = mavlink_msg_to_send_buffer(buffer, msg);
-
-			const char* constBuffer = reinterpret_cast<const char*>(buffer);
-
-			std::cout << "Mavlink of size "
-					<< length
-					<< " packed and sent to buffer.\n[";
-
-			for (int i = 0; i < length; i++) {
-				std::cout << buffer[i];
-			}
-
-			std::cout << "]\n";
-
-			SP->writeData(reinterpret_cast<char*>(buffer),length);
+			m->sendMessage(*msg);
 
 			std::cout << "Data sent with telemetry\n";
 		}
 	} else if (in == '2') {
-		m->start(port);
-		m->update();
+		while (m->update()){}
 		/* while (SP->isConnected()) {
 
 			mavlink_message_t receiveMessage;
