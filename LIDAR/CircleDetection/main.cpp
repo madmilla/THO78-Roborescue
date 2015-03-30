@@ -14,7 +14,7 @@ void makeImage(std::string source, std::string output = "output.jpg"){
     std::ifstream file(source);
     if (!file.is_open()){
         printf("File niet gevonden.....\nProgramma wordt afgesloten\n");
-        exit(1);
+        exit(-1);
     }
     std::string line;
     int imageHeight = 0;
@@ -46,15 +46,54 @@ void makeImage(std::string source, std::string output = "output.jpg"){
     file.close();
     imwrite(output, *newMat);
 }
-void DetectCircles(std::string source){
+void WriteCircles(CvSeq * circles, std::string outputName = "output.txt"){
+    std::ofstream output(outputName, std::ofstream::out);
+    if (!output.is_open()){
+        printf("File niet gevonden.....\nProgramma wordt afgesloten\n");
+        exit(-1);
+    }
+    output << "(X,Y)    \tRadius\n";
+    for (size_t i = 0; i < circles->total; i++)
+    {
+        // round the floats to an int
+        float* p = (float*)cvGetSeqElem(circles, i);
+        cv::Point center(cvRound(p[0]), cvRound(p[1]));
+        int radius = cvRound(p[2]);
+        output << "("<< center.x << "," <<center.y<< ")\t" << radius << "\n";
+        std::cout << "("<< center.x << "," << center.y<< ")     \t" << radius << "\n";
+    }
+    output.close();
+}
+void ShowCircles(CvSeq * circles, std::string sourceName = "output.jpg"){
+    IplImage * image;
+    if ((image = cvLoadImage("output.jpg"))== 0)
+    {
+        printf("File niet gevonden.....\nProgramma wordt afgesloten\n");
+        exit(-1);
+    }
+    for (size_t i = 0; i < circles->total; i++)
+    {
+        // round the floats to an int
+        float* p = (float*)cvGetSeqElem(circles, i);
+        cv::Point center(cvRound(p[0]), cvRound(p[1]));
+        int radius = cvRound(p[2]);
 
+
+        // draw the circle center
+        cvCircle(image, center, 3, CV_RGB(0,255,0), -1, 8, 0 );
+
+        // draw the circle outline
+        cvCircle(image, center, radius+3, CV_RGB(0,0,255), 2, 8, 0 );
+    }
+
+    ///Show Image with the detected circles
+    cvNamedWindow("circles", 1);
+    cvShowImage("circles", image);
 }
 
-int main(int argc, char** argv)
-{
-    clock_t Start = clock();
+CvSeq * DetectCircles(std::string sourceName){
     IplImage* img = NULL;
-    makeImage(argv[1]); // transform .txt to .jpg file
+    makeImage(sourceName); // transform .txt to .jpg file
     if ((img = cvLoadImage("output.jpg"))== 0)
     {
         printf("cvLoadImage failed\n");
@@ -73,34 +112,30 @@ int main(int argc, char** argv)
     cvCanny(gray, canny, 50, 100, 3);
 
     CvSeq* circles = cvHoughCircles(gray, storage, CV_HOUGH_GRADIENT, 1, gray->height/6, 145, 19);
-    cvCvtColor(canny, rgbcanny, CV_GRAY2BGR);
+    return circles;
+}
+void test(){
+    clock_t Start = clock();
+    CvSeq* circles = DetectCircles("circles400.txt");
     clock_t end = clock();
     int time = end - Start;
-    printf("%d circles detected in %f sec\n", circles->total,(float)time /CLOCKS_PER_SEC);
-    for (size_t i = 0; i < circles->total; i++)
-    {
-         // round the floats to an int
-         float* p = (float*)cvGetSeqElem(circles, i);
-         cv::Point center(cvRound(p[0]), cvRound(p[1]));
-         int radius = cvRound(p[2]);
-
-
-         // draw the circle center
-         cvCircle(rgbcanny, center, 3, CV_RGB(0,255,0), -1, 8, 0 );
-
-         // draw the circle outline
-         cvCircle(rgbcanny, center, radius+3, CV_RGB(0,0,255), 2, 8, 0 );
-
-         printf("x: %d y: %d r: %d\n",center.x,center.y, radius);
+    printf("%d circles detected in %f sec\n\n", circles->total,(float)time /CLOCKS_PER_SEC);
+    if (circles->total != 7){
+        exit(-1);
     }
+    WriteCircles(circles);
+}
 
-
-    //cvNamedWindow("circles", 1);
-    //cvShowImage("circles", rgbcanny);
-
-    cvSaveImage("out2.png", rgbcanny);
-    cvSaveImage("out3.png", canny);
-    cvWaitKey(0);
-
+int main(int argc, char** argv)
+{
+    if(argc >1 && strcmp(argv[1], "test") == 0){
+        printf("Testing CircleDetection\n\n");
+        test();
+        return 0;
+    }
+    CvSeq* circles = DetectCircles(argv[1]);
+    WriteCircles(circles);
+    ShowCircles(circles);
+    waitKey(0);
     return 0;
 }
