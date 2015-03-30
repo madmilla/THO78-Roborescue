@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "map.h"
 #include "editmapwindow.h"
+#include "simulatemapwindow.h"
 
 namespace Ui {
 class MainWindow;
