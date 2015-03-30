@@ -4,7 +4,6 @@
 #include "opencv2/highgui/highgui.hpp"
 #include <opencv/cv.h>
 #include <iostream>
-#include <QTextStream>
 #include <stdio.h>
 #include <QVector>
 #include <QString>
@@ -13,6 +12,7 @@
 #include "time.h"
 #include "ctime"
 #include <math.h>
+#include <QTextStream>
 using namespace cv;
 void makeImage(QString source, QString output = "output.jpg"){
     QFile file(source);
