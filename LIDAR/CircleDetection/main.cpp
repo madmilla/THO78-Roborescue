@@ -5,41 +5,35 @@
 #include <opencv/cv.h>
 #include <iostream>
 #include <stdio.h>
-#include <QVector>
-#include <QString>
-#include <QFile>
-#include <QImage>
 #include "time.h"
 #include "ctime"
 #include <math.h>
-#include <QTextStream>
+#include <fstream>
 using namespace cv;
-void makeImage(QString source, QString output = "output.jpg"){
-    QFile file(source);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+void makeImage(std::string source, std::string output = "output.jpg"){
+    std::ifstream file(source);
+    if (!file.is_open()){
         printf("File niet gevonden.....\nProgramma wordt afgesloten\n");
         exit(1);
     }
-
-    QTextStream stream(&file);
-    QString line = stream.readLine();
+    std::string line;
     int imageHeight = 0;
     int imageWidth = 0;
-    while(!line.isNull()){
+    while(getline(file,line)){
         imageHeight++;
-        line = stream.readLine();
         if(line.length()> imageWidth){
             imageWidth = line.length();
         }
     }
     Mat * newMat = new Mat(imageWidth,imageHeight,CV_8UC1);
     int x = 0;
-    file.seek(0);
-    line = stream.readLine();
-    while(!line.isNull()){
+    file.clear();
+    file.seekg(0,file.beg);
+    while(getline(file,line)){
         int y = 0;
         for(int i = 0; i< imageWidth; i++){
-            if(line[i].isNumber()){
+            char ch = line[i];
+            if(isdigit(ch)){
                 newMat->at<uchar>(Point(y,x)) = 255;
             }
             else{
@@ -47,12 +41,15 @@ void makeImage(QString source, QString output = "output.jpg"){
             }
             y++;
         }
-        line = stream.readLine();
         x++;
     }
     file.close();
-    imwrite(output.toStdString(), *newMat);
+    imwrite(output, *newMat);
 }
+void DetectCircles(std::string source){
+
+}
+
 int main(int argc, char** argv)
 {
     clock_t Start = clock();
@@ -101,8 +98,8 @@ int main(int argc, char** argv)
     //cvNamedWindow("circles", 1);
     //cvShowImage("circles", rgbcanny);
 
-//    cvSaveImage("out2.png", rgbcanny);
-//    cvSaveImage("out3.png", canny);
+    cvSaveImage("out2.png", rgbcanny);
+    cvSaveImage("out3.png", canny);
     cvWaitKey(0);
 
     return 0;
