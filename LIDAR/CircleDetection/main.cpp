@@ -1,6 +1,7 @@
+//First parameter is .txt file with the pixels.
 // compiled with: g++ circles.cpp -o circles `pkg-config --cflags --libs opencv`
-#include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
 #include <opencv/cv.h>
 #include <iostream>
 #include <QTextStream>
