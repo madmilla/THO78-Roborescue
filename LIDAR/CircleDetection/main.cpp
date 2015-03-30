@@ -98,8 +98,8 @@ int main(int argc, char** argv)
     }
 
 
-    cvNamedWindow("circles", 1);
-    cvShowImage("circles", rgbcanny);
+    //cvNamedWindow("circles", 1);
+    //cvShowImage("circles", rgbcanny);
 
 //    cvSaveImage("out2.png", rgbcanny);
 //    cvSaveImage("out3.png", canny);
