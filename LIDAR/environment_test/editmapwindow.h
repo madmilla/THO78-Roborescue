@@ -2,6 +2,8 @@
 #define EDITMAPWINDOW_H
 
 #include <QDialog>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 #include "map.h"
 
 namespace Ui {
@@ -24,8 +26,8 @@ private slots:
 
 private:
     Ui::EditMapWindow *ui;
+    void paintEvent(QPaintEvent *e);
     Map *map;
-    QVector<QVector< int > > mapLayout;
 };
 
 #endif // EDITMAPWINDOW_H

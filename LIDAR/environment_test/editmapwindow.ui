@@ -39,16 +39,6 @@
     <string>Obstacle</string>
    </property>
   </widget>
-  <widget class="QGraphicsView" name="mapView">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>511</width>
-     <height>461</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>

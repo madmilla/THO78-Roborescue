@@ -15,11 +15,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     editmapwindow.cpp \
-    map.cpp
+    map.cpp \
+    simulatemap.cpp \
+    simulatemapwindow.cpp
 
 HEADERS  += mainwindow.h \
     editmapwindow.h \
-    map.h
+    map.h \
+    simulatemap.h \
+    simulatemapwindow.h
 
 FORMS    += mainwindow.ui \
-    editmapwindow.ui
+    editmapwindow.ui \
+    simulatemapwindow.ui

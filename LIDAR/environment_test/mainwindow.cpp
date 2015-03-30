@@ -65,5 +65,11 @@ void MainWindow::on_editMapButton_clicked()
 
 void MainWindow::on_simulateButton_clicked()
 {
-    std::cout << "Simulate Map clicked";
+    QString fileName = QFileDialog::getOpenFileName(this, "Open File", QString(), "Map Files (*.map)");
+
+    if (!fileName.isEmpty()) {                            //If the filename is not empty this means a file has been selected
+        map = new Map(fileName);
+        SimulateMapWindow *simulateMapWindow = new SimulateMapWindow(map);
+        simulateMapWindow->show();
+    }
 }
