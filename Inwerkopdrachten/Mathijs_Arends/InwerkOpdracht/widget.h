@@ -36,6 +36,7 @@ protected:
  bool mapSelected=0;
   void paintEvent(QPaintEvent *event) {
       if(mapSelected){
+      if(event ==nullptr){}
       tilesize = height()/20;
     // QTransform myTransform;
     qWarning("warning");
@@ -69,6 +70,8 @@ protected:
        painter.drawImage(rectangle, logo);
 
     }
+	event = nullptr;
+
 
 
 }}
