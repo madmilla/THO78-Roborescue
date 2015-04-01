@@ -41,7 +41,7 @@
 #ifndef MAVLINKSUBJECT_H_INCLUDED
 #define MAVLINKSUBJECT_H_INCLUDED
 
-#include "mavlink/include/telemetryTest/mavlink.h"
+#include "mavlink/include/common/mavlink.h"
 #include "ioDevice.h"
 #include <map>
 #include <vector>

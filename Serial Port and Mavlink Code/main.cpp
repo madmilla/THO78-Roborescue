@@ -7,7 +7,15 @@
 #include <string>
 #include <iostream>
 #include <cstring>
-#include "mavlink/include/telemetryTest/mavlink.h"
+#include "mavlink/include/common/mavlink.h"
+#include <sys/time.h>
+
+double getTimeMillis(){
+	struct timeval  tv;
+gettimeofday(&tv, NULL);
+
+return (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000 ;
+}
 
 // application reads from the specified serial port and reports the collected data
 int main() {
@@ -41,73 +49,16 @@ int main() {
 	m->start(ioDevice);
 	SomeListener * s = new SomeListener(m);
 	if (in == '1') {
-		while (1) {
-			std::cout << "Message to send:";
-			std::string line;
-			std::getline(std::cin, line);
-			if (line.compare("") == 0) {
-				continue;
-			}
-
-			mavlink_message_t* msg = new mavlink_message_t();
-			mavlink_array_test_0_t* array = new mavlink_array_test_0_t();
-
-			char msgText[32];
-			std::fill(msgText,msgText+32,' ');
-			std::strcpy(msgText, line.c_str());
-			
-			mavlink_msg_array_test_0_pack(1, 2, msg, 50, msgText);
-			m->sendMessage(*msg);
-
-			std::cout << "Data sent with telemetry\n";
-		}
+		mavlink_ping_t* testArray = new mavlink_ping_t();
+		testArray->time_usec = getTimeMillis();
+		testArray->seq = 0;
+		mavlink_message_t* msg = new mavlink_message_t();
+		mavlink_msg_ping_encode(1, 2, msg, testArray);
+		m->sendMessage(*msg);
+		delete testArray;
+		while (m->update()){}
 	} else if (in == '2') {
 		while (m->update()){}
-		/* while (SP->isConnected()) {
-
-			mavlink_message_t receiveMessage;
-			mavlink_status_t status;
-
-			if (SP->getBufferSize() < 1){
-				continue;
-			}
-
-			char c;
-			SP->readData(&c,1);
-			// Try to get a new message
-			if (mavlink_parse_char(MAVLINK_COMM_0, c, &receiveMessage,
-					&status)) {
-				std::cout << "Message parsed\n";
-				// Handle message
-
-				switch (receiveMessage.msgid) {
-				case MAVLINK_MSG_ID_HEARTBEAT: {
-					// E.g. read GCS heartbeat and go into
-					// comm lost mode if timer times out
-				}
-					break;
-				case MAVLINK_MSG_ID_ARRAY_TEST_0:
-				{
-					std::cout
-							<< "Test message received. Message content: [";
-					mavlink_array_test_0_t* testArray =
-							new mavlink_array_test_0_t();
-					mavlink_msg_array_test_0_decode(&receiveMessage,
-							testArray);
-					for (int i = 0; i < 32; i++) {
-						std::cout << testArray->ar_c[i];
-					}
-					std::cout << "]\n";
-					delete testArray;
-					break;
-				}
-				default:
-					std::cout
-							<< "default message triggered, add extra cases to catch all msgid's.\n";
-					break;
-				}
-			}
-		} */
 	}
 	return 0;
 }
