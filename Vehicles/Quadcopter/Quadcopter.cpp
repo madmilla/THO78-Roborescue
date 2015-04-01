@@ -2,7 +2,6 @@
 
 Quadcopter::Quadcopter()
 {
-
 }
 
 Quadcopter::~Quadcopter()
