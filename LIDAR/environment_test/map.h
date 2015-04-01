@@ -3,24 +3,26 @@
 
 #include <QVector>
 #include <QTableWidget>
+using namespace std;
 
 class Map
 {
 public:
-    Map();
-    Map(QString mapContent);
-    QVector<QVector< int > > getMapContent();
-    void setMapContent(QVector<QVector< int > > newMapLayout);
-    void setMapObject(int object,int x, int y);
+    Map(string fileName);
+    Map(string fileName, int height, int width);
+    vector<vector< int > > getMapContent();
+    void setMapContent(vector<vector< int > > newMapLayout);
+    void setMapObject(int object,int y, int x);
     void saveMap();
-    Qt::GlobalColor getColorById(int id);
     int width = 0;
     int height = 0;
-    QString mapName;
+    string fileName;
     ~Map();
 
 private:
-    QVector<QVector< int > > mapLayout;
+    vector<vector< int > > mapLayout;
+    void createNewMap(string fileName);
+    void loadMap(string fileName);
 };
 
 #endif // MAP_H

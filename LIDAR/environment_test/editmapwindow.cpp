@@ -1,6 +1,8 @@
 #include "editmapwindow.h"
 #include "ui_editmapwindow.h"
 #include <QGraphicsRectItem>
+#include <vector>
+#include <iostream>
 
 EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
     QDialog(parent),
@@ -17,10 +19,9 @@ EditMapWindow::~EditMapWindow(){
 }
 
 void EditMapWindow::showMap(Map *map){
-    QVector<QVector< int > > mapLayout = map->getMapContent();
+    vector<vector< int > > mapLayout = map->getMapContent();
     for(int y = 0; y < mapLayout.size(); y++){
         for(int x = 0; x < mapLayout[y].size(); x++){
-
         }
     }
 }
@@ -32,16 +33,41 @@ void EditMapWindow::on_obstacleButton_clicked(){
 void EditMapWindow::on_saveMapButton_clicked(){
     map->saveMap();
 }
+void EditMapWindow::mousePressEvent(QMouseEvent * event){
+    mousePressed = true;
+}
 
 void EditMapWindow::paintEvent(QPaintEvent *e){
-    QPainter painter(this);
-    QVector<QVector< int > > mapLayout = map->getMapContent();
-    for(int y = 0; y < mapLayout.size(); y++){
-        for(int x = 0; x < mapLayout[y].size(); x++){
-            painter.fillRect(x*10,y*10,10,10,QBrush(Qt::blue));
+    if(mousePressed){
+        QPainter painter(this);
+        vector<vector< int > > mapLayout = map->getMapContent();
+        for(int y = 0; y < mapLayout.size(); y++){
+            for(int x = 0; x < mapLayout[y].size(); x++){
+                painter.fillRect(x,y,1,1,QBrush(Qt::blue));
+            }
         }
     }
-    if(true){
-        update();
+    mousePressed = false;
+}
+
+Qt::GlobalColor EditMapWindow::getColorById(int id){
+    Qt::GlobalColor bColor;
+    switch (id) {
+    case 0:
+        bColor = Qt::white;
+    break;
+    case 1:
+        bColor = Qt::red;
+    break;
+    case 2:
+        bColor = Qt::green;
+    break;
+    case 3:
+        bColor = Qt::blue;
+    break;
+    default:
+        bColor = Qt::black;
+    break;
     }
+    return bColor;
 }
