@@ -40,12 +40,6 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
 void EditMapWindow::paintEvent(QPaintEvent *e){
     if(mousePressed){
         QPainter painter(this);
-        vector<vector< int > > mapLayout = map->getMapContent();
-        for(int y = 0; y < mapLayout.size(); y++){
-            for(int x = 0; x < mapLayout[y].size(); x++){
-                painter.fillRect(x,y,1,1,QBrush(Qt::blue));
-            }
-        }
     }
     mousePressed = false;
 }
