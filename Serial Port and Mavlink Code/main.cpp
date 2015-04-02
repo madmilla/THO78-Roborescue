@@ -28,7 +28,7 @@ int main() {
 	Error OS not defined.
 	#endif
 
-	
+	std::cout << "test";
 	std::cout << "Com port to connect to: " << port;
 	std::string line = "";
 	while (line.compare("") == 0) {
