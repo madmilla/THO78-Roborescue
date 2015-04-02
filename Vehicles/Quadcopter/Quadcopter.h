@@ -6,12 +6,14 @@ class SerialPort;
 class Quadcopter
 {
 public:
+	void sendMessage(mavlink_message_t & msg);
+	
 	Quadcopter(SerialPort& serialPort);
 	~Quadcopter();
 	void liftOff();
 	void arm();
-	void moveLeft();
-	void moveRight();
+	void moveLeft(signed int value);
+	void moveRight(signed int value);
 	void moveForward();
 	void moveBackward();
 	void stop();

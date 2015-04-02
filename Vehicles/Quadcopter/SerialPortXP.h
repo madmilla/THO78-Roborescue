@@ -1,7 +1,9 @@
 #ifndef _SERIALPORTXP_H
 #define _SERIALPORTXP_H
-#include "serial.h"
+#include "Serial.h"
+#ifdef _WIN32
 #include <windows.h>
+#endif
 
 class SerialPortXP : public Serial
 {
