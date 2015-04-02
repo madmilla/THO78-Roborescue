@@ -26,7 +26,10 @@ private slots:
 
 private:
     Ui::EditMapWindow *ui;
+    Qt::GlobalColor getColorById(int id);
     void paintEvent(QPaintEvent *e);
+    void mousePressEvent(QMouseEvent * event);
+    bool mousePressed;
     Map *map;
 };
 

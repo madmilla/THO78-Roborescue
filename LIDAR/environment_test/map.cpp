@@ -2,30 +2,38 @@
 #include <QtCore>
 #include <QVector>
 #include <iostream>
+#include <fstream>
+#include <vector>
+using namespace std;
 
-Map::Map(QString fileName):
-mapName(fileName)
+Map::Map(string fileName, int height, int width):
+    fileName(fileName),
+    height(height),
+    width(width)
 {
-    if(!fileName.isEmpty()){
-        QFile file(fileName);
-        file.open(QIODevice::ReadOnly | QIODevice::Text);
-        int y = 0;
-        int x = 0;
-        while(!file.atEnd()){
-            QString line = file.readLine();
-            line.remove(QRegExp("[\\n\\t\\r]"));
-            mapLayout.resize((y+1));
-            for(int i = 0; i < line.length(); i++ ){
-                x = (int)(line[i].toLatin1() - '0');
-                mapLayout[y].resize((i+1));
-                mapLayout[y][i] = x;
-            }
-            mapLayout[y];
-            y++;
+    if(!fileName.empty()){
+        createNewMap(fileName);
+        loadMap(fileName);
+    }
+}
+
+Map::Map(string fileName):
+    fileName(fileName)
+{
+    if(!fileName.empty()){
+        ifstream mapFile;
+        mapFile.open(fileName);
+        if(height == 0 && width == 0){
+            string line;
+            int i;
+            for (i = 0; getline(mapFile, line); ++i);
+            line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
+            height = i;
+            width = static_cast<int>(line.length());
+            cout << height << '\n' << width;
+            cout << endl;
         }
-        height = mapLayout.size();
-        width = mapLayout[0].length();
-        file.close();
+        loadMap(fileName);
     }
 }
 
@@ -33,52 +41,62 @@ Map::~Map(){
 
 }
 
-void Map::setMapObject(int object,int x, int y){
+void Map::loadMap(string fileName){
+    ifstream mapFile;
+    mapFile.open(fileName);
+    int x = 0,y = 0;
+    int content;
+
+    mapLayout.resize(height+1);
+    mapLayout[y].resize(width+1);
+    while(y < height){
+        mapFile >> content;
+        mapLayout[y][x] = content;
+        x++;
+        if(x > width){
+            x = 0;
+            y++;
+            mapLayout[y].resize(width+1);
+        }
+    }
+    mapFile.close();
+}
+
+void Map::setMapObject(int object,int y, int x){
     if(x <= width && y <= height){
         mapLayout[y][x] = object;
     }
 }
 
-QVector<QVector< int > > Map::getMapContent(){
+vector<vector< int > > Map::getMapContent(){
     return mapLayout;
 }
 
-void Map::setMapContent(QVector<QVector< int > > newMapLayout){
+void Map::setMapContent(vector<vector< int > > newMapLayout){
      mapLayout = newMapLayout;
 }
 
 void Map::saveMap(){
-    QFile mapFile(mapName);
-    if(!mapFile.open((QIODevice::WriteOnly | QIODevice::Text))) return;
-    QTextStream mfOut(&mapFile);
+    ofstream mapFile;
+    mapFile.open(fileName);
     for(int y = 0; y < height; y++){
         for(int x = 0; x < width; x++){
-            mfOut << mapLayout[y][x];
+            mapFile << mapLayout[y][x];
         }
-        if(y != height - 1)mfOut << '\n';
+        if(y != height - 1)mapFile << '\n';
     }
     mapFile.close();
 }
-
-Qt::GlobalColor Map::getColorById(int id){
-    Qt::GlobalColor bColor;
-    switch (id) {
-    case 0:
-        bColor = Qt::white;
-    break;
-    case 1:
-        bColor = Qt::red;
-    break;
-    case 2:
-        bColor = Qt::green;
-    break;
-    case 3:
-        bColor = Qt::blue;
-    break;
-    default:
-        bColor = Qt::black;
-    break;
+void Map::createNewMap(string fileName){
+    ofstream mapFile;
+    mapFile.open(fileName + ".map");
+    for(int y = 0; y < height; y++){
+        for(int x = 0; x < width; x++){
+            mapFile << 0;
+            if(x != width - 1)mapFile << ' ';
+        }
+        if(y != height - 1)mapFile << '\n';
     }
-    return bColor;
+    mapFile.close();
 }
 
