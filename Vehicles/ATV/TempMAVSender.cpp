@@ -2,7 +2,7 @@
 #include "SerialPort.h"
 
 TempMAVSender::TempMAVSender(SerialPort& serialPort):
-serialPort{ serialPort }
+serialPort( serialPort )
 {
 }
 
