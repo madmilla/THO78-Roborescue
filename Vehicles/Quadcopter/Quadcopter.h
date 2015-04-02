@@ -8,8 +8,6 @@ class Quadcopter
 {
 public:
 	explicit Quadcopter(TempMAVSender& tempMAVSender);
-	void sendMessage(mavlink_message_t & msg);
-	~Quadcopter();
 	void liftOff();
 	void arm();
 	void moveLeft(signed int value);
