@@ -1,14 +1,10 @@
 #include "Quadcopter.h"
-#include "SerialPort.h"
+#include "TempMAVSender.h"
 
-Quadcopter::Quadcopter(SerialPort& serialPort): 
-serialPort{ serialPort }
+Quadcopter::Quadcopter(TempMAVSender& tempMAVSender) :
+tempMAVSender{ tempMAVSender }
 {
-}
-
-Quadcopter::~Quadcopter()
-{
-
+	
 }
 
 void Quadcopter::liftOff()
@@ -18,17 +14,21 @@ void Quadcopter::liftOff()
 
 void Quadcopter::arm()
 {
-
+	auto msg = mavlink_message_t();
+	mavlink_msg_command_long_pack(255,0,&msg,1,250,400,0,1,0,0,0,0,0,0);
+	tempMAVSender.sendMessage(msg);
 }
 
-void Quadcopter::moveLeft()
+void Quadcopter::moveLeft(signed int value)
 {
-
+	moveRight(-value);
 }
 
-void Quadcopter::moveRight()
+void Quadcopter::moveRight(signed int value)
 {
-
+	auto msg = mavlink_message_t();
+	mavlink_msg_rc_channels_override_pack(255,200,& msg,1,250,1487+value,UINT16_MAX, UINT16_MAX, UINT16_MAX,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
+	tempMAVSender.sendMessage(msg);
 }
 
 void Quadcopter::moveForward()

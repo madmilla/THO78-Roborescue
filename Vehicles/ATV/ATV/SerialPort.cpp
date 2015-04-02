@@ -18,7 +18,7 @@ SerialPort::~SerialPort()
 	delete serialDevice;
 }
 
-int SerialPort::writeData(unsigned char* data, int nrOfBytes)
+int SerialPort::writeData(char* data, int nrOfBytes)
 {
 	return serialDevice->writeData(data, nrOfBytes);
 }

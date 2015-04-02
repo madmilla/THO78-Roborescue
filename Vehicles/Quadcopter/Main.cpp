@@ -1,11 +1,14 @@
 #include "Quadcopter.h"
 #include "SerialPort.h"
 #include <string>
+#include "TempMAVSender.h"
+#include <iostream>
 
-int main()
+int main() 
 {
-	SerialPort port{ "COM4" };
-	Quadcopter copter{ port };
+	SerialPort serialPort("/dev/ttyUSB0");
+	TempMAVSender tempMAVSender{ serialPort };
+	Quadcopter quadcopter(tempMAVSender);
 	while (1)
 	{
 	}

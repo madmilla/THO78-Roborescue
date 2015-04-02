@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F9EEE01C-1A04-43F3-AB56-AA0818970FAC}</ProjectGuid>
+    <ProjectGuid>{2399A16D-59A4-4C5B-8003-74E58CF8694B}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -37,15 +37,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
+    <NMakeOutput>ATV.exe</NMakeOutput>
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make clean build</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeOutput>Main.exe</NMakeOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
-    <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>make clean build</NMakeReBuildCommandLine>
+    <NMakeOutput>ATV.exe</NMakeOutput>
+    <NMakeCleanCommandLine>clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <ItemDefinitionGroup>
@@ -54,21 +55,11 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ATV.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Quadcopter.cpp" />
-    <ClCompile Include="SerialPort.cpp" />
-    <ClCompile Include="SerialPortXP.cpp" />
-    <ClCompile Include="SerialUDPSocket.cpp" />
-    <ClCompile Include="TempMAVSender.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PracticalSocket.h" />
-    <ClInclude Include="Quadcopter.h" />
-    <ClInclude Include="Serial.h" />
-    <ClInclude Include="SerialPort.h" />
-    <ClInclude Include="SerialPortXP.h" />
-    <ClInclude Include="SerialUDPSocket.h" />
-    <ClInclude Include="TempMAVSender.h" />
+    <ClInclude Include="ATV.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

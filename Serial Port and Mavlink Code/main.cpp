@@ -28,7 +28,7 @@ int main() {
 	Error OS not defined.
 	#endif
 
-	
+	std::cout << "test";
 	std::cout << "Com port to connect to: " << port;
 	std::string line = "";
 	while (line.compare("") == 0) {
@@ -47,10 +47,11 @@ int main() {
 	IoDevice* ioDevice = new Serial(port);
 	m->start(ioDevice);
 	if (in == '1') {
-	mavlink_message_t msg = mavlink_message_t();
-	//mavlink_msg_command_long_pack(255, 0, &msg, 1, 250, 400, 0, 1, 0, 0, 0, 0, 0, 0);‏Sleep(2000);
-	mavlink_msg_command_long_pack(255,0,&msg,1,250,400,0,1,0,0,0,0,0,0);Sleep(2000);
-	m->sendMessage(msg);
+		mavlink_message_t msg = mavlink_message_t();
+		//mavlink_msg_command_long_pack(255, 0, &msg, 1, 250, 400, 0, 1, 0, 0, 0, 0, 0, 0);‏Sleep(2000);
+		mavlink_msg_command_long_pack(255,0,&msg,1,250,400,0,1,0,0,0,0,0,0);
+		Sleep(2000);
+		m->sendMessage(msg);
 		Sleep(3000);
 		//mavlink_msg_rc_channels_override_pack(1, 0, msg,1,1 1000,UINT16_MAX,UINT16_MAX,UINT16_MAX,UINT16_MAX,UINT16_MAX,UINT16_MAX,UINT16_MAX);
 		mavlink_msg_rc_channels_override_pack(255,200,& msg,1,250,1460,UINT16_MAX, 1525, UINT16_MAX,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
