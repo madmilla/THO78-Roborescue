@@ -10,6 +10,10 @@ public:
 	ATV(TempMAVSender & mavlinkSender);
 	~ATV();
 	void moveForward();
+	void moveBackward();
+	void turnLeft();
+	void turnRight();
+	void emergencyStop();
 private:
 	TempMAVSender & mavlinkSender;
 };
