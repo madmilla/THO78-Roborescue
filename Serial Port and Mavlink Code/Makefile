@@ -1,4 +1,4 @@
-MODULES := serial ioDevice mavlinkSubject pingListener 
+MODULES := serial ioDevice mavlinkSubject  
 
 
 PROJECT := main
