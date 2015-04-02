@@ -8,7 +8,7 @@
 #define SYSTEMCOMPONENTID 200
 
 Quadcopter::Quadcopter(TempMAVSender& tempMAVSender) :
-tempMAVSender{ tempMAVSender }
+tempMAVSender( tempMAVSender )
 {
 	
 }
