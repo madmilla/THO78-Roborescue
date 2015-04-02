@@ -1,6 +1,8 @@
 #include "Quadcopter.h"
+#include "TempMAVSender.h"
 
-Quadcopter::Quadcopter()
+Quadcopter::Quadcopter(TempMAVSender& tempMAVSender) :
+tempMAVSender{ tempMAVSender }
 {
 }
 

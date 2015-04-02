@@ -1,13 +1,14 @@
 #include "Quadcopter.h"
-#include "PracticalSocket.h"
+#include "SerialPort.h"
+#include <string>
+#include "TempMAVSender.h"
 
 int main()
 {
-	Quadcopter copter;
-	UDPSocket sock{ 15440 };
-	
+	SerialPort port{ "COM4" };
+	TempMAVSender mavlinkSender{ port };
+	Quadcopter copter{ mavlinkSender };
 	while (1)
 	{
-		 
 	}
 }
