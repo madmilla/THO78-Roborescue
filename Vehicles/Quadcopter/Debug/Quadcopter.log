@@ -1,13 +1,12 @@
-﻿Build started 1-4-2015 13:52:53.
+﻿Build started 2-4-2015 11:24:03.
      1>Project "C:\Users\Kjeld Perquin\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make
-         g++ -c -O3 -Wall -Werror -std=gnu++11 Main.cpp -o Main.o
-         g++ -c -O3 -Wall -Werror -std=gnu++11 PracticalSocket.cpp -o PracticalSocket.o
-         g++ -c -O3 -Wall -Werror -std=gnu++11 Quadcopter.cpp -o Quadcopter.o
-         g++ Main.o PracticalSocket.o Quadcopter.o -I ../Dependencies/MAVLink/ardupilotmega -o Main -lws2_32
+         g++ -c -std=gnu++11 Main.cpp -o Main.o
+         g++ -c -std=gnu++11 SerialPort.cpp -o SerialPort.o
+         g++ Main.o PracticalSocket.o Quadcopter.o SerialPort.o SerialPortXP.o SerialUDPSocket.o -I ../Dependencies/MAVLink/ardupilotmega -o Main -lws2_32
      1>Done Building Project "C:\Users\Kjeld Perquin\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:06.62
+Time Elapsed 00:00:04.00

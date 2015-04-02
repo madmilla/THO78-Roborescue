@@ -1,6 +1,8 @@
 #include "Quadcopter.h"
+#include "SerialPort.h"
 
-Quadcopter::Quadcopter()
+Quadcopter::Quadcopter(SerialPort& serialPort): 
+serialPort{ serialPort }
 {
 }
 

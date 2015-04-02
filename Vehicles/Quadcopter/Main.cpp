@@ -1,13 +1,12 @@
 #include "Quadcopter.h"
-#include "PracticalSocket.h"
+#include "SerialPort.h"
+#include <string>
 
 int main()
 {
-	Quadcopter copter;
-	UDPSocket sock{ 15440 };
-	
+	SerialPort port{ "COM4" };
+	Quadcopter copter{ port };
 	while (1)
 	{
-		 
 	}
 }
