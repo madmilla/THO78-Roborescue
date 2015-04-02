@@ -1,6 +1,8 @@
 #include "Quadcopter.h"
-#include "SerialPort.h"
+#include "TempMAVSender.h"
 
+Quadcopter::Quadcopter(TempMAVSender& tempMAVSender) :
+tempMAVSender{ tempMAVSender }
 //TODO: Move, remove, whatever
 void Quadcopter::sendMessage(mavlink_message_t & msg){
 	unsigned char* buffer =
@@ -13,11 +15,6 @@ void Quadcopter::sendMessage(mavlink_message_t & msg){
 	serialPort->writeData(charPBuffer,length);
 	
 	delete [] buffer;
-}
-
-Quadcopter::Quadcopter(SerialPort& serialPort): 
-serialPort{ serialPort }
-{
 }
 
 Quadcopter::~Quadcopter()
