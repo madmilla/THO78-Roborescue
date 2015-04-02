@@ -33,7 +33,8 @@ public:
     bool checkRPLIDARHealth();
     //! Start a single scan with the lidar
     /*!
-        A 360deg scan with the lidar which output the points found. Also stores the scanData in a vector
+        A 360deg scan with the lidar which output the points found, points with quality 0
+        will be filtered out. Also stores the scanData in a vector
         which contains all the data from single scans made.
         @return std::vector<scanDot>: vector with the scandata (angle,distance,quality)
     */
