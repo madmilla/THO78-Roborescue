@@ -9,7 +9,3 @@ Main: $(OBJS)
 
 %.o : %.cpp
 	g++ -c -std=gnu++11 $*.cpp -o $*.o
-
-leftRight: $(OBJS)
-	g++ -std=gnu++11 testLeftRight.cpp -o testLeftRight.exe
-	./testLeftRight.exe
