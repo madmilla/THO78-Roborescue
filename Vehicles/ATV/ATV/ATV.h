@@ -1,15 +1,15 @@
 #ifndef _ATV_H
 #define _ATV_H
 #include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
-class SerialPort;
+class TempMAVServer;
 
 class ATV
 {
 public:
-	ATV(SerialPort & serialPort);
+	ATV(TempMAVSender & mavlinkSender);
 	~ATV();
 	void moveForward();
 private:
-	SerialPort & serialPort;
+	TempMAVSender & mavlinkSender;
 };
 #endif
