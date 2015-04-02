@@ -8,9 +8,9 @@ int main (int argc, char** argv)
 	
 	std::ofstream fOut;
 	std::ifstream iOne, iTwo;
-	fOut.open("/output.txt");		
-	iOne.open("");
-	iTwo.open("");			
+	fOut.open("output.txt");		
+	iOne.open("cloud1.csv");
+	iTwo.open("cloud2.csv");			
     float fOne, fTwo;
     float x,y, x2, y2;
     int line1, line2;
