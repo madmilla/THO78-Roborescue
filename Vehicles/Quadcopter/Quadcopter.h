@@ -7,13 +7,8 @@ class SerialPort;
 class Quadcopter
 {
 public:
-<<<<<<< HEAD
 	explicit Quadcopter(TempMAVSender& tempMAVSender);
-=======
 	void sendMessage(mavlink_message_t & msg);
-	
-	Quadcopter(SerialPort& serialPort);
->>>>>>> LeftRight-Translation
 	~Quadcopter();
 	void liftOff();
 	void arm();
