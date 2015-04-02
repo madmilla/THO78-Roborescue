@@ -1,6 +1,10 @@
 #ifndef _SERIALPORTXP_H
 #define _SERIALPORTXP_H
+<<<<<<< HEAD
 #include "serial.h"
+=======
+#include "Serial.h"
+>>>>>>> LeftRight-Translation
 #ifdef _WIN32
 #include <windows.h>
 #endif
