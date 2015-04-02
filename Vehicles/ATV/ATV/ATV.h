@@ -1,7 +1,8 @@
 #ifndef _ATV_H
 #define _ATV_H
-#include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
-class TempMAVServer;
+
+#include "../../Dependencies/MAVLink/ardupilotmega/mavlink.h"
+#include "TempMAVSender.h"
 
 class ATV
 {
@@ -12,4 +13,5 @@ public:
 private:
 	TempMAVSender & mavlinkSender;
 };
+
 #endif
