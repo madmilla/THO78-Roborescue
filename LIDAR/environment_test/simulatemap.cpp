@@ -1,6 +1,8 @@
 #include "simulatemap.h"
+#include "values.h"
 
-SimulateMap::SimulateMap()
+SimulateMap::SimulateMap(Map *map):
+    map(map)
 {
 
 }
@@ -8,5 +10,9 @@ SimulateMap::SimulateMap()
 SimulateMap::~SimulateMap()
 {
 
+}
+
+void SimulateMap::setScanPoint(int y, int x){
+    map->setMapObject(Values::SCANLOCATION,y,x);
 }
 

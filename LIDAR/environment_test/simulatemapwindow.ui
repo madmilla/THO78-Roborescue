@@ -13,16 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QGraphicsView" name="graphicsView">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>541</width>
-     <height>481</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="simulateButton">
    <property name="geometry">
     <rect>
