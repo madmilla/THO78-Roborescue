@@ -1,8 +1,8 @@
 #include "Quadcopter.h"
-#include "SerialPort.h"
+#include "TempMAVSender.h"
 
-Quadcopter::Quadcopter(SerialPort& serialPort): 
-serialPort{ serialPort }
+Quadcopter::Quadcopter(TempMAVSender& tempMAVSender) :
+tempMAVSender{ tempMAVSender }
 {
 }
 

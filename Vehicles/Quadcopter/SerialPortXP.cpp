@@ -75,7 +75,7 @@ void SerialPortXP::close()
 	::close (filedescriptor);
 }
 
-int SerialPortXP::writeData(char* data, int nrOfBytes)
+int SerialPortXP::writeData(unsigned char* data, int nrOfBytes)
 {
 	if (::write(filedescriptor, buffer, nbBytes) != (ssize_t) nbBytes)
 	{
@@ -179,7 +179,7 @@ int SerialPortXP::readData(char* buffer, int nrOfBytes)
 	return -1;
 }
 
-bool SerialPortXP::writeData(char* data, int nrOfBytes)
+bool SerialPortXP::writeData(unsigned char* data, int nrOfBytes)
 {
 	DWORD bytesSend;
 	if (!WriteFile(serialHandle, data, nrOfBytes, &bytesSend, nullptr))

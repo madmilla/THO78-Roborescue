@@ -1,12 +1,13 @@
 #ifndef _QUADCOPTER_H
 #define _QUADCOPTER_H
 #include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
+class TempMAVSender;
 class SerialPort;
 
 class Quadcopter
 {
 public:
-	Quadcopter(SerialPort& serialPort);
+	explicit Quadcopter(TempMAVSender& tempMAVSender);
 	~Quadcopter();
 	void liftOff();
 	void arm();
@@ -19,6 +20,6 @@ public:
 	void changeFlightSpeed(int);
 	void changeHeading(int);
 private:
-	SerialPort& serialPort;
+	TempMAVSender& tempMAVSender;
 };
 #endif
