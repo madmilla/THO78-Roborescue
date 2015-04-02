@@ -14,7 +14,8 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    shapedetector.cpp
 win32 {
     INCLUDEPATH += "C:\\opencv2411\\build\\include" \
 
@@ -37,3 +38,6 @@ win32 {
             -lopencv_calib3d2410
     }
 }
+
+HEADERS += \
+    shapedetector.h

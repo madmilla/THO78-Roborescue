@@ -4,9 +4,8 @@
 
 int main()
 {
-	Quadcopter copter;
-	std::string s("localhost");
-	SerialPort port{ 15440, s };
+	SerialPort port{ "COM4" };
+	Quadcopter copter{ port };
 	while (1)
 	{
 	}
