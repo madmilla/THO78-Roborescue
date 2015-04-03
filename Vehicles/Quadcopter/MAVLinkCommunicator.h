@@ -4,6 +4,7 @@
 #include "priority_mavlink_message_t.h"
 #include <queue>
 #include <vector>
+#include <thread>
 class SerialPort;
 
 class MAVLinkCommunicator
@@ -13,8 +14,13 @@ public:
 	void sendMessage(mavlink_message_t& message, char priority = 128);
 	mavlink_message_t getMessage(mavlink_message_t& message, char priority = 128);
 	bool receiveMessage(mavlink_message_t& message);
+	void StopLoop();
+	void AbortLoop();
+	void Join();
 
 private:
+
+	void Loop();
 
 	struct Compare
 	{
@@ -24,8 +30,13 @@ private:
 	};
 
 	
-	std::priority_queue<priority_mavlink_message_t, std::vector<priority_mavlink_message_t>, Compare> pQueue;
+	std::priority_queue<priority_mavlink_message_t, std::vector<priority_mavlink_message_t>, Compare> SendingQueue;
+	std::vector<mavlink_message_t> ReceiveQueue;
 	SerialPort& serialPort;
+
+	std::thread *thread;
+	bool stop = false;
+	bool abort = false;
 
 };
 #endif

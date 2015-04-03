@@ -5,9 +5,9 @@
 class priority_mavlink_message_t
 {
 public:
-	explicit priority_mavlink_message_t(mavlink_message_t& message, char priority);
+	explicit priority_mavlink_message_t(mavlink_message_t message, char priority);
 	char getPriority();
-	mavlink_message_t getMessage();
+	mavlink_message_t* getMessage();
 	void setHandled(bool h);
 	bool getHandled();
 	~priority_mavlink_message_t();
@@ -15,6 +15,6 @@ public:
 private:
 	mavlink_message_t & msg;
 	char priority;
-	bool handled;
+	bool handled = true;
 };
 #endif
