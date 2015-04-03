@@ -1,7 +1,7 @@
 #include "Quadcopter.h"
 #include "SerialPort.h"
 #include <string>
-#include "TempMAVSender.h"
+#include "MAVLinkExchanger.h"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -10,19 +10,21 @@
 const std::chrono::seconds HEARTBEAT_TIMER{ 1 };
 
 void handleInputs();
-void heartbeatThread();
+void heartbeat();
 
-SerialPort serialPort("COM7");
-TempMAVSender tempMAVSender{ serialPort };
-Quadcopter quadcopter(tempMAVSender);
+SerialPort serialPort("COM4");
+MAVLinkExchanger exchanger{ serialPort };
+Quadcopter quadcopter(exchanger);
 int altitude = 0;
 
 int main() 
 {
 	std::thread inputThread{ handleInputs };
-	std::thread heartbeat{ heartbeatThread };
-	heartbeat.detach();
-	inputThread.join();
+	std::thread heartbeatThread{ heartbeat };
+	std::thread exchangerThread{ &MAVLinkExchanger::loop, &exchanger};
+	exchangerThread.detach();
+	inputThread.detach();
+	heartbeatThread.join();
 }
 
 void handleInputs()
@@ -32,20 +34,6 @@ void handleInputs()
 		char c = _getch();
 		switch (c)
 		{
-		case 'o': 
-			altitude--;
-			quadcopter.changeAltitude(altitude);
-			break;
-		case 'p':
-			altitude++;
-			quadcopter.changeAltitude(altitude);
-			break;
-		case 't':
-			quadcopter.liftOff(10);
-			break;
-		case 'l':
-			quadcopter.land();
-			break;
 		case 's':
 			quadcopter.shutdown();
 			break;
@@ -55,32 +43,27 @@ void handleInputs()
 		case 'd':
 			quadcopter.disarm();
 			break;
-		case '0':
-		case '1':
-		case '2':
-		case '3':
-		case '4':
-		case '5':
-		case '6':
-		case '7':
-		case '8':
-		case '9':
-			quadcopter.changeMode(c - '0');
+		case 'c':
+			std::cout << "#########Change the current flight mode#########" << std::endl;
+			std::cout << "0 = Stabilize\n1 = Acro\n2 = AltHold\n3 = Auto\n4 = Guided\n5 = Loiter\n6 = RTL\n7 = Circle\n9 = Land\n11 = Drift\n13 = Sport\nNew mode: ";
+			int number;
+			std::cin >> number;
+			quadcopter.changeMode(static_cast<Quadcopter::FlightMode>(number));
 			break;
 		}
 	}
 }
 
-void heartbeatThread()
+void heartbeat()
 {
-	mavlink_message_t message;
-	mavlink_msg_heartbeat_pack(255, 0, &message, MAV_TYPE_GCS, MAV_AUTOPILOT_INVALID, 0, 0, 0);
+	ExtendedMAVLinkMessage message;
+	mavlink_msg_heartbeat_pack(255, 0, &message, MAV_TYPE_GCS, MAV_AUTOPILOT_INVALID, 0, 10, 0);
 	auto start = std::chrono::system_clock::now();
 	while (1)
 	{
 		if (std::chrono::system_clock::now() - start >= HEARTBEAT_TIMER)
 		{
-			tempMAVSender.sendMessage(message);
+			exchanger.enqueueMessage(message);
 			start = std::chrono::system_clock::now();
 		}
 	}

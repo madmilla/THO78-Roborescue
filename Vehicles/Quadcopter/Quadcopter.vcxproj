@@ -54,7 +54,9 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ExtendedMAVLinkMessage.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MAVLinkExchanger.cpp" />
     <ClCompile Include="Quadcopter.cpp" />
     <ClCompile Include="SerialPort.cpp" />
     <ClCompile Include="SerialPortXP.cpp" />
@@ -62,6 +64,8 @@
     <ClCompile Include="TempMAVSender.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExtendedMAVLinkMessage.h" />
+    <ClInclude Include="MAVLinkExchanger.h" />
     <ClInclude Include="PracticalSocket.h" />
     <ClInclude Include="Quadcopter.h" />
     <ClInclude Include="Serial.h" />

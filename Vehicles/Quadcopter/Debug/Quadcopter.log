@@ -1,10 +1,11 @@
-﻿Build started 2-4-2015 18:57:11.
-     1>Project "C:\Users\Kjeld Perquin\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Build target(s)).
+﻿Build started 4-4-2015 00:05:37.
+     1>Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make
-         make: Nothing to be done for `all'.
-     1>Done Building Project "C:\Users\Kjeld Perquin\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" (Build target(s)).
+         g++ -c -std=gnu++11 Main.cpp -o Main.o
+         g++ ExtendedMAVLinkMessage.o MAVLinkExchanger.o Main.o PracticalSocket.o Quadcopter.o SerialPort.o SerialPortXP.o SerialUDPSocket.o TempMAVSender.o -I ../Dependencies/MAVLink/ardupilotmega -o Main -lws2_32
+     1>Done Building Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.27
+Time Elapsed 00:00:01.36

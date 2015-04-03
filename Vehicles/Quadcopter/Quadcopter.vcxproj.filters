@@ -36,6 +36,12 @@
     <ClCompile Include="TempMAVSender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MAVLinkExchanger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtendedMAVLinkMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Quadcopter.h">
@@ -57,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Serial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MAVLinkExchanger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedMAVLinkMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

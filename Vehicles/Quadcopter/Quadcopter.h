@@ -1,13 +1,31 @@
 #ifndef _QUADCOPTER_H
 #define _QUADCOPTER_H
-#include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
+#include "ExtendedMAVLinkMessage.h"
+#include <iostream>
+
+class MAVLinkExchanger;
 class TempMAVSender;
 class SerialPort;
 
 class Quadcopter
 {
 public:
-	explicit Quadcopter(TempMAVSender& tempMAVSender);
+	enum class FlightMode
+	{
+		STABILIZE = 0,
+		ACRO = 1,
+		ALTHOLD = 2,
+		AUTO = 3,
+		GUIDED = 4,
+		LOITER = 5,
+		RTL = 6,
+		CIRCLE = 7,
+		LAND = 9,
+		DRIFT = 11,
+		SPORT = 13
+	};
+
+	explicit Quadcopter(MAVLinkExchanger& exchanger);
 	void liftOff(int);
 	void arm();
 	void disarm();
@@ -31,14 +49,14 @@ public:
 	void changeFlightSpeed(int);
 	void changeHeading(int);
 	void changeAltitude(int);
-
 	bool isArmed();
 	void shutdown();
-
-	void changeMode(int);
+	void changeMode(FlightMode);
+	FlightMode getMode();
+	friend std::ostream& operator<<(std::ostream& stream, const FlightMode& mode);
 private:
-	TempMAVSender& tempMAVSender;
-	mavlink_message_t message;
+	MAVLinkExchanger& exchanger;
+	ExtendedMAVLinkMessage message;
 	bool armed;
 };
 #endif
