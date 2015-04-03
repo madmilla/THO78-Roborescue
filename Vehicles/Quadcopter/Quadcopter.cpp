@@ -1,40 +1,65 @@
 #include "Quadcopter.h"
 #include "TempMAVSender.h"
-
-#define MEANVALUELEFTRIGHT 1487
-#define SYSTEMID 255
-#define QUADCOPTERID 1
-#define MOTOR 250
-#define SYSTEMCOMPONENTID 200
+#include <iostream>
 
 Quadcopter::Quadcopter(TempMAVSender& tempMAVSender) :
-tempMAVSender( tempMAVSender )
+tempMAVSender( tempMAVSender ),
+armed{ false }
 {
-	
 }
 
-void Quadcopter::liftOff()
+void Quadcopter::liftOff(int altitude)
 {
-
+	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_NAV_TAKEOFF, 0, 0, 0, 0, 0, 0, 0, altitude);
+	tempMAVSender.sendMessage(message);
 }
 
 void Quadcopter::arm()
 {
-	auto msg = mavlink_message_t();
-	mavlink_msg_command_long_pack(SYSTEMID,0,&msg,MOTOR,QUADCOPTERID,400,0,1,0,0,0,0,0,0);
-	tempMAVSender.sendMessage(msg);
+	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_COMPONENT_ARM_DISARM, 0, 1, 0, 0, 0, 0, 0, 0);
+	tempMAVSender.sendMessage(message);
+	while (1)
+	{
+		if (tempMAVSender.receiveMessage(message))
+		{
+			if (message.msgid == MAVLINK_MSG_ID_HEARTBEAT)
+			{
+				if ((mavlink_msg_heartbeat_get_base_mode(&message) >> 7) & 1)
+				{
+					armed = true;
+				}
+				break;
+			}
+		}
+	}
+}
+
+void Quadcopter::disarm()
+{
+	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_COMPONENT_ARM_DISARM, 0, 0, 0, 0, 0, 0, 0, 0);
+	tempMAVSender.sendMessage(message);
+	while (1)
+	{
+		if (tempMAVSender.receiveMessage(message))
+		{
+			if (message.msgid == MAVLINK_MSG_ID_HEARTBEAT)
+			{
+				if (!(mavlink_msg_heartbeat_get_base_mode(&message) >> 7) & 1)
+				{
+					armed = false;
+				}
+				break;
+			}
+		}
+	}
 }
 
 void Quadcopter::moveLeft(signed int value)
 {
-	moveRight(-value);
 }
 
 void Quadcopter::moveRight(signed int value)
 {
-	auto msg = mavlink_message_t();
-	mavlink_msg_rc_channels_override_pack(SYSTEMID,SYSTEMCOMPONENTID,& msg,QUADCOPTERID,MOTOR,MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
-	tempMAVSender.sendMessage(msg);
 }
 
 void Quadcopter::moveForward()
@@ -54,7 +79,8 @@ void Quadcopter::stop()
 
 void Quadcopter::land()
 {
-
+	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_NAV_LAND, 0, 0, 0, 0, 0, 0, 0, 0);
+	tempMAVSender.sendMessage(message);
 }
 
 void Quadcopter::changeFlightSpeed(int)
@@ -65,4 +91,27 @@ void Quadcopter::changeFlightSpeed(int)
 void Quadcopter::changeHeading(int)
 {
 
+}
+
+void Quadcopter::changeAltitude(int altitude)
+{
+	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_CONDITION_CHANGE_ALT, 0, 10, altitude, 0, 0, 0, 0, 0);
+	tempMAVSender.sendMessage(message);
+}
+
+bool Quadcopter::isArmed()
+{
+	return armed;
+}
+
+void Quadcopter::shutdown()
+{
+	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN, 0, 1, 1, 0, 0, 0, 0, 0);
+	tempMAVSender.sendMessage(message);
+}
+
+void Quadcopter::changeMode(int mode)
+{
+	mavlink_msg_set_mode_pack(255, 0, &message, 1, 1, mode);
+	tempMAVSender.sendMessage(message);
 }
