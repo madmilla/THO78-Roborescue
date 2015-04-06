@@ -66,6 +66,9 @@
     <ClInclude Include="Quadcopter.h" />
     <ClInclude Include="TempMAVSender.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

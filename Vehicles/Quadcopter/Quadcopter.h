@@ -50,7 +50,7 @@ public:
 	void changeAltitude(int);
 	void shutdown();
 	void changeMode(FlightMode);
-	FlightMode getMode();
+	FlightMode getMode() const;
 	friend std::ostream& operator<<(std::ostream& stream, const FlightMode& mode);
 	void loop();
 
@@ -60,11 +60,6 @@ public:
 	float getAltitude() const;
 	int getHeading() const;
 	bool isArmed() const;
-	void setTargetYaw(float yaw);
-	void setTargetRoll(float roll);
-	void setTargetPitch(float pitch);
-	void setTargetAltitude(float altitude);
-	void setTargetHeading(int heading);
 private:
 	MAVLinkExchanger& exchanger;
 	ExtendedMAVLinkMessage message;
@@ -77,12 +72,6 @@ private:
 	float pitch;
 	float altitude;
 	int heading;
-
-	float targetYaw;
-	float targetRoll;
-	float targetPitch;
-	float targetAltitude;
-	int targetHeading;
 
 	void handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage);
 	void calculateRCChannels();

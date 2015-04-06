@@ -55,6 +55,7 @@ void MAVLinkExchanger::sendMessage()
 	auto buffer = new unsigned char[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.top().len];
 	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.top());
 	serialPort.writeData(buffer, len);
+	std::cout << "Sent message with priority: " << sendQueue.top().getPriority() << std::endl;
 	sendQueue.pop();
 }
 
@@ -67,5 +68,6 @@ void MAVLinkExchanger::receiveMessage()
 		serialPort.readData(&c, 1);
 	}
 	while (mavlink_parse_char(MAVLINK_COMM_0, c, &message, &status) == 0);
+	//std::cout << "Received message with priority: " << message.getPriority() << std::endl;
 	receiveQueue.push(message);
 }

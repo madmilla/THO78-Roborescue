@@ -1,10 +1,11 @@
-﻿Build started 6-4-2015 13:41:59.
-     1>Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Build target(s)).
-     1>Build:
-         make
-         make: `Main' is up to date.
-     1>Done Building Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" (Build target(s)).
+﻿Build started 6-4-2015 21:28:53.
+     1>Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Clean target(s)).
+     1>CoreClean:
+         make clean
+         rm -f *.o
+         rm -f Main.exe
+     1>Done Building Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" (Clean target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.07
+Time Elapsed 00:00:00.14
