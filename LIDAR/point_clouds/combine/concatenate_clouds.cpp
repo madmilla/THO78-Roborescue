@@ -18,7 +18,7 @@ int main (int argc, char** argv)
 
     while(std::getline(iOne, temp)) { ++line1; }
     
-    while(std::getline(iTwo, temp)) { ++line2++; }
+    while(std::getline(iTwo, temp)) { ++line2; }
 	// return to the beginning of the file
 	iOne.clear();
 	iOne.seekg(0, iOne.beg);
