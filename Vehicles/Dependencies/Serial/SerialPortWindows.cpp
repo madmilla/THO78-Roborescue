@@ -74,7 +74,7 @@ int SerialPortWindows::readData(char* buffer, int nrOfBytes)
 	return -1;
 }
 
-bool SerialPortWindows::writeData(unsigned char* data, int nrOfBytes)
+bool SerialPortWindows::writeData(char* data, int nrOfBytes)
 {
 	DWORD bytesSend;
 	if (!WriteFile(serialHandle, data, nrOfBytes, &bytesSend, nullptr))
