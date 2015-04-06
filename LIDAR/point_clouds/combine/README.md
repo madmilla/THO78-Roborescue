@@ -1,4 +1,7 @@
-#combine pointclouds and remove duplicate coordinates
+combine pointclouds and remove duplicate coordinates
+
+./combine cloud1.csv cloud2.csv combine.csv
+
 cloud1:
 
     1.0525 2.3213
