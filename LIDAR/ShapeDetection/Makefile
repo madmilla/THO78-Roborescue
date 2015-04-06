@@ -4,7 +4,7 @@ MODULES := shapedetector
 
 CFLAGS := -std=c++11 
 
-LINKFLAGS := -L./../../deps/lib -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_features2d -lopencv_calib3d
+LINKFLAGS := -L./../../deps/libs -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=./../../deps/libs
 
 
 
