@@ -54,3 +54,12 @@ void ATV::emergencyStop()
 	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN, 0, 1, 1, 0, 0, 0, 0, 0);
 	mavlinkSender.sendMessage(message);
 }
+
+void ATV::returnControlToRc()
+{
+	mavlink_message_t msg;
+	mavlink_msg_rc_channels_override_pack(
+		255, 200, &msg, 1, 1, 0, 0, 0,
+		0, 0, 0, 0, 0);
+	mavlinkSender.sendMessage(msg);
+}

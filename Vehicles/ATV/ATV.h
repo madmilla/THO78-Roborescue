@@ -14,6 +14,7 @@ public:
 	void turnLeft(int);
 	void turnRight(int);
 	void emergencyStop();
+	void returnControlToRc();
 private:
 	TempMAVSender & mavlinkSender;
 };
