@@ -42,15 +42,17 @@ int main (int argc, char** argv)
 	cloud_b.points.resize (cloud_b.width * cloud_b.height);
 	
 	std::cerr << "Size of A: " << cloud_a.points.size() << "\n";
+	std::cerr << "Line 1: " << line1 << "\n";
+	std::cerr << "Line 2: " << line2 << "\n";
+	std::cerr << "Size of B: " << cloud_b.points.size() << "\n";
+
 	for (size_t i = 0; i < cloud_a.points.size (); ++i)
 	{
 		iOne >> x;
         iOne >> y;
 		cloud_a.points[i].x = x;
 		cloud_a.points[i].y = y;
-	}
-	std::cerr << "DONE WITH A \n";
-	
+	}	
 	for (size_t i = 0; i < cloud_b.points.size (); ++i)
 	{
 		iTwo >> x2;
