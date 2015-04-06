@@ -55,24 +55,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MAVLinkCommunicator.cpp" />
-    <ClCompile Include="priority_mavlink_message_t.cpp" />
     <ClCompile Include="Quadcopter.cpp" />
-    <ClCompile Include="SerialPort.cpp" />
-    <ClCompile Include="SerialPortXP.cpp" />
-    <ClCompile Include="SerialUDPSocket.cpp" />
-    <ClCompile Include="TempMAVSender.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MAVLinkCommunicator.h" />
     <ClInclude Include="PracticalSocket.h" />
-    <ClInclude Include="priority_mavlink_message_t.h" />
     <ClInclude Include="Quadcopter.h" />
-    <ClInclude Include="Serial.h" />
-    <ClInclude Include="SerialPort.h" />
-    <ClInclude Include="SerialPortXP.h" />
-    <ClInclude Include="SerialUDPSocket.h" />
-    <ClInclude Include="TempMAVSender.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
