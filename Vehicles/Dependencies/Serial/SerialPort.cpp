@@ -15,7 +15,12 @@ SerialPort::SerialPort(int port, std::string& address)
 
 SerialPort::SerialPort(const char* device)
 {
+#ifdef _WIN32
 	serialDevice = new SerialPortWindows(device);
+#endif
+#ifdef linux
+	serialDevice = new SerialPortLinux(device);
+#endif
 }
 
 SerialPort::~SerialPort()

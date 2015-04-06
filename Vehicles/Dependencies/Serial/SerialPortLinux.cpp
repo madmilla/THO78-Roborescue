@@ -75,9 +75,9 @@ void SerialPortLinux::close()
 	::close (filedescriptor);
 }
 
-int SerialPortLinux::writeData(unsigned char* data, int nrOfBytes)
+int SerialPortLinux::writeData(unsigned char* buffer, int nrOfBytes)
 {
-	if (::write(filedescriptor, buffer, nbBytes) != (ssize_t) nbBytes)
+	if (::write(filedescriptor, buffer, nrOfBytes) != (ssize_t) nrOfBytes)
 	{
 		return -1;
 	}
@@ -87,10 +87,10 @@ int SerialPortLinux::writeData(unsigned char* data, int nrOfBytes)
 int SerialPortLinux::readData(char* buffer, int nrOfBytes)
 {
 	unsigned int nbBytesRead = 0;
-	while (nbBytesRead < maxBytes) 
+	while (nbBytesRead < nrOfBytes) 
 	{
 		auto ptr = static_cast<unsigned char *>(buffer) + nbBytesRead;
-		auto ret = ::read(filedescriptor,static_cast<void *>(ptr), maxBytes - nbBytesRead);
+		auto ret = ::read(filedescriptor,static_cast<void *>(ptr), nrOfBytes - nbBytesRead);
 		if (ret == -1) 
 		{
 			return -1;
