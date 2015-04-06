@@ -1,7 +1,12 @@
 #include "SerialPort.h"
 #include "Serial.h"
 #include "SerialUDPSocket.h"
-#include "SerialPortWindows.h"
+#ifdef _WIN32
+	#include "SerialPortWindows.h"
+#endif
+#ifdef linux
+	#include "SerialPortLinux.h"
+#endif
 
 SerialPort::SerialPort(int port, std::string& address)
 {

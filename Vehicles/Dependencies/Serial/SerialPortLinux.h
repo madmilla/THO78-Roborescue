@@ -1,6 +1,12 @@
 #ifndef _SerialPortLinux_H
 #define _SerialPortLinux_H
 #include "serial.h"
+#include <sys/types.h>
+#include <termios.h>
+#include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
 
 class SerialPortLinux : public Serial
 {
