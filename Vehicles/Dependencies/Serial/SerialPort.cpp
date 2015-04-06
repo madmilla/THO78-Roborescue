@@ -28,12 +28,12 @@ SerialPort::~SerialPort()
 	delete serialDevice;
 }
 
-bool SerialPort::writeData(char* data, int nrOfBytes)
+bool SerialPort::writeData(unsigned char* data, int nrOfBytes)
 {
 	return serialDevice->writeData(data, nrOfBytes);
 }
 
-int SerialPort::readData(char* buffer, int nrOfBytes)
+int SerialPort::readData(unsigned char* buffer, int nrOfBytes)
 {
 	return serialDevice->readData(buffer, nrOfBytes);
 }

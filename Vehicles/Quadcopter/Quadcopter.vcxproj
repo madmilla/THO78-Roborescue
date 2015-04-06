@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MAVLinkExchanger.cpp" />
     <ClCompile Include="Quadcopter.cpp" />
   </ItemGroup>
   <ItemGroup>

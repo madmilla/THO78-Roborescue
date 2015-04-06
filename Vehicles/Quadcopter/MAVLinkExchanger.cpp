@@ -52,7 +52,7 @@ void MAVLinkExchanger::loop()
 
 void MAVLinkExchanger::sendMessage()
 {
-	auto buffer = new unsigned char[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.top().len];
+	unsigned char buffer[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.top().len];
 	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.top());
 	serialPort.writeData(buffer, len);
 	sendQueue.pop();
@@ -61,7 +61,7 @@ void MAVLinkExchanger::sendMessage()
 void MAVLinkExchanger::receiveMessage()
 {
 	mavlink_status_t status;
-	char c;
+	unsigned char c;
 	do
 	{
 		serialPort.readData(&c, 1);
