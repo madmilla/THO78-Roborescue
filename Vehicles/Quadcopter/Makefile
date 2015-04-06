@@ -8,11 +8,6 @@ export TARGET = windows
 ifeq ($(TARGET),windows)
 	LIBS += -lws2_32
 endif
-ifeq ($(TARGET),linux)
-	LIBS += -lpthread
-endif
-
-.PHONY: clean
 
 Main: $(OBJS)
 	$(MAKE) -C $(LOC)
@@ -20,7 +15,3 @@ Main: $(OBJS)
 
 %.o : %.cpp
 	g++ -c -std=gnu++11 $^ -o $@
-
-clean:
-	rm -f *.o
-	rm -f Main.exe

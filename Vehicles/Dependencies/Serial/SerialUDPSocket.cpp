@@ -11,7 +11,7 @@ bool SerialUDPSocket::writeData(unsigned char* data, int nrOfBytes)
 	return true;
 }
 
-int SerialUDPSocket::readData(char* data, int nrOfBytes)
+int SerialUDPSocket::readData(unsigned char* data, int nrOfBytes)
 {
 	return socket.recv(data, nrOfBytes);
 }

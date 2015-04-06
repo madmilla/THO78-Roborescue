@@ -1,11 +1,22 @@
-﻿Build started 6-4-2015 21:28:53.
-     1>Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Clean target(s)).
-     1>CoreClean:
-         make clean
-         rm -f *.o
-         rm -f Main.exe
-     1>Done Building Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" (Clean target(s)).
+﻿Build started 6-4-2015 21:06:09.
+     1>Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Build target(s)).
+     1>Build:
+         make
+         g++ -c -std=gnu++11 ExtendedMAVLinkMessage.cpp -o ExtendedMAVLinkMessage.o
+         g++ -c -std=gnu++11 MAVLinkExchanger.cpp -o MAVLinkExchanger.o
+         g++ -c -std=gnu++11 Main.cpp -o Main.o
+         g++ -c -std=gnu++11 Quadcopter.cpp -o Quadcopter.o
+         make -C ../Dependencies/Serial/
+         make[1]: Entering directory `/c/Users/Kjeld/Documents/GitHub/THO78-Roborescue/Vehicles/Dependencies/Serial'
+         g++ -c -std=gnu++11 PracticalSocket.cpp -o PracticalSocket.o
+         g++ -c -std=gnu++11 SerialUDPSocket.cpp -o SerialUDPSocket.o
+         g++ -c -std=gnu++11 SerialPort.cpp -o SerialPort.o
+         g++ -c -std=gnu++11 SerialPortWindows.cpp -o SerialPortWindows.o
+         ar rcs LibSerial.a PracticalSocket.o SerialUDPSocket.o SerialPort.o SerialPortWindows.o
+         make[1]: Leaving directory `/c/Users/Kjeld/Documents/GitHub/THO78-Roborescue/Vehicles/Dependencies/Serial'
+         g++ -std=gnu++11 -I../Dependencies/MAVLink/ardupilotmega ExtendedMAVLinkMessage.o MAVLinkExchanger.o Main.o Quadcopter.o ../Dependencies/Serial//LibSerial.a -lws2_32 -o Main
+     1>Done Building Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.14
+Time Elapsed 00:00:08.72
