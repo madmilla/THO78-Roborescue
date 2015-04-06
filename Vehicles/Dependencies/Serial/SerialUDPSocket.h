@@ -8,7 +8,7 @@ class SerialUDPSocket : public Serial
 {
 public:
 	SerialUDPSocket(unsigned short port, string& address);
-	bool writeData(char* data, int nrOfBytes) override;
+	bool writeData(unsigned char* data, int nrOfBytes) override;
 	int readData(char* buffer, int nrOfBytes) override;
 private:
 	UDPSocket socket;
