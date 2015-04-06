@@ -28,6 +28,7 @@ public:
 	void liftOff(int);
 	void arm();
 	void disarm();
+
 	/**
 	* moveLeft allows the quadcopter to move to it's left. This means the left side of the quadcopter, not relative to the orientation.
 	* @param value is a value between -400 and 400. A value between -200 and 200 is suggested. Positive values mean left, negative values mean right.
@@ -50,7 +51,6 @@ public:
 	void changeAltitude(int);
 	void shutdown();
 	void changeMode(FlightMode);
-	FlightMode getMode();
 	friend std::ostream& operator<<(std::ostream& stream, const FlightMode& mode);
 	void loop();
 
@@ -60,11 +60,8 @@ public:
 	float getAltitude() const;
 	int getHeading() const;
 	bool isArmed() const;
-	void setTargetYaw(float yaw);
-	void setTargetRoll(float roll);
-	void setTargetPitch(float pitch);
-	void setTargetAltitude(float altitude);
-	void setTargetHeading(int heading);
+	FlightMode getMode() const;
+
 private:
 	MAVLinkExchanger& exchanger;
 	ExtendedMAVLinkMessage message;
@@ -77,12 +74,6 @@ private:
 	float pitch;
 	float altitude;
 	int heading;
-
-	float targetYaw;
-	float targetRoll;
-	float targetPitch;
-	float targetAltitude;
-	int targetHeading;
 
 	void handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage);
 	void calculateRCChannels();
