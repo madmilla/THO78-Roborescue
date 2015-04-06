@@ -13,11 +13,12 @@ int main (int argc, char** argv)
 	iTwo.open("cloud2.csv");			
     float fOne, fTwo;
     float x,y, x2, y2;
-    int line1, line2;
+    int line1 = 0, line2 = 0;
     std::string temp;
 
-    while(std::getline(iOne, temp)) { line1++; }
-    while(std::getline(iTwo, temp)) { line2++; }
+    while(std::getline(iOne, temp)) { ++line1; }
+    
+    while(std::getline(iTwo, temp)) { ++line2++; }
 	// return to the beginning of the file
 	iOne.clear();
 	iOne.seekg(0, iOne.beg);
