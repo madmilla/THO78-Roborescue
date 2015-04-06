@@ -10,8 +10,10 @@ class MAVLinkExchanger
 public:
 	explicit MAVLinkExchanger(SerialPort& serialPort);
 	void enqueueMessage(ExtendedMAVLinkMessage& message);
-	ExtendedMAVLinkMessage peek();
 	ExtendedMAVLinkMessage dequeueMessage();
+	ExtendedMAVLinkMessage peek();
+	int sendQueueSize();
+	int receiveQueueSize();
 	void loop();
 private:
 	SerialPort& serialPort;

@@ -24,15 +24,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SerialPort.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SerialPortXP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SerialUDPSocket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TempMAVSender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -47,22 +38,7 @@
     <ClInclude Include="Quadcopter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SerialPort.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SerialPortXP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SerialUDPSocket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PracticalSocket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TempMAVSender.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Serial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MAVLinkExchanger.h">

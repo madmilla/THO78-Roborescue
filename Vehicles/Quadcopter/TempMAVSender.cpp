@@ -1,5 +1,5 @@
 #include "TempMAVSender.h"
-#include "SerialPort.h"
+#include "../Dependencies/Serial/SerialPort.h"
 
 TempMAVSender::TempMAVSender(SerialPort& serialPort):
 serialPort( serialPort )

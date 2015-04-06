@@ -4,8 +4,6 @@
 #include <iostream>
 
 class MAVLinkExchanger;
-class TempMAVSender;
-class SerialPort;
 
 class Quadcopter
 {
@@ -22,7 +20,8 @@ public:
 		CIRCLE = 7,
 		LAND = 9,
 		DRIFT = 11,
-		SPORT = 13
+		SPORT = 13,
+		UNKNOWN = -1
 	};
 
 	explicit Quadcopter(MAVLinkExchanger& exchanger);
@@ -49,14 +48,43 @@ public:
 	void changeFlightSpeed(int);
 	void changeHeading(int);
 	void changeAltitude(int);
-	bool isArmed();
 	void shutdown();
 	void changeMode(FlightMode);
 	FlightMode getMode();
 	friend std::ostream& operator<<(std::ostream& stream, const FlightMode& mode);
+	void loop();
+
+	float getYaw() const;
+	float getRoll() const;
+	float getPitch() const;
+	float getAltitude() const;
+	int getHeading() const;
+	bool isArmed() const;
+	void setTargetYaw(float yaw);
+	void setTargetRoll(float roll);
+	void setTargetPitch(float pitch);
+	void setTargetAltitude(float altitude);
+	void setTargetHeading(int heading);
 private:
 	MAVLinkExchanger& exchanger;
 	ExtendedMAVLinkMessage message;
+	ExtendedMAVLinkMessage RCOverrideMessage;
+
+	FlightMode flightMode;
 	bool armed;
+	float yaw;
+	float roll;
+	float pitch;
+	float altitude;
+	int heading;
+
+	float targetYaw;
+	float targetRoll;
+	float targetPitch;
+	float targetAltitude;
+	int targetHeading;
+
+	void handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage);
+	void calculateRCChannels();
 };
 #endif

@@ -3,6 +3,7 @@
 
 Quadcopter::Quadcopter(MAVLinkExchanger& exchanger) :
 exchanger(exchanger),
+flightMode{ FlightMode::UNKNOWN },
 armed{ false }
 {
 }
@@ -35,17 +36,14 @@ void Quadcopter::moveRight(signed int value)
 
 void Quadcopter::moveForward()
 {
-
 }
 
 void Quadcopter::moveBackward()
 {
-
 }
 
 void Quadcopter::stop()
 {
-
 }
 
 void Quadcopter::land()
@@ -56,23 +54,16 @@ void Quadcopter::land()
 
 void Quadcopter::changeFlightSpeed(int)
 {
-
 }
 
 void Quadcopter::changeHeading(int)
 {
-
 }
 
 void Quadcopter::changeAltitude(int altitude)
 {
 	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_NAV_CONTINUE_AND_CHANGE_ALT, 0, 0, 0, 0, 0, 0, 0, altitude);
 	exchanger.enqueueMessage(message);
-}
-
-bool Quadcopter::isArmed()
-{
-	return armed;
 }
 
 void Quadcopter::shutdown()
@@ -89,13 +80,45 @@ void Quadcopter::changeMode(FlightMode mode)
 
 Quadcopter::FlightMode Quadcopter::getMode()
 {
+	return flightMode;
+}
+
+void Quadcopter::loop()
+{
 	while (1)
 	{
-		if (exchanger.peek().msgid == MAVLINK_MSG_ID_HEARTBEAT)
+		if (exchanger.receiveQueueSize())
 		{
-			return static_cast<FlightMode>(mavlink_msg_heartbeat_get_custom_mode(&message));
+			handleIncomingMessage(exchanger.dequeueMessage());
 		}
+		calculateRCChannels();
+		//exchanger.enqueueMessage(RCOverrideMessage);
 	}
+}
+
+void Quadcopter::handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage)
+{
+	switch (incomingMessage.msgid)
+	{
+	case MAVLINK_MSG_ID_HEARTBEAT:
+		flightMode = static_cast<FlightMode>(mavlink_msg_heartbeat_get_custom_mode(&incomingMessage));
+		armed = mavlink_msg_heartbeat_get_base_mode(&incomingMessage) & (1 << 7);
+		break;
+	case MAVLINK_MSG_ID_VFR_HUD:
+		altitude = mavlink_msg_vfr_hud_get_alt(&incomingMessage);
+		heading = mavlink_msg_vfr_hud_get_heading(&incomingMessage);
+		break;
+	case MAVLINK_MSG_ID_ATTITUDE:
+		roll = mavlink_msg_attitude_get_roll(&incomingMessage);
+		pitch = mavlink_msg_attitude_get_pitch(&incomingMessage);
+		yaw = mavlink_msg_attitude_get_yaw(&incomingMessage);
+		break;
+	}
+}
+
+void Quadcopter::calculateRCChannels()
+{
+	//Do some calculations to determine the new RC channel values
 }
 
 std::ostream& operator<<(std::ostream& stream, const Quadcopter::FlightMode& mode)
@@ -140,4 +163,59 @@ std::ostream& operator<<(std::ostream& stream, const Quadcopter::FlightMode& mod
 		break;
 	}
 	return stream;
+}
+
+float Quadcopter::getYaw() const
+{
+	return yaw;
+}
+
+float Quadcopter::getRoll() const
+{
+	return roll;
+}
+
+float Quadcopter::getPitch() const
+{
+	return pitch;
+}
+
+float Quadcopter::getAltitude() const
+{
+	return altitude;
+}
+
+int Quadcopter::getHeading() const
+{
+	return heading;
+}
+
+void Quadcopter::setTargetYaw(float yaw)
+{
+	targetYaw = yaw;
+}
+
+void Quadcopter::setTargetRoll(float roll)
+{
+	targetRoll = roll;
+}
+
+void Quadcopter::setTargetPitch(float pitch)
+{
+	targetPitch = pitch;
+}
+
+void Quadcopter::setTargetAltitude(float altitude)
+{
+	targetAltitude = altitude;
+}
+
+void Quadcopter::setTargetHeading(int heading)
+{
+	targetHeading = heading;
+}
+
+bool Quadcopter::isArmed() const
+{
+	return armed;
 }

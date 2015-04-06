@@ -1,5 +1,5 @@
 #include "MAVLinkExchanger.h"
-#include "SerialPort.h"
+#include "../Dependencies/Serial/SerialPort.h"
 #include <iostream>
 
 MAVLinkExchanger::MAVLinkExchanger(SerialPort& serialPort):
@@ -14,7 +14,21 @@ void MAVLinkExchanger::enqueueMessage(ExtendedMAVLinkMessage& message)
 
 ExtendedMAVLinkMessage MAVLinkExchanger::peek()
 {
-	return receiveQueue.top();
+	if (receiveQueue.size())
+	{
+		return receiveQueue.top();
+	}
+	return ExtendedMAVLinkMessage{};
+}
+
+int MAVLinkExchanger::sendQueueSize()
+{
+	return sendQueue.size();
+}
+
+int MAVLinkExchanger::receiveQueueSize()
+{
+	return receiveQueue.size();
 }
 
 ExtendedMAVLinkMessage MAVLinkExchanger::dequeueMessage()
@@ -41,7 +55,6 @@ void MAVLinkExchanger::sendMessage()
 	auto buffer = new unsigned char[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.top().len];
 	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.top());
 	serialPort.writeData(buffer, len);
-	std::cout << "Sent message with priority: " << sendQueue.top().getPriority() << std::endl;
 	sendQueue.pop();
 }
 

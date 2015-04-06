@@ -4,8 +4,8 @@
 #include <array>
 #include <chrono>
 
-const std::array<uint8_t, 0> MEDIUM_PRIORITIES = {};
-const std::array<uint8_t, 1> HIGH_PRIORITIES = { MAVLINK_MSG_ID_HEARTBEAT };
+const std::array<uint8_t, 1> MEDIUM_PRIORITIES = { MAVLINK_MSG_ID_HEARTBEAT };
+const std::array<uint8_t, 1> HIGH_PRIORITIES = { MAVLINK_MSG_ID_RC_CHANNELS_OVERRIDE };
 const std::array<uint8_t, 0> EXTREME_PRIORITIES = {};
 
 class ExtendedMAVLinkMessage : public mavlink_message_t

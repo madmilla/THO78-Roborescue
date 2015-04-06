@@ -1,16 +1,12 @@
 #include "Quadcopter.h"
-#include "SerialPort.h"
+#include "../Dependencies/Serial/SerialPort.h"
 #include <string>
 #include "MAVLinkExchanger.h"
 #include <iostream>
 #include <thread>
-#include <chrono>
-#include <conio.h>
-
-const std::chrono::seconds HEARTBEAT_TIMER{ 1 };
+#include <string>
 
 void handleInputs();
-void heartbeat();
 
 SerialPort serialPort("COM4");
 MAVLinkExchanger exchanger{ serialPort };
@@ -19,52 +15,50 @@ int altitude = 0;
 
 int main() 
 {
-	std::thread inputThread{ handleInputs };
-	std::thread heartbeatThread{ heartbeat };
 	std::thread exchangerThread{ &MAVLinkExchanger::loop, &exchanger};
+	std::thread quadcopterThread{ &Quadcopter::loop, &quadcopter };
+	std::thread inputThread{ handleInputs };
 	exchangerThread.detach();
-	inputThread.detach();
-	heartbeatThread.join();
+	quadcopterThread.detach();
+	inputThread.join();
 }
 
 void handleInputs()
 {
+	std::string command;
+	std::cout << "######Quadcopter input menu V1.0######\n";
+	std::cout << "Type 'help' for all available commands\n\n";
 	while (1)
 	{
-		char c = _getch();
-		switch (c)
+		std::cout << "\ncommand>: ";
+		std::cin >> command;
+		if (command == "reboot")
 		{
-		case 's':
 			quadcopter.shutdown();
-			break;
-		case 'a':
+		}
+		else if (command == "arm")
+		{
 			quadcopter.arm();
-			break;
-		case 'd':
+		}
+		else if (command == "disarm")
+		{
 			quadcopter.disarm();
-			break;
-		case 'c':
-			std::cout << "#########Change the current flight mode#########" << std::endl;
-			std::cout << "0 = Stabilize\n1 = Acro\n2 = AltHold\n3 = Auto\n4 = Guided\n5 = Loiter\n6 = RTL\n7 = Circle\n9 = Land\n11 = Drift\n13 = Sport\nNew mode: ";
+		}
+		else if (command == "mode")
+		{
+			std::cout << "\nChange the flight mode" << std::endl;
+			std::cout << "0 = Stabilize\n1 = Acro\n2 = AltHold\n3 = Auto\n4 = Guided\n5 = Loiter\n6 = RTL\n7 = Circle\n9 = Land\n11 = Drift\n13 = Sport\nCurrent mode is: " << quadcopter.getMode() << "\nNew mode: ";
 			int number;
 			std::cin >> number;
 			quadcopter.changeMode(static_cast<Quadcopter::FlightMode>(number));
-			break;
 		}
-	}
-}
-
-void heartbeat()
-{
-	ExtendedMAVLinkMessage message;
-	mavlink_msg_heartbeat_pack(255, 0, &message, MAV_TYPE_GCS, MAV_AUTOPILOT_INVALID, 0, 10, 0);
-	auto start = std::chrono::system_clock::now();
-	while (1)
-	{
-		if (std::chrono::system_clock::now() - start >= HEARTBEAT_TIMER)
+		else if (command == "help")
 		{
-			exchanger.enqueueMessage(message);
-			start = std::chrono::system_clock::now();
+			std::cout << "\nreboot: Reboot the quadcopter\narm: Arm the quadcopter\ndisarm: Disarm the quadcopter\nmode: Set the new flightmode\n";
+		}
+		else
+		{
+			std::cout << "\nUnrecognized command: " << command << std::endl;
 		}
 	}
 }
