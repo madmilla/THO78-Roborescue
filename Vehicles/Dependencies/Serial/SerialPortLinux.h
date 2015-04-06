@@ -1,6 +1,6 @@
 #ifndef _SerialPortLinux_H
 #define _SerialPortLinux_H
-#include "serial.h"
+#include "Serial.h"
 #include <sys/types.h>
 #include <termios.h>
 #include <string.h>
