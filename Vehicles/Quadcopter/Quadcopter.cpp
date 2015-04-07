@@ -102,31 +102,58 @@ void Quadcopter::handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage)
 	switch (incomingMessage.msgid)
 	{
 	case MAVLINK_MSG_ID_HEARTBEAT:
+	{
 		flightMode = static_cast<FlightMode>(mavlink_msg_heartbeat_get_custom_mode(&incomingMessage));
 		armed = mavlink_msg_heartbeat_get_base_mode(&incomingMessage) & (1 << 7);
 		break;
+	}
 	case MAVLINK_MSG_ID_VFR_HUD:
+	{
 		altitude = mavlink_msg_vfr_hud_get_alt(&incomingMessage);
 		heading = mavlink_msg_vfr_hud_get_heading(&incomingMessage);
 		break;
+	}
 	case MAVLINK_MSG_ID_ATTITUDE:
+	{
 		roll = mavlink_msg_attitude_get_roll(&incomingMessage);
 		pitch = mavlink_msg_attitude_get_pitch(&incomingMessage);
 		yaw = mavlink_msg_attitude_get_yaw(&incomingMessage);
 		break;
+	}
 	case MAVLINK_MSG_ID_STATUSTEXT:
+	{
 		char text[50];
 		auto rtn = mavlink_msg_statustext_get_text(&incomingMessage, text);
-		//auto severity = mavlink_msg_statustext_get_severity(&incomingMessage);
+		auto severity = mavlink_msg_statustext_get_severity(&incomingMessage);
 
-		text[rtn-1] = '\0';
-		std::cout << "Statustext:"; 
-		//printf("asdasd %s", text);
+		text[rtn - 1] = '\0';
+		std::cout << "Statustext:";
 		std::cout << text << std::endl;
-		//std::cout << (int)rtn;
-		//std::cout << std::endl;
-		////delete text;
+		std::cout << "Severity: " << (int)severity << std::endl;
 		break;
+	}
+	case MAVLINK_MSG_ID_COMMAND_ACK:
+	{
+		auto command = mavlink_msg_command_ack_get_command(&incomingMessage);
+		std::cout << "Ack: " << (int)command << std::endl;
+		if (command == MAV_CMD_COMPONENT_ARM_DISARM)
+		{
+			auto result = mavlink_msg_command_ack_get_result(&incomingMessage);
+			std::cout << "Result: " << (int)result << std::endl;
+		}
+		break;
+	}
+		
+		/*char text[50];
+		auto rtn = mavlink_msg_statustext_get_text(&incomingMessage, text);
+		auto severity = mavlink_msg_statustext_get_severity(&incomingMessage);
+
+		text[rtn - 1] = '\0';
+		std::cout << "Statustext:";
+		std::cout << text << std::endl;
+		std::cout << "Severity: " << severity << std::endl;*/
+
+		//break;
 	}
 }
 

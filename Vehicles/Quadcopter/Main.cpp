@@ -6,7 +6,7 @@
 #include <thread>
 int main() 
 {
-	SerialPort serialPort("COM4");
+	SerialPort serialPort("COM5");
 	MAVLinkExchanger exchanger{ serialPort };
 	Quadcopter quadcopter(exchanger);
 	std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
