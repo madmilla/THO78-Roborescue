@@ -10,17 +10,17 @@ lidar::~lidar()
 
 }
 
-void Lidar::startLidar(){
+void lidar::startLidar(){
 
 
 }
 
-void Lidar::stopLidar(){
+void lidar::stopLidar(){
 
 
 }
 
 
-int setRPM(){
+int lidar::setRPM(){
 }
 
