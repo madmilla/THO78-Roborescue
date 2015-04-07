@@ -60,8 +60,7 @@ void Quadcopter::changeFlightSpeed(int)
 }
 
 void Quadcopter::changeHeading(int value)
-{//1055.18881,1479
-	//std::cout << value << "   " << MEANVALUELEFTRIGHT << std::endl;
+{
 	mavlink_msg_rc_channels_override_pack(255,1,&message,1,1,UINT16_MAX, UINT16_MAX, UINT16_MAX,MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
 	exchanger.enqueueMessage(message);
 }
