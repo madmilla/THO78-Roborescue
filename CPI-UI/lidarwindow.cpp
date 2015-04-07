@@ -3,11 +3,18 @@
 
 #include <QMessageBox>
 
-lidarwindow::lidarwindow(QWidget *parent) :
+lidarwindow::lidarwindow(lidar * lidar, QWidget *parent) :
     QMainWindow(parent),
+    lidar(lidar),
     ui(new Ui::lidarwindow)
 {
     ui->setupUi(this);
+
+    connect(ui->startLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
+    connect(ui->stopLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
+    connect(ui->setRpm,SIGNAL(editingFinished()),this,SLOT(setRpm(int));
+
+
 }
 
 lidarwindow::~lidarwindow()
@@ -35,10 +42,6 @@ void lidarwindow::handleButtonLidar(){
         lidar->stopLidar();
         lidarMissionRunning(true);
     }
-}
-
-void lidarwindow::setRpm(int Rpm){
-
 }
 
 

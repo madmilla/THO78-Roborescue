@@ -8,8 +8,8 @@ public:
     lidar();
     ~lidar();
 
-    void handleButtonLidar();
-    int setRPM();
+    unsigned int init();
+    int setRPM(int rpm);
     void startLidar();
     void stopLidar();
 
