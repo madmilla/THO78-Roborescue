@@ -35,8 +35,6 @@ private:
 	//! a reference to the CommandsStrategy class
 	CommandsStrategy strategy;
 	
-	
-	
 	//! \brief sets the location of the robot
 	//! \param[in] x the x axis of the coordinate of the robot
 	//! \param[in] y the y axis of the coordinate of the robot
@@ -69,7 +67,7 @@ private:
 	//! \param[in] y the y axis of the coordinate of the start location
 	//! \param[in] map contains a vector of points which represents the map
 	//! \return gets the new waypoints for the rosbee
-	const vector<point> & updatemap(Vector<point> & map, int x, int y);
+	const vector<point> & updatemap(Vector<Line> & map, int x, int y);
 	
 	//! \brief returns the whole map as a vector of lines
 	//! \return gets the new waypoints for the rosbee
@@ -97,7 +95,7 @@ private:
 	//! \param[in] visionData contains an image for the strategy
 	void recieveVisionData(auto visionData);
 
-	//!  \brief sends rosbee gyroscoop data to strategy.
+	//! \brief sends rosbee gyroscoop data to strategy.
 	//! \param[in] gyroscopeData contains the rosbee gyroscope data for the strategy
 	void sendRosbeeData(auto gyroscopeData);
 	

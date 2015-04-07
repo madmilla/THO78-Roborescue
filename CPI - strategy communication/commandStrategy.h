@@ -1,5 +1,5 @@
 //!  commands mapping team
-//!  Made by ThijsvanTiem
+//!  Made by ThijsvanTiem and Tom Verloop
 /*!
     header file for commands between the CC and the strategy team
 */
@@ -24,24 +24,25 @@ class DLLEXPORT commandStrategy {
 public:
 
 	//! singleton class
-	commandStrategy() & getInstance();
+	commandStrategy & getInstance();
 	
 	virtual ~commandStrategy();
 	
 	//! function that will send received map data from the map (entire map) to the strategy team as a
 	//! vector with x and y axes. (in the further degree’s might be added).
 	//! return value is the route (lots of x and y point in vectors where we will navigate on)
-	std::vector<int> sendMapData(vector<Line> & map);
+	const std::vector<point> & createPathToDestination(vector<Line> & map, const point & position, const point & destination);
+	
+	
 
 	//! function that sends the lines received from the map to the strategy team
 	//! (Not sure if this function will be used but might be usefull in the further)
-	std::vector<int >sendMapLine(Line & l)
+	const std::vector<point> & sendMapLine(Line & l, const point & position)
 
 	//! processed vision data the will be used in the next sprint.
 	//! parameters are auto for the moment. Do not know how to do this yet (next sprint)
 	void recieveVisionData(auto visionData);
-
-
+	
 	//! function not sure yet.
 	void sendRosbeeData(auto gyroscopeData);
 

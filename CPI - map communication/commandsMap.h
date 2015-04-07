@@ -1,5 +1,5 @@
 //!  commands mapping team
-//!  Made by ThijsvanTiem
+//!  Made by ThijsvanTiem Tom Verloop
 /*!
     header file for commands between the CC and the mapping team
 */

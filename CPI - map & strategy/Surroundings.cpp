@@ -22,26 +22,37 @@ bool Surroundings::moveLocation(int x,int y,int deviceType, int deviceId){
 }
 
 const vector<point> & Surroundings::getCompletePath(int x1,int y1, int x2,int y2){
+	const vector<Line> &  m = map.getMapTotal();
+	return createPathToDestination(m, point(x1,y1), point(x2,y2));
 }
 
-const vector<point> & Surroundings::updatemap(Vector<point> & map, int x, int y){
-	
+const vector<point> & Surroundings::updatemap(Vector<Line> & map, int x, int y){
+	const auto & x;
+	for(const Line & l : map){
+		map.setLine(l.x1,l.y1,l.x2.l.y2);
+		x = sendMapLine(l, point(x,y))
+	}
+	return x;
 }
 
 const vector<line> & Surroundings::getMap(){
 	return map.getMapTotal();
 }
 
+//TODO: make this work
 const vector<point> & Surroundings::getPath(int deviceType,int deviceId){
 	
 }
 
+//TODO: make this work
 const point & Surroundings::getPosition(int deviceType,int deviceId){
 	
 }
 
-	void recieveVisionData(auto visionData);
+void recieveVisionData(auto visionData){
+	strategy.recieveVisionData(visionData);
+}
 
-	//!  \brief sends rosbee gyroscoop data to strategy.
-	//! \param[in] gyroscopeData contains the rosbee gyroscope data for the strategy
-	void sendRosbeeData(auto gyroscopeData);
+void sendRosbeeData(auto gyroscopeData){
+	strategy.sendRosbeeData(gyroscopeData);
+}
