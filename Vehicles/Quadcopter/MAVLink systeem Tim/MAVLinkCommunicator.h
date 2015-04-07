@@ -1,42 +1,39 @@
 #ifndef _MAVLINKCOMMUNICATOR_H
 #define _MAVLINKCOMMUNICATOR_H
-#include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
-#include "priority_mavlink_message_t.h"
 #include <queue>
-#include <vector>
-#include <thread>
+#include "PriorityMessage.h"
+#include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
+
 class SerialPort;
 
 class MAVLinkCommunicator
 {
 public:
-	explicit MAVLinkCommunicator(SerialPort& serialPort);
-	void sendMessage(mavlink_message_t& message, char priority = 128);
-	mavlink_message_t getMessage(mavlink_message_t& message, char priority = 128);
-	bool receiveMessage(mavlink_message_t& message);
-	void StopLoop();
-	void AbortLoop();
-	void Join();
-
-private:
-
+	explicit MAVLinkCommunicator(SerialPort &serialPort);
+	~MAVLinkCommunicator();
+	
 	void Loop();
 
-	struct Compare
-	{
-		bool operator()(priority_mavlink_message_t & lhs, priority_mavlink_message_t & rhs) const{
-			return lhs.getPriority() < rhs.getPriority();
-		}
-	};
+	void SendMessage(mavlink_message_t msg, char priority = 128);
+	mavlink_message_t GetResponse(mavlink_message_t msg, char priority = 128);
+	mavlink_message_t ReceiveMessage();
 
-	
-	std::priority_queue<priority_mavlink_message_t, std::vector<priority_mavlink_message_t>, Compare> SendingQueue;
-	std::vector<mavlink_message_t> ReceiveQueue;
-	SerialPort& serialPort;
+	int sendQueueSize();
+	int receiveQueueSize();
 
-	std::thread *thread;
+	void stopThread();
+	void abortThread();
+private:
+	PriorityMessage Peek();
+	void Send(mavlink_message_t msg);
+	bool Receive(mavlink_message_t & msg);
+
+	SerialPort &serialPort;
+	std::priority_queue<PriorityMessage> sendQueue;
+	std::vector<mavlink_message_t> receiveQueue;
+
 	bool stop = false;
 	bool abort = false;
-
 };
 #endif
+

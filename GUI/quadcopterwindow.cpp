@@ -1,8 +1,8 @@
 #include "quadcopterwindow.h"
 #include "ui_quadcopterwindow.h"
+#include "quadcopter.h"
 
-
-QuadCopterWindow::QuadCopterWindow(QWidget *parent, Quadcopter& quadcopter) :
+QuadCopterWindow::QuadCopterWindow(Quadcopter& quadcopter, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QuadCopterWindow),
 	quadcopter{ quadcopter }
@@ -29,12 +29,8 @@ void QuadCopterWindow::on_sendMaxAltitudeButton_clicked()
 
 void QuadCopterWindow::on_armButton_clicked()
 {
-<<<<<<< HEAD
-    qc->arm();
     ui->statusBox->setEnabled(true);
-=======
-	quadcopter.arm();
->>>>>>> origin/master
+    quadcopter.arm();
 }
 
 void QuadCopterWindow::on_takeOff_LandButton_clicked()
@@ -79,12 +75,9 @@ void QuadCopterWindow::on_leftButton_pressed()
 
 void QuadCopterWindow::notifyListener(Subject& subject)
 {
-	ui->pitchValue.display(quadcopter.getPitch());
-	ui->rollValue.display(quadcopter.getRoll());
-	ui->yawValue.display(quadcopter.getYaw());
-	ui->headingValue.display(quadcopter.getHeading());
-	ui->altitudeValue.display(quadcopter.getAltitude());
-	std::string mode;
-	mode << quadcopter.getFlightMode();
-	ui->currentModeValue.setText(mode);
+    ui->pitchValue->display(quadcopter.getPitch());
+    ui->rotationValue->display(quadcopter.getRoll());
+    ui->yawValue->display(quadcopter.getYaw());
+    ui->headingValue->display(quadcopter.getHeading());
+    ui->altitudeValue->display(quadcopter.getAltitude());
 }

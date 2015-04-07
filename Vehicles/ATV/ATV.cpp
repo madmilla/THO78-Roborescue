@@ -23,9 +23,14 @@ void ATV::moveForward(int value)
 	mavlinkSender.sendMessage(msg);
 }
 
-void ATV::moveBackward()
+void ATV::moveBackward(int value) //untested
 {
-
+        mavlink_message_t msg;
+        int sendValue = 1500 - value;
+        mavlink_msg_rc_channels_override_pack(
+                255, 200, &msg, 1, 250, UINT16_MAX, UINT16_MAX, sendValue,
+                UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
+        mavlinkSender.sendMessage(msg);
 }
 
 void ATV::turnLeft(int value)

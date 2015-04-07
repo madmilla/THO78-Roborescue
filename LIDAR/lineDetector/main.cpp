@@ -5,7 +5,7 @@
 #include "opencv2/opencv.hpp"
 
 void test(){
-    lineDetector myLineDetector{};
+    lineDetector myLineDetector;
 
     const Mat & image = myLineDetector.createImage("test.txt");
     clock_t Start = clock();
@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
         test();
     }
     else {
-        lineDetector myLineDetector{};
+        lineDetector myLineDetector;
 
         const Mat & image = myLineDetector.createImage(argv[1]);
         Mat final_dest;

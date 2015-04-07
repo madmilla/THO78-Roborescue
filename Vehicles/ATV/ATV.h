@@ -10,7 +10,7 @@ public:
 	ATV(TempMAVSender & mavlinkSender);
 	~ATV();
 	void moveForward(int);
-	void moveBackward();
+        void moveBackward(int);
 	void turnLeft(int);
 	void turnRight(int);
 	void emergencyStop();

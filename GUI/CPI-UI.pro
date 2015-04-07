@@ -16,13 +16,19 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     quadcopterwindow.cpp \
     quadcopter.cpp \
-    atvwindow.cpp
+    SerialPort.cpp \
+    SerialPortWindows.cpp \
+    ExtendedMAVLinkMessage.cpp \
+    MAVLinkExchanger.cpp
 
 HEADERS  += mainwindow.h \
     quadcopterwindow.h \
     quadcopter.h \
-    atvwindow.h
+    Serial.h \
+    SerialPort.h \
+    SerialPortWindows.h \
+    ExtendedMAVLinkMessage.h \
+    MAVLinkExchanger.h
 
 FORMS    += mainwindow.ui \
-    quadcopterwindow.ui \
-    atvwindow.ui
+    quadcopterwindow.ui
