@@ -1,5 +1,4 @@
-#include "rosbeewindow.h"
-#include "quadcopterwindow.h"
+#include "mainwindow.h"
 #include "tests.h"
 
 #include <QApplication>
@@ -12,11 +11,8 @@ int main(int argc, char *argv[])
     }
 
     QApplication a(argc, argv);
-    Rosbee rosbee;
-    RosbeeWindow w(&rosbee);
-    w.show();
-    QuadCopterWindow q;
-    q.show();
+    MainWindow mw;
+    mw.show();
 
     return a.exec();
 }

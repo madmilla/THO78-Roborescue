@@ -6,7 +6,7 @@
 #include <QMessageBox>
 
 RosbeeWindow::RosbeeWindow(Rosbee * rosbee, QWidget *parent) :
-   QDockWidget(parent),
+   QMainWindow(parent),
    rosbee(rosbee),
    ui(new Ui::RosbeeWindow),
    timer(new QTimer())

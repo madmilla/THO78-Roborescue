@@ -1,63 +1,67 @@
-#include "quadcopter.h"
 
+#include "Quadcopter.h"
 #include <QDebug>
 
-Quadcopter::Quadcopter()
-{
+Quadcopter::Quadcopter(){
+    qDebug() << "Quadcopter class built";
+}
+
+Quadcopter::~Quadcopter(){
 
 }
 
-Quadcopter::~Quadcopter()
-{
+void Quadcopter::liftOff(){
 
 }
 
-unsigned int Quadcopter::Init(unsigned int maxAltitude, ControlMode controlMode){
-    qDebug() << "##Init          ## MaxAltitiude " << maxAltitude << " ControlMode " << (unsigned int)controlMode << '\n';
-    return 0;
+void Quadcopter::arm(){
+    qDebug() << "Quadcopter armed";
 }
 
-bool Quadcopter::startMission(DPoint location, unsigned int maximumTimeMin, Map mapData){
-    qDebug() << "##Start mission ## Start location " << location.x << ',' << location.y << ',' << location.z << " MaximumTime: " << maximumTimeMin << "min \n";
-    return true;
+void Quadcopter::moveLeft(){
+
 }
 
-void Quadcopter::stopMission(){
-    qDebug() << "##Stop mission  ##\n";
+void Quadcopter::moveRight(){
+
 }
 
-void Quadcopter::abortMission(){
-    qDebug() << "##Abort mission ##\n";
+void Quadcopter::moveForward(){
+
 }
 
-unsigned char Quadcopter::batteryStatus(){
-    qDebug() << "##Battery perc  ##\n";
-    return 100;
-}
+void Quadcopter::moveBackward(){
 
-void Quadcopter::setSteeringMode(ControlMode controlMode){
-    qDebug() << "##Change str mod## Control mode " << (unsigned int)controlMode << "\n";
-}
-
-void Quadcopter::land(){
-    qDebug() << "##Land          ##\n";
 }
 
 void Quadcopter::stop(){
-    qDebug() << "##Stop          ##\n";
+
 }
 
-void Quadcopter::fixConnection(){
-    qDebug() << "##Fix connection##\n";
+void Quadcopter::land(){
+
 }
 
-Quadcopter::dataPacket Quadcopter::getAllData(){
-    qDebug() << "##All data      ##\n";
+bool Quadcopter::isFlying(){
 
-    Quadcopter::dataPacket data;
-    data.currentLocation.x = 0;
-    data.currentLocation.y = 0;
-    data.currentLocation.z = 0;
-    data.signalStrength = 100;
-    return data;
+}
+
+bool Quadcopter::isArmed(){
+
+}
+
+bool Quadcopter::isManual(){
+    return manual;
+}
+
+void Quadcopter::setManual(bool b){
+    manual = b;
+}
+
+void Quadcopter::changeFlightSpeed(int){
+
+}
+
+void Quadcopter::changeHeading(int){
+
 }

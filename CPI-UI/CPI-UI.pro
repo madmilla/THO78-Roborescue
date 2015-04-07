@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     rosbee.cpp \
     tests.cpp \
     lidar.cpp \
-    lidarwindow.cpp
+    lidarwindow.cpp \
+    atvwindow.cpp
 
 HEADERS  += mainwindow.h \
     quadcopterwindow.h \
@@ -36,9 +37,11 @@ HEADERS  += mainwindow.h \
     test.h \
     tests.h \
     lidar.h \
-    lidarwindow.h
+    lidarwindow.h \
+    atvwindow.h
 
 FORMS    += mainwindow.ui \
     quadcopterwindow.ui \
     rosbeewindow.ui \
-    lidarwindow.ui
+    lidarwindow.ui \
+    atvwindow.ui

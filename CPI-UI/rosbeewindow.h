@@ -1,7 +1,7 @@
 #ifndef ROSBEEWINDOW_H
 #define ROSBEEWINDOW_H
 
-#include <QDockWidget>
+#include <QMainWindow>
 #include <QTimer>
 #include "rosbee.h"
 
@@ -9,7 +9,7 @@ namespace Ui {
 class RosbeeWindow;
 }
 
-class RosbeeWindow : public QDockWidget
+class RosbeeWindow : public QMainWindow
 {
     Q_OBJECT
 
