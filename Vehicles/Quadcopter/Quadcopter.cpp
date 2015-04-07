@@ -119,11 +119,13 @@ void Quadcopter::handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage)
 		auto rtn = mavlink_msg_statustext_get_text(&incomingMessage, text);
 		//auto severity = mavlink_msg_statustext_get_severity(&incomingMessage);
 
-		//text[rtn] = '\0';
+		text[rtn-1] = '\0';
 		std::cout << "Statustext:"; 
-		//std::cout << text;
-		std::cout << (int)rtn;
+		//printf("asdasd %s", text);
+		std::cout << text << std::endl;
+		//std::cout << (int)rtn;
 		//std::cout << std::endl;
+		////delete text;
 		break;
 	}
 }
