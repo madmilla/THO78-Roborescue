@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <limits.h>
 
 const std::vector<Line<float> > Algorithms::normalizeLines(const std::vector<Line<int> > lines){
     // Set initial values to extremes of the opposites
