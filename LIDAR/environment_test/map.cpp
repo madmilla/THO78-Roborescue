@@ -13,7 +13,7 @@ Map::Map(string fileName, int height, int width):
 {
     if(!fileName.empty()){
         createNewMap(fileName);
-        loadMap(fileName);
+        //loadMap(fileName);
     }
 }
 
@@ -27,7 +27,7 @@ Map::Map(string fileName):
             string line;
             int i;
             for (i = 0; getline(mapFile, line); ++i);
-            line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
+            line.erase(std::remove_if(line.begin(), line.end(), (int(*)(int))isspace), line.end());
             height = i;
             width = static_cast<int>(line.length());
             cout << height << '\n' << width;
@@ -47,16 +47,18 @@ void Map::loadMap(string fileName){
     int x = 0,y = 0;
     int content;
 
-    mapLayout.resize(height+1);
-    mapLayout[y].resize(width+1);
+    mapLayout.resize(height);
+    mapLayout[y].resize(width);
     while(y < height){
         mapFile >> content;
+        std::cout << "Content:" << content << std::endl;
         mapLayout[y][x] = content;
         x++;
-        if(x > width){
+        if(x > width-1){
             x = 0;
             y++;
-            mapLayout[y].resize(width+1);
+            mapLayout[y].resize(width);
+            std::cout << "Maplayout vec size x:" << mapLayout[y].size() << std::endl;
         }
     }
     mapFile.close();
@@ -92,7 +94,7 @@ void Map::createNewMap(string fileName){
     mapFile.open(fileName + ".map");
     for(int y = 0; y < height; y++){
         for(int x = 0; x < width; x++){
-            mapFile << 0;
+            mapFile << '0';
             if(x != width - 1)mapFile << ' ';
         }
         if(y != height - 1)mapFile << '\n';
