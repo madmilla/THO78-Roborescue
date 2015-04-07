@@ -2,9 +2,19 @@ PROJECT := main
 
 MODULES := shapedetector
 
-CFLAGS := -std=c++11 
+CFLAGS := -std=c++11
 
-LINKFLAGS := -L./../../deps/libs -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=./../../deps/libs
+
+
+ARCH := $(shell getconf LONG_BIT)
+
+CPP_FLAGS_32 := ./../../deps/libs/Linux/x86
+CPP_FLAGS_64 := ./../../deps/libs/Linux/x64
+
+
+
+
+LINKFLAGS := -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))
 
 
 

@@ -3,10 +3,13 @@ OBJS = $(SRC:.cpp=.o)
 LIBS = LibSerial.a
 LOC = ../Dependencies/Serial/
 
-export TARGET = windows
+export TARGET = linux
 
 ifeq ($(TARGET),windows)
 	LIBS += -lws2_32
+endif
+ifeq ($(TARGET),linux)
+	LIBS += -lpthread
 endif
 
 Main: $(OBJS)
