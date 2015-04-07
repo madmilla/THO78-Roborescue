@@ -23,9 +23,11 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    std::vector<QMainWindow *> subwindows;
+    std::vector<QMainWindow *> subWindows;
 
     Rosbee * rosbee;
+
+    void checkZombies();
 };
 
 #endif // MAINWINDOW_H

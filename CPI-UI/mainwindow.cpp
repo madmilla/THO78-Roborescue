@@ -21,12 +21,24 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 MainWindow::~MainWindow(){
-   for(QMainWindow * window : subwindows){
+   for(QMainWindow * window : subWindows){
       window->close();
       delete window;
    }
-   subwindows.clear();
+   subWindows.clear();
    delete ui;
+}
+
+void MainWindow::checkZombies(){
+   std::vector<QMainWindow *> newSubWindows;
+   for(QMainWindow * subWindow : subWindows){
+      if(subWindow->isVisible()){
+         newSubWindows.push_back(subWindow);
+      }else{
+         delete subWindow;
+      }
+   }
+   subWindows = newSubWindows;
 }
 
 void MainWindow::handleButton(){
@@ -45,16 +57,16 @@ void MainWindow::handleButton(){
    }else if(button == ui->RosbeeButton){
       newWindow = new RosbeeWindow(rosbee, this);
    }else if(button == ui->ExitButton){
-      for(QMainWindow * window : subwindows){
+      for(QMainWindow * window : subWindows){
          window->close();
-         delete window;
       }
-      subwindows.clear();
       this->close();
    }
 
    if(newWindow != nullptr){
       newWindow->show();
-      subwindows.push_back(newWindow);
+      subWindows.push_back(newWindow);
    }
+
+   checkZombies();
 }
