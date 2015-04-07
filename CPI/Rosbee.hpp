@@ -10,15 +10,15 @@ public:
 	void init();
 	Command getRequirementStatus();
 	void startMission();
-	void sendWaypoint();
+        void sendWaypoint(Command cmd);
 	void getRequest();
 	void stopMission();
 	void abortMission();
-	void sonarInterupt();
+        void sonarInterupt(Command cmd);
 	void sendAck();
 	void BatteryStatus();
-	void sendInterrupt();
-	void getDevice();
+        void sendInterrupt(Command cmd);
+        Command getDevice();
 
 	~Rosbee();
 private:
