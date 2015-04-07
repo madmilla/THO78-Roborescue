@@ -1,11 +1,12 @@
 #ifndef _QUADCOPTER_H
 #define _QUADCOPTER_H
 #include "ExtendedMAVLinkMessage.h"
+#include "Subject.h"
 #include <iostream>
 
 class MAVLinkExchanger;
 
-class Quadcopter
+class Quadcopter : public Subject
 {
 public:
 	enum class FlightMode
