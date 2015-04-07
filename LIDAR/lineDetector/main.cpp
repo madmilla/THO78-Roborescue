@@ -6,7 +6,8 @@
 
 void test(const Mat & image, lineDetector & myLineDetector){
     clock_t Start = clock();
-    vector<Vec4i> lines = myLineDetector.searchLines(image, Mat{});
+    Mat final_dest;
+    vector<Vec4i> lines = myLineDetector.searchLines(image, final_dest);
     clock_t end = clock();
     float time = (float)(end - Start) /CLOCKS_PER_SEC;
     std::cout << "the searchLines function is executed in: " << time << " seconds" << std::endl;
