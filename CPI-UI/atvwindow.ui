@@ -7,234 +7,252 @@
     <x>0</x>
     <y>0</y>
     <width>640</width>
-    <height>290</height>
+    <height>231</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ATV</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>611</width>
-     <height>261</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Status</string>
-   </property>
-   <widget class="QProgressBar" name="progressBar">
+  <widget class="QWidget" name="root">
+   <widget class="QGroupBox" name="statusGB">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>581</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="value">
-     <number>24</number>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_4">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>60</y>
-      <width>411</width>
-      <height>111</height>
+      <x>10</x>
+      <y>10</y>
+      <width>621</width>
+      <height>211</height>
      </rect>
     </property>
     <property name="title">
-     <string>Steering Orientation</string>
+     <string>Status</string>
     </property>
-    <widget class="QScrollBar" name="horizontalScrollBar">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>371</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="minimum">
-      <number>-60</number>
-     </property>
-     <property name="maximum">
-      <number>60</number>
-     </property>
-     <property name="tracking">
-      <bool>true</bool>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="invertedControls">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QLCDNumber" name="lcdNumber">
-     <property name="geometry">
-      <rect>
-       <x>330</x>
-       <y>70</y>
-       <width>64</width>
-       <height>23</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLCDNumber" name="lcdNumber_3">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>64</width>
-       <height>23</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>70</y>
-       <width>16</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>X</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_4">
+    <widget class="QProgressBar" name="batteryStatusButton">
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>70</y>
-       <width>16</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Y</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_3">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>60</y>
-      <width>141</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Driving orientation</string>
-    </property>
-    <widget class="QDial" name="dial">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>50</width>
-       <height>64</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLCDNumber" name="lcdNumber_2">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>30</y>
-       <width>64</width>
+       <y>20</y>
+       <width>451</width>
        <height>23</height>
       </rect>
      </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_2">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>150</y>
-      <width>141</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Components</string>
-    </property>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Steering Shaft</string>
+     <property name="value">
+      <number>24</number>
      </property>
     </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QGroupBox" name="driveOrientationGB">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>50</y>
-       <width>61</width>
-       <height>16</height>
+       <width>141</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Driving orientation</string>
+     </property>
+     <widget class="QDial" name="dial">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>50</width>
+        <height>64</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="dialLCD">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>30</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="steeringOrientationGB">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>50</y>
+       <width>451</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Steering Orientation</string>
+     </property>
+     <widget class="QScrollBar" name="steeringScrollBar">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>431</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>-60</number>
+      </property>
+      <property name="maximum">
+       <number>60</number>
+      </property>
+      <property name="tracking">
+       <bool>true</bool>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="invertedControls">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="xLCD">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>70</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="yLCD">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>70</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="xLabel">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>70</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="yLabel">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>70</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Y</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="abortButton">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>160</y>
+       <width>161</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="text">
-      <string>Drive Shaft</string>
+      <string>Abort</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>190</y>
-      <width>101</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Shutdown</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>190</y>
-      <width>171</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Abort</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>190</y>
-      <width>101</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Arm</string>
-    </property>
+    <widget class="QPushButton" name="shutdownButton">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>160</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Shutdown</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="armButton">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>160</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Arm</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="componentsGB">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>141</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Components</string>
+     </property>
+     <widget class="QLabel" name="steeringShaftLabel">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Steering Shaft</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="driveShaftLabel">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>50</y>
+        <width>61</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Drive Shaft</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="batteryStatusLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>141</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Battery status:</string>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>

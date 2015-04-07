@@ -18,7 +18,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void buttonClicked();
+    void handleButton();
 
 private:
     Ui::MainWindow *ui;

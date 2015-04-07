@@ -15,6 +15,9 @@ public:
     explicit ATVWindow(QWidget *parent = 0);
     ~ATVWindow();
 
+private slots:
+   void handleButton();
+
 private:
     Ui::ATVWindow *ui;
 };

@@ -12,21 +12,26 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->QuadButton  , SIGNAL(clicked()), this, SLOT(buttonClicked()));
-    connect(ui->ATVButton   , SIGNAL(clicked()), this, SLOT(buttonClicked()));
-    connect(ui->LidarButton , SIGNAL(clicked()), this, SLOT(buttonClicked()));
-    connect(ui->MapButton   , SIGNAL(clicked()), this, SLOT(buttonClicked()));
-    connect(ui->RosbeeButton, SIGNAL(clicked()), this, SLOT(buttonClicked()));
-    connect(ui->ExitButton  , SIGNAL(clicked()), this, SLOT(buttonClicked()));
+    connect(ui->QuadButton  , SIGNAL(clicked()), this, SLOT(handleButton()));
+    connect(ui->ATVButton   , SIGNAL(clicked()), this, SLOT(handleButton()));
+    connect(ui->LidarButton , SIGNAL(clicked()), this, SLOT(handleButton()));
+    connect(ui->MapButton   , SIGNAL(clicked()), this, SLOT(handleButton()));
+    connect(ui->RosbeeButton, SIGNAL(clicked()), this, SLOT(handleButton()));
+    connect(ui->ExitButton  , SIGNAL(clicked()), this, SLOT(handleButton()));
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
+MainWindow::~MainWindow(){
+   for(QMainWindow * window : subwindows){
+      window->close();
+      delete window;
+   }
+   subwindows.clear();
+   delete ui;
 }
 
-void MainWindow::buttonClicked(){
+void MainWindow::handleButton(){
    QPushButton * button = static_cast<QPushButton *>(sender());
+   if(button == nullptr) return;
    QMainWindow * newWindow = nullptr;
 
    if(button == ui->QuadButton){
