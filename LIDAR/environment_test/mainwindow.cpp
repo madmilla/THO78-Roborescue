@@ -33,8 +33,8 @@ void MainWindow::on_newMapButton_clicked()
 
     if (ok && !fileName.isEmpty()){
         map = new Map(fileName.toStdString(),height,width);
-        editMapWindow = new EditMapWindow(map);
-        editMapWindow->show();
+        //editMapWindow = new EditMapWindow(map);
+        //editMapWindow->show();
 
     }
 }

@@ -115,6 +115,7 @@ void Quadcopter::handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage)
 		yaw = mavlink_msg_attitude_get_yaw(&incomingMessage);
 		break;
 	}
+	notifyListeners();
 }
 
 void Quadcopter::calculateRCChannels()

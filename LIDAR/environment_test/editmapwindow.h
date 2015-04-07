@@ -16,7 +16,6 @@ class EditMapWindow : public QDialog
 
 public:
     explicit EditMapWindow(Map* map, QWidget *parent = 0);
-    void showMap(Map* map);
     ~EditMapWindow();
 
 private slots:
@@ -31,6 +30,16 @@ private:
     void mousePressEvent(QMouseEvent * event);
     bool mousePressed;
     Map *map;
+    int selected = 0;
+    int x = 0;
+    int y = 0;
+    int objectx = 0;
+    int objecty = 0;
+    int mapHeight = 0;
+    int mapWidth = 0;
+    int drawWidth = 430;
+    int drawHeight = 460;
+    vector<vector< int > > mapLayout = map->getMapContent();
 };
 
 #endif // EDITMAPWINDOW_H
