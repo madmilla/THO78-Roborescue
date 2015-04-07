@@ -81,11 +81,6 @@ void Quadcopter::changeMode(FlightMode mode)
 	exchanger.enqueueMessage(message);
 }
 
-Quadcopter::FlightMode Quadcopter::getMode()
-{
-	return flightMode;
-}
-
 void Quadcopter::loop()
 {
 	while (1)
@@ -193,32 +188,12 @@ int Quadcopter::getHeading() const
 	return heading;
 }
 
-void Quadcopter::setTargetYaw(float yaw)
-{
-	targetYaw = yaw;
-}
-
-void Quadcopter::setTargetRoll(float roll)
-{
-	targetRoll = roll;
-}
-
-void Quadcopter::setTargetPitch(float pitch)
-{
-	targetPitch = pitch;
-}
-
-void Quadcopter::setTargetAltitude(float altitude)
-{
-	targetAltitude = altitude;
-}
-
-void Quadcopter::setTargetHeading(int heading)
-{
-	targetHeading = heading;
-}
-
 bool Quadcopter::isArmed() const
 {
 	return armed;
+}
+
+Quadcopter::FlightMode Quadcopter::getMode() const
+{
+	return flightMode;
 }

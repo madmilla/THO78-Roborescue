@@ -1,14 +1,12 @@
 #include "mainwindow.h"
+#include "testperformance.h"
 #include <QApplication>
-#include "Logic.h"
 
 int main(int argc, char *argv[])
 {
-    Logic *logic = new Logic();
-    delete logic;
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-
+    //TestPerformance::test();
     return a.exec();
 }

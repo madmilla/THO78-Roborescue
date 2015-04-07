@@ -51,7 +51,7 @@ SerialPortWindows::~SerialPortWindows()
 	CloseHandle(serialHandle);
 }
 
-int SerialPortWindows::readData(char* buffer, int nrOfBytes)
+int SerialPortWindows::readData(unsigned char* buffer, int nrOfBytes)
 {
 	DWORD bytesRead;
 	unsigned int toRead;
