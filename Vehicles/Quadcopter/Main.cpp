@@ -1,15 +1,20 @@
 #include "Quadcopter.h"
-#include "SerialPort.h"
+#include "../Dependencies/Serial/SerialPort.h"
 #include <string>
-#include "TempMAVSender.h"
+#include "MAVLinkExchanger.h"
 #include <iostream>
-
+#include <thread>
 int main() 
 {
-	SerialPort serialPort("/dev/ttyUSB0");
-	TempMAVSender tempMAVSender{ serialPort };
-	Quadcopter quadcopter(tempMAVSender);
+	SerialPort serialPort("COM4");
+	MAVLinkExchanger exchanger{ serialPort };
+	Quadcopter quadcopter(exchanger);
+	std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
+	std::thread exchangerLoopThread { &MAVLinkExchanger::loop, &exchanger};
+	quadcopterLoopThread.detach();
+	exchangerLoopThread.detach();
 	while (1)
 	{
+
 	}
 }

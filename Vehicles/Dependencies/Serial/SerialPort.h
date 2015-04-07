@@ -9,8 +9,8 @@ public:
 	SerialPort(int port, std::string& address);
 	explicit SerialPort(const char* device);
 	~SerialPort();
-	int writeData(char* data, int nrOfBytes);
-	int readData(char* buffer, int nrOfBytes);
+	bool writeData(unsigned char* data, int nrOfBytes);
+	int readData(unsigned char* buffer, int nrOfBytes);
 private:
 	Serial* serialDevice;
 };

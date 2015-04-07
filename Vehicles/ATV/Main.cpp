@@ -1,7 +1,6 @@
 #include <string>
-#include "SerialPort.h"
-#include "TempMAVSender.h"
 #include "ATV.h"
+#include "../Dependencies/Serial/SerialPort.h"
 #include <iostream>
 #include <cstdlib>
 #include <thread>
@@ -73,10 +72,14 @@ void checkforexit()
 int main()
 {
 	SerialPort port{ "COM5" };
-	TempMAVSender mavlinkSender{ port };
+	MAVLinkExchanger mavlinkSender{ port };
 	ATV atv{ mavlinkSender };
 	//atv.emergencyStop();
 	std::thread th1(checkforexit);
+	std::thread atvLoopThread{ &ATV::loop, &atv };
+	std::thread exchangerLoopThread{ &ATV::loop, &atv };
+	atvLoopThread.detach();
+	exchangerLoopThread.detach();
 
 	while (1)
 	{
