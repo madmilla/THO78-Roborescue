@@ -22,5 +22,7 @@ void lidar::stopLidar(){
 
 
 int lidar::setRPM(){
+   return 0;
+
 }
 

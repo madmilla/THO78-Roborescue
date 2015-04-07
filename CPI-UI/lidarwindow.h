@@ -21,12 +21,14 @@ private slots:
 
     void handleButtonLidar();
 
-    void LidarMissionRunning(bool isRunning);
-
     void setRpm(int Rpm);
 
 private:
+    void lidarMissionRunning(bool isRunning);
+
     Ui::lidarwindow *ui;
+
+    lidar * lidar;
 };
 
 #endif // LIDARWINDOW_H

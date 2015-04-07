@@ -29,16 +29,16 @@ public:
 
     //! get the line from the mapping team and returns a vector with
     //!lines that cross  (x,y)
-    std::vector<int> getline(int x,int y);
+    Line getline(int x,int y);
 
     //! returns a vector of lines that will show the total map
-    std::vector<int> getMapTotal();
+    const vector<Line> & getMapTotal();
 
     //! get the location of the device in x and y
     //! int deviceType tells which device it is
     //! 1=Quad 2=Atv 3=Rosbee
 	//! int deviceId tells which robot it is in case of multiple the same robot.
-    std::vector<int> getLocation(int deviceType,int deviceId)
+    const point & getLocation(int deviceType,int deviceId)
 
     //! send an x and y axis for point 1 and point 2 to make the line.
     //! when all data has been recieved a true boolean value will be returned otherwise it will return a false

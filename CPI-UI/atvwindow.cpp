@@ -9,7 +9,7 @@ ATVWindow::ATVWindow(QWidget *parent) :
 
     connect(ui->abortButton   , SIGNAL(clicked()), this, SLOT(handleButton()));
     connect(ui->armButton     , SIGNAL(clicked()), this, SLOT(handleButton()));
-    connect(ui->shutdownButton, SIGNAL(clicked()), this, SLOT(handleButton());
+    connect(ui->shutdownButton, SIGNAL(clicked()), this, SLOT(handleButton()));
 }
 
 ATVWindow::~ATVWindow() {

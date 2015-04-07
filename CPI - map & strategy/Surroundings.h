@@ -62,18 +62,18 @@ private:
 	//! \param[in] x2 the x axis of the coordinate of the destination
 	//! \param[in] y2 the y axis of the coordinate of the destination
 	//! \return returns the path as a vector of waypoints
-	const vector<waypoint> & getCompletePath(int x1,int y1, int x2,int y2);
+	const vector<point> & getCompletePath(int x1,int y1, int x2,int y2);
 	
 	//! \brief calculates the path from start to finish.
 	//! \param[in] x the x axis of the coordinate of the start location
 	//! \param[in] y the y axis of the coordinate of the start location
 	//! \param[in] map contains a vector of points which represents the map
 	//! \return gets the new waypoints for the rosbee
-	const vector<waypoint> & updatemap(Vector<point> & map, int x, int y);
+	const vector<point> & updatemap(Vector<point> & map, int x, int y);
 	
 	//! \brief returns the whole map as a vector of lines
 	//! \return gets the new waypoints for the rosbee
-	const vector<line> & getMap();
+	const vector<Line> & getMap();
 	
 	
 	
@@ -82,14 +82,24 @@ private:
     //! 1=Quad 2=Atv 3=Rosbee
 	//! \param[in] deviceId the ID of the robot
 	//! \return returns a path made of waypoints
-	const vector<waypoint> & getPath(int deviceType,int deviceId);
+	const vector<point> & getPath(int deviceType,int deviceId);
 	
 	//! \brief returns the position of a given robot as a waypoint
 	//! \param[in] deviceType this tells which kind of robot it is
     //! 1=Quad 2=Atv 3=Rosbee
 	//! \param[in] deviceId the ID of the robot
 	//! \return returns a position in way of a waypoint
-	const waypoint & getPosition(int deviceType,int deviceId);
+	const point & getPosition(int deviceType,int deviceId);
+	
+	
+	//! \brief processed vision data the will be used in the next sprint.
+	//! parameters are auto for the moment. Do not know how to do this yet (next sprint)
+	//! \param[in] visionData contains an image for the strategy
+	void recieveVisionData(auto visionData);
+
+	//!  \brief sends rosbee gyroscoop data to strategy.
+	//! \param[in] gyroscopeData contains the rosbee gyroscope data for the strategy
+	void sendRosbeeData(auto gyroscopeData);
 	
 }
 
