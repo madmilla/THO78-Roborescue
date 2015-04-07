@@ -4,7 +4,10 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/opencv.hpp"
 
-void test(const Mat & image, lineDetector & myLineDetector){
+void test(){
+    lineDetector myLineDetector{};
+
+    const Mat & image = myLineDetector.createImage("test.txt");
     clock_t Start = clock();
     Mat final_dest;
     vector<Vec4i> lines = myLineDetector.searchLines(image, final_dest);
@@ -16,16 +19,14 @@ void test(const Mat & image, lineDetector & myLineDetector){
 
 int main(int argc, char** argv) {
 
-    lineDetector myLineDetector{};
-
     if(argc >1 && strcmp(argv[1], "test") == 0){
-        const Mat & image = myLineDetector.createImage("test.txt");
         std::cout << "running test..." << std::endl;
-        test(image, myLineDetector);
+        test();
     }
     else {
-        const Mat & image = myLineDetector.createImage(argv[1]);
+        lineDetector myLineDetector{};
 
+        const Mat & image = myLineDetector.createImage(argv[1]);
         Mat final_dest;
         vector<Vec4i> lines = myLineDetector.searchLines(image, final_dest);
 
