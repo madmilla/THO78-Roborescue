@@ -1,88 +1,115 @@
 #include "MAVLinkCommunicator.h"
-#include "SerialPort.h"
+#include "../Dependencies/Serial/SerialPort.h"
 
-MAVLinkCommunicator::MAVLinkCommunicator(SerialPort& serialPort) :
+MAVLinkCommunicator::MAVLinkCommunicator(SerialPort &serialPort) :
 serialPort{ serialPort }
 {
-	thread = new std::thread(&MAVLinkCommunicator::Loop, this);
+}
+
+MAVLinkCommunicator::~MAVLinkCommunicator()
+{
 }
 
 void MAVLinkCommunicator::Loop()
 {
-	// If you want the loop to STOP, it will continue untill the queue is empty.
-	// If you want the loop to ABORT, it will stop immediatly
-	while ((!stop || SendingQueue.size() > 0) && !abort)
+	while ((!stop || sendQueue.size() > 0) && !abort)
 	{
-		if (SendingQueue.size() > 0)
+		if (sendQueue.size())
 		{
-			priority_mavlink_message_t msg = SendingQueue.top();
-			mavlink_message_t* message = msg.getMessage();
-			auto buffer = new unsigned char[MAVLINK_NUM_NON_PAYLOAD_BYTES + message->len];
-			int len = mavlink_msg_to_send_buffer(buffer, message);
-			serialPort.writeData(buffer, len);
-			if (!msg.getHandled()){
-				int n = 0;
-				message = &mavlink_message_t(); // Empty the message
-				while (!receiveMessage(*message) && n < 5){ // Attempt to receive a message 5 times
-					n++;
+			PriorityMessage message = Peek();
+			mavlink_message_t mavmsg = *message.getMessage();
+			Send(mavmsg);
+			if (!message.getHandled())
+			{
+				mavlink_message_t msg{};
+				int n_trys = 0;
+				while (!Receive(msg) && n_trys < 4)
+				{
+					n_trys++;
 				}
-				msg.setHandled(true); // The message has been handled. If nothing was received after 5 atempts, the message will still be empty.
+				message.setHandled(true);
 			}
-			SendingQueue.pop();
 		}
 		else {
-			mavlink_message_t msg;
-			if (receiveMessage(msg))
+			mavlink_message_t message{};
+			if (Receive(message))
 			{
-				ReceiveQueue.push_back(msg);
+				receiveQueue.push_back(message);
 			}
 		}
 	}
 }
 
-void MAVLinkCommunicator::sendMessage(mavlink_message_t& message, char priority)
+void MAVLinkCommunicator::SendMessage(mavlink_message_t msg, char priority)
 {
-	priority_mavlink_message_t prio_message = priority_mavlink_message_t(message, priority);
-	SendingQueue.push(prio_message);
+	sendQueue.push(PriorityMessage{ msg, priority });
 }
 
-mavlink_message_t MAVLinkCommunicator::getMessage(mavlink_message_t& message, char priority)
+mavlink_message_t MAVLinkCommunicator::GetResponse(mavlink_message_t msg, char priority)
 {
-	priority_mavlink_message_t prio_message = priority_mavlink_message_t(message, priority);
-	prio_message.setHandled(false);
-	SendingQueue.push(prio_message);
-
-	while (!prio_message.getHandled())
+	PriorityMessage *message = new PriorityMessage{ msg, priority };
+	message->setHandled(false);
+	sendQueue.push(*message);
+	while (!message->getHandled())
 	{
-		// wait for the message to be handled
+		//wait untill the message is handled
 	}
-
-	return *prio_message.getMessage();
+	return *message->getMessage();
 }
 
-bool MAVLinkCommunicator::receiveMessage(mavlink_message_t& message)
+mavlink_message_t MAVLinkCommunicator::ReceiveMessage()
+{
+	if (receiveQueue.size())
+	{
+		return receiveQueue.front();
+	}
+	return mavlink_message_t{};
+}
+
+int MAVLinkCommunicator::sendQueueSize()
+{
+	return sendQueue.size();
+}
+
+int MAVLinkCommunicator::receiveQueueSize()
+{
+	return receiveQueue.size();
+}
+
+PriorityMessage MAVLinkCommunicator::Peek()
+{
+	if (sendQueue.size())
+	{
+		return sendQueue.top();
+	}
+	else return PriorityMessage{};
+}
+
+void MAVLinkCommunicator::Send(mavlink_message_t msg)
+{
+	auto buffer = new unsigned char[MAVLINK_NUM_NON_PAYLOAD_BYTES + msg.len];
+	int len = mavlink_msg_to_send_buffer(buffer, &msg);
+	serialPort.writeData(buffer, len);
+}
+
+bool MAVLinkCommunicator::Receive(mavlink_message_t & msg)
 {
 	mavlink_status_t status;
-	char c;
+	unsigned char c;
 	serialPort.readData(&c, 1);
-	if (mavlink_parse_char(MAVLINK_COMM_0, c, &message, &status))
+	if (mavlink_parse_char(MAVLINK_COMM_0, c, &msg, &status))
 	{
 		return true;
 	}
 	return false;
 }
 
-void MAVLinkCommunicator::StopLoop()
+void MAVLinkCommunicator::stopThread()
 {
 	stop = true;
 }
 
-void MAVLinkCommunicator::AbortLoop()
+void MAVLinkCommunicator::abortThread()
 {
 	abort = true;
-}
-
-void MAVLinkCommunicator::Join()
-{
-	thread->join();
 }
