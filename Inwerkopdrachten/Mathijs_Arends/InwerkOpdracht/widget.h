@@ -36,7 +36,7 @@ protected:
  bool mapSelected=0;
   void paintEvent(QPaintEvent *event) {
       if(mapSelected){
-      if(event ==nullptr){}
+      if(event ==nullptr){} //Anders Krijg ik warnings
       tilesize = height()/20;
     // QTransform myTransform;
     qWarning("warning");
