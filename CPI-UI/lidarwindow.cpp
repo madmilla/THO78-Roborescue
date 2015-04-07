@@ -13,18 +13,39 @@ lidarwindow::~lidarwindow()
     delete ui;
 }
 
+void lidarwindow::handleButtonLidar(){
+    //! this function will handle the buttoncall and down below it will be processed.
+    QPushButton * button = static_cast<QPushButton *>(sender());
 
-void lidarwindow::on_setRpm_returnPressed()
-{
+    if(button = nullptr) return;
+
+    else if(button = ui->startLidar){
+        try{
+            lidar->startLidar();
+            lidarMissionRunning(true);
+        }
+        catch(){ //moet een exception gemaakt worden voor het afvangen van geen rpm
+            Qmessage::critical(this,"Error:, No rpm set.", "mission already started");
+        }
+    }
+    else if(button == ui->stopLidar){
+        if(!ui->stopLidar->isEnabled()) return;
+        lidar->stopLidar();
+        lidarMissionRunning(true);
+        }
+}
+
+void setRpm(int Rpm){
 
 }
 
-void lidarwindow::on_startLidar_clicked()
-{
+
+void lidarwindow::LidarMissionRunning(isRunning){
+    //! als de missie start is running false voor het setten
+    //! en is stop klaar om ingedrukt te worden
+    ui->startLidar->setEnabled(!isRunning);
+    ui->stopLidar->setEnabled(isRunning);
 
 }
 
-void lidarwindow::on_stopLidar_clicked()
-{
 
-}

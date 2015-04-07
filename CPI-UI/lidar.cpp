@@ -10,3 +10,17 @@ lidar::~lidar()
 
 }
 
+void Lidar::startLidar(){
+
+
+}
+
+void Lidar::stopLidar(){
+
+
+}
+
+
+int setRPM(){
+}
+

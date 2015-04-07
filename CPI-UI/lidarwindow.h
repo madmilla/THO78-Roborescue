@@ -2,6 +2,7 @@
 #define LIDARWINDOW_H
 
 #include <QMainWindow>
+#include "lidar.h"
 
 namespace Ui {
 class lidarwindow;
@@ -16,17 +17,13 @@ public:
     ~lidarwindow();
 
 private slots:
-    void on_lineEdit_returnPressed();
 
-    void on_pushButton_clicked();
 
-    void on_pushButton_2_clicked();
+    void handleButtonLidar();
 
-    void on_setRpm_returnPressed();
+    void LidarMissionRunning(bool isRunning);
 
-    void on_startLidar_clicked();
-
-    void on_stopLidar_clicked();
+    void setRpm(int Rpm);
 
 private:
     Ui::lidarwindow *ui;
