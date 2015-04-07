@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <vector>
+#include "rosbee.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,7 +22,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
     std::vector<QMainWindow *> subwindows;
+
+    Rosbee * rosbee;
 };
 
 #endif // MAINWINDOW_H

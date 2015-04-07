@@ -7,9 +7,17 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    rosbee(new Rosbee())
 {
     ui->setupUi(this);
+
+    connect(ui->QuadButton  , SIGNAL(clicked()), this, SLOT(buttonClicked()));
+    connect(ui->ATVButton   , SIGNAL(clicked()), this, SLOT(buttonClicked()));
+    connect(ui->LidarButton , SIGNAL(clicked()), this, SLOT(buttonClicked()));
+    connect(ui->MapButton   , SIGNAL(clicked()), this, SLOT(buttonClicked()));
+    connect(ui->RosbeeButton, SIGNAL(clicked()), this, SLOT(buttonClicked()));
+    connect(ui->ExitButton  , SIGNAL(clicked()), this, SLOT(buttonClicked()));
 }
 
 MainWindow::~MainWindow()
@@ -26,11 +34,11 @@ void MainWindow::buttonClicked(){
    }else if(button == ui->ATVButton){
       newWindow = new ATVWindow(this);
    }else if(button == ui->LidarButton){
-      newWindow = new LidarWindow(this);
+      newWindow = new lidarwindow(this);
    }else if(button == ui->MapButton){
       //newWindow - new MapWindow(this);
    }else if(button == ui->RosbeeButton){
-      newWindow = new RosbeeWindow(this);
+      newWindow = new RosbeeWindow(rosbee, this);
    }else if(button == ui->ExitButton){
       for(QMainWindow * window : subwindows){
          window->close();
@@ -40,7 +48,7 @@ void MainWindow::buttonClicked(){
       this->close();
    }
 
-   if(newWindow != nulltpr){
+   if(newWindow != nullptr){
       newWindow->show();
       subwindows.push_back(newWindow);
    }
