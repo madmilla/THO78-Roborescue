@@ -13,7 +13,7 @@ class lidarwindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit lidarwindow(lidar * lidar, QWidget *parent = 0);
+    explicit lidarwindow(lidar * l, QWidget *parent = 0);
     ~lidarwindow();
 
 private slots:
@@ -28,7 +28,7 @@ private:
 
     Ui::lidarwindow *ui;
 
-    lidar * lidar;
+    lidar * l;
 };
 
 #endif // LIDARWINDOW_H
