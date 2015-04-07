@@ -14,10 +14,10 @@ CXX           = cl
 DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQT_NO_WARNING_OUTPUT -DQT_NO_DEBUG_OUTPUT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -FS -O2 -MD -Zc:strictStrings -W3 $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -FS -O2 -MD -Zc:strictStrings -GR -W3 -w34100 -w34189 -EHsc $(DEFINES)
-INCPATH       = -I"..\deps\files\opencv" -I"C:\Qt\5.4\msvc2013_64\include" -I"C:\Qt\5.4\msvc2013_64\include\QtGui" -I"C:\Qt\5.4\msvc2013_64\include\QtANGLE" -I"C:\Qt\5.4\msvc2013_64\include\QtCore" -I"release" -I"C:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013"
+INCPATH       = -I"..\..\deps\files\opencv" -I"C:\Qt\5.4\msvc2013_64\include" -I"C:\Qt\5.4\msvc2013_64\include\QtGui" -I"C:\Qt\5.4\msvc2013_64\include\QtANGLE" -I"C:\Qt\5.4\msvc2013_64\include\QtCore" -I"release" -I"C:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013"
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:CONSOLE "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:..\..\deps\lib ..\..\deps\lib\opencv_core2410.lib ..\..\deps\lib\opencv_highgui2410.lib ..\..\deps\lib\opencv_imgproc2410.lib ..\..\deps\lib\opencv_features2d2410.lib ..\..\deps\lib\opencv_calib3d2410.lib /LIBPATH:C:\Qt\5.4\msvc2013_64\lib C:\Qt\5.4\msvc2013_64\lib\Qt5Gui.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Core.lib 
+LIBS          = /LIBPATH:..\..\deps\libs\opencv\Windows ..\..\deps\libs\opencv\Windows\opencv_core2410.lib ..\..\deps\libs\opencv\Windows\opencv_highgui2410.lib ..\..\deps\libs\opencv\Windows\opencv_imgproc2410.lib /LIBPATH:C:\Qt\5.4\msvc2013_64\lib C:\Qt\5.4\msvc2013_64\lib\Qt5Gui.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Core.lib 
 QMAKE         = C:\Qt\5.4\msvc2013_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl

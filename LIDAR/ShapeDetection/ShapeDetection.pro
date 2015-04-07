@@ -17,25 +17,21 @@ TEMPLATE = app
 SOURCES += main.cpp \
     shapedetector.cpp
 win32 {
-    INCLUDEPATH += "..\deps\files\opencv" \
+    INCLUDEPATH += "..\..\deps\files\opencv"\
 
     CONFIG(debug,debug|release) {
-        LIBS += -L"..\..\deps\\lib" \
-            -lopencv_core2410d \
-            -lopencv_highgui2410d \
-            -lopencv_imgproc2410d \
-            -lopencv_features2d2410d \
-            -lopencv_calib3d2410d
+        LIBS += -L"..\..\deps\libs\opencv\Windows" \
+            -lopencv_core2410\
+            -lopencv_highgui2410 \
+            -lopencv_imgproc2410 \
     }
 
     CONFIG(release,debug|release) {
         DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
-        LIBS += -L"..\..\deps\\lib" \
+        LIBS += -L"..\..\deps\libs\opencv\Windows" \
             -lopencv_core2410 \
             -lopencv_highgui2410 \
             -lopencv_imgproc2410 \
-            -lopencv_features2d2410 \
-            -lopencv_calib3d2410
     }
 }
 

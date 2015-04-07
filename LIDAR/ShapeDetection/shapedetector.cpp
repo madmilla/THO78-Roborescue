@@ -18,21 +18,21 @@ void ShapeDetector::makeImage(std::string source, std::string output){
         exit(-1);
     }
     std::string line;
-    int imageHeight = 0;
-    int imageWidth = 0;
+    size_t imageHeight = 0;
+    size_t imageWidth = 0;
     while(getline(file,line)){ //a while loop to get the image width and the imageHeight
         imageHeight++;
         if(line.length()> imageWidth){
             imageWidth = line.length();
         }
     }
-    Mat * newMat = new Mat(imageWidth,imageHeight,CV_8UC1); //Create a Mat object which will represent the image with all the pixels
+    Mat * newMat = new Mat((int)imageWidth,(int)imageHeight,CV_8UC1); //Create a Mat object which will represent the image with all the pixels
     int x = 0;
     file.clear();
     file.seekg(0,file.beg);
     while(getline(file,line)){ //Walk through the file
         int y = 0;
-        for(int i = 0; i< imageWidth; i++){
+        for(int i = 0; i< (int)imageWidth; i++){
             char ch = line[i];
             if(isdigit(ch)){ // if the char in the file is a number, the pixel should be 255
                 newMat->at<uchar>(Point(y,x)) = black_pixel; // set the pixel at 255 ==
@@ -55,7 +55,7 @@ void ShapeDetector::writeCircles(CvSeq * circles, std::string outputName){
         exit(-1);
     }
     output << "(X,Y)    \tRadius\n"; //write data info to the file
-    for (size_t i = 0; i < circles->total; i++) // walk through the circles
+    for (int i = 0; i < circles->total; i++) // walk through the circles
     {
         // round the floats to an int
         float* p = (float*)cvGetSeqElem(circles, i);
@@ -74,7 +74,7 @@ void ShapeDetector::showCircles(CvSeq * circles, std::string sourceName ){
         printf("File niet gevonden.....\nProgramma wordt afgesloten\n");
         exit(-1);
     }
-    for (size_t i = 0; i < circles->total; i++) //Walk through all the circles
+    for (int i = 0; i < circles->total; i++) //Walk through all the circles
     {
         // round the floats to an int
         float* p = (float*)cvGetSeqElem(circles, i);
@@ -113,7 +113,6 @@ CvSeq * ShapeDetector::detectCircles(std::string sourceName){
     cvSmooth(gray, gray, CV_GAUSSIAN, smooth, smooth); // This is done so as to prevent a lot of false circles from being detected
 
     IplImage* canny = cvCreateImage(cvGetSize(img),IPL_DEPTH_8U,1); // Create a image which will only contain the edges of the objects
-    IplImage* rgbcanny = cvCreateImage(cvGetSize(img),IPL_DEPTH_8U,3); // Create a image with color pixels where the circles will be drawn
     cvCanny(gray, canny, edgeTreshhold, edgeTreshhold); // Detect edges int he image
 
     CvSeq* circles = cvHoughCircles(gray, storage, CV_HOUGH_GRADIENT, resolutionInverseRatio, gray->height/minDistanceCircles, edgeTreshhold*3, circleCenterTreshhold); // Detect circles in the gray image
