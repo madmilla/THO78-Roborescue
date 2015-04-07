@@ -2,6 +2,7 @@
 #define _QUADCOPTER_H
 #include "ExtendedMAVLinkMessage.h"
 #include <iostream>
+#include <map>
 
 class MAVLinkExchanger;
 
@@ -61,6 +62,7 @@ public:
 	int getHeading() const;
 	bool isArmed() const;
 	FlightMode getMode() const;
+	std::map<int, int> receivedMessageMap;
 
 private:
 	MAVLinkExchanger& exchanger;

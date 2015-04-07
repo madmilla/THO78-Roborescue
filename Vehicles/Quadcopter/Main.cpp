@@ -15,6 +15,19 @@ int main()
 	exchangerLoopThread.detach();
 	while (1)
 	{
-
+		char c;
+		std::cin >> c;
+		if (c == 'p')
+		{
+			std::cout << "Messages: " << quadcopter.receivedMessageMap.size() << std::endl;
+			for (auto &pair : quadcopter.receivedMessageMap)
+			{
+				std::cout << "[" << std::to_string(pair.first) << "]: " << std::to_string(pair.second) << std::endl;
+			}
+		}
+		else if (c == 'a')
+		{
+			quadcopter.arm();
+		}
 	}
 }

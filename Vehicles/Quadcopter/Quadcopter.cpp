@@ -1,6 +1,6 @@
 #include "Quadcopter.h"
 #include "MAVLinkExchanger.h"
-
+#include <string>
 Quadcopter::Quadcopter(MAVLinkExchanger& exchanger) :
 exchanger(exchanger),
 flightMode{ FlightMode::UNKNOWN },
@@ -96,6 +96,9 @@ void Quadcopter::loop()
 
 void Quadcopter::handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage)
 {
+	//std::cout << "Message!\n";
+	receivedMessageMap[incomingMessage.msgid]++;
+
 	switch (incomingMessage.msgid)
 	{
 	case MAVLINK_MSG_ID_HEARTBEAT:
@@ -110,6 +113,17 @@ void Quadcopter::handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage)
 		roll = mavlink_msg_attitude_get_roll(&incomingMessage);
 		pitch = mavlink_msg_attitude_get_pitch(&incomingMessage);
 		yaw = mavlink_msg_attitude_get_yaw(&incomingMessage);
+		break;
+	case MAVLINK_MSG_ID_STATUSTEXT:
+		char text[50];
+		auto rtn = mavlink_msg_statustext_get_text(&incomingMessage, text);
+		//auto severity = mavlink_msg_statustext_get_severity(&incomingMessage);
+
+		//text[rtn] = '\0';
+		std::cout << "Statustext:"; 
+		//std::cout << text;
+		std::cout << (int)rtn;
+		//std::cout << std::endl;
 		break;
 	}
 }
