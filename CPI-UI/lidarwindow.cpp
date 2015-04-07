@@ -3,23 +3,26 @@
 
 #include <QMessageBox>
 
-lidarwindow::lidarwindow(lidar * lidar, QWidget *parent) :
+lidarwindow::lidarwindow(lidar * l, QWidget *parent) :
     QMainWindow(parent),
-    lidar(lidar),
-    ui(new Ui::lidarwindow)
+    ui(new Ui::lidarwindow()),
+    l(l)
 {
     ui->setupUi(this);
 
     connect(ui->startLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
     connect(ui->stopLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
-    connect(ui->setRpm,SIGNAL(editingFinished()),this,SLOT(setRpm(int));
+    connect(ui->setRpm,SIGNAL(editingFinished()),this,SLOT(setRpm(int)));
 
 
 }
 
-lidarwindow::~lidarwindow()
-{
+lidarwindow::~lidarwindow(){
     delete ui;
+}
+
+void lidarwindow::setRpm(int rpm){
+
 }
 
 void lidarwindow::handleButtonLidar(){
@@ -30,7 +33,7 @@ void lidarwindow::handleButtonLidar(){
 
     if(button == ui->startLidar){
         try{
-            lidar->startLidar();
+            l->startLidar();
             lidarMissionRunning(true);
         }
         catch(...){ //moet een exception gemaakt worden voor het afvangen van geen rpm
@@ -39,7 +42,7 @@ void lidarwindow::handleButtonLidar(){
     }
     else if(button == ui->stopLidar){
         if(!ui->stopLidar->isEnabled()) return;
-        lidar->stopLidar();
+        l->stopLidar();
         lidarMissionRunning(true);
     }
 }
