@@ -2,6 +2,7 @@
 
 PriorityMessage::PriorityMessage(mavlink_message_t & msg, char priority)
 {
+	mavlink_message_t::operator=(msg);
 }
 
 PriorityMessage::PriorityMessage()
@@ -16,11 +17,6 @@ PriorityMessage::~PriorityMessage()
 bool operator<(const PriorityMessage & lhs, const PriorityMessage & rhs)
 {
 	return lhs.getPriority() < rhs.getPriority();
-}
-
-mavlink_message_t * PriorityMessage::getMessage() const
-{
-	return message;
 }
 
 char PriorityMessage::getPriority() const

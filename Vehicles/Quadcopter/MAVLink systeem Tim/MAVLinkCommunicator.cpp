@@ -12,13 +12,13 @@ MAVLinkCommunicator::~MAVLinkCommunicator()
 
 void MAVLinkCommunicator::Loop()
 {
-	while ((!stop || sendQueue.size() > 0) && !abort)
+	while ((!stop || sendQueue.size()) && !abort)
 	{
 		if (sendQueue.size())
 		{
 			PriorityMessage message = Peek();
-			mavlink_message_t mavmsg = *message.getMessage();
-			Send(mavmsg);
+			Send(mavlink_message_t(message));
+			sendQueue.pop();
 			if (!message.getHandled())
 			{
 				mavlink_message_t msg{};
@@ -54,7 +54,7 @@ mavlink_message_t MAVLinkCommunicator::GetResponse(mavlink_message_t msg, char p
 	{
 		//wait untill the message is handled
 	}
-	return *message->getMessage();
+	return *message;
 }
 
 mavlink_message_t MAVLinkCommunicator::ReceiveMessage()
