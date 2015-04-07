@@ -25,24 +25,25 @@ public:
 
 	//! singleton class
 	commandStrategy() & getInstance();
+	
 	virtual ~commandStrategy();
-
-	std::vector<int> sendMapData(int x,int y);
+	
 	//! function that will send received map data from the map (entire map) to the strategy team as a
 	//! vector with x and y axes. (in the further degree’s might be added).
 	//! return value is the route (lots of x and y point in vectors where we will navigate on)
+	std::vector<int> sendMapData(vector<Line> & map);
 
-	std::vector<int >sendMapLine(int x,int y)
 	//! function that sends the lines received from the map to the strategy team
 	//! (Not sure if this function will be used but might be usefull in the further)
+	std::vector<int >sendMapLine(Line & l)
 
-	void recieveVisionData(auto visionData);
 	//! processed vision data the will be used in the next sprint.
 	//! parameters are auto for the moment. Do not know how to do this yet (next sprint)
+	void recieveVisionData(auto visionData);
 
 
-	void sendRosbeeData(auto gyroscopeData);
 	//! function not sure yet.
+	void sendRosbeeData(auto gyroscopeData);
 
 
 private:
