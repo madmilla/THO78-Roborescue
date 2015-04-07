@@ -1,13 +1,13 @@
 #ifndef ATVWINDOW_H
 #define ATVWINDOW_H
 
-#include <QWidget>
+#include <QMainWindow>
 
 namespace Ui {
 class ATVWindow;
 }
 
-class ATVWindow : public QWidget
+class ATVWindow : public QMainWindow
 {
     Q_OBJECT
 

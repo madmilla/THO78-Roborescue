@@ -2,7 +2,7 @@
 #include "ui_atvwindow.h"
 
 ATVWindow::ATVWindow(QWidget *parent) :
-    QWidget(parent),
+    QMainWindow(parent),
     ui(new Ui::ATVWindow)
 {
     ui->setupUi(this);
