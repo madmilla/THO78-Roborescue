@@ -6,7 +6,7 @@ SerialPortWindows::SerialPortWindows(const char* deviceName):
 	connected{ false },
 	errors{ 0 }
 {
-	serialHandle = CreateFile(deviceName, GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+    serialHandle = CreateFile((LPCWSTR)deviceName, GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (serialHandle == INVALID_HANDLE_VALUE)
 	{
 		if (GetLastError() == ERROR_FILE_NOT_FOUND)

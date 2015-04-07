@@ -1,4 +1,4 @@
-#include "Quadcopter.h"
+#include "quadcopter.h"
 #include "MAVLinkExchanger.h"
 
 Quadcopter::Quadcopter(MAVLinkExchanger& exchanger) :
