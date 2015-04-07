@@ -35,18 +35,20 @@ public:
     std::vector<int> getMapTotal();
 
     //! get the location of the device in x and y
-    //! int device tells which device it is
+    //! int deviceType tells which device it is
     //! 1=Quad 2=Atv 3=Rosbee
-    std::vector<int> getLocation(int x,int y,int device)
+	//! int deviceId tells which robot it is in case of multiple the same robot.
+    std::vector<int> getLocation(int deviceType,int deviceId)
 
     //! send an x and y axis for point 1 and point 2 to make the line.
     //! when all data has been recieved a true boolean value will be returned otherwise it will return a false
     bool setLine(int x,int y, int x1, int y1);
 
     //! send the location of the device in x and y
-    //! int device tells which device it is
+    //! int deviceType tells which device it is
     //! 1=Quad 2=Atv 3=Rosbee
-    bool setLocation(int x,int y, int device);
+	//! int deviceId tells which robot it is in case of multiple the same robot.
+    bool setLocation(int x,int y, int deviceType,int deviceId);
 
     //! return the map in a certain range
     void getMapInRange(int x,int y,int height,int width);
