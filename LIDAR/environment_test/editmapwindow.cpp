@@ -11,18 +11,10 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    showMap(map);
 }
 
 EditMapWindow::~EditMapWindow(){
     delete ui;
-}
-
-void EditMapWindow::showMap(Map *map){
-    for(int y = 0; y < mapLayout.size(); y++){
-        for(int x = 0; x < mapLayout[y].size(); x++){
-        }
-    }
 }
 
 void EditMapWindow::on_obstacleButton_clicked(){

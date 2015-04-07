@@ -16,7 +16,6 @@ class EditMapWindow : public QDialog
 
 public:
     explicit EditMapWindow(Map* map, QWidget *parent = 0);
-    void showMap(Map* map);
     ~EditMapWindow();
 
 private slots:
