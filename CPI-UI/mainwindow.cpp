@@ -51,7 +51,7 @@ void MainWindow::handleButton(){
    }else if(button == ui->ATVButton){
       newWindow = new ATVWindow(this);
    }else if(button == ui->LidarButton){
-      newWindow = new lidarwindow(this);
+      newWindow = new lidarwindow(lidar, this);
    }else if(button == ui->MapButton){
       //newWindow - new MapWindow(this);
    }else if(button == ui->RosbeeButton){

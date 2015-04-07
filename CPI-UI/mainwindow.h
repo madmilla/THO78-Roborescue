@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <vector>
 #include "rosbee.h"
+#include "lidar.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,7 @@ private:
     std::vector<QMainWindow *> subWindows;
 
     Rosbee * rosbee;
+    lidar * lidar;
 
     void checkZombies();
 };
