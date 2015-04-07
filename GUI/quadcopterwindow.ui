@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>QuadCopterWindow</class>
  <widget class="QMainWindow" name="QuadCopterWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -27,9 +30,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="statusBox">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -264,39 +264,13 @@
       <rect>
        <x>10</x>
        <y>170</y>
-       <width>471</width>
+       <width>571</width>
        <height>51</height>
       </rect>
      </property>
      <property name="title">
       <string>Position</string>
      </property>
-     <widget class="QLabel" name="xLabel">
-      <property name="geometry">
-       <rect>
-        <x>300</x>
-        <y>10</y>
-        <width>16</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>X</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="yLabel">
-      <property name="geometry">
-       <rect>
-        <x>400</x>
-        <y>10</y>
-        <width>16</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Y</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="pitchLabel">
       <property name="geometry">
        <rect>
@@ -313,7 +287,7 @@
      <widget class="QLabel" name="yawLabel">
       <property name="geometry">
        <rect>
-        <x>120</x>
+        <x>150</x>
         <y>10</y>
         <width>47</width>
         <height>20</height>
@@ -326,7 +300,7 @@
      <widget class="QLabel" name="rotationLabel">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>250</x>
         <y>10</y>
         <width>47</width>
         <height>20</height>
@@ -336,12 +310,85 @@
        <string>Rotation</string>
       </property>
      </widget>
+     <widget class="QLabel" name="altitudeLabel">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>10</y>
+        <width>47</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Altitude</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="pitchValue">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>30</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="yawValue">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>30</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="rotationValue">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>30</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="altitudeValue">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>30</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="headingLabel">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>10</y>
+        <width>47</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>heading</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="headingValue">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>30</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QGroupBox" name="controlsBox">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -512,9 +559,6 @@ Waypoint</string>
     </widget>
    </widget>
    <widget class="QPushButton" name="abortButton">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -531,9 +575,6 @@ Waypoint</string>
     </property>
    </widget>
    <widget class="QPushButton" name="takeOff_LandButton">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -563,9 +604,6 @@ Waypoint</string>
     </property>
    </widget>
    <widget class="QPushButton" name="shutdownButton">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>520</x>
