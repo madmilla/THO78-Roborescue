@@ -2,14 +2,13 @@
 #define QUADCOPTERWINDOW_H
 
 #include <QMainWindow>
-#include "Quadcopter.h"
-#include "Listener.h"
+#include "quadcopter.h"
 
 namespace Ui {
 class QuadCopterWindow;
 }
 
-class QuadCopterWindow : public QMainWindow, public Listener
+class QuadCopterWindow : public QMainWindow
 {
     Q_OBJECT
 
@@ -43,9 +42,7 @@ private slots:
 
 private:
     Ui::QuadCopterWindow *ui;
-    Quadcopter& quadcopter;
-	
-	void notifyListener(Subject&) override;
+    Quadcopter *qc;
 };
 
 #endif // QUADCOPTERWINDOW_H
