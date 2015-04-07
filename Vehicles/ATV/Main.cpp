@@ -8,6 +8,7 @@
 #include <conio.h>
 
 int forward = 0, steer = 0;
+bool reset = false;
 
 void checkforexit()
 {
@@ -22,7 +23,7 @@ void checkforexit()
 			std::cout << "steer :" << steer << '\n';
 			break;
 		case 'a':
-			steer++;
+			steer -= 10;
 			std::cout << "forward :" << forward << '\n';
 			std::cout << "steer :" << steer << '\n';
 			break;
@@ -32,12 +33,15 @@ void checkforexit()
 			std::cout << "steer :" << steer << '\n';
 			break;
 		case 'd':
-			steer--;
+			steer += 10;
 			std::cout << "forward :" << forward << '\n';
 			std::cout << "steer :" << steer << '\n';
 			break;
 		case 'e':
 			exit(0);
+			break;
+		case 'r':
+			reset = true;
 			break;
 		}
 		/*std::cin >> chars;
@@ -68,7 +72,7 @@ void checkforexit()
 
 int main()
 {
-	SerialPort port{ "COM4" };
+	SerialPort port{ "COM5" };
 	TempMAVSender mavlinkSender{ port };
 	ATV atv{ mavlinkSender };
 	//atv.emergencyStop();
@@ -76,7 +80,12 @@ int main()
 
 	while (1)
 	{
-		atv.turnLeft(steer);
+		atv.turnRight(steer);
 		atv.moveForward(forward);
+		if (reset)
+		{
+			atv.returnControlToRc();
+			atv.emergencyStop();
+		}
 	}
 }

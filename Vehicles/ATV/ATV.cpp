@@ -30,6 +30,7 @@ void ATV::moveBackward()
 
 void ATV::turnLeft(int value)
 {//1467
+	//turnRight(-value);
 	mavlink_message_t msg;
 	int sendValue = 1467 - value;
 	mavlink_msg_rc_channels_override_pack(
@@ -40,6 +41,7 @@ void ATV::turnLeft(int value)
 
 void ATV::turnRight(int value)
 {
+	turnLeft(-value);
 	mavlink_message_t msg;
 	int sendValue = 1467 + value;
 	mavlink_msg_rc_channels_override_pack(
