@@ -8,6 +8,8 @@ QuadCopterWindow::QuadCopterWindow(QWidget *parent) :
 {
     qc = new Quadcopter();
     ui->setupUi(this);
+    //ui->statusBox->setEnabled(false);
+
 }
 
 QuadCopterWindow::~QuadCopterWindow()
@@ -29,7 +31,8 @@ void QuadCopterWindow::on_sendMaxAltitudeButton_clicked()
 
 void QuadCopterWindow::on_armButton_clicked()
 {
-
+    qc->arm();
+    ui->statusBox->setEnabled(true);
 }
 
 void QuadCopterWindow::on_takeOff_LandButton_clicked()
