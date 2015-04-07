@@ -2,11 +2,13 @@
 #include <iostream>
 #define RESTART_WAIT_TIME 2000
 
+wchar_t *convertCharArrayToLPCWSTR(const char* charArray);
+
 SerialPortWindows::SerialPortWindows(const char* deviceName):
 	connected{ false },
 	errors{ 0 }
 {
-    serialHandle = CreateFile((LPCWSTR)deviceName, GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+    serialHandle = CreateFile(convertCharArrayToLPCWSTR(deviceName), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (serialHandle == INVALID_HANDLE_VALUE)
 	{
 		if (GetLastError() == ERROR_FILE_NOT_FOUND)
@@ -83,4 +85,11 @@ bool SerialPortWindows::writeData(unsigned char* data, int nrOfBytes)
 		return -1;
 	}
 	return sizeof(data)/sizeof(char);
+}
+
+wchar_t *convertCharArrayToLPCWSTR(const char* charArray)
+{
+    wchar_t* wString=new wchar_t[4096];
+    MultiByteToWideChar(CP_ACP, 0, charArray, -1, wString, 4096);
+    return wString;
 }

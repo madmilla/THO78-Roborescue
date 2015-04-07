@@ -2,11 +2,13 @@
 #include "ui_quadcopterwindow.h"
 #include "quadcopter.h"
 
+
 QuadCopterWindow::QuadCopterWindow(Quadcopter& quadcopter, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QuadCopterWindow),
 	quadcopter{ quadcopter }
 {
+    quadcopter.registerListener(this);
     ui->setupUi(this);
     //ui->statusBox->setEnabled(false);
 
