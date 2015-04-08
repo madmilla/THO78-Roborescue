@@ -10,19 +10,19 @@ armed{ false }
 
 void Quadcopter::liftOff(int altitude)
 {
-	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_NAV_TAKEOFF, 0, 0, 0, 0, 0, 0, 0, altitude);
+	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, 1, 1, MAV_CMD_NAV_TAKEOFF, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, altitude);
 	communicator.sendMessage(message);
 }
 
 void Quadcopter::arm()
 {
-	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_COMPONENT_ARM_DISARM, 0, 1, 0, 0, 0, 0, 0, 0);
+	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, 1, 1, MAV_CMD_COMPONENT_ARM_DISARM, UINT16_MIN, 1, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN);
 	communicator.sendMessage(message);
 }
 
 void Quadcopter::disarm()
 {
-	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_COMPONENT_ARM_DISARM, 0, 0, 0, 0, 0, 0, 0, 0);
+	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, 1, 1, MAV_CMD_COMPONENT_ARM_DISARM, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN);
 	communicator.sendMessage(message);
 }
 
@@ -30,10 +30,10 @@ void Quadcopter::moveLeft(signed int value)
 {
 	moveRight(-value);
 }
-
+SYSTEMID, COMPONENTID
 void Quadcopter::moveRight(signed int value)
 {
-	mavlink_msg_rc_channels_override_pack(255, 1, &message, 1 , 1, MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
+	mavlink_msg_rc_channels_override_pack(SYSTEMID, COMPONENTID, &message, 1 , 1, MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
 	communicator.sendMessage(message);
 }
 
@@ -51,7 +51,7 @@ void Quadcopter::stop()
 
 void Quadcopter::land()
 {
-	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_NAV_LAND, 0, 0, 0, 0, 0, 0, 0, 0);
+	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, 1, 1, MAV_CMD_NAV_LAND, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN);
 	communicator.sendMessage(message);
 }
 
@@ -61,25 +61,25 @@ void Quadcopter::changeFlightSpeed(int)
 
 void Quadcopter::changeHeading(int value)
 {
-	mavlink_msg_rc_channels_override_pack(255,1,&message,1,1,UINT16_MAX, UINT16_MAX, UINT16_MAX,MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
+	mavlink_msg_rc_channels_override_pack(SYSTEMID, COMPONENTID,&message,1,1,UINT16_MAX, UINT16_MAX, UINT16_MAX,MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
 	communicator.sendMessage(message);
 }
 
 void Quadcopter::changeAltitude(int altitude)
 {
-	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_NAV_CONTINUE_AND_CHANGE_ALT, 0, 0, 0, 0, 0, 0, 0, altitude);
+	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, 1, 1, MAV_CMD_NAV_CONTINUE_AND_CHANGE_ALT, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, altitude);
 	communicator.sendMessage(message);
 }
 
 void Quadcopter::shutdown()
 {
-	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN, 0, 1, 1, 0, 0, 0, 0, 0);
+	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, 1, 1, MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN, UINT16_MIN, 1, 1, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN);
 	communicator.sendMessage(message);
 }
 
 void Quadcopter::changeMode(FlightMode mode)
 {
-	mavlink_msg_set_mode_pack(255, 0, &message, 1, 1, static_cast<uint32_t>(mode));
+	mavlink_msg_set_mode_pack(SYSTEMID, COMPONENTID, &message, 1, 1, static_cast<uint32_t>(mode));
 	communicator.sendMessage(message);
 }
 
