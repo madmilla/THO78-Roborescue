@@ -1,3 +1,14 @@
+/*!
+* \class Quadcopter
+*
+* \brief 
+* 
+*
+* \author Kjeld Perquin
+* \co-author Feiko Wielsma
+* \date April 2015
+*/
+
 #ifndef _QUADCOPTER_H
 #define _QUADCOPTER_H
 #include "ExtendedMAVLinkMessage.h"
@@ -26,8 +37,20 @@ public:
 	};
 
 	explicit Quadcopter(MAVLinkExchanger& exchanger);
+	/**
+	* liftOff allows the quadcopter to take off. 
+	*
+	*/
 	void liftOff(int);
+	/**
+	* arm allows the quadcopter to be armed.
+	*
+	*/
 	void arm();
+	/**
+	* disarm allows the quadcopter to be disarmed.
+	*
+	*/
 	void disarm();
 
 	/**
@@ -43,16 +66,60 @@ public:
 	* @warning If you put this value beyond the reccomended values (-200 and 200), the quadcopter will bank dangerously far, and will be unable to maintain altitude. This will most likely result in the quadcopter diving into the ground.
 	*/
 	void moveRight(signed int value);
+	/**
+	* moveForward
+	*
+	*/
 	void moveForward();
+	/**
+	* moveBackward
+	*
+	*/
 	void moveBackward();
+	/**
+	* stop
+	*
+	*/
 	void stop();
+	/**
+	* land
+	*
+	*/
 	void land();
+	/**
+	* changeFlightSpeed
+	*
+	*/
 	void changeFlightSpeed(int);
+	/**
+	* changeHeading
+	*
+	*/
 	void changeHeading(int);
+	/**
+	* changeAltitude
+	*
+	*/
 	void changeAltitude(int);
+	/**
+	* shutdown
+	*
+	*/
 	void shutdown();
+	/**
+	* changeMode
+	*
+	*/
 	void changeMode(FlightMode);
+	/**
+	* operator<<
+	*
+	*/
 	friend std::ostream& operator<<(std::ostream& stream, const FlightMode& mode);
+	/**
+	* loop
+	*
+	*/
 	void loop();
 
 	float getYaw() const;
