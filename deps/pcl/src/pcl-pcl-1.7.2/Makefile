@@ -50,16 +50,6 @@ CMAKE_BINARY_DIR = .
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-.PHONY : install/strip/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
@@ -94,7 +84,7 @@ install/fast: preinstall/fast
 
 # Special rule for the target list_install_components
 list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"pcl_common\" \"pclconfig\""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"pcl_common\" \"pcl_geometry\" \"pcl_io\" \"pcl_kdtree\" \"pcl_octree\" \"pcl_search\" \"pcl_surface\" \"pcl_visualization\" \"pclconfig\""
 .PHONY : list_install_components
 
 # Special rule for the target list_install_components
@@ -123,9 +113,9 @@ install/local/fast: install/local
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start ../../deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles ../../deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start ../../deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -178,13 +168,269 @@ pcl_common/fast:
 	$(MAKE) -f common/CMakeFiles/pcl_common.dir/build.make common/CMakeFiles/pcl_common.dir/build
 .PHONY : pcl_common/fast
 
+# Manual pre-install relink rule for target.
+pcl_common/preinstall:
+	$(MAKE) -f common/CMakeFiles/pcl_common.dir/build.make common/CMakeFiles/pcl_common.dir/preinstall
+.PHONY : pcl_common/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_octree
+
+# Build rule for target.
+pcl_octree: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_octree
+.PHONY : pcl_octree
+
+# fast build rule for target.
+pcl_octree/fast:
+	$(MAKE) -f octree/CMakeFiles/pcl_octree.dir/build.make octree/CMakeFiles/pcl_octree.dir/build
+.PHONY : pcl_octree/fast
+
+# Manual pre-install relink rule for target.
+pcl_octree/preinstall:
+	$(MAKE) -f octree/CMakeFiles/pcl_octree.dir/build.make octree/CMakeFiles/pcl_octree.dir/preinstall
+.PHONY : pcl_octree/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_io
+
+# Build rule for target.
+pcl_io: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_io
+.PHONY : pcl_io
+
+# fast build rule for target.
+pcl_io/fast:
+	$(MAKE) -f io/CMakeFiles/pcl_io.dir/build.make io/CMakeFiles/pcl_io.dir/build
+.PHONY : pcl_io/fast
+
+# Manual pre-install relink rule for target.
+pcl_io/preinstall:
+	$(MAKE) -f io/CMakeFiles/pcl_io.dir/build.make io/CMakeFiles/pcl_io.dir/preinstall
+.PHONY : pcl_io/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_io_ply
+
+# Build rule for target.
+pcl_io_ply: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_io_ply
+.PHONY : pcl_io_ply
+
+# fast build rule for target.
+pcl_io_ply/fast:
+	$(MAKE) -f io/CMakeFiles/pcl_io_ply.dir/build.make io/CMakeFiles/pcl_io_ply.dir/build
+.PHONY : pcl_io_ply/fast
+
+# Manual pre-install relink rule for target.
+pcl_io_ply/preinstall:
+	$(MAKE) -f io/CMakeFiles/pcl_io_ply.dir/build.make io/CMakeFiles/pcl_io_ply.dir/preinstall
+.PHONY : pcl_io_ply/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_convert_pcd_ascii_binary
+
+# Build rule for target.
+pcl_convert_pcd_ascii_binary: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_convert_pcd_ascii_binary
+.PHONY : pcl_convert_pcd_ascii_binary
+
+# fast build rule for target.
+pcl_convert_pcd_ascii_binary/fast:
+	$(MAKE) -f io/tools/CMakeFiles/pcl_convert_pcd_ascii_binary.dir/build.make io/tools/CMakeFiles/pcl_convert_pcd_ascii_binary.dir/build
+.PHONY : pcl_convert_pcd_ascii_binary/fast
+
+# Manual pre-install relink rule for target.
+pcl_convert_pcd_ascii_binary/preinstall:
+	$(MAKE) -f io/tools/CMakeFiles/pcl_convert_pcd_ascii_binary.dir/build.make io/tools/CMakeFiles/pcl_convert_pcd_ascii_binary.dir/preinstall
+.PHONY : pcl_convert_pcd_ascii_binary/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_hdl_grabber
+
+# Build rule for target.
+pcl_hdl_grabber: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_hdl_grabber
+.PHONY : pcl_hdl_grabber
+
+# fast build rule for target.
+pcl_hdl_grabber/fast:
+	$(MAKE) -f io/tools/CMakeFiles/pcl_hdl_grabber.dir/build.make io/tools/CMakeFiles/pcl_hdl_grabber.dir/build
+.PHONY : pcl_hdl_grabber/fast
+
+# Manual pre-install relink rule for target.
+pcl_hdl_grabber/preinstall:
+	$(MAKE) -f io/tools/CMakeFiles/pcl_hdl_grabber.dir/build.make io/tools/CMakeFiles/pcl_hdl_grabber.dir/preinstall
+.PHONY : pcl_hdl_grabber/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_pcd_convert_NaN_nan
+
+# Build rule for target.
+pcl_pcd_convert_NaN_nan: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_pcd_convert_NaN_nan
+.PHONY : pcl_pcd_convert_NaN_nan
+
+# fast build rule for target.
+pcl_pcd_convert_NaN_nan/fast:
+	$(MAKE) -f io/tools/CMakeFiles/pcl_pcd_convert_NaN_nan.dir/build.make io/tools/CMakeFiles/pcl_pcd_convert_NaN_nan.dir/build
+.PHONY : pcl_pcd_convert_NaN_nan/fast
+
+# Manual pre-install relink rule for target.
+pcl_pcd_convert_NaN_nan/preinstall:
+	$(MAKE) -f io/tools/CMakeFiles/pcl_pcd_convert_NaN_nan.dir/build.make io/tools/CMakeFiles/pcl_pcd_convert_NaN_nan.dir/preinstall
+.PHONY : pcl_pcd_convert_NaN_nan/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_ply2obj
+
+# Build rule for target.
+pcl_ply2obj: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_ply2obj
+.PHONY : pcl_ply2obj
+
+# fast build rule for target.
+pcl_ply2obj/fast:
+	$(MAKE) -f io/tools/ply/CMakeFiles/pcl_ply2obj.dir/build.make io/tools/ply/CMakeFiles/pcl_ply2obj.dir/build
+.PHONY : pcl_ply2obj/fast
+
+# Manual pre-install relink rule for target.
+pcl_ply2obj/preinstall:
+	$(MAKE) -f io/tools/ply/CMakeFiles/pcl_ply2obj.dir/build.make io/tools/ply/CMakeFiles/pcl_ply2obj.dir/preinstall
+.PHONY : pcl_ply2obj/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_ply2ply
+
+# Build rule for target.
+pcl_ply2ply: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_ply2ply
+.PHONY : pcl_ply2ply
+
+# fast build rule for target.
+pcl_ply2ply/fast:
+	$(MAKE) -f io/tools/ply/CMakeFiles/pcl_ply2ply.dir/build.make io/tools/ply/CMakeFiles/pcl_ply2ply.dir/build
+.PHONY : pcl_ply2ply/fast
+
+# Manual pre-install relink rule for target.
+pcl_ply2ply/preinstall:
+	$(MAKE) -f io/tools/ply/CMakeFiles/pcl_ply2ply.dir/build.make io/tools/ply/CMakeFiles/pcl_ply2ply.dir/preinstall
+.PHONY : pcl_ply2ply/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_ply2raw
+
+# Build rule for target.
+pcl_ply2raw: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_ply2raw
+.PHONY : pcl_ply2raw
+
+# fast build rule for target.
+pcl_ply2raw/fast:
+	$(MAKE) -f io/tools/ply/CMakeFiles/pcl_ply2raw.dir/build.make io/tools/ply/CMakeFiles/pcl_ply2raw.dir/build
+.PHONY : pcl_ply2raw/fast
+
+# Manual pre-install relink rule for target.
+pcl_ply2raw/preinstall:
+	$(MAKE) -f io/tools/ply/CMakeFiles/pcl_ply2raw.dir/build.make io/tools/ply/CMakeFiles/pcl_ply2raw.dir/preinstall
+.PHONY : pcl_ply2raw/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_plyheader
+
+# Build rule for target.
+pcl_plyheader: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_plyheader
+.PHONY : pcl_plyheader
+
+# fast build rule for target.
+pcl_plyheader/fast:
+	$(MAKE) -f io/tools/ply/CMakeFiles/pcl_plyheader.dir/build.make io/tools/ply/CMakeFiles/pcl_plyheader.dir/build
+.PHONY : pcl_plyheader/fast
+
+# Manual pre-install relink rule for target.
+pcl_plyheader/preinstall:
+	$(MAKE) -f io/tools/ply/CMakeFiles/pcl_plyheader.dir/build.make io/tools/ply/CMakeFiles/pcl_plyheader.dir/preinstall
+.PHONY : pcl_plyheader/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_kdtree
+
+# Build rule for target.
+pcl_kdtree: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_kdtree
+.PHONY : pcl_kdtree
+
+# fast build rule for target.
+pcl_kdtree/fast:
+	$(MAKE) -f kdtree/CMakeFiles/pcl_kdtree.dir/build.make kdtree/CMakeFiles/pcl_kdtree.dir/build
+.PHONY : pcl_kdtree/fast
+
+# Manual pre-install relink rule for target.
+pcl_kdtree/preinstall:
+	$(MAKE) -f kdtree/CMakeFiles/pcl_kdtree.dir/build.make kdtree/CMakeFiles/pcl_kdtree.dir/preinstall
+.PHONY : pcl_kdtree/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_search
+
+# Build rule for target.
+pcl_search: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_search
+.PHONY : pcl_search
+
+# fast build rule for target.
+pcl_search/fast:
+	$(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/build
+.PHONY : pcl_search/fast
+
+# Manual pre-install relink rule for target.
+pcl_search/preinstall:
+	$(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/preinstall
+.PHONY : pcl_search/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_visualization
+
+# Build rule for target.
+pcl_visualization: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_visualization
+.PHONY : pcl_visualization
+
+# fast build rule for target.
+pcl_visualization/fast:
+	$(MAKE) -f visualization/CMakeFiles/pcl_visualization.dir/build.make visualization/CMakeFiles/pcl_visualization.dir/build
+.PHONY : pcl_visualization/fast
+
+# Manual pre-install relink rule for target.
+pcl_visualization/preinstall:
+	$(MAKE) -f visualization/CMakeFiles/pcl_visualization.dir/build.make visualization/CMakeFiles/pcl_visualization.dir/preinstall
+.PHONY : pcl_visualization/preinstall
+
+#=============================================================================
+# Target rules for targets named pcl_surface
+
+# Build rule for target.
+pcl_surface: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl_surface
+.PHONY : pcl_surface
+
+# fast build rule for target.
+pcl_surface/fast:
+	$(MAKE) -f surface/CMakeFiles/pcl_surface.dir/build.make surface/CMakeFiles/pcl_surface.dir/build
+.PHONY : pcl_surface/fast
+
+# Manual pre-install relink rule for target.
+pcl_surface/preinstall:
+	$(MAKE) -f surface/CMakeFiles/pcl_surface.dir/build.make surface/CMakeFiles/pcl_surface.dir/preinstall
+.PHONY : pcl_surface/preinstall
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... uninstall"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
@@ -193,6 +439,20 @@ help:
 	@echo "... test"
 	@echo "... install/local"
 	@echo "... pcl_common"
+	@echo "... pcl_octree"
+	@echo "... pcl_io"
+	@echo "... pcl_io_ply"
+	@echo "... pcl_convert_pcd_ascii_binary"
+	@echo "... pcl_pcd_convert_NaN_nan"
+	@echo "... pcl_hdl_grabber"
+	@echo "... pcl_ply2raw"
+	@echo "... pcl_ply2ply"
+	@echo "... pcl_ply2obj"
+	@echo "... pcl_plyheader"
+	@echo "... pcl_kdtree"
+	@echo "... pcl_search"
+	@echo "... pcl_visualization"
+	@echo "... pcl_surface"
 .PHONY : help
 
 

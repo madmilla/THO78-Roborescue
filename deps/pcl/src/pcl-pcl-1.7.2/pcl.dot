@@ -1,13 +1,13 @@
 digraph pcl {
   "common" [style="filled" fillcolor="#008000" shape="box"];
-   "octree" [style="filled" fillcolor="#D40000" shape="box"];
+   "octree" [style="filled" fillcolor="#008000" shape="box"];
    "octree" -> "common";
-  "io" [style="filled" fillcolor="#D40000" shape="box"];
+  "io" [style="filled" fillcolor="#008000" shape="box"];
    "io" -> "common";
   "io" -> "octree";
-  "kdtree" [style="filled" fillcolor="#D40000" shape="box"];
+  "kdtree" [style="filled" fillcolor="#008000" shape="box"];
    "kdtree" -> "common";
-  "search" [style="filled" fillcolor="#D40000" shape="box"];
+  "search" [style="filled" fillcolor="#008000" shape="box"];
    "search" -> "common";
   "search" -> "kdtree";
   "search" -> "octree";
@@ -44,7 +44,7 @@ digraph pcl {
   "recognition" -> "filters";
   "recognition" -> "registration";
   "recognition" -> "sample_consensus";
-  "geometry" [style="filled" fillcolor="#D40000" shape="box"];
+  "geometry" [style="filled" fillcolor="#008000" shape="box"];
    "geometry" -> "common";
   "segmentation" [style="filled" fillcolor="#D40000" shape="box"];
    "segmentation" -> "common";
@@ -61,7 +61,7 @@ digraph pcl {
   "visualization" -> "kdtree";
   "visualization" -> "geometry";
   "visualization" -> "search";
-  "surface" [style="filled" fillcolor="#D40000" shape="box"];
+  "surface" [style="filled" fillcolor="#008000" shape="box"];
    "surface" -> "common";
   "surface" -> "search";
   "surface" -> "kdtree";

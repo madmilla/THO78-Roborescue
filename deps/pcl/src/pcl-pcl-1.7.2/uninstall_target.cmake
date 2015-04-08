@@ -1,8 +1,8 @@
-if(NOT EXISTS "/home/owen/pcl/src/pcl-pcl-1.7.2/install_manifest.txt")
-    message(FATAL_ERROR "Cannot find install manifest: \"/home/owen/pcl/src/pcl-pcl-1.7.2/install_manifest.txt\"")
-endif(NOT EXISTS "/home/owen/pcl/src/pcl-pcl-1.7.2/install_manifest.txt")
+if(NOT EXISTS "/home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/install_manifest.txt")
+    message(FATAL_ERROR "Cannot find install manifest: \"/home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/install_manifest.txt\"")
+endif(NOT EXISTS "/home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/install_manifest.txt")
 
-file(READ "/home/owen/pcl/src/pcl-pcl-1.7.2/install_manifest.txt" files)
+file(READ "/home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 foreach(file ${files})
     message(STATUS "Uninstalling \"$ENV{DESTDIR}${file}\"")

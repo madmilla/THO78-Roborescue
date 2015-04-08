@@ -5,7 +5,13 @@
 # upper cased xxx from : 
 # 
 # - common
+# - octree
+# - io
+# - kdtree
+# - search
+# - geometry
 # - visualization
+# - surface
 #
 # PCL_INCLUDE_DIRS is filled with PCL and available 3rdparty headers
 # PCL_LIBRARY_DIRS is filled with PCL components libraries install directory and
@@ -559,7 +565,7 @@ elseif(EXISTS "${PCL_DIR}/include/pcl/pcl_config.h")
   # pcl_message("PCL found into a build tree.")
   set(PCL_INCLUDE_DIRS "${PCL_DIR}/include") # for pcl_config.h
   set(PCL_LIBRARY_DIRS "${PCL_DIR}/lib")
-  set(PCL_SOURCES_TREE "/home/owen/pcl/src/pcl-pcl-1.7.2")
+  set(PCL_SOURCES_TREE "/home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2")
 else(EXISTS "${PCL_ROOT}/include/pcl-${PCL_VERSION_MAJOR}.${PCL_VERSION_MINOR}/pcl/pcl_config.h")
   pcl_report_not_found("PCL can not be found on this machine")  
 endif(EXISTS "${PCL_ROOT}/include/pcl-${PCL_VERSION_MAJOR}.${PCL_VERSION_MINOR}/pcl/pcl_config.h")
@@ -568,19 +574,29 @@ endif(EXISTS "${PCL_ROOT}/include/pcl-${PCL_VERSION_MAJOR}.${PCL_VERSION_MINOR}/
 set(PCL_DEBUG_SUFFIX "")
 set(PCL_RELEASE_SUFFIX "")
 
-set(pcl_all_components  common visualization )
+set(pcl_all_components  common octree io kdtree search geometry visualization surface )
 list(LENGTH pcl_all_components PCL_NB_COMPONENTS)
 
 #list each component dependencies IN PCL
+set(pcl_octree_int_dep common )
+set(pcl_io_int_dep common octree )
+set(pcl_kdtree_int_dep common )
+set(pcl_search_int_dep common kdtree octree )
+set(pcl_geometry_int_dep common )
 set(pcl_visualization_int_dep common io kdtree geometry search )
+set(pcl_surface_int_dep common search kdtree octree )
 
 
 #list each component external dependencies (ext means mandatory and opt means optional)
 set(pcl_common_ext_dep eigen boost )
+set(pcl_kdtree_ext_dep flann )
+set(pcl_search_ext_dep flann )
 set(pcl_visualization_ext_dep vtk )
 
 
+set(pcl_io_opt_dep openni openni2 pcap png vtk libusb-1.0 )
 set(pcl_visualization_opt_dep openni openni2 )
+set(pcl_surface_opt_dep qhull )
 
 
 set(pcl_header_only_components geometry modeler in_hand_scanner point_cloud_editor cloud_composer optronic_viewer)

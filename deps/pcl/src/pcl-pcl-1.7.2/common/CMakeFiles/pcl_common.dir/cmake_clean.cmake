@@ -20,6 +20,10 @@ file(REMOVE_RECURSE
   "../lib/libpcl_common.so"
   "../lib/libpcl_common.so.1.7.2"
   "../lib/libpcl_common.so.1.7"
+  "../lib/libpcl_common.pdb"
+  "CMakeFiles/CMakeRelink.dir/libpcl_common.so"
+  "CMakeFiles/CMakeRelink.dir/libpcl_common.so.1.7.2"
+  "CMakeFiles/CMakeRelink.dir/libpcl_common.so.1.7"
 )
 
 # Per-language clean rules from dependency scanning.

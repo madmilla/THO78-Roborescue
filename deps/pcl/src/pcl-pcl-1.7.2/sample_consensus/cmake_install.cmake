@@ -1,4 +1,4 @@
-# Install script for directory: /home/owen/pcl/src/pcl-pcl-1.7.2/sample_consensus
+# Install script for directory: /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/sample_consensus
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

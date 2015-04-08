@@ -42,23 +42,13 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/owen/pcl/src/pcl-pcl-1.7.2
+CMAKE_SOURCE_DIR = /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/owen/pcl/src/pcl-pcl-1.7.2
+CMAKE_BINARY_DIR = /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-.PHONY : install/strip/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -94,7 +84,7 @@ install/fast: preinstall/fast
 
 # Special rule for the target list_install_components
 list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"pcl_common\" \"pclconfig\""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"pcl_common\" \"pcl_geometry\" \"pcl_io\" \"pcl_kdtree\" \"pcl_octree\" \"pcl_search\" \"pcl_surface\" \"pcl_visualization\" \"pclconfig\""
 .PHONY : list_install_components
 
 # Special rule for the target list_install_components
@@ -123,14 +113,14 @@ install/local/fast: install/local
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/owen/pcl/src/pcl-pcl-1.7.2 && $(CMAKE_COMMAND) -E cmake_progress_start /home/owen/pcl/src/pcl-pcl-1.7.2/CMakeFiles /home/owen/pcl/src/pcl-pcl-1.7.2/search/CMakeFiles/progress.marks
-	cd /home/owen/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 search/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/owen/pcl/src/pcl-pcl-1.7.2/CMakeFiles 0
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(CMAKE_COMMAND) -E cmake_progress_start /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/search/CMakeFiles/progress.marks
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 search/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/owen/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 search/clean
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 search/clean
 .PHONY : clean
 
 # The main clean target
@@ -139,18 +129,157 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/owen/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 search/preinstall
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 search/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/owen/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 search/preinstall
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 search/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/owen/pcl/src/pcl-pcl-1.7.2 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+search/CMakeFiles/pcl_search.dir/rule:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 search/CMakeFiles/pcl_search.dir/rule
+.PHONY : search/CMakeFiles/pcl_search.dir/rule
+
+# Convenience name for target.
+pcl_search: search/CMakeFiles/pcl_search.dir/rule
+.PHONY : pcl_search
+
+# fast build rule for target.
+pcl_search/fast:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/build
+.PHONY : pcl_search/fast
+
+# Manual pre-install relink rule for target.
+pcl_search/preinstall:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 search/CMakeFiles/pcl_search.dir/preinstall
+.PHONY : pcl_search/preinstall
+
+src/brute_force.o: src/brute_force.cpp.o
+.PHONY : src/brute_force.o
+
+# target to build an object file
+src/brute_force.cpp.o:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/brute_force.cpp.o
+.PHONY : src/brute_force.cpp.o
+
+src/brute_force.i: src/brute_force.cpp.i
+.PHONY : src/brute_force.i
+
+# target to preprocess a source file
+src/brute_force.cpp.i:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/brute_force.cpp.i
+.PHONY : src/brute_force.cpp.i
+
+src/brute_force.s: src/brute_force.cpp.s
+.PHONY : src/brute_force.s
+
+# target to generate assembly for a file
+src/brute_force.cpp.s:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/brute_force.cpp.s
+.PHONY : src/brute_force.cpp.s
+
+src/kdtree.o: src/kdtree.cpp.o
+.PHONY : src/kdtree.o
+
+# target to build an object file
+src/kdtree.cpp.o:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/kdtree.cpp.o
+.PHONY : src/kdtree.cpp.o
+
+src/kdtree.i: src/kdtree.cpp.i
+.PHONY : src/kdtree.i
+
+# target to preprocess a source file
+src/kdtree.cpp.i:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/kdtree.cpp.i
+.PHONY : src/kdtree.cpp.i
+
+src/kdtree.s: src/kdtree.cpp.s
+.PHONY : src/kdtree.s
+
+# target to generate assembly for a file
+src/kdtree.cpp.s:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/kdtree.cpp.s
+.PHONY : src/kdtree.cpp.s
+
+src/octree.o: src/octree.cpp.o
+.PHONY : src/octree.o
+
+# target to build an object file
+src/octree.cpp.o:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/octree.cpp.o
+.PHONY : src/octree.cpp.o
+
+src/octree.i: src/octree.cpp.i
+.PHONY : src/octree.i
+
+# target to preprocess a source file
+src/octree.cpp.i:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/octree.cpp.i
+.PHONY : src/octree.cpp.i
+
+src/octree.s: src/octree.cpp.s
+.PHONY : src/octree.s
+
+# target to generate assembly for a file
+src/octree.cpp.s:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/octree.cpp.s
+.PHONY : src/octree.cpp.s
+
+src/organized.o: src/organized.cpp.o
+.PHONY : src/organized.o
+
+# target to build an object file
+src/organized.cpp.o:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/organized.cpp.o
+.PHONY : src/organized.cpp.o
+
+src/organized.i: src/organized.cpp.i
+.PHONY : src/organized.i
+
+# target to preprocess a source file
+src/organized.cpp.i:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/organized.cpp.i
+.PHONY : src/organized.cpp.i
+
+src/organized.s: src/organized.cpp.s
+.PHONY : src/organized.s
+
+# target to generate assembly for a file
+src/organized.cpp.s:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/organized.cpp.s
+.PHONY : src/organized.cpp.s
+
+src/search.o: src/search.cpp.o
+.PHONY : src/search.o
+
+# target to build an object file
+src/search.cpp.o:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/search.cpp.o
+.PHONY : src/search.cpp.o
+
+src/search.i: src/search.cpp.i
+.PHONY : src/search.i
+
+# target to preprocess a source file
+src/search.cpp.i:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/search.cpp.i
+.PHONY : src/search.cpp.i
+
+src/search.s: src/search.cpp.s
+.PHONY : src/search.s
+
+# target to generate assembly for a file
+src/search.cpp.s:
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f search/CMakeFiles/pcl_search.dir/build.make search/CMakeFiles/pcl_search.dir/src/search.cpp.s
+.PHONY : src/search.cpp.s
 
 # Help Target
 help:
@@ -158,13 +287,28 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... install"
 	@echo "... list_install_components"
+	@echo "... pcl_search"
 	@echo "... test"
 	@echo "... install/local"
+	@echo "... src/brute_force.o"
+	@echo "... src/brute_force.i"
+	@echo "... src/brute_force.s"
+	@echo "... src/kdtree.o"
+	@echo "... src/kdtree.i"
+	@echo "... src/kdtree.s"
+	@echo "... src/octree.o"
+	@echo "... src/octree.i"
+	@echo "... src/octree.s"
+	@echo "... src/organized.o"
+	@echo "... src/organized.i"
+	@echo "... src/organized.s"
+	@echo "... src/search.o"
+	@echo "... src/search.i"
+	@echo "... src/search.s"
 .PHONY : help
 
 
@@ -176,6 +320,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/owen/pcl/src/pcl-pcl-1.7.2 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
