@@ -56,6 +56,6 @@ int main()
 		}
 
 
-		Sleep(10);
+		Sleep(100);
 	}
 }
