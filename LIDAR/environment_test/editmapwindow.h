@@ -28,8 +28,7 @@ private:
     Qt::GlobalColor getColorById(int id);
     void paintEvent(QPaintEvent *e);
     void mousePressEvent(QMouseEvent * event);
-    bool mousePressed;
-    bool changed = false;
+    bool mousePressed = true;
     Map *map;
     int selected = 0;
     int objectx = 0;

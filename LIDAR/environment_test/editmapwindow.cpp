@@ -31,7 +31,7 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
 }
 
 void EditMapWindow::paintEvent(QPaintEvent *e){
-    if(changed) return;
+    if(!mousePressed) return;
     std::cout << "Paint!" << std::endl;
     QPainter painter(this);
     int y = 0;
