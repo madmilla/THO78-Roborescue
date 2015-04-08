@@ -84,7 +84,7 @@ install/fast: preinstall/fast
 
 # Special rule for the target list_install_components
 list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"pcl_common\" \"pcl_geometry\" \"pcl_io\" \"pcl_kdtree\" \"pcl_octree\" \"pcl_search\" \"pcl_surface\" \"pcl_visualization\" \"pclconfig\""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"pcl_common\" \"pclconfig\""
 .PHONY : list_install_components
 
 # Special rule for the target list_install_components
@@ -142,49 +142,6 @@ depend:
 	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-kdtree/CMakeFiles/pcl_kdtree.dir/rule:
-	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 kdtree/CMakeFiles/pcl_kdtree.dir/rule
-.PHONY : kdtree/CMakeFiles/pcl_kdtree.dir/rule
-
-# Convenience name for target.
-pcl_kdtree: kdtree/CMakeFiles/pcl_kdtree.dir/rule
-.PHONY : pcl_kdtree
-
-# fast build rule for target.
-pcl_kdtree/fast:
-	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f kdtree/CMakeFiles/pcl_kdtree.dir/build.make kdtree/CMakeFiles/pcl_kdtree.dir/build
-.PHONY : pcl_kdtree/fast
-
-# Manual pre-install relink rule for target.
-pcl_kdtree/preinstall:
-	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f CMakeFiles/Makefile2 kdtree/CMakeFiles/pcl_kdtree.dir/preinstall
-.PHONY : pcl_kdtree/preinstall
-
-src/kdtree_flann.o: src/kdtree_flann.cpp.o
-.PHONY : src/kdtree_flann.o
-
-# target to build an object file
-src/kdtree_flann.cpp.o:
-	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f kdtree/CMakeFiles/pcl_kdtree.dir/build.make kdtree/CMakeFiles/pcl_kdtree.dir/src/kdtree_flann.cpp.o
-.PHONY : src/kdtree_flann.cpp.o
-
-src/kdtree_flann.i: src/kdtree_flann.cpp.i
-.PHONY : src/kdtree_flann.i
-
-# target to preprocess a source file
-src/kdtree_flann.cpp.i:
-	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f kdtree/CMakeFiles/pcl_kdtree.dir/build.make kdtree/CMakeFiles/pcl_kdtree.dir/src/kdtree_flann.cpp.i
-.PHONY : src/kdtree_flann.cpp.i
-
-src/kdtree_flann.s: src/kdtree_flann.cpp.s
-.PHONY : src/kdtree_flann.s
-
-# target to generate assembly for a file
-src/kdtree_flann.cpp.s:
-	cd /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2 && $(MAKE) -f kdtree/CMakeFiles/pcl_kdtree.dir/build.make kdtree/CMakeFiles/pcl_kdtree.dir/src/kdtree_flann.cpp.s
-.PHONY : src/kdtree_flann.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -193,14 +150,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... pcl_kdtree"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... test"
 	@echo "... install/local"
-	@echo "... src/kdtree_flann.o"
-	@echo "... src/kdtree_flann.i"
-	@echo "... src/kdtree_flann.s"
 .PHONY : help
 
 

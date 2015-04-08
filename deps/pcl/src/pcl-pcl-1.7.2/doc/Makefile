@@ -84,7 +84,7 @@ install/fast: preinstall/fast
 
 # Special rule for the target list_install_components
 list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"pcl_common\" \"pcl_geometry\" \"pcl_io\" \"pcl_kdtree\" \"pcl_octree\" \"pcl_search\" \"pcl_surface\" \"pcl_visualization\" \"pclconfig\""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"pcl_common\" \"pclconfig\""
 .PHONY : list_install_components
 
 # Special rule for the target list_install_components
