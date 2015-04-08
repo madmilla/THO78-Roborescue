@@ -21,12 +21,13 @@ private slots:
     void handleButton();
     void timerTick();
 private:
+    Rosbee * rosbee;
     Ui::RosbeeWindow *ui;
     QTimer * timer;
 
     void SetMissionRunning(bool is_mission_running);
 
-    Rosbee * rosbee;
+
 };
 
 #endif // ROSBEEWINDOW_H

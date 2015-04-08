@@ -29,10 +29,12 @@ private slots:
 
 private:
     void lidarMissionRunning(bool isRunning);
-    QTimer * timer;
     Ui::lidarwindow *ui;
-
     lidar * l;
+    QTimer * timer;
+
+
+
 };
 
 #endif // LIDARWINDOW_H
