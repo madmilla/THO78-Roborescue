@@ -12,8 +12,7 @@ public:
 	~ATV();
 	void moveForward(int);
 	void moveBackward(int);
-	void turnLeft(int);
-	void turnRight(int);
+	void steer(int);
 	void emergencyStop();
 	void returnControlToRc();
 	void loop();

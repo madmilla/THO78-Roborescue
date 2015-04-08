@@ -31,15 +31,15 @@ int main()
 
 		if (GetAsyncKeyState(VK_LEFT)){
 			std::cout << "left\n";
-			atv.turnLeft(300);
+			atv.steer(-300);
 		}
 		else if (GetAsyncKeyState(VK_RIGHT)){
 			std::cout << "right\n";
-			atv.turnRight(300);
+			atv.steer(300);
 		}
 		else{
 			//std::cout << "straight\n";
-			atv.turnRight(0);
+			atv.steer(0);
 		}
 
 		if (GetAsyncKeyState(VK_UP)){
