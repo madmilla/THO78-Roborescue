@@ -71,6 +71,7 @@ public:
     void emergencyStop();
     void returnControlToRc();
     int speed();
+    void disarm();
 };
 
 #endif // ATV_H

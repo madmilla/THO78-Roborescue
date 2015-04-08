@@ -85,3 +85,7 @@ int ATV::speed(){
    if(value > 130) value = 0;
    return value++;
 }
+
+void ATV::disarm(){
+   qDebug() << "##ATV disarm     ##";
+}

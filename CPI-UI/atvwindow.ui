@@ -117,6 +117,9 @@
      </widget>
     </widget>
     <widget class="QPushButton" name="abortButton">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>450</x>
@@ -130,6 +133,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="shutdownButton">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -139,7 +145,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Shutdown</string>
+      <string>Restart</string>
      </property>
     </widget>
     <widget class="QPushButton" name="armButton">
@@ -205,52 +211,6 @@
      </property>
      <property name="text">
       <string>Battery status:</string>
-     </property>
-    </widget>
-    <widget class="QLCDNumber" name="xLCD">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>110</y>
-       <width>64</width>
-       <height>23</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="xLabel">
-     <property name="geometry">
-      <rect>
-       <x>180</x>
-       <y>110</y>
-       <width>16</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>X</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="yLabel">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>110</y>
-       <width>16</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Y</string>
-     </property>
-    </widget>
-    <widget class="QLCDNumber" name="yLCD">
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>110</y>
-       <width>64</width>
-       <height>23</height>
-      </rect>
      </property>
     </widget>
     <widget class="QLabel" name="speedLabel">

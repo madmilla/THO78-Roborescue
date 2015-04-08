@@ -17,8 +17,6 @@ lidarwindow::lidarwindow(lidar * l, QWidget *parent) :
     connect(timer,SIGNAL(timeout()),this,SLOT(timerPassed()));
 
     timer->start(1000);
-
-
 }
 
 

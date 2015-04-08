@@ -28,13 +28,19 @@ void ATVWindow::handleButton(){
    if(button == nullptr) return;
 
    if(button == ui->abortButton){
+      if(!ui->abortButton->isEnabled()) return;
       atv->emergencyStop();
       armed(false);
    }else if(button == ui->armButton){
-      if(!ui->armButton->isEnabled()) return;
-      atv->arm();
-      armed(true);
+      if(ui->armButton->text() == "Arm"){
+         atv->arm();
+         armed(true);
+      }else{
+         atv->disarm();
+         armed(false);
+      }
    }else if(button == ui->shutdownButton){
+      if(!ui->shutdownButton->isEnabled()) return;
       atv->stopMission();
       armed(false);
    }
@@ -54,8 +60,9 @@ void ATVWindow::timerTick(){
 }
 
 void ATVWindow::armed(bool is_armed){
-   ui->armButton->setEnabled(!is_armed);
+   ui->armButton->setText(is_armed ? "Disarm" : "Arm");
    ui->abortButton->setEnabled(is_armed);
    ui->shutdownButton->setEnabled(is_armed);
    ui->steeringScrollBar->setEnabled(is_armed);
+
 }
