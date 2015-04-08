@@ -1,14 +1,14 @@
 #include <string>
-#include "SerialPort.h"
-#include "TempMAVSender.h"
 #include "ATV.h"
+#include "../Dependencies/Serial/SerialPort.h"
 #include <iostream>
 #include <cstdlib>
 #include <thread>
 #include <conio.h>
-
+#include <windows.h>
 int forward = 0, steer = 0;
-
+bool reset = false;
+bool goExit = false;
 void checkforexit()
 {
 	std::string chars;
@@ -22,7 +22,7 @@ void checkforexit()
 			std::cout << "steer :" << steer << '\n';
 			break;
 		case 'a':
-			steer++;
+			steer = -400;
 			std::cout << "forward :" << forward << '\n';
 			std::cout << "steer :" << steer << '\n';
 			break;
@@ -32,12 +32,20 @@ void checkforexit()
 			std::cout << "steer :" << steer << '\n';
 			break;
 		case 'd':
-			steer--;
+			steer = 400;
+			std::cout << "forward :" << forward << '\n';
+			std::cout << "steer :" << steer << '\n';
+			break;
+		case ' ':
+			steer = 0;
 			std::cout << "forward :" << forward << '\n';
 			std::cout << "steer :" << steer << '\n';
 			break;
 		case 'e':
-			exit(0);
+			goExit = true;
+			break;
+		case 'r':
+			reset = true;
 			break;
 		}
 		/*std::cin >> chars;
@@ -68,15 +76,30 @@ void checkforexit()
 
 int main()
 {
-	SerialPort port{ "COM4" };
-	TempMAVSender mavlinkSender{ port };
+	SerialPort port{ "COM1" };
+	MAVLinkExchanger mavlinkSender{ port };
 	ATV atv{ mavlinkSender };
 	//atv.emergencyStop();
 	std::thread th1(checkforexit);
+	std::thread atvLoopThread{ &ATV::loop, &atv };
+	std::thread exchangerLoopThread{ &MAVLinkExchanger::loop, &mavlinkSender };
+	atvLoopThread.detach();
+	exchangerLoopThread.detach();
 
 	while (1)
 	{
-		atv.turnLeft(steer);
+		atv.turnRight(steer);
 		atv.moveForward(forward);
+		Sleep(1);	
+		if (reset)
+		{
+			atv.returnControlToRc();
+			atv.emergencyStop();
+		} 
+		if (goExit)
+		{
+			atv.returnControlToRc();
+			exit(0);
+		}
 	}
 }
