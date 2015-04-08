@@ -1,5 +1,12 @@
 #include "client.h"
 
+
+client::client(){
+	init();
+	createSocket();
+	clientthread = std::thread(&client::sendMessage, this);
+}
+
 void client::init(){
 	printf("\nInitialising Winsock...");
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
@@ -28,27 +35,36 @@ void client::createSocket(){
 }
 
 void client::sendMessage(){
-	printf("Enter message : ");
-	gets_s(message);
+	std::string letter = "1";
+	while (1){
+		std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+		//printf("Enter message: ");
+		//gets_s(message);
 
-	//send the message
-	if (sendto(s, message, strlen(message), 0, (struct sockaddr *) &si_other, slen) == SOCKET_ERROR)
-	{
-		printf("sendto() failed with error code : %d", WSAGetLastError());
-		exit(EXIT_FAILURE);
+		//send the message
+		if (sendto(s, letter.c_str(), strlen(letter.c_str()), 0, (struct sockaddr *) &si_other, slen) == SOCKET_ERROR)
+		{
+			printf("sendto() failed with error code : %d", WSAGetLastError());
+			exit(EXIT_FAILURE);
+		}
+
+		//receive a reply and print it
+		//clear the buffer by filling null, it might have previously received data
+		memset(buf, '\0', BUFLEN);
+		//try to receive some data, this is a blocking call
+		if (recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &si_other, &slen) == SOCKET_ERROR)
+		{
+			printf("recvfrom() failed with error code : %d", WSAGetLastError());
+			//exit(EXIT_FAILURE);
+		}
+		
+		puts(buf);
+		//std::cout << "dit is de buf"  << *buf;
+		i = atoi(buf) + 1;
+		//std::cout << "dit is i:" << i<<'\n';
+		letter = std::to_string(i);
+		//std::cout<< "dit is i:" << i;
 	}
-
-	//receive a reply and print it
-	//clear the buffer by filling null, it might have previously received data
-	memset(buf, '\0', BUFLEN);
-	//try to receive some data, this is a blocking call
-	if (recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &si_other, &slen) == SOCKET_ERROR)
-	{
-		printf("recvfrom() failed with error code : %d", WSAGetLastError());
-		exit(EXIT_FAILURE);
-	}
-
-	puts(buf);
 
 	closesocket(s);
 	WSACleanup();

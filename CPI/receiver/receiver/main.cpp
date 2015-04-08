@@ -1,18 +1,12 @@
 #include "client.h"
-#include <iostream>
+#include <thread>
+
 
 int main(void){
-	client client;
-	client.init();
-	client.createSocket();
+
+	client Client = client();
 	
-	while (1)
-	{	
-		std::cout << " hi=";
-		client.sendMessage();
-		
-		
-	}
+	while (1){}
 
 	return 0;
 }
