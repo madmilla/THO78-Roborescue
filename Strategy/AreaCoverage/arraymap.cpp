@@ -1,5 +1,5 @@
 #include "arraymap.h"
-#include "QTextStream"
+#include "iostream"
 ArrayMap::ArrayMap()
 {
     static const int arr1[] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
@@ -37,17 +37,34 @@ ArrayMap::~ArrayMap()
 {
 
 }
+bool ArrayMap::contains(int search){
+    for(int i=0; i< data.size();i++){
+        std::vector<int>* tmp;
+        tmp = data.at(i);
+        for(int ii=0; ii<tmp->size();ii++){
+        if(tmp->at(ii) == search){return true; }
+
+
+        }
+    //std::cout <<"array";
+
+
+    }
+    return false;
+
+
+}
 void ArrayMap::print(){
 
     for(int i=0; i< data.size();i++){
         std::vector<int>* tmp;
         tmp = data.at(i);
         for(int ii=0; ii<tmp->size();ii++){
-        QTextStream(stdout) <<tmp->at(ii);
+        std::cout <<tmp->at(ii);
 
 
         }
-    QTextStream(stdout) <<"array";
+    std::cout <<"array";
 
 
     }

@@ -10,6 +10,7 @@ public:
     vector< vector<int>* > data;
     ~ArrayMap();
     void print();
+    bool contains(int);
 };
 
 #endif // ARRAYMAP_H
