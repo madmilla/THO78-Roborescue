@@ -1,22 +1,27 @@
-﻿Build started 6-4-2015 21:06:09.
-     1>Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Build target(s)).
+﻿Build started 8-4-2015 10:17:27.
+     1>Project "C:\Users\Tim\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make
-         g++ -c -std=gnu++11 ExtendedMAVLinkMessage.cpp -o ExtendedMAVLinkMessage.o
-         g++ -c -std=gnu++11 MAVLinkExchanger.cpp -o MAVLinkExchanger.o
          g++ -c -std=gnu++11 Main.cpp -o Main.o
+         g++ -c -std=gnu++11 MAVLinkCommunicator.cpp -o MAVLinkCommunicator.o
+         g++ -c -std=gnu++11 PriorityMessage.cpp -o PriorityMessage.o
          g++ -c -std=gnu++11 Quadcopter.cpp -o Quadcopter.o
          make -C ../Dependencies/Serial/
-         make[1]: Entering directory `/c/Users/Kjeld/Documents/GitHub/THO78-Roborescue/Vehicles/Dependencies/Serial'
-         g++ -c -std=gnu++11 PracticalSocket.cpp -o PracticalSocket.o
-         g++ -c -std=gnu++11 SerialUDPSocket.cpp -o SerialUDPSocket.o
-         g++ -c -std=gnu++11 SerialPort.cpp -o SerialPort.o
-         g++ -c -std=gnu++11 SerialPortWindows.cpp -o SerialPortWindows.o
-         ar rcs LibSerial.a PracticalSocket.o SerialUDPSocket.o SerialPort.o SerialPortWindows.o
-         make[1]: Leaving directory `/c/Users/Kjeld/Documents/GitHub/THO78-Roborescue/Vehicles/Dependencies/Serial'
-         g++ -std=gnu++11 -I../Dependencies/MAVLink/ardupilotmega ExtendedMAVLinkMessage.o MAVLinkExchanger.o Main.o Quadcopter.o ../Dependencies/Serial//LibSerial.a -lws2_32 -o Main
-     1>Done Building Project "C:\Users\Kjeld\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" (Build target(s)).
+         make[1]: Entering directory 'C:/Users/Tim/Documents/GitHub/THO78-Roborescue/Vehicles/Dependencies/Serial'
+         g++ -c -std=gnu++11 SerialPortLinux.cpp -o SerialPortLinux.o
+         In file included from SerialPortLinux.cpp:1:0:
+         SerialPortLinux.h:5:21: fatal error: termios.h: No such file or directory
+          #include <termios.h>
+                              ^
+         compilation terminated.
+         make[1]: *** [SerialPortLinux.o] Error 1
+         makefile:21: recipe for target 'SerialPortLinux.o' failed
+         make[1]: Leaving directory 'C:/Users/Tim/Documents/GitHub/THO78-Roborescue/Vehicles/Dependencies/Serial'
+         make: *** [Main] Error 2
+         makefile:16: recipe for target 'Main' failed
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(38,5): error MSB3073: The command "make" exited with code 2.
+     1>Done Building Project "C:\Users\Tim\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:08.72
+Time Elapsed 00:00:02.43

@@ -54,17 +54,15 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ExtendedMAVLinkMessage.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MAVLinkExchanger.cpp" />
+    <ClCompile Include="MAVLinkCommunicator.cpp" />
+    <ClCompile Include="PriorityMessage.cpp" />
     <ClCompile Include="Quadcopter.cpp" />
-    <ClCompile Include="TempMAVSender.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExtendedMAVLinkMessage.h" />
-    <ClInclude Include="MAVLinkExchanger.h" />
+    <ClInclude Include="MAVLinkCommunicator.h" />
+    <ClInclude Include="PriorityMessage.h" />
     <ClInclude Include="Quadcopter.h" />
-    <ClInclude Include="TempMAVSender.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />

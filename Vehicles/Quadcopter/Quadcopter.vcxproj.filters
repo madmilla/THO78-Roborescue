@@ -24,13 +24,10 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TempMAVSender.cpp">
+    <ClCompile Include="MAVLinkCommunicator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MAVLinkExchanger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ExtendedMAVLinkMessage.cpp">
+    <ClCompile Include="PriorityMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,13 +35,10 @@
     <ClInclude Include="Quadcopter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TempMAVSender.h">
+    <ClInclude Include="MAVLinkCommunicator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MAVLinkExchanger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ExtendedMAVLinkMessage.h">
+    <ClInclude Include="PriorityMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
