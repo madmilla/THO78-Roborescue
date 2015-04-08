@@ -1,3 +1,15 @@
+
+/*!
+* \class ExtendedMAVLinkMessage
+*
+* \brief
+*
+*
+* \author
+* \co-author
+* \date April 2015
+*/
+
 #ifndef _EXTENDEDMAVLINKMESSAGE_H
 #define _EXTENDEDMAVLINKMESSAGE_H
 #include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
