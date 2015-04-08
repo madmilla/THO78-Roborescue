@@ -1,8 +1,8 @@
 #include "Quadcopter.h"
-#include "MAVLinkCommunicator.h"
+#include "MAVLinkExchanger.h"
 
-Quadcopter::Quadcopter(MAVLinkCommunicator& communicator) :
-communicator(communicator),
+Quadcopter::Quadcopter(MAVLinkExchanger& exchanger) :
+exchanger(exchanger),
 flightMode{ FlightMode::UNKNOWN },
 armed{ false }
 {
@@ -11,19 +11,19 @@ armed{ false }
 void Quadcopter::liftOff(int altitude)
 {
 	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_NAV_TAKEOFF, 0, 0, 0, 0, 0, 0, 0, altitude);
-	communicator.sendMessage(message);
+	exchanger.enqueueMessage(message);
 }
 
 void Quadcopter::arm()
 {
 	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_COMPONENT_ARM_DISARM, 0, 1, 0, 0, 0, 0, 0, 0);
-	communicator.sendMessage(message);
+	exchanger.enqueueMessage(message);
 }
 
 void Quadcopter::disarm()
 {
 	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_COMPONENT_ARM_DISARM, 0, 0, 0, 0, 0, 0, 0, 0);
-	communicator.sendMessage(message);
+	exchanger.enqueueMessage(message);
 }
 
 void Quadcopter::moveLeft(signed int value)
@@ -34,7 +34,7 @@ void Quadcopter::moveLeft(signed int value)
 void Quadcopter::moveRight(signed int value)
 {
 	mavlink_msg_rc_channels_override_pack(255, 1, &message, 1 , 1, MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
-	communicator.sendMessage(message);
+	exchanger.enqueueMessage(message);
 }
 
 void Quadcopter::moveForward()
@@ -52,7 +52,7 @@ void Quadcopter::stop()
 void Quadcopter::land()
 {
 	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_NAV_LAND, 0, 0, 0, 0, 0, 0, 0, 0);
-	communicator.sendMessage(message);
+	exchanger.enqueueMessage(message);
 }
 
 void Quadcopter::changeFlightSpeed(int)
@@ -62,41 +62,41 @@ void Quadcopter::changeFlightSpeed(int)
 void Quadcopter::changeHeading(int value)
 {
 	mavlink_msg_rc_channels_override_pack(255,1,&message,1,1,UINT16_MAX, UINT16_MAX, UINT16_MAX,MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
-	communicator.sendMessage(message);
+	exchanger.enqueueMessage(message);
 }
 
 void Quadcopter::changeAltitude(int altitude)
 {
 	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_NAV_CONTINUE_AND_CHANGE_ALT, 0, 0, 0, 0, 0, 0, 0, altitude);
-	communicator.sendMessage(message);
+	exchanger.enqueueMessage(message);
 }
 
 void Quadcopter::shutdown()
 {
 	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN, 0, 1, 1, 0, 0, 0, 0, 0);
-	communicator.sendMessage(message);
+	exchanger.enqueueMessage(message);
 }
 
 void Quadcopter::changeMode(FlightMode mode)
 {
 	mavlink_msg_set_mode_pack(255, 0, &message, 1, 1, static_cast<uint32_t>(mode));
-	communicator.sendMessage(message);
+	exchanger.enqueueMessage(message);
 }
 
 void Quadcopter::loop()
 {
 	while (1)
 	{
-		if (communicator.receiveQueueSize())
+		if (exchanger.receiveQueueSize())
 		{
-			handleIncomingMessage(communicator.receiveMessage());
+			handleIncomingMessage(exchanger.dequeueMessage());
 		}
 		//calculateRCChannels();
 		//exchanger.enqueueMessage(RCOverrideMessage);
 	}
 }
 
-void Quadcopter::handleIncomingMessage(PriorityMessage incomingMessage)
+void Quadcopter::handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage)
 {
 	switch (incomingMessage.msgid)
 	{

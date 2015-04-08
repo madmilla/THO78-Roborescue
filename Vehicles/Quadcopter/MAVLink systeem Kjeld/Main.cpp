@@ -1,18 +1,18 @@
 #include "Quadcopter.h"
 #include "../Dependencies/Serial/SerialPort.h"
 #include <string>
-#include "MAVLinkCommunicator.h"
+#include "MAVLinkExchanger.h"
 #include <iostream>
 #include <thread>
 int main() 
 {
 	SerialPort serialPort("COM4");
-	MAVLinkCommunicator communicator{ serialPort };
-	Quadcopter quadcopter(communicator);
+	MAVLinkExchanger exchanger{ serialPort };
+	Quadcopter quadcopter(exchanger);
 	std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
-	std::thread communicatorLoopThread{ &MAVLinkCommunicator::loop, &communicator };
+	std::thread exchangerLoopThread { &MAVLinkExchanger::loop, &exchanger};
 	quadcopterLoopThread.detach();
-	communicatorLoopThread.detach();
+	exchangerLoopThread.detach();
 	while (1)
 	{
 
