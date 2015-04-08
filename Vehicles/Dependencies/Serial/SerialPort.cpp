@@ -1,7 +1,12 @@
 #include "SerialPort.h"
 #include "Serial.h"
 #include "SerialUDPSocket.h"
-#include "SerialPortXP.h"
+#ifdef _WIN32
+	#include "SerialPortWindows.h"
+#endif
+#ifdef linux
+	#include "SerialPortLinux.h"
+#endif
 
 SerialPort::SerialPort(int port, std::string& address)
 {
@@ -10,7 +15,12 @@ SerialPort::SerialPort(int port, std::string& address)
 
 SerialPort::SerialPort(const char* device)
 {
-	serialDevice = new SerialPortXP(device);
+#ifdef _WIN32
+	serialDevice = new SerialPortWindows(device);
+#endif
+#ifdef linux
+	serialDevice = new SerialPortLinux(device);
+#endif
 }
 
 SerialPort::~SerialPort()
@@ -18,12 +28,12 @@ SerialPort::~SerialPort()
 	delete serialDevice;
 }
 
-int SerialPort::writeData(char* data, int nrOfBytes)
+bool SerialPort::writeData(unsigned char* data, int nrOfBytes)
 {
 	return serialDevice->writeData(data, nrOfBytes);
 }
 
-int SerialPort::readData(char* buffer, int nrOfBytes)
+int SerialPort::readData(unsigned char* buffer, int nrOfBytes)
 {
 	return serialDevice->readData(buffer, nrOfBytes);
 }

@@ -2,6 +2,10 @@
 #define SIMULATEMAPWINDOW_H
 
 #include <QWidget>
+#include <vector>
+#include <iostream>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 #include "map.h"
 
 namespace Ui {
@@ -22,6 +26,14 @@ private slots:
 private:
     Ui::SimulateMapWindow *ui;
     Map *map;
+    void paintEvent(QPaintEvent *e);
+    void mousePressEvent(QMouseEvent * event);
+    Qt::GlobalColor getColorById(int id);
+    int objectx = 0;
+    int objecty = 0;
+    int drawWidth = 430;
+    int drawHeight = 460;
+    bool mousePressed = true;
 };
 
 #endif // SIMULATEMAPWINDOW_H

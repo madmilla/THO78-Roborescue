@@ -1,7 +1,6 @@
 #include "LidarThread.h"
 #include <QThread>
 #include <QObject>
-#include <QDebug>
 
 LidarThread::LidarThread(Lidar &l):
     Stop(false),
@@ -22,16 +21,12 @@ void LidarThread::run()
 
         std::vector<scanDot> data = lidar.startSingleLidarScan();
 
-        if(data.empty()) {
-            qDebug()<< "From lidar thread: "<<currentThreadId() << " failed";
-        }
-        else {
+        if(!data.empty()) {
             i++;
             emit updateUI(printReadyData(data,i));
         }
 
     }
-    qDebug()<<"After while lidar thread: "<<currentThreadId() << "state: " << Stop;
     //exec();
 }
 

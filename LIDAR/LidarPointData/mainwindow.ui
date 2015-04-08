@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>RPLidar</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPlainTextEdit" name="plainTextEdit">
@@ -61,16 +61,25 @@
    </property>
   </action>
   <action name="StopScan">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Stop Scan</string>
    </property>
   </action>
   <action name="PauseScan">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Pause Scan</string>
    </property>
   </action>
   <action name="ResumeScan">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Resume Scan</string>
    </property>

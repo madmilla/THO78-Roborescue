@@ -1,9 +1,0 @@
-dit is een testfile
-de testfile komt bij de volgende regel
-want het werkt
-yay
-klopt
-niks
-van
-hia
-ho

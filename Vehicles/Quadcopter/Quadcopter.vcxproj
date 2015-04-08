@@ -54,21 +54,20 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ExtendedMAVLinkMessage.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MAVLinkExchanger.cpp" />
     <ClCompile Include="Quadcopter.cpp" />
-    <ClCompile Include="SerialPort.cpp" />
-    <ClCompile Include="SerialPortXP.cpp" />
-    <ClCompile Include="SerialUDPSocket.cpp" />
     <ClCompile Include="TempMAVSender.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PracticalSocket.h" />
+    <ClInclude Include="ExtendedMAVLinkMessage.h" />
+    <ClInclude Include="MAVLinkExchanger.h" />
     <ClInclude Include="Quadcopter.h" />
-    <ClInclude Include="Serial.h" />
-    <ClInclude Include="SerialPort.h" />
-    <ClInclude Include="SerialPortXP.h" />
-    <ClInclude Include="SerialUDPSocket.h" />
     <ClInclude Include="TempMAVSender.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

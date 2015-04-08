@@ -1,0 +1,6 @@
+This is the folder used for the Mapping code.
+
+Members:
+	Robert Bezem
+	Bianca Krieger
+

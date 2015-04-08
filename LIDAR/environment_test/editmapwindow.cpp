@@ -9,25 +9,18 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
     ui(new Ui::EditMapWindow),
     map(map)
 {
+    objectx = (drawWidth / map->width);
+    objecty = (drawHeight / map->height);
     ui->setupUi(this);
 
-    showMap(map);
 }
 
 EditMapWindow::~EditMapWindow(){
     delete ui;
 }
 
-void EditMapWindow::showMap(Map *map){
-    vector<vector< int > > mapLayout = map->getMapContent();
-    for(int y = 0; y < mapLayout.size(); y++){
-        for(int x = 0; x < mapLayout[y].size(); x++){
-        }
-    }
-}
-
 void EditMapWindow::on_obstacleButton_clicked(){
-
+    selected = 1;
 }
 
 void EditMapWindow::on_saveMapButton_clicked(){
@@ -38,10 +31,18 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
 }
 
 void EditMapWindow::paintEvent(QPaintEvent *e){
-    if(mousePressed){
-        QPainter painter(this);
+    if(!mousePressed) return;
+    std::cout << "Paint!" << std::endl;
+    QPainter painter(this);
+    int y = 0;
+    for(std::vector<int> fory : map->getMapContent()){
+        int x = 0;
+        for(int forx : fory){
+            painter.fillRect((x*objectx),(y*objecty),objectx,objecty,QBrush(getColorById(forx)));
+            x++;
+        }
+        y++;
     }
-    mousePressed = false;
 }
 
 Qt::GlobalColor EditMapWindow::getColorById(int id){
