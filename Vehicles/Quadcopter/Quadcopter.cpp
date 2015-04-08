@@ -30,7 +30,7 @@ void Quadcopter::moveLeft(signed int value)
 {
 	moveRight(-value);
 }
-SYSTEMID, COMPONENTID
+
 void Quadcopter::moveRight(signed int value)
 {
 	mavlink_msg_rc_channels_override_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
