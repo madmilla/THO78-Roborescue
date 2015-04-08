@@ -6,7 +6,7 @@
 
 #pragma comment(lib,"ws2_32.lib")
 
-#define SERVER "145.89.96.191"  //ip address of udp server
+#define SERVER "127.0.0.1"  //ip address of udp server
 #define BUFLEN 512  //Max length of buffer
 #define PORT 8888 //The port on which to listen for incoming data
 

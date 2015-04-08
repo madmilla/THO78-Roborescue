@@ -45,7 +45,7 @@ void client::sendMessage(){
 		if (sendto(s, letter.c_str(), strlen(letter.c_str()), 0, (struct sockaddr *) &si_other, slen) == SOCKET_ERROR)
 		{
 			printf("sendto() failed with error code : %d", WSAGetLastError());
-			exit(EXIT_FAILURE);
+
 		}
 
 		//receive a reply and print it
