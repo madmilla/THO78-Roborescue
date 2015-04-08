@@ -36,6 +36,5 @@ int main(int argc, char *argv[]) {
 		std::cout << "False\n";
 	}
 
-	system("pause");
 	return EXIT_SUCCESS;
 }
