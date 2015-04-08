@@ -24,7 +24,7 @@ private slots:
 
     void handleButtonLidar();
 
-    void setRpm(int Rpm);
+    void setRpm();
     void timerPassed();
 
 private:
