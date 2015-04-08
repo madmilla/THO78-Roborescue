@@ -2,6 +2,7 @@
 #define ATVWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 #include "atv.h"
 
 namespace Ui {
@@ -21,8 +22,13 @@ private slots:
 
    void scrollbarValueChanged(int value);
 
+   void timerTick();
+
+   void armed(bool is_armed);
+
 private:
     Ui::ATVWindow *ui;
+    QTimer * timer;
 
     ATV * atv;
 };

@@ -49,7 +49,7 @@ void MainWindow::handleButton(){
    if(button == ui->QuadButton){
       newWindow = new QuadCopterWindow(this);
    }else if(button == ui->ATVButton){
-      newWindow = new ATVWindow(this);
+      newWindow = new ATVWindow(atv, this);
    }else if(button == ui->LidarButton){
       newWindow = new lidarwindow(lidar, this);
    }else if(button == ui->MapButton){

@@ -5,6 +5,7 @@
 #include <vector>
 #include "rosbee.h"
 #include "lidar.h"
+#include "atv.h"
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +29,7 @@ private:
 
     Rosbee * rosbee;
     lidar * lidar;
+    ATV * atv;
 
     void checkZombies();
 };

@@ -63,6 +63,14 @@ public:
     void fixConnection();
 
     void arm();
+
+    void moveForward(int);
+    void moveBackward(int);
+    void turnLeft(int);
+    void turnRight(int);
+    void emergencyStop();
+    void returnControlToRc();
+    int speed();
 };
 
 #endif // ATV_H

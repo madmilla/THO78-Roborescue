@@ -26,7 +26,7 @@
     <property name="title">
      <string>Status</string>
     </property>
-    <widget class="QProgressBar" name="batteryStatusButton">
+    <widget class="QProgressBar" name="batteryStatusBar">
      <property name="geometry">
       <rect>
        <x>160</x>
