@@ -86,5 +86,7 @@ private:
 	void calculateRCChannels();
 
 	const int MEANVALUELEFTRIGHT{ 1487 };
+	const int SYSTEMID{ 255 };
+	const int COMPONENTID{ 0 };
 };
 #endif
