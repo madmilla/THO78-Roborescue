@@ -46,3 +46,7 @@ void ATV::stop(){
 void ATV::fixConnection(){
     qDebug() << "##Fix connection##\n";
 }
+
+void ATV::arm(){
+   qDebug() << "##ATV armed##\n";
+}

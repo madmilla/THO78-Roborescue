@@ -61,6 +61,8 @@ public:
     /// \brief fixConnection try restore connection
     ///
     void fixConnection();
+
+    void arm();
 };
 
 #endif // ATV_H
