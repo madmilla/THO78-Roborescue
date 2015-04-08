@@ -31,7 +31,7 @@ void GLWidget::paintGL(){
     lines.push_back(line3);
     lines.push_back(line4);
 
-    setLinesIso(lines);
+    setLines(lines);
 
 }
 

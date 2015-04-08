@@ -24,8 +24,20 @@ public:
     static const float NEAR_VAL = 5.0f;
     static const float FAR_VAL = 30.0f;
 
+    // Find the minimum and maximum x and y for the range of the map
+    // Normalize x and y of the line between -1.0 and 1.0
+    // param const std::vector<Line<int>
+    // Returns a vector of lines which are typecast to floats
     static const std::vector<Line<float> > normalizeLines(const std::vector<Line<int> > lines);
+
+    // Change the normalized coordinates to make it isometric
+    // Param const Line<float>
+    // Returns a vector of lines
     static const Line<float> twoDToIso(const Line<float>);
+
+    // Puts the vector that is made by twoDToIso in a vector which contains multiple lineObjects
+    // Param const std::vector<Line<float>
+    // Returns a vector of lines
     static const std::vector<Line<float> > twoDToIsoVector(const std::vector<Line<float> > linesNormalized);
 };
 
