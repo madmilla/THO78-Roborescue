@@ -42,10 +42,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/owen/pcl/src/pcl-pcl-1.7.2
+CMAKE_SOURCE_DIR = /deps/pcl
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/owen/test
+CMAKE_BINARY_DIR = /deps/pclbuild
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -123,9 +123,9 @@ install/local/fast: install/local
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/owen/test/CMakeFiles /home/owen/test/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /deps/pclbuild/CMakeFiles /deps/pclbuild/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/owen/test/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /deps/pclbuild/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
