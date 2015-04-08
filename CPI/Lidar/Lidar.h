@@ -5,23 +5,19 @@
  *      Author: hamza
  */
 
+#include <string>
+#include "test/test_command/mavlink.h"
+#include <ros/ros.h>
+
 #ifndef LIDAR_H_
 #define LIDAR_H_
-
-#include <string>
-#include "CPIBoundaryObject.hpp"
-
 using namespace std;
 
-class Lidar : public CPIBoundaryObject{
-
-public:
+class Lidar{
 	Lidar(bool equipmentStatus);
-        void sendCommand(Command cmd) override;
 	virtual ~Lidar();
 
-        void init();
-	string getData();
+	int * getData();
 
 	int getRpm();
 	// Change the RPM on the LIDAR after it has started
@@ -35,11 +31,9 @@ public:
 	void Stop();
 	// stop the LIDAR.
 
-	void sendRosbeePositie();
+	void sendRosbeePositie(int postion[]);
 
-	void sendRosbeeFlank();
-
-private:
+	void sendRosbeeFlank(int degrees);
 
 };
 
