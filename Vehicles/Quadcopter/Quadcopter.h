@@ -4,6 +4,8 @@
 #include "Subject.h"
 #include <iostream>
 
+#define UINT16_MIN 0
+
 class MAVLinkCommunicator;
 
 class Quadcopter : public Subject
