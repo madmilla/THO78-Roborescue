@@ -73,6 +73,6 @@ void UDPServer::stop(){
 	stopped = true;
 }
 
-void UDPServer::~UDPServer(){
+UDPServer::~UDPServer(){
 	stop();
 }
