@@ -28,18 +28,14 @@ private:
     Qt::GlobalColor getColorById(int id);
     void paintEvent(QPaintEvent *e);
     void mousePressEvent(QMouseEvent * event);
-    bool mousePressed;
+    bool mousePressed = true;
     Map *map;
     int selected = 0;
-    int x = 0;
-    int y = 0;
     int objectx = 0;
     int objecty = 0;
-    int mapHeight = 0;
-    int mapWidth = 0;
     int drawWidth = 430;
     int drawHeight = 460;
-    vector<vector< int > > mapLayout = map->getMapContent();
+    //vector<vector< int > > mapLayout;
 };
 
 #endif // EDITMAPWINDOW_H
