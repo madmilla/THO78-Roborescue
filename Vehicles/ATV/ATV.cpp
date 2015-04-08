@@ -16,16 +16,21 @@ ATV::~ATV()
 void ATV::moveForward(int value)
 {
 	//mavlink_message_t msg;
-	int sendValue = 1500 + value;
+	int sendValue = 1500 - value;
 	mavlink_msg_rc_channels_override_pack(
 		255, 200, &message, 1, 250, UINT16_MAX, UINT16_MAX, sendValue,
 		UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
 	mavlinkSender.enqueueMessage(message);
 }
 
-void ATV::moveBackward()
+void ATV::moveBackward(int value)
 {
-
+	//mavlink_message_t msg;
+	int sendValue = 1500 + value;
+	mavlink_msg_rc_channels_override_pack(
+		255, 200, &message, 1, 250, UINT16_MAX, UINT16_MAX, sendValue,
+		UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
+	mavlinkSender.enqueueMessage(message);
 }
 
 void ATV::turnLeft(int value)

@@ -6,81 +6,44 @@
 #include <thread>
 #include <conio.h>
 #include <windows.h>
-int forward = 0, steer = 0;
+int movement = 0, steering = 0;
 bool reset = false;
 bool goExit = false;
-void checkforexit()
+
+void input()
 {
-	std::string chars;
 	while (1)
 	{
 		switch (_getch())
 		{
 		case 'w':
-			forward++;
-			std::cout << "forward :" << forward << '\n';
-			std::cout << "steer :" << steer << '\n';
-			break;
-		case 'a':
-			steer = -400;
-			std::cout << "forward :" << forward << '\n';
-			std::cout << "steer :" << steer << '\n';
+			movement = 1;
 			break;
 		case 's':
-			forward--;
-			std::cout << "forward :" << forward << '\n';
-			std::cout << "steer :" << steer << '\n';
+			movement = -1;
+			break;
+		case 'a':
+			steering = -1;
 			break;
 		case 'd':
-			steer = 400;
-			std::cout << "forward :" << forward << '\n';
-			std::cout << "steer :" << steer << '\n';
+			steering = 1;
 			break;
-		case ' ':
-			steer = 0;
-			std::cout << "forward :" << forward << '\n';
-			std::cout << "steer :" << steer << '\n';
-			break;
-		case 'e':
-			goExit = true;
-			break;
+
 		case 'r':
 			reset = true;
 			break;
 		}
-		/*std::cin >> chars;
-		if (chars == "exit")
-		{
-			exit(0);
-		}
-		if (chars == "w")
-		{
-			forward++;
-		}
-		if (chars == "s")
-		{
-			forward--;
-		}
-		if (chars == "a")
-		{
-			steer++;
-		}
-		if (chars == "d")
-		{
-			steer--;
-		}
-		std::cout << "forward :" << forward << '\n';
-		std::cout << "steer :" << steer << '\n';*/
 	}
 }
 
+
 int main()
 {
-	SerialPort port{ "COM1" };
+	SerialPort port{ "COM2" };
 	MAVLinkExchanger mavlinkSender{ port };
 	ATV atv{ mavlinkSender };
 	//atv.emergencyStop();
-	std::thread th1(checkforexit);
+	std::thread inputThread(input);
 	std::thread atvLoopThread{ &ATV::loop, &atv };
 	std::thread exchangerLoopThread{ &MAVLinkExchanger::loop, &mavlinkSender };
 	atvLoopThread.detach();
@@ -88,13 +51,50 @@ int main()
 
 	while (1)
 	{
-		atv.turnRight(steer);
-		atv.moveForward(forward);
-		Sleep(1);	
+		std::cout << "steering: " << steering << " | " << "movement: " << movement << '\n';
+		switch (movement)
+		{
+			case 1:
+				atv.moveForward(55);
+				movement = 0;
+				break;
+			case -1:
+				atv.moveBackward(55);
+				movement = 0;
+				break;
+			default:
+				atv.moveBackward(0);
+				break;
+	
+		}
+
+		switch(steering)
+		{
+			case -1:
+				atv.turnLeft(400);
+				steering = 0;
+				break;
+			case 1:
+				atv.turnRight(400);
+				steering = 0;
+				break;
+			default:
+				atv.turnLeft(0);
+				break;
+		}
+
+
+
+
+
+		Sleep(100);
+
+			
 		if (reset)
 		{
 			atv.returnControlToRc();
 			atv.emergencyStop();
+			reset = false;
 		} 
 		if (goExit)
 		{
