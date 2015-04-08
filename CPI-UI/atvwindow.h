@@ -27,10 +27,9 @@ private slots:
    void armed(bool is_armed);
 
 private:
-    Ui::ATVWindow *ui;
-    QTimer * timer;
-
-    ATV * atv;
+   ATV * atv;
+   QTimer * timer;
+   Ui::ATVWindow *ui;
 };
 
 #endif // ATVWINDOW_H
