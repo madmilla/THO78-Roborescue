@@ -11,11 +11,11 @@ public:
 		listeners.push_back(listener);
 	}
 protected:
-	void notifyListeners()
+	void notifyListeners(StatusText statusText)
 	{
 		for(auto& listener : listeners)
 		{
-			listener->notifyListener(*this);
+			listener->notifyListener(*this, statusText);
 		}
 	}
 	std::vector<Listener*> listeners;

@@ -3,12 +3,17 @@
 #include <string>
 #include "MAVLinkExchanger.h"
 #include <iostream>
+#include "TempListener.h"
 #include <thread>
+
 int main() 
 {
-	SerialPort serialPort("COM5");
+	SerialPort serialPort("COM6");
 	MAVLinkExchanger exchanger{ serialPort };
 	Quadcopter quadcopter(exchanger);
+	//Make a tempListener to check if the quad notifies correctly
+	TempListener tempListener;
+	quadcopter.registerListener(&tempListener);
 	std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
 	std::thread exchangerLoopThread { &MAVLinkExchanger::loop, &exchanger};
 	quadcopterLoopThread.detach();
@@ -28,6 +33,18 @@ int main()
 		else if (c == 'a')
 		{
 			quadcopter.arm();
+		}
+		else if (c == 'd')
+		{
+			quadcopter.disarm();
+		}
+		else if (c == 's')
+		{
+			quadcopter.shutdown();
+		}
+		else if (c == 'g')
+		{
+			std::cout << quadcopter.isArmed();
 		}
 	}
 }

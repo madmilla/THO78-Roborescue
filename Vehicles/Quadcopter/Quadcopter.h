@@ -37,31 +37,6 @@ public:
 		UNKNOWN = -1
 	};
 
-	enum class StatusText
-	{
-		NONE,
-		BAROMETER_NOT_HEALTHY,
-		AIRSPEED_NOT_HEALTHY,
-		LOGGING_NOT_AVAILABLE,
-		GYROS_NOT_HEALTHY,
-		GYROS_NOT_CALIBRATED,
-		ACCELS_NOT_HEALTHY,
-		AHRS_NOT_HEALTHY,
-		ACCELS_NOT_CALIBRATED,
-		INCONSISTENT_ACCELS,
-		INCONSISTENT_GYROS,
-		COMPASS_NOT_HEALTHY,
-		COMPASS_NOT_CALIBRATED,
-		COMPASS_OFFSETS_TOO_HIGH,
-		COMPASS_MAGFIELD_TOO_HIGH,
-		BAD_GPS_POSITION,
-		BATTERY_FAILSAFE_ON,
-		HARDWARE_SAFETY_SWITCH,
-		RADIO_FAILSAFE_ON,
-		THROTTLE_ARMED,
-		THROTTLE_DISARMED
-	};
-
 	explicit Quadcopter(MAVLinkExchanger& exchanger);
 	/**
 	* liftOff allows the quadcopter to take off. 
@@ -158,6 +133,9 @@ public:
 	bool isArmed() const;
 	FlightMode getMode() const;
 	std::map<int, int> receivedMessageMap;
+
+	void statusTextTest(int s);
+
 
 private:
 	MAVLinkExchanger& exchanger;
