@@ -27,8 +27,19 @@ void lidar::stopLidar(){
 
 
 int lidar::setRPM(int rpm){
-   int p = rpm;
-   return 0;
+   int  p;
+   if(rpm >=330 || rpm <=600){
+        p = rpm;
+   }
+   else if(rpm <330){
+        p = 330;
+   }
+   else{
+       p = 600;
+   }
+
+   return p;
+
 
 }
 
