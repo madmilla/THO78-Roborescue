@@ -59,8 +59,10 @@ void Quadcopter::changeFlightSpeed(int)
 {
 }
 
-void Quadcopter::changeHeading(int)
+void Quadcopter::changeHeading(int value)
 {
+	mavlink_msg_rc_channels_override_pack(255,1,&message,1,1,UINT16_MAX, UINT16_MAX, UINT16_MAX,MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
+	exchanger.enqueueMessage(message);
 }
 
 void Quadcopter::changeAltitude(int altitude)
@@ -155,6 +157,7 @@ void Quadcopter::handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage)
 
 		//break;
 	}
+	notifyListeners();
 }
 
 void Quadcopter::calculateRCChannels()

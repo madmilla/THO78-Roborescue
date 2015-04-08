@@ -15,7 +15,8 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    linedetector.cpp
 
 win32 {
     INCLUDEPATH += "C:\\opencv\\build\\include" \
@@ -39,3 +40,6 @@ win32 {
             -lopencv_calib3d2410
     }
 }
+
+HEADERS += \
+    linedetector.h
