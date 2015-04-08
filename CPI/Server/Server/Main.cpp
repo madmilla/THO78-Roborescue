@@ -3,8 +3,9 @@
 int main()
 {
 	UDPServer us;
-	for (int i = 0; i < 10000; i++){
-		std::cout << "im doing different shit" << std::endl;
+	for (;;){
+		std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+		us.broadcast("heeeey");
 	}
 	us.stop();
 	return 0;
