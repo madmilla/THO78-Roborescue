@@ -88,5 +88,7 @@ private:
 	const int MEANVALUELEFTRIGHT{ 1487 };
 	const int SYSTEMID{ 255 };
 	const int COMPONENTID{ 0 };
+	const int TARGET_SYSTEMID{ 1 };
+	const int TARGET_COMPONENTID{ 1 };
 };
 #endif
