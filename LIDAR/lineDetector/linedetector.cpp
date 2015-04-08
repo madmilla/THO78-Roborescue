@@ -26,24 +26,24 @@ Mat lineDetector::createImage(const std::string & source){
     std::ifstream file(source); // open  inputfile
     if (!file.is_open()){
         std::cout << "could not open file with name " << source << std::endl;
-        exit(-1);
+        exit(EXIT_FAILURE);
     }
     std::string line;
-    int imageHeight = 0;
-    int imageWidth = 0;
+    size_t imageHeight = 0;
+    size_t imageWidth = 0;
     while(getline(file,line)){ //a while loop to get the image width and the image Height
         imageHeight++;
         if(line.length()> imageWidth){
             imageWidth = line.length();
         }
     }
-    Mat mat(imageWidth,imageHeight,CV_8UC1); //Create a Mat object which will represent the image with all the pixels
+    Mat mat((int)imageWidth,(int)imageHeight,CV_8UC1); //Create a Mat object which will represent the image with all the pixels
     int x = 0;
     file.clear();
     file.seekg(0,file.beg);
     while(getline(file,line)){ //Walk through the file
         int y = 0;
-        for(int i = 0; i< imageWidth; i++){
+        for(int i = 0; i< (int)imageWidth; i++){
             char ch = line[i];
             if(isdigit(ch)){ // if the char in the file is a number, the pixel should be 255
                 mat.at<uchar>(Point(y,x)) = BLACK_PIXEL; // set the pixel at 255

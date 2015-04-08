@@ -31,39 +31,43 @@ void Lidar::connectDriversLidar()
 
 std::vector<scanDot> Lidar::startSingleLidarScan()
 {
-    // check health...
-    if (!checkRPLIDARHealth()) {
-        disposeLidarDriver();
-    }
-
-    // start scan...
-    drv->startScan();
-
-    // fetch result and print it out...
-    rplidar_response_measurement_node_t nodes[360*2];
-    size_t count = _countof(nodes);
-
-    op_result = drv->grabScanData(nodes, count);
-
     std::vector<scanDot> tempData;
 
-    if (IS_OK(op_result)) {
-        drv->ascendScanData(nodes, count);
-
-        for (int pos = 0; pos < (int)count ; ++pos) {
-
-            if (nodes[pos].distance_q2) {
-                scanDot dot;
-
-                dot.quality = (nodes[pos].sync_quality >> RPLIDAR_RESP_MEASUREMENT_QUALITY_SHIFT);
-                dot.angle = (nodes[pos].angle_q6_checkbit >> RPLIDAR_RESP_MEASUREMENT_ANGLE_SHIFT)/64.0f;
-                dot.dist = nodes[pos].distance_q2/4.0f;
-
-                tempData.push_back(dot);
-            }
-        }
-        scanData.insert(scanData.end(),tempData.begin(),tempData.end());
+    // check health...
+    if (!checkRPLIDARHealth()) {
+        fprintf(stderr, "rplidar not healthy");
+        disposeLidarDriver();
     }
+    else {
+
+        // start scan...
+        drv->startScan();
+
+        // fetch result and print it out...
+        rplidar_response_measurement_node_t nodes[360*2];
+        size_t count = _countof(nodes);
+
+        op_result = drv->grabScanData(nodes, count);
+
+        if (IS_OK(op_result)) {
+            drv->ascendScanData(nodes, count);
+
+            for (int pos = 0; pos < (int)count ; ++pos) {
+
+                if (nodes[pos].distance_q2) {
+                    scanDot dot;
+
+                    dot.quality = (nodes[pos].sync_quality >> RPLIDAR_RESP_MEASUREMENT_QUALITY_SHIFT);
+                    dot.angle = (nodes[pos].angle_q6_checkbit >> RPLIDAR_RESP_MEASUREMENT_ANGLE_SHIFT)/64.0f;
+                    dot.dist = nodes[pos].distance_q2/4.0f;
+
+                    tempData.push_back(dot);
+                }
+            }
+            scanData.insert(scanData.end(),tempData.begin(),tempData.end());
+        }
+    }
+
     return tempData;
 }
 
