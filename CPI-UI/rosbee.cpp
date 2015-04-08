@@ -28,7 +28,7 @@ void Rosbee::abortMission(){
 unsigned char Rosbee::batteryStatus(){
     static unsigned char value = 100;
 
-    if(value < 0 || value > 100) value = 100;
+    if(value > 100) value = 100;
     return value--;
 }
 

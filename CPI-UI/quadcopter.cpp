@@ -43,11 +43,11 @@ void Quadcopter::land(){
 }
 
 bool Quadcopter::isFlying(){
-
+   return false;
 }
 
 bool Quadcopter::isArmed(){
-
+   return false;
 }
 
 bool Quadcopter::isManual(){
