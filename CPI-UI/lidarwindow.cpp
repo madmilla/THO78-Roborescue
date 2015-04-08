@@ -1,28 +1,34 @@
 #include "lidarwindow.h"
 #include "ui_lidarwindow.h"
 
-#include <QMessageBox>
+
 
 lidarwindow::lidarwindow(lidar * l, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::lidarwindow()),
-    l(l)
+    l(l),
+    timer(new QTimer())
 {
     ui->setupUi(this);
 
     connect(ui->startLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
     connect(ui->stopLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
-    connect(ui->setRpm,SIGNAL(editingFinished()),this,SLOT(setRpm(int)));
+    connect(ui->setRpm,SIGNAL(returnPressed()),this,SLOT(setRpm(int)));
+    connect(timer,SIGNAL(timeout()),this,SLOT(timerPassed()));
+
+    timer->start(1000);
 
 
 }
+
+
 
 lidarwindow::~lidarwindow(){
     delete ui;
 }
 
 void lidarwindow::setRpm(int rpm){
-
+    qDebug() << "dit is het ingevuld rpm " << rpm;
 }
 
 void lidarwindow::handleButtonLidar(){
@@ -43,7 +49,7 @@ void lidarwindow::handleButtonLidar(){
     else if(button == ui->stopLidar){
         if(!ui->stopLidar->isEnabled()) return;
         l->stopLidar();
-        lidarMissionRunning(true);
+        lidarMissionRunning(false);
     }
 }
 
@@ -56,4 +62,9 @@ void lidarwindow::lidarMissionRunning(bool isRunning){
 
 }
 
+
+void lidarwindow::timerPassed(){
+    ui->showRpm->setNum(l->rpmStatus());
+    ui->showStatus->setText(QString::fromStdString(l->getStatus()));
+}
 

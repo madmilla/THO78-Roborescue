@@ -2,6 +2,9 @@
 #define LIDARWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QDebug>
+#include <QTimer>
 #include "lidar.h"
 
 namespace Ui {
@@ -22,10 +25,11 @@ private slots:
     void handleButtonLidar();
 
     void setRpm(int Rpm);
+    void timerPassed();
 
 private:
     void lidarMissionRunning(bool isRunning);
-
+    QTimer * timer;
     Ui::lidarwindow *ui;
 
     lidar * l;
