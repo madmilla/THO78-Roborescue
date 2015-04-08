@@ -29,17 +29,19 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
 }
 
 void EditMapWindow::paintEvent(QPaintEvent *e){
+    if(!changed) return;
+    std::cout << "Paint!" << std::endl;
     QPainter painter(this);
     mapWidth = map->width;
     mapHeight = map->height;
-    std::cout << "Mapwidth: " << mapWidth << std::endl;
-    std::cout << "MapHeight: " << mapHeight << std::endl;
+    //std::cout << "Mapwidth: " << mapWidth << std::endl;
+    //std::cout << "MapHeight: " << mapHeight << std::endl;
     objectx = (drawWidth / mapWidth);
-    std::cout << "ObjectX: " << x*objectx << std::endl;
+    //std::cout << "ObjectX: " << x*objectx << std::endl;
     objecty = (drawHeight / mapHeight);
-    std::cout << "ObjectY: " << y*objecty << std::endl;
+    //std::cout << "ObjectY: " << y*objecty << std::endl;
      y = 0;
-     std::cout << "Vec size: " << map->getMapContent().size() << std::endl;
+    //std::cout << "Vec size: " << map->getMapContent().size() << std::endl;
     for(std::vector<int> fory : map->getMapContent()){
         x = 0;
         for(int forx : fory){

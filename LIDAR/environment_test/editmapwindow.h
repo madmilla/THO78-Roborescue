@@ -29,6 +29,7 @@ private:
     void paintEvent(QPaintEvent *e);
     void mousePressEvent(QMouseEvent * event);
     bool mousePressed;
+    bool changed = false;
     Map *map;
     int selected = 0;
     int x = 0;
@@ -39,7 +40,7 @@ private:
     int mapWidth = 0;
     int drawWidth = 430;
     int drawHeight = 460;
-    vector<vector< int > > mapLayout = map->getMapContent();
+    //vector<vector< int > > mapLayout;
 };
 
 #endif // EDITMAPWINDOW_H
