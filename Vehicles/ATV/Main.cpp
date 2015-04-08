@@ -6,35 +6,6 @@
 #include <thread>
 #include <conio.h>
 #include <windows.h>
-int movement = 0, steering = 0;
-bool reset = false;
-bool goExit = false;
-
-void input()
-{
-	while (1)
-	{
-		switch (_getch())
-		{
-		case 'w':
-			movement = 1;
-			break;
-		case 's':
-			movement = -1;
-			break;
-		case 'a':
-			steering = -1;
-			break;
-		case 'd':
-			steering = 1;
-			break;
-
-		case 'r':
-			reset = true;
-			break;
-		}
-	}
-}
 
 
 int main()
@@ -43,63 +14,48 @@ int main()
 	MAVLinkExchanger mavlinkSender{ port };
 	ATV atv{ mavlinkSender };
 	//atv.emergencyStop();
-	std::thread inputThread(input);
 	std::thread atvLoopThread{ &ATV::loop, &atv };
 	std::thread exchangerLoopThread{ &MAVLinkExchanger::loop, &mavlinkSender };
 	atvLoopThread.detach();
 	exchangerLoopThread.detach();
 
+
 	while (1)
 	{
-		std::cout << "steering: " << steering << " | " << "movement: " << movement << '\n';
-		switch (movement)
-		{
-			case 1:
-				atv.moveForward(55);
-				movement = 0;
-				break;
-			case -1:
-				atv.moveBackward(55);
-				movement = 0;
-				break;
-			default:
-				atv.moveBackward(0);
-				break;
-	
-		}
-
-		switch(steering)
-		{
-			case -1:
-				atv.turnLeft(400);
-				steering = 0;
-				break;
-			case 1:
-				atv.turnRight(400);
-				steering = 0;
-				break;
-			default:
-				atv.turnLeft(0);
-				break;
-		}
-
-
-
-
-
-		Sleep(100);
-
-			
-		if (reset)
-		{
+		if (GetAsyncKeyState(VK_RETURN)){
+			std::cout << "reset\n";
 			atv.returnControlToRc();
 			atv.emergencyStop();
-			reset = false;
-		} 
-		if (goExit)
-		{
-			atv.returnControlToRc();
-			exit(0);
 		}
+
+
+		if (GetAsyncKeyState(VK_LEFT)){
+			std::cout << "left\n";
+			atv.turnLeft(300);
+		}
+		else if (GetAsyncKeyState(VK_RIGHT)){
+			std::cout << "right\n";
+			atv.turnRight(300);
+		}
+		else{
+			//std::cout << "straight\n";
+			atv.turnRight(0);
+		}
+
+		if (GetAsyncKeyState(VK_UP)){
+			std::cout << "forward\n";
+			//atv.moveForward(60);
+		}
+		else if (GetAsyncKeyState(VK_DOWN)){
+			std::cout << "backward\n";
+			//atv.moveBackward(60);
+		}
+		else{
+			std::cout << "stop\n";
+			//atv.moveForward(0);
+		}
+
+
+		Sleep(10);
 	}
 }
