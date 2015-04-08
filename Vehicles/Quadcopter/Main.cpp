@@ -1,7 +1,7 @@
 #include "Quadcopter.h"
 #include "../Dependencies/Serial/SerialPort.h"
 #include <string>
-#include "MAVLinkExchanger.h"
+#include "MAVLinkCommunicator.h"
 #include <iostream>
 #include "TempListener.h"
 #include <thread>
@@ -9,15 +9,15 @@
 int main() 
 {
 	SerialPort serialPort("COM6");
-	MAVLinkExchanger exchanger{ serialPort };
-	Quadcopter quadcopter(exchanger);
+	MAVLinkCommunicator communicator{ serialPort };
+	Quadcopter quadcopter(communicator);
 	//Make a tempListener to check if the quad notifies correctly
 	TempListener tempListener;
 	quadcopter.registerListener(&tempListener);
 	std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
-	std::thread exchangerLoopThread { &MAVLinkExchanger::loop, &exchanger};
+	std::thread communicatorLoopThread{ &MAVLinkCommunicator::loop, &communicator };
 	quadcopterLoopThread.detach();
-	exchangerLoopThread.detach();
+	communicatorLoopThread.detach();
 	while (1)
 	{
 		char c;
