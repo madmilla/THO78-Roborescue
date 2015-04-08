@@ -36,5 +36,4 @@ int main(int argc, char *argv[]) {
 		std::cout << "False\n";
 	}
 
-	return EXIT_SUCCESS;
 }
