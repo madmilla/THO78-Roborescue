@@ -42,7 +42,7 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = deps/pcl/src/pcl-pcl-1.7.2
+CMAKE_SOURCE_DIR = 
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = deps/pcl/src/pcl-pcl-1.7.2
