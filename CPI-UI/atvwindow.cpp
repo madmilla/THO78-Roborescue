@@ -36,7 +36,7 @@ void ATVWindow::handleButton(){
       armed(true);
    }else if(button == ui->shutdownButton){
       atv->stopMission();
-      aremd(false);
+      armed(false);
    }
 }
 
