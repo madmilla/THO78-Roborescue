@@ -20,8 +20,6 @@ public:
 	int sendQueueSize();
 	int receiveQueueSize();
 
-	void stopThread();
-	void abortThread();
 private:
 	PriorityMessage Peek();
 	void send(mavlink_message_t msg);
@@ -30,9 +28,6 @@ private:
 	SerialPort &serialPort;
 	std::priority_queue<PriorityMessage> sendQueue;
 	std::priority_queue<PriorityMessage> receiveQueue;
-
-	bool stop = false;
-	bool abort = false;
 };
 #endif
 

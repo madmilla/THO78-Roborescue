@@ -12,7 +12,7 @@ MAVLinkCommunicator::~MAVLinkCommunicator()
 
 void MAVLinkCommunicator::loop()
 {
-	while ((!stop || sendQueue.size()) && !abort)
+	while (true)
 	{
 		if (sendQueue.size())
 		{
@@ -78,14 +78,4 @@ bool MAVLinkCommunicator::receive(mavlink_message_t & msg)
 		return true;
 	}
 	return false;
-}
-
-void MAVLinkCommunicator::stopThread()
-{
-	stop = true;
-}
-
-void MAVLinkCommunicator::abortThread()
-{
-	abort = true;
 }
