@@ -48,14 +48,14 @@ public:
 	void liftOff(int);
 	/**
 	* arm allows the quadcopter to be armed. Sends a message to the quadcopter to arm the quadcopter
-	* If the quadcopter is armed after has to be checked after through isArmed()
+	* If the quadcopter is armed after the command is sent, it has to be checked through isArmed()
 	* Status messages can be returned by registering as a Listener to the QuadCopter - it will send a StatusText message if it fails
 	*
 	*/
 	void arm();
 	/**
 	* disarm allows the quadcopter to be disarmed. Sends a message to the quadcopter to disarm the quadcopter
-	* If the quadcopter is disarmed after has to be checked after through isArmed()
+	* If the quadcopter is disarmed after the command is sent, it has to be checked through isArmed()
 	* Status messages can be returned by registering as a Listener to the QuadCopter - it will send a StatusText message if it fails
 	*/
 	void disarm();
