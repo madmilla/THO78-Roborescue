@@ -1,6 +1,6 @@
 // MESSAGE sendRosbeePosition PACKING
 
-#define MAVLINK_MSG_ID_sendRosbeePosition 6
+#define MAVLINK_MSG_ID_sendRosbeePosition 18
 
 typedef struct __mavlink_sendrosbeeposition_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_sendrosbeeposition_t
 } mavlink_sendrosbeeposition_t;
 
 #define MAVLINK_MSG_ID_sendRosbeePosition_LEN 10
-#define MAVLINK_MSG_ID_6_LEN 10
+#define MAVLINK_MSG_ID_18_LEN 10
 
 #define MAVLINK_MSG_ID_sendRosbeePosition_CRC 178
-#define MAVLINK_MSG_ID_6_CRC 178
+#define MAVLINK_MSG_ID_18_CRC 178
 
 #define MAVLINK_MSG_sendRosbeePosition_FIELD_PAYLOAD_LEN 4
 

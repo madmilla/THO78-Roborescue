@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<mavlink>
+		<enums>
+			<enum name="COMMAND_DESTINATION">
+				<description>result in a mavlink mission ack</description>
+				<entry value="1" name="ROSBEE">
+					<description>The device id of the Rosbee</description>
+				</entry>
+				<entry value="2" name="LIDAR">
+					<description>The device id of the Lidar</description>
+				</entry>
+			</enum>
+			<enum name="LIDAR_COMMAND_FUNCTIONS">
+               <entry value="0" name="INIT">
+                    <description>initialize Lidar</description>
+               </entry>
+               <entry value="1" name="RECEIVELINE">
+                    <description>Recieve line from lidar</description>
+               </entry>
+               <entry value="2" name="RECIEVERPM">
+                    <description>Recieve RPM from lidar</description>
+               </entry>
+			   <entry value="3" name="SENDRPM">
+                    <description>Send RPM from lidar</description>
+               </entry>
+               <entry value="4" name="START">
+                    <description>Start the lidar</description>
+               </entry>
+               <entry value="5" name="STOP">
+                    <description>Stop the lidar</description>
+               </entry>
+               <entry value="6" name="SENDROSBEEPOSITION">
+                    <description>Send the current position of the rosbee</description>
+               </entry>
+               <entry value="7" name="SENDROSBEEFLANK">
+                    <description>Send the current flank of the rosbee</description>
+               </entry>
+			</enum>
+			<enum name="ROSBEE_COMMAND_FUNCTIONS">
+				<entry value="0" name="INIT">
+					<description>INITIALISE ROSBEE</description>
+				</entry>
+				<entry value="1" name="GETEQUIPMENTSTATUS">
+					<description>DEVICES ARE READY OR NOT</description>
+				</entry>
+				<entry value="2" name="STARTMISSION">
+					<description>START MISSION</description>
+				</entry>
+				<entry value="3" name="SENDWAYPOINT">
+					<description>SEND THE NEXT WAYPOINT</description>
+				</entry>
+				<entry value="4" name="GETREQUEST">
+					<description>ASK INFORMATION FROM THE CPI.</description>
+				</entry>
+				<entry value="5" name="STOPMISSION">
+					<description>STOP MISSION</description>
+				</entry>
+				<entry value="6" name="ABORTMISSION">
+					<description>CANCEL CURRENT MISSION</description>
+				</entry>
+				<entry value="7" name="SONARINTERRUPT">
+					<description>SENDS A INTERRUPT FROM A SONAR TO THE CPI</description>
+				</entry>
+				<entry value="8" name="ACKNOWLEDGE">
+					<description>CONFIRM ARRIVAL</description>
+				</entry>
+				<entry value="9" name="BATTERYSTATUS">
+					<description>LEVEL OF THE BATTERY</description>
+				</entry>
+				<entry value="10" name="SENDINTERRUPT">
+					<description>SEND A INTERRUPT TO THE MAPPING SIDE FOR A NEW WAYPOINT</description>
+				</entry>
+				<entry value="11" name="GETDEVICE">
+					<description>WHICH DEVICE IS SENDING</description>
+				</entry>
+			</enum>
+		</enums>
+		<messages>
+			<message id="1" name="init">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+			<message id="2" name="getEquipmentStatus">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+			<message id="3" name="startMission">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+			<message id="4" name="sendWaypoint">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint16_t" name="Payload">Payload</field>
+			</message>
+			<message id="5" name="getRequest">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+			<message id="6" name="stopMission">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int16_t[4]" name="Payload">Payload</field>
+			</message>
+			<message id="7" name="abortMission">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int8_t" name="Payload">Payload</field>
+			</message>
+			<message id="8" name="sonarInterrupt">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+            <message id="9" name="acknowledge">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+            <message id="10" name="batteryStatus">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+            <message id="11" name="sendInterrupt">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+			<message id="12" name="getDevice">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+			<message id="13" name="receiveLine">
+				<description>Recieve line from lidar</description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int16_t[4]" name="Payload">Payload</field>
+			</message>
+			<message id="14" name="receiveRPM">
+				<description>Recieve RPM from lidar</description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int8_t" name="Payload">Payload</field>
+			</message>
+			<message id="15" name="sendRPM">
+				<description>Send RPM from lidar</description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int8_t" name="Payload">Payload</field>
+			</message>
+			<message id="16" name="start">
+				<description>Start the lidar</description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+			<message id="17" name="stop">
+				<description>Stop the lidar</description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="uint8_t" name="Payload">Payload</field>
+			</message>
+			<message id="18" name="sendRosbeePosition">
+				<description>Send the current position of the rosbee</description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int16_t[4]" name="Payload">Payload</field>
+			</message>
+			<message id="19" name="sendRosbeeFlank">
+				<description>Send the current flank of the rosbee</description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int8_t" name="Payload">Payload</field>
+			</message>
+		</messages>
+</mavlink>

@@ -1,19 +1,19 @@
 // MESSAGE start PACKING
 
-#define MAVLINK_MSG_ID_start 4
+#define MAVLINK_MSG_ID_start 16
 
 typedef struct __mavlink_start_t
 {
  uint8_t Destination; ///< Device ID
  uint8_t Function; ///< Name of the function
- int8_t Payload; ///< Payload
+ uint8_t Payload; ///< Payload
 } mavlink_start_t;
 
 #define MAVLINK_MSG_ID_start_LEN 3
-#define MAVLINK_MSG_ID_4_LEN 3
+#define MAVLINK_MSG_ID_16_LEN 3
 
-#define MAVLINK_MSG_ID_start_CRC 22
-#define MAVLINK_MSG_ID_4_CRC 22
+#define MAVLINK_MSG_ID_start_CRC 221
+#define MAVLINK_MSG_ID_16_CRC 221
 
 
 
@@ -22,7 +22,7 @@ typedef struct __mavlink_start_t
 	3, \
 	{  { "Destination", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_start_t, Destination) }, \
          { "Function", NULL, MAVLINK_TYPE_UINT8_T, 0, 1, offsetof(mavlink_start_t, Function) }, \
-         { "Payload", NULL, MAVLINK_TYPE_INT8_T, 0, 2, offsetof(mavlink_start_t, Payload) }, \
+         { "Payload", NULL, MAVLINK_TYPE_UINT8_T, 0, 2, offsetof(mavlink_start_t, Payload) }, \
          } \
 }
 
@@ -39,13 +39,13 @@ typedef struct __mavlink_start_t
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_start_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-						       uint8_t Destination, uint8_t Function, int8_t Payload)
+						       uint8_t Destination, uint8_t Function, uint8_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_start_LEN];
 	_mav_put_uint8_t(buf, 0, Destination);
 	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint8_t(buf, 2, Payload);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_start_LEN);
 #else
@@ -78,13 +78,13 @@ static inline uint16_t mavlink_msg_start_pack(uint8_t system_id, uint8_t compone
  */
 static inline uint16_t mavlink_msg_start_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
 							   mavlink_message_t* msg,
-						           uint8_t Destination,uint8_t Function,int8_t Payload)
+						           uint8_t Destination,uint8_t Function,uint8_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_start_LEN];
 	_mav_put_uint8_t(buf, 0, Destination);
 	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint8_t(buf, 2, Payload);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_start_LEN);
 #else
@@ -141,13 +141,13 @@ static inline uint16_t mavlink_msg_start_encode_chan(uint8_t system_id, uint8_t 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_start_send(mavlink_channel_t chan, uint8_t Destination, uint8_t Function, int8_t Payload)
+static inline void mavlink_msg_start_send(mavlink_channel_t chan, uint8_t Destination, uint8_t Function, uint8_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_start_LEN];
 	_mav_put_uint8_t(buf, 0, Destination);
 	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint8_t(buf, 2, Payload);
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_start, buf, MAVLINK_MSG_ID_start_LEN, MAVLINK_MSG_ID_start_CRC);
@@ -176,13 +176,13 @@ static inline void mavlink_msg_start_send(mavlink_channel_t chan, uint8_t Destin
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_start_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t Destination, uint8_t Function, int8_t Payload)
+static inline void mavlink_msg_start_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t Destination, uint8_t Function, uint8_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char *buf = (char *)msgbuf;
 	_mav_put_uint8_t(buf, 0, Destination);
 	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint8_t(buf, 2, Payload);
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_start, buf, MAVLINK_MSG_ID_start_LEN, MAVLINK_MSG_ID_start_CRC);
@@ -234,9 +234,9 @@ static inline uint8_t mavlink_msg_start_get_Function(const mavlink_message_t* ms
  *
  * @return Payload
  */
-static inline int8_t mavlink_msg_start_get_Payload(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_start_get_Payload(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_int8_t(msg,  2);
+	return _MAV_RETURN_uint8_t(msg,  2);
 }
 
 /**

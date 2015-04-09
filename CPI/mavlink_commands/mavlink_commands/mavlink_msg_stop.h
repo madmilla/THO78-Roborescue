@@ -1,19 +1,19 @@
 // MESSAGE stop PACKING
 
-#define MAVLINK_MSG_ID_stop 5
+#define MAVLINK_MSG_ID_stop 17
 
 typedef struct __mavlink_stop_t
 {
  uint8_t Destination; ///< Device ID
  uint8_t Function; ///< Name of the function
- int8_t Payload; ///< Payload
+ uint8_t Payload; ///< Payload
 } mavlink_stop_t;
 
 #define MAVLINK_MSG_ID_stop_LEN 3
-#define MAVLINK_MSG_ID_5_LEN 3
+#define MAVLINK_MSG_ID_17_LEN 3
 
-#define MAVLINK_MSG_ID_stop_CRC 32
-#define MAVLINK_MSG_ID_5_CRC 32
+#define MAVLINK_MSG_ID_stop_CRC 135
+#define MAVLINK_MSG_ID_17_CRC 135
 
 
 
@@ -22,7 +22,7 @@ typedef struct __mavlink_stop_t
 	3, \
 	{  { "Destination", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_stop_t, Destination) }, \
          { "Function", NULL, MAVLINK_TYPE_UINT8_T, 0, 1, offsetof(mavlink_stop_t, Function) }, \
-         { "Payload", NULL, MAVLINK_TYPE_INT8_T, 0, 2, offsetof(mavlink_stop_t, Payload) }, \
+         { "Payload", NULL, MAVLINK_TYPE_UINT8_T, 0, 2, offsetof(mavlink_stop_t, Payload) }, \
          } \
 }
 
@@ -39,13 +39,13 @@ typedef struct __mavlink_stop_t
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_stop_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-						       uint8_t Destination, uint8_t Function, int8_t Payload)
+						       uint8_t Destination, uint8_t Function, uint8_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_stop_LEN];
 	_mav_put_uint8_t(buf, 0, Destination);
 	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint8_t(buf, 2, Payload);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_stop_LEN);
 #else
@@ -78,13 +78,13 @@ static inline uint16_t mavlink_msg_stop_pack(uint8_t system_id, uint8_t componen
  */
 static inline uint16_t mavlink_msg_stop_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
 							   mavlink_message_t* msg,
-						           uint8_t Destination,uint8_t Function,int8_t Payload)
+						           uint8_t Destination,uint8_t Function,uint8_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_stop_LEN];
 	_mav_put_uint8_t(buf, 0, Destination);
 	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint8_t(buf, 2, Payload);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_stop_LEN);
 #else
@@ -141,13 +141,13 @@ static inline uint16_t mavlink_msg_stop_encode_chan(uint8_t system_id, uint8_t c
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_stop_send(mavlink_channel_t chan, uint8_t Destination, uint8_t Function, int8_t Payload)
+static inline void mavlink_msg_stop_send(mavlink_channel_t chan, uint8_t Destination, uint8_t Function, uint8_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_stop_LEN];
 	_mav_put_uint8_t(buf, 0, Destination);
 	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint8_t(buf, 2, Payload);
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_stop, buf, MAVLINK_MSG_ID_stop_LEN, MAVLINK_MSG_ID_stop_CRC);
@@ -176,13 +176,13 @@ static inline void mavlink_msg_stop_send(mavlink_channel_t chan, uint8_t Destina
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_stop_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t Destination, uint8_t Function, int8_t Payload)
+static inline void mavlink_msg_stop_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t Destination, uint8_t Function, uint8_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char *buf = (char *)msgbuf;
 	_mav_put_uint8_t(buf, 0, Destination);
 	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint8_t(buf, 2, Payload);
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_stop, buf, MAVLINK_MSG_ID_stop_LEN, MAVLINK_MSG_ID_stop_CRC);
@@ -234,9 +234,9 @@ static inline uint8_t mavlink_msg_stop_get_Function(const mavlink_message_t* msg
  *
  * @return Payload
  */
-static inline int8_t mavlink_msg_stop_get_Payload(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_stop_get_Payload(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_int8_t(msg,  2);
+	return _MAV_RETURN_uint8_t(msg,  2);
 }
 
 /**

@@ -1,9 +1,9 @@
 /** @file
- *	@brief MAVLink comm protocol built from test_command.xml
+ *	@brief MAVLink comm protocol built from mavlink_commands.xml
  *	@see http://mavlink.org
  */
-#ifndef MAVLINK_LIDAR_H
-#define MAVLINK_LIDAR_H
+#ifndef MAVLINK_H
+#define MAVLINK_H
 
 #ifndef MAVLINK_STX
 #define MAVLINK_STX 254
@@ -22,6 +22,6 @@
 #endif
 
 #include "version.h"
-#include "test_command.h"
+#include "mavlink_commands.h"
 
 #endif // MAVLINK_H

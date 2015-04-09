@@ -1,6 +1,6 @@
 // MESSAGE sendRosbeeFlank PACKING
 
-#define MAVLINK_MSG_ID_sendRosbeeFlank 7
+#define MAVLINK_MSG_ID_sendRosbeeFlank 19
 
 typedef struct __mavlink_sendrosbeeflank_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_sendrosbeeflank_t
 } mavlink_sendrosbeeflank_t;
 
 #define MAVLINK_MSG_ID_sendRosbeeFlank_LEN 3
-#define MAVLINK_MSG_ID_7_LEN 3
+#define MAVLINK_MSG_ID_19_LEN 3
 
 #define MAVLINK_MSG_ID_sendRosbeeFlank_CRC 98
-#define MAVLINK_MSG_ID_7_CRC 98
+#define MAVLINK_MSG_ID_19_CRC 98
 
 
 
