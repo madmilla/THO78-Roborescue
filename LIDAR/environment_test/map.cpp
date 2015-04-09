@@ -45,16 +45,16 @@ void Map::loadMap(string fileName){
     int x = 0,y = 0;
     int content;
 
-    std::cout << "height: " << height << std::endl;
-    std::cout << "width: " << width << std::endl;
+    //std::cout << "height: " << height << std::endl;
+    //std::cout << "width: " << width << std::endl;
 
     mapLayout.resize(height);
     mapLayout[y].resize(width);
-    std::cout << "y Size:" << mapLayout.size() << std::endl;
+    //std::cout << "y Size:" << mapLayout.size() << std::endl;
     while(y < height){
         mapFile >> content;
         mapLayout[y][x] = content;
-        std::cout << "x:" << x << " y:" << y << "Content:" << content << std::endl;
+        //std::cout << "x:" << x << " y:" << y << "Content:" << content << std::endl;
         x++;
         if(x > width - 1){
             x = 0;
@@ -67,7 +67,9 @@ void Map::loadMap(string fileName){
 }
 
 void Map::setMapObject(int object,int y, int x){
+    std::cout << "NO!" << std::endl;
     if(x <= width && y <= height){
+        std::cout << "joe" << std::endl;
         mapLayout[y][x] = object;
     }
 }
@@ -86,11 +88,13 @@ void Map::saveMap(){
     for(int y = 0; y < height; y++){
         for(int x = 0; x < width; x++){
             mapFile << mapLayout[y][x];
+            if(x != width - 1)mapFile << ' ';
         }
         if(y != height - 1)mapFile << '\n';
     }
     mapFile.close();
 }
+
 void Map::createNewMap(string fileName){
     ofstream mapFile;
     mapFile.open(fileName + ".map");

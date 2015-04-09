@@ -1,82 +1,62 @@
 #include <string>
-#include "SerialPort.h"
-#include "TempMAVSender.h"
 #include "ATV.h"
+#include "MAVLinkCommunicator.h"
+#include "../Dependencies/Serial/SerialPort.h"
 #include <iostream>
 #include <cstdlib>
 #include <thread>
 #include <conio.h>
+#include <windows.h>
 
-int forward = 0, steer = 0;
-
-void checkforexit()
-{
-	std::string chars;
-	while (1)
-	{
-		switch (_getch())
-		{
-		case 'w':
-			forward++;
-			std::cout << "forward :" << forward << '\n';
-			std::cout << "steer :" << steer << '\n';
-			break;
-		case 'a':
-			steer++;
-			std::cout << "forward :" << forward << '\n';
-			std::cout << "steer :" << steer << '\n';
-			break;
-		case 's':
-			forward--;
-			std::cout << "forward :" << forward << '\n';
-			std::cout << "steer :" << steer << '\n';
-			break;
-		case 'd':
-			steer--;
-			std::cout << "forward :" << forward << '\n';
-			std::cout << "steer :" << steer << '\n';
-			break;
-		case 'e':
-			exit(0);
-			break;
-		}
-		/*std::cin >> chars;
-		if (chars == "exit")
-		{
-			exit(0);
-		}
-		if (chars == "w")
-		{
-			forward++;
-		}
-		if (chars == "s")
-		{
-			forward--;
-		}
-		if (chars == "a")
-		{
-			steer++;
-		}
-		if (chars == "d")
-		{
-			steer--;
-		}
-		std::cout << "forward :" << forward << '\n';
-		std::cout << "steer :" << steer << '\n';*/
-	}
-}
 
 int main()
 {
-	SerialPort port{ "COM4" };
-	TempMAVSender mavlinkSender{ port };
-	ATV atv{ mavlinkSender };
+	SerialPort port{ "COM2" };
+	MAVLinkCommunicator mavlinkCommunicator{ port };
+	ATV atv{ mavlinkCommunicator };
 	//atv.emergencyStop();
-	std::thread th1(checkforexit);
+	std::thread atvLoopThread{ &ATV::loop, &atv };
+	std::thread communicatorLoopThread{ &MAVLinkCommunicator::loop, &mavlinkCommunicator };
+	atvLoopThread.detach();
+	communicatorLoopThread.detach();
+
 
 	while (1)
 	{
-		atv.turnLeft(steer);
-		atv.moveForward(forward);
+		if (GetAsyncKeyState(VK_RETURN)){
+			std::cout << "reset\n";
+			atv.returnControlToRc();
+			atv.emergencyStop();
+		}
+
+
+		if (GetAsyncKeyState(VK_LEFT)){
+			std::cout << "left\n";
+			atv.turnLeft(300);
+		}
+		else if (GetAsyncKeyState(VK_RIGHT)){
+			std::cout << "right\n";
+			atv.turnRight(300);
+		}
+		else{
+			//std::cout << "straight\n";
+			atv.turnRight(0);
+		}
+
+		if (GetAsyncKeyState(VK_UP)){
+			std::cout << "forward\n";
+			//atv.moveForward(60);
+		}
+		else if (GetAsyncKeyState(VK_DOWN)){
+			std::cout << "backward\n";
+			//atv.moveBackward(60);
+		}
+		else{
+			std::cout << "stop\n";
+			//atv.moveForward(0);
+		}
+
+
+		Sleep(10);
 	}
 }

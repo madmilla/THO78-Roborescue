@@ -1,9 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>images/beker.jpg</file>
-        <file>images/muur.jpg</file>
-        <file>images/plant.jpg</file>
-        <file>images/tafel.jpg</file>
-        <file>images/deur.jpg</file>
-    </qresource>
-</RCC>

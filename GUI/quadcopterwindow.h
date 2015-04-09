@@ -20,15 +20,13 @@ public:
 
 private slots:
 
-    void on_toggleControlModeButton_clicked();
-
     void on_sendMaxAltitudeButton_clicked();
 
     void on_armButton_clicked();
 
     void on_takeOff_LandButton_clicked();
 
-    void on_shutdownButton_clicked();
+    void on_restartButton_clicked();
 
     void on_abortButton_clicked();
 

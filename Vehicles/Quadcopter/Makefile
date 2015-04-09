@@ -3,7 +3,7 @@ OBJS = $(SRC:.cpp=.o)
 LIBS = LibSerial.a
 LOC = ../Dependencies/Serial/
 
-export TARGET = linux
+export TARGET = windows
 
 ifeq ($(TARGET),windows)
 	LIBS += -lws2_32

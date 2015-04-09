@@ -37,7 +37,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
-    <NMakeOutput>ATV.exe</NMakeOutput>
+    <NMakeOutput>Main.exe</NMakeOutput>
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make clean build</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
@@ -57,9 +57,16 @@
   <ItemGroup>
     <ClCompile Include="ATV.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MAVLinkCommunicator.cpp" />
+    <ClCompile Include="PriorityMessage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATV.h" />
+    <ClInclude Include="MAVLinkCommunicator.h" />
+    <ClInclude Include="PriorityMessage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

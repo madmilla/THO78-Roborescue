@@ -1,9 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>images/concreteTile.png</file>
-        <file>images/dirtTile.png</file>
-        <file>images/emptyTile.png</file>
-        <file>images/grassTile.png</file>
-        <file>images/waterTile.png</file>
-    </qresource>
-</RCC>
