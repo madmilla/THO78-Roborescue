@@ -7,7 +7,7 @@ MODULES := main shapedetector
 # the deps directory
 DEPS_DIR_WIN:= ..\..\deps
 DEPS_DIR_LINUX:= ../../deps
-CFLAGS = -std=c++11   -I$(DEPS_DIR_WIN)"\files\opencv"
+
  
 HEADER := $(patsubst %,%.h,$(MODULES))
 
@@ -15,19 +15,23 @@ OBJECTS := $(patsubst %,%.o,$(MODULES))
 
 
 ifeq ($(OS),Windows_NT)
-	NAME = "windows"
 	gcc = g++
-	LINKFLAGS = -L$(DEPS_DIR_WIN)"\libs\opencv\windows"  -lopencv_core2410 -lopencv_highgui2410 -lopencv_imgproc2410
+	LINKFLAGS = -L$(DEPS_DIR_WIN)"\libs\opencv\windows"  -lopencv_core2410 -lopencv_highgui2410 -
+
+lopencv_imgproc2410
 	rm = del
 	TARGET := $(PROG).exe
+	CFLAGS = -std=c++11   -I$(DEPS_DIR_WIN)"\files\opencv"
 
 else
-	NAME = "LINUX"
 	ARCH := $(shell getconf LONG_BIT)
 	CPP_FLAGS_32 := $(DEPS_DIR_LINUX)/libs/Linux/x86	
 	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/libs/Linux/x64
-	LINKFLAGS := -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))	
+	LINKFLAGS := -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=
+
+$(CPP_FLAGS_$(ARCH))	
 	gcc := /usr/bin/g++
+	CFLAGS = -std=c++11   -I$(DEPS_DIR_LINUX)"\files\opencv"
 	rm := rm -f
 	TARGET := $(PROG)
 endif
@@ -39,9 +43,7 @@ clean:
 	$(rm) $(TARGET) $(OBJECTS)
 
 $(OBJECTS): %.o : $(HEADERS) %.cpp
-	@echo $(NAME)
 	$(gcc) -c  -o  $@  $< $(CFLAGS)
 $(TARGET): $(OBJECTS) 
-	@echo $(NAME)
 	$(gcc)  $(OBJECTS) -o $@ $(LINKFLAGS) $(CFLAGS)  
 
