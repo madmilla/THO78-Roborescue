@@ -4,7 +4,7 @@
 #include "Subject.h"
 #include <iostream>
 
-#define UINT16_MIN 0
+#define UINT16_MIN 0x0
 
 class MAVLinkCommunicator;
 
