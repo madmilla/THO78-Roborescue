@@ -14,11 +14,10 @@ public:
 	void getRequest();
 	void stopMission();
 	void abortMission();
-    void sonarInterupt();
+	void sonarInterrupt();
 	void sendAck();
 	void BatteryStatus();
-    void sendInterrupt();
-    void getDevice();
+    void getDevice(uint8_t dev);
 
 	~Rosbee();
 private:
