@@ -85,11 +85,27 @@ void ATV::handleIncomingMessage(PriorityMessage incomingMessage)
 		break;
 	case MAVLINK_MSG_ID_VFR_HUD:
 		heading = mavlink_msg_vfr_hud_get_heading(&incomingMessage);
-		groundspeed = mavlink_msg_vfr_hud_get_groundspeed(&incomingMessage);
+		groundSpeed = mavlink_msg_vfr_hud_get_groundspeed(&incomingMessage);
 		break;
 	case MAVLINK_MSG_ID_BATTERY_STATUS:
 		batteryRemaining = mavlink_msg_battery_status_get_battery_remaining(&incomingMessage);
 		break;
 
 	}
+}
+
+float ATV::getHeading(){
+	return heading;
+}
+
+int ATV::getBatteryRemaining(){
+	return batteryRemaining;
+}
+
+float ATV::getGroundSpeed(){
+	return groundSpeed;
+}
+
+int ATV::getSteeringDirection(){
+	return steeringDirection;
 }

@@ -70,7 +70,7 @@ public:
 	*/
 	void moveBackward(int value );
 	
-	/*
+	/**
 	* The steer method for the ATV.
 	* The steer method is being called for turning the front wheels to a certain degree.
 	* For a fast and reliable turn left give -400 as parameter and for a turn right give 400 as parameter.
@@ -79,29 +79,36 @@ public:
 	*/
 	void steer(int value);
 	
-	/*
+	/**
 	* The reset method for the ATV
 	* Calling this method will make the ATV to reset
 	*/
 	void reset();
 	
-	/*
+	/**
 	* The returnControlToRc method for the ATV
 	* This method send a message to mavlinkCommunicator for returning the control to the Radio Controller
 	*/
 	void returnControlToRc();
 	
-	/*
+	/**
 	* This is the main loop for a ATV
 	* This is made in a separate thread when the main program is started
 	*/
 	void loop();
-	
+	float getHeading();
+
+	int getBatteryRemaining();
+
+	float getGroundSpeed();
+
+	int getSteeringDirection();
+
 private:
 	MAVLinkCommunicator & mavlinkCommunicator;
 	PriorityMessage message;
 	
-	float groundspeed;
+	float groundSpeed;
 	float heading;
 	int steeringDirection;
 	//FlightMode flightMode;
