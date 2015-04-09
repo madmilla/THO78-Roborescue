@@ -11,7 +11,7 @@
 
 int main()
 {
-	SerialPort port{ "COM2" };
+	SerialPort port{ "COM5" };
 	MAVLinkCommunicator mavlinkCommunicator{ port };
 	ATV atv{ mavlinkCommunicator };
 	//atv.emergencyStop();
@@ -27,6 +27,9 @@ int main()
 			std::cout << "reset\n";
 			atv.returnControlToRc();
 			atv.reset();
+		}
+		if (GetAsyncKeyState(0x45)){
+			exit(0);
 		}
 
 
