@@ -3,6 +3,8 @@
 
 #include "commandsMap.h"
 #include "commandsStrategy.hpp"
+#include "Line.hpp"
+#include "Point.hpp"
 
 //! \file Surroundings.hpp
 //! \class Surroundings
