@@ -15,12 +15,14 @@ OBJECTS := $(patsubst %,%.o,$(MODULES))
 
 
 ifeq ($(OS),Windows_NT)
+	NAME = "windows"
 	gcc = g++
 	LINKFLAGS = -L$(DEPS_DIR_WIN)"\libs\opencv\windows"  -lopencv_core2410 -lopencv_highgui2410 -lopencv_imgproc2410
 	rm = del
 	TARGET := $(PROG).exe
 
 else
+	NAME = "LINUX"
 	ARCH := $(shell getconf LONG_BIT)
 	CPP_FLAGS_32 := $(DEPS_DIR_LINUX)/libs/Linux/x86	
 	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/libs/Linux/x64
@@ -37,7 +39,9 @@ clean:
 	$(rm) $(TARGET) $(OBJECTS)
 
 $(OBJECTS): %.o : $(HEADERS) %.cpp
+	@echo $(NAME)
 	$(gcc) -c  -o  $@  $< $(CFLAGS)
 $(TARGET): $(OBJECTS) 
+	@echo $(NAME)
 	$(gcc)  $(OBJECTS) -o $@ $(LINKFLAGS) $(CFLAGS)  
 
