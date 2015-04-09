@@ -6,7 +6,7 @@
 * /_/   \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file 			MAVLinkCommunicator.h
+* @file 			MAVLinkExchanger.h
 * @date Created:	2015-04-08
 *
 *  @author	Tim Hasselaar
@@ -37,60 +37,71 @@
 *   OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef _PRIORITYMESSAGE_H
-#define _PRIORITYMESSAGE_H
+#ifndef _MAVLINKEXCHANGER_H
+#define _MAVLINKEXCHANGER_H
+#include <queue>
+#include "PrioritisedMAVLinkMessage.h"
 #include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
 
-class PriorityMessage : public mavlink_message_t
+class SerialPort;
+
+class MAVLinkExchanger
 {
 public:
 
 	/**
-	* The default constructor of a PriorityMessage.
-	* @param msg, the mavlink message which contains all the data.
-	* @param priority, the priority that this message has. Higher priority messages will be placed higher in the queue,
-	*	and will thus be handled at a more timely manner than lower priority messages.
+	* Create the MAVLink Communicator
+	* @param serialPort, a reference to the serial port to which all the data has to be written.
 	*/
-	explicit PriorityMessage(mavlink_message_t & msg, char priority);
-
-	/**
-	* The constructor used for received messages.
-	* Because a received message doesnt receive a priority from the quadcopter, there is a constructor with only the mavlink message as paramter.
-	* The priority of this message will be determined using the message id. Heartbeats, for example, will be less important than a channel override.
-	* @param msg, the mavlink message containing all the data.
-	*/
-	PriorityMessage(mavlink_message_t & msg);
-
-	/**
-	* The constructor with no parameters.
-	* This constructor will be used when an empty priority message is created.
-	* This can be used when a message has to be returned, but there is nothing to return.
-	*/
-	PriorityMessage();
+	explicit MAVLinkExchanger(SerialPort &serialPort);
 
 	/**
 	* The default deconstructor
 	*/
-	~PriorityMessage();
+	~MAVLinkExchanger();
 
 	/**
-	* The less than operator for comparing two priority messages.
-	* This operator is required to use a priority queue.
-	* This method will compare the priority variables of the first and second message.
-	* @param lhs, the first priority message that will be compared.
-	* @param rhs, the second priority message that will be compared.
-	* @return wether or not the priority of the first message is smaller than the priority of the second message.
+	* The loop of this communication controller.
+	* It will constantly check if there are messages to be sent, and if there are none,
+	* the controller will try to receive a message.
 	*/
-	friend bool operator<(const PriorityMessage & lhs, const PriorityMessage & rhs);
+	void loop();
 
 	/**
-	* This is the get-function for the priority of the priority message.
-	* @return the priority of a priority message.
+	* The sendMessage function. Giving a priority is optional.
+	* This method will create a PrioritisedMAVLinkMessage from a standard mavlink message and add it to the sending queue.
+	* @param msg, the message that has to be sent.
+	* @param priority, the priority that the message has. The standard priority equals 128.
+	*	Because this controller uses a priority queue, a message with a higher priority will immideatly be placed at the top of the queue.
 	*/
-	char getPriority() const;
+	void sendMessage(mavlink_message_t msg, char priority = 128);
+
+	/**
+	* The receiveMessage method. The controller will check the receive queue for received messages.
+	* @return the PrioritisedMAVLinkMessage at the top of the queue.
+	*/
+	PrioritisedMAVLinkMessage receiveMessage();
+
+	/**
+	* The send queue size method.
+	* @return the size of the queue with the messages that have to be sent.
+	*/
+	int sendQueueSize();
+
+	/**
+	* The receive queue size method.
+	* @return the size of the receive queue. Can be used to check if there are messages received that have to be handled.
+	*/
+	int receiveQueueSize();
 
 private:
-	char priority;
+	PrioritisedMAVLinkMessage peek();
+	void send(mavlink_message_t msg);
+	void receive();
+
+	SerialPort &serialPort;
+	std::priority_queue<PrioritisedMAVLinkMessage> sendQueue;
+	std::priority_queue<PrioritisedMAVLinkMessage> receiveQueue;
 };
 #endif
 

@@ -1,12 +1,12 @@
 #ifndef _QUADCOPTER_H
 #define _QUADCOPTER_H
-#include "PriorityMessage.h"
+#include "PrioritisedMAVLinkMessage.h"
 #include "Subject.h"
 #include <iostream>
 
 #define UINT16_MIN 0x0
 
-class MAVLinkCommunicator;
+class MAVLinkExchanger;
 
 class Quadcopter : public Subject
 {
@@ -27,7 +27,7 @@ public:
 		UNKNOWN = -1
 	};
 
-	explicit Quadcopter(MAVLinkCommunicator& communicator);
+	explicit Quadcopter(MAVLinkExchanger& communicator);
 	void liftOff(int);
 	void arm();
 	void disarm();
@@ -72,9 +72,9 @@ public:
 	FlightMode getMode() const;
 
 private:
-	MAVLinkCommunicator& communicator;
-	PriorityMessage message;
-	PriorityMessage RCOverrideMessage;
+	MAVLinkExchanger& communicator;
+	PrioritisedMAVLinkMessage message;
+	PrioritisedMAVLinkMessage RCOverrideMessage;
 
 	FlightMode flightMode;
 	bool armed;
@@ -84,7 +84,7 @@ private:
 	float altitude;
 	int heading;
 
-	void handleIncomingMessage(PriorityMessage incomingMessage);
+	void handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage);
 	void calculateRCChannels();
 
 	const int MEANVALUELEFTRIGHT{ 1487 };
