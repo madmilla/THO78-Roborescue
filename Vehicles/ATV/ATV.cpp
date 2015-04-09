@@ -87,8 +87,8 @@ void ATV::handleIncomingMessage(PriorityMessage incomingMessage)
 		heading = mavlink_msg_vfr_hud_get_heading(&incomingMessage);
 		groundSpeed = mavlink_msg_vfr_hud_get_groundspeed(&incomingMessage);
 		break;
-	case MAVLINK_MSG_ID_BATTERY_STATUS:
-		batteryRemaining = mavlink_msg_battery_status_get_battery_remaining(&incomingMessage);
+	case MAVLINK_MSG_ID_SYS_STATUS:
+		batteryRemaining = mavlink_msg_sys_status_get_battery_remaining(&incomingMessage);
 		break;
 
 	}
