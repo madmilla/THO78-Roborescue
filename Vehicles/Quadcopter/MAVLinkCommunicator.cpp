@@ -1,5 +1,6 @@
 #include "MAVLinkCommunicator.h"
 #include "../Dependencies/Serial/SerialPort.h"
+#include <iostream>
 
 MAVLinkCommunicator::MAVLinkCommunicator(SerialPort &serialPort) :
 serialPort{ serialPort }
@@ -14,6 +15,7 @@ void MAVLinkCommunicator::loop()
 {
 	while (true)
 	{
+		//std::cout << "Hoi";
 		if (sendQueue.size())
 		{
 			PriorityMessage message = Peek();
