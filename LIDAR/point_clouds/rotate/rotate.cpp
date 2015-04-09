@@ -5,27 +5,26 @@
 #include <fstream>
 
 
-pcl::PointCloud<pcl::PointXY> rotate_point(float cx,float cy,float angle, pcl::PointCloud<pcl::PointXY> cloud)
+pcl::PointCloud<pcl::PointXY> rotate_point(float angle, pcl::PointCloud<pcl::PointXY> cloud)
 {
-  float sn = sin(angle*M_PI/180);
-
-  float cs = cos(angle*M_PI/180); 
+	
+	float sn = sin(angle*M_PI/180);
+	float cs = cos(angle*M_PI/180); 
   
-  // rotate point
-
-  float x = cloud.points[0].x;
-  float y = cloud.points[0].y;
-
-  float nx = x * cs - y * sn; 
-  float ny = x * sn + y * cs;
-
-
-
-
-  // translate point back:
-  cloud.points[0].x = nx;
-  cloud.points[0].y = ny;
-  return cloud;
+	// rotate point
+	for (size_t i = 0; i < cloud.size(); ++i) {    	
+		float x = cloud.points[i].x;
+		float y = cloud.points[i].y;
+		float nx = x * cs - y * sn; 
+		float ny = x * sn + y * cs;
+		cloud.points[i].x = nx;
+		cloud.points[i].y = ny;
+		nx = 0;
+		ny = 0;
+	}
+	
+	// translate point back:
+	return cloud;
 }
 
 
@@ -71,10 +70,9 @@ int main (int argc, char** argv)
 		std::cerr << "specify cloud\n";
 		exit(0);
 	}
-	std::ofstream fOut;
-	std::ifstream iOne, iTwo;
+	std::ifstream fOpen;
 			
-	iOne.open(argv[1]);
+	fOpen.open(argv[1]);
 		
     float fOne, fTwo;
     int line1 = 0, line2 = 0;
@@ -87,17 +85,12 @@ int main (int argc, char** argv)
 	/* count number of lines in point cloud file. 
 	 * used in for loops later on
 	 */
-    while(std::getline(iOne, temp)) { ++line1; }
-    
-    while(std::getline(iTwo, temp)) { ++line2; }
-	/* clean filestreams
+    while(std::getline(fOpen, temp)) { ++line1; }
+    /* clean filestreams
 	 * return to the beginning of the file
 	 */ 
-	iOne.clear();
-	iOne.seekg(0, iOne.beg);
-	iTwo.clear();
-	iTwo.seekg(0, iTwo.beg);
-	
+	fOpen.clear();
+	fOpen.seekg(0, fOpen.beg);
 
 	/* set cloud width and height
 	 */
@@ -108,18 +101,24 @@ int main (int argc, char** argv)
 
 	/* create clouds, remove duplicate coordinates and finally merge.
 	 */ 
-	cloud_a = fillClouds(cloud_a, iOne );
+	cloud_a = fillClouds(cloud_a, fOpen );
 	
-	std::cerr << "Cloud A: " << std::endl;
+	std::cerr << "Original: " << std::endl;
 	printCloud(cloud_a);
 	
 	
-	std::cerr << "Rotated " << std::endl;
-	cloud_b = rotate_point(0, 0, 90, cloud_a); 
+	std::cerr << "Rotatation 1: 90 degrees " << std::endl;
+	
+	//rotate clouds degrees 
+	cloud_b = rotate_point(90, cloud_a); 
+	cloud_c = rotate_point(-50, cloud_a);
+	
 	
 	printCloud(cloud_b);
-	fOut.close();
-	iOne.close();
-	iTwo.close();
+	
+	std::cerr << "Rotatation 2: -50 degrees " << std::endl;
+	printCloud(cloud_c);
+	
+	fOpen.close();
 	return (0);
 }
