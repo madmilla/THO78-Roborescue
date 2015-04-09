@@ -6,12 +6,12 @@
 * /_/   \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file 			MAVLinkCommunicator.h
+* @file 			ATV.h
 * @date Created:	2015-04-08
 *
 *  @author	Hylco Uding	
 *  @author	Yorrick Lans
-*  @author  Bart Muelders
+*  @author	Bart Muelders
 *
 *  @section LICENSE
 *  License:	newBSD
@@ -100,7 +100,13 @@ public:
 private:
 	MAVLinkCommunicator & mavlinkCommunicator;
 	PriorityMessage message;
-
+	
+	float groundspeed;
+	float heading;
+	int steeringDirection;
+	FlightMode flightMode;
+	
+	int batteryRemaining;
 	void handleIncomingMessage(PriorityMessage incomingMessage);
 };
 
