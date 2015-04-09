@@ -23,7 +23,7 @@ void test(){
     float time = (float)(end - Start) /CLOCKS_PER_SEC;
     std::cout << (circles->total+ lines.size()) << " Objects detected in " << time << " seconds" << std::endl;
 
-    sD.writeCircles(circles);
+    sD.writeCirclesToConsole(circles);
     sD.writeLinesToConsole(lines);
 }
 
