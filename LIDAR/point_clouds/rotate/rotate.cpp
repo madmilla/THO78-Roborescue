@@ -1,22 +1,23 @@
 #include <iostream>
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
+#include <math.h> 
 #include <fstream>
 
 
 pcl::PointCloud<pcl::PointXY> rotate_point(float cx,float cy,float angle, pcl::PointCloud<pcl::PointXY> cloud)
 {
-  float s = sin(angle);
-  float c = cos(angle);
-  // translate point back to origin:
+  float sn = sin(angle*M_PI/180);
 
+  float cs = cos(angle*M_PI/180); 
+  
   // rotate point
 
   float x = cloud.points[0].x;
   float y = cloud.points[0].y;
 
-  float nx = cos(angle) * (x-cx) - sin(angle) * (y-cy) + cx;
-  float ny = sin(angle) * (nx-cx) + cos(angle) * (y-cy) + cy;
+  float nx = x * cs - y * sn; 
+  float ny = x * sn + y * cs;
 
 
 
@@ -114,7 +115,7 @@ int main (int argc, char** argv)
 	
 	
 	std::cerr << "Rotated " << std::endl;
-	cloud_b = rotate_point(0, 0, 180, cloud_a); 
+	cloud_b = rotate_point(0, 0, 90, cloud_a); 
 	
 	printCloud(cloud_b);
 	fOut.close();
