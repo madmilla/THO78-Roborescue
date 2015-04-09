@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "Listener.h"
+#include "StatusText.h"
 
 class Quadcopter;
 
@@ -44,7 +45,7 @@ private:
     Ui::QuadCopterWindow *ui;
     Quadcopter& quadcopter;
 	
-	void notifyListener(Subject&) override;
+    void notifyListener(Subject&, StatusText statusText) override;
 };
 
 #endif // QUADCOPTERWINDOW_H
