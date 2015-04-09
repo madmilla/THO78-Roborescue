@@ -36,10 +36,20 @@ private:
     const CvScalar LINECOLOR = CV_RGB(0,255,0); //! the line color
     const int THICKNESS = 3; //! the thickness of the line
 
-    /* this function converts a Mat object to a IplImage
-     * so the function cvSmooth can be used. */
+    //! this function converts a Mat object to a IplImage so the function cvSmooth can be used.
+    /*!
+     @param m_src: the source file
+     @param m_dest: the destination file to save on
+     @param smooth_type: the smooth value
+     @param param1: value1
+     @param param2: value2
+     */
     bool callCvSmooth(const Mat & m_src, const Mat & m_dest, const int smooth_type, const int param1, const int param2);
-    /*the function checks for double lines to prevent unneeded data*/
+
+    //! the function checks for double lines to prevent unneeded data
+    /*!
+     @param lines: the given lines to check on
+     */
     void checkLines(vector<Vec4i> & lines);
 
 public:
@@ -71,15 +81,40 @@ public:
     */
     Mat createImage(const std::string & source);
 
-    /* the function search for lines in the given image
-     * and returns the lines*/
+    //! the function search for lines in the given image and returns the lines
+    /*!
+    @param image: the image to detect lines on
+    */
     vector<Vec4i> searchLines(const Mat & image);
-    /* write the lines container to the console*/
+
+    //! write the lines container to the console
+    /*!
+    @param lines: the vec4i lines to draw to the console
+    */
     void writeLinesToConsole(const vector<Vec4i> & lines);
-    /* draw the lines in a given matrix */
+
+
+    //! draw the lines in a given matrix
+    /*!
+    @param lines: contains the lines to draw;
+    @param final_dest: the image to draw on
+    */
     void drawLines(const vector<Vec4i> & lines, Mat & final_dest);
 
+    //! write the circle and line objects to the console
+    /*!
+     @param lines: the given lines to write
+     @param circles: the given circles to write
+     */
     void writeObjectsToConsole(const vector<Vec4i> & lines, const CvSeq * circles);
+
+    //! show the circle and line objects in one window
+    /*!
+     @param lines: the given lines to show
+     @param circles: the given circles to show
+     @param orginal_image: the orginal input image to show
+     @param custom_image: the edited image with the lines and circles to show
+     */
     void showObjects(const vector<Vec4i> & lines, const CvSeq * circles, const Mat & orginal_image, Mat & custom_image);
 };
 
