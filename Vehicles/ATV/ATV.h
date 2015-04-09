@@ -47,13 +47,13 @@
 class ATV
 {
 public:
-	/*
+	/**
 	*The Constructor for the ATV
 	*@param MAVLinkCommunicator is the mavlinkCommunicator
 	*/
 	ATV(MAVLinkCommunicator & mavlinkCommunicator);
 	
-	/*
+	/**
 	*The default deconstructor
 	*/
 	~ATV();
