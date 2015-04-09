@@ -95,9 +95,9 @@ public:
 	int receiveQueueSize();
 
 private:
-	PriorityMessage Peek();
+	PriorityMessage peek();
 	void send(mavlink_message_t msg);
-	bool receive(mavlink_message_t & msg);
+	void receive();
 
 	SerialPort &serialPort;
 	std::priority_queue<PriorityMessage> sendQueue;

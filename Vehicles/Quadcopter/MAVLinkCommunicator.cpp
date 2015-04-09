@@ -1,6 +1,5 @@
 #include "MAVLinkCommunicator.h"
 #include "../Dependencies/Serial/SerialPort.h"
-#include <iostream>
 
 MAVLinkCommunicator::MAVLinkCommunicator(SerialPort &serialPort) :
 serialPort{ serialPort }
@@ -15,18 +14,13 @@ void MAVLinkCommunicator::loop()
 {
 	while (true)
 	{
-		//std::cout << "Hoi";
 		if (sendQueue.size())
 		{
-			PriorityMessage message = Peek();
+			PriorityMessage message = sendQueue.top();
 			send(message);
 			sendQueue.pop();
 		}
-		PriorityMessage message{};
-		if (receive(message))
-		{
-			receiveQueue.push(message);
-		}
+		receive();
 	}
 }
 
@@ -37,11 +31,9 @@ void MAVLinkCommunicator::sendMessage(mavlink_message_t msg, char priority)
 
 PriorityMessage MAVLinkCommunicator::receiveMessage()
 {
-	if (receiveQueue.size())
-	{
-		return receiveQueue.top();
-	}
-	return PriorityMessage{};
+	PriorityMessage msg = peek();
+	receiveQueue.pop();
+	return msg;
 }
 
 int MAVLinkCommunicator::sendQueueSize()
@@ -54,11 +46,11 @@ int MAVLinkCommunicator::receiveQueueSize()
 	return receiveQueue.size();
 }
 
-PriorityMessage MAVLinkCommunicator::Peek()
+PriorityMessage MAVLinkCommunicator::peek()
 {
-	if (sendQueue.size())
+	if (receiveQueue.size())
 	{
-		return sendQueue.top();
+		return receiveQueue.top();
 	}
 	else return PriorityMessage{};
 }
@@ -70,14 +62,14 @@ void MAVLinkCommunicator::send(mavlink_message_t msg)
 	serialPort.writeData(buffer, len);
 }
 
-bool MAVLinkCommunicator::receive(mavlink_message_t & msg)
+void MAVLinkCommunicator::receive()
 {
+	PriorityMessage msg{};
 	mavlink_status_t status;
 	unsigned char c;
 	serialPort.readData(&c, 1);
 	if (mavlink_parse_char(MAVLINK_COMM_0, c, &msg, &status))
 	{
-		return true;
+		receiveQueue.push(msg);
 	}
-	return false;
 }

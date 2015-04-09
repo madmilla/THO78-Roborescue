@@ -1,7 +1,7 @@
 #include "Quadcopter.h"
-#include "MAVLinkExchanger.h"
+#include "MAVLinkCommunicator.h"
 
-Quadcopter::Quadcopter(MAVLinkExchanger& communicator) :
+Quadcopter::Quadcopter(MAVLinkCommunicator& communicator) :
 communicator(communicator),
 flightMode{ FlightMode::UNKNOWN },
 armed{ false }
@@ -11,19 +11,19 @@ armed{ false }
 void Quadcopter::liftOff(int altitude)
 {
 	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, MAV_CMD_NAV_TAKEOFF, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, altitude);
-	communicator.enqueueMessage(message);
+	communicator.sendMessage(message);
 }
 
 void Quadcopter::arm()
 {
 	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, MAV_CMD_COMPONENT_ARM_DISARM, UINT16_MIN, 1, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN);
-	communicator.enqueueMessage(message);
+	communicator.sendMessage(message);
 }
 
 void Quadcopter::disarm()
 {
 	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, MAV_CMD_COMPONENT_ARM_DISARM, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN);
-	communicator.enqueueMessage(message);
+	communicator.sendMessage(message);
 }
 
 void Quadcopter::moveLeft(signed int value)
@@ -34,7 +34,7 @@ void Quadcopter::moveLeft(signed int value)
 void Quadcopter::moveRight(signed int value)
 {
 	mavlink_msg_rc_channels_override_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
-	communicator.enqueueMessage(message);
+	communicator.sendMessage(message);
 }
 
 void Quadcopter::moveForward()
@@ -52,7 +52,7 @@ void Quadcopter::stop()
 void Quadcopter::land()
 {
 	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, MAV_CMD_NAV_LAND, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN);
-	communicator.enqueueMessage(message);
+	communicator.sendMessage(message);
 }
 
 void Quadcopter::changeFlightSpeed(int)
@@ -62,25 +62,25 @@ void Quadcopter::changeFlightSpeed(int)
 void Quadcopter::changeHeading(int value)
 {
 	mavlink_msg_rc_channels_override_pack(SYSTEMID, COMPONENTID,&message, TARGET_SYSTEMID, TARGET_COMPONENTID,UINT16_MAX, UINT16_MAX, UINT16_MAX,MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
-	communicator.enqueueMessage(message);
+	communicator.sendMessage(message);
 }
 
 void Quadcopter::changeAltitude(int altitude)
 {
 	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, MAV_CMD_NAV_CONTINUE_AND_CHANGE_ALT, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, altitude);
-	communicator.enqueueMessage(message);
+	communicator.sendMessage(message);
 }
 
 void Quadcopter::shutdown()
 {
 	mavlink_msg_command_long_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN, UINT16_MIN, TARGET_SYSTEMID, TARGET_COMPONENTID, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN, UINT16_MIN);
-	communicator.enqueueMessage(message);
+	communicator.sendMessage(message);
 }
 
 void Quadcopter::changeMode(FlightMode mode)
 {
 	mavlink_msg_set_mode_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, static_cast<uint32_t>(mode));
-	communicator.enqueueMessage(message);
+	communicator.sendMessage(message);
 }
 
 void Quadcopter::loop()
@@ -89,14 +89,14 @@ void Quadcopter::loop()
 	{
 		if (communicator.receiveQueueSize())
 		{
-			handleIncomingMessage(communicator.dequeueMessage());
+			handleIncomingMessage(communicator.receiveMessage());
 		}
 		//calculateRCChannels();
-		//exchanger.enqueueMessage(RCOverrideMessage);
+		//exchanger.sendMessage(RCOverrideMessage);
 	}
 }
 
-void Quadcopter::handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage)
+void Quadcopter::handleIncomingMessage(PriorityMessage incomingMessage)
 {
 	//std::cout << "Message!\n";
 	receivedMessageMap[incomingMessage.msgid]++;
