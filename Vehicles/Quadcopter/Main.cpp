@@ -15,23 +15,14 @@ void inputs();
 
 int main() 
 {
-<<<<<<< HEAD
-
-	//std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
-	std::thread communicatorLoopThread{ &MAVLinkExchanger::loop, &communicator };
 	std::thread inputThread{ inputs };
 	inputThread.detach();
-=======
-	SerialPort serialPort("COM5");
-	MAVLinkCommunicator communicator{ serialPort };
-	Quadcopter quadcopter(communicator);
 	std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
-	std::thread communicatorLoopThread{ &MAVLinkCommunicator::loop, &communicator };
+	std::thread communicatorLoopThread{ &MAVLinkExchanger::loop, &communicator };
 	quadcopterLoopThread.detach();
->>>>>>> origin/master
 	communicatorLoopThread.detach();
 	
-	/*while (1)
+	while (1)
 	{
 		if (communicator.receiveQueueSize())
 		{
@@ -40,7 +31,7 @@ int main()
 	}
 }
 
-<<<<<<< HEAD
+
 void inputs()
 {
 	while (1)
@@ -62,12 +53,4 @@ void inputs()
 			break;
 		}
 	}
-=======
-	}*/
-
-	std::cout << "Arming";
-	quadcopter.arm();
-	std::cout << "Disarming";
-	quadcopter.disarm();
->>>>>>> origin/master
 }

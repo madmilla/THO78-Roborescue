@@ -1,10 +1,17 @@
-﻿Build started 9-4-2015 16:30:06.
+﻿Build started 9-4-2015 20:51:30.
      1>Project "C:\Users\Kjeld Perquin\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make
-         make: `Main' is up to date.
+         g++ -c -std=gnu++11 Main.cpp -o Main.o
+         g++ -c -std=gnu++11 PrioritisedMAVLinkMessage.cpp -o PrioritisedMAVLinkMessage.o
+         g++ -c -std=gnu++11 Quadcopter.cpp -o Quadcopter.o
+         make -C ../Dependencies/Serial/
+         make[1]: Entering directory `/c/Users/Kjeld Perquin/Documents/GitHub/THO78-Roborescue/Vehicles/Dependencies/Serial'
+         make[1]: `LibSerial.a' is up to date.
+         make[1]: Leaving directory `/c/Users/Kjeld Perquin/Documents/GitHub/THO78-Roborescue/Vehicles/Dependencies/Serial'
+         g++ -std=gnu++11 -I../Dependencies/MAVLink/ardupilotmega MAVLinkExchanger.o Main.o PrioritisedMAVLinkMessage.o Quadcopter.o ../Dependencies/Serial//LibSerial.a -lws2_32 -o Main -pthread
      1>Done Building Project "C:\Users\Kjeld Perquin\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.07
+Time Elapsed 00:00:04.04
