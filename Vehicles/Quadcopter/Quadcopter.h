@@ -3,6 +3,7 @@
 #include "PrioritisedMAVLinkMessage.h"
 #include "Subject.h"
 #include <iostream>
+#include <chrono>
 
 #define UINT16_MIN 0x0
 
@@ -84,13 +85,13 @@ private:
 	float altitude;
 	int heading;
 
-	void handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage);
-	void calculateRCChannels();
-
 	const int MEANVALUELEFTRIGHT{ 1487 };
 	const int SYSTEMID{ 255 };
 	const int COMPONENTID{ 0 };
 	const int TARGET_SYSTEMID{ 1 };
 	const int TARGET_COMPONENTID{ 1 };
+
+	const std::chrono::seconds RCHeartbeatInterval{ 1 };
+	std::chrono::system_clock::time_point lastRCSent;
 };
 #endif
