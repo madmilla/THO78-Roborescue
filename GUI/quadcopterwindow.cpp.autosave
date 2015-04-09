@@ -60,6 +60,11 @@ void QuadCopterWindow::on_takeOff_LandButton_clicked()
 
 void QuadCopterWindow::on_restartButton_clicked()
 {
+    quadcopter.disarm();
+    ui->armedCheck->setChecked(false);
+    ui->armButton->setText("Arm");
+    ui->takeOff_LandButton->setEnabled(false);
+    ui->abortButton->setEnabled(false);
     quadcopter.restart();
 }
 
