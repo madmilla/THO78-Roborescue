@@ -47,26 +47,26 @@
 class ATV
 {
 public:
-	/*
+	/**
 	*The Constructor for the ATV
 	*@param MAVLinkCommunicator is the mavlinkCommunicator
 	*/
 	ATV(MAVLinkCommunicator & mavlinkCommunicator);
 	
-	/*
+	/**
 	*The default deconstructor
 	*/
 	~ATV();
 	
-	/*
-	*
-	*
+	/**
+	*Method to move the ATV forwards
+	*@param value adjustment of PWM(PWM can't directly be converted to speed unis)
 	*/
 	void moveForward(int value);
 	
-	/*
-	*
-	*
+	/**
+	*Method to move the ATV backwards
+	*@param value adjustment of PWM(PWM can't directly be converted to speed unis)
 	*/
 	void moveBackward(int value );
 	
