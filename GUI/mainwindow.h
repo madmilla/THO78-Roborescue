@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <vector>
+#include "rosbee.h"
+#include "lidar.h"
+#include "atv.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,12 +20,18 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
+    void handleButton();
 
 private:
     Ui::MainWindow *ui;
+
+    std::vector<QMainWindow *> subWindows;
+
+    Rosbee * rosbee;
+    lidar * lidar;
+    ATV * atv;
+
+    void checkZombies();
 };
 
 #endif // MAINWINDOW_H

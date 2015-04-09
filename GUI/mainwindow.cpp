@@ -1,24 +1,72 @@
 #include "mainwindow.h"
 #include "quadcopterwindow.h"
 #include "ui_mainwindow.h"
+#include "atvwindow.h"
+#include "rosbeewindow.h"
+#include "lidarwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    rosbee(new Rosbee())
 {
     ui->setupUi(this);
+
+    connect(ui->QuadButton  , SIGNAL(clicked()), this, SLOT(handleButton()));
+    connect(ui->ATVButton   , SIGNAL(clicked()), this, SLOT(handleButton()));
+    connect(ui->LidarButton , SIGNAL(clicked()), this, SLOT(handleButton()));
+    connect(ui->MapButton   , SIGNAL(clicked()), this, SLOT(handleButton()));
+    connect(ui->RosbeeButton, SIGNAL(clicked()), this, SLOT(handleButton()));
+    connect(ui->ExitButton  , SIGNAL(clicked()), this, SLOT(handleButton()));
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
+MainWindow::~MainWindow(){
+   for(QMainWindow * window : subWindows){
+      window->close();
+      delete window;
+   }
+   subWindows.clear();
+   delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
+void MainWindow::checkZombies(){
+   std::vector<QMainWindow *> newSubWindows;
+   for(QMainWindow * subWindow : subWindows){
+      if(subWindow->isVisible()){
+         newSubWindows.push_back(subWindow);
+      }else{
+         delete subWindow;
+      }
+   }
+   subWindows = newSubWindows;
 }
 
-void MainWindow::on_pushButton_2_clicked()
-{
+void MainWindow::handleButton(){
+   QPushButton * button = static_cast<QPushButton *>(sender());
+   if(button == nullptr) return;
+   QMainWindow * newWindow = nullptr;
 
+   if(button == ui->QuadButton){
+      newWindow = new QuadCopterWindow(this);
+   }else if(button == ui->ATVButton){
+      newWindow = new ATVWindow(atv, this);
+   }else if(button == ui->LidarButton){
+      newWindow = new lidarwindow(lidar, this);
+   }else if(button == ui->MapButton){
+      //newWindow - new MapWindow(this);
+   }else if(button == ui->RosbeeButton){
+      newWindow = new RosbeeWindow(rosbee, this);
+   }else if(button == ui->ExitButton){
+      for(QMainWindow * window : subWindows){
+         window->close();
+      }
+      this->close();
+   }
+
+   if(newWindow != nullptr){
+      newWindow->show();
+      subWindows.push_back(newWindow);
+   }
+
+   checkZombies();
 }
