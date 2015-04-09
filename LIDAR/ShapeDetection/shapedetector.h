@@ -1,8 +1,8 @@
 #ifndef SHAPEDETECTOR_H
 #define SHAPEDETECTOR_H
 
-#include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
 #include "opencv2/opencv.hpp"
 #include <iostream>
 #include <fstream>
@@ -45,16 +45,32 @@ private:
 public:
     ShapeDetector();
     ~ShapeDetector();
-    //This functions writes all the circle positions and radii to a file according to the outputName paramter
-    void writeCircles(const CvSeq * circles);
-    //This function shows the input image with the detected circles;
-    void drawCircles(const CvSeq * circles, Mat & final_dest);
+    //! write circles on the
+    /*!
+    This functions writes all the circle positions and radii to a file according to the outputName paramter
+    @param circles: the CvSeq with circles to be written on the console
+    */
+    void writeCirclesToConsole(const CvSeq * circles);
+    //! Draw circles on a given image
+    /*!
+    This function draws all the circles on the given image.
+    @param circles: the CvSeq with circles to be drawn on the image
+    @param image: A reference to the image where the circles should be drawn on
+    */
+    void drawCircles(const CvSeq * circles, Mat & image);
+    //! detect circles in a image
+    /*!
     //This function detect circles and return a CVSEQ pointer with the detected circles
+    @param image: The image to detect circles on
+    */
     CvSeq * detectCircles(const Mat & image);
-
-    /*This function creates a .jpg file from a .txt file with pixels according to the output paramter
-     * and after creation returns the picture */
+    //! create a image from the given .txt source
+    /*!
+    This function creates a .jpg file from a .txt file with pixels and saves it as output.jpg
+    @param image: The image to detect circles on
+    */
     Mat createImage(const std::string & source);
+
     /* the function search for lines in the given image
      * and returns the lines*/
     vector<Vec4i> searchLines(const Mat & image);

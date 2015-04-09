@@ -9,7 +9,7 @@ ShapeDetector::~ShapeDetector()
 
 }
 
-void ShapeDetector::writeCircles(const CvSeq * circles){
+void ShapeDetector::writeCirclesToConsole(const CvSeq * circles){
     std::cout << "found circles: " << (circles->total) << std::endl << std::endl;
     for (int i = 0; i < circles->total; i++) // walk through the circles
     {
@@ -177,7 +177,7 @@ void ShapeDetector::drawLines(const vector<Vec4i> & lines, Mat & final_dest) {
 }
 
 void ShapeDetector::writeObjectsToConsole(const vector<Vec4i> & lines, const CvSeq * circles) {
-    writeCircles(circles);
+    writeCirclesToConsole(circles);
     writeLinesToConsole(lines);
 }
 
