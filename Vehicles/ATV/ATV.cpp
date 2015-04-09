@@ -39,7 +39,7 @@ void ATV::moveBackward(int value)
 void ATV::steer(int value)
 {
 	//mavlink_message_t msg;
-	steerDirection = value;
+	steeringDirection = value;
 	int sendValue = 1467 + value;
 	mavlink_msg_rc_channels_override_pack(
 		255, 200, &message, 1, 1, sendValue, UINT16_MAX, UINT16_MAX,
@@ -81,7 +81,7 @@ void ATV::handleIncomingMessage(PriorityMessage incomingMessage)
 	switch (incomingMessage.msgid)
 	{
 	case MAVLINK_MSG_ID_HEARTBEAT:
-		flightMode = static_cast<FlightMode>(mavlink_msg_heartbeat_get_custom_mode(&incomingMessage));
+		//flightMode = static_cast<FlightMode>(mavlink_msg_heartbeat_get_custom_mode(&incomingMessage));
 		break;
 	case MAVLINK_MSG_ID_VFR_HUD:
 		heading = mavlink_msg_vfr_hud_get_heading(&incomingMessage);

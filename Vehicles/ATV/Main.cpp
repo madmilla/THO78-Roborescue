@@ -26,7 +26,7 @@ int main()
 		if (GetAsyncKeyState(VK_RETURN)){
 			std::cout << "reset\n";
 			atv.returnControlToRc();
-			atv.emergencyStop();
+			atv.reset();
 		}
 
 
