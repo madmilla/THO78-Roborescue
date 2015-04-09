@@ -1,5 +1,6 @@
 #include <string>
 #include "ATV.h"
+#include "MAVLinkCommunicator.h"
 #include "../Dependencies/Serial/SerialPort.h"
 #include <iostream>
 #include <cstdlib>
@@ -10,14 +11,14 @@
 
 int main()
 {
-	SerialPort port{ "COM5" };
-	MAVLinkExchanger mavlinkSender{ port };
-	ATV atv{ mavlinkSender };
+	SerialPort port{ "COM2" };
+	MAVLinkCommunicator mavlinkCommunicator{ port };
+	ATV atv{ mavlinkCommunicator };
 	//atv.emergencyStop();
 	std::thread atvLoopThread{ &ATV::loop, &atv };
-	std::thread exchangerLoopThread{ &MAVLinkExchanger::loop, &mavlinkSender };
+	std::thread communicatorLoopThread{ &MAVLinkCommunicator::loop, &mavlinkCommunicator };
 	atvLoopThread.detach();
-	exchangerLoopThread.detach();
+	communicatorLoopThread.detach();
 
 
 	while (1)
@@ -27,11 +28,7 @@ int main()
 			atv.returnControlToRc();
 			atv.emergencyStop();
 		}
-		if (GetAsyncKeyState(0x45)){
-			//std::cout << "forward\n";
-			atv.returnControlToRc();
-			exit(0);
-		}
+
 
 		if (GetAsyncKeyState(VK_LEFT)){
 			std::cout << "left\n";
@@ -48,17 +45,18 @@ int main()
 
 		if (GetAsyncKeyState(VK_UP)){
 			std::cout << "forward\n";
-			atv.moveForward(100);
+			//atv.moveForward(60);
 		}
 		else if (GetAsyncKeyState(VK_DOWN)){
 			std::cout << "backward\n";
-			atv.moveBackward(60);
+			//atv.moveBackward(60);
 		}
 		else{
-			//std::cout << "stop\n";
-			atv.moveForward(0);
+			std::cout << "stop\n";
+			//atv.moveForward(0);
 		}
-		
+
+
 		Sleep(100);
 	}
 }
