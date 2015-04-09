@@ -26,7 +26,7 @@ else
 	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/libs/Linux/x64
 	LINKFLAGS := -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))	
 	gcc := /usr/bin/g++
-	CFLAGS = -std=c++11   -I$(DEPS_DIR_LINUX)"\files\opencv"
+	CFLAGS = -std=c++11   -I$(DEPS_DIR_LINUX)/files/opencv
 	rm := rm -f
 	TARGET := $(PROG)
 endif
