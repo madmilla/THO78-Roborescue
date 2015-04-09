@@ -35,18 +35,22 @@ void Quadcopter::moveRight(signed int value)
 {
 	mavlink_msg_rc_channels_override_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
 	communicator.enqueueMessage(message);
+	lastRCSent = std::chrono::system_clock::now();
 }
 
 void Quadcopter::moveForward()
 {
+	lastRCSent = std::chrono::system_clock::now();
 }
 
 void Quadcopter::moveBackward()
 {
+	lastRCSent = std::chrono::system_clock::now();
 }
 
 void Quadcopter::stop()
 {
+	lastRCSent = std::chrono::system_clock::now();
 }
 
 void Quadcopter::land()
@@ -63,6 +67,7 @@ void Quadcopter::changeHeading(int value)
 {
 	mavlink_msg_rc_channels_override_pack(SYSTEMID, COMPONENTID,&message, TARGET_SYSTEMID, TARGET_COMPONENTID,UINT16_MAX, UINT16_MAX, UINT16_MAX,MEANVALUELEFTRIGHT+value,UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
 	communicator.enqueueMessage(message);
+	lastRCSent = std::chrono::system_clock::now();
 }
 
 void Quadcopter::changeAltitude(int altitude)
@@ -91,8 +96,18 @@ void Quadcopter::loop()
 		{
 			handleIncomingMessage(communicator.dequeueMessage());
 		}
-		//calculateRCChannels();
-		//exchanger.enqueueMessage(RCOverrideMessage);
+		if (std::chrono::system_clock::now() - lastRCSent >= RCHeartbeatInterval)
+		{
+			mavlink_msg_rc_channels_override_pack(SYSTEMID, COMPONENTID, &message, TARGET_SYSTEMID, TARGET_COMPONENTID, UINT16_MAX, 
+																														UINT16_MAX, 
+																														UINT16_MAX, 
+																														UINT16_MAX, 
+																														UINT16_MAX, 
+																														UINT16_MAX, 
+																														UINT16_MAX, 
+																														UINT16_MAX);
+			lastRCSent = std::chrono::system_clock::now();
+		}
 	}
 }
 
@@ -114,7 +129,6 @@ void Quadcopter::handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage
 		yaw = mavlink_msg_attitude_get_yaw(&incomingMessage);
 		break;
 	}
-	std::cout << (int)incomingMessage.msgid << std::endl;
 	notifyListeners();
 }
 

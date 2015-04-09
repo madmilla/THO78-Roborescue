@@ -1,9 +1,8 @@
-﻿Build started 9-4-2015 20:51:30.
+﻿Build started 9-4-2015 21:42:56.
      1>Project "C:\Users\Kjeld Perquin\Documents\GitHub\THO78-Roborescue\Vehicles\Quadcopter\Quadcopter.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make
          g++ -c -std=gnu++11 Main.cpp -o Main.o
-         g++ -c -std=gnu++11 PrioritisedMAVLinkMessage.cpp -o PrioritisedMAVLinkMessage.o
          g++ -c -std=gnu++11 Quadcopter.cpp -o Quadcopter.o
          make -C ../Dependencies/Serial/
          make[1]: Entering directory `/c/Users/Kjeld Perquin/Documents/GitHub/THO78-Roborescue/Vehicles/Dependencies/Serial'
@@ -14,4 +13,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.04
+Time Elapsed 00:00:03.88
