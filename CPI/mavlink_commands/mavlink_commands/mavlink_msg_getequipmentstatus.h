@@ -1,6 +1,6 @@
 // MESSAGE getEquipmentStatus PACKING
 
-#define MAVLINK_MSG_ID_getEquipmentStatus 2
+#define MAVLINK_MSG_ID_getEquipmentStatus 1
 
 typedef struct __mavlink_getequipmentstatus_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_getequipmentstatus_t
 } mavlink_getequipmentstatus_t;
 
 #define MAVLINK_MSG_ID_getEquipmentStatus_LEN 3
-#define MAVLINK_MSG_ID_2_LEN 3
+#define MAVLINK_MSG_ID_1_LEN 3
 
 #define MAVLINK_MSG_ID_getEquipmentStatus_CRC 224
-#define MAVLINK_MSG_ID_2_CRC 224
+#define MAVLINK_MSG_ID_1_CRC 224
 
 
 

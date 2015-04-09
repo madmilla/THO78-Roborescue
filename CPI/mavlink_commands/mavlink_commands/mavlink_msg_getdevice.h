@@ -1,6 +1,6 @@
 // MESSAGE getDevice PACKING
 
-#define MAVLINK_MSG_ID_getDevice 12
+#define MAVLINK_MSG_ID_getDevice 11
 
 typedef struct __mavlink_getdevice_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_getdevice_t
 } mavlink_getdevice_t;
 
 #define MAVLINK_MSG_ID_getDevice_LEN 3
-#define MAVLINK_MSG_ID_12_LEN 3
+#define MAVLINK_MSG_ID_11_LEN 3
 
 #define MAVLINK_MSG_ID_getDevice_CRC 125
-#define MAVLINK_MSG_ID_12_CRC 125
+#define MAVLINK_MSG_ID_11_CRC 125
 
 
 

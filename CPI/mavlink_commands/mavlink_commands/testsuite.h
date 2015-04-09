@@ -615,13 +615,13 @@ static void mavlink_test_receiverpm(uint8_t system_id, uint8_t component_id, mav
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
 	mavlink_receiverpm_t packet_in = {
-		5,72,139
+		17235,139,206
     };
 	mavlink_receiverpm_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
+        	packet1.Payload = packet_in.Payload;
         	packet1.Destination = packet_in.Destination;
         	packet1.Function = packet_in.Function;
-        	packet1.Payload = packet_in.Payload;
         
         
 
@@ -660,13 +660,13 @@ static void mavlink_test_sendrpm(uint8_t system_id, uint8_t component_id, mavlin
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
 	mavlink_sendrpm_t packet_in = {
-		5,72,139
+		17235,139,206
     };
 	mavlink_sendrpm_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
+        	packet1.Payload = packet_in.Payload;
         	packet1.Destination = packet_in.Destination;
         	packet1.Function = packet_in.Function;
-        	packet1.Payload = packet_in.Payload;
         
         
 
@@ -795,14 +795,14 @@ static void mavlink_test_sendrosbeeposition(uint8_t system_id, uint8_t component
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
 	mavlink_sendrosbeeposition_t packet_in = {
-		{ 17235, 17236, 17237, 17238 },29,96
+		5,72,{ 139, 140 }
     };
 	mavlink_sendrosbeeposition_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         	packet1.Destination = packet_in.Destination;
         	packet1.Function = packet_in.Function;
         
-        	mav_array_memcpy(packet1.Payload, packet_in.Payload, sizeof(int16_t)*4);
+        	mav_array_memcpy(packet1.Payload, packet_in.Payload, sizeof(int8_t)*2);
         
 
         memset(&packet2, 0, sizeof(packet2));
@@ -840,13 +840,13 @@ static void mavlink_test_sendrosbeeflank(uint8_t system_id, uint8_t component_id
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
 	mavlink_sendrosbeeflank_t packet_in = {
-		5,72,139
+		17235,139,206
     };
 	mavlink_sendrosbeeflank_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
+        	packet1.Payload = packet_in.Payload;
         	packet1.Destination = packet_in.Destination;
         	packet1.Function = packet_in.Function;
-        	packet1.Payload = packet_in.Payload;
         
         
 

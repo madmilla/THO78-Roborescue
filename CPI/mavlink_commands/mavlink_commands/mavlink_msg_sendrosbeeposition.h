@@ -1,28 +1,28 @@
 // MESSAGE sendRosbeePosition PACKING
 
-#define MAVLINK_MSG_ID_sendRosbeePosition 18
+#define MAVLINK_MSG_ID_sendRosbeePosition 17
 
 typedef struct __mavlink_sendrosbeeposition_t
 {
- int16_t Payload[4]; ///< Payload
  uint8_t Destination; ///< Device ID
  uint8_t Function; ///< Name of the function
+ int8_t Payload[2]; ///< Payload
 } mavlink_sendrosbeeposition_t;
 
-#define MAVLINK_MSG_ID_sendRosbeePosition_LEN 10
-#define MAVLINK_MSG_ID_18_LEN 10
+#define MAVLINK_MSG_ID_sendRosbeePosition_LEN 4
+#define MAVLINK_MSG_ID_17_LEN 4
 
-#define MAVLINK_MSG_ID_sendRosbeePosition_CRC 178
-#define MAVLINK_MSG_ID_18_CRC 178
+#define MAVLINK_MSG_ID_sendRosbeePosition_CRC 57
+#define MAVLINK_MSG_ID_17_CRC 57
 
-#define MAVLINK_MSG_sendRosbeePosition_FIELD_PAYLOAD_LEN 4
+#define MAVLINK_MSG_sendRosbeePosition_FIELD_PAYLOAD_LEN 2
 
 #define MAVLINK_MESSAGE_INFO_sendRosbeePosition { \
 	"sendRosbeePosition", \
 	3, \
-	{  { "Payload", NULL, MAVLINK_TYPE_INT16_T, 4, 0, offsetof(mavlink_sendrosbeeposition_t, Payload) }, \
-         { "Destination", NULL, MAVLINK_TYPE_UINT8_T, 0, 8, offsetof(mavlink_sendrosbeeposition_t, Destination) }, \
-         { "Function", NULL, MAVLINK_TYPE_UINT8_T, 0, 9, offsetof(mavlink_sendrosbeeposition_t, Function) }, \
+	{  { "Destination", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_sendrosbeeposition_t, Destination) }, \
+         { "Function", NULL, MAVLINK_TYPE_UINT8_T, 0, 1, offsetof(mavlink_sendrosbeeposition_t, Function) }, \
+         { "Payload", NULL, MAVLINK_TYPE_INT8_T, 2, 2, offsetof(mavlink_sendrosbeeposition_t, Payload) }, \
          } \
 }
 
@@ -39,19 +39,19 @@ typedef struct __mavlink_sendrosbeeposition_t
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sendrosbeeposition_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-						       uint8_t Destination, uint8_t Function, const int16_t *Payload)
+						       uint8_t Destination, uint8_t Function, const int8_t *Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_sendRosbeePosition_LEN];
-	_mav_put_uint8_t(buf, 8, Destination);
-	_mav_put_uint8_t(buf, 9, Function);
-	_mav_put_int16_t_array(buf, 0, Payload, 4);
+	_mav_put_uint8_t(buf, 0, Destination);
+	_mav_put_uint8_t(buf, 1, Function);
+	_mav_put_int8_t_array(buf, 2, Payload, 2);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_sendRosbeePosition_LEN);
 #else
 	mavlink_sendrosbeeposition_t packet;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	mav_array_memcpy(packet.Payload, Payload, sizeof(int16_t)*4);
+	mav_array_memcpy(packet.Payload, Payload, sizeof(int8_t)*2);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_sendRosbeePosition_LEN);
 #endif
 
@@ -76,19 +76,19 @@ static inline uint16_t mavlink_msg_sendrosbeeposition_pack(uint8_t system_id, ui
  */
 static inline uint16_t mavlink_msg_sendrosbeeposition_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
 							   mavlink_message_t* msg,
-						           uint8_t Destination,uint8_t Function,const int16_t *Payload)
+						           uint8_t Destination,uint8_t Function,const int8_t *Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_sendRosbeePosition_LEN];
-	_mav_put_uint8_t(buf, 8, Destination);
-	_mav_put_uint8_t(buf, 9, Function);
-	_mav_put_int16_t_array(buf, 0, Payload, 4);
+	_mav_put_uint8_t(buf, 0, Destination);
+	_mav_put_uint8_t(buf, 1, Function);
+	_mav_put_int8_t_array(buf, 2, Payload, 2);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_sendRosbeePosition_LEN);
 #else
 	mavlink_sendrosbeeposition_t packet;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	mav_array_memcpy(packet.Payload, Payload, sizeof(int16_t)*4);
+	mav_array_memcpy(packet.Payload, Payload, sizeof(int8_t)*2);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_sendRosbeePosition_LEN);
 #endif
 
@@ -137,13 +137,13 @@ static inline uint16_t mavlink_msg_sendrosbeeposition_encode_chan(uint8_t system
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_sendrosbeeposition_send(mavlink_channel_t chan, uint8_t Destination, uint8_t Function, const int16_t *Payload)
+static inline void mavlink_msg_sendrosbeeposition_send(mavlink_channel_t chan, uint8_t Destination, uint8_t Function, const int8_t *Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_sendRosbeePosition_LEN];
-	_mav_put_uint8_t(buf, 8, Destination);
-	_mav_put_uint8_t(buf, 9, Function);
-	_mav_put_int16_t_array(buf, 0, Payload, 4);
+	_mav_put_uint8_t(buf, 0, Destination);
+	_mav_put_uint8_t(buf, 1, Function);
+	_mav_put_int8_t_array(buf, 2, Payload, 2);
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_sendRosbeePosition, buf, MAVLINK_MSG_ID_sendRosbeePosition_LEN, MAVLINK_MSG_ID_sendRosbeePosition_CRC);
 #else
@@ -153,7 +153,7 @@ static inline void mavlink_msg_sendrosbeeposition_send(mavlink_channel_t chan, u
 	mavlink_sendrosbeeposition_t packet;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	mav_array_memcpy(packet.Payload, Payload, sizeof(int16_t)*4);
+	mav_array_memcpy(packet.Payload, Payload, sizeof(int8_t)*2);
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_sendRosbeePosition, (const char *)&packet, MAVLINK_MSG_ID_sendRosbeePosition_LEN, MAVLINK_MSG_ID_sendRosbeePosition_CRC);
 #else
@@ -170,13 +170,13 @@ static inline void mavlink_msg_sendrosbeeposition_send(mavlink_channel_t chan, u
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_sendrosbeeposition_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t Destination, uint8_t Function, const int16_t *Payload)
+static inline void mavlink_msg_sendrosbeeposition_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t Destination, uint8_t Function, const int8_t *Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char *buf = (char *)msgbuf;
-	_mav_put_uint8_t(buf, 8, Destination);
-	_mav_put_uint8_t(buf, 9, Function);
-	_mav_put_int16_t_array(buf, 0, Payload, 4);
+	_mav_put_uint8_t(buf, 0, Destination);
+	_mav_put_uint8_t(buf, 1, Function);
+	_mav_put_int8_t_array(buf, 2, Payload, 2);
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_sendRosbeePosition, buf, MAVLINK_MSG_ID_sendRosbeePosition_LEN, MAVLINK_MSG_ID_sendRosbeePosition_CRC);
 #else
@@ -186,7 +186,7 @@ static inline void mavlink_msg_sendrosbeeposition_send_buf(mavlink_message_t *ms
 	mavlink_sendrosbeeposition_t *packet = (mavlink_sendrosbeeposition_t *)msgbuf;
 	packet->Destination = Destination;
 	packet->Function = Function;
-	mav_array_memcpy(packet->Payload, Payload, sizeof(int16_t)*4);
+	mav_array_memcpy(packet->Payload, Payload, sizeof(int8_t)*2);
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_sendRosbeePosition, (const char *)packet, MAVLINK_MSG_ID_sendRosbeePosition_LEN, MAVLINK_MSG_ID_sendRosbeePosition_CRC);
 #else
@@ -208,7 +208,7 @@ static inline void mavlink_msg_sendrosbeeposition_send_buf(mavlink_message_t *ms
  */
 static inline uint8_t mavlink_msg_sendrosbeeposition_get_Destination(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_uint8_t(msg,  8);
+	return _MAV_RETURN_uint8_t(msg,  0);
 }
 
 /**
@@ -218,7 +218,7 @@ static inline uint8_t mavlink_msg_sendrosbeeposition_get_Destination(const mavli
  */
 static inline uint8_t mavlink_msg_sendrosbeeposition_get_Function(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_uint8_t(msg,  9);
+	return _MAV_RETURN_uint8_t(msg,  1);
 }
 
 /**
@@ -226,9 +226,9 @@ static inline uint8_t mavlink_msg_sendrosbeeposition_get_Function(const mavlink_
  *
  * @return Payload
  */
-static inline uint16_t mavlink_msg_sendrosbeeposition_get_Payload(const mavlink_message_t* msg, int16_t *Payload)
+static inline uint16_t mavlink_msg_sendrosbeeposition_get_Payload(const mavlink_message_t* msg, int8_t *Payload)
 {
-	return _MAV_RETURN_int16_t_array(msg, Payload, 4,  0);
+	return _MAV_RETURN_int8_t_array(msg, Payload, 2,  2);
 }
 
 /**
@@ -240,9 +240,9 @@ static inline uint16_t mavlink_msg_sendrosbeeposition_get_Payload(const mavlink_
 static inline void mavlink_msg_sendrosbeeposition_decode(const mavlink_message_t* msg, mavlink_sendrosbeeposition_t* sendrosbeeposition)
 {
 #if MAVLINK_NEED_BYTE_SWAP
-	mavlink_msg_sendrosbeeposition_get_Payload(msg, sendrosbeeposition->Payload);
 	sendrosbeeposition->Destination = mavlink_msg_sendrosbeeposition_get_Destination(msg);
 	sendrosbeeposition->Function = mavlink_msg_sendrosbeeposition_get_Function(msg);
+	mavlink_msg_sendrosbeeposition_get_Payload(msg, sendrosbeeposition->Payload);
 #else
 	memcpy(sendrosbeeposition, _MAV_PAYLOAD(msg), MAVLINK_MSG_ID_sendRosbeePosition_LEN);
 #endif

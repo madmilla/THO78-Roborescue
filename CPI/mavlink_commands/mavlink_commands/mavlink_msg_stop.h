@@ -1,6 +1,6 @@
 // MESSAGE stop PACKING
 
-#define MAVLINK_MSG_ID_stop 17
+#define MAVLINK_MSG_ID_stop 16
 
 typedef struct __mavlink_stop_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_stop_t
 } mavlink_stop_t;
 
 #define MAVLINK_MSG_ID_stop_LEN 3
-#define MAVLINK_MSG_ID_17_LEN 3
+#define MAVLINK_MSG_ID_16_LEN 3
 
 #define MAVLINK_MSG_ID_stop_CRC 135
-#define MAVLINK_MSG_ID_17_CRC 135
+#define MAVLINK_MSG_ID_16_CRC 135
 
 
 

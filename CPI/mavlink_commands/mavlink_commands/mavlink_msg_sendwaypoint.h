@@ -1,6 +1,6 @@
 // MESSAGE sendWaypoint PACKING
 
-#define MAVLINK_MSG_ID_sendWaypoint 4
+#define MAVLINK_MSG_ID_sendWaypoint 3
 
 typedef struct __mavlink_sendwaypoint_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_sendwaypoint_t
 } mavlink_sendwaypoint_t;
 
 #define MAVLINK_MSG_ID_sendWaypoint_LEN 4
-#define MAVLINK_MSG_ID_4_LEN 4
+#define MAVLINK_MSG_ID_3_LEN 4
 
 #define MAVLINK_MSG_ID_sendWaypoint_CRC 58
-#define MAVLINK_MSG_ID_4_CRC 58
+#define MAVLINK_MSG_ID_3_CRC 58
 
 
 

@@ -1,6 +1,6 @@
 // MESSAGE receiveLine PACKING
 
-#define MAVLINK_MSG_ID_receiveLine 13
+#define MAVLINK_MSG_ID_receiveLine 12
 
 typedef struct __mavlink_receiveline_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_receiveline_t
 } mavlink_receiveline_t;
 
 #define MAVLINK_MSG_ID_receiveLine_LEN 10
-#define MAVLINK_MSG_ID_13_LEN 10
+#define MAVLINK_MSG_ID_12_LEN 10
 
 #define MAVLINK_MSG_ID_receiveLine_CRC 253
-#define MAVLINK_MSG_ID_13_CRC 253
+#define MAVLINK_MSG_ID_12_CRC 253
 
 #define MAVLINK_MSG_receiveLine_FIELD_PAYLOAD_LEN 4
 

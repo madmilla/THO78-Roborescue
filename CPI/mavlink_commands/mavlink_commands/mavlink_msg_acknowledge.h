@@ -1,6 +1,6 @@
 // MESSAGE acknowledge PACKING
 
-#define MAVLINK_MSG_ID_acknowledge 9
+#define MAVLINK_MSG_ID_acknowledge 8
 
 typedef struct __mavlink_acknowledge_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_acknowledge_t
 } mavlink_acknowledge_t;
 
 #define MAVLINK_MSG_ID_acknowledge_LEN 3
-#define MAVLINK_MSG_ID_9_LEN 3
+#define MAVLINK_MSG_ID_8_LEN 3
 
 #define MAVLINK_MSG_ID_acknowledge_CRC 182
-#define MAVLINK_MSG_ID_9_CRC 182
+#define MAVLINK_MSG_ID_8_CRC 182
 
 
 

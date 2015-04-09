@@ -1,6 +1,6 @@
 // MESSAGE sonarInterrupt PACKING
 
-#define MAVLINK_MSG_ID_sonarInterrupt 8
+#define MAVLINK_MSG_ID_sonarInterrupt 7
 
 typedef struct __mavlink_sonarinterrupt_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_sonarinterrupt_t
 } mavlink_sonarinterrupt_t;
 
 #define MAVLINK_MSG_ID_sonarInterrupt_LEN 3
-#define MAVLINK_MSG_ID_8_LEN 3
+#define MAVLINK_MSG_ID_7_LEN 3
 
 #define MAVLINK_MSG_ID_sonarInterrupt_CRC 140
-#define MAVLINK_MSG_ID_8_CRC 140
+#define MAVLINK_MSG_ID_7_CRC 140
 
 
 

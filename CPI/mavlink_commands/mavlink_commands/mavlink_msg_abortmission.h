@@ -1,6 +1,6 @@
 // MESSAGE abortMission PACKING
 
-#define MAVLINK_MSG_ID_abortMission 7
+#define MAVLINK_MSG_ID_abortMission 6
 
 typedef struct __mavlink_abortmission_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_abortmission_t
 } mavlink_abortmission_t;
 
 #define MAVLINK_MSG_ID_abortMission_LEN 3
-#define MAVLINK_MSG_ID_7_LEN 3
+#define MAVLINK_MSG_ID_6_LEN 3
 
 #define MAVLINK_MSG_ID_abortMission_CRC 255
-#define MAVLINK_MSG_ID_7_CRC 255
+#define MAVLINK_MSG_ID_6_CRC 255
 
 
 

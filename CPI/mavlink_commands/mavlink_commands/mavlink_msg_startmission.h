@@ -1,6 +1,6 @@
 // MESSAGE startMission PACKING
 
-#define MAVLINK_MSG_ID_startMission 3
+#define MAVLINK_MSG_ID_startMission 2
 
 typedef struct __mavlink_startmission_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_startmission_t
 } mavlink_startmission_t;
 
 #define MAVLINK_MSG_ID_startMission_LEN 3
-#define MAVLINK_MSG_ID_3_LEN 3
+#define MAVLINK_MSG_ID_2_LEN 3
 
 #define MAVLINK_MSG_ID_startMission_CRC 26
-#define MAVLINK_MSG_ID_3_CRC 26
+#define MAVLINK_MSG_ID_2_CRC 26
 
 
 

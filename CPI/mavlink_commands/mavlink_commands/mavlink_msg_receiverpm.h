@@ -1,28 +1,28 @@
 // MESSAGE receiveRPM PACKING
 
-#define MAVLINK_MSG_ID_receiveRPM 14
+#define MAVLINK_MSG_ID_receiveRPM 13
 
 typedef struct __mavlink_receiverpm_t
 {
+ uint16_t Payload; ///< Payload
  uint8_t Destination; ///< Device ID
  uint8_t Function; ///< Name of the function
- int8_t Payload; ///< Payload
 } mavlink_receiverpm_t;
 
-#define MAVLINK_MSG_ID_receiveRPM_LEN 3
-#define MAVLINK_MSG_ID_14_LEN 3
+#define MAVLINK_MSG_ID_receiveRPM_LEN 4
+#define MAVLINK_MSG_ID_13_LEN 4
 
-#define MAVLINK_MSG_ID_receiveRPM_CRC 229
-#define MAVLINK_MSG_ID_14_CRC 229
+#define MAVLINK_MSG_ID_receiveRPM_CRC 163
+#define MAVLINK_MSG_ID_13_CRC 163
 
 
 
 #define MAVLINK_MESSAGE_INFO_receiveRPM { \
 	"receiveRPM", \
 	3, \
-	{  { "Destination", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_receiverpm_t, Destination) }, \
-         { "Function", NULL, MAVLINK_TYPE_UINT8_T, 0, 1, offsetof(mavlink_receiverpm_t, Function) }, \
-         { "Payload", NULL, MAVLINK_TYPE_INT8_T, 0, 2, offsetof(mavlink_receiverpm_t, Payload) }, \
+	{  { "Payload", NULL, MAVLINK_TYPE_UINT16_T, 0, 0, offsetof(mavlink_receiverpm_t, Payload) }, \
+         { "Destination", NULL, MAVLINK_TYPE_UINT8_T, 0, 2, offsetof(mavlink_receiverpm_t, Destination) }, \
+         { "Function", NULL, MAVLINK_TYPE_UINT8_T, 0, 3, offsetof(mavlink_receiverpm_t, Function) }, \
          } \
 }
 
@@ -39,20 +39,20 @@ typedef struct __mavlink_receiverpm_t
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_receiverpm_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-						       uint8_t Destination, uint8_t Function, int8_t Payload)
+						       uint8_t Destination, uint8_t Function, uint16_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_receiveRPM_LEN];
-	_mav_put_uint8_t(buf, 0, Destination);
-	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint16_t(buf, 0, Payload);
+	_mav_put_uint8_t(buf, 2, Destination);
+	_mav_put_uint8_t(buf, 3, Function);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_receiveRPM_LEN);
 #else
 	mavlink_receiverpm_t packet;
+	packet.Payload = Payload;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	packet.Payload = Payload;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_receiveRPM_LEN);
 #endif
@@ -78,20 +78,20 @@ static inline uint16_t mavlink_msg_receiverpm_pack(uint8_t system_id, uint8_t co
  */
 static inline uint16_t mavlink_msg_receiverpm_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
 							   mavlink_message_t* msg,
-						           uint8_t Destination,uint8_t Function,int8_t Payload)
+						           uint8_t Destination,uint8_t Function,uint16_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_receiveRPM_LEN];
-	_mav_put_uint8_t(buf, 0, Destination);
-	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint16_t(buf, 0, Payload);
+	_mav_put_uint8_t(buf, 2, Destination);
+	_mav_put_uint8_t(buf, 3, Function);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_receiveRPM_LEN);
 #else
 	mavlink_receiverpm_t packet;
+	packet.Payload = Payload;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	packet.Payload = Payload;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_receiveRPM_LEN);
 #endif
@@ -141,13 +141,13 @@ static inline uint16_t mavlink_msg_receiverpm_encode_chan(uint8_t system_id, uin
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_receiverpm_send(mavlink_channel_t chan, uint8_t Destination, uint8_t Function, int8_t Payload)
+static inline void mavlink_msg_receiverpm_send(mavlink_channel_t chan, uint8_t Destination, uint8_t Function, uint16_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_receiveRPM_LEN];
-	_mav_put_uint8_t(buf, 0, Destination);
-	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint16_t(buf, 0, Payload);
+	_mav_put_uint8_t(buf, 2, Destination);
+	_mav_put_uint8_t(buf, 3, Function);
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_receiveRPM, buf, MAVLINK_MSG_ID_receiveRPM_LEN, MAVLINK_MSG_ID_receiveRPM_CRC);
@@ -156,9 +156,9 @@ static inline void mavlink_msg_receiverpm_send(mavlink_channel_t chan, uint8_t D
 #endif
 #else
 	mavlink_receiverpm_t packet;
+	packet.Payload = Payload;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	packet.Payload = Payload;
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_receiveRPM, (const char *)&packet, MAVLINK_MSG_ID_receiveRPM_LEN, MAVLINK_MSG_ID_receiveRPM_CRC);
@@ -176,13 +176,13 @@ static inline void mavlink_msg_receiverpm_send(mavlink_channel_t chan, uint8_t D
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_receiverpm_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t Destination, uint8_t Function, int8_t Payload)
+static inline void mavlink_msg_receiverpm_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t Destination, uint8_t Function, uint16_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char *buf = (char *)msgbuf;
-	_mav_put_uint8_t(buf, 0, Destination);
-	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_uint16_t(buf, 0, Payload);
+	_mav_put_uint8_t(buf, 2, Destination);
+	_mav_put_uint8_t(buf, 3, Function);
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_receiveRPM, buf, MAVLINK_MSG_ID_receiveRPM_LEN, MAVLINK_MSG_ID_receiveRPM_CRC);
@@ -191,9 +191,9 @@ static inline void mavlink_msg_receiverpm_send_buf(mavlink_message_t *msgbuf, ma
 #endif
 #else
 	mavlink_receiverpm_t *packet = (mavlink_receiverpm_t *)msgbuf;
+	packet->Payload = Payload;
 	packet->Destination = Destination;
 	packet->Function = Function;
-	packet->Payload = Payload;
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_receiveRPM, (const char *)packet, MAVLINK_MSG_ID_receiveRPM_LEN, MAVLINK_MSG_ID_receiveRPM_CRC);
@@ -216,7 +216,7 @@ static inline void mavlink_msg_receiverpm_send_buf(mavlink_message_t *msgbuf, ma
  */
 static inline uint8_t mavlink_msg_receiverpm_get_Destination(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_uint8_t(msg,  0);
+	return _MAV_RETURN_uint8_t(msg,  2);
 }
 
 /**
@@ -226,7 +226,7 @@ static inline uint8_t mavlink_msg_receiverpm_get_Destination(const mavlink_messa
  */
 static inline uint8_t mavlink_msg_receiverpm_get_Function(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_uint8_t(msg,  1);
+	return _MAV_RETURN_uint8_t(msg,  3);
 }
 
 /**
@@ -234,9 +234,9 @@ static inline uint8_t mavlink_msg_receiverpm_get_Function(const mavlink_message_
  *
  * @return Payload
  */
-static inline int8_t mavlink_msg_receiverpm_get_Payload(const mavlink_message_t* msg)
+static inline uint16_t mavlink_msg_receiverpm_get_Payload(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_int8_t(msg,  2);
+	return _MAV_RETURN_uint16_t(msg,  0);
 }
 
 /**
@@ -248,9 +248,9 @@ static inline int8_t mavlink_msg_receiverpm_get_Payload(const mavlink_message_t*
 static inline void mavlink_msg_receiverpm_decode(const mavlink_message_t* msg, mavlink_receiverpm_t* receiverpm)
 {
 #if MAVLINK_NEED_BYTE_SWAP
+	receiverpm->Payload = mavlink_msg_receiverpm_get_Payload(msg);
 	receiverpm->Destination = mavlink_msg_receiverpm_get_Destination(msg);
 	receiverpm->Function = mavlink_msg_receiverpm_get_Function(msg);
-	receiverpm->Payload = mavlink_msg_receiverpm_get_Payload(msg);
 #else
 	memcpy(receiverpm, _MAV_PAYLOAD(msg), MAVLINK_MSG_ID_receiveRPM_LEN);
 #endif

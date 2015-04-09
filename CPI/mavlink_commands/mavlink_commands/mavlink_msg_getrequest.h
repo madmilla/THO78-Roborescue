@@ -1,6 +1,6 @@
 // MESSAGE getRequest PACKING
 
-#define MAVLINK_MSG_ID_getRequest 5
+#define MAVLINK_MSG_ID_getRequest 4
 
 typedef struct __mavlink_getrequest_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_getrequest_t
 } mavlink_getrequest_t;
 
 #define MAVLINK_MSG_ID_getRequest_LEN 3
-#define MAVLINK_MSG_ID_5_LEN 3
+#define MAVLINK_MSG_ID_4_LEN 3
 
 #define MAVLINK_MSG_ID_getRequest_CRC 116
-#define MAVLINK_MSG_ID_5_CRC 116
+#define MAVLINK_MSG_ID_4_CRC 116
 
 
 

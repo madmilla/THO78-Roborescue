@@ -1,6 +1,6 @@
 // MESSAGE sendInterrupt PACKING
 
-#define MAVLINK_MSG_ID_sendInterrupt 11
+#define MAVLINK_MSG_ID_sendInterrupt 10
 
 typedef struct __mavlink_sendinterrupt_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_sendinterrupt_t
 } mavlink_sendinterrupt_t;
 
 #define MAVLINK_MSG_ID_sendInterrupt_LEN 3
-#define MAVLINK_MSG_ID_11_LEN 3
+#define MAVLINK_MSG_ID_10_LEN 3
 
 #define MAVLINK_MSG_ID_sendInterrupt_CRC 247
-#define MAVLINK_MSG_ID_11_CRC 247
+#define MAVLINK_MSG_ID_10_CRC 247
 
 
 

@@ -1,6 +1,6 @@
 // MESSAGE start PACKING
 
-#define MAVLINK_MSG_ID_start 16
+#define MAVLINK_MSG_ID_start 15
 
 typedef struct __mavlink_start_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_start_t
 } mavlink_start_t;
 
 #define MAVLINK_MSG_ID_start_LEN 3
-#define MAVLINK_MSG_ID_16_LEN 3
+#define MAVLINK_MSG_ID_15_LEN 3
 
 #define MAVLINK_MSG_ID_start_CRC 221
-#define MAVLINK_MSG_ID_16_CRC 221
+#define MAVLINK_MSG_ID_15_CRC 221
 
 
 

@@ -1,6 +1,6 @@
 // MESSAGE stopMission PACKING
 
-#define MAVLINK_MSG_ID_stopMission 6
+#define MAVLINK_MSG_ID_stopMission 5
 
 typedef struct __mavlink_stopmission_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_stopmission_t
 } mavlink_stopmission_t;
 
 #define MAVLINK_MSG_ID_stopMission_LEN 10
-#define MAVLINK_MSG_ID_6_LEN 10
+#define MAVLINK_MSG_ID_5_LEN 10
 
 #define MAVLINK_MSG_ID_stopMission_CRC 208
-#define MAVLINK_MSG_ID_6_CRC 208
+#define MAVLINK_MSG_ID_5_CRC 208
 
 #define MAVLINK_MSG_stopMission_FIELD_PAYLOAD_LEN 4
 

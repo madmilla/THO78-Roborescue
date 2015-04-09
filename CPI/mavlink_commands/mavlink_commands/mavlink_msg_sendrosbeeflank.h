@@ -1,28 +1,28 @@
 // MESSAGE sendRosbeeFlank PACKING
 
-#define MAVLINK_MSG_ID_sendRosbeeFlank 19
+#define MAVLINK_MSG_ID_sendRosbeeFlank 18
 
 typedef struct __mavlink_sendrosbeeflank_t
 {
+ int16_t Payload; ///< Payload
  uint8_t Destination; ///< Device ID
  uint8_t Function; ///< Name of the function
- int8_t Payload; ///< Payload
 } mavlink_sendrosbeeflank_t;
 
-#define MAVLINK_MSG_ID_sendRosbeeFlank_LEN 3
-#define MAVLINK_MSG_ID_19_LEN 3
+#define MAVLINK_MSG_ID_sendRosbeeFlank_LEN 4
+#define MAVLINK_MSG_ID_18_LEN 4
 
-#define MAVLINK_MSG_ID_sendRosbeeFlank_CRC 98
-#define MAVLINK_MSG_ID_19_CRC 98
+#define MAVLINK_MSG_ID_sendRosbeeFlank_CRC 143
+#define MAVLINK_MSG_ID_18_CRC 143
 
 
 
 #define MAVLINK_MESSAGE_INFO_sendRosbeeFlank { \
 	"sendRosbeeFlank", \
 	3, \
-	{  { "Destination", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_sendrosbeeflank_t, Destination) }, \
-         { "Function", NULL, MAVLINK_TYPE_UINT8_T, 0, 1, offsetof(mavlink_sendrosbeeflank_t, Function) }, \
-         { "Payload", NULL, MAVLINK_TYPE_INT8_T, 0, 2, offsetof(mavlink_sendrosbeeflank_t, Payload) }, \
+	{  { "Payload", NULL, MAVLINK_TYPE_INT16_T, 0, 0, offsetof(mavlink_sendrosbeeflank_t, Payload) }, \
+         { "Destination", NULL, MAVLINK_TYPE_UINT8_T, 0, 2, offsetof(mavlink_sendrosbeeflank_t, Destination) }, \
+         { "Function", NULL, MAVLINK_TYPE_UINT8_T, 0, 3, offsetof(mavlink_sendrosbeeflank_t, Function) }, \
          } \
 }
 
@@ -39,20 +39,20 @@ typedef struct __mavlink_sendrosbeeflank_t
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sendrosbeeflank_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-						       uint8_t Destination, uint8_t Function, int8_t Payload)
+						       uint8_t Destination, uint8_t Function, int16_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_sendRosbeeFlank_LEN];
-	_mav_put_uint8_t(buf, 0, Destination);
-	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_int16_t(buf, 0, Payload);
+	_mav_put_uint8_t(buf, 2, Destination);
+	_mav_put_uint8_t(buf, 3, Function);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_sendRosbeeFlank_LEN);
 #else
 	mavlink_sendrosbeeflank_t packet;
+	packet.Payload = Payload;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	packet.Payload = Payload;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_sendRosbeeFlank_LEN);
 #endif
@@ -78,20 +78,20 @@ static inline uint16_t mavlink_msg_sendrosbeeflank_pack(uint8_t system_id, uint8
  */
 static inline uint16_t mavlink_msg_sendrosbeeflank_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
 							   mavlink_message_t* msg,
-						           uint8_t Destination,uint8_t Function,int8_t Payload)
+						           uint8_t Destination,uint8_t Function,int16_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_sendRosbeeFlank_LEN];
-	_mav_put_uint8_t(buf, 0, Destination);
-	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_int16_t(buf, 0, Payload);
+	_mav_put_uint8_t(buf, 2, Destination);
+	_mav_put_uint8_t(buf, 3, Function);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_sendRosbeeFlank_LEN);
 #else
 	mavlink_sendrosbeeflank_t packet;
+	packet.Payload = Payload;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	packet.Payload = Payload;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_sendRosbeeFlank_LEN);
 #endif
@@ -141,13 +141,13 @@ static inline uint16_t mavlink_msg_sendrosbeeflank_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_sendrosbeeflank_send(mavlink_channel_t chan, uint8_t Destination, uint8_t Function, int8_t Payload)
+static inline void mavlink_msg_sendrosbeeflank_send(mavlink_channel_t chan, uint8_t Destination, uint8_t Function, int16_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_sendRosbeeFlank_LEN];
-	_mav_put_uint8_t(buf, 0, Destination);
-	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_int16_t(buf, 0, Payload);
+	_mav_put_uint8_t(buf, 2, Destination);
+	_mav_put_uint8_t(buf, 3, Function);
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_sendRosbeeFlank, buf, MAVLINK_MSG_ID_sendRosbeeFlank_LEN, MAVLINK_MSG_ID_sendRosbeeFlank_CRC);
@@ -156,9 +156,9 @@ static inline void mavlink_msg_sendrosbeeflank_send(mavlink_channel_t chan, uint
 #endif
 #else
 	mavlink_sendrosbeeflank_t packet;
+	packet.Payload = Payload;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	packet.Payload = Payload;
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_sendRosbeeFlank, (const char *)&packet, MAVLINK_MSG_ID_sendRosbeeFlank_LEN, MAVLINK_MSG_ID_sendRosbeeFlank_CRC);
@@ -176,13 +176,13 @@ static inline void mavlink_msg_sendrosbeeflank_send(mavlink_channel_t chan, uint
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_sendrosbeeflank_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t Destination, uint8_t Function, int8_t Payload)
+static inline void mavlink_msg_sendrosbeeflank_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t Destination, uint8_t Function, int16_t Payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char *buf = (char *)msgbuf;
-	_mav_put_uint8_t(buf, 0, Destination);
-	_mav_put_uint8_t(buf, 1, Function);
-	_mav_put_int8_t(buf, 2, Payload);
+	_mav_put_int16_t(buf, 0, Payload);
+	_mav_put_uint8_t(buf, 2, Destination);
+	_mav_put_uint8_t(buf, 3, Function);
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_sendRosbeeFlank, buf, MAVLINK_MSG_ID_sendRosbeeFlank_LEN, MAVLINK_MSG_ID_sendRosbeeFlank_CRC);
@@ -191,9 +191,9 @@ static inline void mavlink_msg_sendrosbeeflank_send_buf(mavlink_message_t *msgbu
 #endif
 #else
 	mavlink_sendrosbeeflank_t *packet = (mavlink_sendrosbeeflank_t *)msgbuf;
+	packet->Payload = Payload;
 	packet->Destination = Destination;
 	packet->Function = Function;
-	packet->Payload = Payload;
 
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_sendRosbeeFlank, (const char *)packet, MAVLINK_MSG_ID_sendRosbeeFlank_LEN, MAVLINK_MSG_ID_sendRosbeeFlank_CRC);
@@ -216,7 +216,7 @@ static inline void mavlink_msg_sendrosbeeflank_send_buf(mavlink_message_t *msgbu
  */
 static inline uint8_t mavlink_msg_sendrosbeeflank_get_Destination(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_uint8_t(msg,  0);
+	return _MAV_RETURN_uint8_t(msg,  2);
 }
 
 /**
@@ -226,7 +226,7 @@ static inline uint8_t mavlink_msg_sendrosbeeflank_get_Destination(const mavlink_
  */
 static inline uint8_t mavlink_msg_sendrosbeeflank_get_Function(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_uint8_t(msg,  1);
+	return _MAV_RETURN_uint8_t(msg,  3);
 }
 
 /**
@@ -234,9 +234,9 @@ static inline uint8_t mavlink_msg_sendrosbeeflank_get_Function(const mavlink_mes
  *
  * @return Payload
  */
-static inline int8_t mavlink_msg_sendrosbeeflank_get_Payload(const mavlink_message_t* msg)
+static inline int16_t mavlink_msg_sendrosbeeflank_get_Payload(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_int8_t(msg,  2);
+	return _MAV_RETURN_int16_t(msg,  0);
 }
 
 /**
@@ -248,9 +248,9 @@ static inline int8_t mavlink_msg_sendrosbeeflank_get_Payload(const mavlink_messa
 static inline void mavlink_msg_sendrosbeeflank_decode(const mavlink_message_t* msg, mavlink_sendrosbeeflank_t* sendrosbeeflank)
 {
 #if MAVLINK_NEED_BYTE_SWAP
+	sendrosbeeflank->Payload = mavlink_msg_sendrosbeeflank_get_Payload(msg);
 	sendrosbeeflank->Destination = mavlink_msg_sendrosbeeflank_get_Destination(msg);
 	sendrosbeeflank->Function = mavlink_msg_sendrosbeeflank_get_Function(msg);
-	sendrosbeeflank->Payload = mavlink_msg_sendrosbeeflank_get_Payload(msg);
 #else
 	memcpy(sendrosbeeflank, _MAV_PAYLOAD(msg), MAVLINK_MSG_ID_sendRosbeeFlank_LEN);
 #endif

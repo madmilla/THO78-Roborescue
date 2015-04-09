@@ -1,6 +1,6 @@
 // MESSAGE batteryStatus PACKING
 
-#define MAVLINK_MSG_ID_batteryStatus 10
+#define MAVLINK_MSG_ID_batteryStatus 9
 
 typedef struct __mavlink_batterystatus_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_batterystatus_t
 } mavlink_batterystatus_t;
 
 #define MAVLINK_MSG_ID_batteryStatus_LEN 3
-#define MAVLINK_MSG_ID_10_LEN 3
+#define MAVLINK_MSG_ID_9_LEN 3
 
 #define MAVLINK_MSG_ID_batteryStatus_CRC 89
-#define MAVLINK_MSG_ID_10_CRC 89
+#define MAVLINK_MSG_ID_9_CRC 89
 
 
 
