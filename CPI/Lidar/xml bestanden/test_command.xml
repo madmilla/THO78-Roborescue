@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<mavlink>
+		<enums>
+			<enum name="COMMAND_DESTINATION">
+				<description>result in a mavlink mission ack</description>
+				<entry value="1" name="ROSBEE">
+					<description>mission accepted OK</description>
+				</entry>
+				<entry value="2" name="LIDAR">
+					<description>mission accepted OK</description>
+				</entry>
+			</enum>
+			<enum name="ROSBEE_COMMAND_FUNCTIONS">
+               <entry value="0" name="INIT">
+                    <description>Generic micro air vehicle.</description>
+               </entry>
+               <entry value="1" name="GETDATA">
+                    <description>Fixed wing aircraft.</description>
+               </entry>
+               <entry value="2" name="GETRPM">
+                    <description>Quadrotor</description>
+               </entry>
+               <entry value="3" name="START">
+                    <description>Coaxial helicopter</description>
+               </entry>
+               <entry value="4" name="STOP">
+                    <description>Normal helicopter with tail rotor.</description>
+               </entry>
+               <entry value="5" name="SENDROSBEEPOSITION">
+                    <description>Ground installation</description>
+               </entry>
+               <entry value="6" name="SENDROSBEEFLANK">
+                    <description>Operator control unit / ground control station</description>
+               </entry>
+			</enum>
+		</enums>
+	
+		<messages>
+			<message id="1" name="init">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int8_t" name="Payload">Payload</field>
+			</message>
+			<message id="2" name="getData">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int16_t[4]" name="Payload">Payload</field>
+			</message>
+			<message id="3" name="getRPM">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int8_t" name="Payload">Payload</field>
+			</message>
+			<message id="4" name="start">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int8_t" name="Payload">Payload</field>
+			</message>
+			<message id="5" name="stop">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int8_t" name="Payload">Payload</field>
+			</message>
+			<message id="6" name="sendRosbeePosition">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int16_t[4]" name="Payload">Payload</field>
+			</message>
+			<message id="7" name="sendRosbeeFlank">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="int8_t" name="Payload">Payload</field>
+			</message>
+			<message id="8" name="sendText">
+				<description></description>
+				<field type="uint8_t" name="Destination">Device ID</field>
+				<field type="uint8_t" name="Function">Name of the function</field>
+				<field type="char[20]" name="Payload">Payload</field>
+			</message>
+		</messages>
+</mavlink>
