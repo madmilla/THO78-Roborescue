@@ -1,7 +1,7 @@
 #include "UDPSocket.hpp"
-void UDPSocket::send(MavLinkMessage_t * message){
+void UDPSocket::send(mavlink_message_t * message){
 		server.send(con, message);
 	}
-	void UDPSocket::receive(MavLinkMessage_t * message){
+	void UDPSocket::receive(mavlink_message_t * message){
 		server.receive(message);
 	}

@@ -1,13 +1,19 @@
+#pragma once
 #include "Connection.hpp"
 #include <queue>
+#include "UDPServer.hpp"
+#include "..\mavlink_commands\protocol.h"
 class Socket
 {
 public:
 	Socket();
-	virtual void send(MavLinkMessage_t * message) = 0;
-	virtual void receive(MavLinkMessage_t * message) = 0;
+	virtual void send(mavlink_message_t * message) ;
+	virtual void receive(mavlink_message_t * message);
 	~Socket();
+protected:
+	UDPServer server;
 private:
-	std::queue<MavLinkMessage_t> commandQueue;
+	std::queue<mavlink_message_t *> commandQueue;
+
 
 };
