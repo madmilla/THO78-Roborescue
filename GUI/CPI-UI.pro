@@ -44,7 +44,8 @@ HEADERS  += mainwindow.h \
     otherstuff.h \
     rosbee.h \
     rosbeewindow.h \
-    Subject.h
+    Subject.h \
+    exceptions.h
 
 FORMS    += mainwindow.ui \
     quadcopterwindow.ui \
