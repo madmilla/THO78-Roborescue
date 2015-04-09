@@ -58,15 +58,15 @@ public:
 	*/
 	~ATV();
 	
-	/*
-	*
-	*
+	/**
+	*Method to move the ATV forwards
+	*@param value adjustment of PWM(PWM can't directly be converted to speed unis)
 	*/
 	void moveForward(int value);
 	
-	/*
-	*
-	*
+	/**
+	*Method to move the ATV backwards
+	*@param value adjustment of PWM(PWM can't directly be converted to speed unis)
 	*/
 	void moveBackward(int value );
 	
