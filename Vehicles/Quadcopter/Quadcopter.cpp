@@ -132,11 +132,6 @@ void Quadcopter::handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage
 	notifyListeners();
 }
 
-void Quadcopter::calculateRCChannels()
-{
-	//Do some calculations to determine the new RC channel values
-}
-
 std::ostream& operator<<(std::ostream& stream, const Quadcopter::FlightMode& mode)
 {
 	switch (mode)

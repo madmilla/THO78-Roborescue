@@ -93,5 +93,7 @@ private:
 
 	const std::chrono::seconds RCHeartbeatInterval{ 1 };
 	std::chrono::system_clock::time_point lastRCSent;
+
+	void handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage);
 };
 #endif
