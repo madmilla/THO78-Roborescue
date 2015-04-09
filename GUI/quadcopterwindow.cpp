@@ -61,7 +61,12 @@ void QuadCopterWindow::on_takeOff_LandButton_clicked()
 
 void QuadCopterWindow::on_restartButton_clicked()
 {
+<<<<<<< HEAD
     quadcopter.shutdown();
+=======
+    quadcopter.restart();
+    qDebug()<< "ehhhehehhh";
+>>>>>>> origin/Arming_messages
 }
 
 void QuadCopterWindow::on_abortButton_clicked()
@@ -102,6 +107,7 @@ void QuadCopterWindow::notifyListener(Subject& subject, StatusText statusText)
     ui->headingValue->display(quadcopter.getHeading());
     ui->altitudeValue->display(quadcopter.getAltitude());
     ui->armedCheck->setChecked(quadcopter.isArmed());
+<<<<<<< HEAD
     std::string printable = "Unknown";
     for (auto & pair : statusTextMap)
     {
@@ -115,4 +121,10 @@ void QuadCopterWindow::notifyListener(Subject& subject, StatusText statusText)
         qDebug() << printable.c_str();
     }
     //qDebug() << printable.c_str();
+=======
+
+    qDebug() << quadcopter.isArmed();
+
+>>>>>>> origin/Arming_messages
 }
+

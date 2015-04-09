@@ -10,7 +10,11 @@
 int main(int argc, char ** argv)
 {
     SerialPort serialPort("COM5");
+<<<<<<< HEAD
     MAVLinkCommunicator exchanger{ serialPort };
+=======
+    MAVLinkExchanger exchanger{ serialPort };
+>>>>>>> origin/Arming_messages
     Quadcopter quadcopter(exchanger);
     std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
     std::thread exchangerLoopThread { &MAVLinkCommunicator::loop, &exchanger};
