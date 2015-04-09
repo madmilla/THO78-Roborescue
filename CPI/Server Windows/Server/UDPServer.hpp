@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "..\..\Rosbee\Connection.hpp"
+#include "..\..\Rosbee\UDPSocket.hpp"
 
 #pragma comment(lib,"ws2_32.lib") //Winsock Library
 
@@ -19,6 +21,7 @@ const int port = 8888;
 class UDPServer
 {
 public:
+	static uint8_t currentid;
 	UDPServer();
 	~UDPServer();
 	/// \param Message this is the message to be broadcasted on all the known udp connections
@@ -28,7 +31,7 @@ public:
 	/// \param Send a message to a specefic connection.
 	/// \param Message
 	/// \returns void 
-	void send(sockaddr_in connection, std::string message);
+	void send(Connection connection, std::string message);
 	
 	
 	/// \param buffer for the message to be received in
@@ -52,5 +55,5 @@ private:
 	char buf[bufferlen];
 	WSADATA wsa;
 
-	std::vector<sockaddr_in> _connections;
+	std::vector<UDPSocket> _connections;
 };

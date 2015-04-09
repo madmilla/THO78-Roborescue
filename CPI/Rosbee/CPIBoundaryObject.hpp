@@ -1,12 +1,12 @@
-#include <stdint>
+#include <cstdint>
 #include "SocketListener.hpp"
-class CPIBoundaryObject : public SocketListener
+class CPIBoundaryObject
 {
 public:
-	CPIBoundaryObject(Socket sock, Uint32_t id) : SocketListener(sock, id), socket(socket), DeviceId(id){}
+	CPIBoundaryObject(Socket sock, uint16_t id) :  socket(socket), DeviceId(id){}
 	virtual void sendCommand(Command cmd);
 	~CPIBoundaryObject(){}
 private:
-	u_int32 DeviceId;
+	uint16_t DeviceId;
 	Socket socket;
 };

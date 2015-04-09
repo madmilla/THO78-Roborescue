@@ -1,4 +1,6 @@
 #include "UDPServer.hpp"
+
+uint8_t UDPServer::currentid = 0;
 UDPServer::UDPServer(){
 	init();
 	sockbind();
@@ -60,15 +62,15 @@ void UDPServer::start(){
 }
 
 void UDPServer::broadcast(std::string message){
-	for each (auto connection in _connections)
+	for each (auto socket in _connections)
 	{
-		send(connection, message);
+		send(socket.con.sockaddr, message);
 	}
 }
 
 
-void UDPServer::send(sockaddr_in connection, std::string message){
-	if (sendto(sock, message.c_str(), strlen(message.c_str()), 0, (struct sockaddr*) &connection, slen) == SOCKET_ERROR)
+void UDPServer::send(Connection connection, std::string message){
+	if (sendto(sock, message.c_str(), strlen(message.c_str()), 0, (struct sockaddr*) &connection.sockaddr, slen) == SOCKET_ERROR)
 	{
 		printf("sendto() failed with error code : %d", WSAGetLastError());
 	}
@@ -79,18 +81,20 @@ void UDPServer::receive(char * buffer){
 	{
 		printf("recvfrom() failed with error code : %d", WSAGetLastError());
 	}
+
 }
 
 void UDPServer::addConnection(sockaddr_in con){
 	bool found = false;
-	for (auto connection : _connections){
-		if (inet_ntoa(connection.sin_addr) == inet_ntoa(con.sin_addr) && (connection.sin_port) == con.sin_port){
+	for (auto socket : _connections){
+		if (inet_ntoa(socket.con.sockaddr.sin_addr) == inet_ntoa(con.sin_addr) && (socket.con.sockaddr.sin_port) == con.sin_port){
 			found = true;
 			break;
 		}
 	}
 	if (!found){
-		_connections.push_back(con);
+		//Request device id via mavlink here
+		//_connections.push_back(con);
 		printf("New connection from %s:%d\r\n", inet_ntoa(con.sin_addr), ntohs(con.sin_port));
 	}
 }

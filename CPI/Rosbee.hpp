@@ -1,26 +1,28 @@
 #include <queue>
 #include "CPIBoundaryObject.hpp"
 #include "RosbeeCommand.hpp"
-#include "Socket.hpp"
+
 class Rosbee : public CPIBoundaryObject
 {
 public:
-	Rosbee(Socket s) : CPIBoundaryObject(s){}
+	Rosbee();
 	void sendCommand(Command cmd) override;
 	void receivedCommands(Command cmd);
 	void init();
-	void getRequirementStatus();
+	Command getRequirementStatus();
 	void startMission();
-    void sendWaypoint();
+	void sendWaypoint();
 	void getRequest();
 	void stopMission();
 	void abortMission();
-    void sonarInterupt();
+	void sonarInterupt();
 	void sendAck();
 	void BatteryStatus();
-    void sendInterrupt();
-    void getDevice();
+	void sendInterrupt();
+	void getDevice();
 
 	~Rosbee();
+private:
+	Connection conenction;
 	
 };
