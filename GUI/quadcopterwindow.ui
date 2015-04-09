@@ -630,7 +630,7 @@ Waypoint</string>
      <string>Arm</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="shutdownButton">
+   <widget class="QPushButton" name="restartButton">
     <property name="geometry">
      <rect>
       <x>520</x>
