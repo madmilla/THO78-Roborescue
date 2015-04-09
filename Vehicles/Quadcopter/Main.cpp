@@ -20,7 +20,7 @@ int main()
 	communicatorLoopThread.detach();
 	while (1)
 	{
-		//std::cout << "BLU";
+		//Simple esting code for executing functions
 		char c;
 		std::cin >> c;
 		if (c == 'p')

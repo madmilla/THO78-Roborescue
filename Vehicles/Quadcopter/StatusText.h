@@ -3,6 +3,10 @@
 
 #include <map>
 #include <string>
+/**
+* StatusText enum for list of status messages able to be returned
+*
+*/
 enum class StatusText
 {
 	NONE,
@@ -52,7 +56,9 @@ enum class StatusText
 
 	UNKNOWN
 };
-
+/**
+* Map for mapping strings to StatusText messages
+*/
 const std::map<std::string, StatusText> statusTextMap
 {
 	{ "None", StatusText::NONE},
