@@ -246,8 +246,14 @@ void Quadcopter::handleIncomingMessage(PriorityMessage incomingMessage)
 
 			text[rtn - 1] = '\0';
 		
-			notifyListeners(statusTextMap.at(text));
-			//std::cout << "Severity: " << (int)severity << std::endl;
+			if (statusTextMap.count(text) > 0)
+			{
+				notifyListeners(statusTextMap.at(text));
+			}
+			else
+			{
+				notifyListeners(StatusText::UNKNOWN);
+			}
 			break;
 		}
 		case MAVLINK_MSG_ID_COMMAND_ACK:
