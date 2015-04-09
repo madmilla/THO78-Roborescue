@@ -45,17 +45,20 @@ int main()
 
 		if (GetAsyncKeyState(VK_UP)){
 			std::cout << "forward\n";
-			//atv.moveForward(60);
+			atv.moveForward(100);
 		}
 		else if (GetAsyncKeyState(VK_DOWN)){
 			std::cout << "backward\n";
-			//atv.moveBackward(60);
+			atv.moveBackward(60);
 		}
 		else{
 			std::cout << "stop\n";
 			//atv.moveForward(0);
 		}
-
+		std::cout << "Heading: " << atv.getHeading() << "\n";
+		std::cout << "Steer Direction: "<<atv.getSteeringDirection() << "\n";
+		std::cout << "Battery Remaining: " << atv.getBatteryRemaining() << "\n";
+		std::cout << "GroundSpeed: " << atv.getGroundSpeed() << "\n";
 
 		Sleep(100);
 	}

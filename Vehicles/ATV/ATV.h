@@ -108,12 +108,12 @@ private:
 	MAVLinkCommunicator & mavlinkCommunicator;
 	PriorityMessage message;
 	
-	float groundSpeed;
-	float heading;
-	int steeringDirection;
+	float groundSpeed = 0;
+	float heading = 0;
+	int steeringDirection = 0;
 	//FlightMode flightMode;
 	
-	int batteryRemaining;
+	int batteryRemaining = 0;
 	void handleIncomingMessage(PriorityMessage incomingMessage);
 };
 
