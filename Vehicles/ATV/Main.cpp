@@ -1,5 +1,6 @@
 #include <string>
 #include "ATV.h"
+#include "MAVLinkCommunicator.h"
 #include "../Dependencies/Serial/SerialPort.h"
 #include <iostream>
 #include <cstdlib>
@@ -11,13 +12,13 @@
 int main()
 {
 	SerialPort port{ "COM2" };
-	MAVLinkExchanger mavlinkSender{ port };
-	ATV atv{ mavlinkSender };
+	MAVLinkCommunicator mavlinkCommunicator{ port };
+	ATV atv{ mavlinkCommunicator };
 	//atv.emergencyStop();
 	std::thread atvLoopThread{ &ATV::loop, &atv };
-	std::thread exchangerLoopThread{ &MAVLinkExchanger::loop, &mavlinkSender };
+	std::thread communicatorLoopThread{ &MAVLinkCommunicator::loop, &mavlinkCommunicator };
 	atvLoopThread.detach();
-	exchangerLoopThread.detach();
+	communicatorLoopThread.detach();
 
 
 	while (1)

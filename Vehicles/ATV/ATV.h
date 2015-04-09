@@ -2,16 +2,15 @@
 #define _ATV_H
 
 #include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
-#include "MAVLinkExchanger.h"
-#include "ExtendedMAVLinkMessage.h"
+#include "MAVLinkCommunicator.h"
+#include "PriorityMessage.h"
 
 class ATV
 {
 public:
-	ATV(MAVLinkExchanger & mavlinkSender);
+	ATV(MAVLinkCommunicator & mavlinkCommunicator);
 	~ATV();
 	void moveForward(int);
-	void moveBackward(int);
 	void moveBackward(int);
 	void turnLeft(int);
 	void turnRight(int);
@@ -19,10 +18,10 @@ public:
 	void returnControlToRc();
 	void loop();
 private:
-	MAVLinkExchanger & mavlinkSender;
-	ExtendedMAVLinkMessage message;
+	MAVLinkCommunicator & mavlinkCommunicator;
+	PriorityMessage message;
 
-	void handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage);
+	void handleIncomingMessage(PriorityMessage incomingMessage);
 };
 
 #endif

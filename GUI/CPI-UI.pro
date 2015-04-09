@@ -20,7 +20,13 @@ SOURCES += main.cpp\
     SerialPort.cpp \
     SerialPortWindows.cpp \
     ExtendedMAVLinkMessage.cpp \
-    MAVLinkExchanger.cpp
+    MAVLinkExchanger.cpp \
+    atv.cpp \
+    atvwindow.cpp \
+    lidar.cpp \
+    lidarwindow.cpp \
+    rosbee.cpp \
+    rosbeewindow.cpp
 
 HEADERS  += mainwindow.h \
     quadcopterwindow.h \
@@ -29,7 +35,22 @@ HEADERS  += mainwindow.h \
     SerialPort.h \
     SerialPortWindows.h \
     ExtendedMAVLinkMessage.h \
-    MAVLinkExchanger.h
+    MAVLinkExchanger.h \
+    atv.h \
+    atvwindow.h \
+    lidar.h \
+    lidarwindow.h \
+    Listener.h \
+    otherstuff.h \
+    rosbee.h \
+    rosbeewindow.h \
+    Subject.h \
+    exceptions.h
 
 FORMS    += mainwindow.ui \
-    quadcopterwindow.ui
+    quadcopterwindow.ui \
+    atvwindow.ui \
+    lidarwindow.ui \
+    rosbeewindow.ui
+
+DISTFILES +=

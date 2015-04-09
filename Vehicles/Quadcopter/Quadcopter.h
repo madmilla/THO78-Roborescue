@@ -16,7 +16,7 @@
 #include <iostream>
 #include <map>
 
-#define UINT16_MIN 0
+#define UINT16_MIN 0x0
 
 class ExtendedMAVLinkMessage;
 class MAVLinkCommunicator;

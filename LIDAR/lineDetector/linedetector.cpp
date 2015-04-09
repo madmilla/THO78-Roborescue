@@ -107,7 +107,6 @@ vector<Vec4i> lineDetector::searchLines(const Mat & image, Mat & final_dest) {
        exit(-1);
     }
     Canny(image, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image
-    cvtColor(dest, final_dest, CV_GRAY2BGR);
 
     vector<Vec4i> lines;  // container to save te lines
     HoughLinesP(dest, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,

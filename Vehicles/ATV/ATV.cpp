@@ -2,8 +2,8 @@
 #include <iostream>
 
 
-ATV::ATV(MAVLinkExchanger & mavlinkSender) :
-mavlinkSender(mavlinkSender)
+ATV::ATV(MAVLinkCommunicator & mavlinkCommunicator) :
+mavlinkCommunicator(mavlinkCommunicator)
 {
 }
 
@@ -20,7 +20,7 @@ void ATV::moveForward(int value)
 	mavlink_msg_rc_channels_override_pack(
 		255, 200, &message, 1, 250, UINT16_MAX, UINT16_MAX, sendValue,
 		UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
-	mavlinkSender.enqueueMessage(message);
+	mavlinkCommunicator.sendMessage(message);
 }
 
 
@@ -31,7 +31,7 @@ void ATV::moveBackward(int value)
 	mavlink_msg_rc_channels_override_pack(
 		255, 200, &message, 1, 250, UINT16_MAX, UINT16_MAX, sendValue,
 		UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
-	mavlinkSender.enqueueMessage(message);
+	mavlinkCommunicator.sendMessage(message);
 }
 
 void ATV::turnLeft(int value)
@@ -42,7 +42,7 @@ void ATV::turnLeft(int value)
 	mavlink_msg_rc_channels_override_pack(
 		255, 200, &message, 1, 1, sendValue, UINT16_MAX, UINT16_MAX,
 		UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
-	mavlinkSender.enqueueMessage(message);
+	mavlinkCommunicator.sendMessage(message);
 }
 
 void ATV::turnRight(int value)
@@ -53,14 +53,14 @@ void ATV::turnRight(int value)
 	mavlink_msg_rc_channels_override_pack(
 		255, 200, &message, 1, 1, sendValue, UINT16_MAX, UINT16_MAX,
 		UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
-	mavlinkSender.enqueueMessage(message);
+	mavlinkCommunicator.sendMessage(message);
 }
 
 void ATV::emergencyStop()
 {
 	//mavlink_message_t message;
 	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN, 0, 1, 1, 0, 0, 0, 0, 0);
-	mavlinkSender.enqueueMessage(message);
+	mavlinkCommunicator.sendMessage(message);
 }
 
 void ATV::returnControlToRc()
@@ -69,23 +69,23 @@ void ATV::returnControlToRc()
 	mavlink_msg_rc_channels_override_pack(
 		255, 200, &message, 1, 1, 0, 0, 0,
 		0, 0, 0, 0, 0);
-	mavlinkSender.enqueueMessage(message);
+	mavlinkCommunicator.sendMessage(message);
 }
 
 void ATV::loop()
 {
 	while (1)
 	{
-		if (mavlinkSender.receiveQueueSize())
+		if (mavlinkCommunicator.receiveQueueSize())
 		{
-			handleIncomingMessage(mavlinkSender.dequeueMessage());
+			handleIncomingMessage(mavlinkCommunicator.receiveMessage());
 		}
 		//calculateRCChannels();
 		//exchanger.enqueueMessage(RCOverrideMessage);
 	}
 }
 
-void ATV::handleIncomingMessage(ExtendedMAVLinkMessage incomingMessage)
+void ATV::handleIncomingMessage(PriorityMessage incomingMessage)
 {
 	/*switch (incomingMessage.msgid)
 	{
