@@ -3,6 +3,12 @@
 
 #include "otherstuff.h"
 
+/**
+* @class  ATV
+* @author Wibren Wiersma (wibrenwiersma@hotmail.com)
+* @date   April, 2015
+* @brief  WARNING THIS IS ONLY A TEST CLASS FOR THE UI!!!
+*/
 class ATV
 {
 public:
