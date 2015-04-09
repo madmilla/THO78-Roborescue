@@ -1,6 +1,7 @@
 #include "editmapwindow.h"
 #include "ui_editmapwindow.h"
 #include <QGraphicsRectItem>
+#include <QMouseEvent>
 #include <vector>
 #include <iostream>
 
@@ -23,16 +24,33 @@ void EditMapWindow::on_obstacleButton_clicked(){
     selected = 1;
 }
 
+void EditMapWindow::on_noneButton_clicked()
+{
+    selected = 0;
+}
+
 void EditMapWindow::on_saveMapButton_clicked(){
     map->saveMap();
 }
+
 void EditMapWindow::mousePressEvent(QMouseEvent * event){
-    mousePressed = true;
+    if(event->pos().x() < 640){
+       if(!selected < 0){
+           return;
+        }
+        int positionx = (event->pos().x() - event->pos().x() % objectx) / objectx;
+        int positiony = (event->pos().y() - event->pos().y() % objecty) / objecty;
+        std::cout << "pos x: " << positionx << " pos y: " << positiony << " Selected: " << selected << std::endl;
+        if(positionx < map->width  &&  positiony < map->height){
+            map->setMapObject(selected, positiony, positionx);
+            update();
+            mousePressed = true;
+        }
+    }
 }
 
 void EditMapWindow::paintEvent(QPaintEvent *e){
     if(!mousePressed) return;
-    std::cout << "Paint!" << std::endl;
     QPainter painter(this);
     int y = 0;
     for(std::vector<int> fory : map->getMapContent()){
