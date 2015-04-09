@@ -17,14 +17,12 @@ void Circle::setCircle(int x, int y, int r) {
 	radius = r;
 }
 
-Circle::origins Circle::getOrigin() {
-	origins origin;
-	origin.originX = originX;
-	origin.originY = originY;
-	return origin;
+Circle::circleData Circle::getCircle() {
+	circleData circleData;
+	circleData.originX = originX;
+	circleData.originY = originY;
+	circleData.radius = radius;
+	return circleData;
 }
 
-int Circle::getRadius() {
-	return radius;
-}
 

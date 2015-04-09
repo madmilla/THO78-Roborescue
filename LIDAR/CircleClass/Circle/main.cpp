@@ -9,7 +9,7 @@ bool runTest() {
 
 	Circle * object = new Circle(originX, originY, radius);
 
-	if (object->getOrigin().originX != originX && object->getOrigin().originY != originY && object->getRadius() != radius) {
+	if (object->getCircle().originX != originX && object->getCircle().originY != originY && object->getCircle().radius != radius) {
 		return false;
 	}
 
@@ -19,7 +19,7 @@ bool runTest() {
 
 	object->setCircle(originX, originY, radius);
 
-	if (object->getOrigin().originX != originX && object->getOrigin().originY != originY && object->getRadius() != radius) {
+	if (object->getCircle().originX != originX && object->getCircle().originY != originY && object->getCircle().radius != radius) {
 		return false;
 	}
 
@@ -36,4 +36,5 @@ int main(int argc, char *argv[]) {
 		std::cout << "False\n";
 	}
 
+	return EXIT_SUCCESS;
 }
