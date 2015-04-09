@@ -59,5 +59,9 @@ int main()
 		{
 			std::cout << (int)quadcopter.getMode();
 		}
+		else if (c == 'q')
+		{
+			quadcopter.changeMode(Quadcopter::FlightMode::ALTHOLD);
+		}
 	}
 }
