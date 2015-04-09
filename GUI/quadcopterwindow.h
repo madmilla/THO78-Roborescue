@@ -2,8 +2,9 @@
 #define QUADCOPTERWINDOW_H
 
 #include <QMainWindow>
-#include "Quadcopter.h"
 #include "Listener.h"
+
+class Quadcopter;
 
 namespace Ui {
 class QuadCopterWindow;
@@ -14,12 +15,10 @@ class QuadCopterWindow : public QMainWindow, public Listener
     Q_OBJECT
 
 public:
-    explicit QuadCopterWindow(QWidget *parent = 0);
+    explicit QuadCopterWindow( Quadcopter& quadcopter, QWidget *parent = 0);
     ~QuadCopterWindow();
 
 private slots:
-
-    void on_toggleControlModeButton_clicked();
 
     void on_sendMaxAltitudeButton_clicked();
 
@@ -27,7 +26,7 @@ private slots:
 
     void on_takeOff_LandButton_clicked();
 
-    void on_shutdownButton_clicked();
+    void on_restartButton_clicked();
 
     void on_abortButton_clicked();
 

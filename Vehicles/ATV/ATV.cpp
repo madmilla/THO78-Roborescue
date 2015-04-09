@@ -35,6 +35,7 @@ void ATV::moveBackward(int value)
 }
 
 
+
 void ATV::steer(int value)
 {
 	//mavlink_message_t msg;
@@ -89,5 +90,6 @@ void ATV::handleIncomingMessage(PriorityMessage incomingMessage)
 	case MAVLINK_MSG_ID_BATTERY_STATUS:
 		batteryRemaining = mavlink_msg_battery_status_get_battery_remaining(&incomingMessage);
 		break;
+
 	}
 }

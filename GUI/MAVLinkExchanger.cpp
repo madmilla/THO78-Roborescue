@@ -1,5 +1,5 @@
 #include "MAVLinkExchanger.h"
-#include "Serial/SerialPort.h"
+#include "SerialPort.h"
 #include <iostream>
 
 MAVLinkExchanger::MAVLinkExchanger(SerialPort& serialPort):
@@ -52,7 +52,7 @@ void MAVLinkExchanger::loop()
 
 void MAVLinkExchanger::sendMessage()
 {
-	unsigned char buffer[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.top().len];
+    unsigned char* buffer = new unsigned char[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.top().len];
 	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.top());
 	serialPort.writeData(buffer, len);
 	sendQueue.pop();

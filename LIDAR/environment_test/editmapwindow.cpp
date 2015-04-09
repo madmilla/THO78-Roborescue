@@ -1,6 +1,7 @@
 #include "editmapwindow.h"
 #include "ui_editmapwindow.h"
 #include <QGraphicsRectItem>
+#include <QMouseEvent>
 #include <vector>
 #include <iostream>
 
@@ -9,6 +10,8 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
     ui(new Ui::EditMapWindow),
     map(map)
 {
+    objectx = (drawWidth / map->width);
+    objecty = (drawHeight / map->height);
     ui->setupUi(this);
 
 }
@@ -21,27 +24,37 @@ void EditMapWindow::on_obstacleButton_clicked(){
     selected = 1;
 }
 
+void EditMapWindow::on_noneButton_clicked()
+{
+    selected = 0;
+}
+
 void EditMapWindow::on_saveMapButton_clicked(){
     map->saveMap();
 }
+
 void EditMapWindow::mousePressEvent(QMouseEvent * event){
-    mousePressed = true;
+    if(event->pos().x() < 640){
+       if(!selected < 0){
+           return;
+        }
+        int positionx = (event->pos().x() - event->pos().x() % objectx) / objectx;
+        int positiony = (event->pos().y() - event->pos().y() % objecty) / objecty;
+        std::cout << "pos x: " << positionx << " pos y: " << positiony << " Selected: " << selected << std::endl;
+        if(positionx < map->width  &&  positiony < map->height){
+            map->setMapObject(selected, positiony, positionx);
+            update();
+            mousePressed = true;
+        }
+    }
 }
 
 void EditMapWindow::paintEvent(QPaintEvent *e){
+    if(!mousePressed) return;
     QPainter painter(this);
-    mapWidth = map->width;
-    mapHeight = map->height;
-    std::cout << "Mapwidth: " << mapWidth << std::endl;
-    std::cout << "MapHeight: " << mapHeight << std::endl;
-    objectx = (drawWidth / mapWidth);
-    std::cout << "ObjectX: " << x*objectx << std::endl;
-    objecty = (drawHeight / mapHeight);
-    std::cout << "ObjectY: " << y*objecty << std::endl;
-     y = 0;
-     std::cout << "Vec size: " << map->getMapContent().size() << std::endl;
+    int y = 0;
     for(std::vector<int> fory : map->getMapContent()){
-        x = 0;
+        int x = 0;
         for(int forx : fory){
             painter.fillRect((x*objectx),(y*objecty),objectx,objecty,QBrush(getColorById(forx)));
             x++;

@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QMAKE_CXXFLAGS += -std=gnu++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,13 +17,40 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     quadcopterwindow.cpp \
     quadcopter.cpp \
-    atvwindow.cpp
+    SerialPort.cpp \
+    SerialPortWindows.cpp \
+    ExtendedMAVLinkMessage.cpp \
+    MAVLinkExchanger.cpp \
+    atv.cpp \
+    atvwindow.cpp \
+    lidar.cpp \
+    lidarwindow.cpp \
+    rosbee.cpp \
+    rosbeewindow.cpp
 
 HEADERS  += mainwindow.h \
     quadcopterwindow.h \
     quadcopter.h \
-    atvwindow.h
+    Serial.h \
+    SerialPort.h \
+    SerialPortWindows.h \
+    ExtendedMAVLinkMessage.h \
+    MAVLinkExchanger.h \
+    atv.h \
+    atvwindow.h \
+    lidar.h \
+    lidarwindow.h \
+    Listener.h \
+    otherstuff.h \
+    rosbee.h \
+    rosbeewindow.h \
+    Subject.h \
+    exceptions.h
 
 FORMS    += mainwindow.ui \
     quadcopterwindow.ui \
-    atvwindow.ui
+    atvwindow.ui \
+    lidarwindow.ui \
+    rosbeewindow.ui
+
+DISTFILES +=

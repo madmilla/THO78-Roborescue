@@ -1,4 +1,4 @@
-#include "Quadcopter.h"
+#include "quadcopter.h"
 #include "MAVLinkExchanger.h"
 
 Quadcopter::Quadcopter(MAVLinkExchanger& exchanger) :
@@ -69,7 +69,7 @@ void Quadcopter::changeAltitude(int altitude)
 	exchanger.enqueueMessage(message);
 }
 
-void Quadcopter::shutdown()
+void Quadcopter::restart()
 {
 	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN, 0, 1, 1, 0, 0, 0, 0, 0);
 	exchanger.enqueueMessage(message);

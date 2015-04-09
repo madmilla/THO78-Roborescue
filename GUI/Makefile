@@ -1,6 +1,6 @@
 SRC = $(wildcard *.cpp)
 OBJS = $(SRC:.cpp=.o)
-LIBS = LibSerial.a
+LIBS = LibSerial.a -lQtCore -lQtGui
 LOC = Serial/
 
 export TARGET = windows

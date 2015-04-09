@@ -14,10 +14,10 @@ CXX           = cl
 DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQT_NO_WARNING_OUTPUT -DQT_NO_DEBUG_OUTPUT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -FS -O2 -MD -Zc:strictStrings -W3 $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -FS -O2 -MD -Zc:strictStrings -GR -W3 -w34100 -w34189 -EHsc $(DEFINES)
-INCPATH       = -I"..\deps\files\opencv" -I"C:\Qt\5.4\msvc2013_64\include" -I"C:\Qt\5.4\msvc2013_64\include\QtGui" -I"C:\Qt\5.4\msvc2013_64\include\QtANGLE" -I"C:\Qt\5.4\msvc2013_64\include\QtCore" -I"release" -I"C:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013"
+INCPATH       = -I"C:\opencv\build\include" -I"C:\Qt\5.4\msvc2013_64\include" -I"C:\Qt\5.4\msvc2013_64\include\QtGui" -I"C:\Qt\5.4\msvc2013_64\include\QtANGLE" -I"C:\Qt\5.4\msvc2013_64\include\QtCore" -I"release" -I"C:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013"
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:CONSOLE "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:..\..\deps\lib ..\..\deps\lib\opencv_core2410.lib ..\..\deps\lib\opencv_highgui2410.lib ..\..\deps\lib\opencv_imgproc2410.lib ..\..\deps\lib\opencv_features2d2410.lib ..\..\deps\lib\opencv_calib3d2410.lib /LIBPATH:C:\Qt\5.4\msvc2013_64\lib C:\Qt\5.4\msvc2013_64\lib\Qt5Gui.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Core.lib 
+LIBS          = /LIBPATH:C:\opencv\build\x64\vc12\lib C:\opencv\build\x64\vc12\lib\opencv_core2410.lib C:\opencv\build\x64\vc12\lib\opencv_highgui2410.lib C:\opencv\build\x64\vc12\lib\opencv_imgproc2410.lib C:\opencv\build\x64\vc12\lib\opencv_features2d2410.lib C:\opencv\build\x64\vc12\lib\opencv_calib3d2410.lib /LIBPATH:C:\Qt\5.4\msvc2013_64\lib C:\Qt\5.4\msvc2013_64\lib\Qt5Gui.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Core.lib 
 QMAKE         = C:\Qt\5.4\msvc2013_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -132,110 +132,64 @@ compiler_clean:
 ####### Compile
 
 release\main.obj: main.cpp shapedetector.h \
-		..\..\deps\files\opencv\highgui\highgui.hpp \
-		..\..\deps\files\opencv\core\core.hpp \
-		..\..\deps\files\opencv\core\types_c.h \
-		..\..\deps\files\opencv\core\version.hpp \
-		..\..\deps\files\opencv\core\operations.hpp \
-		..\..\deps\files\opencv\core\mat.hpp \
-		..\..\deps\files\opencv\highgui\highgui_c.h \
-		..\..\deps\files\opencv\core\core_c.h \
-		..\..\deps\files\opencv\imgproc\imgproc.hpp \
-		..\..\deps\files\opencv\imgproc\types_c.h \
-		..\..\deps\files\opencv\cv.h \
-		..\..\deps\files\opencv\imgproc\imgproc_c.h \
-		..\..\deps\files\opencv\video\tracking.hpp \
-		..\..\deps\files\opencv\features2d\features2d.hpp \
-		..\..\deps\files\opencv\flann\miniflann.hpp \
-		..\..\deps\files\opencv\flann\defines.h \
-		..\..\deps\files\opencv\flann\config.h \
-		..\..\deps\files\opencv\flann\flann.hpp \
-		..\..\deps\files\opencv\flann\flann_base.hpp \
-		..\..\deps\files\opencv\flann\general.h \
-		..\..\deps\files\opencv\flann\matrix.h \
-		..\..\deps\files\opencv\flann\params.h \
-		..\..\deps\files\opencv\flann\any.h \
-		..\..\deps\files\opencv\flann\saving.h \
-		..\..\deps\files\opencv\flann\nn_index.h \
-		..\..\deps\files\opencv\flann\result_set.h \
-		..\..\deps\files\opencv\flann\all_indices.h \
-		..\..\deps\files\opencv\flann\kdtree_index.h \
-		..\..\deps\files\opencv\flann\dynamic_bitset.h \
-		..\..\deps\files\opencv\flann\dist.h \
-		..\..\deps\files\opencv\flann\heap.h \
-		..\..\deps\files\opencv\flann\allocator.h \
-		..\..\deps\files\opencv\flann\random.h \
-		..\..\deps\files\opencv\flann\kdtree_single_index.h \
-		..\..\deps\files\opencv\flann\kmeans_index.h \
-		..\..\deps\files\opencv\flann\logger.h \
-		..\..\deps\files\opencv\flann\composite_index.h \
-		..\..\deps\files\opencv\flann\linear_index.h \
-		..\..\deps\files\opencv\flann\hierarchical_clustering_index.h \
-		..\..\deps\files\opencv\flann\lsh_index.h \
-		..\..\deps\files\opencv\flann\lsh_table.h \
-		..\..\deps\files\opencv\flann\autotuned_index.h \
-		..\..\deps\files\opencv\flann\ground_truth.h \
-		..\..\deps\files\opencv\flann\index_testing.h \
-		..\..\deps\files\opencv\flann\timer.h \
-		..\..\deps\files\opencv\flann\sampling.h \
-		..\..\deps\files\opencv\calib3d\calib3d.hpp \
-		..\..\deps\files\opencv\core\affine.hpp \
-		..\..\deps\files\opencv\objdetect\objdetect.hpp \
-		..\..\deps\files\opencv\legacy\compat.hpp \
-		..\..\deps\files\opencv\core\internal.hpp
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\core\core.hpp \
+		C:\opencv\build\include\opencv2\core\types_c.h \
+		C:\opencv\build\include\opencv2\core\version.hpp \
+		C:\opencv\build\include\opencv2\core\operations.hpp \
+		C:\opencv\build\include\opencv2\core\mat.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
+		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
+		C:\opencv\build\include\opencv2\imgproc\types_c.h \
+		C:\opencv\build\include\opencv2\opencv.hpp \
+		C:\opencv\build\include\opencv2\flann\miniflann.hpp \
+		C:\opencv\build\include\opencv2\flann\defines.h \
+		C:\opencv\build\include\opencv2\flann\config.h \
+		C:\opencv\build\include\opencv2\imgproc\imgproc_c.h \
+		C:\opencv\build\include\opencv2\photo\photo.hpp \
+		C:\opencv\build\include\opencv2\photo\photo_c.h \
+		C:\opencv\build\include\opencv2\video\video.hpp \
+		C:\opencv\build\include\opencv2\video\tracking.hpp \
+		C:\opencv\build\include\opencv2\video\background_segm.hpp \
+		C:\opencv\build\include\opencv2\features2d\features2d.hpp \
+		C:\opencv\build\include\opencv2\objdetect\objdetect.hpp \
+		C:\opencv\build\include\opencv2\calib3d\calib3d.hpp \
+		C:\opencv\build\include\opencv2\core\affine.hpp \
+		C:\opencv\build\include\opencv2\ml\ml.hpp \
+		C:\opencv\build\include\opencv2\contrib\contrib.hpp \
+		C:\opencv\build\include\opencv2\contrib\retina.hpp \
+		C:\opencv\build\include\opencv2\contrib\openfabmap.hpp
 
 release\shapedetector.obj: shapedetector.cpp shapedetector.h \
-		..\..\deps\files\opencv\highgui\highgui.hpp \
-		..\..\deps\files\opencv\core\core.hpp \
-		..\..\deps\files\opencv\core\types_c.h \
-		..\..\deps\files\opencv\core\version.hpp \
-		..\..\deps\files\opencv\core\operations.hpp \
-		..\..\deps\files\opencv\core\mat.hpp \
-		..\..\deps\files\opencv\highgui\highgui_c.h \
-		..\..\deps\files\opencv\core\core_c.h \
-		..\..\deps\files\opencv\imgproc\imgproc.hpp \
-		..\..\deps\files\opencv\imgproc\types_c.h \
-		..\..\deps\files\opencv\cv.h \
-		..\..\deps\files\opencv\imgproc\imgproc_c.h \
-		..\..\deps\files\opencv\video\tracking.hpp \
-		..\..\deps\files\opencv\features2d\features2d.hpp \
-		..\..\deps\files\opencv\flann\miniflann.hpp \
-		..\..\deps\files\opencv\flann\defines.h \
-		..\..\deps\files\opencv\flann\config.h \
-		..\..\deps\files\opencv\flann\flann.hpp \
-		..\..\deps\files\opencv\flann\flann_base.hpp \
-		..\..\deps\files\opencv\flann\general.h \
-		..\..\deps\files\opencv\flann\matrix.h \
-		..\..\deps\files\opencv\flann\params.h \
-		..\..\deps\files\opencv\flann\any.h \
-		..\..\deps\files\opencv\flann\saving.h \
-		..\..\deps\files\opencv\flann\nn_index.h \
-		..\..\deps\files\opencv\flann\result_set.h \
-		..\..\deps\files\opencv\flann\all_indices.h \
-		..\..\deps\files\opencv\flann\kdtree_index.h \
-		..\..\deps\files\opencv\flann\dynamic_bitset.h \
-		..\..\deps\files\opencv\flann\dist.h \
-		..\..\deps\files\opencv\flann\heap.h \
-		..\..\deps\files\opencv\flann\allocator.h \
-		..\..\deps\files\opencv\flann\random.h \
-		..\..\deps\files\opencv\flann\kdtree_single_index.h \
-		..\..\deps\files\opencv\flann\kmeans_index.h \
-		..\..\deps\files\opencv\flann\logger.h \
-		..\..\deps\files\opencv\flann\composite_index.h \
-		..\..\deps\files\opencv\flann\linear_index.h \
-		..\..\deps\files\opencv\flann\hierarchical_clustering_index.h \
-		..\..\deps\files\opencv\flann\lsh_index.h \
-		..\..\deps\files\opencv\flann\lsh_table.h \
-		..\..\deps\files\opencv\flann\autotuned_index.h \
-		..\..\deps\files\opencv\flann\ground_truth.h \
-		..\..\deps\files\opencv\flann\index_testing.h \
-		..\..\deps\files\opencv\flann\timer.h \
-		..\..\deps\files\opencv\flann\sampling.h \
-		..\..\deps\files\opencv\calib3d\calib3d.hpp \
-		..\..\deps\files\opencv\core\affine.hpp \
-		..\..\deps\files\opencv\objdetect\objdetect.hpp \
-		..\..\deps\files\opencv\legacy\compat.hpp \
-		..\..\deps\files\opencv\core\internal.hpp
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\core\core.hpp \
+		C:\opencv\build\include\opencv2\core\types_c.h \
+		C:\opencv\build\include\opencv2\core\version.hpp \
+		C:\opencv\build\include\opencv2\core\operations.hpp \
+		C:\opencv\build\include\opencv2\core\mat.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
+		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
+		C:\opencv\build\include\opencv2\imgproc\types_c.h \
+		C:\opencv\build\include\opencv2\opencv.hpp \
+		C:\opencv\build\include\opencv2\flann\miniflann.hpp \
+		C:\opencv\build\include\opencv2\flann\defines.h \
+		C:\opencv\build\include\opencv2\flann\config.h \
+		C:\opencv\build\include\opencv2\imgproc\imgproc_c.h \
+		C:\opencv\build\include\opencv2\photo\photo.hpp \
+		C:\opencv\build\include\opencv2\photo\photo_c.h \
+		C:\opencv\build\include\opencv2\video\video.hpp \
+		C:\opencv\build\include\opencv2\video\tracking.hpp \
+		C:\opencv\build\include\opencv2\video\background_segm.hpp \
+		C:\opencv\build\include\opencv2\features2d\features2d.hpp \
+		C:\opencv\build\include\opencv2\objdetect\objdetect.hpp \
+		C:\opencv\build\include\opencv2\calib3d\calib3d.hpp \
+		C:\opencv\build\include\opencv2\core\affine.hpp \
+		C:\opencv\build\include\opencv2\ml\ml.hpp \
+		C:\opencv\build\include\opencv2\contrib\contrib.hpp \
+		C:\opencv\build\include\opencv2\contrib\retina.hpp \
+		C:\opencv\build\include\opencv2\contrib\openfabmap.hpp
 
 ####### Install
 

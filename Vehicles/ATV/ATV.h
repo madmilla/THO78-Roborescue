@@ -47,6 +47,7 @@
 class ATV
 {
 public:
+<<<<<<< HEAD
 	/*
 	*The Constructor for the ATV
 	*@param MAVLinkCommunicator is the mavlinkCommunicator
@@ -56,6 +57,9 @@ public:
 	/*
 	*The default deconstructor
 	*/
+=======
+	ATV(MAVLinkCommunicator & mavlinkCommunicator);
+>>>>>>> cfb0c634e7ebd54662ce7b150222c49ce1029cd2
 	~ATV();
 	
 	/*
@@ -100,6 +104,7 @@ public:
 private:
 	MAVLinkCommunicator & mavlinkCommunicator;
 	PriorityMessage message;
+<<<<<<< HEAD
 	
 	float groundspeed;
 	float heading;
@@ -107,6 +112,9 @@ private:
 	FlightMode flightMode;
 	
 	int batteryRemaining;
+=======
+
+>>>>>>> cfb0c634e7ebd54662ce7b150222c49ce1029cd2
 	void handleIncomingMessage(PriorityMessage incomingMessage);
 };
 
