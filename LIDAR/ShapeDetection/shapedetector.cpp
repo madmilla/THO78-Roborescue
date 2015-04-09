@@ -33,7 +33,7 @@ void ShapeDetector::drawCircles(const CvSeq * circles, Mat & image){
         // draw the circle center
         circle(image, center, CIRCLE_CENTER_RADIUS, CIRCLE_CENTER_COLOR, CENTER_THICKNESS, CIRCLE_LINE_TYPE);
         // draw the circle outline
-        circle(image, center, radius, CIRCUM_FERENCE_COLOR, CIRCLE_THICKNESS, CIRCLE_LINE_TYPE);
+        circle(image, center, radius, CIRCUMFERENCE_COLOR, CIRCLE_THICKNESS, CIRCLE_LINE_TYPE);
     }
     //Show Image with the detected circles
 }
