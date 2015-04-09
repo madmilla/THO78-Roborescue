@@ -3,20 +3,19 @@
 
 
 
-lidarwindow::lidarwindow(lidar * l, QWidget *parent) :
+lidarwindow::lidarwindow(lidar &l, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::lidarwindow()),
-    l(l),
-    timer(new QTimer())
+    l(l)
 {
     ui->setupUi(this);
 
     connect(ui->startLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
     connect(ui->stopLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
     connect(ui->setRpm,SIGNAL(returnPressed()),this,SLOT(setRpm()));
-    connect(timer,SIGNAL(timeout()),this,SLOT(timerPassed()));
+    connect(&timer,SIGNAL(timeout()),this,SLOT(timerPassed()));
 
-    timer->start(1000);
+    timer.start(1000);
     lidarMissionRunning(false);
 }
 
@@ -39,7 +38,7 @@ void lidarwindow::handleButtonLidar(){
 
     if(button == ui->startLidar){
         try{
-            l->startLidar();
+            l.startLidar();
             lidarMissionRunning(true);
         }
         catch(...){ //moet een exception gemaakt worden voor het afvangen van geen rpm
@@ -48,7 +47,7 @@ void lidarwindow::handleButtonLidar(){
     }
     else if(button == ui->stopLidar){
         if(!ui->stopLidar->isEnabled()) return;
-        l->stopLidar();
+        l.stopLidar();
         lidarMissionRunning(false);
     }
 }
@@ -64,7 +63,7 @@ void lidarwindow::lidarMissionRunning(bool isRunning){
 
 
 void lidarwindow::timerPassed(){
-    ui->showRpm->setNum(l->rpmStatus());
-    ui->showStatus->setText(QString::fromStdString(l->getStatus()));
+    ui->showRpm->setNum(l.rpmStatus());
+    ui->showStatus->setText(QString::fromStdString(l.getStatus()));
 }
 

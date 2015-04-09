@@ -28,7 +28,7 @@ public:
     *	@param lidar * l create the lidar object
     *   @param QWidget * Parent tells if there are parents or not. there are no parents here.
     */
-    explicit lidarwindow(lidar * l, QWidget *parent = 0);
+    explicit lidarwindow(lidar & l, QWidget *parent = 0);
 
     /**
     *   deconstructor lidarwindow();
@@ -46,8 +46,8 @@ private slots:
 private:
     void lidarMissionRunning(bool isRunning);
     Ui::lidarwindow *ui;
-    lidar * l;
-    QTimer * timer;
+    lidar & l;
+    QTimer timer;
 
 
 

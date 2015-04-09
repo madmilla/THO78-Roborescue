@@ -25,7 +25,7 @@ public:
    *	@param atv pointer to the ATV object that needs to be controlled / displayed
    *  @param parent use this param if this is a sub window of some QWidget
    */
-   explicit ATVWindow(ATV * atv, QWidget *parent = 0);
+   explicit ATVWindow(ATV & atv, QWidget *parent = 0);
    /**
    * Deconstructs the atv window
    */
@@ -41,8 +41,8 @@ private slots:
    void armed(bool is_armed);
 
 private:
-   ATV * atv;
-   QTimer * timer;
+   ATV & atv;
+   QTimer timer;
    Ui::ATVWindow *ui;
 };
 

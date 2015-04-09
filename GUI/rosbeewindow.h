@@ -25,7 +25,7 @@ public:
    *	@param rosbee pointer to the Rosbee object that needs to be controlled / displayed
    *  @param parent use this param if this is a sub window of some QWidget
    */
-   explicit RosbeeWindow(Rosbee * rosbee, QWidget *parent = 0);
+   explicit RosbeeWindow(Rosbee & rosbee, QWidget *parent = 0);
    /**
     * Deconstructs the rosbee window
     */
@@ -35,9 +35,9 @@ private slots:
     void handleButton();
     void timerTick();
 private:
-    Rosbee * rosbee;
+    Rosbee & rosbee;
     Ui::RosbeeWindow *ui;
-    QTimer * timer;
+    QTimer timer;
 
     void SetMissionRunning(bool is_mission_running);
 

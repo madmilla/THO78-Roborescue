@@ -17,8 +17,12 @@ int main(int argc, char ** argv)
     quadcopterLoopThread.detach();
     exchangerLoopThread.detach();
 
+    Rosbee rosbee;
+    lidar l;
+    ATV atv;
+
     QApplication a(argc, argv);
-    MainWindow w(&quadcopter, new Rosbee(), new lidar(), new ATV());
+    MainWindow w(quadcopter, rosbee, l, atv);
     w.show();
     return a.exec();
 }

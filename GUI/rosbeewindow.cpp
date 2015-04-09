@@ -5,22 +5,21 @@
 
 #include <QMessageBox>
 
-RosbeeWindow::RosbeeWindow(Rosbee * rosbee, QWidget *parent) :
+RosbeeWindow::RosbeeWindow(Rosbee &rosbee, QWidget *parent) :
    QMainWindow(parent),
    rosbee(rosbee),
-   ui(new Ui::RosbeeWindow),
-   timer(new QTimer())
+   ui(new Ui::RosbeeWindow)
 {
    ui->setupUi(this);
 
    connect(ui->startButton, SIGNAL(clicked()), this, SLOT(handleButton()));
    connect(ui->abortButton, SIGNAL(clicked()), this, SLOT(handleButton()));
    connect(ui->stopButton , SIGNAL(clicked()), this, SLOT(handleButton()));
-   connect(    timer      , SIGNAL(timeout()), this, SLOT(timerTick()));
+   connect(&   timer      , SIGNAL(timeout()), this, SLOT(timerTick()));
 
-   timer->start(1000);
+   timer.start(1000);
 
-   unsigned int result = rosbee->init();
+   unsigned int result = rosbee.init();
    QLabel * iRL = ui->initResultLabel;
    if(result == 0){
       iRL->setText("All OK");
@@ -58,35 +57,29 @@ void RosbeeWindow::handleButton(){
    if(button == ui->startButton){
       if(!ui->startButton->isEnabled()) return;
 
-      try{
-         //DPoint missionLocation(ui->startLocationLineEdit->text().toStdString());
-         rosbee->startMission();
-         SetMissionRunning(true);
-      }catch(CannotParseException){
-         QMessageBox::critical(this, "Error: No valid start location", "No valid start location. Use x, y(, z)");
-      }
+      rosbee.startMission();
+      SetMissionRunning(true);
    } else if(button == ui->abortButton){
       if(!ui->abortButton->isEnabled()) return;
 
-      rosbee->abortMission();
+      rosbee.abortMission();
       SetMissionRunning(false);
       ui->startButton->setEnabled(false);
    } else if(button == ui->stopButton){
       if(!ui->stopButton->isEnabled()) return;
 
-      rosbee->stopMission();
+      rosbee.stopMission();
       SetMissionRunning(false);
    }
 }
 
 void RosbeeWindow::SetMissionRunning(bool is_mission_running){
    ui->startButton          ->setEnabled(!is_mission_running);
-   //ui->startLocationLineEdit->setEnabled(!is_mission_running);
    ui->abortButton          ->setEnabled( is_mission_running);
    ui->stopButton           ->setEnabled( is_mission_running);
 }
 
 void RosbeeWindow::timerTick(){
-   ui->batteryBar->setValue(static_cast<int>(rosbee->batteryStatus()));
-   ui->statusValueLabel->setText(QString::fromStdString(rosbee->getStatus()));
+   ui->batteryBar->setValue(static_cast<int>(rosbee.batteryStatus()));
+   ui->statusValueLabel->setText(QString::fromStdString(rosbee.getStatus()));
 }

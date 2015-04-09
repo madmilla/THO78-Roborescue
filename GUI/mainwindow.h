@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(Quadcopter * quadcopter, Rosbee * rosbee, lidar * l, ATV * atv, QWidget *parent = 0);
+    explicit MainWindow(Quadcopter & quadcopter, Rosbee & rosbee, lidar & l, ATV & atv, QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
@@ -28,10 +28,10 @@ private:
 
     std::vector<QMainWindow *> subWindows;
 
-    Rosbee * rosbee;
-    lidar * l;
-    ATV * atv;
-    Quadcopter * quad;
+    Rosbee & rosbee;
+    lidar & l;
+    ATV & atv;
+    Quadcopter & quad;
 
     void checkZombies();
 };
