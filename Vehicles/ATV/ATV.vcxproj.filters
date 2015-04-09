@@ -24,10 +24,25 @@
     <ClCompile Include="ATV.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MAVLinkCommunicator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PriorityMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATV.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MAVLinkCommunicator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PriorityMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
   </ItemGroup>
 </Project>
