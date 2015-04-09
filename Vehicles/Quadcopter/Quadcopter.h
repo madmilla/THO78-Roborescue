@@ -4,6 +4,8 @@
 #include "Subject.h"
 #include <iostream>
 
+#define UINT16_MIN 0
+
 class MAVLinkCommunicator;
 
 class Quadcopter : public Subject
@@ -86,5 +88,9 @@ private:
 	void calculateRCChannels();
 
 	const int MEANVALUELEFTRIGHT{ 1487 };
+	const int SYSTEMID{ 255 };
+	const int COMPONENTID{ 0 };
+	const int TARGET_SYSTEMID{ 1 };
+	const int TARGET_COMPONENTID{ 1 };
 };
 #endif

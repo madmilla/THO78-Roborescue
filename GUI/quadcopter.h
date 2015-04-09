@@ -50,7 +50,7 @@ public:
 	void changeFlightSpeed(int);
 	void changeHeading(int);
 	void changeAltitude(int);
-	void shutdown();
+    void restart();
 	void changeMode(FlightMode);
 	friend std::ostream& operator<<(std::ostream& stream, const FlightMode& mode);
 	void loop();

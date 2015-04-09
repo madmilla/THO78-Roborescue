@@ -1,2 +1,0 @@
-/home/owen/pcl/src/pcl-pcl-1.7.2/CMakeFiles/uninstall.dir
-/home/owen/pcl/src/pcl-pcl-1.7.2/common/CMakeFiles/pcl_common.dir

@@ -274,3 +274,4 @@ FakesAssemblies/
 *.app
 *.suo
 *.sdf
+*.stackdump

@@ -1,4 +1,4 @@
-# Install script for directory: /home/owen/pcl/src/pcl-pcl-1.7.2/doc
+# Install script for directory: /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/doc
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,9 +34,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/owen/pcl/src/pcl-pcl-1.7.2/doc/doxygen/cmake_install.cmake")
-  include("/home/owen/pcl/src/pcl-pcl-1.7.2/doc/advanced/cmake_install.cmake")
-  include("/home/owen/pcl/src/pcl-pcl-1.7.2/doc/tutorials/cmake_install.cmake")
+  include("/home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/doc/doxygen/cmake_install.cmake")
+  include("/home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/doc/advanced/cmake_install.cmake")
+  include("/home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/doc/tutorials/cmake_install.cmake")
 
 endif()
 

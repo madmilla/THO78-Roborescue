@@ -50,16 +50,6 @@ CMAKE_BINARY_DIR = .
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-.PHONY : install/strip/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
@@ -123,9 +113,9 @@ install/local/fast: install/local
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start ../../deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles ../../deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start ../../deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -178,13 +168,17 @@ pcl_common/fast:
 	$(MAKE) -f common/CMakeFiles/pcl_common.dir/build.make common/CMakeFiles/pcl_common.dir/build
 .PHONY : pcl_common/fast
 
+# Manual pre-install relink rule for target.
+pcl_common/preinstall:
+	$(MAKE) -f common/CMakeFiles/pcl_common.dir/build.make common/CMakeFiles/pcl_common.dir/preinstall
+.PHONY : pcl_common/preinstall
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... uninstall"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"

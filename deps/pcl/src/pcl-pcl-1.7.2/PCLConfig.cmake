@@ -559,7 +559,7 @@ elseif(EXISTS "${PCL_DIR}/include/pcl/pcl_config.h")
   # pcl_message("PCL found into a build tree.")
   set(PCL_INCLUDE_DIRS "${PCL_DIR}/include") # for pcl_config.h
   set(PCL_LIBRARY_DIRS "${PCL_DIR}/lib")
-  set(PCL_SOURCES_TREE "/home/owen/pcl/src/pcl-pcl-1.7.2")
+  set(PCL_SOURCES_TREE "/home/owen/THO78-Roborescue/deps/pcl/src/pcl-pcl-1.7.2")
 else(EXISTS "${PCL_ROOT}/include/pcl-${PCL_VERSION_MAJOR}.${PCL_VERSION_MINOR}/pcl/pcl_config.h")
   pcl_report_not_found("PCL can not be found on this machine")  
 endif(EXISTS "${PCL_ROOT}/include/pcl-${PCL_VERSION_MAJOR}.${PCL_VERSION_MINOR}/pcl/pcl_config.h")
