@@ -5,7 +5,7 @@
 #include "MAVLinkExchanger.h"
 #include <iostream>
 #include <thread>
-#include "QuadCopterWindow.h"
+#include "MainWindow.h"
 
 int main(int argc, char ** argv)
 {
@@ -17,8 +17,12 @@ int main(int argc, char ** argv)
     quadcopterLoopThread.detach();
     exchangerLoopThread.detach();
 
+    Rosbee rosbee;
+    lidar l;
+    ATV atv;
+
     QApplication a(argc, argv);
-    QuadCopterWindow w{ quadcopter };
+    MainWindow w(quadcopter, rosbee, l, atv);
     w.show();
     return a.exec();
 }

@@ -23,6 +23,8 @@ private slots:
 
     void on_saveMapButton_clicked();
 
+    void on_noneButton_clicked();
+
 private:
     Ui::EditMapWindow *ui;
     Qt::GlobalColor getColorById(int id);
@@ -30,7 +32,7 @@ private:
     void mousePressEvent(QMouseEvent * event);
     bool mousePressed = true;
     Map *map;
-    int selected = 0;
+    int selected = 1;
     int objectx = 0;
     int objecty = 0;
     int drawWidth = 430;

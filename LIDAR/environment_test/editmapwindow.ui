@@ -38,6 +38,22 @@
    <property name="text">
     <string>Obstacle</string>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="noneButton">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>40</y>
+     <width>102</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>None</string>
+   </property>
   </widget>
  </widget>
  <resources/>
