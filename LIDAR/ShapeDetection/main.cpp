@@ -36,7 +36,7 @@ int main(int argc, char** argv)
     }
     ShapeDetector sD;
     const Mat & orginal_image = sD.createImage(argv[1]);
-    Mat & customImage = orginal_image.clone();
+    Mat customImage = orginal_image.clone();
     CvSeq* circles = sD.detectCircles(customImage);
     vector<Vec4i> lines = sD.searchLines(customImage);
     sD.writeObjectsToConsole(lines,circles);
