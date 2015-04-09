@@ -60,23 +60,17 @@
 
 //CV_WARNING("This is a deprecated opencv header provided for compatibility. Please include a header from a corresponding opencv module")
 
-#include "../opencv/core/core_c.h"
-#include "../opencv/core/core.hpp"
-#include "../opencv/imgproc/imgproc_c.h"
-#include "../opencv/imgproc/imgproc.hpp"
-#include "../opencv/video/tracking.hpp"
-#include "../opencv/features2d/features2d.hpp"
-#include "../opencv/flann/flann.hpp"
-#include "../opencv/calib3d/calib3d.hpp"
-#include "../opencv/objdetect/objdetect.hpp"
-#include "../opencv/legacy/compat.hpp"
+#include "core/core_c.h"
+#include "core/core.hpp"
+#include "imgproc/imgproc_c.h"
+#include "imgproc/imgproc.hpp"
 
 #if !defined(CV_IMPL)
 #define CV_IMPL extern "C"
 #endif //CV_IMPL
 
 #if defined(__cplusplus)
-#include "../opencv/core/internal.hpp"
+#include "core/internal.hpp"
 #endif //__cplusplus
 
 #endif // __OPENCV_OLD_CV_H_
