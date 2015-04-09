@@ -10,7 +10,7 @@
 
 int main()
 {
-	SerialPort port{ "COM2" };
+	SerialPort port{ "COM5" };
 	MAVLinkExchanger mavlinkSender{ port };
 	ATV atv{ mavlinkSender };
 	//atv.emergencyStop();
@@ -27,7 +27,11 @@ int main()
 			atv.returnControlToRc();
 			atv.emergencyStop();
 		}
-
+		if (GetAsyncKeyState(0x45)){
+			//std::cout << "forward\n";
+			atv.returnControlToRc();
+			exit(0);
+		}
 
 		if (GetAsyncKeyState(VK_LEFT)){
 			std::cout << "left\n";
@@ -44,18 +48,17 @@ int main()
 
 		if (GetAsyncKeyState(VK_UP)){
 			std::cout << "forward\n";
-			//atv.moveForward(60);
+			atv.moveForward(100);
 		}
 		else if (GetAsyncKeyState(VK_DOWN)){
 			std::cout << "backward\n";
-			//atv.moveBackward(60);
+			atv.moveBackward(60);
 		}
 		else{
-			std::cout << "stop\n";
-			//atv.moveForward(0);
+			//std::cout << "stop\n";
+			atv.moveForward(0);
 		}
-
-
+		
 		Sleep(100);
 	}
 }
