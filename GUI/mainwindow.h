@@ -6,6 +6,7 @@
 #include "rosbee.h"
 #include "lidar.h"
 #include "atv.h"
+#include "quadcopter.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(Quadcopter * quadcopter, Rosbee * rosbee, lidar * l, ATV * atv, QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
@@ -28,8 +29,9 @@ private:
     std::vector<QMainWindow *> subWindows;
 
     Rosbee * rosbee;
-    lidar * lidar;
+    lidar * l;
     ATV * atv;
+    Quadcopter * quad;
 
     void checkZombies();
 };
