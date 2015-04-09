@@ -7,7 +7,7 @@ MODULES := main shapedetector
 # the deps directory
 DEPS_DIR_WIN:= ..\..\deps
 DEPS_DIR_LINUX:= ../../deps
-CFLAGS = -std=c++11   -I$(DEPS_DIR_WIN)"\files\opencv"
+
  
 HEADER := $(patsubst %,%.h,$(MODULES))
 
@@ -19,6 +19,7 @@ ifeq ($(OS),Windows_NT)
 	LINKFLAGS = -L$(DEPS_DIR_WIN)"\libs\opencv\windows"  -lopencv_core2410 -lopencv_highgui2410 -lopencv_imgproc2410
 	rm = del
 	TARGET := $(PROG).exe
+	CFLAGS = -std=c++11   -I$(DEPS_DIR_WIN)"\files\opencv"
 
 else
 	ARCH := $(shell getconf LONG_BIT)
@@ -26,6 +27,7 @@ else
 	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/libs/Linux/x64
 	LINKFLAGS := -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))	
 	gcc := /usr/bin/g++
+	CFLAGS = -std=c++11   -I$(DEPS_DIR_LINUX)"\files\opencv"
 	rm := rm -f
 	TARGET := $(PROG)
 endif
