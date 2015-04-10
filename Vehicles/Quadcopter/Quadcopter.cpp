@@ -21,24 +21,32 @@ void Quadcopter::changeAltitude(float newAltitude)
 	int newChannelThree = UINT16_MAX;
 	if (targetAltitude > altitude)
 	{
-		newChannelThree = (RCTrimValues.CHANNEL_THREE_HIGH - RCTrimValues.CHANNEL_THREE_LOW) * ASCEND_PERCENTAGE / 100 + RCTrimValues.CHANNEL_THREE_LOW;
+		newChannelThree = (RCTrimValues.CHANNEL_THREE_HIGH - 
+			RCTrimValues.CHANNEL_THREE_LOW) * ASCEND_PERCENTAGE / 
+			100 + RCTrimValues.CHANNEL_THREE_LOW;
 		ascending = true;
 		descending = false;
-		std::cout << "Ascending to " << targetAltitude << " From " << altitude << std::endl;
+		std::cout << "Ascending to " << targetAltitude 
+			<< " From " << altitude << std::endl;
 	}
 	else if (targetAltitude < altitude)
 	{
-		newChannelThree = (RCTrimValues.CHANNEL_THREE_HIGH - RCTrimValues.CHANNEL_THREE_LOW) * DESCEND_PERCENTAGE / 100 + RCTrimValues.CHANNEL_THREE_LOW;
+		newChannelThree = (RCTrimValues.CHANNEL_THREE_HIGH - 
+			RCTrimValues.CHANNEL_THREE_LOW) * DESCEND_PERCENTAGE / 
+			100 + RCTrimValues.CHANNEL_THREE_LOW;
 		descending = true;
 		ascending = false;
-		std::cout << "Descending to " << targetAltitude  << " From " << altitude << std::endl;
+		std::cout << "Descending to " << targetAltitude  
+			<< " From " << altitude << std::endl;
 	}
 	sendRCMessage(UINT16_MAX, UINT16_MAX, newChannelThree);
 }
 
 void Quadcopter::holdAltitude()
 {
-	auto newChannelThree = (RCTrimValues.CHANNEL_THREE_HIGH - RCTrimValues.CHANNEL_THREE_LOW) * HOLD_PERCENTAGE / 100 + RCTrimValues.CHANNEL_THREE_LOW;
+	auto newChannelThree = (RCTrimValues.CHANNEL_THREE_HIGH - 
+		RCTrimValues.CHANNEL_THREE_LOW) * HOLD_PERCENTAGE / 
+		100 + RCTrimValues.CHANNEL_THREE_LOW;
 	sendRCMessage(UINT16_MAX, UINT16_MAX, newChannelThree);
 }
 
@@ -180,7 +188,8 @@ void Quadcopter::loop()
 			{
 				holdAltitude();
 				ascending = false;
-				std::cout << "Finished ascending to: " << targetAltitude << std::endl;
+				std::cout << "Finished ascending to: " 
+					<< targetAltitude << std::endl;
 			}
 		}
 		else if (descending)
@@ -189,7 +198,8 @@ void Quadcopter::loop()
 			{
 				holdAltitude();
 				descending = false;
-				std::cout << "Finished descending to: " << targetAltitude << std::endl;
+				std::cout << "Finished descending to: " 
+					<< targetAltitude << std::endl;
 			}
 		}
 		if (communicator.receiveQueueSize())
@@ -198,7 +208,8 @@ void Quadcopter::loop()
 		}
 		if (!failsafe)
 		{
-			if (std::chrono::system_clock::now() - lastRCSent >= RCHeartbeatInterval)
+			if (std::chrono::system_clock::now() - lastRCSent >= 
+				RCHeartbeatInterval)
 			{
 				sendRCMessage();
 			}
