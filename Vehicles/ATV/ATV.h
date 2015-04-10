@@ -96,13 +96,30 @@ public:
 	* This is made in a separate thread when the main program is started
 	*/
 	void loop();
-	float getHeading();
-
-	int getBatteryRemaining();
-
-	float getGroundSpeed();
-
-	int getSteeringDirection();
+	
+	/**
+	* Get the Heading of the vehicle in degrees
+	* @return heading
+	*/
+	const float getHeading();
+	
+	/**
+	* Get the batteryRemaining which is the remaining Battery in percentage 
+	* @return batteryRemaining
+	*/
+	const int getBatteryRemaining();
+	
+	/**
+	* Get the GroundSpeed which is the speed of the vehicle
+	* @return groundSpeed
+	*/
+	const float getGroundSpeed();
+	
+	/**
+	* Get the steering direction which is the value of which the front wheels is set to
+	* @return batteryRemaining
+	*/
+	const int getSteeringDirection();
 
 private:
 	MAVLinkCommunicator & mavlinkCommunicator;
