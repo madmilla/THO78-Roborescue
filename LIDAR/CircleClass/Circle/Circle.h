@@ -46,8 +46,7 @@ public:
 	//! Getter for the circle object
 	/*!
 		Return requested data of circle object in a struct
-		@return struct circleData: With the circle data (originX, originY,
-															radius)
+		@return struct circleData: With the circle data (originX, originY, radius)
 	*/
 	circleData getCircle();
 
