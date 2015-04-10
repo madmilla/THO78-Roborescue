@@ -172,7 +172,8 @@ void Quadcopter::loop()
 	}
 }
 
-void Quadcopter::handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage)
+void Quadcopter::handleIncomingMessage(
+	PrioritisedMAVLinkMessage incomingMessage)
 {
 	//std::cout << "Message!\n";
 	receivedMessageMap[incomingMessage.msgid]++;
@@ -181,7 +182,8 @@ void Quadcopter::handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage
 	{
 	case MAVLINK_MSG_ID_HEARTBEAT:
 		{
-		flightMode = static_cast<FlightMode>(mavlink_msg_heartbeat_get_custom_mode(&incomingMessage));
+		flightMode = static_cast<FlightMode>
+			(mavlink_msg_heartbeat_get_custom_mode(&incomingMessage));
 		armed = mavlink_msg_heartbeat_get_base_mode(&incomingMessage) & (1 << 7);
 		break;
 		}
@@ -231,7 +233,8 @@ void Quadcopter::handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage
 	notifyListeners(StatusText::NONE);
 }
 
-std::ostream& operator<<(std::ostream& stream, const Quadcopter::FlightMode& mode)
+std::ostream& operator<<(std::ostream& stream,
+	const Quadcopter::FlightMode& mode)
 {
 	switch (mode)
 	{
