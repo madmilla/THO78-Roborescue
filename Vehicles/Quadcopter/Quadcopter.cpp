@@ -165,6 +165,9 @@ void Quadcopter::loop()
 {
 	while (1)
 	{
+		if (communicator.receiveQueueSize() != 0){
+			std::cout << (int)communicator.receiveQueueSize() << " queue\n";
+		}
 		if (communicator.receiveQueueSize())
 		{
 			handleIncomingMessage(communicator.dequeueMessage());
@@ -173,7 +176,19 @@ void Quadcopter::loop()
 		{
 			sendRCMessage();
 		}
+		
+		orient();
 	}
+}
+
+void Quadcopter::setHeading(int targetHeading){
+	this->targetHeading = targetHeading;
+}
+
+void Quadcopter::orient(){
+	std::cout << "Target heading: "<<targetHeading<<"\n";
+	std::cout << "Current heading: "<<heading<<"\n";
+	std::cout <<"\n";
 }
 
 void Quadcopter::handleIncomingMessage(

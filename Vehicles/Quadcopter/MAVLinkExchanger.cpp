@@ -67,7 +67,9 @@ void MAVLinkExchanger::receive()
 	PrioritisedMAVLinkMessage msg{};
 	mavlink_status_t status;
 	unsigned char c;
-	serialPort.readData(&c, 1);
+	if (serialPort.readData(&c, 1) <= 0){
+		return;
+	}
 	if (mavlink_parse_char(MAVLINK_COMM_0, c, &msg, &status))
 	{
 		receiveQueue.push(msg);

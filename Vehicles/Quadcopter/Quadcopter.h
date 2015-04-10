@@ -149,7 +149,7 @@ public:
 	*
 	*/
 	void loop();
-
+	
 	float getYaw() const;
 	float getRoll() const;
 	float getPitch() const;
@@ -160,7 +160,8 @@ public:
 	std::map<int, int> receivedMessageMap;
 
 	void statusTextTest(int s);
-
+	
+	void setHeading(int targetHeading);
 
 private:
 	MAVLinkExchanger& communicator;
@@ -176,6 +177,9 @@ private:
 	const std::chrono::seconds RCHeartbeatInterval{ 1 };
 	std::chrono::system_clock::time_point lastRCSent;
 
+	int targetHeading;
+	void orient();
+	
 	/**
 	* Value of the RC-sticks in neutral position
 	*/
