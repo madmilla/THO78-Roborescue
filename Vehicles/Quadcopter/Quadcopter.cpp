@@ -102,7 +102,11 @@ void Quadcopter::changeFlightSpeed(int)
 
 void Quadcopter::changeHeading(int value)
 {
-	sendRCMessage(UINT16_MAX, UINT16_MAX, UINT16_MAX, MEANVALUELEFTRIGHT+value);
+	sendRCMessage
+		(UINT16_MAX, 
+		UINT16_MAX, 
+		UINT16_MAX, 
+		MEANVALUELEFTRIGHT + value);
 }
 
 void Quadcopter::changeAltitude(int altitude)
