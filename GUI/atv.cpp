@@ -1,91 +1,169 @@
-#include "atv.h"
+#include "ATV.h"
+#include <iostream>
 
-#include <QDebug>
 
-ATV::ATV()
+ATV::ATV(MAVLinkCommunicator & mavlinkCommunicator) :
+mavlinkCommunicator(mavlinkCommunicator)
 {
-
 }
+
 
 ATV::~ATV()
 {
-
 }
 
-unsigned int ATV::Init(ControlMode controlMode){
-    qDebug() << "##Init          ## ControlMode " << (unsigned int)controlMode;
-    return 0;
+
+void ATV::moveForward(int value)
+{
+	auto sendValue = neutralthrottleValue - value;
+	mavlink_msg_rc_channels_override_pack(
+		SYSTEMID,
+		COMPONENTID,
+		&message,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		UINT16_MAX,
+		UINT16_MAX,
+		sendValue,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX);
+	mavlinkCommunicator.sendMessage(message);
 }
 
-bool ATV::startMission(DPoint location, unsigned int maximumTimeMin, Map mapData){
-    qDebug() << "##Start mission ## Start location " << location.x << ',' << location.y << ',' << location.z << " MaximumTime: " << maximumTimeMin << "min";
-    return true;
+
+void ATV::moveBackward(int value)
+{
+	auto sendValue = neutralthrottleValue + value;
+	mavlink_msg_rc_channels_override_pack(
+		SYSTEMID,
+		COMPONENTID,
+		&message,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		UINT16_MAX,
+		UINT16_MAX,
+		sendValue,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX);
+	mavlinkCommunicator.sendMessage(message);
 }
 
-void ATV::stopMission(){
-    qDebug() << "##Stop mission  ##";
+
+
+void ATV::steer(int value)
+{
+	steeringDirection = value;
+	auto sendValue = neutralSteeringValue + value;
+	mavlink_msg_rc_channels_override_pack(
+		SYSTEMID,
+		COMPONENTID,
+		&message,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		sendValue,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX);
+	mavlinkCommunicator.sendMessage(message);
 }
 
-void ATV::abortMission(){
-    qDebug() << "##Abort mission ##";
+void ATV::shutdown()
+{
+	mavlink_msg_command_long_pack(SYSTEMID,
+		0,
+		&message,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN,
+		0,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		0,
+		0,
+		0,
+		0,
+		0);
+	mavlinkCommunicator.sendMessage(message);
 }
 
-unsigned char ATV::batteryStatus(){
-   static unsigned char value = 100;
-
-   qDebug() << "##Battery perc  ##";
-   if(value > 100) value = 100;
-   return value--;
+void ATV::returnControlToRc()
+{
+	mavlink_msg_rc_channels_override_pack(
+		SYSTEMID,
+		COMPONENTID,
+		&message,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0);
+	mavlinkCommunicator.sendMessage(message);
 }
 
-void ATV::setSteeringMode(ControlMode controlMode){
-    qDebug() << "##Change str mod## Control mode " << (unsigned int)controlMode;
+void ATV::loop()
+{
+	while (1)
+	{
+		if (mavlinkCommunicator.receiveQueueSize())
+		{
+			handleIncomingMessage(mavlinkCommunicator.receiveMessage());
+		}
+		//calculateRCChannels();
+		//exchanger.enqueueMessage(RCOverrideMessage);
+	}
 }
 
-void ATV::stop(){
-    qDebug() << "##Stop          ##";
+void ATV::handleIncomingMessage(PriorityMessage incomingMessage)
+{
+	switch (incomingMessage.msgid)
+	{
+	case MAVLINK_MSG_ID_HEARTBEAT:
+		//flightMode = static_cast<FlightMode>(
+			//mavlink_msg_heartbeat_get_custom_mode(&incomingMessage));
+		break;
+	case MAVLINK_MSG_ID_VFR_HUD:
+		heading = mavlink_msg_vfr_hud_get_heading(&incomingMessage);
+		groundSpeed = mavlink_msg_vfr_hud_get_groundspeed(&incomingMessage);
+		break;
+	case MAVLINK_MSG_ID_SYS_STATUS:
+		batteryRemaining = mavlink_msg_sys_status_get_battery_remaining(
+			&incomingMessage);
+		break;
+
+	}
 }
 
-void ATV::fixConnection(){
-    qDebug() << "##Fix connection##";
+const float ATV::getHeading()
+{
+	return heading;
 }
 
-void ATV::arm(){
-   qDebug() << "##ATV armed      ##";
+const int ATV::getBatteryRemaining()
+{
+	return batteryRemaining;
 }
 
-void ATV::moveForward(int value){
-   qDebug() << "##ATV forward    ## Value:" << value;
+const float ATV::getGroundSpeed()
+{
+	return groundSpeed;
 }
 
-void ATV::moveBackward(int value){
-   qDebug() << "##ATV backward   ## Value:" << value;
-}
-
-void ATV::turnLeft(int value){
-   qDebug() << "##ATV turn left  ## Value:" << value;
-}
-
-void ATV::turnRight(int value){
-   qDebug() << "##ATV turn right ## Value:" << value;
-}
-
-void ATV::emergencyStop(){
-   qDebug() << "##ATV emercy stop##";
-}
-
-void ATV::returnControlToRc(){
-   qDebug() << "##ATV control    ##";
-}
-
-int ATV::speed(){
-   static int value = 0;
-
-   qDebug() << "##ATV speed      ##";
-   if(value > 130) value = 0;
-   return value++;
-}
-
-void ATV::disarm(){
-   qDebug() << "##ATV disarm     ##";
+const int ATV::getSteeringDirection()
+{
+	return steeringDirection;
 }

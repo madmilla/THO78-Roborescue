@@ -21,14 +21,14 @@ SOURCES += main.cpp\
     SerialPortWindows.cpp \
     ExtendedMAVLinkMessage.cpp \
     MAVLinkExchanger.cpp \
-    atv.cpp \
     atvwindow.cpp \
     lidar.cpp \
     lidarwindow.cpp \
     rosbee.cpp \
     rosbeewindow.cpp \
     MAVLinkCommunicator.cpp \
-    PriorityMessage.cpp
+    PriorityMessage.cpp \
+    atv.cpp
 
 HEADERS  += mainwindow.h \
     quadcopterwindow.h \
@@ -38,7 +38,6 @@ HEADERS  += mainwindow.h \
     SerialPortWindows.h \
     ExtendedMAVLinkMessage.h \
     MAVLinkExchanger.h \
-    atv.h \
     atvwindow.h \
     lidar.h \
     lidarwindow.h \
@@ -50,7 +49,8 @@ HEADERS  += mainwindow.h \
     exceptions.h \
     MAVLinkCommunicator.h \
     PriorityMessage.h \
-    StatusText.h
+    StatusText.h \
+    atv.h
 
 FORMS    += mainwindow.ui \
     quadcopterwindow.ui \

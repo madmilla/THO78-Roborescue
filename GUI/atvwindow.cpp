@@ -28,34 +28,30 @@ void ATVWindow::handleButton(){
 
    if(button == ui->abortButton){
       if(!ui->abortButton->isEnabled()) return;
-      atv.emergencyStop();
+      //atv.emergencyStop();
       armed(false);
    }else if(button == ui->armButton){
       if(ui->armButton->text() == "Arm"){
-         atv.arm();
+         //atv.arm();
          armed(true);
       }else{
-         atv.disarm();
+         //atv.disarm();
          armed(false);
       }
    }else if(button == ui->shutdownButton){
       if(!ui->shutdownButton->isEnabled()) return;
-      atv.stopMission();
+      atv.shutdown();
       armed(false);
    }
 }
 
 void ATVWindow::scrollbarValueChanged(int value){
-   if(value < 0){
-      atv.turnLeft(-value);
-   }else{
-      atv.turnRight(value);
-   }
+   ui->steeringScrollBar->setValue(atv.getSteeringDirection());
 }
 
 void ATVWindow::timerTick(){
-   ui->batteryStatusBar->setValue(static_cast<int>(atv.batteryStatus()));
-   ui->speedLCD->display(atv.speed());
+   //ui->batteryStatusBar->setValue(static_cast<int>(atv.batteryStatus()));
+   ui->speedLCD->display(atv.getGroundSpeed());
 }
 
 void ATVWindow::armed(bool is_armed){
