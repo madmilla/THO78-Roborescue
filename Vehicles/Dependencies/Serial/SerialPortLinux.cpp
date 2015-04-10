@@ -100,13 +100,14 @@ bool SerialPortLinux::writeData(unsigned char* buffer, int nbBytes)
  */
 int SerialPortLinux::readData(unsigned char* buffer, int maxBytes)
 {
-	unsigned int nbBytesRead = 0;
+	/*unsigned int nbBytesRead = 0;
 	while (nbBytesRead < maxBytes) 
 	{
 		auto ptr = static_cast<unsigned char *>(buffer) + nbBytesRead;
 		auto ret = ::read(filedescriptor,static_cast<void *>(ptr), maxBytes - nbBytesRead);
 		if (ret == -1) 
 		{
+			std::cout << filedescriptor << " fd\n";
 			return -1;
 		}
 		if (ret > 0)
@@ -114,5 +115,14 @@ int SerialPortLinux::readData(unsigned char* buffer, int maxBytes)
 			nbBytesRead += ret;
 		}
 	}
-	return 1;
+	return 1;*/
+	int nBytes =0;
+	ioctl(filedescriptor,FIONREAD,&nBytes);
+	if (nBytes < 1){
+		return 0;
+	}
+	if (nBytes < maxBytes){
+		maxBytes = nBytes;
+	}
+	return read(filedescriptor, buffer, maxBytes);
 }

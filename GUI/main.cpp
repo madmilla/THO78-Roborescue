@@ -21,9 +21,13 @@ int main(int argc, char ** argv)
     quadcopterLoopThread.detach();
     exchangerLoopThread.detach();
 
+    ATV atv(exchanger);
+    std::thread atvLoopThread { &ATV::loop, &atv};
+    atvLoopThread.detach();
+
+
     Rosbee rosbee;
     lidar l;
-    ATV atv;
 
     QApplication a(argc, argv);
     MainWindow w(quadcopter, rosbee, l, atv);

@@ -495,7 +495,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Centimeter</string>
+      <string>Meter</string>
      </property>
     </widget>
     <widget class="QLabel" name="maxAltitudeLabel">
@@ -511,16 +511,6 @@
       <string>Max Altitude</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="maxAltitudeInput">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>20</y>
-       <width>91</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QPushButton" name="sendMaxAltitudeButton">
      <property name="geometry">
       <rect>
@@ -532,6 +522,19 @@
      </property>
      <property name="text">
       <string>Send Max Altitude</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="maxAltitudeInput">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>20</y>
+       <width>62</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
      </property>
     </widget>
    </widget>

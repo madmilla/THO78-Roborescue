@@ -87,15 +87,15 @@ public:
 	* moveForward
 	*
 	*/
-	void moveForward();
+	void moveForward(signed int value);
 	/**
 	* moveBackward
 	*
 	*/
-	void moveBackward();
+	void moveBackward(signed int value);
 	/**
-	* stop
-	*
+	* stop allows the quadcopter to change to ALTHOLD. Overrides the 
+	* RC channels in order to set the quadcopter in a stable hovering mode.
 	*/
 	void stop();
 
@@ -167,6 +167,9 @@ public:
 
 	void statusTextTest(int s);
 
+	void setAbsoluteHeading(int targetHeading);
+	void changeAbsoluteHeading(int headingDifference);
+
 	void saveQuadcopter();
 private:
 	MAVLinkExchanger& communicator;
@@ -189,7 +192,16 @@ private:
 	bool descending;
 	bool failsafe;
 
+	int targetHeading;
+	void orient();
+	bool orienting = false;
+	void setHeadingStreamSpeed(int i);
+	
+	/**
+	* Value of the RC-sticks in neutral position
+	*/
 	const int MEANVALUELEFTRIGHT{ 1487 };
+	const int MEANVALUEPITCH{ 1454 };
 	const int SYSTEMID{ 255 };
 	const int COMPONENTID{ 0 };
 	const int TARGET_SYSTEMID{ 1 };
