@@ -83,7 +83,7 @@ public:
 	* The reset method for the ATV
 	* Calling this method will make the ATV to reset
 	*/
-	void reset();
+	void shutdown();
 	
 	/**
 	* The returnControlToRc method for the ATV
@@ -117,6 +117,16 @@ private:
 	int neutralSteeringValue = 1467;
 	int neutralthrottleValue = 1500;
 	void handleIncomingMessage(PriorityMessage incomingMessage);
+
+	const int SYSTEMID{ 255 };
+	const int COMPONENTID{ 0 };
+	const int TARGET_SYSTEMID{ 1 };
+	const int TARGET_COMPONENTID{ 1 };
+
+	/*const int SYSTEMID{ 255 };
+	const int COMPONENTID{ 200 };
+	const int TARGET_SYSTEMID{ 1 };
+	const int TARGET_COMPONENTID{ 250 };*/
 };
 
 #endif

@@ -17,8 +17,19 @@ void ATV::moveForward(int value)
 {
 	auto sendValue = neutralthrottleValue - value;
 	mavlink_msg_rc_channels_override_pack(
-		255, 200, &message, 1, 250, UINT16_MAX, UINT16_MAX, sendValue,
-		UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
+		SYSTEMID,
+		COMPONENTID,
+		&message,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		UINT16_MAX,
+		UINT16_MAX,
+		sendValue,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX);
 	mavlinkCommunicator.sendMessage(message);
 }
 
@@ -27,8 +38,19 @@ void ATV::moveBackward(int value)
 {
 	auto sendValue = neutralthrottleValue + value;
 	mavlink_msg_rc_channels_override_pack(
-		255, 200, &message, 1, 250, UINT16_MAX, UINT16_MAX, sendValue,
-		UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
+		SYSTEMID,
+		COMPONENTID,
+		&message,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		UINT16_MAX,
+		UINT16_MAX,
+		sendValue,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX);
 	mavlinkCommunicator.sendMessage(message);
 }
 
@@ -39,22 +61,57 @@ void ATV::steer(int value)
 	steeringDirection = value;
 	auto sendValue = neutralSteeringValue + value;
 	mavlink_msg_rc_channels_override_pack(
-		255, 200, &message, 1, 1, sendValue, UINT16_MAX, UINT16_MAX,
-		UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX);
+		SYSTEMID,
+		COMPONENTID,
+		&message,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		sendValue,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX,
+		UINT16_MAX);
 	mavlinkCommunicator.sendMessage(message);
 }
 
-void ATV::reset()
+void ATV::shutdown()
 {
-	mavlink_msg_command_long_pack(255, 0, &message, 1, 1, MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN, 0, 1, 1, 0, 0, 0, 0, 0);
+	mavlink_msg_command_long_pack(SYSTEMID,
+		0,
+		&message,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN,
+		0,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		0,
+		0,
+		0,
+		0,
+		0);
 	mavlinkCommunicator.sendMessage(message);
 }
 
 void ATV::returnControlToRc()
 {
 	mavlink_msg_rc_channels_override_pack(
-		255, 200, &message, 1, 1, 0, 0, 0,
-		0, 0, 0, 0, 0);
+		SYSTEMID,
+		COMPONENTID,
+		&message,
+		TARGET_SYSTEMID,
+		TARGET_COMPONENTID,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0);
 	mavlinkCommunicator.sendMessage(message);
 }
 
