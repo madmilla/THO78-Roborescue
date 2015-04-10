@@ -1,24 +1,39 @@
 #include "MAVLinkExchanger.h"
 #include "../Dependencies/Serial/SerialPort.h"
-#include <iostream>
 
-MAVLinkExchanger::MAVLinkExchanger(SerialPort& serialPort):
+MAVLinkExchanger::MAVLinkExchanger(SerialPort &serialPort) :
 serialPort{ serialPort }
 {
 }
 
-void MAVLinkExchanger::enqueueMessage(PrioritisedMAVLinkMessage& message)
+MAVLinkExchanger::~MAVLinkExchanger()
 {
-	sendQueue.push(message);
 }
 
-PrioritisedMAVLinkMessage MAVLinkExchanger::peek()
+void MAVLinkExchanger::loop()
 {
-	if (receiveQueue.size())
+	while (true)
 	{
-		return receiveQueue.top();
+		if (sendQueue.size())
+		{
+			PrioritisedMAVLinkMessage message = sendQueue.top();
+			send(message);
+			sendQueue.pop();
+		}
+		receive();
 	}
-	return PrioritisedMAVLinkMessage{};
+}
+
+void MAVLinkExchanger::enqueueMessage(PrioritisedMAVLinkMessage msg)
+{
+	sendQueue.push(msg);
+}
+
+PrioritisedMAVLinkMessage MAVLinkExchanger::dequeueMessage()
+{
+	PrioritisedMAVLinkMessage msg = peek();
+	receiveQueue.pop();
+	return msg;
 }
 
 int MAVLinkExchanger::sendQueueSize()
@@ -31,41 +46,30 @@ int MAVLinkExchanger::receiveQueueSize()
 	return receiveQueue.size();
 }
 
-PrioritisedMAVLinkMessage MAVLinkExchanger::dequeueMessage()
+PrioritisedMAVLinkMessage MAVLinkExchanger::peek()
 {
-	auto message = peek();
-	receiveQueue.pop();
-	return message;
-}
-
-void MAVLinkExchanger::loop()
-{
-	while (1)
+	if (receiveQueue.size())
 	{
-		receiveMessage();
-		if (sendQueue.size())
-		{
-			sendMessage();
-		}
+		return receiveQueue.top();
 	}
+	else return PrioritisedMAVLinkMessage{};
 }
 
-void MAVLinkExchanger::sendMessage()
+void MAVLinkExchanger::send(mavlink_message_t msg)
 {
-	unsigned char buffer[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.top().len];
-	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.top());
+	auto buffer = new unsigned char[MAVLINK_NUM_NON_PAYLOAD_BYTES + msg.len];
+	int len = mavlink_msg_to_send_buffer(buffer, &msg);
 	serialPort.writeData(buffer, len);
-	sendQueue.pop();
 }
 
-void MAVLinkExchanger::receiveMessage()
+void MAVLinkExchanger::receive()
 {
+	PrioritisedMAVLinkMessage msg{};
 	mavlink_status_t status;
 	unsigned char c;
-	do
+	serialPort.readData(&c, 1);
+	if (mavlink_parse_char(MAVLINK_COMM_0, c, &msg, &status))
 	{
-		serialPort.readData(&c, 1);
+		receiveQueue.push(msg);
 	}
-	while (mavlink_parse_char(MAVLINK_COMM_0, c, &message, &status) == 0);
-	receiveQueue.push(message);
 }

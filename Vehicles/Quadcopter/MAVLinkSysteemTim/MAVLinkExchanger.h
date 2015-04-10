@@ -68,19 +68,17 @@ public:
 	void loop();
 
 	/**
-	* The sendMessage function. Giving a priority is optional.
-	* This method will create a PrioritisedMAVLinkMessage from a standard mavlink message and add it to the sending queue.
+	* The enqueueMessage function.
+	* This method will add the given prioritisedMessage to the sending queue.
 	* @param msg, the message that has to be sent.
-	* @param priority, the priority that the message has. The standard priority equals 128.
-	*	Because this controller uses a priority queue, a message with a higher priority will immideatly be placed at the top of the queue.
 	*/
-	void sendMessage(mavlink_message_t msg, char priority = 128);
+	void enqueueMessage(PrioritisedMAVLinkMessage msg);
 
 	/**
-	* The receiveMessage method. The controller will check the receive queue for received messages.
+	* The dequeueMessage method. The controller will check the receive queue for received messages.
 	* @return the PrioritisedMAVLinkMessage at the top of the queue.
 	*/
-	PrioritisedMAVLinkMessage receiveMessage();
+	PrioritisedMAVLinkMessage dequeueMessage();
 
 	/**
 	* The send queue size method.

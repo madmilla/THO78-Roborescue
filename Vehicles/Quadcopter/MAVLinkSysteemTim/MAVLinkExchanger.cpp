@@ -24,12 +24,12 @@ void MAVLinkExchanger::loop()
 	}
 }
 
-void MAVLinkExchanger::sendMessage(mavlink_message_t msg, char priority)
+void MAVLinkExchanger::enqueueMessage(PrioritisedMAVLinkMessage msg)
 {
-	sendQueue.push(PrioritisedMAVLinkMessage{ msg, priority });
+	sendQueue.push(msg);
 }
 
-PrioritisedMAVLinkMessage MAVLinkExchanger::receiveMessage()
+PrioritisedMAVLinkMessage MAVLinkExchanger::dequeueMessage()
 {
 	PrioritisedMAVLinkMessage msg = peek();
 	receiveQueue.pop();
