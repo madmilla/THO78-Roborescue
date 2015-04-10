@@ -10,6 +10,12 @@ public:
 	{
 		listeners.push_back(listener);
 	}
+
+    //TBC
+    void unregisterListener(Listener* listener)
+    {
+
+    }
 protected:
 	void notifyListeners(StatusText statusText)
 	{

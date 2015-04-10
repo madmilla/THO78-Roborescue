@@ -31,15 +31,6 @@ private slots:
 
     void on_abortButton_clicked();
 
-    void on_sendButton_clicked();
-
-    void on_forwardButton_pressed();
-
-    void on_rightButton_pressed();
-
-    void on_backwardButton_pressed();
-
-    void on_leftButton_pressed();
 
 private:
     Ui::QuadCopterWindow *ui;
