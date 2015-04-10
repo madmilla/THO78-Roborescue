@@ -39,7 +39,16 @@ public:
 	};
 
 	explicit Quadcopter(MAVLinkExchanger& communicator);
+
+	/**
+	* liftOff allows the quadcopter to be liftoff to a specified altitude
+	* It will lift off to the passed parameter, and hold its altitude when it 
+	* has reached that altitude
+	* @param The altitude the quadcopter should rise to
+	*
+	*/
 	void liftOff(int);
+
 	/**
 	* arm allows the quadcopter to be armed. Sends a message to the quadcopter 
 	* to arm the quadcopter.
@@ -50,6 +59,7 @@ public:
 	*
 	*/
 	void arm();
+
 	/**
 	* disarm allows the quadcopter to be disarmed. Sends a message to the 
 	* quadcopter to disarm the quadcopter.
@@ -83,16 +93,19 @@ public:
 	* into the ground.
 	*/
 	void moveRight(signed int value);
+
 	/**
 	* moveForward
 	*
 	*/
 	void moveForward(signed int value);
+
 	/**
 	* moveBackward
 	*
 	*/
 	void moveBackward(signed int value);
+
 	/**
 	* stop allows the quadcopter to change to ALTHOLD. Overrides the 
 	* RC channels in order to set the quadcopter in a stable hovering mode.
@@ -122,13 +135,20 @@ public:
 	* unable to stabilize quickly.
 	*/
 	void changeHeading(int);
+	
 	/**
-	* changeAltitude
-	*
+	* holdAltitude allows the quadcopter to hold its current altitude
+	* Ensures the quadcopter won't move up or down anymore, and just hover at 
+	* its current height
 	*/
-
 	void holdAltitude();
 
+	/**
+	* changeAltitude allows the quadcopter to change its altitude.
+	* Sets a new target altitude, and commands the rotors to move upwards or
+	* backwards. 
+	* @param the new target altitude where the quadcopter should move to.
+	*/
 	void changeAltitude(float);
 
 	/**
