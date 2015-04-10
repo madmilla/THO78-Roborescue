@@ -126,12 +126,17 @@ public:
 	* changeAltitude
 	*
 	*/
-	void changeAltitude(int);
+
+	void holdAltitude();
+
+	void changeAltitude(float);
+
 	/**
-	* shutdown
+	* restart
 	*
 	*/
-	void shutdown();
+	void restart();
+
 	/**
 	* changeMode
 	*
@@ -144,6 +149,7 @@ public:
 	friend std::ostream& operator<<(
 		std::ostream& stream, 
 		const FlightMode& mode);
+
 	/**
 	* loop
 	*
@@ -161,7 +167,7 @@ public:
 
 	void statusTextTest(int s);
 
-
+	void saveQuadcopter();
 private:
 	MAVLinkExchanger& communicator;
 	PrioritisedMAVLinkMessage message;
@@ -176,14 +182,22 @@ private:
 	const std::chrono::seconds RCHeartbeatInterval{ 1 };
 	std::chrono::system_clock::time_point lastRCSent;
 
-	/**
-	* Value of the RC-sticks in neutral position
-	*/
+	const int channelThreeLow{ 1077 };
+	const int channelThreeHigh{ 1902 };
+	float targetAltitude;
+	bool ascending;
+	bool descending;
+	bool failsafe;
+
 	const int MEANVALUELEFTRIGHT{ 1487 };
 	const int SYSTEMID{ 255 };
 	const int COMPONENTID{ 0 };
 	const int TARGET_SYSTEMID{ 1 };
 	const int TARGET_COMPONENTID{ 1 };
+
+	const int ASCEND_PERCENTAGE{ 75 };
+	const int HOLD_PERCENTAGE{ 50 };
+	const int DESCEND_PERCENTAGE{ 25 };
 
 	void handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage);
 	void sendRCMessage
@@ -195,5 +209,25 @@ private:
 		unsigned int channelSix = UINT16_MAX,
 		unsigned int channelSeven = UINT16_MAX,
 		unsigned int channelEight = UINT16_MAX);
+
+	struct TrimValues
+	{
+		int CHANNEL_ONE_LOW;
+		int CHANNEL_ONE_HIGH;
+		int CHANNEL_TWO_LOW;
+		int CHANNEL_TWO_HIGH;
+		int CHANNEL_THREE_LOW;
+		int CHANNEL_THREE_HIGH;
+		int CHANNEL_FOUR_LOW;
+		int CHANNEL_FOUR_HIGH;
+		int CHANNEL_FIVE_LOW;
+		int CHANNEL_FIVE_HIGH;
+		int CHANNEL_SIX_LOW;
+		int CHANNEL_SIX_HIGH;
+		int CHANNEL_SEVEN_LOW;
+		int CHANNEL_SEVEN_HIGH;
+		int CHANNEL_EIGHT_LOW;
+		int CHANNEL_EIGHT_HIGH;
+	} RCTrimValues;
 };
 #endif

@@ -4,28 +4,41 @@
 Quadcopter::Quadcopter(MAVLinkExchanger& communicator) :
 communicator(communicator),
 flightMode{ FlightMode::UNKNOWN },
-armed{ false }
+armed{ false },
+failsafe{ false }
 {
 }
 
-void Quadcopter::liftOff(int altitude)
+void Quadcopter::liftOff(int newAltitude)
 {
-	mavlink_msg_command_long_pack(
-		SYSTEMID, 
-		COMPONENTID,
-		&message, 
-		TARGET_SYSTEMID, 
-		TARGET_COMPONENTID,
-		MAV_CMD_NAV_TAKEOFF, 
-		0, 
-		0,
-		0,
-		0,
-		0,
-		0,
-		0,
-		altitude);
-	communicator.enqueueMessage(message);
+	changeAltitude(newAltitude);
+}
+
+void Quadcopter::changeAltitude(float newAltitude)
+{
+	targetAltitude = newAltitude;
+	int newChannelThree = UINT16_MAX;
+	if (targetAltitude > altitude)
+	{
+		newChannelThree = (RCTrimValues.CHANNEL_THREE_HIGH - RCTrimValues.CHANNEL_THREE_LOW) * ASCEND_PERCENTAGE / 100 + RCTrimValues.CHANNEL_THREE_LOW;
+		ascending = true;
+		descending = false;
+		std::cout << "Ascending to " << targetAltitude << " From " << altitude << std::endl;
+	}
+	else if (targetAltitude < altitude)
+	{
+		newChannelThree = (RCTrimValues.CHANNEL_THREE_HIGH - RCTrimValues.CHANNEL_THREE_LOW) * DESCEND_PERCENTAGE / 100 + RCTrimValues.CHANNEL_THREE_LOW;
+		descending = true;
+		ascending = false;
+		std::cout << "Descending to " << targetAltitude  << " From " << altitude << std::endl;
+	}
+	sendRCMessage(UINT16_MAX, UINT16_MAX, newChannelThree);
+}
+
+void Quadcopter::holdAltitude()
+{
+	auto newChannelThree = (RCTrimValues.CHANNEL_THREE_HIGH - RCTrimValues.CHANNEL_THREE_LOW) * HOLD_PERCENTAGE / 100 + RCTrimValues.CHANNEL_THREE_LOW;
+	sendRCMessage(UINT16_MAX, UINT16_MAX, newChannelThree);
 }
 
 void Quadcopter::arm()
@@ -88,6 +101,7 @@ void Quadcopter::moveBackward()
 
 void Quadcopter::stop()
 {
+
 }
 
 void Quadcopter::land()
@@ -109,27 +123,7 @@ void Quadcopter::changeHeading(int value)
 		MEANVALUELEFTRIGHT + value);
 }
 
-void Quadcopter::changeAltitude(int altitude)
-{
-	mavlink_msg_command_long_pack(
-		SYSTEMID, 
-		COMPONENTID,
-		&message,
-		TARGET_SYSTEMID, 
-		TARGET_COMPONENTID,
-		MAV_CMD_NAV_CONTINUE_AND_CHANGE_ALT, 
-		0,
-		0,
-		0,
-		0,
-		0,
-		0,
-		0,
-		altitude);
-	communicator.enqueueMessage(message);
-}
-
-void Quadcopter::shutdown()
+void Quadcopter::restart()
 {
 	mavlink_msg_command_long_pack(
 		SYSTEMID, 
@@ -165,13 +159,34 @@ void Quadcopter::loop()
 {
 	while (1)
 	{
+		if (ascending)
+		{
+			if (altitude >= targetAltitude)
+			{
+				holdAltitude();
+				ascending = false;
+				std::cout << "Finished ascending to: " << targetAltitude << std::endl;
+			}
+		}
+		else if (descending)
+		{
+			if (altitude <= targetAltitude)
+			{
+				holdAltitude();
+				descending = false;
+				std::cout << "Finished descending to: " << targetAltitude << std::endl;
+			}
+		}
 		if (communicator.receiveQueueSize())
 		{
 			handleIncomingMessage(communicator.dequeueMessage());
 		}
-		if (std::chrono::system_clock::now() - lastRCSent >= RCHeartbeatInterval)
+		if (!failsafe)
 		{
-			sendRCMessage();
+			if (std::chrono::system_clock::now() - lastRCSent >= RCHeartbeatInterval)
+			{
+				sendRCMessage();
+			}
 		}
 	}
 }
@@ -179,7 +194,6 @@ void Quadcopter::loop()
 void Quadcopter::handleIncomingMessage(
 	PrioritisedMAVLinkMessage incomingMessage)
 {
-	//std::cout << "Message!\n";
 	receivedMessageMap[incomingMessage.msgid]++;
 
 	switch (incomingMessage.msgid)
@@ -194,7 +208,9 @@ void Quadcopter::handleIncomingMessage(
 	case MAVLINK_MSG_ID_VFR_HUD:
 		{
 		altitude = mavlink_msg_vfr_hud_get_alt(&incomingMessage);
+		std::cout << "New altitude: " << altitude << std::endl;
 		heading = mavlink_msg_vfr_hud_get_heading(&incomingMessage);
+		std::cout << "New heading: " << heading << std::endl;
 		break;
 		}
 	case MAVLINK_MSG_ID_ATTITUDE:
@@ -219,20 +235,8 @@ void Quadcopter::handleIncomingMessage(
 			{
 				notifyListeners(StatusText::UNKNOWN);
 			}
-			//std::cout << "Severity: " << (int)severity << std::endl;
 			break;
 		}
-		case MAVLINK_MSG_ID_COMMAND_ACK:
-		{
-			auto command = mavlink_msg_command_ack_get_command(&incomingMessage);
-			std::cout << "Ack: " << (int)command << std::endl;
-			if (command == MAV_CMD_COMPONENT_ARM_DISARM)
-			{
-				auto result = mavlink_msg_command_ack_get_result(&incomingMessage);
-				std::cout << "Result: " << (int)result << std::endl;
-			}
-			break;
-	}
 	}
 	notifyListeners(StatusText::NONE);
 }
@@ -327,25 +331,34 @@ void Quadcopter::sendRCMessage(
 	unsigned channelSeven,
 	unsigned channelEight)
 {
-	mavlink_msg_rc_channels_override_pack(
-		SYSTEMID,
-		COMPONENTID,
-		&message,
-		TARGET_SYSTEMID,
-		TARGET_COMPONENTID,
-		channelOne,
-		channelTwo,
-		channelThree,
-		channelFour,
-		channelFive,
-		channelSix,
-		channelSeven,
-		channelEight);
-	communicator.enqueueMessage(message);
-	lastRCSent = std::chrono::system_clock::now();
+	if (!failsafe)
+	{
+		mavlink_msg_rc_channels_override_pack(
+			SYSTEMID,
+			COMPONENTID,
+			&message,
+			TARGET_SYSTEMID,
+			TARGET_COMPONENTID,
+			channelOne,
+			channelTwo,
+			channelThree,
+			channelFour,
+			channelFive,
+			channelSix,
+			channelSeven,
+			channelEight);
+		communicator.enqueueMessage(message);
+		lastRCSent = std::chrono::system_clock::now();
+	}
 }
 
 void Quadcopter::statusTextTest(int s)
 {
-	notifyListeners((StatusText)s);
+	notifyListeners(static_cast<StatusText>(s));
+}
+
+void Quadcopter::saveQuadcopter()
+{
+	sendRCMessage(0, 0, 0, 0, 0, 0, 0, 0);
+	failsafe = true;
 }
