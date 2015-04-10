@@ -97,6 +97,7 @@ void Quadcopter::land()
 
 void Quadcopter::changeFlightSpeed(int)
 {
+	std::cout << "Not yet implemented"
 }
 
 void Quadcopter::changeHeading(int value)
