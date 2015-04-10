@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "Listener.h"
+#include "StatusText.h"
 
 class Quadcopter;
 
@@ -30,21 +31,12 @@ private slots:
 
     void on_abortButton_clicked();
 
-    void on_sendButton_clicked();
-
-    void on_forwardButton_pressed();
-
-    void on_rightButton_pressed();
-
-    void on_backwardButton_pressed();
-
-    void on_leftButton_pressed();
 
 private:
     Ui::QuadCopterWindow *ui;
     Quadcopter& quadcopter;
 	
-	void notifyListener(Subject&) override;
+    void notifyListener(Subject&, StatusText statusText) override;
 };
 
 #endif // QUADCOPTERWINDOW_H

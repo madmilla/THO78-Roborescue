@@ -10,12 +10,18 @@ public:
 	{
 		listeners.push_back(listener);
 	}
+
+    //TBC
+    void unregisterListener(Listener* listener)
+    {
+
+    }
 protected:
-	void notifyListeners()
+	void notifyListeners(StatusText statusText)
 	{
 		for(auto& listener : listeners)
 		{
-			listener->notifyListener(*this);
+			listener->notifyListener(*this, statusText);
 		}
 	}
 	std::vector<Listener*> listeners;

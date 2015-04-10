@@ -415,176 +415,6 @@
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="controlsBox">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>260</y>
-      <width>491</width>
-      <height>331</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Controls</string>
-    </property>
-    <widget class="QPushButton" name="forwardButton">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>30</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Forward</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="backwardButton">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>90</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Backward</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="leftButton">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>60</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Left</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="rightButton">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>60</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Right</string>
-     </property>
-    </widget>
-    <widget class="QGroupBox" name="waypointBox">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>160</y>
-       <width>451</width>
-       <height>111</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string>Waypoint</string>
-     </property>
-     <property name="checkable">
-      <bool>false</bool>
-     </property>
-     <widget class="QLabel" name="timeLimitLabel">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>60</y>
-        <width>47</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Time Limit</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="gpsLocationLabel">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>30</y>
-        <width>71</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>GPS Location</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="gpsXInput">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>30</y>
-        <width>113</width>
-        <height>20</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="gpsYInput">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>30</y>
-        <width>113</width>
-        <height>20</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="timeLimitInput">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>60</y>
-        <width>113</width>
-        <height>20</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="sendButton">
-      <property name="geometry">
-       <rect>
-        <x>360</x>
-        <y>30</y>
-        <width>71</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Send Next
-Waypoint</string>
-      </property>
-      <property name="autoRepeat">
-       <bool>false</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="secondsLabel">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>60</y>
-        <width>47</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Seconds</string>
-      </property>
-     </widget>
-    </widget>
-   </widget>
    <widget class="QPushButton" name="abortButton">
     <property name="geometry">
      <rect>
@@ -704,6 +534,16 @@ Waypoint</string>
       <string>Send Max Altitude</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QTextEdit" name="messageOutput">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>270</y>
+      <width>481</width>
+      <height>311</height>
+     </rect>
+    </property>
    </widget>
   </widget>
  </widget>
