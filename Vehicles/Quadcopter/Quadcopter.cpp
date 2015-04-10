@@ -169,9 +169,6 @@ void Quadcopter::loop()
 {
 	while (1)
 	{
-		if (communicator.receiveQueueSize() != 0){
-			std::cout << (int)communicator.receiveQueueSize() << " queue\n";
-		}
 		if (communicator.receiveQueueSize())
 		{
 			handleIncomingMessage(communicator.dequeueMessage());
