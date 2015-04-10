@@ -16,7 +16,8 @@ public:
 	explicit ExtendedMAVLinkMessage(const mavlink_message_t& baseMessage);
 	ExtendedMAVLinkMessage();
 
-	friend bool operator<(const ExtendedMAVLinkMessage& lhs,
+	friend bool operator<(
+		const ExtendedMAVLinkMessage& lhs, 
 		const ExtendedMAVLinkMessage& rhs);
 
 	enum class Priority
@@ -27,7 +28,8 @@ public:
 		EXTREME_PRIORITY
 	};
 	Priority getPriority() const;
-	friend std::ostream& operator<<(std::ostream& stream,
+	friend std::ostream& operator<<(
+		std::ostream& stream, 
 		const Priority& priority);
 private:
 	std::chrono::system_clock::time_point timeCreated;
