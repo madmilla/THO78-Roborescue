@@ -92,6 +92,18 @@ void Quadcopter::moveBackward(signed int value)
 
 void Quadcopter::stop()
 {
+	//moet nog worden aangepast zodra er een struct is voor de mid waarde.
+	changeMode(FlightMode::ALTHOLD);
+	sendRCMessage(
+		1500,
+		1500,
+		1500,
+		1500,
+		1500,
+		1500,
+		1500,
+		1500
+		);
 }
 
 void Quadcopter::land()

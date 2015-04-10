@@ -94,8 +94,8 @@ public:
 	*/
 	void moveBackward(signed int value);
 	/**
-	* stop
-	*
+	* stop allows the quadcopter to change to ALTHOLD. Overrides the 
+	* RC channels in order to set the quadcopter in a stable hovering mode.
 	*/
 	void stop();
 
