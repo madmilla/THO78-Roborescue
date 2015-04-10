@@ -20,6 +20,10 @@ QuadCopterWindow::QuadCopterWindow(Quadcopter& quadcopter, QWidget *parent) :
     ui->armedCheck->setEnabled(false);
     ui->messageOutput->setReadOnly(true);
 
+    //ui->maxAltitudeInput->setValidator((new QIntValidator(0, 50, this)));
+
+    //ui->maxAltitudeInput->setInputMask("999");
+    //ui->maxAltitudeInput->setText("");
     //ui->controlsBox->setEnabled(false);
     ui->takeOff_LandButton->setEnabled(false);
     ui->rotorStatusBox->setEnabled(false);
@@ -30,12 +34,17 @@ QuadCopterWindow::QuadCopterWindow(Quadcopter& quadcopter, QWidget *parent) :
 
 QuadCopterWindow::~QuadCopterWindow()
 {
+
     delete ui;
 }
 
 void QuadCopterWindow::on_sendMaxAltitudeButton_clicked()
 {
-    ui->messageOutput->append("Send Max Altitude Button Clicked");
+
+    ui->messageOutput->append("Send Max Altitude Button Clicked With Value ");
+    ui->messageOutput->append(ui->maxAltitudeInput->textFromValue(ui->maxAltitudeInput->value()));
+    quadcopter.changeAltitude((int)ui->maxAltitudeInput->value());
+
 }
 
 void QuadCopterWindow::on_armButton_clicked()
@@ -53,7 +62,9 @@ void QuadCopterWindow::on_armButton_clicked()
 
 void QuadCopterWindow::on_takeOff_LandButton_clicked()
 {
-    ui->messageOutput->append("Take Off / Land Button Clicked");
+    ui->messageOutput->append("Take Off / Land Button Clicked with Max Altitude of: ");
+    ui->messageOutput->append(ui->maxAltitudeInput->textFromValue(ui->maxAltitudeInput->value()));
+    quadcopter.liftOff((int)ui->maxAltitudeInput->value());
 }
 
 void QuadCopterWindow::on_restartButton_clicked()
@@ -66,6 +77,7 @@ void QuadCopterWindow::on_restartButton_clicked()
 void QuadCopterWindow::on_abortButton_clicked()
 {
     ui->messageOutput->append("Abort Button Clicked");
+    quadcopter.land();
 }
 
 
