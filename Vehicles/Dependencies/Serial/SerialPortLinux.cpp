@@ -1,5 +1,4 @@
 #include "SerialPortLinux.h"
-#include <iostream>
 
 SerialPortLinux::SerialPortLinux(const char* deviceName) 
 { 

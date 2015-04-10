@@ -189,13 +189,24 @@ void Quadcopter::setHeading(int targetHeading){
 }
 
 void Quadcopter::orient(){
-	int diff = ((targetHeading - heading + 180 + 360) % 360) - 180;
+	int diff = ((targetHeading - heading + 180 + 360) % 360) - 180;//TODO: magic numbers
 	
 	if (diff > 10 || diff < 10){
+		if (!orienting){
+			setHeadingSpeed(10);
+		}
 		changeHeading(std::min(100,diff));
 	}else{
+		if (orienting){
+			setHeadingSpeed(1);
+			orienting = false;
+		}
 		changeHeading(0);
 	}
+}
+
+void Quadcopter::setHeadingSpeed(int i){
+	mavlink_msg_request_data_stream_pack(SYSTEMID,COMPONENTID,&message,TARGET_SYSTEMID,TARGET_COMPONENTID,MAV_DATA_STREAM_RAW_CONTROLLER,i,true);
 }
 
 void Quadcopter::handleIncomingMessage(

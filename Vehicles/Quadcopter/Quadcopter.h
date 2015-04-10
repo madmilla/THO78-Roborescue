@@ -179,6 +179,8 @@ private:
 
 	int targetHeading;
 	void orient();
+	bool orienting = false;
+	void setHeadingSpeed(int i);
 	
 	/**
 	* Value of the RC-sticks in neutral position
