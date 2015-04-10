@@ -35,11 +35,12 @@ QuadCopterWindow::~QuadCopterWindow()
 
 void QuadCopterWindow::on_sendMaxAltitudeButton_clicked()
 {
-
+    ui->messageOutput->append("Send Max Altitude Button Clicked");
 }
 
 void QuadCopterWindow::on_armButton_clicked()
 {
+    ui->messageOutput->append("Arm / Disarm Button Clicked");
     if (!quadcopter.isArmed()){
         quadcopter.arm();
 
@@ -52,19 +53,19 @@ void QuadCopterWindow::on_armButton_clicked()
 
 void QuadCopterWindow::on_takeOff_LandButton_clicked()
 {
-
+    ui->messageOutput->append("Take Off / Land Button Clicked");
 }
 
 void QuadCopterWindow::on_restartButton_clicked()
 {
-
+    ui->messageOutput->append("Restart Button Clicked");
     quadcopter.shutdown();
 
 }
 
 void QuadCopterWindow::on_abortButton_clicked()
 {
-
+    ui->messageOutput->append("Abort Button Clicked");
 }
 
 
