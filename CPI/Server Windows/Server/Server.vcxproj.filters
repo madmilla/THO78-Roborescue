@@ -15,51 +15,48 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CPIBoundaryObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Rosbee\CPIBoundaryObject.cpp">
+    <ClCompile Include="RALCPEncoder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Rosbee\Rosbee.cpp">
+    <ClCompile Include="Rosbee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Rosbee\Socket.cpp">
+    <ClCompile Include="UDPServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Rosbee\UDPSocket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\receiver\receiver\client.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Rosbee\UDPServer.cpp">
+    <ClCompile Include="UDPSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\receiver\receiver\client.h">
+    <ClInclude Include="Connection.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Rosbee\Connection.hpp">
+    <ClInclude Include="CPIBoundaryObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Rosbee\CPIBoundaryObject.hpp">
+    <ClInclude Include="RALCPEncoder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Rosbee\Rosbee.hpp">
+    <ClInclude Include="Rosbee.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Rosbee\Socket.hpp">
+    <ClInclude Include="Socket.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Rosbee\SocketListener.hpp">
+    <ClInclude Include="SocketListener.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Rosbee\UDPSocket.hpp">
+    <ClInclude Include="UDPServer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Rosbee\UDPServer.hpp">
+    <ClInclude Include="UDPSocket.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

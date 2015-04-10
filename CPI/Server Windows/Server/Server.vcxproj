@@ -10,6 +10,24 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CPIBoundaryObject.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="RALCPEncoder.cpp" />
+    <ClCompile Include="Rosbee.cpp" />
+    <ClCompile Include="UDPServer.cpp" />
+    <ClCompile Include="UDPSocket.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Connection.hpp" />
+    <ClInclude Include="CPIBoundaryObject.hpp" />
+    <ClInclude Include="RALCPEncoder.hpp" />
+    <ClInclude Include="Rosbee.hpp" />
+    <ClInclude Include="Socket.hpp" />
+    <ClInclude Include="SocketListener.hpp" />
+    <ClInclude Include="UDPServer.hpp" />
+    <ClInclude Include="UDPSocket.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{86423217-524D-44BA-84FE-2D70080A347A}</ProjectGuid>
     <RootNamespace>Server</RootNamespace>
@@ -63,25 +81,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\receiver\receiver\client.cpp" />
-    <ClCompile Include="..\..\Rosbee\CPIBoundaryObject.cpp" />
-    <ClCompile Include="..\..\Rosbee\Rosbee.cpp" />
-    <ClCompile Include="..\..\Rosbee\Socket.cpp" />
-    <ClCompile Include="..\..\Rosbee\UDPServer.cpp" />
-    <ClCompile Include="..\..\Rosbee\UDPSocket.cpp" />
-    <ClCompile Include="Main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\receiver\receiver\client.h" />
-    <ClInclude Include="..\..\Rosbee\Connection.hpp" />
-    <ClInclude Include="..\..\Rosbee\CPIBoundaryObject.hpp" />
-    <ClInclude Include="..\..\Rosbee\Rosbee.hpp" />
-    <ClInclude Include="..\..\Rosbee\Socket.hpp" />
-    <ClInclude Include="..\..\Rosbee\SocketListener.hpp" />
-    <ClInclude Include="..\..\Rosbee\UDPServer.hpp" />
-    <ClInclude Include="..\..\Rosbee\UDPSocket.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

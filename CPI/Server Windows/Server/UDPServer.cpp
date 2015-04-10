@@ -1,7 +1,8 @@
 #include "UDPServer.hpp"
 
-uint8_t UDPServer::currentid = 0;
+
 UDPServer::UDPServer(){
+	id = 0;
 	init();
 	sockbind();
 	connectionThread = std::thread(&UDPServer::start, this);
@@ -45,46 +46,47 @@ void UDPServer::start(){
 		printf("Waiting for data...");
 		fflush(stdout);
 
-		memset(buf, '\0', bufferlen);
+		receive(&msg);
+		addConnection(si_other, &msg);
 
-		receive(buf);
-		addConnection(si_other);
-		printf("Data: %s\n", buf);
+
+		mavlink_msg_ralcp_encode(1, 1, &msg, &packet);
 		
-		int number = atoi(buf);
-		number = number * number;
-		std::string data = std::to_string(number);
-		std::cout << data << std::endl;
+	
+		packet.Payload = packet.Payload + packet.Payload;
+		mavlink_msg_ralcp_encode(1, 1, &msg, &packet);
 
-		send(si_other, data);
+		send(_connections[0], &msg);
+	
+
 	}
 	std::this_thread::yield();
 }
 
-void UDPServer::broadcast(std::string message){
+void UDPServer::broadcast(mavlink_message_t * message){
 	for each (auto socket in _connections)
 	{
-		send(socket.con, message);
+		send(socket, message);
 	}
 }
 
 
-void UDPServer::send(Connection connection, std::string message){
-	if (sendto(sock, message.c_str(), strlen(message.c_str()), 0, (struct sockaddr*) &connection.sockaddr, slen) == SOCKET_ERROR)
+void UDPServer::send(UDPSocket & socket, mavlink_message_t * message){
+	if (sendto(sock, (char*)&msg, sizeof(mavlink_message_t)+1024, 0, (struct sockaddr*) &socket.con.sockaddr, slen) == SOCKET_ERROR)
 	{
 		printf("sendto() failed with error code : %d", WSAGetLastError());
 	}
 }
 
-void UDPServer::receive(char * buffer){
-	if ((recv_len = recvfrom(sock, buffer, bufferlen, 0, (struct sockaddr *) &si_other, &slen)) == SOCKET_ERROR)
+void UDPServer::receive(mavlink_message_t * message){
+	if ((recv_len = recvfrom(sock, (char*)&msg, sizeof(mavlink_message_t)+1024, 0, (struct sockaddr *) &si_other, &slen)) == SOCKET_ERROR)
 	{
 		printf("recvfrom() failed with error code : %d", WSAGetLastError());
 	}
 
 }
 
-void UDPServer::addConnection(sockaddr_in con){
+void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
 	bool found = false;
 	for (auto socket : _connections){
 		if (inet_ntoa(socket.con.sockaddr.sin_addr) == inet_ntoa(con.sin_addr) && (socket.con.sockaddr.sin_port) == con.sin_port){
@@ -93,9 +95,27 @@ void UDPServer::addConnection(sockaddr_in con){
 		}
 	}
 	if (!found){
-		//Request device id via mavlink here
-		//_connections.push_back(con);
+		mavlink_msg_ralcp_decode(msg, &packet);
+		Connection connect = Connection(id++, Connection::UNKNOWN, con);
+		Connection::Identifier des = Connection::UNKNOWN;
+		switch(packet.Destination){
+		case COMMAND_DESTINATION::ROSBEE:
+		    des = Connection::ROSBEE;
+			break;
+		case COMMAND_DESTINATION::LIDAR:
+			des = Connection::LIDAR;
+			break;
+		default:
+			std::cerr << "UNKNOWN DEVICE CONNECTION NOT HANDLED";
+			return;
+		}
+		
+		connect.type = des;
+		UDPSocket sock(connect, this);
+		_connections.push_back(sock);
 		printf("New connection from %s:%d\r\n", inet_ntoa(con.sin_addr), ntohs(con.sin_port));
+		std::cout << "packet function was:" << packet.Function << std::endl;
+		std::cout << "Packet data was: " << packet.Payload << std::endl;
 	}
 }
 

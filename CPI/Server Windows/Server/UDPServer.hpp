@@ -6,8 +6,11 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include "..\..\Rosbee\Connection.hpp"
-#include "..\..\Rosbee\UDPSocket.hpp"
+
+#include "Connection.hpp"
+#include "UDPSocket.hpp"
+
+#include "../../mavlink_commands/mavlink_commands/mavlink.h"
 
 #pragma comment(lib,"ws2_32.lib") //Winsock Library
 
@@ -19,26 +22,26 @@ const int port = 8888;
 /// \brief a test class for udp with rosbee this class may be used in the future for rosbee communication
 /// \brief the constructor of this class initializes an socket and makes it ready for use. this will also start a new thread so the main thread can do other stuff while the udp server is handeling his own messages
 
+class UDPSocket;
 
 class UDPServer
 {
 public:
-	static uint8_t currentid;
 	UDPServer();
 	~UDPServer();
 	/// \param Message this is the message to be broadcasted on all the known udp connections
 	/// \returns void
-	void broadcast(std::string message);
+	void broadcast(mavlink_message_t * message);
 
 	/// \param Send a message to a specefic connection.
 	/// \param Message
 	/// \returns void 
-	void send(Connection connection, std::string message);
+	void send(UDPSocket & connection, mavlink_message_t * message);
 	
 	
 	/// \param buffer for the message to be received in
 	/// \returns void
-	void receive(char * buffer);
+	void receive(mavlink_message_t * message);
 
 	/// \brief stops the udpServer thread
 	void stop();
@@ -47,17 +50,22 @@ private:
 	void init();
 	void sockbind();
 	void start();
-	void addConnection(sockaddr_in con);
+	void addConnection(sockaddr_in con, mavlink_message_t * msg);
 	std::thread connectionThread;
 
 	bool stopped = false;
 	SOCKET sock;
 	struct sockaddr_in server, si_other;
 	int slen, recv_len;
-	char buf[bufferlen];
 	WSADATA wsa;
 
+	mavlink_message_t msg;
+	mavlink_ralcp_t packet;
+
 	std::vector<UDPSocket> _connections;
+	uint8_t id;
+
 };
+
 
 #endif
