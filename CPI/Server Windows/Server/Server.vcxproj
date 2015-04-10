@@ -65,12 +65,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\receiver\receiver\client.cpp" />
+    <ClCompile Include="..\..\Rosbee\CPIBoundaryObject.cpp" />
+    <ClCompile Include="..\..\Rosbee\Rosbee.cpp" />
+    <ClCompile Include="..\..\Rosbee\Socket.cpp" />
+    <ClCompile Include="..\..\Rosbee\UDPServer.cpp" />
+    <ClCompile Include="..\..\Rosbee\UDPSocket.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="UDPServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\receiver\receiver\client.h" />
-    <ClInclude Include="UDPServer.hpp" />
+    <ClInclude Include="..\..\Rosbee\Connection.hpp" />
+    <ClInclude Include="..\..\Rosbee\CPIBoundaryObject.hpp" />
+    <ClInclude Include="..\..\Rosbee\Rosbee.hpp" />
+    <ClInclude Include="..\..\Rosbee\Socket.hpp" />
+    <ClInclude Include="..\..\Rosbee\SocketListener.hpp" />
+    <ClInclude Include="..\..\Rosbee\UDPServer.hpp" />
+    <ClInclude Include="..\..\Rosbee\UDPSocket.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

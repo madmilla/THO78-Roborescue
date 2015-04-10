@@ -1,3 +1,6 @@
+#ifndef __UDPSERVER__
+#define __UDPSERVER__
+
 #include <thread>
 #include<stdio.h>
 #include<winsock2.h>
@@ -31,7 +34,7 @@ public:
 	/// \param Send a message to a specefic connection.
 	/// \param Message
 	/// \returns void 
-	void send(Connection connection, std::string message);
+	void send(UDPSocket sock, std::string message);
 	
 	
 	/// \param buffer for the message to be received in
@@ -57,3 +60,5 @@ private:
 
 	std::vector<UDPSocket> _connections;
 };
+
+#endif

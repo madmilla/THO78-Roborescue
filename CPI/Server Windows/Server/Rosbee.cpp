@@ -2,6 +2,7 @@
 
 
 void Rosbee::init(){
+	mavlink_ras
 	mavlink_init_t packet = { COMMAND_DESTINATION::ROSBEE, ROSBEE_COMMAND_FUNCTIONS::INIT, 0 };
 	mavlink_msg_//(SYSTEMID, COMPONENTID, &message, &packet);
 	socket.send(&message);

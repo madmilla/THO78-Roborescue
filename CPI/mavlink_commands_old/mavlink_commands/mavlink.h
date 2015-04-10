@@ -1,5 +1,5 @@
 /** @file
- *	@brief MAVLink comm protocol built from mavlink_commands(2).xml
+ *	@brief MAVLink comm protocol built from mavlink_commands.xml
  *	@see http://mavlink.org
  */
 #ifndef MAVLINK_H

@@ -64,7 +64,7 @@ void UDPServer::start(){
 void UDPServer::broadcast(std::string message){
 	for each (auto socket in _connections)
 	{
-		send(socket.con.sockaddr, message);
+		send(socket.con, message);
 	}
 }
 

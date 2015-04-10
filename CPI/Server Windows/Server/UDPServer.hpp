@@ -1,3 +1,5 @@
+#ifndef __UDPSERVER__
+#define __UDPSERVER__
 #include <thread>
 #include<stdio.h>
 #include<winsock2.h>
@@ -57,3 +59,5 @@ private:
 
 	std::vector<UDPSocket> _connections;
 };
+
+#endif
