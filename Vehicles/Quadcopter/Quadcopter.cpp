@@ -1,5 +1,6 @@
 #include "Quadcopter.h"
 #include "MAVLinkExchanger.h"
+#include <algorithm>
 
 Quadcopter::Quadcopter(MAVLinkExchanger& communicator) :
 communicator(communicator),
@@ -177,8 +178,9 @@ void Quadcopter::loop()
 		{
 			sendRCMessage();
 		}
-		
-		orient();
+		if (isArmed()){
+			orient();
+		}
 	}
 }
 
@@ -187,9 +189,13 @@ void Quadcopter::setHeading(int targetHeading){
 }
 
 void Quadcopter::orient(){
-	std::cout << "Target heading: "<<targetHeading<<"\n";
-	std::cout << "Current heading: "<<heading<<"\n";
-	std::cout <<"\n";
+	int diff = ((targetHeading - heading + 180 + 360) % 360) - 180;
+	
+	if (diff > 10 || diff < 10){
+		changeHeading(std::min(100,diff));
+	}else{
+		changeHeading(0);
+	}
 }
 
 void Quadcopter::handleIncomingMessage(
