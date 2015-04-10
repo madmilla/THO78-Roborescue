@@ -146,18 +146,22 @@ void ATV::handleIncomingMessage(PriorityMessage incomingMessage)
 	}
 }
 
-float ATV::getHeading(){
+const float ATV::getHeading()
+{
 	return heading;
 }
 
-int ATV::getBatteryRemaining(){
+const int ATV::getBatteryRemaining()
+{
 	return batteryRemaining;
 }
 
-float ATV::getGroundSpeed(){
+const float ATV::getGroundSpeed()
+{
 	return groundSpeed;
 }
 
-int ATV::getSteeringDirection(){
+const int ATV::getSteeringDirection()
+{
 	return steeringDirection;
 }

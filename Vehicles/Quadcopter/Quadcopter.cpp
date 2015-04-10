@@ -10,8 +10,8 @@ armed{ false }
 
 void Quadcopter::liftOff(int altitude)
 {
-	mavlink_msg_command_long_pack
-		(SYSTEMID, 
+	mavlink_msg_command_long_pack(
+		SYSTEMID, 
 		COMPONENTID,
 		&message, 
 		TARGET_SYSTEMID, 
@@ -30,8 +30,8 @@ void Quadcopter::liftOff(int altitude)
 
 void Quadcopter::arm()
 {
-	mavlink_msg_command_long_pack
-		(SYSTEMID, 
+	mavlink_msg_command_long_pack(
+		SYSTEMID, 
 		COMPONENTID, 
 		&message, 
 		TARGET_SYSTEMID, 
@@ -50,8 +50,8 @@ void Quadcopter::arm()
 
 void Quadcopter::disarm()
 {
-	mavlink_msg_command_long_pack
-		(SYSTEMID, 
+	mavlink_msg_command_long_pack(
+		SYSTEMID, 
 		COMPONENTID, 
 		&message, 
 		TARGET_SYSTEMID, 
@@ -102,8 +102,8 @@ void Quadcopter::changeFlightSpeed(int)
 
 void Quadcopter::changeHeading(int value)
 {
-	sendRCMessage
-		(UINT16_MAX, 
+	sendRCMessage(
+		UINT16_MAX, 
 		UINT16_MAX, 
 		UINT16_MAX, 
 		MEANVALUELEFTRIGHT + value);
@@ -111,8 +111,8 @@ void Quadcopter::changeHeading(int value)
 
 void Quadcopter::changeAltitude(int altitude)
 {
-	mavlink_msg_command_long_pack
-		(SYSTEMID, 
+	mavlink_msg_command_long_pack(
+		SYSTEMID, 
 		COMPONENTID,
 		&message,
 		TARGET_SYSTEMID, 
@@ -131,8 +131,8 @@ void Quadcopter::changeAltitude(int altitude)
 
 void Quadcopter::shutdown()
 {
-	mavlink_msg_command_long_pack
-		(SYSTEMID, 
+	mavlink_msg_command_long_pack(
+		SYSTEMID, 
 		COMPONENTID, 
 		&message, 
 		TARGET_SYSTEMID, 
@@ -151,8 +151,8 @@ void Quadcopter::shutdown()
 
 void Quadcopter::changeMode(FlightMode mode)
 {
-	mavlink_msg_set_mode_pack
-		(SYSTEMID, 
+	mavlink_msg_set_mode_pack(
+		SYSTEMID, 
 		COMPONENTID, 
 		&message,
 		TARGET_SYSTEMID, 
@@ -327,8 +327,8 @@ void Quadcopter::sendRCMessage(
 	unsigned channelSeven,
 	unsigned channelEight)
 {
-	mavlink_msg_rc_channels_override_pack
-		(SYSTEMID,
+	mavlink_msg_rc_channels_override_pack(
+		SYSTEMID,
 		COMPONENTID,
 		&message,
 		TARGET_SYSTEMID,
