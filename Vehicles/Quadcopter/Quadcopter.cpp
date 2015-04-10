@@ -78,12 +78,15 @@ void Quadcopter::moveRight(signed int value)
 	sendRCMessage(MEANVALUELEFTRIGHT + value);
 }
 
-void Quadcopter::moveForward()
+void Quadcopter::moveForward(signed int value)
 {
+	moveBackward(-value);
 }
 
-void Quadcopter::moveBackward()
+void Quadcopter::moveBackward(signed int value)
 {
+	sendRCMessage(UINT16_MAX,
+		MEANVALUEPITCH + value);
 }
 
 void Quadcopter::stop()

@@ -87,12 +87,12 @@ public:
 	* moveForward
 	*
 	*/
-	void moveForward();
+	void moveForward(signed int value);
 	/**
 	* moveBackward
 	*
 	*/
-	void moveBackward();
+	void moveBackward(signed int value);
 	/**
 	* stop
 	*
@@ -184,6 +184,7 @@ private:
 	* Value of the RC-sticks in neutral position
 	*/
 	const int MEANVALUELEFTRIGHT{ 1487 };
+	const int MEANVALUEPITCH{ 1454 };
 	const int SYSTEMID{ 255 };
 	const int COMPONENTID{ 0 };
 	const int TARGET_SYSTEMID{ 1 };
