@@ -10,11 +10,7 @@ QuadCopterWindow::QuadCopterWindow(Quadcopter& quadcopter, QWidget *parent) :
     ui(new Ui::QuadCopterWindow),
 	quadcopter{ quadcopter }
 {
-
     quadcopter.registerListener(this);
-
-
-
 
     ui->setupUi(this);
     ui->armedCheck->setEnabled(false);
