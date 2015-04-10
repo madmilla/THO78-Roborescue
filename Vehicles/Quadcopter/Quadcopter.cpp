@@ -196,11 +196,11 @@ void Quadcopter::loop()
 	}
 }
 
-void Quadcopter::setHeading(int targetHeading){
+void Quadcopter::setAbsoluteHeading(int targetHeading){
 	this->targetHeading = (targetHeading+360)%360;
 }
 
-void Quadcopter::changeHeading(int headingDifference){
+void Quadcopter::changeAbsoluteHeading(int headingDifference){
 	targetHeading = (targetHeading+headingDifference+360)%360
 }
 
@@ -221,7 +221,7 @@ void Quadcopter::orient(){
 	}
 }
 
-void Quadcopter::setHeadingSpeed(int i){
+void Quadcopter::setHeadingStreamSpeed(int i){
 	mavlink_msg_request_data_stream_pack(SYSTEMID,COMPONENTID,&message,TARGET_SYSTEMID,TARGET_COMPONENTID,MAV_DATA_STREAM_RAW_CONTROLLER,i,true);
 }
 

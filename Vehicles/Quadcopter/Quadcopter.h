@@ -161,8 +161,8 @@ public:
 
 	void statusTextTest(int s);
 	
-	void setHeading(int targetHeading);
-	void changeHeading(int headingDifference);
+	void setAbsoluteHeading(int targetHeading);
+	void changeAbsoluteHeading(int headingDifference);
 
 private:
 	MAVLinkExchanger& communicator;
