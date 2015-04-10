@@ -114,6 +114,8 @@ private:
 	//FlightMode flightMode;
 	
 	int batteryRemaining = 0;
+	int neutralSteeringValue = 1467;
+	int neutralthrottleValue = 1500;
 	void handleIncomingMessage(PriorityMessage incomingMessage);
 };
 
