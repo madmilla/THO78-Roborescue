@@ -26,7 +26,9 @@ SOURCES += main.cpp\
     lidar.cpp \
     lidarwindow.cpp \
     rosbee.cpp \
-    rosbeewindow.cpp
+    rosbeewindow.cpp \
+    MAVLinkCommunicator.cpp \
+    PriorityMessage.cpp
 
 HEADERS  += mainwindow.h \
     quadcopterwindow.h \
@@ -45,7 +47,10 @@ HEADERS  += mainwindow.h \
     rosbee.h \
     rosbeewindow.h \
     Subject.h \
-    exceptions.h
+    exceptions.h \
+    MAVLinkCommunicator.h \
+    PriorityMessage.h \
+    StatusText.h
 
 FORMS    += mainwindow.ui \
     quadcopterwindow.ui \

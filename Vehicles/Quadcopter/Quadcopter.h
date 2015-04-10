@@ -1,8 +1,20 @@
+/*!
+* \class Quadcopter
+*
+* \brief 
+* 
+*
+* \author Kjeld Perquin
+* \co-author Feiko Wielsma
+* \date April 2015
+*/
+
 #ifndef _QUADCOPTER_H
 #define _QUADCOPTER_H
 #include "PrioritisedMAVLinkMessage.h"
 #include "Subject.h"
 #include <iostream>
+#include <map>
 #include <chrono>
 
 class MAVLinkExchanger;
@@ -28,7 +40,18 @@ public:
 
 	explicit Quadcopter(MAVLinkExchanger& communicator);
 	void liftOff(int);
+	/**
+	* arm allows the quadcopter to be armed. Sends a message to the quadcopter to arm the quadcopter
+	* If the quadcopter is armed after the command is sent, it has to be checked through isArmed()
+	* Status messages can be returned by registering as a Listener to the QuadCopter - it will send a StatusText message if it fails
+	*
+	*/
 	void arm();
+	/**
+	* disarm allows the quadcopter to be disarmed. Sends a message to the quadcopter to disarm the quadcopter
+	* If the quadcopter is disarmed after the command is sent, it has to be checked through isArmed()
+	* Status messages can be returned by registering as a Listener to the QuadCopter - it will send a StatusText message if it fails
+	*/
 	void disarm();
 
 	/**
@@ -44,8 +67,20 @@ public:
 	* @warning If you put this value beyond the reccomended values (-200 and 200), the quadcopter will bank dangerously far, and will be unable to maintain altitude. This will most likely result in the quadcopter diving into the ground.
 	*/
 	void moveRight(signed int value);
+	/**
+	* moveForward
+	*
+	*/
 	void moveForward();
+	/**
+	* moveBackward
+	*
+	*/
 	void moveBackward();
+	/**
+	* stop
+	*
+	*/
 	void stop();
 
 	/**
@@ -65,10 +100,30 @@ public:
 	* @warning If you put this value beyond the recommended values (-200 and 200), the quadcopter will start turning dangerously fast, and will be unable to stabilize quickly.
 	*/
 	void changeHeading(int);
+	/**
+	* changeAltitude
+	*
+	*/
 	void changeAltitude(int);
+	/**
+	* shutdown
+	*
+	*/
 	void shutdown();
+	/**
+	* changeMode
+	*
+	*/
 	void changeMode(FlightMode);
+	/**
+	* operator<<
+	*
+	*/
 	friend std::ostream& operator<<(std::ostream& stream, const FlightMode& mode);
+	/**
+	* loop
+	*
+	*/
 	void loop();
 
 	float getYaw() const;
@@ -78,6 +133,10 @@ public:
 	int getHeading() const;
 	bool isArmed() const;
 	FlightMode getMode() const;
+	std::map<int, int> receivedMessageMap;
+
+	void statusTextTest(int s);
+
 
 private:
 	MAVLinkExchanger& communicator;

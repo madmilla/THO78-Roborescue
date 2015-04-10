@@ -84,16 +84,16 @@ public:
 	* The send queue size method.
 	* @return the size of the queue with the messages that have to be sent.
 	*/
-	int sendQueueSize();
+	int sendQueueSize() const;
 
 	/**
 	* The receive queue size method.
 	* @return the size of the receive queue. Can be used to check if there are messages received that have to be handled.
 	*/
-	int receiveQueueSize();
+	int receiveQueueSize() const;
 
 private:
-	PrioritisedMAVLinkMessage peek();
+	PrioritisedMAVLinkMessage peek() const;
 	void send(mavlink_message_t msg);
 	void receive();
 
