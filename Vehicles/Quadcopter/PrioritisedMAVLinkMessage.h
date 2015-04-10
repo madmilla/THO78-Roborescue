@@ -41,6 +41,11 @@
 #define _PRIORITESMAVLINKMESSAGE_H
 #include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
 
+const char _LOW_PRIORITY = 64; // Right in between 128 and 0.
+const char _NORMAL_PRIORITY = 128; // The middle priority (half of 256)
+const char _HIGH_PRIORITY = 192; // Right in the middle of 128 and 256
+const char _EXTREME_PRIORITY = 256; // The maximum priority
+
 class PrioritisedMAVLinkMessage : public mavlink_message_t
 {
 public:

@@ -33,12 +33,13 @@
     <ClCompile Include="ExtendedMAVLinkMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PrioritisedMAVLinkMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="TempListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MAVLinkCommunicator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Quadcopter.h">
@@ -53,6 +54,9 @@
     <ClInclude Include="ExtendedMAVLinkMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PrioritisedMAVLinkMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Listener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,9 +67,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StatusText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MAVLinkCommunicator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -58,6 +58,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MAVLinkCommunicator.cpp" />
     <ClCompile Include="MAVLinkExchanger.cpp" />
+    <ClCompile Include="PrioritisedMAVLinkMessage.cpp" />
     <ClCompile Include="Quadcopter.cpp" />
     <ClCompile Include="TempListener.cpp" />
     <ClCompile Include="TempMAVSender.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="Listener.h" />
     <ClInclude Include="MAVLinkCommunicator.h" />
     <ClInclude Include="MAVLinkExchanger.h" />
+    <ClInclude Include="PrioritisedMAVLinkMessage.h" />
     <ClInclude Include="Quadcopter.h" />
     <ClInclude Include="StatusText.h" />
     <ClInclude Include="Subject.h" />

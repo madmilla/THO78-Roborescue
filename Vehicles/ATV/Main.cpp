@@ -11,7 +11,7 @@
 
 int main()
 {
-	SerialPort port{ "COM2" };
+	SerialPort port{ "COM5" };
 	MAVLinkCommunicator mavlinkCommunicator{ port };
 	ATV atv{ mavlinkCommunicator };
 	//atv.emergencyStop();
@@ -26,37 +26,43 @@ int main()
 		if (GetAsyncKeyState(VK_RETURN)){
 			std::cout << "reset\n";
 			atv.returnControlToRc();
-			atv.emergencyStop();
+			atv.reset();
+		}
+		if (GetAsyncKeyState(0x45)){
+			exit(0);
 		}
 
 
 		if (GetAsyncKeyState(VK_LEFT)){
 			std::cout << "left\n";
-			atv.turnLeft(300);
+			atv.steer(-300);
 		}
 		else if (GetAsyncKeyState(VK_RIGHT)){
 			std::cout << "right\n";
-			atv.turnRight(300);
+			atv.steer(300);
 		}
 		else{
 			//std::cout << "straight\n";
-			atv.turnRight(0);
+			atv.steer(0);
 		}
 
 		if (GetAsyncKeyState(VK_UP)){
 			std::cout << "forward\n";
-			//atv.moveForward(60);
+			atv.moveForward(100);
 		}
 		else if (GetAsyncKeyState(VK_DOWN)){
 			std::cout << "backward\n";
-			//atv.moveBackward(60);
+			atv.moveBackward(60);
 		}
 		else{
 			std::cout << "stop\n";
 			//atv.moveForward(0);
 		}
+		std::cout << "Heading: " << atv.getHeading() << "\n";
+		std::cout << "Steer Direction: "<<atv.getSteeringDirection() << "\n";
+		std::cout << "Battery Remaining: " << atv.getBatteryRemaining() << "\n";
+		std::cout << "GroundSpeed: " << atv.getGroundSpeed() << "\n";
 
-
-		Sleep(10);
+		Sleep(100);
 	}
 }

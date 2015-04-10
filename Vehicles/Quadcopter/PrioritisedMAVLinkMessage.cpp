@@ -10,17 +10,17 @@ PrioritisedMAVLinkMessage::PrioritisedMAVLinkMessage(mavlink_message_t & msg)
 	switch (msg.msgid)
 	{
 	case MAVLINK_MSG_ID_HEARTBEAT:
-		priority = 128; break;
+		priority = _NORMAL_PRIORITY; break;
 	case MAVLINK_MSG_ID_RC_CHANNELS_OVERRIDE:
-		priority = 192; break;
+		priority = _HIGH_PRIORITY; break;
 	default:
-		priority = 128; break;
+		priority = _NORMAL_PRIORITY; break;
 	}
 }
 
 PrioritisedMAVLinkMessage::PrioritisedMAVLinkMessage()
 {
-	priority = -1;
+	priority = -1; // Checking the priority can now indicate that this is an empty message.
 }
 
 PrioritisedMAVLinkMessage::~PrioritisedMAVLinkMessage()
