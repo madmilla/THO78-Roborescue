@@ -201,7 +201,7 @@ void Quadcopter::setAbsoluteHeading(int targetHeading){
 }
 
 void Quadcopter::changeAbsoluteHeading(int headingDifference){
-	targetHeading = (targetHeading+headingDifference+360)%360
+	targetHeading = (targetHeading+headingDifference+360)%360;
 }
 
 void Quadcopter::orient(){
@@ -210,23 +210,19 @@ void Quadcopter::orient(){
 	
 	if (diff > 10 || diff < 10){
 		if (!orienting){
-			setHeadingSpeed(10);
+			setHeadingStreamSpeed(10);
 		}
-		changeHeading(std::min(100,diff));
+		changeAbsoluteHeading(std::min(100,diff));
 	}else{
 		if (orienting){
-			setHeadingSpeed(1);
+			setHeadingStreamSpeed(1);
 			orienting = false;
 		}
-		changeHeading(0);
+		changeAbsoluteHeading(0);
 	}
 }
 
-<<<<<<< HEAD
 void Quadcopter::setHeadingStreamSpeed(int i){
-	mavlink_msg_request_data_stream_pack(SYSTEMID,COMPONENTID,&message,TARGET_SYSTEMID,TARGET_COMPONENTID,MAV_DATA_STREAM_RAW_CONTROLLER,i,true);
-=======
-void Quadcopter::setHeadingSpeed(int i){
 	mavlink_msg_request_data_stream_pack(
 		SYSTEMID,
 		COMPONENTID,
@@ -236,7 +232,6 @@ void Quadcopter::setHeadingSpeed(int i){
 		MAV_DATA_STREAM_RAW_CONTROLLER,
 		i,
 		true);
->>>>>>> 1578ddf13ff9054132d0e7c44abc6b4d9bd75260
 }
 
 void Quadcopter::handleIncomingMessage(
