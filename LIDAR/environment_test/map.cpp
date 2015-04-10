@@ -36,7 +36,6 @@ Map::Map(string fileName):
 }
 
 Map::~Map(){
-
 }
 
 void Map::loadMap(string fileName){
@@ -45,16 +44,11 @@ void Map::loadMap(string fileName){
     int x = 0,y = 0;
     int content;
 
-    //std::cout << "height: " << height << std::endl;
-    //std::cout << "width: " << width << std::endl;
-
     mapLayout.resize(height);
     mapLayout[y].resize(width);
-    //std::cout << "y Size:" << mapLayout.size() << std::endl;
     while(y < height){
         mapFile >> content;
         mapLayout[y][x] = content;
-        //std::cout << "x:" << x << " y:" << y << "Content:" << content << std::endl;
         x++;
         if(x > width - 1){
             x = 0;
@@ -67,11 +61,16 @@ void Map::loadMap(string fileName){
 }
 
 void Map::setMapObject(int object,int y, int x){
-    std::cout << "NO!" << std::endl;
     if(x <= width && y <= height){
-        std::cout << "joe" << std::endl;
         mapLayout[y][x] = object;
     }
+}
+
+int Map::getMapObject(int y, int x){
+    if(x <= width && y <= height){
+        std::cout << "Object: " << mapLayout[y][x];
+    }
+    return 1;
 }
 
 vector<vector< int > > Map::getMapContent(){

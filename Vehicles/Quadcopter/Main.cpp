@@ -15,7 +15,7 @@ int main()
 	TempListener tempListener;
 	quadcopter.registerListener(&tempListener);
 	std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
-	std::thread communicatorLoopThread{ &MAVLinkExchanger::loop,
+	std::thread communicatorLoopThread{ &MAVLinkExchanger::loop, 
 		&communicator };
 	quadcopterLoopThread.detach();
 	communicatorLoopThread.detach();

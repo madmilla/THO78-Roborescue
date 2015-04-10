@@ -29,7 +29,7 @@ PrioritisedMAVLinkMessage::~PrioritisedMAVLinkMessage()
 {
 }
 
-bool operator<(const PrioritisedMAVLinkMessage & lhs,
+bool operator<(const PrioritisedMAVLinkMessage & lhs, 
 	const PrioritisedMAVLinkMessage & rhs)
 {
 	return lhs.getPriority() < rhs.getPriority();

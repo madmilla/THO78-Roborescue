@@ -41,10 +41,10 @@ public:
 	explicit Quadcopter(MAVLinkExchanger& communicator);
 	void liftOff(int);
 	/**
-	* arm allows the quadcopter to be armed. Sends a message to the quadcopter to
-	* arm the quadcopter.
-	* If the quadcopter is armed after the command is sent, it has to be checked 
-	* through isArmed().
+	* arm allows the quadcopter to be armed. Sends a message to the quadcopter 
+	* to arm the quadcopter.
+	* If the quadcopter is armed after the command is sent, it has to be 
+	* checked  through isArmed().
 	* Status messages can be returned by registering as a Listener to the 
 	* QuadCopter - it will send a StatusText message if it fails
 	*
@@ -53,34 +53,34 @@ public:
 	/**
 	* disarm allows the quadcopter to be disarmed. Sends a message to the 
 	* quadcopter to disarm the quadcopter.
-	*If the quadcopter is disarmed after the command is sent, it has to be checked
-	* through isArmed().
+	* If the quadcopter is disarmed after the command is sent, it has to be 
+	* checked through isArmed().
 	* Status messages can be returned by registering as a Listener to the 
 	* QuadCopter - it will send a StatusText message if it fails
 	*/
 	void disarm();
 
 	/**
-	* moveLeft allows the quadcopter to move to its left. This means the left side
-	* of the quadcopter, not relative to the orientation.
-	* @param value is a value between -400 and 400. A value between -200 and 200
-	* is suggested. Positive values mean left, negative values mean right.
-	* @warning If you put this value beyond the reccomended values (-200 and 200),
-	* the quadcopter will bank dangerously far, and will be unable to maintain 
-	* altitude. This will most likely result in the quadcopter diving into the 
-	* ground.
+	* moveLeft allows the quadcopter to move to its left. This means the left
+	* side of the quadcopter, not relative to the orientation.
+	* @param value is a value between -400 and 400. A value between -200 and
+	* 200 is suggested. Positive values mean left, negative values mean right.
+	* @warning If you put this value beyond the reccomended values (-200 and
+	* 200), the quadcopter will bank dangerously far, and will be unable to 
+	* maintain altitude. This will most likely result in the quadcopter diving
+	* into the ground.
 	*/
 	void moveLeft(signed int value);
 
 	/**
 	* moveRight allows the quadcopter to move to its right. This means the 
 	* right side of the quadcopter, not relative to the orientation.
-	* @param value is a value between -400 and 400. A value between -200 and 200
-	* is suggested. Positive values mean right, negative values mean left.
-	* @warning If you put this value beyond the reccomended values (-200 and 200),
-	* the quadcopter will bank dangerously far, and will be unable to maintain 
-	* altitude. This will most likely result in the quadcopter diving into the 
-	* ground.
+	* @param value is a value between -400 and 400. A value between -200 and
+	* 200 is suggested. Positive values mean right, negative values mean left.
+	* @warning If you put this value beyond the reccomended values (-200 and
+	* 200), the quadcopter will bank dangerously far, and will be unable to
+	* maintain altitude. This will most likely result in the quadcopter diving 
+	* into the ground.
 	*/
 	void moveRight(signed int value);
 	/**
@@ -113,12 +113,13 @@ public:
 
 	/**
 	* changeHeading allows the quadcopter to change its heading.
-	* @param value is a value between -400 and 400. A value between -200 and 200
-	* is suggested. Positive values means the quadcopter will start turning to the
-	* right, negative values means the quadcopter will start turning to the left.
-	* @warning If you put this value beyond the recommended values (-200 and 200),
-	* the quadcopter will start turning dangerously fast, and will be unable 
-	* to stabilize quickly.
+	* @param value is a value between -400 and 400. A value between -200 and
+	* 200 is suggested. Positive values means the quadcopter will start turning
+	* to the right, negative values means the quadcopter will start turning to
+	* the left.
+	* @warning If you put this value beyond the recommended values (-200 and
+	* 200), the quadcopter will start turning dangerously fast, and will be 
+	* unable to stabilize quickly.
 	*/
 	void changeHeading(int);
 	/**

@@ -1,5 +1,6 @@
 #include "simulatemapwindow.h"
 #include "ui_simulatemapwindow.h"
+#include <QMouseEvent>
 
 SimulateMapWindow::SimulateMapWindow(Map *map, QWidget *parent) :
     QWidget(parent),
@@ -8,21 +9,37 @@ SimulateMapWindow::SimulateMapWindow(Map *map, QWidget *parent) :
 {
     objectx = (drawWidth / map->width);
     objecty = (drawHeight / map->height);
+    simMap = new SimulateMap(map);
     ui->setupUi(this);
 }
 
 SimulateMapWindow::~SimulateMapWindow()
 {
+    delete simMap;
     delete ui;
 }
 
 void SimulateMapWindow::on_simulateButton_clicked()
 {
-
+    simMap->simulate();
 }
 
 void SimulateMapWindow::mousePressEvent(QMouseEvent * event){
-    mousePressed = true;
+    if(event->pos().x() < 640){
+       if(!selected < 0){
+           return;
+        }
+        int positionx = (event->pos().x() - event->pos().x() % objectx) / objectx;
+        int positiony = (event->pos().y() - event->pos().y() % objecty) / objecty;
+        if(positionx < map->width  &&  positiony < map->height){
+            if(selected == 3){
+                simMap->setScanPoint(positiony, positionx);
+            }
+            map->setMapObject(selected, positiony, positionx);
+            update();
+            mousePressed = true;
+        }
+    }
 }
 
 
@@ -61,4 +78,14 @@ Qt::GlobalColor SimulateMapWindow::getColorById(int id){
     break;
     }
     return bColor;
+}
+
+void SimulateMapWindow::on_lidarButton_clicked()
+{
+    selected = 3;
+}
+
+void SimulateMapWindow::on_noneButton_clicked()
+{
+    selected = 0;
 }

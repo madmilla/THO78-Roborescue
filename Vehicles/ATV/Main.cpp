@@ -11,22 +11,22 @@
 
 int main()
 {
-	SerialPort port{ "COM5" };
+	SerialPort port{ "COM2" };
 	MAVLinkCommunicator mavlinkCommunicator{ port };
 	ATV atv{ mavlinkCommunicator };
-	//atv.emergencyStop();
 	std::thread atvLoopThread{ &ATV::loop, &atv };
-	std::thread communicatorLoopThread{ &MAVLinkCommunicator::loop, &mavlinkCommunicator };
+	std::thread communicatorLoopThread{ &MAVLinkCommunicator::loop,
+		&mavlinkCommunicator };
 	atvLoopThread.detach();
 	communicatorLoopThread.detach();
 
 
 	while (1)
 	{
-		if (GetAsyncKeyState(VK_RETURN)){
+		if (GetAsyncKeyState(VK_RETURN) || GetAsyncKeyState(0x52)){
 			std::cout << "reset\n";
 			atv.returnControlToRc();
-			atv.reset();
+			atv.shutdown();
 		}
 		if (GetAsyncKeyState(0x45)){
 			exit(0);
@@ -42,7 +42,7 @@ int main()
 			atv.steer(300);
 		}
 		else{
-			//std::cout << "straight\n";
+			std::cout << "straight\n";
 			atv.steer(0);
 		}
 
@@ -56,7 +56,7 @@ int main()
 		}
 		else{
 			std::cout << "stop\n";
-			//atv.moveForward(0);
+			atv.moveForward(0);
 		}
 		std::cout << "Heading: " << atv.getHeading() << "\n";
 		std::cout << "Steer Direction: "<<atv.getSteeringDirection() << "\n";

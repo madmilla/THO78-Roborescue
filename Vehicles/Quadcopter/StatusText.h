@@ -7,7 +7,7 @@
 * StatusText enum for list of status messages able to be returned
 *
 */
-enum class StatusText
+enum class StatusText                                                          
 {
 	NONE,
 
@@ -22,7 +22,7 @@ enum class StatusText
 	ALTITUDE_DISPARITY,
 	AIRSPEED_NOT_HEALTHY,
 	BAD_GPS_POSITION,
-	LOGGING_NOT_AVAILABLE,
+	LOGGING_NOT_AVAILABLE,                                                     
 
 	GYROS_NOT_HEALTHY,
 	GYROS_NOT_CALIBRATED,
@@ -88,7 +88,8 @@ const std::map<std::string, StatusText> statusTextMap
 	{ "PreArm: Barometer not healthy!", StatusText::BAROMETER_NOT_HEALTHY },
 	{ "PreArm: Barometer not healthy", StatusText::BAROMETER_NOT_HEALTHY },
 	{ "Calibrating barometer", StatusText::CALIBRATING_BAROMETER },
-	{ "barometer calibration complete", StatusText::BAROMETER_CALIBRATIONS_COMPLETE },
+	{ "barometer calibration complete", 
+		StatusText::BAROMETER_CALIBRATIONS_COMPLETE },
 
 	{ "PreArm: gyros not healthy!", StatusText::GYROS_NOT_HEALTHY },
 	{ "PreArm: gyros not calibrated!", StatusText::GYROS_NOT_CALIBRATED },
@@ -105,7 +106,8 @@ const std::map<std::string, StatusText> statusTextMap
 	{ "PreArm: Compass not healthy!", StatusText::COMPASS_NOT_HEALTHY },
 	{ "PreArm: Compass not healthy", StatusText::COMPASS_NOT_HEALTHY },
 	{ "PreArm: Compass not calibrated", StatusText::COMPASS_NOT_CALIBRATED },
-	{ "PreArm: Compass offsets too high", StatusText::COMPASS_OFFSETS_TOO_HIGH },
+	{ "PreArm: Compass offsets too high", 
+		StatusText::COMPASS_OFFSETS_TOO_HIGH },
 	{ "PreArm: inconsistent compasses", StatusText::COMPASS_INCONSISTENT },
 	{ "PreArm: Check mag field", StatusText::COMPASS_MAGFIELD_TOO_HIGH },
 
