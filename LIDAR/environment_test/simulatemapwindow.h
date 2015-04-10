@@ -7,6 +7,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include "map.h"
+#include "simulatemap.h"
 
 namespace Ui {
 class SimulateMapWindow;
@@ -23,9 +24,14 @@ public:
 private slots:
     void on_simulateButton_clicked();
 
+    void on_lidarButton_clicked();
+
+    void on_noneButton_clicked();
+
 private:
     Ui::SimulateMapWindow *ui;
     Map *map;
+    SimulateMap *simMap;
     void paintEvent(QPaintEvent *e);
     void mousePressEvent(QMouseEvent * event);
     Qt::GlobalColor getColorById(int id);
@@ -33,6 +39,7 @@ private:
     int objecty = 0;
     int drawWidth = 430;
     int drawHeight = 460;
+    int selected = 3;
     bool mousePressed = true;
 };
 

@@ -13,6 +13,7 @@ public:
     vector<vector< int > > getMapContent();
     void setMapContent(vector<vector< int > > newMapLayout);
     void setMapObject(int object,int y, int x);
+    int getMapObject(int y, int x);
     void saveMap();
     int width = 0;
     int height = 0;

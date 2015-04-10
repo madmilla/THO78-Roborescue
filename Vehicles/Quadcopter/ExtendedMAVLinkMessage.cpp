@@ -2,8 +2,8 @@
 #include <iostream>
 #include <algorithm>
 
-ExtendedMAVLinkMessage::ExtendedMAVLinkMessage(const mavlink_message_t& 
-	baseMessage):
+ExtendedMAVLinkMessage::ExtendedMAVLinkMessage(
+	const mavlink_message_t& baseMessage):
 timeCreated{ std::chrono::system_clock::now() }
 {
 	mavlink_message_t::operator=(baseMessage);
