@@ -56,7 +56,6 @@
   <ItemGroup>
     <ClCompile Include="ExtendedMAVLinkMessage.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MAVLinkCommunicator.cpp" />
     <ClCompile Include="MAVLinkExchanger.cpp" />
     <ClCompile Include="PrioritisedMAVLinkMessage.cpp" />
     <ClCompile Include="Quadcopter.cpp" />
@@ -66,7 +65,6 @@
   <ItemGroup>
     <ClInclude Include="ExtendedMAVLinkMessage.h" />
     <ClInclude Include="Listener.h" />
-    <ClInclude Include="MAVLinkCommunicator.h" />
     <ClInclude Include="MAVLinkExchanger.h" />
     <ClInclude Include="PrioritisedMAVLinkMessage.h" />
     <ClInclude Include="Quadcopter.h" />

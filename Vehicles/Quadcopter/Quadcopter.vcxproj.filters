@@ -39,7 +39,6 @@
     <ClCompile Include="TempListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Quadcopter.h">

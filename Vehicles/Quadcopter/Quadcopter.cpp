@@ -204,6 +204,7 @@ void Quadcopter::loop()
 			}
 			if (isArmed()){
 				orient();
+			}
 		}
 	}
 }
@@ -233,7 +234,7 @@ void Quadcopter::orient(){
 		changeAbsoluteHeading(0);
 	}
 }
-}
+
 
 void Quadcopter::setHeadingStreamSpeed(int i){
 	mavlink_msg_request_data_stream_pack(
@@ -254,28 +255,28 @@ void Quadcopter::handleIncomingMessage(
 
 	switch (incomingMessage.msgid)
 	{
-	case MAVLINK_MSG_ID_HEARTBEAT:
+		case MAVLINK_MSG_ID_HEARTBEAT:
 		{
-		flightMode = static_cast<FlightMode>
-			(mavlink_msg_heartbeat_get_custom_mode(
-				&incomingMessage));
-		armed = mavlink_msg_heartbeat_get_base_mode(
-			&incomingMessage) & (1 << 7);
-		break;
+			flightMode = static_cast<FlightMode>
+				(mavlink_msg_heartbeat_get_custom_mode(
+					&incomingMessage));
+			armed = mavlink_msg_heartbeat_get_base_mode(
+				&incomingMessage) & (1 << 7);
+			break;
 		}
-	case MAVLINK_MSG_ID_VFR_HUD:
+		case MAVLINK_MSG_ID_VFR_HUD:
 		{
-		altitude = mavlink_msg_vfr_hud_get_alt(&incomingMessage);
-		heading = mavlink_msg_vfr_hud_get_heading(&incomingMessage);
-		break;
+			altitude = mavlink_msg_vfr_hud_get_alt(&incomingMessage);
+			heading = mavlink_msg_vfr_hud_get_heading(&incomingMessage);
+			break;
 		}
-	case MAVLINK_MSG_ID_ATTITUDE:
+		case MAVLINK_MSG_ID_ATTITUDE:
 		{
-		roll = mavlink_msg_attitude_get_roll(&incomingMessage);
-		pitch = mavlink_msg_attitude_get_pitch(&incomingMessage);
-		yaw = mavlink_msg_attitude_get_yaw(&incomingMessage);
-		break;
-	}
+			roll = mavlink_msg_attitude_get_roll(&incomingMessage);
+			pitch = mavlink_msg_attitude_get_pitch(&incomingMessage);
+			yaw = mavlink_msg_attitude_get_yaw(&incomingMessage);
+			break;
+		}
 		case MAVLINK_MSG_ID_STATUSTEXT:
 		{
 			char text[50];
@@ -294,7 +295,7 @@ void Quadcopter::handleIncomingMessage(
 				notifyListeners(StatusText::UNKNOWN);
 			}
 			break;
-	}
+		}
 	}
 	notifyListeners(StatusText::NONE);
 }
