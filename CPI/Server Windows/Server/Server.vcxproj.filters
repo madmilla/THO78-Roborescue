@@ -50,9 +50,6 @@
     <ClInclude Include="Socket.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SocketListener.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UDPServer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

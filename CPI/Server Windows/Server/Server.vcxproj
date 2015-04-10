@@ -24,7 +24,6 @@
     <ClInclude Include="RALCPEncoder.hpp" />
     <ClInclude Include="Rosbee.hpp" />
     <ClInclude Include="Socket.hpp" />
-    <ClInclude Include="SocketListener.hpp" />
     <ClInclude Include="UDPServer.hpp" />
     <ClInclude Include="UDPSocket.hpp" />
   </ItemGroup>
