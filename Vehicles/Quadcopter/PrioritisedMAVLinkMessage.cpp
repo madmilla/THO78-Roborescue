@@ -20,7 +20,7 @@ PrioritisedMAVLinkMessage::PrioritisedMAVLinkMessage(mavlink_message_t & msg)
 
 PrioritisedMAVLinkMessage::PrioritisedMAVLinkMessage()
 {
-	priority = -1;
+	priority = -1; // Checking the priority can now indicate that this is an empty message.
 }
 
 PrioritisedMAVLinkMessage::~PrioritisedMAVLinkMessage()

@@ -47,7 +47,16 @@ public:
 	void moveForward();
 	void moveBackward();
 	void stop();
+
+	/**
+	* land puts the quadcopter in land flight mode.
+	* Documentation about how land mode works can be found at: http://copter.ardupilot.com/wiki/flying-arducopter/flight-modes/land-mode/
+	*/
 	void land();
+
+	/**
+	* Not yet implemented
+	*/
 	void changeFlightSpeed(int);
 
 	/**
@@ -84,6 +93,9 @@ private:
 	const std::chrono::seconds RCHeartbeatInterval{ 1 };
 	std::chrono::system_clock::time_point lastRCSent;
 
+	/**
+	* Value of the RC-sticks in neutral position
+	*/
 	const int MEANVALUELEFTRIGHT{ 1487 };
 	const int SYSTEMID{ 255 };
 	const int COMPONENTID{ 0 };
