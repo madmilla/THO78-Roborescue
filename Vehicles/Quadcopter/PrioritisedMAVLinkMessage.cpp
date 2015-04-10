@@ -1,6 +1,7 @@
 #include "PrioritisedMAVLinkMessage.h"
 
-PrioritisedMAVLinkMessage::PrioritisedMAVLinkMessage(mavlink_message_t & msg, char priority)
+PrioritisedMAVLinkMessage::PrioritisedMAVLinkMessage(mavlink_message_t & msg, 
+	char priority)
 {
 	mavlink_message_t::operator=(msg);
 }
@@ -20,14 +21,16 @@ PrioritisedMAVLinkMessage::PrioritisedMAVLinkMessage(mavlink_message_t & msg)
 
 PrioritisedMAVLinkMessage::PrioritisedMAVLinkMessage()
 {
-	priority = -1; // Checking the priority can now indicate that this is an empty message.
+	priority = -1; // Checking the priority can now indicate that this is an 
+				   //empty message.
 }
 
 PrioritisedMAVLinkMessage::~PrioritisedMAVLinkMessage()
 {
 }
 
-bool operator<(const PrioritisedMAVLinkMessage & lhs, const PrioritisedMAVLinkMessage & rhs)
+bool operator<(const PrioritisedMAVLinkMessage & lhs, 
+	const PrioritisedMAVLinkMessage & rhs)
 {
 	return lhs.getPriority() < rhs.getPriority();
 }
