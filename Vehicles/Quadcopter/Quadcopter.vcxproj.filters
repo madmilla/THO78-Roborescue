@@ -33,6 +33,9 @@
     <ClCompile Include="ExtendedMAVLinkMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PrioritisedMAVLinkMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Quadcopter.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExtendedMAVLinkMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PrioritisedMAVLinkMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
