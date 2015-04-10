@@ -132,16 +132,16 @@ compiler_clean:
 ####### Compile
 
 release\main.obj: main.cpp shapedetector.h \
-		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
 		C:\opencv\build\include\opencv2\core\core.hpp \
 		C:\opencv\build\include\opencv2\core\types_c.h \
 		C:\opencv\build\include\opencv2\core\version.hpp \
 		C:\opencv\build\include\opencv2\core\operations.hpp \
 		C:\opencv\build\include\opencv2\core\mat.hpp \
-		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
-		C:\opencv\build\include\opencv2\core\core_c.h \
-		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
 		C:\opencv\build\include\opencv2\imgproc\types_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		C:\opencv\build\include\opencv2\opencv.hpp \
 		C:\opencv\build\include\opencv2\flann\miniflann.hpp \
 		C:\opencv\build\include\opencv2\flann\defines.h \
@@ -162,16 +162,16 @@ release\main.obj: main.cpp shapedetector.h \
 		C:\opencv\build\include\opencv2\contrib\openfabmap.hpp
 
 release\shapedetector.obj: shapedetector.cpp shapedetector.h \
-		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
 		C:\opencv\build\include\opencv2\core\core.hpp \
 		C:\opencv\build\include\opencv2\core\types_c.h \
 		C:\opencv\build\include\opencv2\core\version.hpp \
 		C:\opencv\build\include\opencv2\core\operations.hpp \
 		C:\opencv\build\include\opencv2\core\mat.hpp \
-		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
-		C:\opencv\build\include\opencv2\core\core_c.h \
-		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
 		C:\opencv\build\include\opencv2\imgproc\types_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		C:\opencv\build\include\opencv2\opencv.hpp \
 		C:\opencv\build\include\opencv2\flann\miniflann.hpp \
 		C:\opencv\build\include\opencv2\flann\defines.h \

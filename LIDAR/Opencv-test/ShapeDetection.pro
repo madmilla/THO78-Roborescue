@@ -19,7 +19,7 @@ win32 {
     INCLUDEPATH += "..\..\deps\files\opencv" \
 
     CONFIG(debug,debug|release) {
-        LIBS += -L"..\\..\\deps\\libs\\opencv\\windows" \
+        LIBS += -L"..\\..\\deps\\libs\\opencv\\windows\\x64" \
             -lopencv_core2410d \
             -lopencv_highgui2410d \
             -lopencv_imgproc2410d \
@@ -28,7 +28,7 @@ win32 {
 
     CONFIG(release,debug|release) {
         DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
-        LIBS += -L"..\\..\\deps\\libs\\opencv\\windows" \
+        LIBS += -L"..\\..\\deps\\libs\\opencv\\windows\\x64" \
             -lopencv_core2410 \
             -lopencv_highgui2410 \
             -lopencv_imgproc2410 \

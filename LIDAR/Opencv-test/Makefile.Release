@@ -17,7 +17,7 @@ CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -FS -O2 -MD -Zc:strictStrings -GR -W3
 INCPATH       = -I"..\..\deps\files\opencv" -I"C:\Qt\5.4\msvc2013_64\include" -I"C:\Qt\5.4\msvc2013_64\include\QtGui" -I"C:\Qt\5.4\msvc2013_64\include\QtANGLE" -I"C:\Qt\5.4\msvc2013_64\include\QtCore" -I"release" -I"C:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013"
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:CONSOLE "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:..\..\deps\libs\opencv\windows ..\..\deps\libs\opencv\windows\opencv_core2410.lib ..\..\deps\libs\opencv\windows\opencv_highgui2410.lib ..\..\deps\libs\opencv\windows\opencv_imgproc2410.lib /LIBPATH:C:\Qt\5.4\msvc2013_64\lib C:\Qt\5.4\msvc2013_64\lib\Qt5Gui.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Core.lib 
+LIBS          = /LIBPATH:..\..\deps\libs\opencv\windows\x64 ..\..\deps\libs\opencv\windows\x64\opencv_core2410.lib ..\..\deps\libs\opencv\windows\x64\opencv_highgui2410.lib ..\..\deps\libs\opencv\windows\x64\opencv_imgproc2410.lib /LIBPATH:C:\Qt\5.4\msvc2013_64\lib C:\Qt\5.4\msvc2013_64\lib\Qt5Gui.lib C:\Qt\5.4\msvc2013_64\lib\Qt5Core.lib 
 QMAKE         = C:\Qt\5.4\msvc2013_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -134,11 +134,47 @@ compiler_clean:
 
 ####### Compile
 
-release\main.obj: main.cpp shapedetector.h
+release\main.obj: main.cpp shapedetector.h \
+		..\..\deps\files\opencv\imgproc\imgproc.hpp \
+		..\..\deps\files\opencv\core\core.hpp \
+		..\..\deps\files\opencv\core\types_c.h \
+		..\..\deps\files\opencv\core\version.hpp \
+		..\..\deps\files\opencv\core\operations.hpp \
+		..\..\deps\files\opencv\core\mat.hpp \
+		..\..\deps\files\opencv\imgproc\types_c.h \
+		..\..\deps\files\opencv\core\core_c.h \
+		..\..\deps\files\opencv\highgui\highgui.hpp \
+		..\..\deps\files\opencv\highgui\highgui_c.h \
+		..\..\deps\files\opencv\opencv.hpp \
+		..\..\deps\files\opencv\imgproc\imgproc_c.h
 
-release\shapedetector.obj: shapedetector.cpp shapedetector.h
+release\shapedetector.obj: shapedetector.cpp shapedetector.h \
+		..\..\deps\files\opencv\imgproc\imgproc.hpp \
+		..\..\deps\files\opencv\core\core.hpp \
+		..\..\deps\files\opencv\core\types_c.h \
+		..\..\deps\files\opencv\core\version.hpp \
+		..\..\deps\files\opencv\core\operations.hpp \
+		..\..\deps\files\opencv\core\mat.hpp \
+		..\..\deps\files\opencv\imgproc\types_c.h \
+		..\..\deps\files\opencv\core\core_c.h \
+		..\..\deps\files\opencv\highgui\highgui.hpp \
+		..\..\deps\files\opencv\highgui\highgui_c.h \
+		..\..\deps\files\opencv\opencv.hpp \
+		..\..\deps\files\opencv\imgproc\imgproc_c.h
 
-release\main.obj: main.cpp shapedetector.h
+release\main.obj: main.cpp shapedetector.h \
+		..\..\deps\files\opencv\imgproc\imgproc.hpp \
+		..\..\deps\files\opencv\core\core.hpp \
+		..\..\deps\files\opencv\core\types_c.h \
+		..\..\deps\files\opencv\core\version.hpp \
+		..\..\deps\files\opencv\core\operations.hpp \
+		..\..\deps\files\opencv\core\mat.hpp \
+		..\..\deps\files\opencv\imgproc\types_c.h \
+		..\..\deps\files\opencv\core\core_c.h \
+		..\..\deps\files\opencv\highgui\highgui.hpp \
+		..\..\deps\files\opencv\highgui\highgui_c.h \
+		..\..\deps\files\opencv\opencv.hpp \
+		..\..\deps\files\opencv\imgproc\imgproc_c.h
 
 ####### Install
 

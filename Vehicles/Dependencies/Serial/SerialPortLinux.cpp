@@ -70,27 +70,41 @@ int SerialPortLinux::open(const char * device, unsigned int bauds)
 	return 1;
 }
 
+/*! \brief Close the connection with the current device
+ */
 void SerialPortLinux::close()
 {
 	::close (filedescriptor);
 }
 
-bool SerialPortLinux::writeData(unsigned char* buffer, int nrOfBytes)
+/*!  \brief Write an array of data on the current serial port
+     \param buffer : array of bytes to send on the port
+     \param nbBytes : number of bytes to send
+     \return 1 success
+     \return -1 error while writting data
+ */
+bool SerialPortLinux::writeData(unsigned char* buffer, int nbBytes)
 {
-	if (::write(filedescriptor, static_cast<void *>(buffer), nrOfBytes != (ssize_t) nrOfBytes))
+	if (::write(filedescriptor, buffer, nbBytes) != (ssize_t) nbBytes)
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
-int SerialPortLinux::readData(unsigned char* buffer, int nrOfBytes)
+/*!  \brief Read an array of bytes from the serial device
+     \param buffer : array of bytes read from the serial device
+     \param maxBytes : maximum allowed number of bytes to read
+     \return 1 success, return the number of bytes read
+     \return -1 error while reading the bytes
+ */
+int SerialPortLinux::readData(unsigned char* buffer, int maxBytes)
 {
 	unsigned int nbBytesRead = 0;
-	while (nbBytesRead < nrOfBytes) 
+	while (nbBytesRead < maxBytes) 
 	{
-		auto ptr = buffer + nbBytesRead;
-		auto ret = ::read(filedescriptor,static_cast<void*>(ptr), nrOfBytes - nbBytesRead);
+		auto ptr = static_cast<unsigned char *>(buffer) + nbBytesRead;
+		auto ret = ::read(filedescriptor,static_cast<void *>(ptr), maxBytes - nbBytesRead);
 		if (ret == -1) 
 		{
 			return -1;

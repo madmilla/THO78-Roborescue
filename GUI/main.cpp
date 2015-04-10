@@ -9,7 +9,7 @@
 
 int main(int argc, char ** argv)
 {
-    SerialPort serialPort("COM5");
+    SerialPort serialPort("COM7");
 
     MAVLinkCommunicator exchanger{ serialPort };
 

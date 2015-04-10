@@ -1,26 +1,26 @@
 #include "Quadcopter.h"
 #include "../Dependencies/Serial/SerialPort.h"
 #include <string>
-#include "MAVLinkCommunicator.h"
+#include "MAVLinkExchanger.h"
 #include <iostream>
 #include "TempListener.h"
 #include <thread>
 
+SerialPort serialPort("COM7");
+MAVLinkExchanger communicator{ serialPort };
+Quadcopter quadcopter(communicator);
+
 int main() 
 {
-	SerialPort serialPort("COM6");
-	MAVLinkCommunicator communicator{ serialPort };
-	Quadcopter quadcopter(communicator);
-	//Make a tempListener to check if the quad notifies correctly
 	TempListener tempListener;
 	quadcopter.registerListener(&tempListener);
 	std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
-	std::thread communicatorLoopThread{ &MAVLinkCommunicator::loop, &communicator };
+	std::thread communicatorLoopThread{ &MAVLinkExchanger::loop, &communicator };
 	quadcopterLoopThread.detach();
 	communicatorLoopThread.detach();
 	while (1)
 	{
-		//Simple esting code for executing functions
+		//Simple testing code for executing functions
 		char c;
 		std::cin >> c;
 		if (c == 'p')
