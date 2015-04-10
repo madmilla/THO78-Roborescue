@@ -36,17 +36,17 @@ PrioritisedMAVLinkMessage MAVLinkExchanger::dequeueMessage()
 	return msg;
 }
 
-int MAVLinkExchanger::sendQueueSize()
+int MAVLinkExchanger::sendQueueSize() const
 {
 	return sendQueue.size();
 }
 
-int MAVLinkExchanger::receiveQueueSize()
+int MAVLinkExchanger::receiveQueueSize() const
 {
 	return receiveQueue.size();
 }
 
-PrioritisedMAVLinkMessage MAVLinkExchanger::peek()
+PrioritisedMAVLinkMessage MAVLinkExchanger::peek() const
 {
 	if (receiveQueue.size())
 	{

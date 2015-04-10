@@ -42,6 +42,8 @@ void MAVLinkExchanger::loop()
 {
 	while (1)
 	{
+		//std::cout << "MELoop\n";
+
 		receiveMessage();
 		if (sendQueue.size())
 		{

@@ -1,3 +1,14 @@
+/*!
+* \class MAVLinkExchanger
+*
+* \brief
+*
+*
+* \author
+* \co-author
+* \date April 2015
+*/
+
 #ifndef _MAVLINKEXCHANGER_H
 #define _MAVLINKEXCHANGER_H
 #include <queue>
