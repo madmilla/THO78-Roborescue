@@ -5,8 +5,6 @@
 #include <iostream>
 #include <chrono>
 
-#define UINT16_MIN 0x0
-
 class MAVLinkExchanger;
 
 class Quadcopter : public Subject
@@ -76,7 +74,6 @@ private:
 	MAVLinkExchanger& communicator;
 	PrioritisedMAVLinkMessage message;
 	PrioritisedMAVLinkMessage RCOverrideMessage;
-
 	FlightMode flightMode;
 	bool armed;
 	float yaw;
@@ -84,6 +81,8 @@ private:
 	float pitch;
 	float altitude;
 	int heading;
+	const std::chrono::seconds RCHeartbeatInterval{ 1 };
+	std::chrono::system_clock::time_point lastRCSent;
 
 	const int MEANVALUELEFTRIGHT{ 1487 };
 	const int SYSTEMID{ 255 };
@@ -91,9 +90,15 @@ private:
 	const int TARGET_SYSTEMID{ 1 };
 	const int TARGET_COMPONENTID{ 1 };
 
-	const std::chrono::seconds RCHeartbeatInterval{ 1 };
-	std::chrono::system_clock::time_point lastRCSent;
-
 	void handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage);
+	void sendRCMessage
+		(unsigned int channelOne = UINT16_MAX, 
+		unsigned int channelTwo = UINT16_MAX,
+		unsigned int channelThree = UINT16_MAX,
+		unsigned int channelFour = UINT16_MAX,
+		unsigned int channelFive = UINT16_MAX,
+		unsigned int channelSix = UINT16_MAX,
+		unsigned int channelSeven = UINT16_MAX,
+		unsigned int channelEight = UINT16_MAX);
 };
 #endif
