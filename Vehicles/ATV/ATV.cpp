@@ -133,14 +133,16 @@ void ATV::handleIncomingMessage(PriorityMessage incomingMessage)
 	switch (incomingMessage.msgid)
 	{
 	case MAVLINK_MSG_ID_HEARTBEAT:
-		//flightMode = static_cast<FlightMode>(mavlink_msg_heartbeat_get_custom_mode(&incomingMessage));
+		//flightMode = static_cast<FlightMode>(
+			//mavlink_msg_heartbeat_get_custom_mode(&incomingMessage));
 		break;
 	case MAVLINK_MSG_ID_VFR_HUD:
 		heading = mavlink_msg_vfr_hud_get_heading(&incomingMessage);
 		groundSpeed = mavlink_msg_vfr_hud_get_groundspeed(&incomingMessage);
 		break;
 	case MAVLINK_MSG_ID_SYS_STATUS:
-		batteryRemaining = mavlink_msg_sys_status_get_battery_remaining(&incomingMessage);
+		batteryRemaining = mavlink_msg_sys_status_get_battery_remaining(
+			&incomingMessage);
 		break;
 
 	}

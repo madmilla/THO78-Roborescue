@@ -60,7 +60,8 @@ int main()
 		}
 		std::cout << "Heading: " << atv.getHeading() << "\n";
 		std::cout << "Steer Direction: "<<atv.getSteeringDirection() << "\n";
-		std::cout << "Battery Remaining: " << atv.getBatteryRemaining() << "\n";
+		std::cout << "Battery Remaining: " << 
+			atv.getBatteryRemaining() << "\n";
 		std::cout << "GroundSpeed: " << atv.getGroundSpeed() << "\n";
 
 		Sleep(100);
