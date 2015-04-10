@@ -79,7 +79,8 @@ void ATV::steer(int value)
 
 void ATV::shutdown()
 {
-	mavlink_msg_command_long_pack(SYSTEMID,
+	mavlink_msg_command_long_pack(
+		SYSTEMID,
 		0,
 		&message,
 		TARGET_SYSTEMID,

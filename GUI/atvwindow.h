@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTimer>
 #include "atv.h"
+#include "Listener.h"
 
 namespace Ui {
 class ATVWindow;
@@ -15,7 +16,7 @@ class ATVWindow;
 * @date   April, 2015
 * @brief  this class handles ui input from the ATVWindow
 */
-class ATVWindow : public QMainWindow
+class ATVWindow : public QMainWindow, public Listener
 {
     Q_OBJECT
 
@@ -36,14 +37,11 @@ private slots:
 
    void scrollbarValueChanged(int value);
 
-   void timerTick();
-
-   void armed(bool is_armed);
-
 private:
    ATV & atv;
-   QTimer timer;
    Ui::ATVWindow *ui;
+
+   void notifyListener(Subject&, StatusText statusText) override;
 };
 
 #endif // ATVWINDOW_H

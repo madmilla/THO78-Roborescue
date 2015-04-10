@@ -9,8 +9,7 @@ bool runTest() {
 
 	Circle * object = new Circle(originX, originY, radius);
 
-	if (object->getCircle().originX != originX && object->getCircle().originY 
-		!= originY && object->getCircle().radius != radius) {
+	if (object->getCircle().originX != originX && object->getCircle().originY != originY && object->getCircle().radius != radius) {
 		return false;
 	}
 
@@ -20,8 +19,7 @@ bool runTest() {
 
 	object->setCircle(originX, originY, radius);
 
-	if (object->getCircle().originX != originX && object->getCircle().originY 
-		!= originY && object->getCircle().radius != radius) {
+	if (object->getCircle().originX != originX && object->getCircle().originY != originY && object->getCircle().radius != radius) {
 		return false;
 	}
 
