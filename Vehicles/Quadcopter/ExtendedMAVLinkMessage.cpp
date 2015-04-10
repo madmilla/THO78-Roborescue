@@ -2,7 +2,8 @@
 #include <iostream>
 #include <algorithm>
 
-ExtendedMAVLinkMessage::ExtendedMAVLinkMessage(const mavlink_message_t& baseMessage):
+ExtendedMAVLinkMessage::ExtendedMAVLinkMessage(
+	const mavlink_message_t& baseMessage):
 timeCreated{ std::chrono::system_clock::now() }
 {
 	mavlink_message_t::operator=(baseMessage);
@@ -13,29 +14,34 @@ ExtendedMAVLinkMessage::ExtendedMAVLinkMessage()
 	msgid = -1;
 }
 
-bool operator<(const ExtendedMAVLinkMessage& lhs, const ExtendedMAVLinkMessage& rhs)
+bool operator<(const ExtendedMAVLinkMessage& lhs,
+	const ExtendedMAVLinkMessage& rhs)
 {
 	return lhs.getPriority() < rhs.getPriority();
 }
 
 ExtendedMAVLinkMessage::Priority ExtendedMAVLinkMessage::getPriority() const
 {
-	if (std::find(std::begin(EXTREME_PRIORITIES), std::end(EXTREME_PRIORITIES), msgid) != std::end(EXTREME_PRIORITIES))
+	if (std::find(std::begin(EXTREME_PRIORITIES), std::end(EXTREME_PRIORITIES),
+		msgid) != std::end(EXTREME_PRIORITIES))
 	{
 		return Priority::EXTREME_PRIORITY;
 	}
-	if (std::find(std::begin(HIGH_PRIORITIES), std::end(HIGH_PRIORITIES), msgid) != std::end(HIGH_PRIORITIES))
+	if (std::find(std::begin(HIGH_PRIORITIES), std::end(HIGH_PRIORITIES),
+		msgid) != std::end(HIGH_PRIORITIES))
 	{
 		return Priority::HIGH_PRIORITY;
 	}
-	if (std::find(std::begin(MEDIUM_PRIORITIES), std::end(MEDIUM_PRIORITIES), msgid) != std::end(MEDIUM_PRIORITIES))
+	if (std::find(std::begin(MEDIUM_PRIORITIES), std::end(MEDIUM_PRIORITIES),
+		msgid) != std::end(MEDIUM_PRIORITIES))
 	{
 		return Priority::MEDIUM_PRIORITY;
 	}
 	return Priority::LOW_PRIORITY;
 }
 
-std::ostream& operator<<(std::ostream& stream, const ExtendedMAVLinkMessage::Priority& priority)
+std::ostream& operator<<(std::ostream& stream,
+	const ExtendedMAVLinkMessage::Priority& priority)
 {
 	switch (priority)
 	{
