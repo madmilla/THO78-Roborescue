@@ -197,7 +197,11 @@ void Quadcopter::loop()
 }
 
 void Quadcopter::setHeading(int targetHeading){
-	this->targetHeading = targetHeading;
+	this->targetHeading = (targetHeading+360)%360;
+}
+
+void Quadcopter::changeHeading(int headingDifference){
+	targetHeading = (targetHeading+headingDifference+360)%360
 }
 
 void Quadcopter::orient(){

@@ -162,6 +162,7 @@ public:
 	void statusTextTest(int s);
 	
 	void setHeading(int targetHeading);
+	void changeHeading(int headingDifference)
 
 private:
 	MAVLinkExchanger& communicator;
@@ -180,7 +181,7 @@ private:
 	int targetHeading;
 	void orient();
 	bool orienting = false;
-	void setHeadingSpeed(int i);
+	void setHeadingStreamSpeed(int i);
 	
 	/**
 	* Value of the RC-sticks in neutral position
