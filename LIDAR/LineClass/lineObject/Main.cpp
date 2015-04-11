@@ -30,7 +30,8 @@ int main() {
 
 	if (test()) {
 		std::cout << std::endl << "test finished succesfully" << std::endl;	
-		system(" pause");
+		char c;
+		while (std::cin >> c && c != 'q');
 		return EXIT_SUCCESS;
 	}
 	else {
