@@ -4,6 +4,7 @@
 #include "atvwindow.h"
 #include "rosbeewindow.h"
 #include "lidarwindow.h"
+#include "mapwindow.h"
 
 MainWindow::MainWindow(Quadcopter &quadcopter, Rosbee &rosbee, lidar & l, ATV & atv, QWidget *parent) :
     QMainWindow(parent),
@@ -56,7 +57,7 @@ void MainWindow::handleButton(){
    }else if(button == ui->LidarButton){
       newWindow = new lidarwindow(l, this);
    }else if(button == ui->MapButton){
-      //newWindow - new MapWindow(this);
+      newWindow = new MapWindow(this);
    }else if(button == ui->RosbeeButton){
       newWindow = new RosbeeWindow(rosbee, this);
    }else if(button == ui->ExitButton){

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 QMAKE_CXXFLAGS += -std=gnu++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -28,7 +28,10 @@ SOURCES += main.cpp\
     rosbeewindow.cpp \
     MAVLinkCommunicator.cpp \
     PriorityMessage.cpp \
-    atv.cpp
+    atv.cpp \
+    algorithms.cpp \
+    glwidget.cpp \
+    mapwindow.cpp
 
 HEADERS  += mainwindow.h \
     quadcopterwindow.h \
@@ -50,12 +53,17 @@ HEADERS  += mainwindow.h \
     MAVLinkCommunicator.h \
     PriorityMessage.h \
     StatusText.h \
-    atv.h
+    atv.h \
+    algorithms.h \
+    glwidget.h \
+    line.h \
+    mapwindow.h
 
 FORMS    += mainwindow.ui \
     quadcopterwindow.ui \
     atvwindow.ui \
     lidarwindow.ui \
-    rosbeewindow.ui
+    rosbeewindow.ui \
+    mapwindow.ui
 
 DISTFILES +=
