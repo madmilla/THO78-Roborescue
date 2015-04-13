@@ -1,7 +1,7 @@
 #ifndef SIMULATEMAP_H
 #define SIMULATEMAP_H
 #include "map.h"
-
+#include "PointCloud.h"
 
 class SimulateMap
 {
@@ -11,7 +11,7 @@ private:
     Map *map;
 public:
     SimulateMap(Map *map);
-    void simulate();
+    Pointcloud simulate();
     void setScanPoint(int y, int x);
     ~SimulateMap();
 };

@@ -13,7 +13,7 @@ Map::Map(string fileName, int height, int width):
 {
     if(!fileName.empty()){
         createNewMap(fileName);
-        //loadMap(fileName);
+        loadMap(fileName);
     }
 }
 
@@ -30,8 +30,9 @@ Map::Map(string fileName):
             line.erase(std::remove_if(line.begin(), line.end(), (int(*)(int))isspace), line.end());
             height = i;
             width = static_cast<int>(line.length());
+            mapFile.close();
+            loadMap(fileName);
         }
-        loadMap(fileName);
     }
 }
 
@@ -42,7 +43,7 @@ void Map::loadMap(string fileName){
     ifstream mapFile;
     mapFile.open(fileName);
     int x = 0,y = 0;
-    int content;
+    int content = 0;
 
     mapLayout.resize(height);
     mapLayout[y].resize(width);
@@ -68,9 +69,9 @@ void Map::setMapObject(int object,int y, int x){
 
 int Map::getMapObject(int y, int x){
     if(x <= width && y <= height){
-        std::cout << "Object: " << mapLayout[y][x];
+        return mapLayout[y][x];
     }
-    return 1;
+    return -1;
 }
 
 vector<vector< int > > Map::getMapContent(){
@@ -96,7 +97,7 @@ void Map::saveMap(){
 
 void Map::createNewMap(string fileName){
     ofstream mapFile;
-    mapFile.open(fileName + ".map");
+    mapFile.open(fileName);
     for(int y = 0; y < height; y++){
         for(int x = 0; x < width; x++){
             mapFile << '0';
