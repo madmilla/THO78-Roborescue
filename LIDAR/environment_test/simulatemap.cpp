@@ -3,6 +3,7 @@
 #include <fstream>
 #include "PointCloud.h"
 #include <sstream>
+#include "values.h"
 
 SimulateMap::SimulateMap(Map *map):
     map(map)
@@ -16,7 +17,7 @@ Pointcloud SimulateMap::simulate(){
     for(std::vector<int> fory : map->getMapContent()){
         int x = 0;
         for(int forx : fory){
-            if(fory[x] == 1){
+            if(fory[x] == Values::OBSTACLE){
                 int objectX = (x-lidarX);
                 int objectY = (y-lidarY) * -1;
                 pC.setPoint(objectX,objectY);

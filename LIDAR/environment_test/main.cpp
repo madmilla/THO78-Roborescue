@@ -3,7 +3,7 @@
 #include "test.h"
 int main(int argc, char *argv[])
 {
-    if(true){//argc > 1 && strcmp(argv[1], "-test") == 0){
+    if(argc > 1 && strcmp(argv[1], "-test") == 0){
         Test test;
         return test.run();
     }else{

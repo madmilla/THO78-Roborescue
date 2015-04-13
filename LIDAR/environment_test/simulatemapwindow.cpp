@@ -25,7 +25,7 @@ void SimulateMapWindow::on_simulateButton_clicked()
 }
 
 void SimulateMapWindow::mousePressEvent(QMouseEvent * event){
-    if(event->pos().x() < 640){
+    if(event->pos().x() < Values::DRAWWIDTH){
        if(!selected < 0){
            return;
         }
@@ -82,10 +82,10 @@ Qt::GlobalColor SimulateMapWindow::getColorById(int id){
 
 void SimulateMapWindow::on_lidarButton_clicked()
 {
-    selected = 3;
+    selected = Values::LIDAR;
 }
 
 void SimulateMapWindow::on_noneButton_clicked()
 {
-    selected = 0;
+    selected = Values::EMPTY;
 }
