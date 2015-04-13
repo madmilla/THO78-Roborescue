@@ -8,5 +8,5 @@ include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
-add_executable (combine combine_clouds.cpp)
+add_executable (combine main.cpp combine.h)
 target_link_libraries (combine ${PCL_LIBRARIES})
