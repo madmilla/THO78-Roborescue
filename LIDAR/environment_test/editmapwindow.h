@@ -37,7 +37,6 @@ private:
     int objecty = 0;
     int drawWidth = 430;
     int drawHeight = 460;
-    //vector<vector< int > > mapLayout;
 };
 
 #endif // EDITMAPWINDOW_H

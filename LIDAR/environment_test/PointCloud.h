@@ -3,9 +3,6 @@
 #include <vector>
 #include <stdlib.h>
 #include <ostream>
-#include <cereal/cereal.hpp>
-#include <cereal/archives/json.hpp>
-#include <cereal/types/vector.hpp>
 //! The pointcloud object
 /*!
 The object which will contain all the points of a scan
