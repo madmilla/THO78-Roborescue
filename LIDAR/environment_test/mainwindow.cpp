@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    if(map) delete map;
+    if(map != 0) delete map;
 }
 
 void MainWindow::on_newMapButton_clicked()

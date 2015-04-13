@@ -29,7 +29,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Map *map;
+    Map *map = 0;
     EditMapWindow* editMapWindow;
 
     int newMapBeignSize = 100;//Default begin size
