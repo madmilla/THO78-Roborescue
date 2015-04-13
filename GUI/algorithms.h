@@ -20,7 +20,6 @@ public:
     constexpr static const float HEIGHT = 0.5f;
     constexpr static const float HEIGHT_ISO = 0.2f;
 
-    constexpr static const float ZOOM_OUT_Z = -8.0f;
     constexpr static const float NEAR_VAL = 5.0f;
     constexpr static const float FAR_VAL = 30.0f;
 

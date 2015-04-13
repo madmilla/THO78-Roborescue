@@ -2,6 +2,8 @@
 #define GLWIDGET_H
 
 #include <QGLWidget>
+#include <QtWidgets>
+#include <QtOpenGL>
 #include "line.h"
 #include "algorithms.h"
 
@@ -15,7 +17,7 @@ public:
     void paintGL();
     void resizeGL(int width, int height);
 
-//private:
+private:
 
     // Draws a 3D green square at the bottom of the OpenGL widget
     void drawGround();
@@ -43,6 +45,53 @@ public:
     // Before the lines are drawn, they will be normalized within this function
     void setLinesIso(const std::vector<Line<int> > linesIso);
 
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void wheelEvent(QWheelEvent *event);
+    void keyPressEvent(QKeyEvent *event);
+
+    constexpr static const float X_ROTATE_DEFAULT = 45.0;
+    constexpr static const float Y_ROTATE_DEFAULT = 45.0;
+    constexpr static const float Z_ROTATE_DEFAULT = 0.0;
+
+    float xRotate;
+    float yRotate;
+    float zRotate;
+
+    constexpr static const float MIN_ZOOM = -8.0f;
+    constexpr static const float MAX_ZOOM = -4.0f;
+    float zPan;
+    float xPan;
+    float yPan;
+
+    int zLevel;
+
+    QPoint lastPos;
+
+
+public slots:
+    // Rotate the GLWidget around the X axis
+    void rotateX(int angle);
+    // Rotate the GLWidget around the Y axis
+    void rotateY(int angle);
+    // Rotate the GLWidget around the Z axis
+    void rotateZ(int angle);
+
+    void panLeft();
+    void panRight();
+    void panUp();
+    void panDown();
+
+    // Zoom
+    void zoom(int zoomLevel);
+
+
+signals:
+    void xRotationChanged(int angle);
+    void yRotationChanged(int angle);
+    void zRotationChanged(int angle);
+
+    void zoomChanged(int zoomLevel);
 };
 
 #endif // GLWIDGET_H

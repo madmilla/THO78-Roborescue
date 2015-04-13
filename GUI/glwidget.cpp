@@ -7,6 +7,13 @@
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
+    xRotate = X_ROTATE_DEFAULT;
+    yRotate = Y_ROTATE_DEFAULT;
+    zRotate = Z_ROTATE_DEFAULT;
+
+    zPan = MIN_ZOOM;
+    xPan = 0.0f;
+    yPan = 0.4f;
 }
 
 void GLWidget::initializeGL(){
@@ -31,7 +38,7 @@ void GLWidget::paintGL(){
     lines.push_back(line3);
     lines.push_back(line4);
 
-    setLinesIso(lines);
+    setLines(lines);
 
 }
 
@@ -75,15 +82,15 @@ void GLWidget::drawLines(const std::vector<Line<float> > linesNormalized){
 }
 
 void GLWidget::setLines(const std::vector<Line<int> > lines){
-    glTranslatef(0.0f, 0.4f, Algorithms::ZOOM_OUT_Z); //move along z-axis
-    glRotatef(45.0, 1.0, 0.0, 0.0); //rotate 45 degress around x-axis
-    glRotatef(45.0, 0.0, 1.0, 0.0); //rotate 45 degress around y-axis
+    glTranslatef(xPan, yPan, zPan); //move
+    glRotatef(xRotate, 1.0, 0.0, 0.0); //rotate x degress around x-axis
+    glRotatef(yRotate, 0.0, 1.0, 0.0); //rotate y degress around y-axis
+    glRotatef(zRotate, 0.0, 0.0, 1.0); //rotate z degress around z-axis
 
     drawGround();
     const std::vector<Line<float> > normalizedLines = Algorithms::normalizeLines(lines);
     drawLines(normalizedLines);
 }
-
 
 void GLWidget::drawGroundIso(){
     glBegin(GL_QUADS);
@@ -113,7 +120,7 @@ void GLWidget::drawLinesIso(const std::vector<Line<float> > linesNormalizedIso){
 }
 
 void GLWidget::setLinesIso(const std::vector<Line<int> > linesIso){
-    glTranslatef(0.0f, 0.0f, Algorithms::ZOOM_OUT_Z); //move along z-axis
+    glTranslatef(0.0f, 0.0f, zPan); //move along z-axis
 
     drawGroundIso();
     const std::vector<Line<float> > normalizedLines = Algorithms::normalizeLines(linesIso);
@@ -121,3 +128,100 @@ void GLWidget::setLinesIso(const std::vector<Line<int> > linesIso){
     drawLinesIso(normalizedLinesIso);
 }
 
+void GLWidget::rotateX(int angle) {
+    angle = angle % 360;
+    while(angle < 0) {
+        angle += 360;
+    }
+    xRotate = (float)angle;
+    emit xRotationChanged(angle);
+    updateGL();
+}
+
+void GLWidget::rotateY(int angle) {
+    angle = angle % 360;
+    while(angle < 0) {
+        angle += 360;
+    }
+    yRotate = (float)angle;
+    emit yRotationChanged(angle);
+    updateGL();
+}
+
+void GLWidget::rotateZ(int angle) {
+    angle = angle % 360;
+    while(angle < 0) {
+        angle += 360;
+    }
+    zRotate = (float)angle;
+    emit zRotationChanged(angle);
+    updateGL();
+}
+
+void GLWidget::panLeft(){
+    xPan -= 0.1f;
+    updateGL();
+}
+
+void GLWidget::panRight(){
+    xPan += 0.1f;
+    updateGL();
+}
+
+void GLWidget::panUp(){
+    yPan += 0.1f;
+    updateGL();
+}
+
+void GLWidget::panDown(){
+    yPan -= 0.1f;
+    updateGL();
+}
+
+void GLWidget::zoom(int zoomLevel) {
+    zLevel= zoomLevel;
+    if(zLevel < 0){
+        zLevel = 0;
+    }
+    else if(zLevel > 100){
+        zLevel = 100;
+    }
+    zPan = MIN_ZOOM + ((float(zLevel) / 100) * (MAX_ZOOM - MIN_ZOOM));
+    emit zoomChanged(zLevel);
+    updateGL();
+}
+
+//Rotate with mouse
+void GLWidget::mousePressEvent(QMouseEvent *event) {
+    lastPos = event->pos();
+}
+
+void GLWidget::mouseMoveEvent(QMouseEvent *event) {
+    int dx = event->x() - lastPos.x();
+    int dy = event->y() - lastPos.y();
+    if (event->buttons() & Qt::LeftButton) {
+        rotateX(xRotate + dy/10);
+        rotateY(yRotate + dx/10);
+    } else if (event->buttons() & Qt::RightButton) {
+        rotateX(xRotate + dy/10);
+        rotateZ(zRotate + dx/10);
+    }
+}
+
+//Zoom with mouse
+void GLWidget::wheelEvent(QWheelEvent *event){
+    zoom(zLevel + event->delta()/10);
+}
+
+//Pan with keyboard
+void GLWidget::keyPressEvent(QKeyEvent *event){
+    if(event->key() == Qt::Key_Left){
+        panLeft();
+    }else if(event->key() == Qt::Key_Right){
+        panRight();
+    }else if(event->key() == Qt::Key_Up){
+        panUp();
+    }else if(event->key() == Qt::Key_Down){
+        panDown();
+    }
+}

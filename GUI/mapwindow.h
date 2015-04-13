@@ -19,4 +19,4 @@ private:
     Ui::MapWindow *ui;
 };
 
-#endif // MAINWINDOW_H
+#endif // MAPWINDOW_H
