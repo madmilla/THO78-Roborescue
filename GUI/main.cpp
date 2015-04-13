@@ -22,8 +22,8 @@ int main(int argc, char ** argv)
     exchangerLoopThread.detach();
 
     ATV atv(exchanger);
-    std::thread atvLoopThread { &ATV::loop, &atv};
-    atvLoopThread.detach();
+    //std::thread atvLoopThread { &ATV::loop, &atv};
+    //atvLoopThread.detach();
 
 
     Rosbee rosbee;
