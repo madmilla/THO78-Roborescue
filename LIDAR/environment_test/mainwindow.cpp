@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete map;
+    if(map != 0) delete map;
 }
 
 void MainWindow::on_newMapButton_clicked()
@@ -32,7 +32,7 @@ void MainWindow::on_newMapButton_clicked()
                                      newMapBeignSize,newMapMinSize,newMapMaxSize,newMapStepSize, &ok);
 
     if (ok && !fileName.isEmpty()){
-        map = new Map(fileName.toStdString(),height,width);
+        map = new Map(fileName.toStdString() + ".map",height,width);
         //editMapWindow = new EditMapWindow(map);
         //editMapWindow->show();
 

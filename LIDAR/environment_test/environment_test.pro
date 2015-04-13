@@ -18,13 +18,18 @@ SOURCES += main.cpp\
     editmapwindow.cpp \
     map.cpp \
     simulatemap.cpp \
-    simulatemapwindow.cpp
+    simulatemapwindow.cpp \
+    PointCloud.cpp \
+    test.cpp
 
 HEADERS  += mainwindow.h \
     editmapwindow.h \
     map.h \
     simulatemap.h \
-    simulatemapwindow.h
+    simulatemapwindow.h \
+    PointCloud.h \
+    test.h \
+    values.h
 
 FORMS    += mainwindow.ui \
     editmapwindow.ui \

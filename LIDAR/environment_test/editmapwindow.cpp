@@ -1,5 +1,6 @@
 #include "editmapwindow.h"
 #include "ui_editmapwindow.h"
+#include "values.h"
 #include <QGraphicsRectItem>
 #include <QMouseEvent>
 #include <vector>
@@ -21,12 +22,12 @@ EditMapWindow::~EditMapWindow(){
 }
 
 void EditMapWindow::on_obstacleButton_clicked(){
-    selected = 1;
+    selected = Values::OBSTACLE;
 }
 
 void EditMapWindow::on_noneButton_clicked()
 {
-    selected = 0;
+    selected = Values::EMPTY;
 }
 
 void EditMapWindow::on_saveMapButton_clicked(){
@@ -34,7 +35,7 @@ void EditMapWindow::on_saveMapButton_clicked(){
 }
 
 void EditMapWindow::mousePressEvent(QMouseEvent * event){
-    if(event->pos().x() < 640){
+    if(event->pos().x() < Values::DRAWWIDTH){
        if(!selected < 0){
            return;
         }

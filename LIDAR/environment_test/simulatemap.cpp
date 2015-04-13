@@ -1,4 +1,8 @@
 #include "simulatemap.h"
+#include <iostream>
+#include <fstream>
+#include "PointCloud.h"
+#include <sstream>
 #include "values.h"
 
 SimulateMap::SimulateMap(Map *map):
@@ -7,12 +11,32 @@ SimulateMap::SimulateMap(Map *map):
 
 }
 
+Pointcloud SimulateMap::simulate(){
+    int y = 0;
+    Pointcloud pC;
+    for(std::vector<int> fory : map->getMapContent()){
+        int x = 0;
+        for(int forx : fory){
+            if(fory[x] == Values::OBSTACLE){
+                int objectX = (x-lidarX);
+                int objectY = (y-lidarY) * -1;
+                pC.setPoint(objectX,objectY);
+                std::cout << "Object found at location: (x:" << objectX << ",y:" << objectY << ")" << std::endl;
+            }
+            x++;
+        }
+        y++;
+    }
+    return pC;
+}
+
 SimulateMap::~SimulateMap()
 {
 
 }
 
 void SimulateMap::setScanPoint(int y, int x){
-    map->setMapObject(Values::SCANLOCATION,y,x);
+    lidarY = y;
+    lidarX = x;
 }
 

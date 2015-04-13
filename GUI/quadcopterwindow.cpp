@@ -10,15 +10,17 @@ QuadCopterWindow::QuadCopterWindow(Quadcopter& quadcopter, QWidget *parent) :
     ui(new Ui::QuadCopterWindow),
 	quadcopter{ quadcopter }
 {
-
     quadcopter.registerListener(this);
-
-
-
 
     ui->setupUi(this);
     ui->armedCheck->setEnabled(false);
-    ui->controlsBox->setEnabled(false);
+    ui->messageOutput->setReadOnly(true);
+
+    //ui->maxAltitudeInput->setValidator((new QIntValidator(0, 50, this)));
+
+    //ui->maxAltitudeInput->setInputMask("999");
+    //ui->maxAltitudeInput->setText("");
+    //ui->controlsBox->setEnabled(false);
     ui->takeOff_LandButton->setEnabled(false);
     ui->rotorStatusBox->setEnabled(false);
     ui->abortButton->setEnabled(false);
@@ -28,74 +30,54 @@ QuadCopterWindow::QuadCopterWindow(Quadcopter& quadcopter, QWidget *parent) :
 
 QuadCopterWindow::~QuadCopterWindow()
 {
+
     delete ui;
 }
 
 void QuadCopterWindow::on_sendMaxAltitudeButton_clicked()
 {
 
+    ui->messageOutput->append("Send Max Altitude Button Clicked With Value ");
+    ui->messageOutput->append(ui->maxAltitudeInput->textFromValue(ui->maxAltitudeInput->value()));
+    quadcopter.changeAltitude((int)ui->maxAltitudeInput->value());
+
 }
 
 void QuadCopterWindow::on_armButton_clicked()
 {
+    ui->messageOutput->append("Arm / Disarm Button Clicked");
     if (!quadcopter.isArmed()){
         quadcopter.arm();
-        //ui->armedCheck->setChecked(true);
-        ui->armButton->setText("Disarm");
-        ui->takeOff_LandButton->setEnabled(true);
-        ui->abortButton->setEnabled(true);
+
     }
     else{
         quadcopter.disarm();
-        //ui->armedCheck->setChecked(false);
-        ui->armButton->setText("Arm");
-        ui->takeOff_LandButton->setEnabled(false);
-        ui->abortButton->setEnabled(false);
+
     }
 }
 
 void QuadCopterWindow::on_takeOff_LandButton_clicked()
 {
-
+    ui->messageOutput->append("Take Off / Land Button Clicked with Max Altitude of: ");
+    ui->messageOutput->append(ui->maxAltitudeInput->textFromValue(ui->maxAltitudeInput->value()));
+    quadcopter.liftOff((int)ui->maxAltitudeInput->value());
 }
 
 void QuadCopterWindow::on_restartButton_clicked()
 {
-    quadcopter.restart();
-    qDebug()<< "ehhhehehhh";
+    ui->messageOutput->append("Restart Button Clicked");
+    quadcopter.shutdown();
+
 }
 
 void QuadCopterWindow::on_abortButton_clicked()
 {
-
+    ui->messageOutput->append("Abort Button Clicked");
+    quadcopter.land();
 }
 
-void QuadCopterWindow::on_sendButton_clicked()
-{
 
-}
-
-void QuadCopterWindow::on_forwardButton_pressed()
-{
-
-}
-
-void QuadCopterWindow::on_rightButton_pressed()
-{
-
-}
-
-void QuadCopterWindow::on_backwardButton_pressed()
-{
-
-}
-
-void QuadCopterWindow::on_leftButton_pressed()
-{
-
-}
-
-void QuadCopterWindow::notifyListener(Subject& subject)
+void QuadCopterWindow::notifyListener(Subject& subject, StatusText statusText)
 {
     ui->pitchValue->display(quadcopter.getPitch());
     ui->rotationValue->display(quadcopter.getRoll());
@@ -104,7 +86,31 @@ void QuadCopterWindow::notifyListener(Subject& subject)
     ui->altitudeValue->display(quadcopter.getAltitude());
     ui->armedCheck->setChecked(quadcopter.isArmed());
 
-    qDebug() << quadcopter.isArmed();
+    if (ui->armedCheck->isChecked()){
+        ui->armButton->setText("Disarm");
+        ui->takeOff_LandButton->setEnabled(true);
+        ui->abortButton->setEnabled(true);
+    }
+    else {
+        ui->armButton->setText("Arm");
+        ui->takeOff_LandButton->setEnabled(false);
+        ui->abortButton->setEnabled(false);
+    }
+
+    std::string printable = "Unknown";
+    for (auto & pair : statusTextMap)
+    {
+        if (pair.second == statusText)
+        {
+            printable = pair.first;
+            break;
+        }
+    }
+    if (statusText != StatusText::NONE){
+        qDebug() << printable.c_str();
+        ui->messageOutput->append(printable.c_str());
+    }
+    //qDebug() << printable.c_str();
 
 }
 
