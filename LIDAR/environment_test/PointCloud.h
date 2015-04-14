@@ -3,6 +3,8 @@
 #include <vector>
 #include <stdlib.h>
 #include <ostream>
+#include <iostream>
+#include <fstream>
 //! The pointcloud object
 /*!
 The object which will contain all the points of a scan
@@ -73,6 +75,9 @@ public:
 	*/
 	int getOrientation();
 
+    void savePointsToFile(std::string filename);
+
+    void loadPointsFromFile(std::string filename);
 
 
 private:
