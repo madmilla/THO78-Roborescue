@@ -17,6 +17,17 @@ void Pointcloud::removePoint(int x, int y){
 	for (Point p : pointCloud){
 		if (p.X == x && p.Y == y){
 			pointCloud.erase(pointCloud.begin()+i);
+			break;
+		}
+		i++;
+	}
+}
+void Pointcloud:: removePoint(Point point){
+	int i = 0;
+	for (Point p : pointCloud){
+		if (p.X == point.X && p.Y == point.Y){
+			pointCloud.erase(pointCloud.begin() + i);
+			break;
 		}
 		i++;
 	}
@@ -49,13 +60,32 @@ int Pointcloud::getCloudWidth(){
 	}
 	return maxWidth - minWidth;
 }
-std::ostream & operator<<(std::ostream & output, const Pointcloud::Point & s){
-	output << "(" << s.X << "," << s.Y << ")";
-	return output;
-}
 void Pointcloud::setOrientation(int degrees){
 	orientation = degrees;
 }
 int Pointcloud::getOrientation(){
 	return orientation;
+}
+//OPERATORS
+std::ostream & operator<<(std::ostream & output, const Pointcloud::Point & s){
+	output << "(" << s.X << "," << s.Y << ")";
+	return output;
+}
+Pointcloud Pointcloud::operator+(Pointcloud & b){
+	Pointcloud pt;
+	for (Pointcloud::Point p : b.getPoints()){
+		pt.setPoint(p);
+	}
+	for (Pointcloud::Point p : pointCloud){
+		pt.removePoint(p);
+		pt.setPoint(p);
+	}
+	pt.setOrientation(orientation);
+	return pt;
+}
+Pointcloud Pointcloud::operator+=(Pointcloud & b){
+	for (Pointcloud::Point p : b.getPoints()){
+		setPoint(p);
+	}
+	return *this;
 }

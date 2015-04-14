@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     simulatemap.cpp \
     simulatemapwindow.cpp \
     PointCloud.cpp \
-    test.cpp
+    test.cpp \
+    checkpoint.cpp
 
 HEADERS  += mainwindow.h \
     editmapwindow.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     simulatemapwindow.h \
     PointCloud.h \
     test.h \
-    values.h
+    values.h \
+    checkpoint.h
 
 FORMS    += mainwindow.ui \
     editmapwindow.ui \
