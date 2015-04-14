@@ -6,7 +6,8 @@ checkPoint::checkPoint(int x, int y):
 {}
 
 void checkPoint::setCoordinates(int x, int y){
-
+    checkPointx = x;
+    checkPointy = y;
 }
 
 void checkPoint::setX(int x){
