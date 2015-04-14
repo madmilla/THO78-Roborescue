@@ -34,6 +34,8 @@ private slots:
     //! Used when the none button gets clicked
     void on_noneButton_clicked();
 
+    void on_checkpointButton_clicked();
+
 private:
     Ui::SimulateMapWindow *ui;
     Map *map;

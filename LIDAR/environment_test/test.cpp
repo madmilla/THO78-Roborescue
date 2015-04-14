@@ -64,7 +64,8 @@ int Test::run(){
     SimulateMap testSim(&testMap);
 
     testSim.setScanPoint(6,2);
-    Pointcloud pC = testSim.simulate();
+    testSim.simulate();
+    Pointcloud pC = testSim.getPointCloud();
     for(Pointcloud::Point p : pC.getPoints()){
         if(p.X != -1) error++;
         if(p.Y != -3) error++;

@@ -1,6 +1,7 @@
 #include "simulatemapwindow.h"
 #include "ui_simulatemapwindow.h"
 #include <QMouseEvent>
+#include <QTextEdit>
 
 SimulateMapWindow::SimulateMapWindow(Map *map, QWidget *parent) :
     QWidget(parent),
@@ -21,7 +22,12 @@ SimulateMapWindow::~SimulateMapWindow()
 
 void SimulateMapWindow::on_simulateButton_clicked()
 {
-    simMap->simulate();
+    std::string s = simMap->simulate();
+    QString qs = QString::fromStdString(s);
+    QTextEdit *txt = new QTextEdit();
+    txt->setText(qs);
+
+    txt->show();
 }
 
 void SimulateMapWindow::mousePressEvent(QMouseEvent * event){
@@ -32,8 +38,10 @@ void SimulateMapWindow::mousePressEvent(QMouseEvent * event){
         int positionx = (event->pos().x() - event->pos().x() % objectx) / objectx;
         int positiony = (event->pos().y() - event->pos().y() % objecty) / objecty;
         if(positionx < map->width  &&  positiony < map->height){
-            if(selected == 3){
+            if(selected == Values::LIDAR){
                 simMap->setScanPoint(positiony, positionx);
+            } else if(selected == Values::CHECKPOINT){
+                simMap->addCheckPoint(positionx,positiony);
             }
             map->setMapObject(selected, positiony, positionx);
             update();
@@ -88,4 +96,10 @@ void SimulateMapWindow::on_lidarButton_clicked()
 void SimulateMapWindow::on_noneButton_clicked()
 {
     selected = Values::EMPTY;
+}
+
+void SimulateMapWindow::on_checkpointButton_clicked()
+{
+    selected = Values::CHECKPOINT;
+    std::cout << "clicked: " << selected << std::endl;
 }
