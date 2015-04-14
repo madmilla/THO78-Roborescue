@@ -1,18 +1,20 @@
 #ifndef LINE_H
 #define LINE_H
 
-//! Data structure for origins
-/*!
-The data structure for the origins X and Y
-*/
-struct Point {
-	int x;
-	int y;
-};
+#include <iostream>
 
 class Line
 {
-private:	
+public:	
+	//! Data structure for origins
+	/*!
+	The data structure for the origins X and Y
+	*/
+	struct Point {
+		int x;
+		int y;
+	};
+private:
 	//! Data structure for the line coordinates
 	/*!
 	The data structure for the origins X and Y
@@ -32,6 +34,7 @@ public:
 	*/
 	Line(const Point & begin_pos, const Point & end_pos);
 	~Line();
+	
 	//! The setter for the line object
 	/*!
 	set new values for the line object
@@ -45,6 +48,17 @@ public:
 	@return struct lineData: With the line data (struct Point begin_pos, struct Point end_pos)
 	*/
 	LineData& getLine();
+
+	//! operator for printing points
+	/*!
+	print a specifiek point to the console
+	*/
+	friend std::ostream& operator<<(std::ostream & stream, const Point & point);
+	//! operator for printing all line information
+	/*!
+	print all the line information to the console
+	*/
+	friend std::ostream& operator<<(std::ostream & stream, const Line & line);
 };
 #endif
 
