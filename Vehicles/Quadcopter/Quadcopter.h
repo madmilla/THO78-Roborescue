@@ -95,14 +95,16 @@ public:
 	void moveRight(signed int value);
 
 	/**
-	* moveForward
-	*
+	* moveForward allows the quadcopter to move forward in relation to its
+	* orientation.
+	* @param value 
 	*/
 	void moveForward(signed int value);
 
 	/**
-	* moveBackward
-	*
+	* moveBackward allows the quadcopter to move backward in relation to its
+	* orientation.
+	* @param value 
 	*/
 	void moveBackward(signed int value);
 
