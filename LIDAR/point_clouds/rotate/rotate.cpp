@@ -1,4 +1,9 @@
-
+#include <iostream>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+#include <math.h> 
+#include <fstream>
+#include "rotate.h"
 
 pcl::PointCloud<pcl::PointXY> rotate_point(float angle, pcl::PointCloud<pcl::PointXY> cloud)
 {
