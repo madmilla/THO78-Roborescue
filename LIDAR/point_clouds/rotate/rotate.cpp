@@ -13,10 +13,10 @@ pcl::PointCloud<pcl::PointXY> rotate_point(float angle, pcl::PointCloud<pcl::Poi
   
 	// rotate point
 	for (size_t i = 0; i < cloud.size(); ++i) {    	
-		float x = cloud.points[i].x;
-		float y = cloud.points[i].y;
-		float nx = x * cs - y * sn; 
-		float ny = x * sn + y * cs;
+		int x = cloud.points[i].x;
+		int y = cloud.points[i].y;
+		int nx = x * cs - y * sn; 
+		int ny = x * sn + y * cs;
 		cloud.points[i].x = nx;
 		cloud.points[i].y = ny;
 		nx = 0;
