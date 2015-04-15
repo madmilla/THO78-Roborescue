@@ -17,6 +17,9 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
     return os;
 }
 
+//! Parses a polygon string to a point vector
+//! @param The string to be parsed
+//! @return A vector of points
 std::vector<point> polygonParser(std::string s){
     std::vector<point> rtn;                             // vector of points to be returned
     int i = s.find_first_of("((") + 2;
@@ -25,21 +28,18 @@ std::vector<point> polygonParser(std::string s){
     unsigned int index = 0;
     std::string split;
     std::vector<std::string> points;
-    while((index = tmp.find(", ")) != std::string::npos){
+    while((index = tmp.find(",")) != -1){				// loop till can't find more ,
         split = tmp.substr(0, index);
-        points.push_back(split);
-        tmp.erase(0, index + 2);
+        points.push_back(split);						// push point in string format
+        tmp.erase(0, index + 1);						// erase found point
     }
     points.push_back(tmp);
 
     for(unsigned int j = 0; j < points.size(); j++){
         std::string sPoint = points[j];
-        //std::cout << sPoint << std::endl;
-        int x, y;
-        int spaceIndex = sPoint.find(" ");
-        //std::cout << "Index: " << spaceIndex << std::endl;
-        x = std::stoi(sPoint.substr(0, spaceIndex));
-        y = std::stoi(sPoint.substr(spaceIndex + 1));
+        int spaceIndex = sPoint.find(" ");				// find space in string point format
+        int x = std::stoi(sPoint.substr(0, spaceIndex));// x of point
+        int y = std::stoi(sPoint.substr(spaceIndex + 1));// y of point
         rtn.push_back(point{x, y});
     }
 
