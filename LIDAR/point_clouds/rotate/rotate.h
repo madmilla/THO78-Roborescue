@@ -1,65 +1,34 @@
+
+#pragma once
 #include <iostream>
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 #include <math.h> 
 #include <fstream>
 
-
-pcl::PointCloud<pcl::PointXY> rotate_point(float angle, pcl::PointCloud<pcl::PointXY> cloud)
-{
+class rotate{
+public:
 	
-	float sn = sin(angle*M_PI/180);
-	float cs = cos(angle*M_PI/180); 
-  
-	// rotate point
-	for (size_t i = 0; i < cloud.size(); ++i) {    	
-		float x = cloud.points[i].x;
-		float y = cloud.points[i].y;
-		float nx = x * cs - y * sn; 
-		float ny = x * sn + y * cs;
-		cloud.points[i].x = nx;
-		cloud.points[i].y = ny;
-		nx = 0;
-		ny = 0;
-	}
+	/* Rotate a point could 
+	 * @param angle the rotation angle in Degrees
+	 * @param cloud the cloud to be rotated
+	 */ 
+	pcl::PointCloud<pcl::PointXY> rotate_point(float angle, pcl::PointCloud<pcl::PointXY> cloud);
+
+	/* Add coordinates from .csv file to PointXY struct
+	 * @param cloud the point could to filled with coordinates
+	 * @param FStream the filestream with the file containing coordinates
+	 */
+	pcl::PointCloud<pcl::PointXY> fillClouds(pcl::PointCloud<pcl::PointXY> cloud, std::ifstream& fStream );
+
+	/* Search for duplicate points and remove them from the second point clouds
+	 * @param cloud_a the first point could 
+	 * @param cloud_b the second point could
+	 */ 
+	pcl::PointCloud<pcl::PointXY> removeDuplicates(pcl::PointCloud<pcl::PointXY> cloud_a, pcl::PointCloud<pcl::PointXY> cloud_b);
 	
-	// translate point back:
-	return cloud;
-}
-
-
-/* Add coordinates from .csv file to PointXY struct
- */
-pcl::PointCloud<pcl::PointXY> fillClouds(pcl::PointCloud<pcl::PointXY> cloud, std::ifstream& fStream )
-{
-	float x, y;
-	for (size_t i = 0; i < cloud.size(); ++i)
-	{
-		fStream >> x;
-        fStream >> y;
-		cloud.points[i].x = x;
-		cloud.points[i].y = y;
-	}	
-	return cloud;
-}
-
-/* Search for duplicate points and remove them from the second point clouds
- */ 
-pcl::PointCloud<pcl::PointXY> removeDuplicates(pcl::PointCloud<pcl::PointXY> cloud_a, pcl::PointCloud<pcl::PointXY> cloud_b)
-{
-	for(size_t i = 0; i < cloud_a.points.size(); ++i) { 
-		for(size_t i2 = 0; i2 < cloud_b.points.size(); ++i2) { 
-			if((cloud_a.points[i].x == cloud_b.points[i2].x) && (cloud_a.points[i].y == cloud_b.points[i2].y))  { 
-				std::cout << "duplicate found \n"; 
-				cloud_b.erase(cloud_b.begin() +i2, cloud_b.begin() + (i2+1)); 
-			}
-		}
-	}
-	return cloud_b;
-}
-
-void printCloud(pcl::PointCloud<pcl::PointXY> cloud){
-	for (size_t i = 0; i < cloud.size (); ++i){
-		std::cerr << "    " << cloud.points[i].x << " " << cloud.points[i].y << " " << std::endl;
-    }
+	/* Print the could by looping through the coordinates
+	 * @param cloud given point cloud 
+	 */
+	void printCloud(pcl::PointCloud<pcl::PointXY> cloud);
 }
