@@ -123,8 +123,6 @@ void Lidar::writeScanCoordsToFile(std::string fname)
     fprintf(outputfile, "#RPLIDAR SCAN COORD\n#COUNT=%d\n#Xcoord\tYcoord\n",scanCoord.size());
     for (int pos = 0; pos < (int)scanCoord.size(); ++pos) {
         fprintf(outputfile, "%d %d\n", scanCoord[pos].x, scanCoord[pos].y);
-        fprintf(stderr, "%d %d\n", scanCoord[pos].x, scanCoord[pos].y);
-
     }
     fclose(outputfile);
 }
@@ -150,7 +148,7 @@ std::vector<scanCoordinate> Lidar::convertToCoordinates(std::vector<scanDot> dat
         tempCoord.y = (cos((data[i].angle * M_PI)/180)) * data[i].dist;
         tempCoord.x = (sin((data[i].angle * M_PI)/180)) * data[i].dist;
 
-        fprintf(stderr, "angle: %f , dist: %f , y: %d , x: %d\n",data[i].angle,data[i].dist,tempCoord.y,tempCoord.x);
+       // fprintf(stderr, "angle: %f , dist: %f , y: %d , x: %d\n",data[i].angle,data[i].dist,tempCoord.y,tempCoord.x);
 
         scanCoord.push_back(tempCoord);
         tempData.push_back(tempCoord);

@@ -63,9 +63,17 @@ void MainWindow::on_ResumeScan_triggered()
 
 void MainWindow::on_SaveScan_triggered()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Map"), "/");
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Scan"), "/");
     if(!fileName.isEmpty() || !fileName.isNull()) {
         lidar.writeScanDataToFile(fileName.toStdString());
+    }
+}
+
+void MainWindow::on_SaveCoordinates_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Coordinates"), "/");
+    if(!fileName.isEmpty() || !fileName.isNull()) {
+        lidar.writeScanCoordsToFile(fileName.toStdString());
     }
 }
 
@@ -73,3 +81,4 @@ void MainWindow::appendToTextView(const QString text)
 {
     ui->plainTextEdit->insertPlainText(text);
 }
+

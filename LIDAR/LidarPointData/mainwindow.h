@@ -32,6 +32,8 @@ private slots:
     //! Append scandata to GUI
     void appendToTextView(const QString text);
 
+    void on_SaveCoordinates_triggered();
+
 private:
     //! Pointer to UI object
     Ui::MainWindow *ui;
