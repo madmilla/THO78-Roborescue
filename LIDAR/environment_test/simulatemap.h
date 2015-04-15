@@ -1,7 +1,7 @@
 #ifndef SIMULATEMAP_H
 #define SIMULATEMAP_H
 #include "map.h"
-#include "PointCloud.h"
+#include "../point_clouds/pointcloud object/PointCloud.h"
 #include "checkpoint.h"
 
 //! The Simulate class

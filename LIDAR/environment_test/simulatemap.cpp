@@ -1,7 +1,6 @@
 #include "simulatemap.h"
 #include <iostream>
 #include <fstream>
-#include "PointCloud.h"
 #include <sstream>
 #include "values.h"
 
@@ -49,6 +48,9 @@ std::string SimulateMap::simulate(){
             }
         }
     }
+    pC.savePointsToFile("pointCloud");
+    Pointcloud tmp;
+    tmp.loadPointsFromFile("pointCloud");
     s += oss.str();
     return s;
 }

@@ -79,6 +79,11 @@ public:
 	*/
 	int getOrientation();
 
+
+        void savePointsToFile(std::string filename);
+
+        void loadPointsFromFile(std::string filename);
+
 	//OPERATORS
 
 	//! a operator to write a point struct to a ostream

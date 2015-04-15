@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     map.cpp \
     simulatemap.cpp \
     simulatemapwindow.cpp \
-    PointCloud.cpp \
     test.cpp \
     checkpoint.cpp
 
@@ -28,7 +27,6 @@ HEADERS  += mainwindow.h \
     map.h \
     simulatemap.h \
     simulatemapwindow.h \
-    PointCloud.h \
     test.h \
     values.h \
     checkpoint.h

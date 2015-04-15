@@ -66,6 +66,46 @@ void Pointcloud::setOrientation(int degrees){
 int Pointcloud::getOrientation(){
 	return orientation;
 }
+
+void Pointcloud::savePointsToFile(std::string filename){
+    std::ofstream pCFile;
+    pCFile.open(filename + ".pcl");
+    if(!pCFile.is_open()) return;
+    pCFile << orientation << '\n';
+    for(Pointcloud::Point point : pointCloud){
+        pCFile << point.X << ":" << point.Y << '\n';
+    }
+    pCFile.close();
+}
+void Pointcloud::loadPointsFromFile(std::string filename){
+    std::ifstream pCFile;
+    pCFile.open(filename + ".pcl");
+    if(!pCFile.is_open()) return;
+    if(!pointCloud.empty()){
+        std::cout << "Load on a not empty pointcloud?" << std::endl;
+        return;
+    }
+    std::string line;
+    std::string item;
+    int result;
+    pCFile >> orientation;
+    while(std::getline(pCFile, line)){
+        Pointcloud::Point point;
+        std::stringstream ss(line);
+        std::getline(ss, item, ':');
+        std::stringstream convertX(item);
+        if ( !(convertX >> result) )result = 0;
+        point.X = result;
+
+        std::getline(ss, item, ':');
+        std::stringstream convertY(item);
+        if ( !(convertY >> result) )result = 0;
+        point.Y = result;
+        setPoint(point);
+    }
+    pCFile.close();
+}
+
 //OPERATORS
 std::ostream & operator<<(std::ostream & output, const Pointcloud::Point & s){
 	output << "(" << s.X << "," << s.Y << ")";
