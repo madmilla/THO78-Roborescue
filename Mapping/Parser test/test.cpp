@@ -18,21 +18,31 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
 }
 
 std::vector<point> polygonParser(std::string s){
-    std::vector<point> rtn;
+    std::vector<point> rtn;                             // vector of points to be returned
     int i = s.find_first_of("((") + 2;
-    std::string tmp = s.substr(i, s.length() - i - 2);
-    std::cout << tmp << std::endl;
+    std::string tmp = s.substr(i, s.length() - i - 2);  // strip to points only
 
     unsigned int index = 0;
     std::string split;
+    std::vector<std::string> points;
     while((index = tmp.find(", ")) != std::string::npos){
         split = tmp.substr(0, index);
-        std::cout << split << std::endl;
+        points.push_back(split);
         tmp.erase(0, index + 2);
     }
-    std::cout << tmp << std::endl;
+    points.push_back(tmp);
 
-    std::cout << "Ik print nog iets" << std::endl;
+    for(unsigned int j = 0; j < points.size(); j++){
+        std::string sPoint = points[j];
+        //std::cout << sPoint << std::endl;
+        int x, y;
+        int spaceIndex = sPoint.find(" ");
+        //std::cout << "Index: " << spaceIndex << std::endl;
+        x = std::stoi(sPoint.substr(0, spaceIndex));
+        y = std::stoi(sPoint.substr(spaceIndex + 1));
+        rtn.push_back(point{x, y});
+    }
+
     return rtn;
 }
 
