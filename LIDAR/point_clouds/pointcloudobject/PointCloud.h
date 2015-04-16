@@ -3,7 +3,9 @@
 #include <vector>
 #include <stdlib.h>
 #include <ostream>
-#include "iostream"
+#include <iostream>
+#include <fstream>
+#include <sstream>
 //! The pointcloud object
 /*!
 The object which will contain all the points of a scan
@@ -80,10 +82,11 @@ public:
 	int getOrientation();
 
 
-        void savePointsToFile(std::string filename);
+    void savePointsToFile(std::string filename);
 
-        void loadPointsFromFile(std::string filename);
-
+    void loadPointsFromFile(std::string filename);
+    //! print all points in given cloud    
+	void printPoints();
 	//OPERATORS
 
 	//! a operator to write a point struct to a ostream

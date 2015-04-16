@@ -1,3 +1,3 @@
 Rotate point clouds
-
-./rotate cloud*.csv 90
+Will rotate random generated point clouds with a given angle
+./rotate *rotationangle*

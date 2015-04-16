@@ -22,7 +22,7 @@ void Pointcloud::removePoint(int x, int y){
 		i++;
 	}
 }
-void Pointcloud:: removePoint(Point point){
+void Pointcloud::removePoint(Point point){
 	int i = 0;
 	for (Point p : pointCloud){
 		if (p.X == point.X && p.Y == point.Y){
@@ -105,6 +105,13 @@ void Pointcloud::loadPointsFromFile(std::string filename){
     }
     pCFile.close();
 }
+
+void Pointcloud::printPoints(){
+	for (Pointcloud::Point p : this->getPoints()){
+		std::cout << p << "\n";
+	}
+}
+
 
 //OPERATORS
 std::ostream & operator<<(std::ostream & output, const Pointcloud::Point & s){
