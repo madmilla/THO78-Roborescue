@@ -9,6 +9,7 @@
 //! The pointcloud object
 /*!
 The object which will contain all the points of a scan
+@author Tijmen Bruggeman
 */
 class Pointcloud{ //! a struct which will contain a single point
 public:
@@ -80,12 +81,24 @@ public:
 
 	*/
 	int getOrientation();
-
+	//! set the offset of the pointcloud
+	/*!
+	set the ofsset of the pointcloud according to the 0.0 point
+	@param Point: the point with x and y to be set as offset
+	*/
+	void setOffset(Point newOffset);
+	//! get the offset of the pointcloud
+	/*!
+	get the ofsset of the pointcloud according to the 0.0 point
+	@return Point: returns a point with X and Y value
+	*/
+	Point getOffset();
 
     void savePointsToFile(std::string filename);
-
+	
     void loadPointsFromFile(std::string filename);
-    //! print all points in given cloud    
+
+    	//! print all points in given cloud    
 	void printPoints();
 	//OPERATORS
 
@@ -96,6 +109,7 @@ public:
 	//! a operator to add a Pointcloud to another pointcloud
 	Pointcloud operator+=(Pointcloud & b);
 private:
+	Point offset;
 	std::vector<Point> pointCloud; //! the vector which contains all the poins of the pointcloud
 	int orientation; //! the orientation of the pointcloud
 };

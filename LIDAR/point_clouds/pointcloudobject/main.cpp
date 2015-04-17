@@ -10,6 +10,7 @@ int main(){
 	int orientation = 180;
 	Pointcloud::Point point{ 300, 23 };
 	Pointcloud pt;
+	Pointcloud::Point offset{ 23, 234 };
 	std::cout << point << std::endl;
 	pt.setPoint(point);
 	pt.setPoint(2, maxHeight);
@@ -50,7 +51,11 @@ int main(){
 	for (Pointcloud::Point p : c.getPoints()){
 		std::cout<< p << "\n";
 	}
-
+	pt.setOffset(offset);
+	if (pt.getOffset().X != offset.X || pt.getOffset().Y!= offset.Y){
+		std::cout << "offset error";
+		exit(1);
+	}
 	Pointcloud a;
 	a.setPoint(1, 1);
 	a.setPoint(2, 2);

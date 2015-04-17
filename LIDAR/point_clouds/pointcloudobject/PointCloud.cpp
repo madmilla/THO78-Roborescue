@@ -9,6 +9,12 @@ void Pointcloud::setPoint(int x, int y){
 	Point * point = new Point{ x, y };
 	pointCloud.push_back(*point);
 }
+Pointcloud::Point Pointcloud::getOffset(){
+	return offset;
+}
+void Pointcloud::setOffset(Pointcloud::Point newOffset){
+	offset = newOffset;
+}
 std::vector<Pointcloud::Point> Pointcloud::getPoints(){
 	return pointCloud;
 }
