@@ -7,12 +7,19 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 #include <chrono>
+#include <string>
 
 using namespace sql;
 using namespace std;
 using namespace std::chrono;
 
-int main(void){
+int main(int argc, char* argv[]){
+  if(argc < 3){
+      std::cout << "no password specified\nUsage: " << argv[0] <<" [username] [password]\n";
+      return 0;
+  }
+  std::string username = argv[1];
+  std::string password = argv[2];
   try{
 	  cout<<"database connection opening\n";
 	  sql::Driver *driver;
@@ -22,7 +29,7 @@ int main(void){
 	  sql::PreparedStatement *pstmt;
 
 	  driver = get_driver_instance();
-	  con = driver->connect("tcp://127.0.0.1:3306", "root", "desktop");
+	  con = driver->connect("tcp://127.0.0.1:3306", username, password);
 	  /* Connect to the MySQL test database */
 	  con->setSchema("test");
 	  duration<float> add;

@@ -12,8 +12,14 @@ std::ostream& operator<< ( std::ostream& os, const std::vector<T>& vec ) {
 }
 
 
-int main() {
-    databaseConnector db ( "tcp://127.0.0.1:3306", "root" , "desktop", "roborescue" );
+int main(int argc, char* argv[]) {
+    if(argc < 3){
+        std::cout << "no password specified\nUsage: " << argv[0] <<" [username] [password]\n";
+        return 0;
+    }
+    std::string username = argv[1];
+    std::string password = argv[2];
+    databaseConnector db ( "tcp://127.0.0.1:3306", username , password, "roborescue" );
     std::cout<<db.getAllPositions ( 3,true );
     return 0;
 }
