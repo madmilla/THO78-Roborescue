@@ -76,7 +76,7 @@ void test() {
 
     LinesAroundCircleCreator LACC{};
     clock_t Start = clock();
-    vector<Vec4i> & lines = LACC.createLinesAroundCircle(circles);
+    vector<Vec4i> lines = LACC.createLinesAroundCircle(circles);
     clock_t end = clock();
     float time = (float)(end - Start) /CLOCKS_PER_SEC;
     LACC.writeLinesToConsole(lines);
@@ -102,7 +102,7 @@ int main(int argc, char *argv[]) {
         sD.showCircles(circles);
 
         LinesAroundCircleCreator LACC{};
-        vector<Vec4i> & lines = LACC.createLinesAroundCircle(circles);
+        vector<Vec4i> lines = LACC.createLinesAroundCircle(circles);
         LACC.writeLinesToConsole(lines);
 
         Mat image{sD.image, false};
