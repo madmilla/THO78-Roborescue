@@ -1,7 +1,7 @@
 /**
 * @autor	Edwin Koek
-* @version	1.0
-* @since	30-03-2015
+* @version	2.0
+* @since	19-04-2015
 */
 
 #ifndef ULTRASONICSENSOR_H
@@ -14,8 +14,8 @@
 class UltraSonicSensor{
 public:
 /**
- * UltraSonicSensor constructor that sets the pin value and also the temperature. Currently
- * the temperature defaults to 22 as we have no means of actually measuring it yet.
+ * UltraSonicSensor constructor that sets the pin value and also the temperature.
+ * The temperature defaults to 22.
  * 
  * @param int pin specifies the pin that the sensor is connected to.
  */
@@ -31,9 +31,17 @@ public:
  */ 
   int getDistance();
   
+/**
+ * The setTemperature function allows you to set the temperature that is used in the distance
+ * calculations.
+ *
+ * @param float temperature
+ */
+  void setTemperature(float temp);
+  
 private:
-  int m_pin;
-  int m_temperature;
+  int pin;
+  float temperature;
 };
 
 #endif  

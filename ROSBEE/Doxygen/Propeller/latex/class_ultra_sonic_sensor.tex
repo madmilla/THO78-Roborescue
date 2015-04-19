@@ -1,0 +1,84 @@
+\hypertarget{class_ultra_sonic_sensor}{\section{Ultra\-Sonic\-Sensor Class Reference}
+\label{class_ultra_sonic_sensor}\index{Ultra\-Sonic\-Sensor@{Ultra\-Sonic\-Sensor}}
+}
+
+
+This class creates objects that can be used to read data from a ultrasonic sensor.  
+
+
+
+
+{\ttfamily \#include $<$ultrasonicsensor.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ultra_sonic_sensor_ad799235b41ea4d8c5217f61c7c1158e9}{Ultra\-Sonic\-Sensor} (int pin)
+\item 
+int \hyperlink{class_ultra_sonic_sensor_a08d640e02ae792cf8c6ba5d08703982a}{get\-Distance} ()
+\item 
+void \hyperlink{class_ultra_sonic_sensor_a57018445689c7afffa870b0dbfaba2fe}{set\-Temperature} (float temp)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class creates objects that can be used to read data from a ultrasonic sensor. 
+
+Edwin Koek \begin{DoxyVersion}{Version}
+2.\-0 
+\end{DoxyVersion}
+\begin{DoxySince}{Since}
+19-\/04-\/2015 \hyperlink{class_ultra_sonic_sensor}{Ultra\-Sonic\-Sensor} class. 
+\end{DoxySince}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_ultra_sonic_sensor_ad799235b41ea4d8c5217f61c7c1158e9}{\index{Ultra\-Sonic\-Sensor@{Ultra\-Sonic\-Sensor}!Ultra\-Sonic\-Sensor@{Ultra\-Sonic\-Sensor}}
+\index{Ultra\-Sonic\-Sensor@{Ultra\-Sonic\-Sensor}!UltraSonicSensor@{Ultra\-Sonic\-Sensor}}
+\subsubsection[{Ultra\-Sonic\-Sensor}]{\setlength{\rightskip}{0pt plus 5cm}Ultra\-Sonic\-Sensor\-::\-Ultra\-Sonic\-Sensor (
+\begin{DoxyParamCaption}
+\item[{int}]{pin}
+\end{DoxyParamCaption}
+)}}\label{class_ultra_sonic_sensor_ad799235b41ea4d8c5217f61c7c1158e9}
+\hyperlink{class_ultra_sonic_sensor}{Ultra\-Sonic\-Sensor} constructor that sets the pin value and also the temperature. The temperature defaults to 22.
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & pin specifies the pin that the sensor is connected to. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ultra_sonic_sensor_a08d640e02ae792cf8c6ba5d08703982a}{\index{Ultra\-Sonic\-Sensor@{Ultra\-Sonic\-Sensor}!get\-Distance@{get\-Distance}}
+\index{get\-Distance@{get\-Distance}!UltraSonicSensor@{Ultra\-Sonic\-Sensor}}
+\subsubsection[{get\-Distance}]{\setlength{\rightskip}{0pt plus 5cm}int Ultra\-Sonic\-Sensor\-::get\-Distance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ultra_sonic_sensor_a08d640e02ae792cf8c6ba5d08703982a}
+The get\-Distance function wil return the distance between the ultrasonic sensor and a detected object in centimeters as a integer. The distance calculation uses cm as distance unit and us as time unit therefor the standard function is multiplied by 100 / 1000000
+
+\begin{DoxyReturn}{Returns}
+Distance in cm 
+\end{DoxyReturn}
+\hypertarget{class_ultra_sonic_sensor_a57018445689c7afffa870b0dbfaba2fe}{\index{Ultra\-Sonic\-Sensor@{Ultra\-Sonic\-Sensor}!set\-Temperature@{set\-Temperature}}
+\index{set\-Temperature@{set\-Temperature}!UltraSonicSensor@{Ultra\-Sonic\-Sensor}}
+\subsubsection[{set\-Temperature}]{\setlength{\rightskip}{0pt plus 5cm}void Ultra\-Sonic\-Sensor\-::set\-Temperature (
+\begin{DoxyParamCaption}
+\item[{float}]{temp}
+\end{DoxyParamCaption}
+)}}\label{class_ultra_sonic_sensor_a57018445689c7afffa870b0dbfaba2fe}
+The set\-Temperature function allows you to set the temperature that is used in the distance calculations.
+
+
+\begin{DoxyParams}{Parameters}
+{\em float} & temperature \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+ultrasonicsensor.\-h\item 
+ultrasonicsensor.\-cpp\end{DoxyCompactItemize}
