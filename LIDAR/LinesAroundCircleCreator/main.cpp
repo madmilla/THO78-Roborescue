@@ -17,6 +17,7 @@ private:
     const CvScalar LINECOLOR = CV_RGB(255,0,0);
     const int THICKNESS = 3;
     const int ANGLE_STEP = 45;
+    const double OFFSET = 1.25;
 
 public:
     LinesAroundCircleCreator() {}
@@ -34,7 +35,7 @@ public:
         for (size_t i = 0; i < circles->total; i++) {
             float* p = (float*)cvGetSeqElem(circles, i);
             Point center(cvRound(p[0]), cvRound(p[1]));
-            int radius = cvRound(p[2]);
+            int radius = cvRound(p[2])*OFFSET;
 
             for(int angle = 90; angle < 360; angle+= ANGLE_STEP) {
 
