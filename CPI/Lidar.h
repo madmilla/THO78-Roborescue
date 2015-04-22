@@ -33,11 +33,11 @@ public:
    void sendCommand(mavlink_message_t * cmd) override;
 
    //! \brief standard constructor
-   int * receiveLine();
+   void receiveLine();
 
    //! \brief standard constructor
    //! \param[in] msg a reference to the mavlink message struct
-   int receiveRpm(mavlink_message_t & msg);
+   void receiveRpm(mavlink_message_t & msg);
 
    //! \brief standard constructor
    //! \param[in] rpm a reference to rpm to be set for the Lidar
