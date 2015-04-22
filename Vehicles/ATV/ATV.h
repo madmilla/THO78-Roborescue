@@ -13,6 +13,8 @@
 *  @author	Yorrick Lans
 *  @author	Bart Muelders
 *
+*  @version 1.0
+* 
 *  @section LICENSE
 *  License:	newBSD
 *

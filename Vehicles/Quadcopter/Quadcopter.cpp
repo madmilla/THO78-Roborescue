@@ -109,7 +109,7 @@ void Quadcopter::moveBackward(signed int value)
 {
 	auto newValue = (RCTrimValues.CHANNEL_TWO_HIGH -
 		RCTrimValues.CHANNEL_TWO_LOW) * value /
-		MAX_PERCENTAGE + ((RCTrimValues.CHANNEL_THREE_LOW + RCTrimValues.CHANNEL_THREE_HIGH) / 2 );
+		MAX_PERCENTAGE + ((RCTrimValues.CHANNEL_TWO_LOW + RCTrimValues.CHANNEL_TWO_HIGH) / 2 );
 	sendRCMessage(UINT16_MAX,
 		newValue);
 }
