@@ -1,8 +1,15 @@
 #include "Quadcopter.h"
 #include "../Dependencies/Serial/SerialPort.h"
 #include <string>
+/** Quadcopter Test
+* Left and Right Tests
+*
+* This test was designed for moving the Quadcopter left and/or right
+* The values being used are properly the best values for going left and/or right
+*/
 #include "MAVLinkExchanger.h"
 #include <iostream>
+#include "TempListener.h"
 #include <thread>
 #include <conio.h>
 
@@ -21,29 +28,13 @@ int main()
 	{
 		switch (_getch())
 		{
-		case 'u':
-			quadcopter.changeAltitude(5);
+		case 'a':
+			std::cout << "Move Left\n";
+			quadcopter.moveLeft (100);
 			break;
 		case 'd':
-			quadcopter.changeAltitude(1);
-			break;
-		case 'l':
-			quadcopter.land();
-			break;
-		case 'h':
-			quadcopter.changeMode(Quadcopter::FlightMode::ALTHOLD);
-			break;
-		case 's':
-			quadcopter.saveQuadcopter();
-			break;
-		case 'r':
-			quadcopter.restart();
-			break;
-		case 'a':
-			quadcopter.arm();
-			break;
-		case 'q':
-			quadcopter.disarm();
+			std::cout << "Move Right\n";
+			quadcopter.moveRight (100);
 			break;
 		}
 	}

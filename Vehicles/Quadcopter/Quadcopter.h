@@ -223,12 +223,12 @@ private:
 	* Value of the RC-sticks in neutral position
 	*/
 	const int MEANVALUELEFTRIGHT{ 1487 };
-	const int MEANVALUEPITCH{ 1454 };
 	const int SYSTEMID{ 255 };
 	const int COMPONENTID{ 0 };
 	const int TARGET_SYSTEMID{ 1 };
 	const int TARGET_COMPONENTID{ 1 };
 
+	const int MAX_PERCENTAGE{ 100 };
 	const int ASCEND_PERCENTAGE{ 75 };
 	const int HOLD_PERCENTAGE{ 50 };
 	const int DESCEND_PERCENTAGE{ 25 };

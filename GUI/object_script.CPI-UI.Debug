@@ -1,0 +1,16 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\quadcopterwindow.o
+./debug\atvwindow.o
+./debug\lidarwindow.o
+./debug\rosbeewindow.o
+./debug\.o
+./debug\mapwindow.o
+./debug\moc_mainwindow.o
+./debug\moc_quadcopterwindow.o
+./debug\moc_atvwindow.o
+./debug\moc_lidarwindow.o
+./debug\moc_rosbeewindow.o
+./debug\moc_mapwindow.o
+);

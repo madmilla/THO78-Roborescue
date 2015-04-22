@@ -12,64 +12,65 @@ MAVLinkExchanger::~MAVLinkExchanger()
 
 void MAVLinkExchanger::loop()
 {
-	while (true)
-	{
-		if (sendQueue.size())
-		{
-			PrioritisedMAVLinkMessage message = sendQueue.top();
-			send(message);
-			sendQueue.pop();
-		}
-		receive();
-	}
+   while (true)
+   {
+      if (sendQueue.size())
+      {
+         PrioritisedMAVLinkMessage message = sendQueue.top();
+         send(message);
+         sendQueue.pop();
+      }
+      receive();
+   }
 }
 
 void MAVLinkExchanger::enqueueMessage(PrioritisedMAVLinkMessage msg)
 {
-	sendQueue.push(msg);
+   sendQueue.push(msg);
 }
 
 PrioritisedMAVLinkMessage MAVLinkExchanger::dequeueMessage()
 {
-	PrioritisedMAVLinkMessage msg = peek();
-	receiveQueue.pop();
-	return msg;
+   PrioritisedMAVLinkMessage msg = peek();
+   receiveQueue.pop();
+   return msg;
 }
 
 int MAVLinkExchanger::sendQueueSize() const
 {
-	return sendQueue.size();
+   return sendQueue.size();
 }
 
 int MAVLinkExchanger::receiveQueueSize() const
 {
-	return receiveQueue.size();
+   return receiveQueue.size();
 }
 
 PrioritisedMAVLinkMessage MAVLinkExchanger::peek() const
 {
-	if (receiveQueue.size())
-	{
-		return receiveQueue.top();
-	}
-	else return PrioritisedMAVLinkMessage{};
+   if (receiveQueue.size())
+   {
+      return receiveQueue.top();
+   } else {
+      return PrioritisedMAVLinkMessage{};
+   }
 }
 
 void MAVLinkExchanger::send(mavlink_message_t msg)
 {
-	auto buffer = new unsigned char[MAVLINK_NUM_NON_PAYLOAD_BYTES + msg.len];
-	int len = mavlink_msg_to_send_buffer(buffer, &msg);
-	serialPort.writeData(buffer, len);
+   auto buffer = new unsigned char[MAVLINK_NUM_NON_PAYLOAD_BYTES + msg.len];
+   int len = mavlink_msg_to_send_buffer(buffer, &msg);
+   serialPort.writeData(buffer, len);
 }
 
 void MAVLinkExchanger::receive()
 {
-	PrioritisedMAVLinkMessage msg{};
-	mavlink_status_t status;
-	unsigned char c;
-	serialPort.readData(&c, 1);
-	if (mavlink_parse_char(MAVLINK_COMM_0, c, &msg, &status))
-	{
-		receiveQueue.push(msg);
-	}
+   PrioritisedMAVLinkMessage msg{};
+   mavlink_status_t status;
+   unsigned char c;
+   serialPort.readData(&c, 1);
+   if (mavlink_parse_char(MAVLINK_COMM_0, c, &msg, &status))
+   {
+      receiveQueue.push(msg);
+   }
 }
