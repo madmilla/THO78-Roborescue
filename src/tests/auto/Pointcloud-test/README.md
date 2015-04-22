@@ -3,7 +3,7 @@
 This program will test the Pointcloud functions.
 The functions which will be tested:
 
-	*void setPoint(Point point);*
+	*void* setPoint(Point point);*
 	void setPoint(int x, int y);
 	std::vector<Point> getPoints();
 	void removePoint(Point p);
@@ -15,7 +15,7 @@ The functions which will be tested:
 	void setOffset(Point newOffset);
 	Point getOffset();
 	void savePointsToFile(std::string filename);
-	void loadPointsFromFile(std::string filename);*
+	void loadPointsFromFile(std::string filename);
 
 The **setPoint** functions will be tested by setting a point and comparing the points in the pointcloud to the set point. 
 
