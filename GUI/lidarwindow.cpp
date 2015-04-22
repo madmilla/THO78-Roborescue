@@ -1,12 +1,10 @@
 #include "lidarwindow.h"
 #include "ui_lidarwindow.h"
 
-
-
-lidarwindow::lidarwindow(lidar &l, QWidget *parent) :
+LidarWindow::LidarWindow(Lidar &lidar, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::lidarwindow()),
-    l(l)
+    lidar(lidar)
 {
     ui->setupUi(this);
 
@@ -21,16 +19,16 @@ lidarwindow::lidarwindow(lidar &l, QWidget *parent) :
 
 
 
-lidarwindow::~lidarwindow(){
+LidarWindow::~LidarWindow(){
     delete ui;
 }
 
-void lidarwindow::setRpm(){
+void LidarWindow::setRpm(){
         qDebug() << "dit is het ingevuld rpm " << ui->setRpm->text();
 
 }
 
-void lidarwindow::handleButtonLidar(){
+void LidarWindow::handleButtonLidar(){
     //! this function will handle the buttoncall and down below it will be processed.
     QPushButton * button = static_cast<QPushButton *>(sender());
 
@@ -38,7 +36,7 @@ void lidarwindow::handleButtonLidar(){
 
     if(button == ui->startLidar){
         try{
-            l.startLidar();
+            lidar.startLidar();
             lidarMissionRunning(true);
         }
         catch(...){ //moet een exception gemaakt worden voor het afvangen van geen rpm
@@ -47,13 +45,13 @@ void lidarwindow::handleButtonLidar(){
     }
     else if(button == ui->stopLidar){
         if(!ui->stopLidar->isEnabled()) return;
-        l.stopLidar();
+        lidar.stopLidar();
         lidarMissionRunning(false);
     }
 }
 
 
-void lidarwindow::lidarMissionRunning(bool isRunning){
+void LidarWindow::lidarMissionRunning(bool isRunning){
     //! als de missie start is running false voor het setten
     //! en is stop klaar om ingedrukt te worden
     ui->startLidar->setEnabled(!isRunning);
@@ -62,8 +60,8 @@ void lidarwindow::lidarMissionRunning(bool isRunning){
 }
 
 
-void lidarwindow::timerPassed(){
-    ui->showRpm->setNum(l.rpmStatus());
-    ui->showStatus->setText(QString::fromStdString(l.getStatus()));
+void LidarWindow::timerPassed(){
+    ui->showRpm->setNum(lidar.rpmStatus());
+    ui->showStatus->setText(QString::fromStdString(lidar.getStatus()));
 }
 

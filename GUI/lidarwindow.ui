@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>lidarwindow</class>
- <widget class="QMainWindow" name="lidarwindow">
+ <class>LidarWindow</class>
+ <widget class="QMainWindow" name="LidarWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>231</width>
-    <height>156</height>
+    <width>215</width>
+    <height>109</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -103,23 +103,6 @@
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>231</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuLidar_Gui">
-    <property name="title">
-     <string>Lidar Gui</string>
-    </property>
-   </widget>
-   <addaction name="menuLidar_Gui"/>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

@@ -6,8 +6,8 @@
 * /_/   \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file 			atvwindow.h
-* @date Last Edit:	2015-04-13
+*  @file    atvwindow.h
+*  @date    Last Edit:2015-04-13
 *
 *  @author  Wibren Wiersma
 *  @author	Kevin Nijmeijer
@@ -57,9 +57,11 @@ class ATVWindow;
 }
 
 /**
-* @class  ATVWindow
-* @date   April, 2015
-* @brief  this class handles ui input from the ATVWindow
+* @class   ATVWindow
+* @author  Wibren Wiersma
+* @author  Kevin Nijmeijer
+* @date    April, 2015
+* @brief   this class handles ui input from the ATVWindow
 */
 class ATVWindow : public QMainWindow, public Listener
 {

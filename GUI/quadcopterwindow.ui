@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QuadCopterWindow</class>
- <widget class="QMainWindow" name="QuadCopterWindow">
+ <class>QuadcopterWindow</class>
+ <widget class="QMainWindow" name="QuadcopterWindow">
   <property name="enabled">
    <bool>true</bool>
   </property>
