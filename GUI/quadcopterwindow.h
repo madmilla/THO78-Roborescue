@@ -6,8 +6,8 @@
 * /_/   \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file 			quadcopterwindow.h
-* @date Last Edit:	2015-04-13
+*  @file quadcopterwindow.h
+*  @date Last Edit:	2015-04-13
 *
 *  @author	Kevin Nijmeijer
 *
@@ -53,23 +53,31 @@
 class Quadcopter;
 
 namespace Ui {
-class QuadCopterWindow;
+class QuadcopterWindow;
 }
 
-class QuadCopterWindow : public QMainWindow, public Listener
+/**
+* @class  QuadcopterWindow
+* @author Kevin Nijmeijer
+* @date   April, 2015
+* @brief  this class handles ui input from the RosbeeWindow
+*/
+class QuadcopterWindow : public QMainWindow, public Listener
 {
     Q_OBJECT
 
 public:
-     //@brief QuadCopterWindow constructor
-     //@param quadcopter A reference to a Quadcopter object
-     //@param parent A QWidget parent, default = 0
+    /**
+    * @brief QuadCopterWindow constructor
+    * @param quadcopter A reference to a Quadcopter object
+    * @param parent A QWidget parent, default = 0
+    */
+    explicit QuadcopterWindow( Quadcopter& quadcopter, QWidget *parent = 0);
 
-    explicit QuadCopterWindow( Quadcopter& quadcopter, QWidget *parent = 0);
-
-    //@brief ~QuadCopterWindow the deconstructor
-
-    ~QuadCopterWindow();
+   /**
+    * Deconstructor Window
+    */
+    ~QuadcopterWindow();
 
 private slots:
 
@@ -85,7 +93,7 @@ private slots:
 
 
 private:
-    Ui::QuadCopterWindow *ui;
+    Ui::QuadcopterWindow *ui;
     Quadcopter& quadcopter;
 	
     void notifyListener(Subject&, StatusText statusText) override;

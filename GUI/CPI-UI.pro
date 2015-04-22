@@ -45,7 +45,6 @@ HEADERS  += mainwindow.h \
     lidar.h \
     lidarwindow.h \
     Listener.h \
-    otherstuff.h \
     rosbee.h \
     rosbeewindow.h \
     Subject.h \
