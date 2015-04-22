@@ -3,7 +3,7 @@
 This program will test the Pointcloud functions.
 The functions which will be tested:
 
-	*void setPoint(Point point);
+	*void setPoint(Point point);*
 	void setPoint(int x, int y);
 	std::vector<Point> getPoints();
 	void removePoint(Point p);
