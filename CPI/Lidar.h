@@ -1,8 +1,11 @@
 #ifndef LIDAR_H_
 #define LIDAR_H_
 
-#include "lidar_commands/lidar_commands/mavlink.h"
+#include <queue>
 #include "CPIBoundaryObject.hpp"
+#include "..\..\mavlink_commands\mavlink_commands\mavlink.h"
+#include "Socket.hpp"
+#include "RALCPEncoder.hpp"
 
 //! \file Lidar.h
 //! \class Lidar
@@ -15,39 +18,48 @@
 
 
 class Lidar: public CPIBoundaryObject{
+public:
+   // constructor to make a Rosbee object (socket)
+   // @param: Socket is used to listen to a specific socket
+   Lidar(Socket s) : CPIBoundaryObject(s, s.getId()){
+      encoder = new RALCPEncoder(s, s.getId(), 0, 0, 0);
+   }
 
-	//! \brief standard constructor
-	Lidar(bool equipmentStatus);
+   ~Lidar(){ delete encoder; }
 
-	//! \brief standard constructor
-	//! \param[in] m a reference to the CommandsMap class
-	//! \param[in] s a reference to the CommandsStrategy class
-	void sendCommand(mavlink_message_t * cmd) override;
+   //! \brief standard constructor
+   //! \param[in] m a reference to the CommandsMap class
+   //! \param[in] s a reference to the CommandsStrategy class
+   void sendCommand(mavlink_message_t * cmd) override;
 
-	//! \brief standard constructor
-	int * receiveLine();
+   //! \brief standard constructor
+   int * receiveLine();
 
-	//! \brief standard constructor
-	//! \param[in] msg a reference to the mavlink message struct
-	int receiveRpm(mavlink_message_t & msg);
+   //! \brief standard constructor
+   //! \param[in] msg a reference to the mavlink message struct
+   int receiveRpm(mavlink_message_t & msg);
 
-	//! \brief standard constructor
-	//! \param[in] rpm a reference to rpm to be set for the Lidar
-	void sendRpm(int rpm);
+   //! \brief standard constructor
+   //! \param[in] rpm a reference to rpm to be set for the Lidar
+   void sendRpm(int rpm);
 
-	//! \brief start the lidar to scan
-	void Start();
+   //! \brief start the lidar to scan
+   void Start();
 
-	//! \brief stops the lidar with scanning
-	void Stop();
+   //! \brief stops the lidar with scanning
+   void Stop();
 
-	//! \brief sends the last knwon positon of the rosbee
-	//! \param[in] postion a reference to the positon of the rosbee
-	void sendRosbeePositie(int postion[]);
+   //! \brief sends the last knwon positon of the rosbee
+   //! \param[in] postion a reference to the positon of the rosbee
+   void sendRosbeePositie(int postion[]);
 
-	//! \brief sends the current flank of the rosbee
-	//! \param[in] dagrees a reference to the flank of the rosbee
-	void sendRosbeeFlank(int degrees);
+   //! \brief sends the current flank of the rosbee
+   //! \param[in] dagrees a reference to the flank of the rosbee
+   void sendRosbeeFlank(int degrees);
+
+private:
+   mavlink_message_t message;
+   RALCPEncoder * encoder;
 
 };
 
