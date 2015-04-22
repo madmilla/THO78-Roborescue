@@ -61,17 +61,13 @@ class QuadCopterWindow : public QMainWindow, public Listener
     Q_OBJECT
 
 public:
-    /**
-     * @brief QuadCopterWindow constructor
-     * @param quadcopter A reference to a Quadcopter object
-     * @param parent A QWidget parent, default = 0
-     */
+     //@brief QuadCopterWindow constructor
+     //@param quadcopter A reference to a Quadcopter object
+     //@param parent A QWidget parent, default = 0
 
     explicit QuadCopterWindow( Quadcopter& quadcopter, QWidget *parent = 0);
 
-    /**
-    * @brief ~QuadCopterWindow the deconstructor
-    */
+    //@brief ~QuadCopterWindow the deconstructor
 
     ~QuadCopterWindow();
 
