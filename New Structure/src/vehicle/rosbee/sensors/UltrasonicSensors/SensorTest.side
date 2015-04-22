@@ -1,0 +1,11 @@
+SensorTest.c
+ultrasonicsensor.cpp
+ultrasonicsensor.h
+>compiler=C++
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>-fno-rtti
+>-lm
+>BOARD::ACTIVITYBOARD
