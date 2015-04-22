@@ -1,3 +1,11 @@
+/*!
+* \brief Class containing circle objects.
+* \details This class is used to store found circles in.
+* \author Nick Verhaaf - 1641355
+* \version 1.0
+* \date 22-04-2015
+*/
+
 #ifndef CIRCLE_H
 #define CIRCLE_H
 
