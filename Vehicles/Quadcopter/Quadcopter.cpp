@@ -107,8 +107,11 @@ void Quadcopter::moveForward(signed int value)
 
 void Quadcopter::moveBackward(signed int value)
 {
+	auto newValue = (RCTrimValues.CHANNEL_TWO_HIGH -
+		RCTrimValues.CHANNEL_TWO_LOW) * value /
+		MAX_PERCENTAGE + ((RCTrimValues.CHANNEL_THREE_LOW + RCTrimValues.CHANNEL_THREE_HIGH) / 2 );
 	sendRCMessage(UINT16_MAX,
-		MEANVALUEPITCH + value);
+		newValue);
 }
 
 void Quadcopter::stop()
@@ -116,14 +119,14 @@ void Quadcopter::stop()
 	//moet nog worden aangepast zodra er een struct is voor de mid waarde.
 	changeMode(FlightMode::ALTHOLD);
 	sendRCMessage(
-		1500,
-		1500,
-		1500,
-		1500,
-		1500,
-		1500,
-		1500,
-		1500
+		(RCTrimValues.CHANNEL_ONE_LOW + RCTrimValues.CHANNEL_ONE_HIGH) / 2,
+		(RCTrimValues.CHANNEL_TWO_LOW + RCTrimValues.CHANNEL_TWO_HIGH) / 2,
+		(RCTrimValues.CHANNEL_THREE_LOW + RCTrimValues.CHANNEL_THREE_HIGH) / 2,
+		(RCTrimValues.CHANNEL_FOUR_LOW + RCTrimValues.CHANNEL_FOUR_HIGH) / 2,
+		(RCTrimValues.CHANNEL_FIVE_LOW + RCTrimValues.CHANNEL_FIVE_HIGH) / 2,
+		(RCTrimValues.CHANNEL_SIX_LOW + RCTrimValues.CHANNEL_SIX_HIGH) / 2,
+		(RCTrimValues.CHANNEL_SEVEN_LOW + RCTrimValues.CHANNEL_SEVEN_HIGH) / 2,
+		(RCTrimValues.CHANNEL_EIGHT_LOW + RCTrimValues.CHANNEL_EIGHT_HIGH) / 2
 		);
 }
 
