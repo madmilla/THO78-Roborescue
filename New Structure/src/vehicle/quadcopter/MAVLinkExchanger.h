@@ -67,7 +67,7 @@ public:
 	explicit MAVLinkExchanger(SerialPort &serialPort);
 
 	/**
-	* The default deconstructor
+	* The default destructor
 	*/
 	~MAVLinkExchanger();
 
