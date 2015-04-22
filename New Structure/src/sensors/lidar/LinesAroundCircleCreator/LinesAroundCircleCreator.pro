@@ -1,13 +1,14 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-03-26T16:50:13
+# Project created by QtCreator 2015-04-18T22:41:16
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core
 
+QT       -= gui
 
-TARGET = CircleDetectie
+TARGET = LinesAroundCircleCreator
 CONFIG   += console
 CONFIG   -= app_bundle
 
@@ -15,12 +16,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    shapedetector.cpp
+    circledetector.cpp
+
 win32 {
-    INCLUDEPATH += "C:\\opencv2411\\build\\include" \
+    INCLUDEPATH += "C:\\opencv\\build\\include" \
 
     CONFIG(debug,debug|release) {
-        LIBS += -L"C:\\opencv2411\\build\\x64\\vc12\\lib" \
+        LIBS += -L"C:\\opencv\\build\\x64\\vc12\\lib" \
             -lopencv_core2410d \
             -lopencv_highgui2410d \
             -lopencv_imgproc2410d \
@@ -30,7 +32,7 @@ win32 {
 
     CONFIG(release,debug|release) {
         DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
-        LIBS += -L"C:\\opencv2411\\build\\x64\\vc12\\lib" \
+        LIBS += -L"C:\\opencv\\build\\x64\\vc12\\lib" \
             -lopencv_core2410 \
             -lopencv_highgui2410 \
             -lopencv_imgproc2410 \
@@ -40,4 +42,4 @@ win32 {
 }
 
 HEADERS += \
-    shapedetector.h
+    circledetector.h

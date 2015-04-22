@@ -1,12 +1,16 @@
-#ifndef SHAPEDETECTOR_H
-#define SHAPEDETECTOR_H
+#ifndef CIRCLEDETECTOR_H
+#define CIRCLEDETECTOR_H
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include <opencv/cv.h>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
-class ShapeDetector
+using namespace std;
+using namespace cv;
+
+class CircleDetector
 {
 private:
     CvScalar circleCenterColor = CV_RGB(0,255,0); // groen
@@ -21,11 +25,12 @@ private:
     const int edgeTreshhold = 50;
     const int resolutionInverseRatio = 1;
     const int minDistanceCircles = 6;
-    const static int circleCenterTreshhold = 19;
+    const int circleCenterTreshhold = 19;
 
 public:
-    ShapeDetector();
-    ~ShapeDetector();
+    CircleDetector();
+    ~CircleDetector();
+    IplImage * image; // image which will contain the loaded image
     //This function creates a .jpg file from a .txt file with pixels according to the output paramter.
     void makeImage(std::string source, std::string output = "output.jpg");
     //This functions writes all the circle positions and radii to a file according to the outputName paramter
@@ -35,5 +40,4 @@ public:
     //This function detect circles and return a CVSEQ pointer with the detected circles
     CvSeq * detectCircles(std::string sourceName);
 };
-
-#endif // SHAPEDETECTOR_H
+#endif // CIRCLEDETECTOR_H

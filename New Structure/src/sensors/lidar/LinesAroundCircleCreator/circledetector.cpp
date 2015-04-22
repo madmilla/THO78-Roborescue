@@ -1,17 +1,17 @@
-#include "shapedetector.h"
+#include "circledetector.h"
 
-ShapeDetector::ShapeDetector()
+CircleDetector::CircleDetector()
 {
 }
 
-ShapeDetector::~ShapeDetector()
+CircleDetector::~CircleDetector()
 {
 
 }
 
 using namespace cv;
 //This function creates a .jpg file from a .txt file with pixels according to the output paramter.
-void ShapeDetector::makeImage(std::string source, std::string output){
+void CircleDetector::makeImage(std::string source, std::string output){
     std::ifstream file(source); // open  inputfile
     if (!file.is_open()){
         printf("File niet gevonden.....\nProgramma wordt afgesloten\n");
@@ -48,7 +48,7 @@ void ShapeDetector::makeImage(std::string source, std::string output){
     imwrite(output, *newMat); // save the image according to the output paramter
 }
 //This functions writes all the circle positions and radii to a file according to the outputName paramter
-void ShapeDetector::writeCircles(CvSeq * circles, std::string outputName){
+void CircleDetector::writeCircles(CvSeq * circles, std::string outputName){
     std::ofstream output(outputName, std::ofstream::out); // open output
     if (!output.is_open()){
         printf("File niet gevonden.....\nProgramma wordt afgesloten\n");
@@ -67,8 +67,7 @@ void ShapeDetector::writeCircles(CvSeq * circles, std::string outputName){
     output.close();
 }
 //This function shows the input image with the detected circles;
-void ShapeDetector::showCircles(CvSeq * circles, std::string sourceName ){
-    IplImage * image; // image which will contain the loaded image
+void CircleDetector::showCircles(CvSeq * circles, std::string sourceName ){
     if ((image = cvLoadImage("output.jpg"))== 0)
     {
         printf("File niet gevonden.....\nProgramma wordt afgesloten\n");
@@ -95,7 +94,7 @@ void ShapeDetector::showCircles(CvSeq * circles, std::string sourceName ){
 }
 
 //This function detect circles and return a CVSEQ pointer with the detected circles
-CvSeq * ShapeDetector::detectCircles(std::string sourceName){
+CvSeq * CircleDetector::detectCircles(std::string sourceName){
     IplImage* img = NULL;
 
     makeImage(sourceName, "output.jpg");//Make a image from the txt file and save it as output.jpg
@@ -119,3 +118,7 @@ CvSeq * ShapeDetector::detectCircles(std::string sourceName){
     CvSeq* circles = cvHoughCircles(gray, storage, CV_HOUGH_GRADIENT, resolutionInverseRatio, gray->height/minDistanceCircles, edgeTreshhold*3, circleCenterTreshhold); // Detect circles in the gray image
     return circles;
 }
+
+
+
+
