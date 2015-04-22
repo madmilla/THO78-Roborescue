@@ -1,9 +1,18 @@
+﻿/*!
+ * \brief Containing functions to detect shapes
+ * \details Class with functions to detect lines and circles out of a pointcloud object
+ * \author Tijmen Bruggeman - 1634346
+ * \author Patrick Schoonheym - 1639598
+ * \version 2.0
+ * \date 22-04-2015
+ */
+
 #ifndef SHAPEDETECTOR_H
 #define SHAPEDETECTOR_H
 
-#include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/opencv.hpp"
+#include "imgproc/imgproc.hpp"
+#include "highgui/highgui.hpp"
+#include "opencv.hpp"
 #include <iostream>
 #include <fstream>
 
