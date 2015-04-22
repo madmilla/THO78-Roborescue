@@ -16,46 +16,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     quadcopterwindow.cpp \
-    quadcopter.cpp \
-    SerialPort.cpp \
-    SerialPortWindows.cpp \
-    ExtendedMAVLinkMessage.cpp \
-    MAVLinkExchanger.cpp \
     atvwindow.cpp \
-    lidar.cpp \
     lidarwindow.cpp \
-    rosbee.cpp \
-    rosbeewindow.cpp \
-    MAVLinkCommunicator.cpp \
-    PriorityMessage.cpp \
-    atv.cpp \
-    algorithms.cpp \
-    glwidget.cpp \
+    rosbeewindow.cpp \\
     mapwindow.cpp
 
 HEADERS  += mainwindow.h \
     quadcopterwindow.h \
-    quadcopter.h \
-    Serial.h \
-    SerialPort.h \
-    SerialPortWindows.h \
-    ExtendedMAVLinkMessage.h \
-    MAVLinkExchanger.h \
     atvwindow.h \
-    lidar.h \
     lidarwindow.h \
-    Listener.h \
-    rosbee.h \
     rosbeewindow.h \
-    Subject.h \
-    exceptions.h \
-    MAVLinkCommunicator.h \
-    PriorityMessage.h \
-    StatusText.h \
-    atv.h \
-    algorithms.h \
-    glwidget.h \
-    line.h \
     mapwindow.h
 
 FORMS    += mainwindow.ui \

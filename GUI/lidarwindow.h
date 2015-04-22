@@ -53,8 +53,6 @@
 #include <QTimer>
 #include "lidar.h"
 
-
-
 namespace Ui {
 class LidarWindow;
 }
