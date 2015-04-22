@@ -18,3 +18,7 @@ Commands
 * s: Shutdown the quadcopter
 * g: Get armed status of the quadcopter
 * p: Print received messages
+
+Link to test report:
+----------------------
+http://roborescue.nl/wiki/index.php/Quadcopter_autonomous_flight_tests#Arming_and_disarming

@@ -15,9 +15,6 @@
 					<Add option="-g" />
 					<Add directory="include" />
 				</Compiler>
-				<Linker>
-					<Add library="libmysqlcppconn" />
-				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/Persistant_Storage" prefix_auto="1" extension_auto="1" />
@@ -30,7 +27,6 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="libmysqlcppconn" />
 				</Linker>
 			</Target>
 		</Build>
@@ -40,7 +36,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Linker>
-			<Add library="libmysqlcppconn" />
+			<Add library="mysqlcppconn" />
 		</Linker>
 		<Unit filename="include/databaseconnector.h" />
 		<Unit filename="include/point.hpp" />
