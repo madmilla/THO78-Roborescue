@@ -32,12 +32,12 @@ public:
    //! \param[in] s a reference to the CommandsStrategy class
 //   void sendCommand(mavlink_message_t * cmd) override;
 
-   //! \brief standard constructor
-   void receiveLine();
+   //! \brief Recieve line data from the lidar
+   void recieveLine();
 
    //! \brief standard constructor
    //! \param[in] msg a reference to the mavlink message struct
-   void receiveRpm(mavlink_message_t & msg);
+   void recieveRpm();
 
    //! \brief standard constructor
    //! \param[in] rpm a reference to rpm to be set for the Lidar

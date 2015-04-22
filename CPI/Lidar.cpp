@@ -6,16 +6,12 @@
  */
 #include "Lidar.h"
 
-void Lidar::getData(){
-   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::GETDATA, 0);
+void Lidar::recieveLine(){
+   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::RECEIVELINE, 0);
 }
 
-void Lidar::getRpm(){
-   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::GETRPM, 0);
-}
-
-void Lidar::sendRpm(int rpm){
-   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::SENDRPM, rpm);
+void Lidar::recieveRpm(){
+   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::RECIEVERPM, rpm);
 }
 
 void Lidar::Start(){
@@ -27,9 +23,9 @@ void Lidar::Stop(){
 }
 
 void Lidar::sendRosbeePositie(int postion[]){
-   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::ROSBEEPOSITION, postion);
+   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::SENDROSBEEPOSITION, postion);
 }
 
 void Lidar::sendRosbeeFlank(int degrees){
-   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::ROSBEEPOSITION, degrees);
+   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::SENDROSBEEFLANK, degrees);
 }
