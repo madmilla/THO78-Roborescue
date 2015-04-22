@@ -4,8 +4,7 @@
 #include "rotate.h"
 #define RANDOM rand() % 100
 
-int main (int argc, char** argv)
-{
+int main (int argc, char** argv){
 	if( argc != 2 ){
 		std::cerr << "specify rotation angle\n";
 		exit(0);

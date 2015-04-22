@@ -20,5 +20,6 @@ Pointcloud rotate_point(float angle, Pointcloud cloud){
 		nx = 0;
 		ny = 0;
 	}
+	
 	return cloud;
 }
