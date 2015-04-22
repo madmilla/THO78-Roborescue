@@ -1,10 +1,10 @@
 #Makefile for CPI 
 CC = g++
 CFLAGS=
-LDFLAGS=-std=gnu++11
+LDFLAGS=-std=c++0x
 SOURCES= Lidar.cpp RALCPEncoder.cpp Rosbee.cpp UDPSocket.cpp UDPServer.cpp Main.cpp
 OBJECTS= $(SOURCES:.cpp=.o)
-LIBS = -lmingw32 -lSDLmain -lSDL
+LIBS = -pthread 
 EXECUTABLE= CPI
 
 all: $(SOURCES) $(EXECUTABLE)

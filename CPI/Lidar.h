@@ -51,7 +51,7 @@ public:
 
    //! \brief sends the last knwon positon of the rosbee
    //! \param[in] postion a reference to the positon of the rosbee
-   void sendRosbeePositie(int postion[]);
+   void sendRosbeePositie(int postion);
 
    //! \brief sends the current flank of the rosbee
    //! \param[in] dagrees a reference to the flank of the rosbee

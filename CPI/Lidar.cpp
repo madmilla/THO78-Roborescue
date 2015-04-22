@@ -11,7 +11,7 @@ void Lidar::recieveLine(){
 }
 
 void Lidar::recieveRpm(){
-   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::RECIEVERPM, rpm);
+   encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::RECIEVERPM, 0);
 }
 
 void Lidar::Start(){
@@ -22,7 +22,7 @@ void Lidar::Stop(){
    encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::STOP, 0);
 }
 
-void Lidar::sendRosbeePositie(int postion[]){
+void Lidar::sendRosbeePositie(int postion){
    encoder->send(COMMAND_DESTINATION::LIDAR, LIDAR_COMMAND_FUNCTIONS::SENDROSBEEPOSITION, postion);
 }
 
