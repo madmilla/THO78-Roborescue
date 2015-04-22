@@ -15,7 +15,11 @@ ATV::~ATV()
 
 void ATV::moveForward(int value)
 {
-	auto sendValue = neutralthrottleValue - value;
+	auto newValue = ((RCTrimValues.CHANNEL_THREE_LOW +
+		RCTrimValues.CHANNEL_THREE_HIGH) / 2) - (RCTrimValues.CHANNEL_THREE_HIGH -
+		RCTrimValues.CHANNEL_THREE_LOW) * value /
+		MAX_PERCENTAGE;
+	//auto sendValue = neutralthrottleValue - value;
 	mavlink_msg_rc_channels_override_pack(
 		SYSTEMID,
 		COMPONENTID,
@@ -24,7 +28,7 @@ void ATV::moveForward(int value)
 		TARGET_COMPONENTID,
 		UINT16_MAX,
 		UINT16_MAX,
-		sendValue,
+		newValue,
 		UINT16_MAX,
 		UINT16_MAX,
 		UINT16_MAX,
@@ -36,7 +40,11 @@ void ATV::moveForward(int value)
 
 void ATV::moveBackward(int value)
 {
-	auto sendValue = neutralthrottleValue + value;
+	auto newValue = (RCTrimValues.CHANNEL_THREE_HIGH -
+		RCTrimValues.CHANNEL_THREE_LOW) * value /
+		MAX_PERCENTAGE + ((RCTrimValues.CHANNEL_THREE_LOW +
+		RCTrimValues.CHANNEL_THREE_HIGH) / 2);
+	//auto sendValue = neutralthrottleValue + value;
 	mavlink_msg_rc_channels_override_pack(
 		SYSTEMID,
 		COMPONENTID,
@@ -45,7 +53,7 @@ void ATV::moveBackward(int value)
 		TARGET_COMPONENTID,
 		UINT16_MAX,
 		UINT16_MAX,
-		sendValue,
+		newValue,
 		UINT16_MAX,
 		UINT16_MAX,
 		UINT16_MAX,
@@ -58,15 +66,18 @@ void ATV::moveBackward(int value)
 
 void ATV::steer(int value)
 {
-	steeringDirection = value;
-	auto sendValue = neutralSteeringValue + value;
+	auto newValue = (RCTrimValues.CHANNEL_ONE_HIGH -
+		RCTrimValues.CHANNEL_ONE_LOW) * value /
+		MAX_PERCENTAGE + ((RCTrimValues.CHANNEL_ONE_LOW +
+		RCTrimValues.CHANNEL_ONE_HIGH) / 2);
+	//auto sendValue = neutralSteeringValue + value;
 	mavlink_msg_rc_channels_override_pack(
 		SYSTEMID,
 		COMPONENTID,
 		&message,
 		TARGET_SYSTEMID,
 		TARGET_COMPONENTID,
-		sendValue,
+		newValue,
 		UINT16_MAX,
 		UINT16_MAX,
 		UINT16_MAX,

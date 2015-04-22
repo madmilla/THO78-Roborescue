@@ -49,7 +49,7 @@
 #ifndef _ATV_H
 #define _ATV_H
 
-#include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
+#include "../../../deps/incl/mavlink/ardupilotmega/mavlink.h"
 #include "MAVLinkCommunicator.h"
 #include "PriorityMessage.h"
 
@@ -57,38 +57,38 @@ class ATV
 {
 public:
 	/**
-	*The Constructor for the ATV
-	*@param MAVLinkCommunicator is the mavlinkCommunicator
+	* The Constructor for the ATV
+	* @param MAVLinkCommunicator is the mavlinkCommunicator
 	*/
 	ATV(MAVLinkCommunicator & mavlinkCommunicator);
 	
 	/**
-	*The default deconstructor
+	* The default deconstructor
 	*/
 	~ATV();
 	
 	/**
-	*Method to move the ATV forwards
-	*@param value adjustment of PWM(PWM can't directly be converted to speed 
-	*units)
+	* Method to move the ATV forwards
+	* A value less than 50 may cause the ATV to drive in reversed direction
+	* @param value percentage of possible speed
 	*/
 	void moveForward(int value);
 	
 	/**
-	*Method to move the ATV backwards
-	*@param value adjustment of PWM(PWM can't directly be converted to speed 
-	*units)
+	* Method to move the ATV backwards
+	* A value less than 50 may cause the ATV to drive in reversed direction
+	* @param value percentage of possible speed
 	*/
 	void moveBackward(int value );
 	
 	/**
 	* The steer method for the ATV.
 	* The steer method is being called for turning the front wheels to a 
-	* certain degree. For a fast and reliable turn left give -400 as parameter 
-	* and for a turn right give 400 as parameter. Giving less then -400 or more
-	* then 400 will result in making the front wheels turn at its maximum.
-	* @param value: the value of which the rc channel should be overwritten 
-	* with.
+	* certain degree. The values that will work are give in percentages.
+	* 50% will be neutral, higher will steer to the right and lower will steer
+	* to the left.
+	* @param value percentage the value of which the rc channel should be 
+	* overwritten with.
 	*/
 	void steer(int value);
 	
@@ -140,25 +140,42 @@ private:
 	MAVLinkCommunicator & mavlinkCommunicator;
 	PriorityMessage message;
 	
-	float groundSpeed = 0;
-	float heading = 0;
-	int steeringDirection = 0;
-	//FlightMode flightMode;
 	
 	int batteryRemaining = 0;
 	int neutralSteeringValue = 1467;
 	int neutralthrottleValue = 1500;
 	void handleIncomingMessage(PriorityMessage incomingMessage);
 
+	const int MAX_PERCENTAGE{ 100 };
+
 	const int SYSTEMID{ 255 };
 	const int COMPONENTID{ 0 };
 	const int TARGET_SYSTEMID{ 1 };
 	const int TARGET_COMPONENTID{ 1 };
 
-	/*const int SYSTEMID{ 255 };
-	const int COMPONENTID{ 200 };
-	const int TARGET_SYSTEMID{ 1 };
-	const int TARGET_COMPONENTID{ 250 };*/
+	float groundSpeed = 0;
+	float heading = 0;
+	int steeringDirection = 0;
+
+	struct TrimValues
+	{
+		int CHANNEL_ONE_LOW;
+		int CHANNEL_ONE_HIGH;
+		int CHANNEL_TWO_LOW;
+		int CHANNEL_TWO_HIGH;
+		int CHANNEL_THREE_LOW;
+		int CHANNEL_THREE_HIGH;
+		int CHANNEL_FOUR_LOW;
+		int CHANNEL_FOUR_HIGH;
+		int CHANNEL_FIVE_LOW;
+		int CHANNEL_FIVE_HIGH;
+		int CHANNEL_SIX_LOW;
+		int CHANNEL_SIX_HIGH;
+		int CHANNEL_SEVEN_LOW;
+		int CHANNEL_SEVEN_HIGH;
+		int CHANNEL_EIGHT_LOW;
+		int CHANNEL_EIGHT_HIGH;
+	} RCTrimValues;
 };
 
 #endif
