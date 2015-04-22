@@ -1,3 +1,11 @@
+/*!
+* \brief Class containing line objects.
+* \details This class is used to store found lines in.
+* \author Patrick Schoonheym - 1639598
+* \version 1.0
+* \date 22-04-2015
+*/
+
 #ifndef LINE_H
 #define LINE_H
 
@@ -59,6 +67,11 @@ public:
 	print all the line information to the console
 	*/
 	friend std::ostream& operator<<(std::ostream & stream, const Line & line);
+	//! operator for checking if 2 Points are the same
+	/*!
+	check if 2 Points are the same
+	*/
+	friend bool operator==(const Point & p1, const Point & p2);
 };
 #endif
 
