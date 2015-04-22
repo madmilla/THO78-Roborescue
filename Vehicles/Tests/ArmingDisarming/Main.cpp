@@ -3,9 +3,17 @@
 #include <string>
 #include "MAVLinkExchanger.h"
 #include <iostream>
-#include "TempListener.h"
+#include "StatusMessageListener.h"
 #include <thread>
-
+/**
+* @author Feiko Wielsma
+*
+* Test program for testing if the quadcopter arms and disarms.
+* Common usage is arming('a'), then issueing the isArmed() command ('g').
+* If it returns 1, the quad is armed, if it returns 0, the quad is disarmed.
+* When finishing test the disarm ('d') function and test isArmed() again.
+*
+*/
 int main() 
 {
 	SerialPort serialPort("COM6");
@@ -13,8 +21,8 @@ int main()
 	Quadcopter quadcopter(communicator);
 	
 	//Make a tempListener to test if the quad notifies correctly
-	TempListener tempListener;
-	quadcopter.registerListener(&tempListener);
+	StatusMessageListener statusMessageListener;
+	quadcopter.registerListener(&statusMessageListener);
 	
 	std::thread quadcopterLoopThread { &Quadcopter::loop, &quadcopter};
 	std::thread communicatorLoopThread{ &MAVLinkExchanger::loop, &communicator };
