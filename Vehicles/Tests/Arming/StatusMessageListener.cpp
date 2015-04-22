@@ -1,16 +1,15 @@
-#include "TempListener.h"
+#include "StatusMessageListener.h"
 #include <iostream>
 
-TempListener::TempListener()
+StatusMessageListener::StatusMessageListener()
 {
 }
 
-
-TempListener::~TempListener()
+StatusMessageListener::~StatusMessageListener()
 {
 }
 
-void TempListener::notifyListener(Subject&, StatusText statusText)
+void StatusMessageListener::notifyListener(Subject&, StatusText statusText)
 {
 	if (statusText != StatusText::NONE)
 	{
