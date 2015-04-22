@@ -1,5 +1,5 @@
-#include "testcopter.h"
-#include "testatv.h"
+#include "quadCopter.h"
+#include "ATV.h"
 #include "dimension.h"
 #include "pairwisemove.h"
 #include <iostream>
@@ -11,8 +11,8 @@ int main()
     Dimension atvsize(1,1);
     Dimension coptersize(1,1);
     Dimension searchSize(2,2);
-    TestCopter copter(coptersize,searchSize,4,4);
-    testATV atv(atvsize, 0, 0);
+    quadCopter copter(coptersize,searchSize,4,4);
+    ATV atv(atvsize, 0, 0);
 
     std::vector<WayPoint> atvRoute;
     //atvRoute.push_back(WayPoint(1, 1));
@@ -25,7 +25,7 @@ int main()
     if(result.size() == 1){ //Quad must move te atv
         if(!(result[0].x == 0 && result[0].y == 0)){
             error = true;
-            std::cout << "Quad must move te atv waypoint ERROR" << std::endl;
+            std::cout << "Quad must move to atv waypoint ERROR" << std::endl;
         }
         std::cout << "Quad must move te atv SUCCES" << std::endl;
     }
@@ -33,8 +33,8 @@ int main()
         std::cout << "Quad must move te atv size ERROR" << std::endl;
     }
 
-    copter = TestCopter(coptersize,searchSize,0,0);
-    atv = testATV(atvsize, 0, 0);
+    copter = quadCopter(coptersize,searchSize,0,0);
+    atv = ATV(atvsize, 0, 0);
     atvRoute.clear();
     atvRoute.push_back(WayPoint(1, 1));
 

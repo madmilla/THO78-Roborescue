@@ -10,22 +10,21 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = untitled
 TEMPLATE = app
-QMAKE_CXXFLAGS += -std=c++11
 
-SOURCES += main.cpp\
-    testcopter.cpp \
+SOURCES +=\
     dimension.cpp \
     waypoint.cpp \
     route.cpp \
-    testatv.cpp \
-    pairwisemove.cpp
+    pairwisemove.cpp \
+    ../../../tests/auto/PairWise-test/main.cpp \
+    ATV.cpp \
+    quadCopter.cpp
 
 HEADERS  += \
-    testcopter.h \
     dimension.h \
     waypoint.h \
     route.h \
-    testatv.h \
-    pairwisemove.h
+    pairwisemove.h \
+    ATV.h \
+    quadCopter.h
 
-FORMS    += mainwindow.ui

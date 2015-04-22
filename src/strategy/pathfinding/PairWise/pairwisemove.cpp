@@ -4,8 +4,8 @@
 PairWiseMove::PairWiseMove(){}
 
 std::vector<WayPoint>PairWiseMove::quadCopterPairRoute(std::vector<WayPoint> atvRoute,
-                                  testATV atv,
-                                  TestCopter copter){
+                                  ATV atv,
+                                  quadCopter copter){
     std::vector<WayPoint> quadRoute;
     if(copter.x != atv.x || copter.y != atv.y){
         quadRoute.push_back(WayPoint(atv.x,atv.y));

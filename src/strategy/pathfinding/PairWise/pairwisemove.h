@@ -1,6 +1,6 @@
 #include "waypoint.h"
-#include "testcopter.h"
-#include "testatv.h"
+#include "quadCopter.h"
+#include "ATV.h"
 #include <vector>
 
 #ifndef PAIRWISEMOVE
@@ -11,8 +11,8 @@ public:
     PairWiseMove();
 
     std::vector<WayPoint> quadCopterPairRoute(std::vector<WayPoint> atvRoute,
-                                             testATV atv,
-                                             TestCopter copter
+                                             ATV atv,
+                                             quadCopter copter
                                              );
 };
 
