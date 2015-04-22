@@ -77,7 +77,7 @@ void Pointcloud::savePointsToFile(std::string filename){
     std::ofstream pCFile;
     pCFile.open(filename + ".pcl");
     if(!pCFile.is_open()) return;
-    pCFile << orientation << '\n';
+    pCFile << orientation <<'\n' << offset.X << " " << offset.Y << "\n";
     for(Pointcloud::Point point : pointCloud){
         pCFile << point.X << ":" << point.Y << '\n';
     }
@@ -94,13 +94,13 @@ void Pointcloud::loadPointsFromFile(std::string filename){
     std::string line;
     std::string item;
     int result;
-    pCFile >> orientation;
+    pCFile >> orientation >> offset.X >> offset.Y;
     while(std::getline(pCFile, line)){
         Pointcloud::Point point;
         std::stringstream ss(line);
         std::getline(ss, item, ':');
         std::stringstream convertX(item);
-        if ( !(convertX >> result) )result = 0;
+        if ( !(convertX >> result) )continue;
         point.X = result;
 
         std::getline(ss, item, ':');

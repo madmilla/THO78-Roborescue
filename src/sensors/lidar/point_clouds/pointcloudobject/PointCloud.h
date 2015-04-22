@@ -1,3 +1,11 @@
+/*!
+ * \brief Class containing a pointcloud
+ * \details A class containing a pointcloud object. A pointcloud is based on points (structs) with a X and Y value
+ * \author Tijmen Bruggeman - 1634346
+ * \version 1.0
+ * \date 22-04-2015
+ */
+
 #ifndef POINTCLOUD_H
 #define POINTCLOUD_H
 #include <vector>
@@ -94,9 +102,18 @@ public:
 	*/
 	Point getOffset();
 
-    void savePointsToFile(std::string filename);
-	
-    void loadPointsFromFile(std::string filename);
+	//! save all the points to a file
+	/*!
+	Save all the points tot a file, the offset and the orientation to a file
+	@param filename: the filename of the file where the points will be written
+	*/
+    	void savePointsToFile(std::string filename);
+	//! load all the points from a file
+	/*!
+	load all the points, the offset and the orientation from a file
+	@param filename: the filename of the file with the points.
+	*/
+    	void loadPointsFromFile(std::string filename);
 
     	//! print all points in given cloud    
 	void printPoints();
