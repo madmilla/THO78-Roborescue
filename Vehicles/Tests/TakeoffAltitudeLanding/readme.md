@@ -23,7 +23,8 @@ Commands
 * a : arm the quadcopter
 * q : disarm the quadcopter
 
-# Links to test reports:
+Links to test reports:
+----------------------
 http://roborescue.nl/wiki/index.php/Quadcopter_autonomous_flight_tests#Lifting_off
 http://roborescue.nl/wiki/index.php/Quadcopter_autonomous_flight_tests#Changing_altitude
 http://roborescue.nl/wiki/index.php/Quadcopter_autonomous_flight_tests#Landing_the_quadcopter
