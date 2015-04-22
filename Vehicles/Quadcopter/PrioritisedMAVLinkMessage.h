@@ -6,7 +6,7 @@
 * /_/   \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file 			MAVLinkCommunicator.h
+* @file 			PrioritisedMAVLinkMessage.h
 * @date Created:	2015-04-08
 *
 *  @author	Tim Hasselaar
@@ -89,7 +89,7 @@ public:
 	PrioritisedMAVLinkMessage();
 
 	/**
-	* The default deconstructor
+	* The default destructor
 	*/
 	~PrioritisedMAVLinkMessage();
 
