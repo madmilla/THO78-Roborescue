@@ -62,8 +62,8 @@ class Quadcopter : public Subject
 public:
 	
 	/**
-	* FlightMode enumclass
-	*
+	* FlightMode an enumclass containing different flightmodes.
+	* 
 	*/
 	enum class FlightMode
 	{
@@ -164,12 +164,13 @@ public:
 	/**
 	* land puts the quadcopter in land flight mode.
 	* Documentation about how land mode works can be found at:
-	* http://copter.ardupilot.com/wiki/flying-arducopter/flight-modes/land-mode/
+	*http://copter.ardupilot.com/wiki/flying-arducopter/flight-modes/land-mode/
 	*/
 	void land();
 
 	/**
 	* Not yet implemented
+	*
 	*/
 	void changeFlightSpeed(int);
 
@@ -201,18 +202,19 @@ public:
 	void changeAltitude(float);
 
 	/**
-	* restart
-	*
+	* restart allows the quadcopter to be restarted.
+	* 
 	*/
 	void restart();
 
 	/**
-	* changeMode
+	* changeMode allows the quadcopter flightmode to be altered
 	*
 	*/
 	void changeMode(FlightMode);
+	
 	/**
-	* operator<<
+	* operator<< an overloaded shift operator 
 	*
 	*/
 	friend std::ostream& operator<<(
@@ -220,55 +222,55 @@ public:
 		const FlightMode& mode);
 
 	/**
-	* loop
+	* loop 
 	*
 	*/
 	void loop();
 
 	/**
-	* getYaw
+	* getYaw 
 	*
 	*/
 	float getYaw() const;
 
 	/**
-	* getRoll
+	* getRoll 
 	*
 	*/
 	float getRoll() const;
 	
 	/**
-	* getPitch
+	* getPitch 
 	*
 	*/
 	float getPitch() const;
 
 	/**
-	* getAltitude
+	* getAltitude 
 	*
 	*/
 	float getAltitude() const;
 	
 	/**
-	* getHeading
+	* getHeading 
 	*
 	*/
 	int getHeading() const;
 
 	/**
-	* isArmed
+	* isArmed 
 	*
 	*/
 	bool isArmed() const;
 	
 	/**
-	* getMode (flightmode)
+	* getMode
 	*
 	*/
 	FlightMode getMode() const;
 	
 	/**
-	* 
+	* receivedMessageMap
 	*
 	*/
 	std::map<int, int> receivedMessageMap;
@@ -296,6 +298,7 @@ public:
 	*
 	*/
 	void saveQuadcopter();
+
 private:
 	
 	/**
@@ -506,7 +509,7 @@ private:
 
 	/**
 	* TrimValues
-	*
+	* A struct containing ..
 	*/
 	struct TrimValues
 	{
