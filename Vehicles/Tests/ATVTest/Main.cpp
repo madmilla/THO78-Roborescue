@@ -10,7 +10,10 @@
 *
 * Test program for testing the ATV methods.
 *
-* CAUTION:
+* This test is meant to test the methods of the ATV. This test can test all 
+* methods of the ATV individually only to see if they work.
+*
+* IMPORTANT:
 * This program is only for testing the methods of the ATV.
 * Do NOT use it to drive around. Put it on its back to test all the methods.
 *
@@ -52,6 +55,7 @@ int main()
 		}
 		else if (c == 'e')
 		{
+			atv.returnControlToRC();
 			exit(0);
 		}
 		else if (c == 'a')
