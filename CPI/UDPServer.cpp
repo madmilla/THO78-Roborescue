@@ -5,7 +5,7 @@ UDPServer::UDPServer(){
 	id = 0;
 	init();
 	sockbind();
-	connectionThread = std::thread(&UDPServer::start, this);
+	std::thread connectionThread(&UDPServer::start, this);
 }
 
 void UDPServer::init(){

@@ -3,7 +3,7 @@
 
 #include <queue>
 #include "CPIBoundaryObject.hpp"
-#include "..\..\mavlink_commands\mavlink_commands\mavlink.h"
+#include "mavlink_commands/udp_mavlink_commands/mavlink.h"
 #include "Socket.hpp"
 #include "RALCPEncoder.hpp"
 
@@ -30,7 +30,7 @@ public:
    //! \brief standard constructor
    //! \param[in] m a reference to the CommandsMap class
    //! \param[in] s a reference to the CommandsStrategy class
-   void sendCommand(mavlink_message_t * cmd) override;
+//   void sendCommand(mavlink_message_t * cmd) override;
 
    //! \brief standard constructor
    void receiveLine();
@@ -57,6 +57,7 @@ public:
    //! \param[in] dagrees a reference to the flank of the rosbee
    void sendRosbeeFlank(int degrees);
 
+   void getData();
 private:
    mavlink_message_t message;
    RALCPEncoder * encoder;

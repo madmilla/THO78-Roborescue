@@ -1,6 +1,6 @@
 #pragma once
 #include "Socket.hpp"
-#include "..\..\mavlink_commands\mavlink_commands\mavlink.h"
+#include "mavlink_commands/udp_mavlink_commands/mavlink.h"
 
 /// \author Rene Keijzer<rene.keijzer@student.hu.nl>
 /// \class RALCPEncoder
@@ -14,7 +14,8 @@ public:
 	/// \param The right communication function
 	/// \param Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
 	void send(COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	~RALCPEncoder();
+	void send(COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS rcf, uint64_t payload);
+	~RALCPEncoder(){}
 private:
 	mavlink_message_t msg;
 	mavlink_ralcp_t packet;

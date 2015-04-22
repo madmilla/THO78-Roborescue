@@ -1,7 +1,7 @@
 #ifndef __SOCKET__
 #define __SOCKET__
 #include <queue>
-#include "../../mavlink_commands/mavlink_commands/mavlink.h"
+#include "mavlink_commands/udp_mavlink_commands/mavlink.h"
 class UDPServer;
 
 /// \author Rene Keijzer<rene.keijzer@student.hu.nl>

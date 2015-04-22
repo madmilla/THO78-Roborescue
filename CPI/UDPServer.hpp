@@ -10,7 +10,7 @@
 #include "Connection.hpp"
 #include "UDPSocket.hpp"
 
-#include "../../mavlink_commands/mavlink_commands/mavlink.h"
+#include "mavlink_commands/udp_mavlink_commands/mavlink.h"
 
 #pragma comment(lib,"ws2_32.lib") //Winsock Library
 
@@ -51,7 +51,6 @@ private:
 	void sockbind();
 	void start();
 	void addConnection(sockaddr_in con, mavlink_message_t * msg);
-	std::thread connectionThread;
 
 	bool stopped = false;
 	SOCKET sock;
