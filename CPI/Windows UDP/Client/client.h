@@ -12,20 +12,19 @@
 
 
 class client{
-	public:
-	    client();
+   public:
+      client();
 		
-		void init();
-		void createSocket();
-		void sendMessage();
+      void init();
+      void createSocket();
+      void sendMessage();
 	
 
-	private:
-		struct sockaddr_in si_other;
-		int s,i, slen = sizeof(si_other);
-		char buf[BUFLEN];
-		char message[BUFLEN];
-		WSADATA wsa;
-		std::thread clientthread;
-
+   private:
+      struct sockaddr_in si_other;
+      int s,i, slen = sizeof(si_other);
+      char buf[BUFLEN];
+      char message[BUFLEN];
+      WSADATA wsa;
+      std::thread clientthread;
 };

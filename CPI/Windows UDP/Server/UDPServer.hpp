@@ -24,46 +24,45 @@ const int port = 8888;
 
 class UDPSocket;
 
-class UDPServer
-{
+class UDPServer{
 public:
-	UDPServer();
-	~UDPServer();
-	/// \param Message this is the message to be broadcasted on all the known udp connections
-	/// \returns void
-	void broadcast(mavlink_message_t * message);
+   UDPServer();
+   ~UDPServer();
+   /// \param Message this is the message to be broadcasted on all the known udp connections
+   /// \returns void
+   void broadcast(mavlink_message_t * message);
 
-	/// \param Send a message to a specefic connection.
-	/// \param Message
-	/// \returns void 
-	void send(UDPSocket & connection, mavlink_message_t * message);
+   /// \param Send a message to a specefic connection.
+   /// \param Message
+   /// \returns void 
+   void send(UDPSocket & connection, mavlink_message_t * message);
 	
 	
-	/// \param buffer for the message to be received in
-	/// \returns void
-	void receive(mavlink_message_t * message);
-
-	/// \brief stops the udpServer thread
-	void stop();
+   /// \param buffer for the message to be received in
+   /// \returns void
+   void receive(mavlink_message_t * message);
+   
+   /// \brief stops the udpServer thread
+   void stop();
 private:
 
-	void init();
-	void sockbind();
-	void start();
-	void addConnection(sockaddr_in con, mavlink_message_t * msg);
-	std::thread connectionThread;
+   void init();
+   void sockbind();
+   void start();
+   void addConnection(sockaddr_in con, mavlink_message_t * msg);
+   std::thread connectionThread;
 
-	bool stopped = false;
-	SOCKET sock;
-	struct sockaddr_in server, si_other;
-	int slen, recv_len;
-	WSADATA wsa;
+   bool stopped = false;
+   SOCKET sock;
+   struct sockaddr_in server, si_other;
+   int slen, recv_len;
+   WSADATA wsa;
 
-	mavlink_message_t msg;
-	mavlink_ralcp_t packet;
+   mavlink_message_t msg;
+   mavlink_ralcp_t packet;
 
-	std::vector<UDPSocket> _connections;
-	uint8_t id;
+   std::vector<UDPSocket> _connections;
+   uint8_t id;
 
 };
 

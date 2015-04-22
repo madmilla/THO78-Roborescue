@@ -4,9 +4,9 @@
 
 int main(void){
 
-	client Client = client();
+   client Client = client();
 	
-	while (1){}
+   while (1){}
 
-	return 0;
+   return 0;
 }
