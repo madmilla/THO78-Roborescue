@@ -49,8 +49,10 @@ Pointcloud SimulateMap::getPointCloud(){
 }
 
 void SimulateMap::addCheckPoint(int x, int y){
-    checkPoint cp = checkPoint(x, y);
-    checkpoints.push_back(cp);
+    if(x < map->width && y < map->height){
+        checkPoint cp = checkPoint(x, y);
+        checkpoints.push_back(cp);
+    }
 }
 
 void SimulateMap::setScanPoint(int y, int x){
