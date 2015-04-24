@@ -48,6 +48,8 @@ private slots:
     //! Used when the checkpointButton is clicked.
     void on_checkpointButton_clicked();
 
+    void on_savePcButton_clicked();
+
 private:
     //! UI pointer for use with QT.
     Ui::SimulateMapWindow *ui;

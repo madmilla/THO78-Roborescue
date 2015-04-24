@@ -4,6 +4,11 @@
 #include <sstream>
 #include "values.h"
 
+SimulateMap::SimulateMap()
+{
+
+}
+
 SimulateMap::SimulateMap(Map *map):
     map(map)
 {

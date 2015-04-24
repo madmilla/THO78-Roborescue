@@ -26,6 +26,7 @@ public:
     QPushButton *simulateButton;
     QRadioButton *noneButton;
     QRadioButton *checkpointButton;
+    QPushButton *savePcButton;
 
     void setupUi(QWidget *SimulateMapWindow)
     {
@@ -42,6 +43,9 @@ public:
         checkpointButton->setObjectName(QStringLiteral("checkpointButton"));
         checkpointButton->setGeometry(QRect(560, 30, 102, 20));
         checkpointButton->setChecked(true);
+        savePcButton = new QPushButton(SimulateMapWindow);
+        savePcButton->setObjectName(QStringLiteral("savePcButton"));
+        savePcButton->setGeometry(QRect(560, 410, 113, 32));
 
         retranslateUi(SimulateMapWindow);
 
@@ -54,6 +58,7 @@ public:
         simulateButton->setText(QApplication::translate("SimulateMapWindow", "Simulate", 0));
         noneButton->setText(QApplication::translate("SimulateMapWindow", "None", 0));
         checkpointButton->setText(QApplication::translate("SimulateMapWindow", "Checkpoints", 0));
+        savePcButton->setText(QApplication::translate("SimulateMapWindow", "Save PC", 0));
     } // retranslateUi
 
 };

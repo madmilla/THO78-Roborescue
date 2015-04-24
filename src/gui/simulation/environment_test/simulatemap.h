@@ -13,6 +13,8 @@
 #include "PointCloud.h"
 #include "checkpoint.h"
 
+class Map;
+
 class SimulateMap
 {
 private:
@@ -27,6 +29,11 @@ private:
     //! PointCloud object where the results of the scan will be saved in.
     Pointcloud pC;
 public:
+    /*!
+    *   The default SimulateMap Constructor.
+    *   \brief The default SimulateMap Constructor.
+    */
+    SimulateMap();
     /*!
     *   The simulateMap constructor for an existing Map.
     *   \brief Create a simulateMap object from an existing map given a map pointer.

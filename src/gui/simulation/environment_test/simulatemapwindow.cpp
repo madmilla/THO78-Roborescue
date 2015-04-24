@@ -1,6 +1,7 @@
 #include "simulatemapwindow.h"
 #include "ui_simulatemapwindow.h"
 #include <QMouseEvent>
+#include <QFileDialog>
 #include <QTextEdit>
 
 SimulateMapWindow::SimulateMapWindow(Map *map, QWidget *parent) :
@@ -99,4 +100,15 @@ void SimulateMapWindow::on_checkpointButton_clicked()
 {
     selected = Values::CHECKPOINT;
     std::cout << "clicked: " << selected << std::endl;
+}
+
+void SimulateMapWindow::on_savePcButton_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), QString());
+
+    if (!fileName.isEmpty()) {
+        std::string file = fileName.toStdString();
+        Pointcloud pC = simMap->getPointCloud();
+        pC.savePointsToFile(file);
+    }
 }

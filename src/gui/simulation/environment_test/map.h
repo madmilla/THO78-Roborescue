@@ -12,6 +12,7 @@
 
 #include <QVector>
 #include <QTableWidget>
+#include "simulatemap.h"
 
 using namespace std;
 
