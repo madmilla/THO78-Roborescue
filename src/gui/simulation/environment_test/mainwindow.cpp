@@ -16,7 +16,10 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    if(map != 0) delete map;
+    if(map != 0){
+        delete map;
+        map = NULL;
+    }
 }
 
 void MainWindow::on_newMapButton_clicked()
@@ -33,9 +36,6 @@ void MainWindow::on_newMapButton_clicked()
 
     if (ok && !fileName.isEmpty()){
         map = new Map(fileName.toStdString() + ".map",height,width);
-        //editMapWindow = new EditMapWindow(map);
-        //editMapWindow->show();
-
     }
 }
 
@@ -43,13 +43,7 @@ void MainWindow::on_editMapButton_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open File", QString(), "Map Files (*.map)");
 
-    if (!fileName.isEmpty()) {                            //If the filename is not empty this means a file has been selected
-        /*QFile file(fileName);                             //Put this in a variable
-
-        if (!file.open(QIODevice::ReadOnly)) {            //If the file can't be opened return an error message
-            QMessageBox::critical(this, "Error", "Could not open file");
-            return;
-        }*/
+    if (!fileName.isEmpty()){
         map = new Map(fileName.toStdString());
         editMapWindow = new EditMapWindow(map);
         editMapWindow->show();
@@ -60,7 +54,7 @@ void MainWindow::on_simulateButton_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open File", QString(), "Map Files (*.map)");
 
-    if (!fileName.isEmpty()) {                            //If the filename is not empty this means a file has been selected
+    if (!fileName.isEmpty()){
         map = new Map(fileName.toStdString());
         SimulateMapWindow *simulateMapWindow = new SimulateMapWindow(map);
         simulateMapWindow->show();

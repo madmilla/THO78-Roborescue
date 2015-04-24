@@ -15,28 +15,14 @@ std::string SimulateMap::simulate(){
     std::ostringstream oss;
     std::string s = "";
 
-    for(std::vector<int> fory : map->getMapContent()){
-        int x = 0;
-        for(int forx : fory){
-            if(fory[x] == Values::OBSTACLE){
-                int objectX = (x-lidarX);
-                int objectY = (y-lidarY) * -1;
-                pC.setPoint(objectX,objectY);
-                oss << "Lidar found object at: (X:" << objectX << ",Y:" << objectY <<")\n";
-            }
-            x++;
-        }
-        y++;
-    }
-
     if(checkpoints.size() > 0){
-        for(int i = 0; i < checkpoints.size(); i++){
+        for(int i = 0; (i < checkpoints.size()); ++i){
             y = 0;
             for(std::vector<int> fory : map->getMapContent()){
                 setScanPoint(checkpoints[i].getY(), checkpoints[i].getX());
                 int x = 0;
                 for(int forx : fory){
-                    if(fory[x] == Values::OBSTACLE){
+                    if(forx == Values::OBSTACLE){
                         int objectX = (x-lidarX);
                         int objectY = (y-lidarY)* -1;
                         pC.setPoint(objectX,objectY);
@@ -49,8 +35,6 @@ std::string SimulateMap::simulate(){
         }
     }
     pC.savePointsToFile("pointCloud");
-    Pointcloud tmp;
-    tmp.loadPointsFromFile("pointCloud");
     s += oss.str();
     return s;
 }
@@ -70,4 +54,7 @@ void SimulateMap::setScanPoint(int y, int x){
 }
 
 SimulateMap::~SimulateMap()
-{}
+{
+    delete map;
+    map = NULL;
+}

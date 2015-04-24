@@ -60,9 +60,9 @@ void EditMapWindow::paintEvent(QPaintEvent *e){
         int x = 0;
         for(int forx : fory){
             painter.fillRect((x*objectx),(y*objecty),objectx,objecty,QBrush(getColorById(forx)));
-            x++;
+            ++x;
         }
-        y++;
+        ++y;
     }
 }
 

@@ -23,7 +23,7 @@ private:
     //! Vector containing all checkpoints.
     std::vector<checkPoint> checkpoints;
     //! Pointer to a map object containing the information of the map.
-    Map *map; //Pointer to the map
+    Map *map;
     //! PointCloud object where the results of the scan will be saved in.
     Pointcloud pC;
 public:

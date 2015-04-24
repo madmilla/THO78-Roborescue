@@ -16,8 +16,11 @@ SimulateMapWindow::SimulateMapWindow(Map *map, QWidget *parent) :
 
 SimulateMapWindow::~SimulateMapWindow()
 {
-    delete simMap;
     delete ui;
+    delete simMap;
+    simMap = NULL;
+    delete map;
+    map = NULL;
 }
 
 void SimulateMapWindow::on_simulateButton_clicked()
@@ -32,7 +35,7 @@ void SimulateMapWindow::on_simulateButton_clicked()
 
 void SimulateMapWindow::mousePressEvent(QMouseEvent * event){
     if(event->pos().x() < Values::DRAWWIDTH){
-       if(!selected < 0){
+       if(selected < 0){
            return;
         }
         int positionx = (event->pos().x() - event->pos().x() % objectx) / objectx;
@@ -51,18 +54,17 @@ void SimulateMapWindow::mousePressEvent(QMouseEvent * event){
 }
 
 
-void SimulateMapWindow::paintEvent(QPaintEvent *e){
+void SimulateMapWindow::paintEvent(QPaintEvent */* Unused */){
     if(!mousePressed) return;
-    //std::cout << "Paint!" << std::endl;
     QPainter painter(this);
     int y = 0;
     for(std::vector<int> fory : map->getMapContent()){
         int x = 0;
         for(int forx : fory){
             painter.fillRect((x*objectx),(y*objecty),objectx,objecty,QBrush(getColorById(forx)));
-            x++;
+            ++x;
         }
-        y++;
+        ++y;
     }
 }
 
@@ -86,11 +88,6 @@ Qt::GlobalColor SimulateMapWindow::getColorById(int id){
     break;
     }
     return bColor;
-}
-
-void SimulateMapWindow::on_lidarButton_clicked()
-{
-    selected = Values::LIDAR;
 }
 
 void SimulateMapWindow::on_noneButton_clicked()

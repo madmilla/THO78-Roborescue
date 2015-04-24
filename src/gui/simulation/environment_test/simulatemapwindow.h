@@ -43,8 +43,6 @@ public:
 private slots:
     //! Used when the simulate button is clicked.
     void on_simulateButton_clicked();
-    //! Used when the Lidar button is clicked.
-    void on_lidarButton_clicked();
     //! Used when the none button is clicked.
     void on_noneButton_clicked();
     //! Used when the checkpointButton is clicked.
@@ -72,7 +70,7 @@ private:
     //! Height of the drawing space.
     int drawHeight = Values::DRAWHEIGHT;
     //! Value of selected object.
-    int selected = Values::LIDAR;
+    int selected = Values::CHECKPOINT;
     //! Check if mouse is pressed.
     bool mousePressed = true;
 };
