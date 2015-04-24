@@ -1,3 +1,12 @@
+/*!
+ *  \brief     Map class containing all logic code for the map.
+ *  \details   The map class is used for storing, loading and making all map objects containing the information of a given map.
+ *  \author    Danny Horvath - 1634676
+ *  \author    Thomas Fink - 1634907
+ *  \version   1.0
+ *  \date      08-04-2015
+ */
+
 #ifndef MAP_H
 #define MAP_H
 
@@ -5,75 +14,73 @@
 #include <QTableWidget>
 
 using namespace std;
-//! The map class
-/*!
-The object which will contain all map data
-*/
+
 class Map
 {
 public:
-    //! The map constructor for an existing map
     /*!
-    Create a map object from an existing file
-    @param fileName: the filename of the map its file
+    *   Map constructor with a given file.
+    *   \brief Given a filename this constructor will read and convert a .map file to a map object.
+    *   @param fileName the name of a .map file containing map information.
     */
     Map(string fileName);
-    //! The map constructor for a new map
     /*!
-    Create a new map object
-    @param fileName: the filename of the map its file
-    @param height: the height of the map
-    @param width: the width of the map
+    *   Map constructor with given file, height and width.
+    *   \brief This constructor is used for making a new map with a standard height & width.
+    *   @param fileName the name of a .map file containing map information
+    *   @param height the height of the map
+    *   @param width the width of the map
     */
     Map(string fileName, int height, int width);
-    //! get all the data of a map
     /*!
-    get all the data of a map returned in a vector
-    @return std::vector<vector< int > >: the vector which will contain a
-    vector with the data of the map
-
+    *   getMapContent gets all the information of a map.
+    *   \brief This function gets and returns all information of a map object in a 2D-vector.
+    *   @return std::vector<vector< int > > a 2D-vector containing all the map information.
     */
     vector<vector< int > > getMapContent();
-    //! set all the data of a map
     /*!
-    set all the data of a map returned in a vector
-    @param newMapLayout: is a std::vector<vector< int > > the vector which will contain a
-    vector with the data of the map
-
+    *   setMapContent is used to set a map to the content of a given 2D-vector.
+    *   \brief Sets al the data in the map to the data in a given 2D-vector containing ints.
+    *   @param newMapLayout is a 2D-Vector containing ints with information about the map.
     */
     void setMapContent(vector<vector< int > > newMapLayout);
-    //! set an object on the map
     /*!
-    set the data of an object in a specific place on the map
-    @param object: is an int to specify what object needs to be set
-    @param y: is an int to specify the y position
-    @param x: is an int to specify the x position
-
+    *   setMapObject sets a object at a given position.
+    *   \brief Sets a spot at a given x and y position to the desired object.
+    *   @param object is an int representing the desired object.
+    *   @param x,y ints containg the x and y coordinates.
     */
-    void setMapObject(int object,int y, int x);
-    //! set an object on the map
+    void setMapObject(int object, int y, int x);
     /*!
-    get the data of an object(int) in a specific place on the map
-    @param y: is an int to specify the y position
-    @param x: is an int to specify the x position
-    @return int: object on the specified y and x position
-
+    *   getMapObject Gets the value of an object at a given position in the map.
+    *   \brief Gets an object at the given x and y position and returns the value of this object.
+    *   @param x,y are ints containing the x and y coordinates.
+    *   @return returns an int containing the value of the found object return -1 if object not found.
     */
     int getMapObject(int y, int x);
-    //! save the map to the file
     /*!
-    this saves the content of the map to a file
-
+     * saveMap saves the map to a file.
+     * \brief Saves all the content of a map to a .map file.
     */
     void saveMap();
-    int width = 0;//! the width of the map from 1 to x
-    int height = 0;//! the width of the map from 1 to x
-    string fileName;//! the filename
+    /*!
+      * Default constructor of map.
+      * \brief Default constructor of map, clearing memory etc.
+    */
     ~Map();
+    //! the width of the map from 1 to x
+    int width = 0;
+    //! the width of the map from 1 to x
+    int height = 0;
+    //! the filename
+    string fileName;
 
 private:
-    vector<vector< int > > mapLayout;//! the vector which contains all the data of the map
+    //! The vector which contains all the data of the map by this template mapLayout[y][x].
+    vector<vector< int > > mapLayout;
+    //! Creates a new map given a fileName.
     void createNewMap(string fileName);
+    //! Loads the map with the given filename.
     void loadMap(string fileName);
 };
 

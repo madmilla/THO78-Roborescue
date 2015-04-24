@@ -63,7 +63,9 @@ void Map::loadMap(string fileName){
 
 void Map::setMapObject(int object,int y, int x){
     if(x <= width && y <= height){
-        mapLayout[y][x] = object;
+        if(object >= 0){
+            mapLayout[y][x] = object;
+        }
     }
 }
 

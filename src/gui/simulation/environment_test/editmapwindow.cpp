@@ -19,6 +19,9 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
 
 EditMapWindow::~EditMapWindow(){
     delete ui;
+    delete map;
+    map = NULL;
+
 }
 
 void EditMapWindow::on_obstacleButton_clicked(){
@@ -41,7 +44,6 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
         }
         int positionx = (event->pos().x() - event->pos().x() % objectx) / objectx;
         int positiony = (event->pos().y() - event->pos().y() % objecty) / objecty;
-        std::cout << "pos x: " << positionx << " pos y: " << positiony << " Selected: " << selected << std::endl;
         if(positionx < map->width  &&  positiony < map->height){
             map->setMapObject(selected, positiony, positionx);
             update();
