@@ -1,10 +1,7 @@
 #include <iostream>
-#include "mainwindow.h"
-#include <QApplication>
 #include "dimension.h"
 #include "testcopter.h"
 #include "arraymap.h"
-#include "widget.h"
 #include "areacoveringalgorithm.h"
 using namespace std;
 void test(int i){
