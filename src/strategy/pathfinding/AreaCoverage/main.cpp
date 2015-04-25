@@ -18,7 +18,7 @@ void test(int i){
 
 int main(int argc, char *argv[])
 {
-    test(0);
+    test(1);
     return 0;
 
 }
