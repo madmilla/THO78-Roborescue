@@ -294,7 +294,7 @@ int AreaCoveringAlgorithm::pointOn(int x, int y, TestCopter *copter,
                                    ArrayMap *map) {
   if (copter->x + x < int(map->data.size() )&& copter->x + x > -1) {
 
-    if (copter->y + y > -1 && copter->y + y < map->data.at(copter->x)->size()) {
+    if (copter->y + y > -1 && copter->y + y < int(map->data.at(copter->x)->size())) {
       return map->data.at(copter->x + x)->at(copter->y + y);
     } else {
       return 1;
@@ -314,7 +314,7 @@ void AreaCoveringAlgorithm::registerLocation(ArrayMap *map,
     for (int ii = copter->y - sightxinitial; ii <= copter->y + sightxinitial;
          ii++) {
       if (i < int(map->data.size()) && i > -1 && ii > -1 &&
-          ii < map->data.at(i)->size()) {
+          ii < int(map->data.at(i)->size())) {
         if (map->data.at(i)->at(ii) == 0) {
           map->data.at(i)->at(ii) = 3;
         }
