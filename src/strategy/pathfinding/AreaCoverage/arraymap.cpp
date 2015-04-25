@@ -156,7 +156,7 @@ bool ArrayMap::contains(int search){
     for(int i=0; i< data.size();i++){
         std::vector<int>* tmp;
         tmp = data.at(i);
-        for(int ii=0; ii<tmp->size();ii++){
+        for(int ii=0; ii<int(tmp->size());ii++){
         if(tmp->at(ii) == search){return true; }
 
 
@@ -174,7 +174,7 @@ void ArrayMap::print(){
     for(int i=0; i< data.size();i++){
         std::vector<int>* tmp;
         tmp = data.at(i);
-        for(int ii=0; ii<tmp->size();ii++){
+        for(int ii=0; ii<int(tmp->size());ii++){
         std::cout <<tmp->at(ii);
 
 
