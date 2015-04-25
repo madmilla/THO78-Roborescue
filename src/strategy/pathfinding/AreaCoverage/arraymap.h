@@ -6,7 +6,7 @@ class ArrayMap
 {
 public:
 
-    ArrayMap();
+    ArrayMap(int i);
     vector< vector<int>* > data;
     ~ArrayMap();
     void print();
