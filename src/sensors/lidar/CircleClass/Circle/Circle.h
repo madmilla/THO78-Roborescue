@@ -1,13 +1,18 @@
 /*!
 * \brief Class containing circle objects.
 * \details This class is used to store found circles in.
-* \author Nick Verhaaf - 1641355
+* \author Nick Verhaaf - 1641355 / Patrick Schoonheym - 1639598
 * \version 1.0
 * \date 22-04-2015
 */
 
 #ifndef CIRCLE_H
 #define CIRCLE_H
+
+#include "../../LineClass/Line.h" 
+#include <vector>
+
+class Line;
 
 class Circle
 {
@@ -57,7 +62,13 @@ public:
 		@return struct circleData: With the circle data (originX, originY, radius)
 	*/
 	circleData getCircle();
-
+	
+	//! Getter for get lines around the circle
+	/*!
+		Return requested data of lines in a vector
+		@return Line vector: With the line data
+	*/
+	 std::vector<Line> getLinesAroundCircle(const Circle & circle);
 };
 
 #endif // CIRCLE_H
