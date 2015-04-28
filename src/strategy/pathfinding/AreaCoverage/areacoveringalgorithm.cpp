@@ -1,3 +1,39 @@
+/**
+*               __
+*    _________ / /_  ____  ________  ____________  _____
+*   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
+*  / / / /_/ / /_/ / /_/ / /  /  __(__  ) /__/ /_/ /  __/
+* /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
+*
+*
+* @file AreaCoverageAlgorithm.cpp
+* @date Created: 4/28/2015
+*
+* @author Mathijs Arends
+*
+* @section LICENSE
+* License: newBSD
+*
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+* - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+* - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+* - Neither the name of the HU University of Applied Sciences Utrecht nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED. IN NO EVENT SHALL THE HU UNIVERSITY OF APPLIED SCIENCES UTRECHT
+* BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**/
+
 #include "areacoveringalgorithm.h"
 #include <chrono>
 #include <thread>
@@ -6,7 +42,8 @@
 #define right Dimension(1, 0)
 #define forward Dimension(0, -1)
 #define down Dimension(0, 1)
-
+ /** Basic constructor, This requiers a test copter and a map to function
+*/
 AreaCoveringAlgorithm::AreaCoveringAlgorithm(TestCopter copter,
                                              ArrayMap *mapp) {
   globalmap = mapp;
@@ -14,12 +51,17 @@ AreaCoveringAlgorithm::AreaCoveringAlgorithm(TestCopter copter,
   followCovered(&copter, mapp, 1, 3);
   this->drawWayPoints(mapp);
 }
+ /** This method gives the waypoints in the result section the value of 15 on the array map
+This is usefull for gui implementations */
 void AreaCoveringAlgorithm::drawWayPoints(ArrayMap *map) {
 
   for (WayPoint point : result) {
     map->data.at(point.x)->at(point.y) = 15;
   }
 }
+
+
+ /** This function returns true if the function coveres the entire area  */
 bool AreaCoveringAlgorithm::testCoverage() {
   if (globalmap->contains(0)) {
     std::cout << "Not all areas covered, alg failed";
@@ -29,6 +71,11 @@ bool AreaCoveringAlgorithm::testCoverage() {
     return true;
   }
 }
+
+
+/** This function makes the area coverage algorithm follow the wall
+*/
+
 int AreaCoveringAlgorithm::followWall(TestCopter *copter, ArrayMap *mapp,
                                       int wallnumber) {
   this->registerLocation(mapp, copter);
@@ -148,6 +195,8 @@ int AreaCoveringAlgorithm::followWall(TestCopter *copter, ArrayMap *mapp,
   }
   return 0;
 }
+ /** this function makes the area coverage function foollow his own covered area effectifly covering all the area's of the map.
+  */
 int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
                                          int wallnumber, int coveredNumber) {
   bool boxed = false;
@@ -290,6 +339,7 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
   }
   return 0;
 }
+ /** this function returns the value on the point of the given map */
 int AreaCoveringAlgorithm::pointOn(int x, int y, TestCopter *copter,
                                    ArrayMap *map) {
   if (copter->x + x < int(map->data.size() )&& copter->x + x > -1) {
@@ -302,6 +352,7 @@ int AreaCoveringAlgorithm::pointOn(int x, int y, TestCopter *copter,
   }
   else return 1;
 }
+ /** This method sets empty the area's around the test copter to covered.  */
 void AreaCoveringAlgorithm::registerLocation(ArrayMap *map,
                                              TestCopter *copter) {
   result.push_back(WayPoint(copter->x, copter->y));
@@ -322,6 +373,7 @@ void AreaCoveringAlgorithm::registerLocation(ArrayMap *map,
     }
   }
 }
+ /** this method checks if there are uncovered areas around the copter. if there are empty areas it will return false else true */
 bool AreaCoveringAlgorithm::checkIfBoxedIn(TestCopter *copter, ArrayMap *map) {
   //int coveredNumber = 0;
   //int sightxinitial = copter->copterSight.width - 1;
@@ -423,6 +475,7 @@ cell \n";
 void AreaCoveringAlgorithm::setCopterSquare(TestCopter copt, ArrayMap *map) {
   map->data.at(copt.x)->at(copt.y) = 10;
 }
+ /** this function moves the testcopter back on the route and keeps track of howfar it went back */
 void AreaCoveringAlgorithm::moveBackOnRoute(TestCopter *copter) {
   if (moveingBack) {
 
@@ -435,10 +488,12 @@ void AreaCoveringAlgorithm::moveBackOnRoute(TestCopter *copter) {
     movesBack = 0;
   }
 }
+ /** This function checks if the testcopter is covered in the given direction it not only checks directly in front of it but in front of the entire sight range of the copter */
+
+
 bool AreaCoveringAlgorithm::checkIfCoveredInDirection(Dimension d, TestCopter *t ){
    // std::cout << t->x << " " << t->y;
     bool uncovered=true;
-    int index;
     //std::cout << "DEBIGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG";
     int sightxinitial =2;
     //std::cout << sightxinitial;
