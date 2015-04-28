@@ -1,3 +1,8 @@
+/*!
+ *  Class defining a line using 4 numerical values indicating the coordinates (X1, Y1, X2, Y2).
+ *  Depending on the chosen T, the numerical values can either be of type int or float
+ *  \author    Bianca Krieger
+ */
 #ifndef LINE_H
 #define LINE_H
 
