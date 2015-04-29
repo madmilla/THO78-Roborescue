@@ -1,9 +1,9 @@
 /*!
-* \brief Class containing line objects.
-* \details This class is used to store found lines in.
+* \brief Class containing line data
+* \details This class is used to store a single line
 * \author Patrick Schoonheym - 1639598
 * \version 1.0
-* \date 22-04-2015
+* \date 29-04-2015
 */
 
 #ifndef LINE_H
