@@ -35,8 +35,6 @@
 **/
 
 #include "areacoveringalgorithm.h"
-#include <chrono>
-#include <thread>
 #include "iostream"
 #define left Dimension(-1, 0)
 #define right Dimension(1, 0)
@@ -63,7 +61,7 @@ void AreaCoveringAlgorithm::drawWayPoints(ArrayMap *map) {
 
  /** This function returns true if the function coveres the entire area  */
 bool AreaCoveringAlgorithm::testCoverage() {
-  if (globalmap->contains(0)) {
+  if (globalmap->contains(0)) { //Als er nog tiles in zitten die 0 zijn dus onbekeken
     std::cout << "Not all areas covered, alg failed";
     return false;
   } else {
@@ -81,11 +79,12 @@ int AreaCoveringAlgorithm::followWall(TestCopter *copter, ArrayMap *mapp,
   this->registerLocation(mapp, copter);
 
   Dimension direction(0, 0);
-  direction.height = 1;  for (int x = 0; x < 250; x++) {
-
+  direction.height = 1;
+	int x=0;
+  while(true) {
+	x++;
     this->registerLocation(mapp, copter);
     if (result.size() > 2 && result.at(result.size() - 1) == result.at(0)) {
-     // std::cout << "Follow wall goed einde " <<copter->x << "  "<<copter->y ;
       return x;
     }
     if (pointOn(direction.width, direction.height, copter, mapp) ==
@@ -158,7 +157,6 @@ int AreaCoveringAlgorithm::followWall(TestCopter *copter, ArrayMap *mapp,
             wallnumber) // En de copter kan niet naar beneden
         {
           if (pointOn(-1, 0, copter, mapp) == wallnumber) {
-         //   std::cout << "Ik zit vast";
             direction = down;
           } // en hij kan ook niet rechts
           else {
@@ -187,8 +185,6 @@ int AreaCoveringAlgorithm::followWall(TestCopter *copter, ArrayMap *mapp,
       } else if (direction == right) {
         direction = down;
       }
-
-      //std::cout << "wall lost";
     }
     copter->x = copter->x + direction.width;
     copter->y = copter->y + direction.height;
@@ -213,7 +209,6 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
     if (checkIfBoxedIn(copter, mapp)) {
       boxed = true;
       moveBackOnRoute(copter);
-      //std::cout << "boxed in";
 
       continue;
     } else if (boxed) {
@@ -328,8 +323,6 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
           moveingBack = false;
         }
       }
-
-      // direction= Dimension(1,0);
     }
 
     if (!moveingBack) {
@@ -396,7 +389,6 @@ bool AreaCoveringAlgorithm::checkIfBoxedIn(TestCopter *copter, ArrayMap *map) {
 }
 /*void AreaCoveringAlgorithm::getCells(Map map){
     bool lastwasnull=false;
-//    map.print();
     int x=0;
     int y=0;
     while(true){

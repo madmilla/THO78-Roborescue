@@ -36,6 +36,13 @@ private:
 		int radius;
 	};
 
+	//! the offset of the lines around the circle
+	const double LINES_OFFSET = 1.25;
+	//! the angle step of the lines around the circle
+	const int LINES_ANGLE_STEP = 45;
+	//! the amount of lines around the circle
+	const int LINES_VALUE = 6;
+
 public:
 	//! The Contructor for the Lidar
 	/*!
@@ -66,9 +73,9 @@ public:
 	//! Getter for get lines around the circle
 	/*!
 		Return requested data of lines in a vector
-		@return Line vector: With the line data
+		@return Line vector: With line data
 	*/
-	 std::vector<Line> getLinesAroundCircle(const Circle & circle);
+	 std::vector<Line> getLinesAroundCircle();
 };
 
 #endif // CIRCLE_H
