@@ -1,6 +1,7 @@
 #ifndef __UDPSERVER__
 #define __UDPSERVER__
-//#include <thread>
+
+#include "mingw.thread.h"
 #include <stdio.h>
 #include <winsock2.h>
 #include <vector>
@@ -61,6 +62,7 @@ private:
 
 	std::vector<UDPSocket> _connections;
 	uint8_t id;
+	std::thread connectionThread;
 
 };
 
