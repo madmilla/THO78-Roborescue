@@ -56,7 +56,7 @@ void SimulateMapWindow::mousePressEvent(QMouseEvent * event){
 }
 
 
-void SimulateMapWindow::paintEvent(QPaintEvent */* Unused */){
+void SimulateMapWindow::paintEvent(QPaintEvent * /* Unused */){
     if(!mousePressed) return;
     QPainter painter(this);
     int y = 0;

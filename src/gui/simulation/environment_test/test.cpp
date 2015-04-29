@@ -229,7 +229,6 @@ int Test::run(){
     testResultsFile << "Enviroment Simulator test PointCloud" << std::endl;
     Pointcloud pC = testSim.getPointCloud();
     for(Pointcloud::Point p : pC.getPoints()){
-        std::cout << p.X << p.Y << std::endl;
         if(p.X != 3){
             testResultsFile << "PointCloud: " << "Lest see" << std::endl;
             ++error;
