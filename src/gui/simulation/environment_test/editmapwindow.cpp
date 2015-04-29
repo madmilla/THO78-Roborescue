@@ -52,7 +52,7 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
     }
 }
 
-void EditMapWindow::paintEvent(QPaintEvent *e){
+void EditMapWindow::paintEvent(QPaintEvent * /*UNUSED*/){
     if(!mousePressed) return;
     QPainter painter(this);
     int y = 0;

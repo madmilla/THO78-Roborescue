@@ -70,9 +70,9 @@ public:
     */
     ~Map();
     //! the width of the map from 1 to x
-    int width = 0;
+    unsigned int width;
     //! the width of the map from 1 to x
-    int height = 0;
+    unsigned int height;
     //! the filename
     string fileName;
 

@@ -13,6 +13,11 @@ void client::init(){
       printf("Failed. Error Code : %d", WSAGetLastError());
       exit(EXIT_FAILURE);
 	}
+
+	packet.Payload = 2;
+	packet.Destination = COMMAND_DESTINATION::ROSBEE;
+	packet.Function = ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE;
+	mavlink_msg_ralcp_encode(1, 1, &msg, &packet);
    printf("Initialised.\n");
 }
 
@@ -31,21 +36,17 @@ void client::createSocket(){
 }
 
 void client::sendMessage(){
-   std::string letter = "1";
    while (1){
       std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-      if (sendto(s, letter.c_str(), strlen(letter.c_str()), 0, (struct sockaddr *) &si_other, slen) == SOCKET_ERROR){
+      if (sendto(s, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr *) &si_other, slen) == SOCKET_ERROR){
          printf("sendto() failed with error code : %d", WSAGetLastError());
 		}
 
       memset(buf, '\0', BUFLEN);
-      if (recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &si_other, &slen) == SOCKET_ERROR){
+	  if (recvfrom(s, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr *) &si_other, &slen) == SOCKET_ERROR){
          printf("recvfrom() failed with error code : %d", WSAGetLastError());
       }
 		
-      puts(buf);
-      i = atoi(buf) + 1;
-      letter = std::to_string(i);
    }
 
    closesocket(s);

@@ -1,8 +1,9 @@
-#include<stdio.h>
-#include<winsock2.h>
+#include <stdio.h>
+#include <winsock2.h>
 #include <thread>
-#include<string>
-#include<iostream>
+#include <string>
+#include <iostream>
+#include "../../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 
 #pragma comment(lib,"ws2_32.lib")
 
@@ -27,4 +28,7 @@ class client{
       char message[BUFLEN];
       WSADATA wsa;
       std::thread clientthread;
+
+	  mavlink_message_t msg;
+	  mavlink_ralcp_t packet;
 };
