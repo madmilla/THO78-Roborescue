@@ -11,6 +11,7 @@
 * @version 1.0
 *
 * @author Nick Verhaaf
+* @author Patrick Schoonheym
 *
 * @section LICENSE
 * License: newBSD

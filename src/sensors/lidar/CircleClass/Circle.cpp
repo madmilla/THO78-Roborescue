@@ -11,6 +11,7 @@
 * @version 1.0
 *
 * @author Nick Verhaaf
+* @author Patrick Schoonheym
 *
 * @section LICENSE
 * License: newBSD
@@ -65,8 +66,11 @@ Circle::circleData Circle::getCircle() {
 std::vector<Line> Circle::getLinesAroundCircle() {
 	std::vector<Line> lines;
 
+	// value 90 is the start angle 
+	//value 360 is the total angle of 1 circle
+
 	int radius = radius * LINES_OFFSET;
-	for (int angle = 90; angle < 360; angle += LINES_ANGLE_STEP) {
+	for (int angle = 90; angle < 360; angle += LINES_ANGLE_STEP) { 
 		Line::Point begin_p, end_p;
 
 		begin_p.x = static_cast<int>(originX + (radius * cos(angle))); //calculate point 1
