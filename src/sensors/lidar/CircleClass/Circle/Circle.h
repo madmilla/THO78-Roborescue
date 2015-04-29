@@ -73,9 +73,9 @@ public:
 	//! Getter for get lines around the circle
 	/*!
 		Return requested data of lines in a vector
-		@return Line vector: With the line data
+		@return Line vector: With line data
 	*/
-	 std::vector<Line> getLinesAroundCircle(const Circle & circle);
+	 std::vector<Line> getLinesAroundCircle();
 };
 
 #endif // CIRCLE_H
