@@ -9,7 +9,7 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
 
-#include "../../LineClass/Line.h" 
+#include "../LineClass/Line.h" 
 #include <vector>
 
 class Line;
