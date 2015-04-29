@@ -10,6 +10,7 @@
 * @file shapedetection.cpp
 * @date Created: 22-03-15
 *
+* @version 1.3
 * @author Patrick Schoonheym
 * @author Tijmen Bruggeman
 * @section LICENSE
