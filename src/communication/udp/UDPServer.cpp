@@ -5,9 +5,8 @@ UDPServer::UDPServer(){
 	id = 0;
 	init();
 	sockbind();
-	//std::thread connectionThread(&UDPServer::start, this);
-	start();
-}
+   connectionThread = std::thread(&UDPServer::start, this);
+	}
 
 void UDPServer::init(){
    printf("\nInitialising Winsock...");
@@ -34,14 +33,12 @@ void UDPServer::sockbind(){
       exit(EXIT_FAILURE);
    }
    std::cout << "Bind done!" << std::endl;
-   Sleep(2000);
 }
 
 
 void UDPServer::start(){
    stopped = false;
    while (!stopped){
-         slen = sizeof(si_other);
       printf("Waiting for data...\r\n");
       fflush(stdout);
 
@@ -58,7 +55,7 @@ void UDPServer::start(){
 
       send(_connections[0], &msg);
 	}
-//   std::this_thread::yield();
+   std::this_thread::yield();
 }
 
 void UDPServer::broadcast(mavlink_message_t * message){
@@ -69,7 +66,6 @@ void UDPServer::broadcast(mavlink_message_t * message){
 
 
 void UDPServer::send(UDPSocket & socket, mavlink_message_t * message){
-   std::cout << "slen "<< slen << std::endl;
    if (sendto(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr*) &socket.con.sockaddr, slen) == SOCKET_ERROR){
       printf("sendto() failed with error code : %d\r\n", WSAGetLastError());
    }
