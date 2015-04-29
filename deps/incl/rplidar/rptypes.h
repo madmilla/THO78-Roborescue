@@ -34,7 +34,7 @@
 
 #pragma once
 
-
+/*
 #ifdef _WIN32
 
 //fake stdint.h for VC only
@@ -56,6 +56,8 @@ typedef unsigned __int64  uint64_t;
 #include <stdint.h>
 
 #endif
+*/
+#include <stdint.h>
 
 
 //based on stdint.h

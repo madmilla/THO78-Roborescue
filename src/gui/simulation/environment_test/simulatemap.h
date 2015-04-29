@@ -53,7 +53,11 @@ public:
     *   @param x,y the x and y coordinates of the given checkpoint
     */
     void addCheckPoint(int x, int y);
-
+    /*!
+    *  Remove checkpoints from the checkpoint vector.
+    *  Remove new checkpoints from the vector for simulation.
+    *   @param x,y the x and y coordinates of the given checkpoint
+    */
     void deleteCheckPoint(int x, int y);
     /*!
     *   Returns the pointcloud produced by the simulation.

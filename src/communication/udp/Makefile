@@ -1,11 +1,11 @@
 SRC = RALCPEncoder.cpp Rosbee.cpp UDPServer.cpp UDPSocket.cpp main.cpp
-HEADERS = $(SRC:.cpp:.hpp) Socket.hpp Connection.hpp CPIBoundaryObject.hpp
+HEADERS = $(SRC:.cpp:.hpp) Socket.hpp Connection.hpp CPIBoundaryObject.hpp mingw.thread.h
 OBJ = $(SRC:.cpp=.o)
 EXEC = Udpserver
 CC = g++
 LDFLAGS =
 LIBS = ws2_32
-CFLAGS = -std=gnu++11
+CFLAGS = -std=c++11
 
 .phony: clean run rebuild
 all: $(SRC) $(EXEC)

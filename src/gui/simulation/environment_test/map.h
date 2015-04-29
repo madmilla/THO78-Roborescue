@@ -69,12 +69,13 @@ public:
       * \brief Default constructor of map, clearing memory etc.
     */
     ~Map();
-    //! the width of the map from 1 to x
-    int width;
-    //! the width of the map from 1 to x
-    int height;
     //! the filename
     string fileName;
+    //! the width of the map from 1 to x
+    int height;
+    //! the width of the map from 1 to x
+    int width;
+
 
 private:
     //! The vector which contains all the data of the map by this template mapLayout[y][x].
