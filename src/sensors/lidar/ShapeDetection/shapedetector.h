@@ -1,4 +1,4 @@
-
+﻿
 /**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
@@ -9,7 +9,8 @@
 *
 * @file shapedetection.h
 * @date Created: 22-04-15
-*
+
+* @author Patrick Schoonheym
 * @author Tijmen Bruggeman
 * 
 * @version 1.3

@@ -36,3 +36,6 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     editmapwindow.ui \
     simulatemapwindow.ui
+
+DISTFILES += \
+    README.md
