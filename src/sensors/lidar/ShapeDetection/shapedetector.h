@@ -12,6 +12,7 @@
 *
 * @author Tijmen Bruggeman
 * 
+* @version 1.3
 * @section LICENSE
 * License: newBSD
 *
