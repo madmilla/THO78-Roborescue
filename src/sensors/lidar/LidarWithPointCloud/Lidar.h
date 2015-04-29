@@ -1,9 +1,8 @@
 #ifndef LIDAR_H
 #define LIDAR_H
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include "include/rplidar.h" //RPLIDAR standard sdk, all-in-one header
+#include "../../../../deps/incl/rplidar/rplidar.h"
 #include <vector>
+#include <string>
 
 using namespace rp::standalone::rplidar;
 
