@@ -4,9 +4,8 @@
 // This class is used to initialize the rosbee and it contains the functions that the rosbee can recieve or send to the CPI
 
 
-#include <queue>
 #include "CPIBoundaryObject.hpp"
-#include "..\..\mavlink_commands\mavlink_commands\mavlink.h"
+#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include "Socket.hpp"
 #include "RALCPEncoder.hpp"
 class Rosbee : public CPIBoundaryObject

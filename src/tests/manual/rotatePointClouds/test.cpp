@@ -27,13 +27,13 @@ int main (int argc, char** argv)
 		cloud.setPoint(RANDOM, RANDOM);
 	}
 	cloud.printPoints();
-	rotatedCloud = rotate_point(angle, cloud);
+	rotatedCloud = rotatePoint(angle, cloud);
 	printf("Rotated cloud: \n");
 	rotatedCloud.printPoints();
 	
 	testLog<< "Rotating cloud 360 degrees to test if rotated cloud matches original\n";
 	
-	rotatedCloud = rotate_point(360, cloud);
+	rotatedCloud = rotatePoint(360, cloud);
 	std::vector<Pointcloud::Point> points1 = cloud.getPoints();
 	std::vector<Pointcloud::Point> points2 = rotatedCloud.getPoints();
 	
