@@ -21,8 +21,8 @@ ifeq ($(OS),Windows_NT)
 	CFLAGS = -std=c++11   -I$(DEPS_DIR_WIN)\incl\opencv\files
 else
 	ARCH := $(shell getconf LONG_BIT)
-	CPP_FLAGS_32 := $(DEPS_DIR_LINUX)/incl/opencv/Linux	
-	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/incl/opencv/Linux
+	CPP_FLAGS_32 := $(DEPS_DIR_LINUX)/incl/opencv/Linux/x86	
+	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/incl/opencv/Linux/x64
 	LINKFLAGS := -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))	
 	gcc := /usr/bin/g++
 	CFLAGS = -std=c++11   -I$(DEPS_DIR_LINUX)/incl/opencv/files
