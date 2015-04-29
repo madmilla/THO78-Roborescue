@@ -36,10 +36,10 @@
 
 #pragma once
 
-
 #ifndef __cplusplus
 #error "The RPlidar SDK requires a C++ compiler to be built"
 #endif
+#include <cstddef> 
 
 namespace rp { namespace standalone{ namespace rplidar {
 
