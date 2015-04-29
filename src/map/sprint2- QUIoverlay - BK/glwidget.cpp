@@ -179,7 +179,7 @@ void GLWidget::panDown(){
 }
 
 void GLWidget::zoom(int zoomLevel) {
-    zLevel= zoomLevel;
+    zLevel = zoomLevel;
     if(zLevel < 0){
         zLevel = 0;
     }

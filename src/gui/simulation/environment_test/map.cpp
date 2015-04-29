@@ -20,9 +20,14 @@ Map::Map(string fileName, int height, int width):
 Map::Map(string fileName):
     fileName(fileName)
 {
+    height = 0;
+    width = 0;
     if(!fileName.empty()){
         ifstream mapFile;
         mapFile.open(fileName);
+        if(!mapFile.is_open()){
+            return;
+        }
         if(height == 0 && width == 0){
             string line;
             int i;
@@ -42,13 +47,22 @@ Map::~Map(){
 void Map::loadMap(string fileName){
     ifstream mapFile;
     mapFile.open(fileName);
+    if(!mapFile.is_open()){
+        return;
+    }
     int x = 0,y = 0;
     int content = 0;
 
     mapLayout.resize(height);
     mapLayout[y].resize(width);
     while(y < height){
-        mapFile >> content;
+        try{
+            mapFile >> content;
+        }
+        catch(std::ifstream::failure e){
+            std::cout << e.what() << std::endl;
+        }
+
         mapLayout[y][x] = content;
         ++x;
         if(x > (width-1)){
@@ -64,7 +78,10 @@ void Map::loadMap(string fileName){
 }
 
 void Map::setMapObject(int object,int y, int x){
-    if(x <= width && y <= height){
+    if(x < 0 || y < 0){
+        return;
+    }
+    if(x < width && y < height){
         if(object >= 0){
             mapLayout[y][x] = object;
         }
@@ -72,7 +89,10 @@ void Map::setMapObject(int object,int y, int x){
 }
 
 int Map::getMapObject(int y, int x){
-    if(x <= width && y <= height){
+    if(x < 0 || y < 0){
+        return -1;
+    }
+    if(x < width && y < height){
         return mapLayout[y][x];
     }
     return -1;
@@ -83,7 +103,15 @@ vector<vector< int > > Map::getMapContent(){
 }
 
 void Map::setMapContent(vector<vector< int > > newMapLayout){
-     mapLayout = newMapLayout;
+    if(static_cast<int>(newMapLayout.size()) < height || static_cast<int>(newMapLayout.size()) > height){
+        return;
+    }
+    for(int i = 0; i < height; ++i){
+        if(static_cast<int>(newMapLayout[i].size()) < width || static_cast<int>(newMapLayout[i].size()) > width){
+            return;
+        }
+    }
+    mapLayout = newMapLayout;
 }
 
 void Map::saveMap(){

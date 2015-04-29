@@ -18,7 +18,8 @@ void test(int i){
 
 int main(int argc, char *argv[])
 {
-    test(1);
+	if(!argc){std::cout<<"Dude je moet wel een getaletje invoeren (1 tot en met 4)";return 0;}
+    test(argv[0]);
     return 0;
 
 }

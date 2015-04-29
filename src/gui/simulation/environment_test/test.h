@@ -1,5 +1,12 @@
 #ifndef TEST_H
 #define TEST_H
+#include "map.h"
+#include "PointCloud.h"
+#include "simulatemap.h"
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <time.h>
 //! The test object
 /*!
 The object will run a test to check te code logics

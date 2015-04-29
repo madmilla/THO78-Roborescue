@@ -1,3 +1,10 @@
+/*!
+ *  Class used for calculating normalized lines, calculating the coordinates
+ *  of isometric 2D lines and defining several constants used for displaying
+ *  the lines
+ *  \author    Bianca Krieger
+ */
+
 #ifndef ALGORITHMS_H
 #define ALGORITHMS_H
 
@@ -23,20 +30,26 @@ public:
     static const float NEAR_VAL = 5.0f;
     static const float FAR_VAL = 30.0f;
 
-    // Find the minimum and maximum x and y for the range of the map
-    // Normalize x and y of the line between -1.0 and 1.0
-    // param const std::vector<Line<int>
-    // Returns a vector of lines which are typecast to floats
+    /*!
+    *   Finds the minimum and maximum x and y for the range of the map and
+    *   normalizes the x and y values of the lines between -1.0 and 1.0
+    *   @param lines vector of lines that need to be normalized
+    *   @return returns a vector of lines between -1.0 and 1.0
+    */
     static const std::vector<Line<float> > normalizeLines(const std::vector<Line<int> > lines);
 
-    // Change the normalized coordinates to make it isometric
-    // Param const Line<float>
-    // Returns a vector of lines
-    static const Line<float> twoDToIso(const Line<float>);
+    /*!
+    *   Calculate the coordinates were a line should be drawn for an isometric representation
+    *   @param line Normalized line to calculate isometric positions for
+    *   @return returns Line with coordinates translated to isometric position
+    */
+    static const Line<float> twoDToIso(const Line<float> line);
 
-    // Puts the vector that is made by twoDToIso in a vector which contains multiple lineObjects
-    // Param const std::vector<Line<float>
-    // Returns a vector of lines
+    /*!
+    *   Calculate the coordinates were the lines should be drawn for an isometric representation
+    *   @param linesNormalized Normalized lines to calculate isometric positions for
+    *   @return returns Vector of lines with coordinates translated to isometric position
+    */
     static const std::vector<Line<float> > twoDToIsoVector(const std::vector<Line<float> > linesNormalized);
 };
 

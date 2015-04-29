@@ -1,3 +1,8 @@
+/*!
+ *  Class containing the code for the main window. This loads the UI from mainwindow.ui
+ *  and links all the events to the appropriate actions
+ *  \author    Bianca Krieger
+ */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

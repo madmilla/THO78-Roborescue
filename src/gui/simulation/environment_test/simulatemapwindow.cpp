@@ -42,10 +42,11 @@ void SimulateMapWindow::mousePressEvent(QMouseEvent * event){
         int positionx = (event->pos().x() - event->pos().x() % objectx) / objectx;
         int positiony = (event->pos().y() - event->pos().y() % objecty) / objecty;
         if(positionx < map->width  &&  positiony < map->height){
-            if(selected == Values::LIDAR){
-                simMap->setScanPoint(positiony, positionx);
-            } else if(selected == Values::CHECKPOINT){
+            if(selected == Values::CHECKPOINT){
                 simMap->addCheckPoint(positionx,positiony);
+            }
+            else if(selected == Values::EMPTY){
+                simMap->deleteCheckPoint(positionx, positiony);
             }
             map->setMapObject(selected, positiony, positionx);
             update();
@@ -55,7 +56,7 @@ void SimulateMapWindow::mousePressEvent(QMouseEvent * event){
 }
 
 
-void SimulateMapWindow::paintEvent(QPaintEvent */* Unused */){
+void SimulateMapWindow::paintEvent(QPaintEvent * /* Unused */){
     if(!mousePressed) return;
     QPainter painter(this);
     int y = 0;
