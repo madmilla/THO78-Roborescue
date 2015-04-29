@@ -19,6 +19,6 @@
  * @param angle the rotation angle in Degrees
  * @param cloud the cloud to be rotated
  */ 
-Pointcloud rotate_point(float angle, Pointcloud cloud);
+Pointcloud rotatePoint(float angle, Pointcloud cloud);
 
 #endif

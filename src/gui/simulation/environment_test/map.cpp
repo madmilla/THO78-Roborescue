@@ -20,6 +20,8 @@ Map::Map(string fileName, int height, int width):
 Map::Map(string fileName):
     fileName(fileName)
 {
+    height = 0;
+    width = 0;
     if(!fileName.empty()){
         ifstream mapFile;
         mapFile.open(fileName);
@@ -76,6 +78,9 @@ void Map::loadMap(string fileName){
 }
 
 void Map::setMapObject(int object,int y, int x){
+    if(x < 0 || y < 0){
+        return;
+    }
     if(x < width && y < height){
         if(object >= 0){
             mapLayout[y][x] = object;
@@ -98,11 +103,11 @@ vector<vector< int > > Map::getMapContent(){
 }
 
 void Map::setMapContent(vector<vector< int > > newMapLayout){
-    if(newMapLayout.size() < height || newMapLayout.size() > height){
+    if(static_cast<int>(newMapLayout.size()) < height || static_cast<int>(newMapLayout.size()) > height){
         return;
     }
     for(int i = 0; i < height; ++i){
-        if(newMapLayout[i].size() < width || newMapLayout[i].size() > width){
+        if(static_cast<int>(newMapLayout[i].size()) < width || static_cast<int>(newMapLayout[i].size()) > width){
             return;
         }
     }

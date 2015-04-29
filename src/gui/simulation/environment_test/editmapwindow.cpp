@@ -39,7 +39,7 @@ void EditMapWindow::on_saveMapButton_clicked(){
 
 void EditMapWindow::mousePressEvent(QMouseEvent * event){
     if(event->pos().x() < Values::DRAWWIDTH){
-       if(!selected < 0){
+       if(selected < 0){
            return;
         }
         int positionx = (event->pos().x() - event->pos().x() % objectx) / objectx;
@@ -52,7 +52,7 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
     }
 }
 
-void EditMapWindow::paintEvent(QPaintEvent *e){
+void EditMapWindow::paintEvent(QPaintEvent * /*UNUSED*/){
     if(!mousePressed) return;
     QPainter painter(this);
     int y = 0;

@@ -4,7 +4,7 @@
 #include "rotate.h"
 #include "PointCloud.h"
 
-Pointcloud rotate_point(float angle, Pointcloud cloud){
+Pointcloud rotatePoint(float angle, Pointcloud cloud){
 	
 	float sn = sin(angle*M_PI/180);
 	float cs = cos(angle*M_PI/180); 

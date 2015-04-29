@@ -4,11 +4,6 @@
 #include <sstream>
 #include "values.h"
 
-SimulateMap::SimulateMap()
-{
-
-}
-
 SimulateMap::SimulateMap(Map *map):
     map(map)
 {
@@ -38,9 +33,9 @@ std::string SimulateMap::simulate(){
                 y++;
             }
         }
+        pC.savePointsToFile("pointCloud");
+        s += oss.str();
     }
-    pC.savePointsToFile("pointCloud");
-    s += oss.str();
     return s;
 }
 
@@ -49,9 +44,25 @@ Pointcloud SimulateMap::getPointCloud(){
 }
 
 void SimulateMap::addCheckPoint(int x, int y){
+    if(x < 0 || y < 0){
+        return;
+    }
     if(x < map->width && y < map->height){
         checkPoint cp = checkPoint(x, y);
         checkpoints.push_back(cp);
+    }
+}
+
+void SimulateMap::deleteCheckPoint(int x, int y){
+    if(x < 0 || y < 0){
+        return;
+    }
+    if(x < map->width && y < map->height){
+        for(int i = 0; (i < checkpoints.size()); ++i){
+            if(checkpoints[i].getX() == x && checkpoints[i].getY() == y){
+                checkpoints.erase(checkpoints.begin() + i);
+            }
+        }
     }
 }
 

@@ -1,6 +1,8 @@
 #include <iostream>
-#include "Line.h"
+#include "../../../sensors/lidar/LineClass/Line.h"
 #include <fstream>
+
+class Line;
 
 void test() {
 	std::cout << "running test..." << std::endl << std::endl;
@@ -41,4 +43,6 @@ void test() {
 
 int main() {
 	test(); //run test
+	
+	return 0;
 }
