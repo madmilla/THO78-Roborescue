@@ -13,6 +13,7 @@
 * @author Arnout Reitsma - 1646715
 * 
 * @details Rotate class has the function to rotate a point cloud with a given angle.
+* @version 1.3
 *
 * @section LICENSE
 * License: newBSD
