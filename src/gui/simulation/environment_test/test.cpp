@@ -17,24 +17,17 @@ int Test::run(){
     int size = 20;
 
     std::ofstream testResultsFile;
-    testResultsFile.open("testResult.txt", std::ios_base::app);
+    testResultsFile.open("testResult.txt");
     if(!testResultsFile.is_open()){
         testResultsFile << "Result log: " << "Log file could not be opend" << std::endl;
         ++error;
     }
 
-    /*time_t rawtime;
-    struct tm * timeinfo;
-    time (&rawtime);
-    timeinfo = localtime (&rawtime);
-    std::cout << asctime(timeinfo);*/
-
-
     testResultsFile << "Enviroment Simulator test begin" << std::endl;
 
     //Map from file
     testResultsFile << "Enviroment Simulator test Map from file" << std::endl;
-    Map testFileMap("testFileMap.map");
+    Map testFileMap("../testFileMap.map");
 
     if(testFileMap.getMapContent().size() != size){
         testResultsFile << "Map from file: " << "Map y size incorret" << std::endl;
@@ -203,11 +196,11 @@ int Test::run(){
 
     //Simuate test
     testResultsFile << "Enviroment Simulator test Simulate" << std::endl;
-    testMap.setMapObject(2,6,2);
 
-    testMap.setMapObject(1,9,1);
+    Map *tp = new Map("testSimulateMap.map" , size, size);
+    tp->setMapObject(1,1,9);
 
-    SimulateMap testSim(&testMap);
+    SimulateMap testSim(tp);
 
     testSim.addCheckPoint(6,2);
 
@@ -220,29 +213,32 @@ int Test::run(){
     testSim.simulate();
     testResultsFile << "Simulate: " << "Lest see" << std::endl;
 
-    testSim = SimulateMap(&testMap);
+    Map *pt = new Map("temp.map", size, size);
 
-    testSim.simulate();
+    SimulateMap testSimEmpty(pt);
+
+    testSimEmpty.simulate();
     testResultsFile << "Simulate: " << "Lest see" << std::endl;
 
-    testSim.getPointCloud();
+    testSimEmpty.getPointCloud();
     testResultsFile << "Simulate: " << "Lest see" << std::endl;
+
 
 
     //PointCloud test
     testResultsFile << "Enviroment Simulator test PointCloud" << std::endl;
     Pointcloud pC = testSim.getPointCloud();
     for(Pointcloud::Point p : pC.getPoints()){
-        if(p.X != -1){
+        std::cout << p.X << p.Y << std::endl;
+        if(p.X != 3){
             testResultsFile << "PointCloud: " << "Lest see" << std::endl;
             ++error;
         }
-        if(p.Y != -3){
+        if(p.Y != 1){
             testResultsFile << "PointCloud: " << "Lest see" << std::endl;
             ++error;
         }
     }
-
 
     //Done
     testResultsFile << "Enviroment Simulator test done" << std::endl;
@@ -253,6 +249,6 @@ int Test::run(){
 
     testResultsFile << '\n' << '\n';
     testResultsFile.close();
-    std:cout << "Enviroment Simulator test done" << std::endl;
+    std::cout << "Enviroment Simulator test done" << std::endl;
     return error;
 }
