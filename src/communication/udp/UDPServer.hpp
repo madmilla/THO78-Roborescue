@@ -1,8 +1,8 @@
 #ifndef __UDPSERVER__
 #define __UDPSERVER__
-#include <thread>
-#include<stdio.h>
-#include<winsock2.h>
+//#include <thread>
+#include <stdio.h>
+#include <winsock2.h>
 #include <vector>
 #include <iostream>
 #include <string>
@@ -10,9 +10,7 @@
 #include "Connection.hpp"
 #include "UDPSocket.hpp"
 
-#include "mavlink_commands/udp_mavlink_commands/mavlink.h"
-
-#pragma comment(lib,"ws2_32.lib") //Winsock Library
+#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 
 const int bufferlen = 512;
 const int port = 8888;

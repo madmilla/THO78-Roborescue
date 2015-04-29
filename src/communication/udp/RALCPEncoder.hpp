@@ -1,6 +1,7 @@
-#pragma once
+#ifndef __RALCPENCODER__
+#define __RALCPENCODER__
 #include "Socket.hpp"
-#include "mavlink_commands/udp_mavlink_commands/mavlink.h"
+#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 
 /// \author@ Rene Keijzer<rene.keijzer@student.hu.nl>
 /// \class@ RALCPEncoder
@@ -26,3 +27,4 @@ private:
 	int TARGET_COMPONENTID;
 };
 
+#endif

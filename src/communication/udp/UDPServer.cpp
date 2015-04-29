@@ -5,8 +5,8 @@ UDPServer::UDPServer(){
 	id = 0;
 	init();
 	sockbind();
-	std::thread connectionThread(&UDPServer::start, this);
-
+	//std::thread connectionThread(&UDPServer::start, this);
+	start();
 }
 
 void UDPServer::init(){
@@ -30,51 +30,55 @@ void UDPServer::init(){
 
 void UDPServer::sockbind(){
    if (bind(sock, (struct sockaddr *)&server, sizeof(server)) == SOCKET_ERROR){
-      printf("Bind failed with error code : %d", WSAGetLastError());
+      printf("Bind failed with error code : %d\n", WSAGetLastError());
       exit(EXIT_FAILURE);
    }
    std::cout << "Bind done!" << std::endl;
+   Sleep(2000);
 }
 
 
 void UDPServer::start(){
    stopped = false;
    while (!stopped){
-      printf("Waiting for data...");
+         slen = sizeof(si_other);
+      printf("Waiting for data...\r\n");
       fflush(stdout);
 
       receive(&msg);
+
       addConnection(si_other, &msg);
 
 
       mavlink_msg_ralcp_encode(1, 1, &msg, &packet);
 		
-	
+	   std::cout << packet.Payload << std::endl;
       packet.Payload = packet.Payload + packet.Payload;
       mavlink_msg_ralcp_encode(1, 1, &msg, &packet);
 
       send(_connections[0], &msg);
 	}
-   std::this_thread::yield();
+//   std::this_thread::yield();
 }
 
 void UDPServer::broadcast(mavlink_message_t * message){
-   for each (auto socket in _connections){
+   for (auto socket : _connections){
       send(socket, message);
 	}
 }
 
 
 void UDPServer::send(UDPSocket & socket, mavlink_message_t * message){
-   if (sendto(sock, (char*)&msg, sizeof(mavlink_message_t)+1024, 0, (struct sockaddr*) &socket.con.sockaddr, slen) == SOCKET_ERROR){
-      printf("sendto() failed with error code : %d", WSAGetLastError());
+   std::cout << "slen "<< slen << std::endl;
+   if (sendto(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr*) &socket.con.sockaddr, slen) == SOCKET_ERROR){
+      printf("sendto() failed with error code : %d\r\n", WSAGetLastError());
    }
 }
 
 void UDPServer::receive(mavlink_message_t * message){
-   if ((recv_len = recvfrom(sock, (char*)&msg, sizeof(mavlink_message_t)+1024, 0, (struct sockaddr *) &si_other, &slen)) == SOCKET_ERROR){
-      printf("recvfrom() failed with error code : %d", WSAGetLastError());
-   }
+   if ((recv_len = recvfrom(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr *) &si_other, &slen)) == SOCKET_ERROR){
+      printf("recvfrom() failed with error code : %d\r\n", WSAGetLastError());
+      }
 }
 
 void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
@@ -97,7 +101,7 @@ void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
 			   des = Connection::LIDAR;
 			   break;
 		   default:
-			   std::cerr << "UNKNOWN DEVICE CONNECTION NOT HANDLED";
+			   std::cerr << "UNKNOWN DEVICE CONNECTION NOT HANDLED\r\n";
 			return;
 		}
 		
