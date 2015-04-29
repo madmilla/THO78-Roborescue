@@ -36,7 +36,7 @@ int Test::run(){
 
     for(int y = 0; y < testFileMap.height; y++){
         for(int x = 0; x < testFileMap.width; x++){
-            if(testFileMap.getMapContent()[y].size() != static_cast<unsigned int>(size)){
+            if(static_cast<int>(testFileMap.getMapContent()[y].size()) != size){
                 testResultsFile << "Map from file: " << "Map x size incorret" << std::endl;
                 ++error;
             }
@@ -66,14 +66,14 @@ int Test::run(){
     testResultsFile << "Enviroment Simulator test Map not from file" << std::endl;
     Map testMap("testMap.map", size,size);
 
-    if(static_cast<unsigned int>(testMap.getMapContent().size()) != size){
+    if(static_cast<int>(testMap.getMapContent().size()) != size){
         testResultsFile << "Map not from file: " << "Map y size incorret" << std::endl;
         ++error;
     }
 
     for(int y = 0; y < testMap.height; y++){
         for(int x = 0; x < testMap.width; x++){
-            if(static_cast<unsigned int>(testMap.getMapContent()[y].size()) != size){
+            if(static_cast<int>(testMap.getMapContent()[y].size()) != size){
                 testResultsFile << "Map not from file: " << "Map x size incorret" << std::endl;
                 ++error;
             }

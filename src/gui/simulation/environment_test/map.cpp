@@ -103,11 +103,11 @@ vector<vector< int > > Map::getMapContent(){
 }
 
 void Map::setMapContent(vector<vector< int > > newMapLayout){
-    if(static_cast<unsigned int>(newMapLayout.size()) < height || static_cast<unsigned int>(newMapLayout.size()) > height){
+    if(static_cast<int>(newMapLayout.size()) < height || static_cast<int>(newMapLayout.size()) > height){
         return;
     }
     for(int i = 0; i < height; ++i){
-        if(newMapLayout[i].size() < width || newMapLayout[i].size() > width){
+        if(static_cast<int>(newMapLayout[i].size()) < width || static_cast<int>(newMapLayout[i].size()) > width){
             return;
         }
     }
