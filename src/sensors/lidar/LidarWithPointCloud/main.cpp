@@ -5,7 +5,8 @@
 
 int main()
 {
-    Lidar lidar("\\\\.\\com3");
+    //Lidar lidar("\\\\.\\com3");
+    Lidar lidar("/dev/ttyAMA0");
     LidarController lController(lidar);
     std::thread lthread(&LidarController::run, &lController);
     lthread.detach();
