@@ -23,7 +23,7 @@ int main (int argc, char** argv)
 	printf("Rotating %f degrees \nOriginal cloud:\n", angle);
 	
 	Pointcloud cloud, rotatedCloud;
-	for(int i = 0; i < 15; i++){	
+	for(int i = 0; i < 15; ++i){	
 		cloud.setPoint(RANDOM, RANDOM);
 	}
 	cloud.printPoints();
@@ -44,7 +44,7 @@ int main (int argc, char** argv)
 			testLog.close();
 			exit(0);
 		}
-		i++;
+		++i;
 	}
 	testLog << "Cloud succesfully rotated. TEST SUCCESFULL!\n";
 	
