@@ -16,7 +16,7 @@ std::string SimulateMap::simulate(){
     std::string s = "";
 
     if(checkpoints.size() > 0){
-        for(int i = 0; (i < checkpoints.size()); ++i){
+        for(unsigned int i = 0; (i < checkpoints.size()); ++i){
             y = 0;
             for(std::vector<int> fory : map->getMapContent()){
                 setScanPoint(checkpoints[i].getY(), checkpoints[i].getX());
@@ -58,7 +58,7 @@ void SimulateMap::deleteCheckPoint(int x, int y){
         return;
     }
     if(x < map->width && y < map->height){
-        for(int i = 0; (i < checkpoints.size()); ++i){
+        for(unsigned int i = 0; (i < checkpoints.size()); ++i){
             if(checkpoints[i].getX() == x && checkpoints[i].getY() == y){
                 checkpoints.erase(checkpoints.begin() + i);
             }
