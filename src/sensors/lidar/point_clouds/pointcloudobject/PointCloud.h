@@ -107,15 +107,15 @@ public:
 	Save all the points tot a file, the offset and the orientation to a file
 	@param filename: the filename of the file where the points will be written
 	*/
-    	void savePointsToFile(std::string filename);
+    void savePointsToFile(std::string filename);
 	//! load all the points from a file
 	/*!
 	load all the points, the offset and the orientation from a file
 	@param filename: the filename of the file with the points.
 	*/
-    	void loadPointsFromFile(std::string filename);
+    void loadPointsFromFile(std::string filename);
 
-    	//! print all points in given cloud    
+    //! print all points in given cloud    
 	void printPoints();
 	//OPERATORS
 

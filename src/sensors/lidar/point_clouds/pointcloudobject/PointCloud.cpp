@@ -25,7 +25,7 @@ void Pointcloud::removePoint(int x, int y){
 			pointCloud.erase(pointCloud.begin()+i);
 			break;
 		}
-		i++;
+		++i;
 	}
 }
 void Pointcloud::removePoint(Point point){
@@ -35,7 +35,7 @@ void Pointcloud::removePoint(Point point){
 			pointCloud.erase(pointCloud.begin() + i);
 			break;
 		}
-		i++;
+		++i;
 	}
 }
 Pointcloud::Pointcloud(){}
