@@ -20,6 +20,8 @@ Map::Map(string fileName, int height, int width):
 Map::Map(string fileName):
     fileName(fileName)
 {
+    height = 0;
+    width = 0;
     if(!fileName.empty()){
         ifstream mapFile;
         mapFile.open(fileName);
