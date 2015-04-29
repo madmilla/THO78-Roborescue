@@ -29,14 +29,14 @@ int Test::run(){
     testResultsFile << "Enviroment Simulator test Map from file" << std::endl;
     Map testFileMap("../testFileMap.map");
 
-    if(testFileMap.getMapContent().size() != size){
+    if(static_cast<unsigned int>(testFileMap.getMapContent().size()) != size){
         testResultsFile << "Map from file: " << "Map y size incorret" << std::endl;
         ++error;
     }
 
     for(int y = 0; y < testFileMap.height; y++){
         for(int x = 0; x < testFileMap.width; x++){
-            if(testFileMap.getMapContent()[y].size() != size){
+            if(static_cast<unsigned int>(testFileMap.getMapContent()[y].size()) != size){
                 testResultsFile << "Map from file: " << "Map x size incorret" << std::endl;
                 ++error;
             }
