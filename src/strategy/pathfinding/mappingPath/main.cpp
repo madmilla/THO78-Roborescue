@@ -4,8 +4,8 @@
  * @version 1.3
  */
 
-#include "mainwindow.h"
-#include <QApplication>
+//#include "mainwindow.h"
+//#include <QApplication>
 #include "scanArea.h"
 #include "Rosbee.h"
 #include "Map.h"
