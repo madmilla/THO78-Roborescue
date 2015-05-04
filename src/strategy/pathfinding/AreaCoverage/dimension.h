@@ -5,6 +5,7 @@
 class Dimension
 {
 public:
+	// Uitlijnen volgens TI rules
     bool operator ==(Dimension d ){
         if(this->height==d.height&&this->width==d.width){return true;}
         else{return false;}
