@@ -11,7 +11,7 @@ ShapeDetector::~ShapeDetector()
 
 void ShapeDetector::writeCirclesToConsole(const CvSeq * circles){
     std::cout << "found circles: " << (circles->total) << std::endl << std::endl;
-    for (int i = 0; i < circles->total; ++i) // walk through the circles
+    for (int i = 0; i < circles->total; i++) // walk through the circles
     {
         // round the floats to an int
         std::cout << "Circle "<< i+1 << std::endl;
@@ -23,7 +23,7 @@ void ShapeDetector::writeCirclesToConsole(const CvSeq * circles){
 }
 
 void ShapeDetector::drawCircles(const CvSeq * circles, Mat & image){
-    for (int i = 0; i < circles->total; ++i) //Walk through all the circles
+    for (int i = 0; i < circles->total; i++) //Walk through all the circles
     {
         // round the floats to an int
         float* p = (float*)cvGetSeqElem(circles, i);
@@ -39,7 +39,11 @@ void ShapeDetector::drawCircles(const CvSeq * circles, Mat & image){
 }
 
 CvSeq * ShapeDetector::detectCircles(const Mat & image){
-    IplImage img = image;
+	Mat newImage = image.clone();
+	Mat frame;
+	cv::GaussianBlur(newImage, frame, cv::Size(0, 0), 3);
+	cv::addWeighted(frame, 100, newImage, -100, 10, newImage);
+    IplImage img = newImage;
 
     IplImage* gray = cvCreateImage(cvGetSize(&img), IPL_DEPTH_8U, 1); // create a new image with only black and white pixels
     CvMemStorage* storage = cvCreateMemStorage(0);
@@ -47,7 +51,6 @@ CvSeq * ShapeDetector::detectCircles(const Mat & image){
     cvCvtColor(&img, gray, CV_BGR2GRAY); // transform the created image into the black/white image
 
     cvSmooth(gray, gray, CV_GAUSSIAN, SMOOTH, SMOOTH); // This is done so as to prevent a lot of false circles from being detected
-
     IplImage* canny = cvCreateImage(cvGetSize(&img),IPL_DEPTH_8U,1); // Create a image which will only contain the edges of the objects
     cvCanny(gray, canny, EDGE_TRESHHOLD, EDGE_TRESHHOLD); // Detect edges int he image
 
@@ -65,48 +68,29 @@ bool ShapeDetector::callCvSmooth(const Mat & m_src, const Mat & m_dest, const in
     return true;
 }
 
-Mat ShapeDetector::createImage(const std::string & source){
-    std::ifstream file(source); // open  inputfile
-    if (!file.is_open()){
-        std::cout << "could not open file with name " << source << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    std::string line;
-    size_t imageHeight = 0;
-    size_t imageWidth = 0;
-    while(getline(file,line)){ //a while loop to get the image width and the image Height
-        imageHeight++;
-        if(line.length()> imageWidth){
-            imageWidth = line.length();
-        }
-    }
+Mat ShapeDetector::createImage(Pointcloud & source){
+
+    size_t imageHeight = source.getCloudHeight();
+    size_t imageWidth = source.getCloudWidth();
+   
     Mat mat((int)imageWidth,(int)imageHeight,CV_8UC1); //Create a Mat object which will represent the image with all the pixels
-    int x = 0;
-    file.clear();
-    file.seekg(0,file.beg);
-    while(getline(file,line)){ //Walk through the file
-        int y = 0;
-        for(int i = 0; i< (int)imageWidth; ++i){
-            char ch = line[i];
-            if(isdigit(ch)){ // if the char in the file is a number, the pixel should be 255
-                mat.at<uchar>(Point(y,x)) = BLACK_PIXEL; // set the pixel at 255
-            }
-            else{
-                mat.at<uchar>(Point(y,x)) = WHITE_PIXEL;
-            }
-            y++;
-        }
-        x++;
-    }
-    file.close();
+	for (int y = 0; y < imageHeight; ++y){
+		for (int x = 0; x < imageWidth; ++x){
+			mat.at<uchar>(Point(y, x)) = BLACK_PIXEL;
+		}
+	}
+	for (Pointcloud::Point p : source.getPoints()){
+		mat.at<uchar>(Point(p.Y, p.X)) = WHITE_PIXEL;
+	}
     imwrite("output.jpg", mat); // save the image
 
-    return Mat(imread("output.jpg")); //read and return the image
+    Mat image(imread("output.jpg")); //read and return the image
+	return image;
 }
 
 void ShapeDetector::checkLines(vector<Vec4i> & lines) {
 
-    for( size_t i = 0; i < lines.size(); ++i ) {    //walk through the line container
+    for( size_t i = 0; i < lines.size(); i++ ) {    //walk through the line container
         Vec4i second = lines[i];
         for (size_t j = 0; j < lines.size(); j++) {
             Vec4i current = lines[j];
@@ -140,14 +124,18 @@ vector<Vec4i> ShapeDetector::searchLines(const Mat & image) {
         std::cout << "could not read image" << std::endl;
         exit(-1);
     }
-
+	Mat newImage = image.clone();
+	Mat frame;
+	cv::GaussianBlur(newImage, frame, cv::Size(3, 3), 3);
+	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);
+	imwrite( "lines.jpg",newImage);
     Mat dest;
-    if(!callCvSmooth(image, image, CV_GAUSSIAN, SMOOTH, SMOOTH)) {
+	if (!callCvSmooth(newImage, newImage, CV_GAUSSIAN, SMOOTH, SMOOTH)) {
        std::cout << "the source file is empty!" << std::endl;
        exit(-1);
-    }
-    Canny(image, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image
-
+	}
+	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image
+	imwrite("linesdest.jpg", dest);
     vector<Vec4i> lines;  // container to save te lines
     HoughLinesP(dest, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,
     HOUGHLINES_MINLINELENGTH, HOUGHLINES_MAXLINEGAP);  //search the lines
@@ -160,7 +148,7 @@ vector<Vec4i> ShapeDetector::searchLines(const Mat & image) {
 void ShapeDetector::writeLinesToConsole(const vector<Vec4i> & lines) {
     std::stringstream stream;
     stream << "found lines: " << lines.size() << std::endl << std::endl;
-    for (size_t i = 0; i < lines.size(); ++i ) {
+    for (size_t i = 0; i < lines.size(); i++ ) {
         Vec4i line = lines[i];
         stream << "line " << i+1 << std::endl;
         stream << "(x1, y1) (" << line[0] << ',' << line[1] << ')' << std::endl;
@@ -170,7 +158,7 @@ void ShapeDetector::writeLinesToConsole(const vector<Vec4i> & lines) {
 }
 
 void ShapeDetector::drawLines(const vector<Vec4i> & lines, Mat & final_dest) {
-    for( size_t i = 0; i < lines.size(); ++i ) {
+    for( size_t i = 0; i < lines.size(); i++ ) {
         Vec4i l = lines[i];
         line( final_dest, Point(l[0], l[1]), Point(l[2], l[3]), LINECOLOR, THICKNESS, CV_AA);
     }

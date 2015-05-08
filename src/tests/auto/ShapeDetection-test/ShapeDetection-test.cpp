@@ -10,10 +10,48 @@
 #include "shapedetector.h"
 #include <fstream>
 
+//Create a pointcloud out of a .txt file
+//ONLY NEEDED TO TEST THE POINTCLOUD DETECTION
+Pointcloud txtToPointcloud(const std::string & source){
+	std::ifstream file(source); // open  inputfile
+	if (!file.is_open()){
+		std::cout << "could not open file with name " << source << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	std::string line;
+	size_t imageHeight = 0;
+	size_t imageWidth = 0;
+	while (getline(file, line)){ //a while loop to get the image width and the image Height
+		imageHeight++;
+		if (line.length()> imageWidth){
+			imageWidth = line.length();
+		}
+	}
+	Pointcloud pointcloud;
+	int x = 0;
+	file.clear();
+	file.seekg(0, file.beg);
+	while (getline(file, line)){ //Walk through the file
+		int y = 0;
+		for (int i = 0; i< (int)imageWidth; i++){
+			char ch = line[i];
+			if (isdigit(ch)){ // if the char in the file is a number, the pixel should be 255
+				pointcloud.setPoint(x,y); // set the pixel at 255
+			}
+			y++;
+		}
+		x++;
+	}
+	file.close();
+	std::cout << "size of pointcloud: " << pointcloud.getPoints().size() << "\n";
+	return pointcloud;
+}
+
 void test(){
 	std::ofstream output("../../../../results/ShapeDetection_results.txt");
     ShapeDetector sD;
-	const Mat & image = sD.createImage("circles400.txt");
+	Pointcloud p = txtToPointcloud("circles400.txt");
+	const Mat & image = sD.createImage(p);
 	if (image.size().width < 400 || image.size().height < 400){
 		output << "image WIDTH: " << image.size().width << "\t image HEIGHT: " << image.size().height << "\n";
 		output << "image creation FAILED\n";
@@ -52,7 +90,8 @@ int main(int argc, char** argv)
 	else{
 		std::cout << "mek\n";
 		ShapeDetector sD;
-		const Mat & orginal_image = sD.createImage(argv[1]);
+		Pointcloud p = txtToPointcloud(argv[1]);
+		const Mat & orginal_image = sD.createImage(p);
 		Mat customImage = orginal_image.clone();
 		CvSeq* circles = sD.detectCircles(customImage);
 		vector<Vec4i> lines = sD.searchLines(customImage);

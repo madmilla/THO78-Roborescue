@@ -2,7 +2,7 @@
 
 PROG = main
 # the needed cpp files (withoud .cpp)
-MODULES := ShapeDetection-test shapedetector
+MODULES := PointCloud ShapeDetection-test shapedetector 
 
 # the deps directory
 DEPS_DIR_WIN:= ..\..\..\..\deps
