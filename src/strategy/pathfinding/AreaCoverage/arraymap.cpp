@@ -186,6 +186,7 @@ ArrayMap::~ArrayMap()
 {
 
 }
+ // Uitlijne volgens TI rules
 bool ArrayMap::contains(int search){
     for(int i=0; i< int(data.size());i++){
         std::vector<int>* tmp;
@@ -204,7 +205,7 @@ bool ArrayMap::contains(int search){
 
 }
 void ArrayMap::print(){
-
+	// Uitlijnen volgens TI rules
     for(int i=0; i< int(data.size());i++){
         std::vector<int>* tmp;
         tmp = data.at(i);

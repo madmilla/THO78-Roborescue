@@ -50,6 +50,7 @@ public:
     void drawWayPoints(ArrayMap*);
     bool testCoverage();
 private:
+	// isCoveredInDirecten true or fales TI rules
     bool checkIfCoveredInDirection(Dimension d, TestCopter* t );
     bool checkIfBoxedIn(TestCopter*, ArrayMap *map);
     void moveBackOnRoute(TestCopter* copter);
