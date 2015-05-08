@@ -1,41 +1,11 @@
-﻿
-/**
-*               __
-*    _________ / /_  ____  ________  ____________  _____
-*   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
-*  / / / /_/ / /_/ / /_/ / /  /  __(__  ) /__/ /_/ /  __/
-* /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
-*
-*
-* @file shapedetection.h
-* @date Created: 22-04-15
-
-* @author Patrick Schoonheym
-* @author Tijmen Bruggeman
-* 
-* @version 1.3
-* @section LICENSE
-* License: newBSD
-*
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
-* All rights reserved.
-*
-* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-* - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-* - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-* - Neither the name of the HU University of Applied Sciences Utrecht nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE HU UNIVERSITY OF APPLIED SCIENCES UTRECHT
-* BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
-* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+﻿/*!
+ * \brief Containing functions to detect shapes
+ * \details Class with functions to detect lines and circles out of a pointcloud object
+ * \author Tijmen Bruggeman - 1634346
+ * \author Patrick Schoonheym - 1639598
+ * \version 2.0
+ * \date 22-04-2015
+ */
 
 #ifndef SHAPEDETECTOR_H
 #define SHAPEDETECTOR_H
@@ -45,6 +15,7 @@
 #include "opencv.hpp"
 #include <iostream>
 #include <fstream>
+#include "PointCloud.h"
 
 using namespace std;
 using namespace cv;
@@ -60,18 +31,18 @@ private:
     const int EDGE_TRESHHOLD = 50; //! the treshhold for detectecting the edges in the image
     const int RESOLUTION_INVERSERATIO = 1; //! the resolution inverseratio
     const int MIN_DISTANCE_CIRCLES = 6; //! the minimun distance between the different circles
-    const int CIRCLE_CENTER_TRESHHOLD = 19; //! the treshold for detecting a circle center
-    const int BLACK_PIXEL = 255; //! the value for a black pixel
-    const int WHITE_PIXEL = 0; //! the value for a white pixel
+    const int CIRCLE_CENTER_TRESHHOLD = 45; //! the treshold for detecting a circle center
+    const int BLACK_PIXEL = 0; //! the value for a black pixel
+    const int WHITE_PIXEL = 255; //! the value for a white pixel
     const int SMOOTH = 7; //! the value in cvSmooth
-    const int RANGE_CHECK = 15; //! the range for checking inconsistent lines
+    const int RANGE_CHECK = 40; //! the range for checking inconsistent lines
     const int CANNY_THRESHHOLD1 = 50; //! the first threshhold used in the canny function
     const int CANNY_THRESHHOLD2 = 82; //! the second threshhold used in the canny function
     const double HOUGHLINES_RHO = 1; //! The resolution of the parameter r in pixels. We use 1 pixel.
     const double HOUGHLINES_THETA = CV_PI/180; //! The resolution of the parameter theta in radians. We use 1 degree (CV_PI/180)
-    const int HOUGHLINES_THRESHHOLD = 20; //! The minimum number of intersections to “detect” a line
-    const double HOUGHLINES_MINLINELENGTH = 50; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
-    const double HOUGHLINES_MAXLINEGAP = 10; //! The maximum gap between two points to be considered in the same line.
+    const int HOUGHLINES_THRESHHOLD = 40; //! The minimum number of intersections to “detect” a line
+    const double HOUGHLINES_MINLINELENGTH = 10; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
+    const double HOUGHLINES_MAXLINEGAP = 20; //! The maximum gap between two points to be considered in the same line.
     const CvScalar LINECOLOR = CV_RGB(0,255,0); //! the line color
     const int THICKNESS = 3; //! the thickness of the line
 
@@ -113,16 +84,18 @@ public:
     @param image: The image to detect circles on
     */
     CvSeq * detectCircles(const Mat & image);
-    //! create a image from the given .txt source
+    //! create a image from the given pointcloud source
     /*!
     This function creates a .jpg file from a .txt file with pixels and saves it as output.jpg
-    @param image: The image to detect circles on
+    @param source: The pointcloud to detect circles on
+	@return mat: the created image
     */
-    Mat createImage(const std::string & source);
+    Mat createImage(Pointcloud & source);
 
     //! the function search for lines in the given image and returns the lines
     /*!
     @param image: the image to detect lines on
+	@return vector: Returns a vector with the found lines
     */
     vector<Vec4i> searchLines(const Mat & image);
 
