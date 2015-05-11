@@ -59,7 +59,7 @@ ALTER TABLE `checkpoint`
   ADD CONSTRAINT `checkpoint_ibfk_1` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`id`);
 
 ALTER TABLE `object`
-  ADD CONSTRAINT `object_ibfk_1` FOREIGN KEY (`id`) REFERENCES `map` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `object_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `qr`
   ADD CONSTRAINT `qr_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`);
