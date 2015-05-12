@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `checkpoint` (
   PRIMARY KEY (`id`),
   KEY `vehicle_id` (`vehicle_id`),
   KEY `map_id` (`map_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `map`;
 CREATE TABLE IF NOT EXISTS `map` (
@@ -57,10 +57,7 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
 ALTER TABLE `checkpoint`
   ADD CONSTRAINT `checkpoint_ibfk_2` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`),
   ADD CONSTRAINT `checkpoint_ibfk_1` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`id`);
-
-ALTER TABLE `object`
-  ADD CONSTRAINT `object_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
+  
 ALTER TABLE `qr`
   ADD CONSTRAINT `qr_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`);
   
