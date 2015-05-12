@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `map` (
   `name` varchar(40) NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `object`;
 CREATE TABLE IF NOT EXISTS `object` (
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `object` (
   `height` int(11) NOT NULL DEFAULT '0',
   `map_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `qr`;
 CREATE TABLE IF NOT EXISTS `qr` (
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `qr` (
   `map_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `map_id` (`map_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `vehicle`;
 CREATE TABLE IF NOT EXISTS `vehicle` (
@@ -51,16 +51,17 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
   `depth` int(11) NOT NULL,
   `naam` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 ALTER TABLE `checkpoint`
   ADD CONSTRAINT `checkpoint_ibfk_2` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`),
   ADD CONSTRAINT `checkpoint_ibfk_1` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`id`);
-  
+
+ALTER TABLE `object`
+  ADD CONSTRAINT `object_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 ALTER TABLE `qr`
   ADD CONSTRAINT `qr_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`);
-  
-ALTER TABLE  `object` ADD SPATIAL(
-`polygon`
-);
+ALTER TABLE  `object` 
+  ADD SPATIAL(`polygon`);
