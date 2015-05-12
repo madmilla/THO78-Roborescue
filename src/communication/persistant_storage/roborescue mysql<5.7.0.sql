@@ -63,9 +63,5 @@ ALTER TABLE `object`
   
 ALTER TABLE `qr`
   ADD CONSTRAINT `qr_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`);
-  
-ALTER TABLE  `object` ADD SPATIAL(
-`polygon`
-);
 
 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '\nThis version of mysql is unsuported.\nIt has worse performances. Please upgrade to mysql 5.7.0 or above';
