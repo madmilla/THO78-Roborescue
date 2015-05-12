@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `object` (
   `height` int(11) NOT NULL DEFAULT '0',
   `map_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `qr`;
 CREATE TABLE IF NOT EXISTS `qr` (
@@ -58,6 +58,9 @@ ALTER TABLE `checkpoint`
   ADD CONSTRAINT `checkpoint_ibfk_2` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`),
   ADD CONSTRAINT `checkpoint_ibfk_1` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`id`);
   
+ALTER TABLE `object`
+  ADD CONSTRAINT `object_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
 ALTER TABLE `qr`
   ADD CONSTRAINT `qr_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `map` (`id`);
   
@@ -65,4 +68,4 @@ ALTER TABLE  `object` ADD SPATIAL(
 `polygon`
 );
 
-SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '\nThis version of mysql is unsuported.\nIt has worse performances. Please upgrade to mysql 5.7.4';
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '\nThis version of mysql is unsuported.\nIt has worse performances. Please upgrade to mysql 5.7.0 or above';
