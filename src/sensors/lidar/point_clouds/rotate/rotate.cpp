@@ -5,9 +5,9 @@
 #include "PointCloud.h"
 
 Pointcloud rotatePoint(float angle, Pointcloud cloud){
-	
-	float sn = sin(angle*M_PI/180);
-	float cs = cos(angle*M_PI/180); 
+	const int halfCircle = 180;
+	float sn = sin(angle*M_PI/halfCircle);
+	float cs = cos(angle*M_PI/halfCircle); 
 	std::vector<Pointcloud::Point> points = cloud.getPoints();
 
 	for (Pointcloud::Point p : points) {    	

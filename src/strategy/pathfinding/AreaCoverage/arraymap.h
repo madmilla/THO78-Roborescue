@@ -2,15 +2,13 @@
 #define ARRAYMAP_H
 #include <vector>
 using namespace std;
-class ArrayMap
-{
+class ArrayMap {
 public:
-
-    ArrayMap(int i);
-    vector< vector<int>* > data;
-    ~ArrayMap();
-    void print();
-    bool contains(int);
+  ArrayMap(int i);
+  vector<vector<int> *> data;
+  ~ArrayMap();
+  void print();
+  bool contains(int);
 };
 
 #endif // ARRAYMAP_H
