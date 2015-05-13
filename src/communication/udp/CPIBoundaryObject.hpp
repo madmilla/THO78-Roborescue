@@ -5,6 +5,7 @@
 #include <cstdint>
 #include "Socket.hpp"
 #include <iostream>
+#include "mingw.thread.h"
 
 /// \author Rene Keijzer<rene.keijzer@student.hu.nl>
 /// \class CPIBoundaryObject
@@ -15,12 +16,16 @@ class CPIBoundaryObject
 public:
 	/// \param socket to communicate over
 	/// \param id for identification
-	CPIBoundaryObject(Socket sock) :  socket(socket){DeviceId = socket.getId();}
+	CPIBoundaryObject(Socket sock) :  socket(socket){
+		DeviceId = socket.getId(); 
+		robotThread = std::thread(&CPIBoundaryObject::run, this);
+	}
 	~CPIBoundaryObject(){}
 protected:
+	virtual void run() = 0;
 	Socket socket;
 private:
 	uint16_t DeviceId;
-	
+	std::thread robotThread;
 	};
 #endif

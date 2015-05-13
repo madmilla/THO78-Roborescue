@@ -13,11 +13,12 @@ RobotManager * RobotManager::get(){
 Rosbee * RobotManager::createRosbee(Socket & s){
 	try{
 	Rosbee * rosbee = new Rosbee(s);
+	robots.push_back(rosbee);
+	return rosbee;
 }catch(std::exception &ex){
 	std::cout << ex.what();
 }
-	//robots.push_back(rosbee);
-	return nullptr;
+	
 
 }
 

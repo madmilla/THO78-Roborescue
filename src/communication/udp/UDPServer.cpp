@@ -37,10 +37,14 @@ void UDPServer::sockbind(){
 
 void UDPServer::start(){
    while(!stopped){
+      try{
       receive(&msg);
       addConnection(si_other, &msg);
-      //handleMessage(si_other, &msg);
-   }
+     // handleMessage(si_other, &msg);
+      }catch(std::exception & ex){
+         std::cout << ex.what();
+      }
+}
    std::this_thread::yield();
 }
 
@@ -67,7 +71,7 @@ void UDPServer::startTest(){
 }
 
 void UDPServer::broadcast(mavlink_message_t * message){
-   for (auto socket : _connections){
+   for (auto & socket : _connections){
       send(socket, message);
 	}
 }
@@ -82,13 +86,13 @@ void UDPServer::receive(mavlink_message_t * message){
 
    if ((recv_len = recvfrom(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr *) &si_other, &slen)) == SOCKET_ERROR){
       printf("recvfrom() failed with error code : %d\r\n", WSAGetLastError());
-      }
+   }
+   std::cout << "recv";
    
-     std::cout<< "receiving";
 }
 
 void UDPServer::handleMessage(sockaddr_in con, mavlink_message_t * msg){
-   for (auto socket : _connections){
+   for (auto & socket : _connections){
       if (inet_ntoa(socket.con.sockaddr.sin_addr) == inet_ntoa(con.sin_addr) && (socket.con.sockaddr.sin_port) == con.sin_port){
          socket.receive(msg);
       }
@@ -97,16 +101,13 @@ void UDPServer::handleMessage(sockaddr_in con, mavlink_message_t * msg){
 
 void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
    bool found = false;
-   for (auto socket : _connections){
+   for (auto & socket : _connections){
       if (inet_ntoa(socket.con.sockaddr.sin_addr) == inet_ntoa(con.sin_addr) && (socket.con.sockaddr.sin_port) == con.sin_port){
          found = true;
-         
-      std::cout << "old connection" << std::endl;
-         break;
+         return;
 		}
 	}
    if (!found){
-      std::cout << "new connection" << std::endl;
       mavlink_msg_ralcp_decode(msg, &packet);
       Connection connect = Connection(id++, Connection::UNKNOWN, con);
       Connection::Identifier des = Connection::UNKNOWN;
@@ -127,9 +128,7 @@ void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
       RobotManager::get()->createRosbee(sock);
 
       _connections.push_back(sock);
-      printf("New connection from %s:%d\r\n", inet_ntoa(con.sin_addr), ntohs(con.sin_port));
-      std::cout << "packet function was:" << packet.Function << std::endl;
-      std::cout << "Packet data was: " << packet.Payload << std::endl;
+      sock.receive(msg);
 	}
 }
 

@@ -3,11 +3,11 @@
 #include <vector>
 #include <algorithm>
 #include <cassert>
+#include "NonCopyable.h"
 
 template <typename T>
-class MessageQueue{
+class MessageQueue : public NonCopyable{
 public:
-	MessageQueue(){}
 	void add(T item){
 		container.push_back(item);
 	}
@@ -33,7 +33,6 @@ public:
 	bool isEmpty(){
 		return container.empty();
 	}
-	~MessageQueue(){}
 private:
 	std::vector<T> container;
 };

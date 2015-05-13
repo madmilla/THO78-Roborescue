@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <exception>
 
 #include "MessageQueue.h"
 #include "Connection.hpp"

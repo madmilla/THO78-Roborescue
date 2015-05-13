@@ -4,7 +4,8 @@
 // This class is used to initialize the rosbee and it contains the functions that the rosbee can recieve or send to the CPI
 #ifndef __ROSBEE__
 #define __ROSBEE__
-#include "mingw.thread.h"
+
+#include <chrono>
 #include "CPIBoundaryObject.hpp"
 #include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include "UDPSocket.hpp"
@@ -16,13 +17,14 @@ public:
 	// constructor to make a Rosbee object (socket)
 	// @param: Socket is used to listen to a specific socket
 	Rosbee(Socket & s) : CPIBoundaryObject(s){
-	//	encoder = new RALCPEncoder(s, s.getId(), 0, 0, 0);
-	//	rosbeeThread = std::thread(&Rosbee::run, this);
+
+		encoder = new RALCPEncoder(s, s.getId(), 0, 0, 0);
+		outgoing = new MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>>();
 	}
 
 	// initialize the Rosbee 
 	void init();
-	void run();
+	void run() override;
 
 	// this function checks if all devices are ready or not
 	void getRequirementStatus();
@@ -66,9 +68,8 @@ private:
 	friend class RobotManager;
 
 	mavlink_message_t message;
-	std::thread rosbeeThread;
 	RALCPEncoder * encoder;
 	bool running = false;
-	MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>> outgoing;
+	MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
 };
 #endif

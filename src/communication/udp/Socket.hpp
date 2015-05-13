@@ -25,9 +25,5 @@ public:
    /// return@ uint8_t id of socket
    virtual uint8_t getId(){ return 0; }
    ~Socket(){}
-private:
-   std::queue<mavlink_message_t *> commandQueue;
-
-
 };
 #endif
