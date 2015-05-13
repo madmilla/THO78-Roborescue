@@ -22,17 +22,21 @@ public:
 	//Param: message this is the message that you are sending
 	void send(mavlink_message_t * message) override;
 
-	void receive(mavlink_message_t message);
+	void receive(mavlink_message_t * message);
 	// This function returns the connection id
 	// Return@ The id of the connection
 	uint8_t getId() override { return con.id; }
 
 	// Standard destructor
 	~UDPSocket(){}
+		MessageQueue<mavlink_message_t *> incomming;
+protected:
+
 private:
 	friend class UDPServer;
+
 	UDPServer * server;
 	Connection con;
-	MessageQueue<mavlink_message_t> incomming;
+
 };
 #endif

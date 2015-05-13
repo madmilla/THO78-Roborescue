@@ -2,16 +2,22 @@
 RobotManager * RobotManager::instance = nullptr;
 
 RobotManager * RobotManager::get(){
-	if(!instance){
+	if(instance == nullptr){
 		instance = new RobotManager;
 	}
+
+
 	return instance;
 }
 
-Rosbee * RobotManager::createRosbee(Socket s){
+Rosbee * RobotManager::createRosbee(Socket & s){
+	try{
 	Rosbee * rosbee = new Rosbee(s);
-	robots.push_back(rosbee);
-	return rosbee;
+}catch(std::exception &ex){
+	std::cout << ex.what();
+}
+	//robots.push_back(rosbee);
+	return nullptr;
 
 }
 

@@ -1,7 +1,46 @@
+/**
+*               __
+*    _________ / /_  ____  ________  ____________  _____
+*   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
+*  / / / /_/ / /_/ / /_/ / /  /  __(__  ) /__/ /_/ /  __/
+* /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
+*
+*
+* @file map.cpp
+* @date Created: 4/7/2015
+*
+* @author Jasper Stas
+*
+* @section LICENSE
+* License: newBSD
+*
+* Copyright � 2015, HU University of Applied Sciences Utrecht.
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+* - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+* - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+* - Neither the name of the HU University of Applied Sciences Utrecht nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED. IN NO EVENT SHALL THE HU UNIVERSITY OF APPLIED SCIENCES UTRECHT
+* BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**/
+
 #include "map.h"
 #include <iostream>
 #include <fstream>
 
+/**
+ * Basic constructor, creates a clear map.
+ * */
 Map::Map()
 {
     for(int x = 0; x < MAP_WIDTH; x++){
@@ -11,24 +50,35 @@ Map::Map()
     }
 }
 
+/**
+ * Basic deconstructor.
+ * */
 Map::~Map()
 {
 
 }
 
+/**
+ * This method returns the value of a point on the map.
+ * */
 int Map::get(int x, int y)
 {
     return objectMatrix[x][y];
 }
 
+/**
+ * This method sets the value of a point on the map.
+ * */
 void Map::set(int x, int y, int value)
 {
     objectMatrix[x][y] = value;
 }
 
+/**
+ * This method returns a map loaded from a existing file.
+ * */
 Map * Map::loadFromFile(const char * filename)
 {
-
     Map * map = new Map();
     std::ifstream is(filename);
     char c;
@@ -68,10 +118,16 @@ Map * Map::loadFromFile(const char * filename)
 
 typedef int (*pointer_to_arrays)[20];
 
+/**
+ * This method returns the objectMatrix, this are the values of the map.
+ * */
 pointer_to_arrays Map::getObjectMatrix(){
     return objectMatrix;
 }
 
+/**
+ * This method saves the map to a file.
+ * */
 void Map::saveToFile(const char * filename)
 {
     std::ofstream os(filename, std::ofstream::out);
@@ -98,6 +154,9 @@ void Map::saveToFile(const char * filename)
     os.close();
 }
 
+/**
+ * This method sets a random finish on the map, for testing perposes.
+ * */
 void Map::setFinish(){
     srand (time(NULL));
     int randomMatrixPointX = rand() % MAP_WIDTH;

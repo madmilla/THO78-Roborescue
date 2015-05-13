@@ -9,6 +9,10 @@ void Rosbee::run(){
          auto pair = outgoing.pop();
          encoder->send(COMMAND_DESTINATION::ROSBEE, pair.first, pair.second);
       }
+      UDPSocket* sock = static_cast<UDPSocket*>(&socket);
+      if(sock->incomming.size() > 0){
+         std::cout << "Got incomming message!" << std::endl;
+      }
    }
 }
 void Rosbee::init(){

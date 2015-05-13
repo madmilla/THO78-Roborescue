@@ -20,7 +20,7 @@ vb1: vb1\Main.o vb1\Class.o
 vb2: vb2\Main.o
 	$(CC) $(CFLAGS) $^ -o $@\$@ $(LDFLAGS)
 	
-UDPCommunication-test: UDPCommunication-test\test.o UDPCommunication-test\client.o UDPCommunication-test\UDPServer.o UDPCommunication-test\UDPSocket.o
+UDPCommunication-test: UDPCommunication-test\test.o UDPCommunication-test\client.o UDPCommunication-test\UDPServer.o UDPCommunication-test\UDPSocket.o UDPCommunication-test\RALCPEncoder.o UDPCommunication-test\RobotManager.o UDPCommunication-test\Rosbee.o
 	$(CC) $(CFLAGS) $^ -o $@\$@ $(LDFLAGS) -l ws2_32
 	exec UDPCommunication-test/UDPCommunication-test.exe 10
 	mv *.txt ../../../results

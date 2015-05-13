@@ -7,7 +7,7 @@
 #include "mingw.thread.h"
 #include "CPIBoundaryObject.hpp"
 #include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-#include "Socket.hpp"
+#include "UDPSocket.hpp"
 #include "MessageQueue.h"
 #include "RALCPEncoder.hpp"
 class Rosbee : public CPIBoundaryObject
@@ -15,9 +15,9 @@ class Rosbee : public CPIBoundaryObject
 public:
 	// constructor to make a Rosbee object (socket)
 	// @param: Socket is used to listen to a specific socket
-		Rosbee(Socket s) : CPIBoundaryObject(s, s.getId()){
-		encoder = new RALCPEncoder(s, s.getId(), 0, 0, 0);
-		rosbeeThread = std::thread(&Rosbee::run, this);
+	Rosbee(Socket & s) : CPIBoundaryObject(s){
+	//	encoder = new RALCPEncoder(s, s.getId(), 0, 0, 0);
+	//	rosbeeThread = std::thread(&Rosbee::run, this);
 	}
 
 	// initialize the Rosbee 
@@ -58,7 +58,7 @@ public:
     void getDevice(uint8_t dev);
     void abort();
 
-	~Rosbee(){ delete encoder; }
+	~Rosbee(){ delete encoder;  }
 
 private:
 
