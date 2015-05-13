@@ -128,6 +128,7 @@ public:
      @param custom_image: the edited image with the lines and circles to show
      */
     void showObjects(const vector<Vec4i> & lines, const CvSeq * circles, const Mat & orginal_image, Mat & custom_image);
+
 };
 
 #endif // SHAPEDETECTOR_H

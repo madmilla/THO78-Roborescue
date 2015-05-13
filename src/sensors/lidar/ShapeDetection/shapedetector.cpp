@@ -120,24 +120,26 @@ void ShapeDetector::checkLines(vector<Vec4i> & lines) {
 
 vector<Vec4i> ShapeDetector::searchLines(const Mat & image) {
 
-    if (image.empty()) { //check if there is a image
+    if (image.empty()) { //check if there is an image
         std::cout << "could not read image" << std::endl;
         exit(-1);
     }
 	Mat newImage = image.clone();
 	Mat frame;
-	cv::GaussianBlur(newImage, frame, cv::Size(3, 3), 3);
-	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);
+	
+	cv::GaussianBlur(newImage, frame, cv::Size(3, 3), 3);										////////////////////////////
+	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);                                     ///////////////////////////									
 	imwrite( "lines.jpg",newImage);
     Mat dest;
-	if (!callCvSmooth(newImage, newImage, CV_GAUSSIAN, SMOOTH, SMOOTH)) {
+	if (!callCvSmooth(newImage, newImage, CV_GAUSSIAN, SMOOTH, SMOOTH)) {						///////////////////////////
        std::cout << "the source file is empty!" << std::endl;
        exit(-1);
 	}
-	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image
+	Sobel(InputArray src, OutputArray dest, int ddepth = -1, int dx = 1, int dy = 0, int ksize = 3, double scale = 1, double delta = 0, int borderType = BORDER_DEFAULT)
+	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image	//////////////////////
 	imwrite("linesdest.jpg", dest);
-    vector<Vec4i> lines;  // container to save te lines
-    HoughLinesP(dest, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,
+    vector<Vec4i> lines;  // container to save the lines
+    HoughLinesP(dest, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			///////////////////////////
     HOUGHLINES_MINLINELENGTH, HOUGHLINES_MAXLINEGAP);  //search the lines
 
     checkLines(lines); //check for double lines

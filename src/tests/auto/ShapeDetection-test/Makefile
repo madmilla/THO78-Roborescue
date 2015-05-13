@@ -18,7 +18,7 @@ ifeq ($(OS),Windows_NT)
 	LINKFLAGS = -L$(DEPS_DIR_WIN)\incl\opencv\Windows  -lopencv_core2410 -lopencv_highgui2410 -lopencv_imgproc2410
 	rm = del
 	TARGET := $(PROG).exe
-	CFLAGS = -std=c++11   -I$(DEPS_DIR_WIN)\incl\opencv\files
+	CFLAGS = -std=c++11   -I$(DEPS_DIR_WIN)\incl\opencv\files -g
 else
 	ARCH := $(shell getconf LONG_BIT)
 	CPP_FLAGS_32 := $(DEPS_DIR_LINUX)/incl/opencv/Linux/x86	
