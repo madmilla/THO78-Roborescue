@@ -32,7 +32,8 @@
 * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-**/#ifndef AREACOVERINGALGORITHM_H
+**/
+#ifndef AREACOVERINGALGORITHM_H
 #define AREACOVERINGALGORITHM_H
 #include "waypoint.h"
 #include "arraymap.h"
@@ -51,8 +52,8 @@ public:
     bool testCoverage();
 private:
 	// isCoveredInDirecten true or fales TI rules
-    bool checkIfCoveredInDirection(Dimension d, TestCopter* t );
-    bool checkIfBoxedIn(TestCopter*, ArrayMap *map);
+    bool isCoveredInDirection(Dimension d, TestCopter* t );
+    bool isBoxedIn(TestCopter*, ArrayMap *map);
     void moveBackOnRoute(TestCopter* copter);
     ArrayMap* globalmap;
     void goForward();
