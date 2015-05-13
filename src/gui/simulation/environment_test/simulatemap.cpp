@@ -62,8 +62,10 @@ std::string SimulateMap::simulate(){
                     if(forx == Values::OBSTACLE){
                         int objectX = (x-lidarX);
                         int objectY = (y-lidarY)* -1;
-                        pC.setPoint(objectX,objectY);
-                        oss << "Checkpoint " << (i+1) <<" found object at: (X:" << objectX << ",Y:" << objectY <<")\n";
+                        if(objectY > -Values::SCANRADIUS && objectY < Values::SCANRADIUS && objectX > -Values::SCANRADIUS && objectX < Values::SCANRADIUS){
+                            pC.setPoint(objectX,objectY);
+                            oss << "Checkpoint " << (i+1) <<" found object at: (X:" << objectX << ",Y:" << objectY <<")\n";
+                        }
                     }
                     x++;
                 }

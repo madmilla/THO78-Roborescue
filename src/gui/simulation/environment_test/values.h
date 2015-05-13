@@ -46,6 +46,7 @@ public:
     const static int EMPTY = 0;
     const static int DRAWWIDTH = 430;
     const static int DRAWHEIGHT = 460;
+    const static int SCANRADIUS = 6;
 };
 #endif // VALUES
 
