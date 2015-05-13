@@ -199,6 +199,7 @@ int Test::run(){
 
     Map *tp = new Map("testSimulateMap.map" , size, size);
     tp->setMapObject(1,1,9);
+    tp->setMapObject(1,15,15);
 
     SimulateMap testSim(tp);
 
@@ -228,17 +229,21 @@ int Test::run(){
     //PointCloud test
     testResultsFile << "Enviroment Simulator test PointCloud" << std::endl;
     Pointcloud pC = testSim.getPointCloud();
+    if(pC.getPoints().size() > 1){
+       ++error;
+        testResultsFile << "PointCloud: " << "Radius failed" << std::endl;
+    }
     for(Pointcloud::Point p : pC.getPoints()){
+        //std::cout << "x: " << p.X << " y: " << p.Y;
         if(p.X != 3){
-            testResultsFile << "PointCloud: " << "Lest see" << std::endl;
+            testResultsFile << "PointCloud: " << "X wrong" << std::endl;
             ++error;
         }
         if(p.Y != 1){
-            testResultsFile << "PointCloud: " << "Lest see" << std::endl;
+            testResultsFile << "PointCloud: " << "Y wrong" << std::endl;
             ++error;
         }
     }
-
     //Done
     testResultsFile << "Enviroment Simulator test done" << std::endl;
     if(error == 0){

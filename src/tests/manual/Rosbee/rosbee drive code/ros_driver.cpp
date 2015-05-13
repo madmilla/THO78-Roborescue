@@ -6,15 +6,15 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file map.h
-* @date Created: 4/7/2015
+* @file ros_driver.cpp
+* @date Created: 13-05-2015
 *
-* @author Jasper Stas
+* @author Stefan Dijkman
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright � 2015, HU University of Applied Sciences Utrecht.
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,46 +34,55 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef MAP_H
-#define MAP_H
+#include "ros_driver.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+// opens port for rosbee
+ros_driver::ros_driver(const char* port){
+	_port = port;
+	if(ls.open(_port, baud) == 1){
+		std::cout << "Poort is open" << '\n';
+	}else{
+		std::cout << "Poort is niet open" << '\n';
+	}
+}
 
-class Map
-{
-public:
-    static const int MAP_WIDTH = 20;
-    static const int MAP_HEIGHT = 20;
-    static const char CHAR_FREE = '0';
-    static const char CHAR_BLOCK = '1';
-    static const char CHAR_QUAD = '2';
-    static const char CHAR_FINISH = '3';
-    static const char CHAR_ROUTE = '4';
-    static const int FREE = 0;
-    static const int BLOCK = 1;
-    static const int QUAD = 2;
-    static const int FINISH = 3;
-    static const int ROUTE = 4;
+void ros_driver::closeConnection(){
+	ls.close();
+}
 
-    Map();
-    ~Map();
+void ros_driver::stop(){
+	std::cout << "write is: " << ls.write(stopCommand.c_str(), maxBytes) << '\n';
+	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+	
+	sleep(sleepTime);
+	
+	std::cout << "write is: " << ls.write(confirmCommand.c_str(), maxBytes) << '\n';
+	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+}
 
-    void set(int x, int y, int value);
-    int get(int x, int y);
+void ros_driver::forward(std::string speed){
+    std::string command = forwardCommand;
+    command+= speed;
+	
+	std::cout << "write is: " << ls.write(command.c_str(), maxBytes) << '\n';
+	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+	
+	sleep(sleepTime);
+	
+	std::cout << "write is: " << ls.write(confirmCommand.c_str(), maxBytes) << '\n';
+	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+}
 
-    static Map * loadFromFile(const char * filename);
-    void saveToFile(const char * filename);
-
-    void setFinish();
-    typedef int (*pointer_to_arrays)[MAP_HEIGHT];
-
-    pointer_to_arrays getObjectMatrix();
-    //void setRoute(int waypoints[][MAP_HEIGHT], const int numberOfWaypoints);
-
-private:
-    int objectMatrix[MAP_WIDTH][MAP_HEIGHT];
-};
-
-#endif // MAP_H
+void ros_driver::rotate(std::string degrees){
+	ls.flush();
+	std::string command = rotateCommand;
+	command+= degrees;
+	
+	std::cout << "write is: " << ls.write(command.c_str(), maxBytes) << '\n';
+	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+	
+	sleep(sleepTime);
+	
+	std::cout << "write is: " << ls.write(confirmCommand.c_str(), maxBytes) << '\n';
+	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+}
