@@ -8,8 +8,10 @@
 #include <iostream>
 #include <string>
 
+#include "MessageQueue.h"
 #include "Connection.hpp"
 #include "UDPSocket.hpp"
+#include "RobotManager.h"
 
 #include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 
@@ -37,10 +39,12 @@ public:
 	/// \returns void 
 	void send(UDPSocket & connection, mavlink_message_t * message);
 	
-	
 	/// \param buffer for the message to be received in
 	/// \returns void
 	void receive(mavlink_message_t * message);
+
+	/// \brief method will receive data from udpSocket this is a blocking method
+	void receive();
 
 	/// \brief stops the udpServer thread
 	void stop();
@@ -49,7 +53,9 @@ private:
 	void init();
 	void sockbind();
 	void start();
+	void startTest();
 	void addConnection(sockaddr_in con, mavlink_message_t * msg);
+	void handleMessage(sockaddr_in con, mavlink_message_t * msg);
 
 	bool stopped = false;
 	SOCKET sock;
@@ -63,7 +69,6 @@ private:
 	std::vector<UDPSocket> _connections;
 	uint8_t id;
 	std::thread connectionThread;
-
 };
 
 
