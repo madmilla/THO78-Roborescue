@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include "Socket.hpp"
+#include <iostream>
 
 /// \author Rene Keijzer<rene.keijzer@student.hu.nl>
 /// \class CPIBoundaryObject
@@ -14,7 +15,7 @@ class CPIBoundaryObject
 public:
 	/// \param socket to communicate over
 	/// \param id for identification
-	CPIBoundaryObject(Socket sock, uint16_t id) :  socket(socket), DeviceId(id){}
+	CPIBoundaryObject(Socket sock) :  socket(socket){DeviceId = socket.getId();}
 	~CPIBoundaryObject(){}
 protected:
 	Socket socket;

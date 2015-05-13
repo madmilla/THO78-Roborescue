@@ -1,11 +1,11 @@
 Rosbee.cpp: In member function 'void Rosbee::sendWaypoint(uint8_t, uint8_t)':
-Rosbee.cpp:29:118: warning: left shift count >= width of type [enabled by default]
+Rosbee.cpp:33:118: warning: left shift count >= width of type [enabled by default]
     outgoing.add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, uint64_t((x << 54 ) | (y << 46))));
                                                                                                                       ^
-Rosbee.cpp:29:131: warning: left shift count >= width of type [enabled by default]
+Rosbee.cpp:33:131: warning: left shift count >= width of type [enabled by default]
     outgoing.add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, uint64_t((x << 54 ) | (y << 46))));
                                                                                                                                    ^
 Rosbee.cpp: In member function 'void Rosbee::getDevice(uint8_t)':
-Rosbee.cpp:59:116: warning: left shift count >= width of type [enabled by default]
+Rosbee.cpp:63:116: warning: left shift count >= width of type [enabled by default]
     outgoing.add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETDEVICE, uint64_t(dev << 54)));
                                                                                                                     ^

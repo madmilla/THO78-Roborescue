@@ -39,7 +39,7 @@ void UDPServer::start(){
    while(!stopped){
       receive(&msg);
       addConnection(si_other, &msg);
-      handleMessage(si_other, &msg);
+      //handleMessage(si_other, &msg);
    }
    std::this_thread::yield();
 }
@@ -79,17 +79,18 @@ void UDPServer::send(UDPSocket & socket, mavlink_message_t * message){
 }
 
 void UDPServer::receive(mavlink_message_t * message){
+
    if ((recv_len = recvfrom(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr *) &si_other, &slen)) == SOCKET_ERROR){
       printf("recvfrom() failed with error code : %d\r\n", WSAGetLastError());
       }
    
-  
+     std::cout<< "receiving";
 }
 
 void UDPServer::handleMessage(sockaddr_in con, mavlink_message_t * msg){
    for (auto socket : _connections){
       if (inet_ntoa(socket.con.sockaddr.sin_addr) == inet_ntoa(con.sin_addr) && (socket.con.sockaddr.sin_port) == con.sin_port){
-         socket.receive(*msg);
+         socket.receive(msg);
       }
    }
 }
@@ -99,10 +100,13 @@ void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
    for (auto socket : _connections){
       if (inet_ntoa(socket.con.sockaddr.sin_addr) == inet_ntoa(con.sin_addr) && (socket.con.sockaddr.sin_port) == con.sin_port){
          found = true;
+         
+      std::cout << "old connection" << std::endl;
          break;
 		}
 	}
    if (!found){
+      std::cout << "new connection" << std::endl;
       mavlink_msg_ralcp_decode(msg, &packet);
       Connection connect = Connection(id++, Connection::UNKNOWN, con);
       Connection::Identifier des = Connection::UNKNOWN;
