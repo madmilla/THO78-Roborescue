@@ -37,9 +37,10 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <QVector>
-#include <QTableWidget>
 #include "simulatemap.h"
+#include <iostream>
+#include <fstream>
+#include <vector>
 
 using namespace std;
 

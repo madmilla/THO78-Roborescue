@@ -36,11 +36,6 @@
 **/
 
 #include "map.h"
-#include <QtCore>
-#include <QVector>
-#include <iostream>
-#include <fstream>
-#include <vector>
 using namespace std;
 
 Map::Map(string fileName, int height, int width):
