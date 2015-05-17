@@ -19,8 +19,7 @@ int main(int argc, char* argv[]) {
     }
     std::string username = argv[1];
     std::string password = argv[2];
-std::cout<<username<<"  "<<password<<"\n";
-   // databaseConnector db ( "tcp://127.0.0.1:3306", username , password, "roborescue" );
-//	db.getPolygons();
+    databaseConnector db ( "tcp://127.0.0.1:3306", username , password, "robodata" );
+    db.getPolygons();
     return 0;
 }
