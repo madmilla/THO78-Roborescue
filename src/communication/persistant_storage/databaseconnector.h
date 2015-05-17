@@ -19,6 +19,11 @@
  * \brief This class handles all the communication with the database
  *
  */
+struct map{
+	int id;
+	std::string name;
+};
+
 class databaseConnector {
 public:
     /** \brief  Constructor of the database Connector
@@ -31,6 +36,20 @@ public:
      */
     databaseConnector(std::string hostname, std::string username, std::string password, std::string schemaName);
     virtual ~databaseConnector();
+
+	/** \brief returns all known maps
+	*
+	* \return all know maps as a vector of a map struct with a id and name
+	*
+	*/
+	std::vector<map> getMaps();
+
+	/** \brief Sets the map that is going to be used
+	*
+	* \param id the id of the map
+	*
+	*/
+	void setMap(int id);
 
     /** \brief Add a polygon to the database
      *
@@ -144,6 +163,7 @@ private:
     std::string statement_start="INSERT INTO `polygon` (`polygon`) VALUES (GeomFromText('POLYGON((";
     std::string statement_end="))'));";
     std::string statement_mid="))')),(GeomFromText('POLYGON((";
+	int mapId;
 };
 
 #endif // DATABASECONNECTOR_H

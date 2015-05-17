@@ -20,6 +20,6 @@ int main(int argc, char* argv[]) {
     std::string username = argv[1];
     std::string password = argv[2];
     databaseConnector db ( "tcp://127.0.0.1:3306", username , password, "robodata" );
-    db.getPolygons();
+    db.getMaps();
     return 0;
 }

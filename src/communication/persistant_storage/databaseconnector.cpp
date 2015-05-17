@@ -26,6 +26,20 @@ databaseConnector::~databaseConnector() {
     delete stmt;
 }
 
+std::vector<map> getMaps(){
+	std::vector<map> maps;
+	sql::ResultSet* res = stmt->executeQuery("SELECT id, name FROM map");
+	while (res->next()) {
+		polygons.push_back(map{res->getInt(1),res->getString(2));
+	}
+	delete res;
+	return maps;
+}
+
+void setMap(int id){
+
+}
+
 void databaseConnector::addPolygon( const std::vector<point>& polygon ) {
     std::string statement = statement_start;
     for ( unsigned int i = 0; i < polygon.size(); i++ ) {
