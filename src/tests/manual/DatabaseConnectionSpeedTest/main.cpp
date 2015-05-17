@@ -1,5 +1,5 @@
-#include "communication/persistant_storage/databaseconnector.h"
-#include "communication/persistant_storage/point.hpp"
+#include "communication/persistant_storage/include/databaseconnector.h"
+#include "communication/persistant_storage/include/point.hpp"
 #include <iostream>
 #include <vector>
 
