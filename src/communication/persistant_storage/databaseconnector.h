@@ -44,6 +44,15 @@ public:
 	*/
 	std::vector<map> getMaps();
 
+    /** \brief returns the looked up map
+    *
+    *\param mapName the name of the map you want the id from
+    *
+    * \return the id of the map
+    *
+    */
+    int getMapId(std::string mapName);
+
 	/** \brief Sets the map that is going to be used
 	*
 	* \param id the id of the map
@@ -160,10 +169,11 @@ private:
     point pointParser( const std::string& pointString );
     sql::Connection* con;
     sql::Statement* stmt;
-    std::string statement_start="INSERT INTO `polygon` (`polygon`) VALUES (GeomFromText('POLYGON((";
-    std::string statement_end="))'));";
-    std::string statement_mid="))')),(GeomFromText('POLYGON((";
-	int mapId;
+    std::string statement_start="INSERT INTO `object` (`polygon`,map_id) VALUES (GeomFromText('POLYGON((";
+    std::string statement_end=");";
+    std::string statement_mid="))'),";
+    std::string statement_continue="),(GeomFromText('POLYGON((";
+	int mapId = 1;
 };
 
 #endif // DATABASECONNECTOR_H
