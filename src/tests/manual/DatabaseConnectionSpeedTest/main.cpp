@@ -2,6 +2,7 @@
 #include "communication/persistant_storage/point.hpp"
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 template<typename T>
 std::ostream& operator<< ( std::ostream& os, const std::vector<T>& vec ) {
@@ -20,6 +21,19 @@ int main(int argc, char* argv[]) {
     std::string username = argv[1];
     std::string password = argv[2];
     databaseConnector db ( "tcp://127.0.0.1:3306", username , password, "robodata" );
-    db.getMaps();
+    point p1(0,0);
+    std::cout<<"starting 1000 time isAccessable\n";
+    auto start = std::chrono::high_resolution_clock::now();
+    for(int i=0;i<10000;i++){
+        db.isAccessable(p1);
+    }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout<<"done\n";
+    auto dur = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+    auto durPerCountNs = std::chrono::duration_cast<std::chrono::nanoseconds>(dur/10000);
+    auto durPerCountMs = std::chrono::duration_cast<std::chrono::milliseconds>(durPerCountNs);
+    std::cout << "Measured time: " << dur.count() << " ns\n";
+    std::cout << "Measured time per count: " << durPerCountNs.count() << " ns\n";
+    std::cout << "                       : " << durPerCountMs.count() << " ms\n";
     return 0;
 }
