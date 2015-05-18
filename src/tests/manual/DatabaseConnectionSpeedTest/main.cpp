@@ -22,16 +22,16 @@ int main(int argc, char* argv[]) {
     std::string password = argv[2];
     databaseConnector db ( "tcp://127.0.0.1:3306", username , password, "robodata" );
     point p1(0,0);
-    std::cout<<"starting 1000 time isAccessable\n";
+    std::cout<<"starting 1000000 time isAccessable\n";
     auto start = std::chrono::high_resolution_clock::now();
-    for(int i=0;i<10000;i++){
+    for(int i=0;i<1000000;i++){
         db.isAccessable(p1);
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::cout<<"done\n";
     auto durNs = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
     auto durMs = std::chrono::duration_cast<std::chrono::milliseconds>(durNs);
-    auto durPerCountNs = std::chrono::duration_cast<std::chrono::nanoseconds>(durNs/10000);
+    auto durPerCountNs = std::chrono::duration_cast<std::chrono::nanoseconds>(durNs/1000000);
     auto durPerCountMs = std::chrono::duration_cast<std::chrono::milliseconds>(durPerCountNs);
     std::cout << "Measured time          : " << durNs.count() << " ns\n";
     std::cout << "Measured time          : " << durMs.count() << " ms\n";
