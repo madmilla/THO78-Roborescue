@@ -29,10 +29,12 @@ int main(int argc, char* argv[]) {
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::cout<<"done\n";
-    auto dur = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-    auto durPerCountNs = std::chrono::duration_cast<std::chrono::nanoseconds>(dur/10000);
+    auto durNs = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+    auto durMs = std::chrono::duration_cast<std::chrono::milliseconds>(durNs);
+    auto durPerCountNs = std::chrono::duration_cast<std::chrono::nanoseconds>(durNs/10000);
     auto durPerCountMs = std::chrono::duration_cast<std::chrono::milliseconds>(durPerCountNs);
-    std::cout << "Measured time: " << dur.count() << " ns\n";
+    std::cout << "Measured time          : " << durNs.count() << " ns\n";
+    std::cout << "Measured time          : " << durMs.count() << " ms\n";
     std::cout << "Measured time per count: " << durPerCountNs.count() << " ns\n";
     std::cout << "                       : " << durPerCountMs.count() << " ms\n";
     return 0;
