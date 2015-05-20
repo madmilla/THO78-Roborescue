@@ -33,7 +33,7 @@
 * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+*/
 
 #ifndef POINTCLOUD_H
 #define POINTCLOUD_H
@@ -43,11 +43,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-//! The pointcloud object
-/*!
-The object which will contain all the points of a scan
-@author Tijmen Bruggeman
-*/
+
 class Pointcloud{ //! a struct which will contain a single point
 public:
 	//!The Contructor for the pointcloud
