@@ -24,6 +24,7 @@ for number in range(0, int(x)):
     big_code = pyqrcode.create('X' + code + hex(number)[2:], error='H', version=1, mode='binary')
     big_code.png(path + '/X/X' + str(number) + '.png',
                  scale=10, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xcc])
+    print("Generated X", number)
 
 for number in range(0, int(y)):
     code = '' 
@@ -32,3 +33,4 @@ for number in range(0, int(y)):
     big_code = pyqrcode.create('X' + code + hex(number)[2:], error='H', version=1, mode='binary')
     big_code.png(path + '/Y/Y' + str(number) + '.png',
                  scale=10, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xcc])
+    print("Generated Y", number)
