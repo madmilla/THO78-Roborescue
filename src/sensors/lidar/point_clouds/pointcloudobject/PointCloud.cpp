@@ -50,6 +50,17 @@ Pointcloud::Point Pointcloud::getOffset(){
 }
 void Pointcloud::setOffset(Pointcloud::Point newOffset){
 	offset = newOffset;
+	int xOffset = offset.X;
+	int yOffset = offset.Y;
+	int newX, newY;
+	for (Pointcloud::Point p : this->getPoints()) {
+		int oldX = p.X;
+		int oldY = p.Y;
+		newX = oldX + xOffset;
+		newY = oldY + yOffset;
+		this->removePoint(oldX,oldY);
+		this->setPoint(newX,newY);
+	}
 }
 std::vector<Pointcloud::Point> Pointcloud::getPoints(){
 	return pointCloud;
@@ -108,6 +119,7 @@ int Pointcloud::getCloudWidth(){
 }
 void Pointcloud::setOrientation(int degrees){
 	orientation = degrees;
+	this->rotate((float)orientation);
 }
 int Pointcloud::getOrientation(){
 	return orientation;
