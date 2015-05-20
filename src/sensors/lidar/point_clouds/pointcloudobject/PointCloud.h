@@ -33,7 +33,7 @@
 * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+*/
 
 #ifndef POINTCLOUD_H
 #define POINTCLOUD_H
@@ -43,11 +43,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-//! The pointcloud object
-/*!
-The object which will contain all the points of a scan
-@author Tijmen Bruggeman
-*/
+#include <math.h> 
+
 class Pointcloud{ //! a struct which will contain a single point
 public:
 	//!The Contructor for the pointcloud
@@ -146,6 +143,14 @@ public:
 
     //! print all points in given cloud    
 	void printPoints();
+	
+	
+	
+	/*! Rotate a point could 
+	 * @param angle the rotation angle in Degrees
+	 */ 
+	Pointcloud* rotate(float angle);
+	
 	//OPERATORS
 
 	//! a operator to write a point struct to a ostream

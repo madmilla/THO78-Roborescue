@@ -74,7 +74,11 @@ void Pointcloud::removePoint(Point point){
 		++i;
 	}
 }
-Pointcloud::Pointcloud(){}
+Pointcloud::Pointcloud(){
+	offset.X = 0;
+	offset.Y = 0;
+	orientation = 0;
+}
 
 int Pointcloud::getCloudHeight(){
 	int maxHeight = 0;

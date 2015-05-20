@@ -1,5 +1,5 @@
 
-/**
+/*
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -33,7 +33,7 @@
 * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+*/
 #include "PointCloud.h"
 
 void Pointcloud::setPoint(Point point){
@@ -74,7 +74,11 @@ void Pointcloud::removePoint(Point point){
 		++i;
 	}
 }
-Pointcloud::Pointcloud(){}
+Pointcloud::Pointcloud(){
+	offset.X = 0;
+	offset.Y = 0;
+	orientation = 0;
+}
 
 int Pointcloud::getCloudHeight(){
 	int maxHeight = 0;
@@ -153,6 +157,26 @@ void Pointcloud::printPoints(){
 		std::cout << p << "\n";
 	}
 }
+
+Pointcloud* Pointcloud::rotate(float angle){
+	const int halfCircle = 180;
+	float sn = sin(angle*M_PI/halfCircle);
+	float cs = cos(angle*M_PI/halfCircle); 
+
+	for (Pointcloud::Point p : this->getPoints()) {    	
+		int x = p.X;
+		int y = p.Y;
+		int nx = x * cs - y * sn; 
+		int ny = x * sn + y * cs;
+		this->removePoint(x, y);
+		this->setPoint(nx,ny);
+		nx = 0;
+		ny = 0;
+	}
+	
+	return this;
+}
+
 
 
 //OPERATORS

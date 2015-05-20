@@ -1,5 +1,6 @@
 #include <iostream>
-#include "../../../sensors/lidar/LineClass/Line.h"
+//#include "../../../sensors/lidar/LineClass/Line.h"
+#include "Line.h"
 #include <fstream>
 
 class Line;
