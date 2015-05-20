@@ -1,4 +1,4 @@
-
+﻿
 /**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
@@ -44,7 +44,7 @@
 #include <fstream>
 #include <sstream>
 #include <math.h> 
-
+#define M_PI 3.14159265358979323846
 class Pointcloud{ //! a struct which will contain a single point
 public:
 	//!The Contructor for the pointcloud
@@ -94,6 +94,12 @@ public:
 
 	*/
 	int getCloudWidth();
+	//! get the minimun x and y values of the pointcloud
+	/*!
+	get the minimun X and Y values of the pointcloud
+	@return Point: returns the point with the minimum X and Y value
+	*/
+	Pointcloud::Point getMinValues();
 	//! get the height of the pointcloud
 	/*!
 	get the max height of the poincloud, this equals the max negative value + the max positive value

@@ -1,4 +1,4 @@
-
+﻿
 /*
 *               __
 *    _________ / /_  ____  ________  ____________  _____
@@ -35,7 +35,6 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "PointCloud.h"
-
 void Pointcloud::setPoint(Point point){
 	removePoint(point.X, point.Y);
 	pointCloud.push_back(point);
@@ -90,7 +89,19 @@ Pointcloud::Pointcloud(){
 	offset.Y = 0;
 	orientation = 0;
 }
-
+Pointcloud::Point Pointcloud::getMinValues(){
+	int minX = 0;
+	int minY = 0;
+	for (Pointcloud::Point p : pointCloud){
+		if (p.X < minX){
+			minX = p.X;
+		}
+		if (p.Y < minY){
+			minY = p.Y;
+		}
+	}
+	return Pointcloud::Point{ minX, minY };
+}
 int Pointcloud::getCloudHeight(){
 	int maxHeight = 0;
 	int minHeight = 0;
@@ -111,7 +122,7 @@ int Pointcloud::getCloudWidth(){
 		if (p.X > maxWidth){
 			maxWidth = p.X;
 		}
-		if (p.X < maxWidth){
+		if (p.X < minWidth){
 			minWidth = p.X;
 		}
 	}
