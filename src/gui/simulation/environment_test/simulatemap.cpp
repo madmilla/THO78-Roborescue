@@ -60,11 +60,107 @@ std::string SimulateMap::simulate(){
                 int x = 0;
                 for(int forx : fory){
                     if(forx == Values::OBSTACLE){
+                        bool obstacleFound = false;
                         int objectX = (x-lidarX);
                         int objectY = (y-lidarY)* -1;
                         if(objectY > -Values::SCANRADIUS && objectY < Values::SCANRADIUS && objectX > -Values::SCANRADIUS && objectX < Values::SCANRADIUS){
-                            pC.setPoint(objectX,objectY);
-                            oss << "Checkpoint " << (i+1) <<" found object at: (X:" << objectX << ",Y:" << objectY <<")\n";
+
+                            // CHECK IF LIDAR Y IS SAME as object Y --> scan left or right
+                            // ELSE scan top or bottom
+                            if(lidarY == y) {
+                                // scan left or right
+                                if(lidarX-x < 0){
+                                    //scan right
+                                    // right x
+                                    for(int j = 0; j < abs((lidarX-x))-1; ++j){
+                                        if(map->getMapObject(lidarY, lidarX+(j+1)) == Values::OBSTACLE){
+                                            obstacleFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else {
+                                    //scan left
+                                    // left x
+                                    for(int j = 0; j < abs((lidarX-x))-1; ++j){
+                                        if(map->getMapObject(lidarY, lidarX-(j+1)) == Values::OBSTACLE){
+                                            obstacleFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            else if(lidarX == x){
+                                // scan top or bottom
+                                if(lidarY-y < 0){
+                                    //scan bottom
+                                    for(int j = 0; j < abs((lidarY-y))-1; ++j){
+                                        if(map->getMapObject(lidarY+(j+1), lidarX) == Values::OBSTACLE){
+                                            obstacleFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else {
+                                    //scan top
+                                    for(int j = 0; j < abs((lidarY-y))-1; ++j){
+                                        if(map->getMapObject(lidarY-(j+1), lidarX) == Values::OBSTACLE){
+                                            obstacleFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                // Diagonaal
+                                // check naar linksboven, rechtsboven, rechtsonder of linksonder
+                                bool left = (lidarX - x > 0);
+                                bool top = (lidarY - y > 0);
+
+                                // linksboven
+                                if(left && top) {
+                                    for(int j = 0; j < abs((lidarY-y))-1; ++j){
+                                        if(map->getMapObject(lidarY-(j+1), lidarX-(j+1)) == Values::OBSTACLE){
+                                            obstacleFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                // linksonder
+                                else if(left && !top) {
+                                    for(int j = 0; j < abs((lidarY-y))-1; ++j){
+                                        if(map->getMapObject(lidarY+(j+1), lidarX-(j+1)) == Values::OBSTACLE){
+                                            obstacleFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                // rechtsonder
+                                else if(!left && !top) {
+                                    for(int j = 0; j < abs((lidarY-y))-1; ++j){
+                                        if(map->getMapObject(lidarY+(j+1), lidarX+(j+1)) == Values::OBSTACLE){
+                                            obstacleFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                // rechtsboven
+                                else if(!left && top) {
+                                    for(int j = 0; j < abs((lidarY-y))-1; ++j){
+                                        if(map->getMapObject(lidarY-(j+1), lidarX+(j+1)) == Values::OBSTACLE){
+                                            obstacleFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
+
+                            }
+
+                            if(!obstacleFound){
+                                pC.setPoint(objectX,objectY);
+                                oss << "Checkpoint " << (i+1) <<" found object at: (X:" << objectX << ",Y:" << objectY <<")\n";
+                            }
                         }
                     }
                     x++;
