@@ -5,7 +5,7 @@
 #include <cstdint>
 #include "Socket.hpp"
 #include <iostream>
-#include "mingw.thread.h"
+#include <thread>
 
 /// \author Rene Keijzer<rene.keijzer@student.hu.nl>
 /// \class CPIBoundaryObject

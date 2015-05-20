@@ -133,6 +133,11 @@ class ros_driver{
 	* the array which will recive all the bytes read from the buffer
 	**/
 	char readBytes[10];
+	
+	/**
+	* the time the rosbee has to sleep between commands
+	**/
+	int sleepTime = 10;
 
 };
 #endif

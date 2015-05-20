@@ -143,7 +143,7 @@ void UDPServer::stop(){
 }
 
 UDPServer::~UDPServer(){
-	for(auto * sock : _connections)
+	for each (auto * sock in _connections)
 	{
 		delete sock;
 	}

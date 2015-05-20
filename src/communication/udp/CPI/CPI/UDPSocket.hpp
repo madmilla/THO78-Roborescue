@@ -7,7 +7,7 @@
 #include "Socket.hpp"
 #include "Connection.hpp"
 #include "UDPServer.hpp"
-#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "../../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include <iostream>
 
 class UDPSocket : public Socket
