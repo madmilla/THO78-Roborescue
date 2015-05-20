@@ -43,6 +43,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <math.h> 
 
 class Pointcloud{ //! a struct which will contain a single point
 public:
@@ -142,6 +143,14 @@ public:
 
     //! print all points in given cloud    
 	void printPoints();
+	
+	
+	
+	/*! Rotate a point could 
+	 * @param angle the rotation angle in Degrees
+	 */ 
+	Pointcloud* rotate(float angle);
+	
 	//OPERATORS
 
 	//! a operator to write a point struct to a ostream

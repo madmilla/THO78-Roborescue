@@ -158,6 +158,26 @@ void Pointcloud::printPoints(){
 	}
 }
 
+Pointcloud* Pointcloud::rotate(float angle){
+	const int halfCircle = 180;
+	float sn = sin(angle*M_PI/halfCircle);
+	float cs = cos(angle*M_PI/halfCircle); 
+
+	for (Pointcloud::Point p : this->getPoints()) {    	
+		int x = p.X;
+		int y = p.Y;
+		int nx = x * cs - y * sn; 
+		int ny = x * sn + y * cs;
+		this->removePoint(x, y);
+		this->setPoint(nx,ny);
+		nx = 0;
+		ny = 0;
+	}
+	
+	return this;
+}
+
+
 
 //OPERATORS
 std::ostream & operator<<(std::ostream & output, const Pointcloud::Point & s){
