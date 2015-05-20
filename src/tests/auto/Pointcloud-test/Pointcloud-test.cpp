@@ -25,7 +25,7 @@ int main(){
 	}
 	pt.setPoint(2, maxHeight);
 	pt.setPoint(maxWidth, 100);
-	if (pt.getCloudHeight() != maxHeight){
+	if (pt.getCloudHeight() != maxHeight + (abs(minHeight))){
 		std::cout << "GetCloudHeight = FAILED\n";
 		output << "GetCloudHeight = FAILED\n";
 		SUCCES = false;
@@ -34,7 +34,7 @@ int main(){
 		std::cout << "GetCloudHeight = SUCCES\n";
 		output << "GetCloudHeight = SUCCES\n";
 	}
-	if (pt.getCloudWidth() != maxWidth){
+	if (pt.getCloudWidth() != maxWidth + (abs(minWidth))){
 		std::cout << "getCloudWidth = SUCCES\n";
 		output << "getCloudWidth = SUCCES\n";
 	}
