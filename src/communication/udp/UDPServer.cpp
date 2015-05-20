@@ -5,6 +5,7 @@ UDPServer::UDPServer(){
 	init();
 	sockbind();
    connectionThread = std::thread(&UDPServer::start, this);
+   recv =0;
 	}
 
 void UDPServer::init(){
@@ -93,6 +94,7 @@ void UDPServer::receive(mavlink_message_t * message){
    if ((recv_len = recvfrom(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr *) &si_other, &slen)) == SOCKET_ERROR){
       printf("recvfrom() failed with error code : %d\r\n", WSAGetLastError());
    }
+   recv++;
 }
 
 void UDPServer::handleMessage(sockaddr_in con, mavlink_message_t * msg){
