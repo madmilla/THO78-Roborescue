@@ -21,7 +21,7 @@ os.mkdir(path + "/Y")
 #asks user for input for the number of X QrCodes and Y QrCodes
 x = input('Number for X:')
 y = input('Number for Y:')
-
+                
 #runs a for loop from 0 to the given number 
 for number in range(0, int(x)):
     code = '' 
@@ -41,5 +41,5 @@ for number in range(0, int(y)):
         code += '0'
     big_code = pyqrcode.create('Y' + code + hex(number)[2:], error='H', version=1, mode='binary')
     big_code.png(path + '/Y/Y' + str(number) + '.png',
-                 scale=10, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xcc])
+                 scale=10, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xff])
     print("Generated Y", number)
