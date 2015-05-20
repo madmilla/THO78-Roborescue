@@ -48,17 +48,17 @@ public:
 
 	/// \brief stops the udpServer thread
 	void stop();
-
+	int received(){return recv;}
 	void printCon();
 private:
-
+	
 	void init();
 	void sockbind();
 	void start();
 	void startTest();
 	void addConnection(sockaddr_in con, mavlink_message_t * msg);
 	void handleMessage(sockaddr_in con, mavlink_message_t * msg);
-
+	int recv;
 	bool stopped = false;
 	SOCKET sock;
 	struct sockaddr_in server, si_other;

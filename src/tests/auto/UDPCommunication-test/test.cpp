@@ -27,15 +27,15 @@ int main(int argc, char** argv){
 		Sleep(1000);
 	}
 	server.stop();
-	/*if (server.messages.size() == testcount){
-//		std::cout << "Test was succesfull" << testcount << "/" << testcount << std::endl;
+	if (server.received() == testcount){
+		std::cout << "Test was succesfull" << testcount << "/" << testcount << std::endl;
 		output << "Test was succesfull" << testcount << "/" << testcount << std::endl;
 
 	}else{
-		std::cout << "Test was unsuccesfull" << server.messages.size() << "/" << testcount << std::endl;
-		output << "Test was unsuccesfull" << server.messages.size() << "/" << testcount << std::endl;
+		std::cout << "Test was unsuccesfull" << server.received() << "/" << testcount << std::endl;
+		output << "Test was unsuccesfull" << server.received() << "/" << testcount << std::endl;
 
-	}*/
+	}
 	delete now;
 	output.close();
 	exit(0);
