@@ -1,0 +1,8 @@
+Add single Point SUCCES
+Get Points SUCCES
+GetCloudHeight = SUCCES
+getCloudWidth = SUCCES
+RemovePoint = SUCCES
+SetOrientation = SUCCES
+SetOffset = SUCCES
+Load and Save functions  = SUCCES

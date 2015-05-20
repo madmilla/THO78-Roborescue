@@ -10,9 +10,9 @@ int main(){
 	int minHeight = -200;
 	int minWidth = -2342;
 	int orientation = 180;
-	Pointcloud::Point point{ 300, 23 };
+	Pointcloud::Point point{ 300, minHeight};
 	Pointcloud pt;
-	Pointcloud::Point offset{ 23, 234 };
+	Pointcloud::Point offset{ 23,234 };
 	pt.setPoint(point);
 	if (pt.getPoints().front().X == point.X && pt.getPoints().front().Y == point.Y){
 		std::cout << "Add single Point SUCCES\nGet Points SUCCES\n";
@@ -23,6 +23,7 @@ int main(){
 		output << "Add single Point SUCCES\nGet Points FAILED\n";
 		SUCCES = false;
 	}
+	pt.setPoint(minWidth,23);
 	pt.setPoint(2, maxHeight);
 	pt.setPoint(maxWidth, 100);
 	if (pt.getCloudHeight() != maxHeight + (abs(minHeight))){
@@ -34,7 +35,7 @@ int main(){
 		std::cout << "GetCloudHeight = SUCCES\n";
 		output << "GetCloudHeight = SUCCES\n";
 	}
-	if (pt.getCloudWidth() != maxWidth + (abs(minWidth))){
+	if (pt.getCloudWidth() == maxWidth + (abs(minWidth))){
 		std::cout << "getCloudWidth = SUCCES\n";
 		output << "getCloudWidth = SUCCES\n";
 	}
