@@ -126,7 +126,12 @@ public:
 	@return Point: returns a point with X and Y value
 	*/
 	Point getOffset();
-
+	//! get the minimun x and y values of the pointcloud
+	/*!
+	get the minimun X and Y values of the pointcloud
+	@return Point: returns the point with the minimum X and Y value
+	*/
+	Pointcloud::Point getMinValues();
 	//! save all the points to a file
 	/*!
 	Save all the points tot a file, the offset and the orientation to a file

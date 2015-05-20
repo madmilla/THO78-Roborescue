@@ -100,7 +100,7 @@ int Pointcloud::getCloudWidth(){
 		if (p.X > maxWidth){
 			maxWidth = p.X;
 		}
-		if (p.X < maxWidth){
+		if (p.X < minWidth){
 			minWidth = p.X;
 		}
 	}
@@ -122,6 +122,19 @@ void Pointcloud::savePointsToFile(std::string filename){
         pCFile << point.X << ":" << point.Y << '\n';
     }
     pCFile.close();
+}
+Pointcloud::Point Pointcloud::getMinValues(){
+	int minX = 0;
+	int minY = 0;
+	for (Pointcloud::Point p : pointCloud){
+		if (p.X < minX){
+			minX = p.X;
+		}
+		if (p.Y < minY){
+			minY = p.Y;
+		}
+	}
+	return Pointcloud::Point{ minX, minY };
 }
 void Pointcloud::loadPointsFromFile(std::string filename){
     std::ifstream pCFile;

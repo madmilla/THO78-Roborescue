@@ -93,7 +93,12 @@ int main(int argc, char** argv)
 	std::cout << "running Shape Detection test" << std::endl;
 	ShapeDetector sD;
 	Pointcloud p = txtToPointcloud(argv[1]);
-	const Mat & orginal_image = sD.createImage(p);
+	Pointcloud p2;
+	p2.loadPointsFromFile("cloudje");
+	std::cout << " - " << p2.getPoints().size() << " - " << p2.getCloudWidth() << " - " << p2.getCloudHeight();
+	const Mat & orginal_image = sD.createImage(p2);
+	std::cout << "running Shape Detection test" << std::endl;
+	const Mat & orginal_image2 = sD.createImage(p2);
 	Mat customImage = orginal_image.clone();
 	std::vector<Circle> circles = sD.detectCircles(customImage);
 	vector<Line> lines = sD.searchLines(customImage);
