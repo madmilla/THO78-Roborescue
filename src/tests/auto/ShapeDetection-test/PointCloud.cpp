@@ -1,4 +1,4 @@
-
+﻿
 /*
 *               __
 *    _________ / /_  ____  ________  ____________  _____
@@ -35,7 +35,6 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "PointCloud.h"
-
 void Pointcloud::setPoint(Point point){
 	removePoint(point.X, point.Y);
 	pointCloud.push_back(point);
@@ -50,6 +49,17 @@ Pointcloud::Point Pointcloud::getOffset(){
 }
 void Pointcloud::setOffset(Pointcloud::Point newOffset){
 	offset = newOffset;
+	int xOffset = offset.X;
+	int yOffset = offset.Y;
+	int newX, newY;
+	for (Pointcloud::Point p : this->getPoints()) {
+		int oldX = p.X;
+		int oldY = p.Y;
+		newX = oldX + xOffset;
+		newY = oldY + yOffset;
+		this->removePoint(oldX,oldY);
+		this->setPoint(newX,newY);
+	}
 }
 std::vector<Pointcloud::Point> Pointcloud::getPoints(){
 	return pointCloud;
@@ -79,7 +89,19 @@ Pointcloud::Pointcloud(){
 	offset.Y = 0;
 	orientation = 0;
 }
-
+Pointcloud::Point Pointcloud::getMinValues(){
+	int minX = 0;
+	int minY = 0;
+	for (Pointcloud::Point p : pointCloud){
+		if (p.X < minX){
+			minX = p.X;
+		}
+		if (p.Y < minY){
+			minY = p.Y;
+		}
+	}
+	return Pointcloud::Point{ minX, minY };
+}
 int Pointcloud::getCloudHeight(){
 	int maxHeight = 0;
 	int minHeight = 0;
@@ -108,6 +130,7 @@ int Pointcloud::getCloudWidth(){
 }
 void Pointcloud::setOrientation(int degrees){
 	orientation = degrees;
+	this->rotate((float)orientation);
 }
 int Pointcloud::getOrientation(){
 	return orientation;
@@ -122,19 +145,6 @@ void Pointcloud::savePointsToFile(std::string filename){
         pCFile << point.X << ":" << point.Y << '\n';
     }
     pCFile.close();
-}
-Pointcloud::Point Pointcloud::getMinValues(){
-	int minX = 0;
-	int minY = 0;
-	for (Pointcloud::Point p : pointCloud){
-		if (p.X < minX){
-			minX = p.X;
-		}
-		if (p.Y < minY){
-			minY = p.Y;
-		}
-	}
-	return Pointcloud::Point{ minX, minY };
 }
 void Pointcloud::loadPointsFromFile(std::string filename){
     std::ifstream pCFile;
@@ -170,6 +180,26 @@ void Pointcloud::printPoints(){
 		std::cout << p << "\n";
 	}
 }
+
+Pointcloud* Pointcloud::rotate(float angle){
+	const int halfCircle = 180;
+	float sn = sin(angle*M_PI/halfCircle);
+	float cs = cos(angle*M_PI/halfCircle); 
+
+	for (Pointcloud::Point p : this->getPoints()) {    	
+		int x = p.X;
+		int y = p.Y;
+		int nx = x * cs - y * sn; 
+		int ny = x * sn + y * cs;
+		this->removePoint(x, y);
+		this->setPoint(nx,ny);
+		nx = 0;
+		ny = 0;
+	}
+	
+	return this;
+}
+
 
 
 //OPERATORS

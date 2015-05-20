@@ -1,4 +1,4 @@
-
+﻿
 /**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
@@ -43,7 +43,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
+#include <math.h> 
+#define M_PI 3.14159265358979323846
 class Pointcloud{ //! a struct which will contain a single point
 public:
 	//!The Contructor for the pointcloud
@@ -93,6 +94,12 @@ public:
 
 	*/
 	int getCloudWidth();
+	//! get the minimun x and y values of the pointcloud
+	/*!
+	get the minimun X and Y values of the pointcloud
+	@return Point: returns the point with the minimum X and Y value
+	*/
+	Pointcloud::Point getMinValues();
 	//! get the height of the pointcloud
 	/*!
 	get the max height of the poincloud, this equals the max negative value + the max positive value
@@ -126,12 +133,7 @@ public:
 	@return Point: returns a point with X and Y value
 	*/
 	Point getOffset();
-	//! get the minimun x and y values of the pointcloud
-	/*!
-	get the minimun X and Y values of the pointcloud
-	@return Point: returns the point with the minimum X and Y value
-	*/
-	Pointcloud::Point getMinValues();
+
 	//! save all the points to a file
 	/*!
 	Save all the points tot a file, the offset and the orientation to a file
@@ -147,6 +149,14 @@ public:
 
     //! print all points in given cloud    
 	void printPoints();
+	
+	
+	
+	/*! Rotate a point could 
+	 * @param angle the rotation angle in Degrees
+	 */ 
+	Pointcloud* rotate(float angle);
+	
 	//OPERATORS
 
 	//! a operator to write a point struct to a ostream
