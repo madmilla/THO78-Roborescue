@@ -7,7 +7,7 @@
 
 #include <chrono>
 #include "CPIBoundaryObject.hpp"
-#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "../../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include "UDPSocket.hpp"
 #include "MessageQueue.h"
 #include "RALCPEncoder.hpp"
