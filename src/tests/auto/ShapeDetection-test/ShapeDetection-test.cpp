@@ -1,6 +1,6 @@
 
 
-// compiled with: g++ circles.cpp -o circles `pkg-config --cflags --libs opencv`
+// compiled with: g++ circles.cpp -o circles `pkg-config --cflags --libs opencv`ss
 #include <iostream>
 #include <stdio.h>
 #include "time.h"
@@ -9,6 +9,9 @@
 #include <fstream>
 #include "shapedetector.h"
 #include <fstream>
+#include <vector>
+#include "Circle.h"
+#include "Line.h"
 
 //Create a pointcloud out of a .txt file
 //ONLY NEEDED TO TEST THE POINTCLOUD DETECTION
@@ -48,7 +51,7 @@ Pointcloud txtToPointcloud(const std::string & source){
 }
 
 void test(){
-	std::ofstream output("../../../../results/ShapeDetection_results.txt");
+	std::ofstream output("../../../../results/ShapeDetections_results.txt");
     ShapeDetector sD;
 	Pointcloud p = txtToPointcloud("circles400.txt");
 	const Mat & image = sD.createImage(p);
@@ -61,17 +64,17 @@ void test(){
 		output << "image created SUCCESFULLY\n";
 	}
 	clock_t Start = clock();
-    CvSeq* circles = sD.detectCircles(image);
-    vector<Vec4i> lines = sD.searchLines(image);
+    std::vector<Circle> circles = sD.detectCircles(image);
+    vector<Line> lines = sD.searchLines(image);
     clock_t end = clock();
     float time = (float)(end - Start) /CLOCKS_PER_SEC;
-    std::cout << (circles->total+ lines.size()) << " Objects detected in " << time << " seconds" << std::endl;
-	output << (circles->total + lines.size()) << " Objects detected in " << time << " seconds" << std::endl;
-	if (circles->total + lines.size() < 14){
-		output << "14 objectes should be detected, only " << circles->total + lines.size() <<" objects detected \t\tFAILDED";
+    std::cout << (circles.size()+ lines.size()) << " Objects detected in " << time << " seconds" << std::endl;
+	output << (circles.size() + lines.size()) << " Objects detected in " << time << " seconds" << std::endl;
+	if (circles.size() + lines.size() < 14){
+		output << "14 objectes should be detected, only " << circles.size() + lines.size() <<" objects detected \t\tFAILDED";
 	}
 	else{
-		output << circles->total + lines.size() << " objects detected \t object detection SUCCES";
+		output << circles.size() + lines.size() << " objects detected \t object detection SUCCES";
 	}
 
     sD.writeCirclesToConsole(circles);
@@ -87,19 +90,21 @@ int main(int argc, char** argv)
         test();
         return 0;
 	}
-	else{
-		std::cout << "mek\n";
-		ShapeDetector sD;
-		Pointcloud p = txtToPointcloud(argv[1]);
-		const Mat & orginal_image = sD.createImage(p);
-		Mat customImage = orginal_image.clone();
-		CvSeq* circles = sD.detectCircles(customImage);
-		vector<Vec4i> lines = sD.searchLines(customImage);
-		sD.writeObjectsToConsole(lines,circles);
-		sD.showObjects(lines,circles, orginal_image, customImage);
-
-		waitKey();
-	}
+	std::cout << "running Shape Detection test" << std::endl;
+	ShapeDetector sD;
+	Pointcloud p = txtToPointcloud(argv[1]);
+	Pointcloud p2;
+	p2.loadPointsFromFile("cloudje");
+	std::cout << " - " << p2.getPoints().size() << " - " << p2.getCloudWidth() << " - " << p2.getCloudHeight();
+	const Mat & orginal_image = sD.createImage(p2);
+	std::cout << "running Shape Detection test" << std::endl;
+	const Mat & orginal_image2 = sD.createImage(p2);
+	Mat customImage = orginal_image.clone();
+	std::vector<Circle> circles = sD.detectCircles(customImage);
+	vector<Line> lines = sD.searchLines(customImage);
+	sD.writeObjectsToConsole(lines,circles);
+	sD.showObjects(lines,circles, orginal_image, customImage);
+	waitKey();
     return 0;
 
 }

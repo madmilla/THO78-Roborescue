@@ -3,12 +3,13 @@
 #include <vector>
 #include <exception>
 #include "Rosbee.hpp"
+class UDPSocket;
 class Rosbee;
 class RobotManager{
 public:
 	static RobotManager * get();
 
-	Rosbee * createRosbee(Socket & s);
+	Rosbee * createRosbee(UDPSocket * s);
 
 private:
 	RobotManager(){}

@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <winsock2.h>
 #include <string>
-#include "../../mingw.thread.h"
+//#include "../../mingw.thread.h"
 #include <iostream>
 #include "../../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 
-//#pragma comment(lib,"ws2_32.lib")
+#pragma comment(lib,"ws2_32.lib")
 
 #define SERVER "127.0.0.1"  //ip address of udp server
 #define BUFLEN 512  //Max length of buffer

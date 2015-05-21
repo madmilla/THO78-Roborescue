@@ -6,15 +6,17 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file ros_driver.cpp
-* @date Created: 13-05-2015
+* @file Circle.h
+* @date Created: 29-4-2015
+* @version 1.0
 *
-* @author Stefan Dijkman
+* @author Nick Verhaaf
+* @author Patrick Schoonheym
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,55 +36,77 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "ros_driver.h"
+#ifndef CIRCLE_H
+#define CIRCLE_H
 
-// opens port for rosbee
-ros_driver::ros_driver(const char* port){
-	_port = port;
-	if(ls.open(_port, baud) == 1){
-		std::cout << "Poort is open" << '\n';
-	}else{
-		std::cout << "Poort is niet open" << '\n';
-	}
-}
+#include "Line.h" 
+#include <vector>
+#include <math.h>
 
-void ros_driver::closeConnection(){
-	ls.close();
-}
+class Line;
 
-void ros_driver::stop(){
-	ls.write(stopCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-	
-	sleep(sleepTime);
-	
-	ls.write(confirmCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-}
+class Circle
+{
+private:
+	//! Position X of the circle in the map
+	int originX;
 
-void ros_driver::forward(std::string speed){
-    std::string command = forwardCommand;
-    command+= speed;
-	
-	ls.write(command.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-	
-	sleep(sleepTime);
-	
-	ls.write(confirmCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-}
+	//! Position Y of the circle in the map
+	int originY;
 
-void ros_driver::rotate(std::string degrees){
-	ls.flush();
-	std::string command = rotateCommand;
-	command+= degrees;
+	//! Radius of the circle
+	int radius;
 	
-	ls.write(command.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
+	//! Data structure for origins
+	/*!
+		The data structure for the origins X and Y
+	*/
+	struct circleData {
+		int originX;
+		int originY;
+		int radius;
+	};
+
+	//! the offset of the lines around the circle
+	const double LINES_OFFSET = 1.25;
+	//! the angle step of the lines around the circle
+	const int LINES_ANGLE_STEP = 45;
+	//! the amount of lines around the circle
+	const int LINES_VALUE = 6;
+
+public:
+	//! The Contructor for the Lidar
+	/*!
+		Initialize the Circle with origins X, Y and the radius
+		@param originX: Set the position X of the circle in the map
+		@param originY: Set the position Y of the circle in the map
+		@param radius: Set the radius of the circle
+	*/
+	Circle(int originX, int originY, int radius);
+	~Circle();
+
+	//! Setter for the circle object
+	/*!
+		Set new values for the circle object
+		@param x: Set new position x
+		@param y: Set new position y
+		@param r: Set new radius for circle
+	*/
+	void setCircle(int x, int y, int r);
+
+	//! Getter for the circle object
+	/*!
+		Return requested data of circle object in a struct
+		@return struct circleData: With the circle data (originX, originY, radius)
+	*/
+	circleData getCircle();
 	
-	sleep(sleepTime);
-	
-	ls.write(confirmCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-}
+	//! Getter for get lines around the circle
+	/*!
+		Return requested data of lines in a vector
+		@return Line vector: With line data
+	*/
+	 std::vector<Line> getLinesAroundCircle();
+};
+
+#endif // CIRCLE_H

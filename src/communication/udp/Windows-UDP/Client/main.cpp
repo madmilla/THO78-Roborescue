@@ -1,13 +1,13 @@
 #include "client.h"
-#include <thread>
+
 
 
 int main(void){
 
-   client Client = client();
+	Client client;
 	
    while (1){
-	   Client.sendMessage();
+	   client.sendMessage();
 	   Sleep(3000);
    }
 

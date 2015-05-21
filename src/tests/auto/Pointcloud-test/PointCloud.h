@@ -1,10 +1,39 @@
-/*!
- * \brief Class containing a pointcloud
- * \details A class containing a pointcloud object. A pointcloud is based on points (structs) with a X and Y value
- * \author Tijmen Bruggeman - 1634346
- * \version 1.0
- * \date 22-04-2015
- */
+﻿
+/**
+*               __
+*    _________ / /_  ____  ________  ____________  _____
+*   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
+*  / / / /_/ / /_/ / /_/ / /  /  __(__  ) /__/ /_/ /  __/
+* /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
+*
+*
+* @file PointCloud.h
+* @date Created: 22-04-15
+*
+* @version 1.1
+* @author Tijmen Bruggeman
+* @section LICENSE
+* License: newBSD
+*
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+* - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+* - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+* - Neither the name of the HU University of Applied Sciences Utrecht nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED. IN NO EVENT SHALL THE HU UNIVERSITY OF APPLIED SCIENCES UTRECHT
+* BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 
 #ifndef POINTCLOUD_H
 #define POINTCLOUD_H
@@ -14,11 +43,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-//! The pointcloud object
-/*!
-The object which will contain all the points of a scan
-@author Tijmen Bruggeman
-*/
+#include <math.h> 
+#define M_PI 3.14159265358979323846
 class Pointcloud{ //! a struct which will contain a single point
 public:
 	//!The Contructor for the pointcloud
@@ -68,6 +94,12 @@ public:
 
 	*/
 	int getCloudWidth();
+	//! get the minimun x and y values of the pointcloud
+	/*!
+	get the minimun X and Y values of the pointcloud
+	@return Point: returns the point with the minimum X and Y value
+	*/
+	Pointcloud::Point getMinValues();
 	//! get the height of the pointcloud
 	/*!
 	get the max height of the poincloud, this equals the max negative value + the max positive value
@@ -117,6 +149,14 @@ public:
 
     //! print all points in given cloud    
 	void printPoints();
+	
+	
+	
+	/*! Rotate a point could 
+	 * @param angle the rotation angle in Degrees
+	 */ 
+	Pointcloud* rotate(float angle);
+	
 	//OPERATORS
 
 	//! a operator to write a point struct to a ostream

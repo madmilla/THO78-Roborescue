@@ -11,16 +11,13 @@
 #include "UDPSocket.hpp"
 #include "MessageQueue.h"
 #include "RALCPEncoder.hpp"
+class UDPSocket;
 class Rosbee : public CPIBoundaryObject
 {
 public:
 	// constructor to make a Rosbee object (socket)
 	// @param: Socket is used to listen to a specific socket
-	Rosbee(Socket & s) : CPIBoundaryObject(s){
-
-		encoder = new RALCPEncoder(s, s.getId(), 0, 0, 0);
-		outgoing = new MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>>();
-	}
+	Rosbee(UDPSocket * s);
 
 	// initialize the Rosbee 
 	void init();
@@ -66,9 +63,11 @@ private:
 
 
 	friend class RobotManager;
-
+	UDPSocket * sock;
 	mavlink_message_t message;
+	mavlink_ralcp_t packet;
 	RALCPEncoder * encoder;
+
 	bool running = false;
 	MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
 };

@@ -6,15 +6,15 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file ros_driver.cpp
-* @date Created: 13-05-2015
-*
-* @author Stefan Dijkman
+* @file Line.cpp
+* @date Created: 29-04-2015
+* @version 1.2
+* @author Patrick Schoonheym
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,55 +34,39 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "ros_driver.h"
 
-// opens port for rosbee
-ros_driver::ros_driver(const char* port){
-	_port = port;
-	if(ls.open(_port, baud) == 1){
-		std::cout << "Poort is open" << '\n';
-	}else{
-		std::cout << "Poort is niet open" << '\n';
+
+#include "Line.h"
+
+Line::Line(const Line::Point & begin_pos, const Line::Point & end_pos)	{
+	lineData.begin_pos = begin_pos;
+	lineData.end_pos = end_pos;
+}
+
+Line::~Line() {
+}
+
+void Line::setLine(const Line::Point & begin_pos, const Line::Point & end_pos) {
+	lineData.begin_pos = begin_pos;
+	lineData.end_pos = end_pos;
+}
+Line::LineData& Line::getLine() {
+	return lineData;
+}
+
+std::ostream& operator<<(std::ostream & stream, const Line::Point & point) {
+	stream << '(' << point.x << ' ' << point.y << ')';
+	return stream;
+}
+
+std::ostream& operator<<(std::ostream & stream, const Line & line) {
+	stream << line.lineData.begin_pos << ' ' << line.lineData.end_pos;
+	return stream;
+}
+
+bool operator==(const Line::Point & p1, const Line::Point & p2) {
+	if (p1.x == p2.x && p1.y == p2.y) {
+		return true;
 	}
-}
-
-void ros_driver::closeConnection(){
-	ls.close();
-}
-
-void ros_driver::stop(){
-	ls.write(stopCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-	
-	sleep(sleepTime);
-	
-	ls.write(confirmCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-}
-
-void ros_driver::forward(std::string speed){
-    std::string command = forwardCommand;
-    command+= speed;
-	
-	ls.write(command.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-	
-	sleep(sleepTime);
-	
-	ls.write(confirmCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-}
-
-void ros_driver::rotate(std::string degrees){
-	ls.flush();
-	std::string command = rotateCommand;
-	command+= degrees;
-	
-	ls.write(command.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-	
-	sleep(sleepTime);
-	
-	ls.write(confirmCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
+	return false;
 }

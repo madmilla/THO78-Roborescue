@@ -1,23 +1,27 @@
 #include "Rosbee.hpp"
 
+Rosbee::Rosbee(UDPSocket * s) : sock(s){
 
+		encoder = new RALCPEncoder(s, s->getId(), 0, 0, 0);
+		outgoing = new MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>>();
+		start();
+	}
 
 void Rosbee::run(){
 
    running = true;
    while(running){
-      std::cout << "starting rosbee" << std::endl;
+	  
       if(outgoing->size() > 0){
          auto pair = outgoing->pop();
          encoder->send(COMMAND_DESTINATION::ROSBEE, pair.first, pair.second);
       }
-      std::cout << "no outgoing";
-      UDPSocket* sock = static_cast<UDPSocket*>(&socket);
-      std::cout << sock << std::endl;
-      if(sock->incomming->size() > 0){
-       //  std::cout << "Got incomming message! size:" << sock->incomming->size() << std::endl;
-         //sock->incomming.pop();
-         std::cout << "incomming";
+     if(sock->incomming->size() > 0){
+		 std::cout << std::endl << "Got incomming message! size:" << sock->incomming->size() << std::endl;
+		 auto pair = sock->incomming->pop();
+		 mavlink_msg_ralcp_decode(pair, &packet);
+		 sock->print();
+		 std::cout <<"payload:" << packet.Payload <<std::endl;
       }
       std::this_thread::sleep_for(std::chrono::seconds(2));
    }

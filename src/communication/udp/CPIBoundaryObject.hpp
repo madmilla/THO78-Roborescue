@@ -16,14 +16,14 @@ class CPIBoundaryObject
 public:
 	/// \param socket to communicate over
 	/// \param id for identification
-	CPIBoundaryObject(Socket sock) :  socket(socket){
-		DeviceId = socket.getId(); 
-		robotThread = std::thread(&CPIBoundaryObject::run, this);
+	CPIBoundaryObject(){
+		//DeviceId = socket.getId(); 
+		
 	}
 	~CPIBoundaryObject(){}
 protected:
-	virtual void run() = 0;
-	Socket socket;
+	void start(){ robotThread = std::thread(&CPIBoundaryObject::run, this); }
+	virtual void run(){}
 private:
 	uint16_t DeviceId;
 	std::thread robotThread;

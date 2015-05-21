@@ -14,7 +14,7 @@
 
 Test::Test(Map * map){
     this->map = map;
-    myfile.open("C:\\Users\\coen__000\\Documents\\TestSystem\\testresults.txt", std::ios::out|std::ios::app);
+    myfile.open("testresults.txt", std::ios::out|std::ios::app);
     writeTimeAndDate();
 }
 

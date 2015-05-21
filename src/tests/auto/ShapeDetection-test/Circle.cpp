@@ -6,15 +6,17 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file ros_driver.cpp
-* @date Created: 13-05-2015
+* @file Circle.cpp
+* @date Created: 29-4-2015
+* @version 1.0
 *
-* @author Stefan Dijkman
+* @author Nick Verhaaf
+* @author Patrick Schoonheym
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,55 +36,58 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "ros_driver.h"
+#include "Circle.h"
 
-// opens port for rosbee
-ros_driver::ros_driver(const char* port){
-	_port = port;
-	if(ls.open(_port, baud) == 1){
-		std::cout << "Poort is open" << '\n';
-	}else{
-		std::cout << "Poort is niet open" << '\n';
-	}
+Circle::Circle(int originX, int originY, int radius) :
+originX{ originX },
+originY{ originY },
+radius{ radius }
+{}
+
+Circle::~Circle()
+{
+
 }
 
-void ros_driver::closeConnection(){
-	ls.close();
+void Circle::setCircle(int x, int y, int r) {
+	originX = x;
+	originY = y;
+	radius = r;
 }
 
-void ros_driver::stop(){
-	ls.write(stopCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-	
-	sleep(sleepTime);
-	
-	ls.write(confirmCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
+Circle::circleData Circle::getCircle() {
+	circleData circleData;
+	circleData.originX = originX;
+	circleData.originY = originY;
+	circleData.radius = radius;
+	return circleData;
 }
 
-void ros_driver::forward(std::string speed){
-    std::string command = forwardCommand;
-    command+= speed;
-	
-	ls.write(command.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-	
-	sleep(sleepTime);
-	
-	ls.write(confirmCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
+std::vector<Line> Circle::getLinesAroundCircle() {
+	std::vector<Line> lines;
+
+	// value 90 is the start angle 
+	//value 360 is the total angle of 1 circle
+
+	int radius = radius * LINES_OFFSET;
+	for (int angle = 90; angle < 360; angle += LINES_ANGLE_STEP) { 
+		Line::Point begin_p, end_p;
+
+		begin_p.x = static_cast<int>(originX + (radius * cos(angle))); //calculate point 1
+		begin_p.y = static_cast<int>(originY + (radius * sin(angle)));
+
+		end_p.x = static_cast<int>(originX + (radius * cos(angle + LINES_ANGLE_STEP))); //calculate point 2
+		end_p.y = static_cast<int>(originY + (radius * sin(angle + LINES_ANGLE_STEP)));
+
+		if (angle == (360 - LINES_ANGLE_STEP)) {
+			end_p.x = lines[LINES_VALUE].getLine().begin_pos.x;
+			end_p.y = lines[LINES_VALUE].getLine().begin_pos.y;
+		}
+		lines.push_back(Line{ begin_p, end_p }); //store line
+	}	
+	return lines;
 }
 
-void ros_driver::rotate(std::string degrees){
-	ls.flush();
-	std::string command = rotateCommand;
-	command+= degrees;
-	
-	ls.write(command.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-	
-	sleep(sleepTime);
-	
-	ls.write(confirmCommand.c_str(), maxBytes);
-	ls.read(&readBytes,maxBytes);
-}
+
+
+

@@ -1,7 +1,6 @@
 #ifndef __UDPSERVER__
 #define __UDPSERVER__
 
-#include "mingw.thread.h"
 #include <stdio.h>
 #include <winsock2.h>
 #include <vector>
@@ -15,7 +14,7 @@
 #include "RobotManager.h"
 
 #include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-
+#pragma comment(lib,"ws2_32.lib")
 const int bufferlen = 512;
 const int port = 8888;
 
@@ -38,7 +37,7 @@ public:
 	/// \param Send a message to a specefic connection.
 	/// \param Message
 	/// \returns void 
-	void send(UDPSocket & connection, mavlink_message_t * message);
+	void send(UDPSocket * connection, mavlink_message_t * message);
 	
 	/// \param buffer for the message to be received in
 	/// \returns void
@@ -49,15 +48,17 @@ public:
 
 	/// \brief stops the udpServer thread
 	void stop();
+	int received(){return recv;}
+	void printCon();
 private:
-
+	
 	void init();
 	void sockbind();
 	void start();
 	void startTest();
 	void addConnection(sockaddr_in con, mavlink_message_t * msg);
 	void handleMessage(sockaddr_in con, mavlink_message_t * msg);
-
+	int recv;
 	bool stopped = false;
 	SOCKET sock;
 	struct sockaddr_in server, si_other;
@@ -67,8 +68,8 @@ private:
 	mavlink_message_t msg;
 	mavlink_ralcp_t packet;
 
-	std::vector<UDPSocket> _connections;
-	uint8_t id;
+	std::vector<UDPSocket*> _connections;
+	int ConId = 0;
 	std::thread connectionThread;
 };
 

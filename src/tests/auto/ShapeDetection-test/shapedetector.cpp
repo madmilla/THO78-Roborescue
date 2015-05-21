@@ -9,26 +9,18 @@ ShapeDetector::~ShapeDetector()
 
 }
 
-void ShapeDetector::writeCirclesToConsole(const CvSeq * circles){
-	std::cout << "found circles: " << (circles->total) << std::endl << std::endl;
-	for (int i = 0; i < circles->total; i++) // walk through the circles
-	{
-		// round the floats to an int
-		std::cout << "Circle " << i + 1 << std::endl;
-		float* p = (float*)cvGetSeqElem(circles, i);
-		cv::Point center(cvRound(p[0]), cvRound(p[1]));
-		int radius = cvRound(p[2]);
-		std::cout << "(" << center.x << "," << center.y << ")    \t" << radius << "\n\n";
+void ShapeDetector::writeCirclesToConsole(const vector<Circle> circles){
+	std::cout << "found circles: " << (circles.size()) << std::endl << std::endl;
+	for (Circle c : circles){ // walk through the circles
+		std::cout << "(" << c.getCircle().originX << "," << c.getCircle().originY << ")    \t" << c.getCircle().radius << "\n\n";
 	}
 }
 
-void ShapeDetector::drawCircles(const CvSeq * circles, Mat & image){
-	for (int i = 0; i < circles->total; i++) //Walk through all the circles
-	{
+void ShapeDetector::drawCircles(const std::vector<Circle> circles, Mat & image){
+	for (Circle c : circles){ //Walk through all the circles
 		// round the floats to an int
-		float* p = (float*)cvGetSeqElem(circles, i);
-		cv::Point center(cvRound(p[0]), cvRound(p[1]));
-		int radius = cvRound(p[2]);
+		cv::Point center(c.getCircle().originX, c.getCircle().originY);
+		int radius = c.getCircle().radius;
 
 		// draw the circle center
 		circle(image, center, CIRCLE_CENTER_RADIUS, CIRCLE_CENTER_COLOR, CENTER_THICKNESS, CIRCLE_LINE_TYPE);
@@ -38,7 +30,7 @@ void ShapeDetector::drawCircles(const CvSeq * circles, Mat & image){
 	//Show Image with the detected circles
 }
 
-CvSeq * ShapeDetector::detectCircles(const Mat & image){
+std::vector<Circle> ShapeDetector::detectCircles(const Mat & image){
 	Mat newImage = image.clone();
 	Mat frame;
 	cv::GaussianBlur(newImage, frame, cv::Size(0, 0), 3);
@@ -55,7 +47,16 @@ CvSeq * ShapeDetector::detectCircles(const Mat & image){
 	cvCanny(gray, canny, EDGE_TRESHHOLD, EDGE_TRESHHOLD); // Detect edges int he image
 
 	CvSeq* circles = cvHoughCircles(gray, storage, CV_HOUGH_GRADIENT, RESOLUTION_INVERSERATIO, gray->height / MIN_DISTANCE_CIRCLES, EDGE_TRESHHOLD * 3, CIRCLE_CENTER_TRESHHOLD); // Detect circles in the gray image
-	return circles;
+	std::vector<Circle> newCircles;
+	for (int i = 0; i < circles->total; i++) // walk through the circles
+	{
+		// round the floats to an int
+		std::cout << "Circle " << i + 1 << std::endl;
+		float* p = (float*)cvGetSeqElem(circles, i);
+		Circle c(cvRound(p[0]), cvRound(p[1]), cvRound(p[2]));
+		newCircles.push_back(c);
+	}
+	return newCircles;
 }
 
 bool ShapeDetector::callCvSmooth(const Mat & m_src, const Mat & m_dest, const int smooth_type, const int param1, const int param2) {
@@ -69,21 +70,25 @@ bool ShapeDetector::callCvSmooth(const Mat & m_src, const Mat & m_dest, const in
 }
 
 Mat ShapeDetector::createImage(Pointcloud & source){
-
+	int minX = source.getMinValues().X;
+	int minY = source.getMinValues().Y;
+	std::cout << "min values" << minX << " - " << minY << "\n";
 	size_t imageHeight = source.getCloudHeight();
 	size_t imageWidth = source.getCloudWidth();
 
-	Mat mat((int)imageWidth, (int)imageHeight, CV_8UC1); //Create a Mat object which will represent the image with all the pixels
+	Mat mat((int)imageWidth / DEVIDEIMAGESIZE, (int)imageHeight / DEVIDEIMAGESIZE, CV_8UC1); //Create a Mat object which will represent the image with all the pixels
 	for (int y = 0; y < imageHeight; ++y){
 		for (int x = 0; x < imageWidth; ++x){
-			mat.at<uchar>(Point(y, x)) = BLACK_PIXEL;
+			mat.at<uchar>(Point(y / DEVIDEIMAGESIZE, x / DEVIDEIMAGESIZE)) = BLACK_PIXEL;
 		}
 	}
+	int i = 0;
 	for (Pointcloud::Point p : source.getPoints()){
-		mat.at<uchar>(Point(p.Y, p.X)) = WHITE_PIXEL;
+		//std::cout << i << " - " << p.X << " - " << p.Y << " ----- " << p.Y + (abs(minY)) << " - " <<  p.X + (abs(minX)) << " --- " << imageHeight << " - " << imageWidth << "\n";
+		i++;
+		mat.at<uchar>(Point((p.Y + abs(minY)) / DEVIDEIMAGESIZE, (p.X + abs(minX)) / DEVIDEIMAGESIZE)) = WHITE_PIXEL;
 	}
 	imwrite("output.jpg", mat); // save the image
-
 	Mat image(imread("output.jpg")); //read and return the image
 	return image;
 }
@@ -118,7 +123,7 @@ void ShapeDetector::checkLines(vector<Vec4i> & lines) {
 	}
 }
 
-vector<Vec4i> ShapeDetector::searchLines(const Mat & image) {
+vector<Line> ShapeDetector::searchLines(const Mat & image) {
 
 	if (image.empty()) { //check if there is an image
 		std::cout << "could not read image" << std::endl;
@@ -145,35 +150,42 @@ vector<Vec4i> ShapeDetector::searchLines(const Mat & image) {
 		HOUGHLINES_MINLINELENGTH, HOUGHLINES_MAXLINEGAP);  //search the lines
 
 	checkLines(lines); //check for double lines
-
-	return lines;  // return the saved lines
+	vector<Line> newLines;
+	for (Vec4i line : lines){
+		Line::Point begin{ line[0], line[1] };
+		Line::Point end{ line[2], line[3] };
+		Line newLine(begin,end);
+		newLines.push_back(newLine);
+	}
+	return newLines;  // return the saved lines
 }
 
-void ShapeDetector::writeLinesToConsole(const vector<Vec4i> & lines) {
+void ShapeDetector::writeLinesToConsole(const vector<Line> & lines){
 	std::stringstream stream;
 	stream << "found lines: " << lines.size() << std::endl << std::endl;
-	for (size_t i = 0; i < lines.size(); i++) {
-		Vec4i line = lines[i];
+	int i = 0;
+	for (Line l : lines) {
 		stream << "line " << i + 1 << std::endl;
-		stream << "(x1, y1) (" << line[0] << ',' << line[1] << ')' << std::endl;
-		stream << "(x2, y2) (" << line[2] << ',' << line[3] << ')' << std::endl << std::endl;
+		stream << "(x1, y1) (" << l.getLine().begin_pos.x << ',' << l.getLine().begin_pos.y << ')' << std::endl;
+		stream << "(x2, y2) (" << l.getLine().end_pos.x << ',' << l.getLine().end_pos.y << ')' << std::endl << std::endl;
+		++i;
 	}
 	std::cout << stream.str();
 }
 
-void ShapeDetector::drawLines(const vector<Vec4i> & lines, Mat & final_dest) {
-	for (size_t i = 0; i < lines.size(); i++) {
-		Vec4i l = lines[i];
-		line(final_dest, Point(l[0], l[1]), Point(l[2], l[3]), LINECOLOR, THICKNESS, CV_AA);
+void ShapeDetector::drawLines(const std::vector<Line> lines, Mat & final_dest) {
+	for (Line l : lines){
+		l.getLine().end_pos.x;
+		line(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), Point(l.getLine().end_pos.x, l.getLine().end_pos.y), LINECOLOR, THICKNESS, CV_AA);
 	}
 }
 
-void ShapeDetector::writeObjectsToConsole(const vector<Vec4i> & lines, const CvSeq * circles) {
+void ShapeDetector::writeObjectsToConsole(const std::vector<Line> & lines, const std::vector<Circle> circles) {
 	writeCirclesToConsole(circles);
 	writeLinesToConsole(lines);
 }
 
-void ShapeDetector::showObjects(const vector<Vec4i> & lines, const CvSeq * circles, const Mat & orginal_image, Mat & custom_image){
+void ShapeDetector::showObjects(const vector<Line> & lines, const std::vector<Circle> circles, const Mat & orginal_image, Mat & custom_image){
 	drawLines(lines, custom_image);
 	drawCircles(circles, custom_image);
 	imshow("orginal image", orginal_image);

@@ -10,7 +10,7 @@ RobotManager * RobotManager::get(){
 	return instance;
 }
 
-Rosbee * RobotManager::createRosbee(Socket & s){
+Rosbee * RobotManager::createRosbee(UDPSocket * s){
 	try{
 	Rosbee * rosbee = new Rosbee(s);
 	robots.push_back(rosbee);

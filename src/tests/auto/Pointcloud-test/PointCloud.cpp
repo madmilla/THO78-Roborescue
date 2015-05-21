@@ -1,5 +1,40 @@
+﻿
+/*
+*               __
+*    _________ / /_  ____  ________  ____________  _____
+*   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
+*  / / / /_/ / /_/ / /_/ / /  /  __(__  ) /__/ /_/ /  __/
+* /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
+*
+*
+* @file PointCloud.cpp
+* @date Created: 22-04-15
+*
+* @version 1.1
+* @author Tijmen Bruggeman
+* @section LICENSE
+* License: newBSD
+*
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+* - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+* - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+* - Neither the name of the HU University of Applied Sciences Utrecht nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED. IN NO EVENT SHALL THE HU UNIVERSITY OF APPLIED SCIENCES UTRECHT
+* BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 #include "PointCloud.h"
-
 void Pointcloud::setPoint(Point point){
 	removePoint(point.X, point.Y);
 	pointCloud.push_back(point);
@@ -14,6 +49,17 @@ Pointcloud::Point Pointcloud::getOffset(){
 }
 void Pointcloud::setOffset(Pointcloud::Point newOffset){
 	offset = newOffset;
+	int xOffset = offset.X;
+	int yOffset = offset.Y;
+	int newX, newY;
+	for (Pointcloud::Point p : this->getPoints()) {
+		int oldX = p.X;
+		int oldY = p.Y;
+		newX = oldX + xOffset;
+		newY = oldY + yOffset;
+		this->removePoint(oldX,oldY);
+		this->setPoint(newX,newY);
+	}
 }
 std::vector<Pointcloud::Point> Pointcloud::getPoints(){
 	return pointCloud;
@@ -38,8 +84,24 @@ void Pointcloud::removePoint(Point point){
 		++i;
 	}
 }
-Pointcloud::Pointcloud(){}
-
+Pointcloud::Pointcloud(){
+	offset.X = 0;
+	offset.Y = 0;
+	orientation = 0;
+}
+Pointcloud::Point Pointcloud::getMinValues(){
+	int minX = 0;
+	int minY = 0;
+	for (Pointcloud::Point p : pointCloud){
+		if (p.X < minX){
+			minX = p.X;
+		}
+		if (p.Y < minY){
+			minY = p.Y;
+		}
+	}
+	return Pointcloud::Point{ minX, minY };
+}
 int Pointcloud::getCloudHeight(){
 	int maxHeight = 0;
 	int minHeight = 0;
@@ -60,7 +122,8 @@ int Pointcloud::getCloudWidth(){
 		if (p.X > maxWidth){
 			maxWidth = p.X;
 		}
-		if (p.X < maxWidth){
+		
+		if (p.X < minWidth){
 			minWidth = p.X;
 		}
 	}
@@ -68,6 +131,7 @@ int Pointcloud::getCloudWidth(){
 }
 void Pointcloud::setOrientation(int degrees){
 	orientation = degrees;
+	this->rotate((float)orientation);
 }
 int Pointcloud::getOrientation(){
 	return orientation;
@@ -117,6 +181,26 @@ void Pointcloud::printPoints(){
 		std::cout << p << "\n";
 	}
 }
+
+Pointcloud* Pointcloud::rotate(float angle){
+	const int halfCircle = 180;
+	float sn = sin(angle*M_PI/halfCircle);
+	float cs = cos(angle*M_PI/halfCircle); 
+
+	for (Pointcloud::Point p : this->getPoints()) {    	
+		int x = p.X;
+		int y = p.Y;
+		int nx = x * cs - y * sn; 
+		int ny = x * sn + y * cs;
+		this->removePoint(x, y);
+		this->setPoint(nx,ny);
+		nx = 0;
+		ny = 0;
+	}
+	
+	return this;
+}
+
 
 
 //OPERATORS

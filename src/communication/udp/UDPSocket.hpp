@@ -8,6 +8,7 @@
 #include "Connection.hpp"
 #include "UDPServer.hpp"
 #include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include <iostream>
 
 class UDPSocket : public Socket
 {
@@ -29,8 +30,11 @@ public:
 	// Return@ The id of the connection
 	uint8_t getId() override { return con.id; }
 
+	void print();
+
 	// Standard destructor
-	~UDPSocket(){}
+	~UDPSocket(){
+	}
 	MessageQueue<mavlink_message_t *> * incomming;
 protected:
 
