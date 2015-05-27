@@ -2,25 +2,20 @@
 #define __ROBOTMANAGER__
 #include <vector>
 #include <exception>
+#include <sstream>
 #include "Rosbee.hpp"
 class UDPSocket;
 class Rosbee;
 class RobotManager{
 public:
-	static RobotManager * get();
-
-	Rosbee * createRosbee(UDPSocket * s);
-
-private:
 	RobotManager(){}
+	Rosbee * createRosbee(UDPSocket * s);
+	std::vector<Rosbee *> getRosbee();
+	Rosbee * getRosbee(int id);
+	std::string getDetails();
+	int size();
+private:
 	std::vector<CPIBoundaryObject * > robots;
-	static RobotManager * instance;
-	//! \brief Copy constructor this shouldn't be implemented
-	RobotManager(RobotManager const&){};	
-
-	//! \brief =opperator this shouldn't be implemented for singleton's sake
-	RobotManager& operator=(RobotManager const &){};
-
 
 };
 #endif

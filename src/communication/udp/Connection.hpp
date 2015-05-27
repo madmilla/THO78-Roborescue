@@ -17,9 +17,7 @@ public:
 		ATV
 	};
 
-	Connection(int ids, Connection::Identifier i, sockaddr_in sock) : id(ids), type(i), sockaddr(sock){
-		std::cout << ids;
-	}
+	Connection(int ids, Connection::Identifier i, sockaddr_in sock) : id(ids), type(i), sockaddr(sock){}
 
 	Identifier type;
 	int id;

@@ -1,7 +1,7 @@
 #include "UDPServer.hpp"
 
 
-UDPServer::UDPServer(){
+UDPServer::UDPServer(RobotManager & manager) : manager(manager){
 	init();
 	sockbind();
    connectionThread = std::thread(&UDPServer::start, this);
@@ -57,26 +57,6 @@ void UDPServer::printCon(){
    std::cout << "============== end - connections ==========="<<std::endl;
 }
 
-void UDPServer::startTest(){
-  /* while (!stopped){
-      printf("Waiting for data...\r\n");
-      fflush(stdout);
-
-      receive(&msg);
-
-      addConnection(si_other, &msg);
-
-
-      mavlink_msg_ralcp_encode(1, 1, &msg, &packet);
-		
-	   std::cout << packet.Payload << std::endl;
-      packet.Payload = packet.Payload + packet.Payload;
-      mavlink_msg_ralcp_encode(1, 1, &msg, &packet);
-
-      send(_connections[0], &msg);
-	}
-   std::this_thread::yield();*/
-}
 
 void UDPServer::broadcast(mavlink_message_t * message){
    for (auto & socket : _connections){
@@ -85,9 +65,9 @@ void UDPServer::broadcast(mavlink_message_t * message){
 }
 
 void UDPServer::send(UDPSocket * socket, mavlink_message_t * message){
-  // if (sendto(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr*)socket->con.sockaddr, slen) == SOCKET_ERROR){
-    //  printf("sendto() failed with error code : %d\r\n", WSAGetLastError());
-   //}
+   if (sendto(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr*) &socket->con.sockaddr, slen) == SOCKET_ERROR){
+      printf("sendto() failed with error code : %d\r\n", WSAGetLastError());
+   }
 }
 
 void UDPServer::receive(mavlink_message_t * message){
@@ -115,7 +95,6 @@ void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
 	}
    if (!found){
       mavlink_msg_ralcp_decode(msg, &packet);
-      std::cout <<ConId;
       Connection connect = Connection(ConId, Connection::UNKNOWN, con);
       ConId++;
       Connection::Identifier des = Connection::UNKNOWN;
@@ -130,10 +109,10 @@ void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
 			   std::cerr << "UNKNOWN DEVICE CONNECTION NOT HANDLED\r\n";
 			return;
 		}
-		
+      //moved when lidar is intergrated		
       connect.type = des;
       UDPSocket * sock = new UDPSocket(connect, this);
-      RobotManager::get()->createRosbee(sock);
+      manager.createRosbee(sock);
 
       _connections.push_back(sock);
       sock->receive(msg);printCon();

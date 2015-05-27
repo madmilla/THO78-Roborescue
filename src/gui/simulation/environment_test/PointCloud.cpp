@@ -38,7 +38,11 @@ void Pointcloud::removePoint(Point point){
 		i++;
 	}
 }
-Pointcloud::Pointcloud(){}
+Pointcloud::Pointcloud(){
+    orientation = 0;
+    offset.X = 0;
+    offset.Y = 0;
+}
 
 int Pointcloud::getCloudHeight(){
 	int maxHeight = 0;
@@ -60,7 +64,7 @@ int Pointcloud::getCloudWidth(){
 		if (p.X > maxWidth){
 			maxWidth = p.X;
 		}
-		if (p.X < maxWidth){
+        if (p.X < minWidth){
 			minWidth = p.X;
 		}
 	}
@@ -88,8 +92,11 @@ void Pointcloud::savePointsToFile(std::string filename){
 
 void Pointcloud::loadPointsFromFile(std::string filename){
     std::ifstream pCFile;
-    pCFile.open(filename + ".pcl");
-    if(!pCFile.is_open()) return;
+    pCFile.open(filename);
+    if(!pCFile.is_open()){
+        std::cout << "Can't open pcl" << std::endl;
+        return;
+    }
     if(!pointCloud.empty()){
         std::cout << "Load on a not empty pointcloud?" << std::endl;
         return;
@@ -111,6 +118,7 @@ void Pointcloud::loadPointsFromFile(std::string filename){
         if ( !(convertY >> result) )result = 0;
         point.Y = result;
         setPoint(point);
+        std::cout << point.X << ":X Y:" << point.Y << std::endl;
     }
     pCFile.close();
 }

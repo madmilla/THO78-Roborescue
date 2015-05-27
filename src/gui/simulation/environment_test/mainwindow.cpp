@@ -37,11 +37,6 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QtCore>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <iostream>
-#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -59,8 +54,7 @@ MainWindow::~MainWindow()
     }
 }
 
-void MainWindow::on_newMapButton_clicked()
-{
+void MainWindow::on_newMapButton_clicked(){
     bool ok;
     QString fileName = QInputDialog::getText(this, "Create map","Map name:",
                                          QLineEdit::Normal,"map name", &ok);
@@ -76,24 +70,58 @@ void MainWindow::on_newMapButton_clicked()
     }
 }
 
-void MainWindow::on_editMapButton_clicked()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, "Open File", QString(), "Map Files (*.map)");
-
-    if (!fileName.isEmpty()){
-        map = new Map(fileName.toStdString());
-        editMapWindow = new EditMapWindow(map);
-        editMapWindow->show();
-    }
+void MainWindow::on_editMapButton_clicked(){
+    QString fileName = QFileDialog::getOpenFileName(this, "Open File", QString(), "Map Files (*.map *.pcl)");
+    load(fileName, Values::EDIT);
 }
 
-void MainWindow::on_simulateButton_clicked()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, "Open File", QString(), "Map Files (*.map)");
+void MainWindow::on_simulateButton_clicked(){
+    QString fileName = QFileDialog::getOpenFileName(this, "Open File", QString(), "Map Files (*.map .pcl)");
+    load(fileName, Values::SIMULATE);
+}
 
+void MainWindow::load(QString fileName, char type){
     if (!fileName.isEmpty()){
-        map = new Map(fileName.toStdString());
-        SimulateMapWindow *simulateMapWindow = new SimulateMapWindow(map);
-        simulateMapWindow->show();
+        QStringList fileTypeList = fileName.split('.');
+        QString fileType = fileTypeList[1];
+
+        if(fileType == "map"){
+            if(type == Values::EDIT){
+                map = new Map(fileName.toStdString());
+                editMapWindow = new EditMapWindow(map);
+                editMapWindow->show();
+            }
+            else if(type == Values::SIMULATE){
+                map = new Map(fileName.toStdString());
+                SimulateMapWindow *simulateMapWindow = new SimulateMapWindow(map);
+                simulateMapWindow->show();
+            }
+        }
+        else if(fileType == "pcl"){
+            if(type == Values::EDIT){
+                Pointcloud *pcl = new Pointcloud();
+                pcl->loadPointsFromFile(fileName.toStdString());
+
+                map = new Map(fileName.toStdString(),pcl);
+                delete pcl;
+
+                editMapWindow = new EditMapWindow(map);
+                editMapWindow->show();
+            }
+            else if(type == Values::SIMULATE){
+
+
+                map = new Map(fileName.toStdString());
+
+
+                SimulateMapWindow *simulateMapWindow = new SimulateMapWindow(map);
+                simulateMapWindow->show();
+            }
+        }
+        else{
+            QMessageBox msgBox;
+            msgBox.setText("Unkown filetype");
+            msgBox.exec();
+        }
     }
 }

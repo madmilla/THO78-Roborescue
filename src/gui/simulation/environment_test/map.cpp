@@ -36,9 +36,8 @@
 **/
 
 #include "map.h"
-using namespace std;
 
-Map::Map(string fileName, int height, int width):
+Map::Map(std::string fileName, int height, int width):
     fileName(fileName),
     height(height),
     width(width)
@@ -49,19 +48,19 @@ Map::Map(string fileName, int height, int width):
     }
 }
 
-Map::Map(string fileName):
+Map::Map(std::string fileName):
     fileName(fileName)
 {
     height = 0;
     width = 0;
     if(!fileName.empty()){
-        ifstream mapFile;
+        std::ifstream mapFile;
         mapFile.open(fileName);
         if(!mapFile.is_open()){
             return;
         }
         if(height == 0 && width == 0){
-            string line;
+            std::string line;
             int i;
             for (i = 0; getline(mapFile, line); ++i);
             line.erase(std::remove_if(line.begin(), line.end(), (int(*)(int))isspace), line.end());
@@ -73,11 +72,59 @@ Map::Map(string fileName):
     }
 }
 
+Map::Map(std::string fileName, Pointcloud *pcl):
+fileName(fileName)
+{
+    int y = 0;
+    height = pcl->getCloudHeight()+1;
+    width = pcl->getCloudWidth()+1;
+    std::vector<Pointcloud::Point> points = pcl->getPoints();
+    if(points.size() == 0){
+        std::cout << "Size = 0" << std::endl;
+        return;
+    }
+    int minX = 0;
+    int minY = 0;
+
+    for(Pointcloud::Point point : points){
+        if(point.X < minX){
+            minX = point.X;
+        }
+
+        if(point.Y < minY){
+            minY = point.Y;
+        }
+    }
+    if(minX < 0){
+        minX = minX * -1;
+    }
+    if(minY < 0){
+        minY = minY * -1;
+    }
+
+    std::cout << "height: " << height << std::endl;
+    std::cout << "width: " << width << std::endl;
+    std::cout << "minX: " << minX << std::endl;
+    std::cout << "minY: " << minY << std::endl;
+
+    mapLayout.resize(height);
+    while(y < height){
+      mapLayout[y].resize(width);
+      std::cout << y << std::endl;
+      y++;
+    }
+    for(Pointcloud::Point point : points){
+        setMapObject(1,point.Y + minY,point.X + minX);
+        std::cout << "X: " << (point.X + minX) << std::endl << "Y: " << (point.Y + minY) << std::endl;
+    }
+
+}
+
 Map::~Map(){
 }
 
-void Map::loadMap(string fileName){
-    ifstream mapFile;
+void Map::loadMap(std::string fileName){
+    std::ifstream mapFile;
     mapFile.open(fileName);
     if(!mapFile.is_open()){
         return;
@@ -130,11 +177,11 @@ int Map::getMapObject(int y, int x){
     return -1;
 }
 
-vector<vector< int > > Map::getMapContent(){
+std::vector<std::vector< int > > Map::getMapContent(){
     return mapLayout;
 }
 
-void Map::setMapContent(vector<vector< int > > newMapLayout){
+void Map::setMapContent(std::vector<std::vector< int > > newMapLayout){
     if(static_cast<int>(newMapLayout.size()) < height || static_cast<int>(newMapLayout.size()) > height){
         return;
     }
@@ -147,7 +194,7 @@ void Map::setMapContent(vector<vector< int > > newMapLayout){
 }
 
 void Map::saveMap(){
-    ofstream mapFile;
+    std::ofstream mapFile;
     mapFile.open(fileName);
     for(int y = 0; y < height; ++y){
         for(int x = 0; x < width; ++x){
@@ -163,8 +210,8 @@ void Map::saveMap(){
     mapFile.close();
 }
 
-void Map::createNewMap(string fileName){
-    ofstream mapFile;
+void Map::createNewMap(std::string fileName){
+    std::ofstream mapFile;
     mapFile.open(fileName);
     for(int y = 0; y < height; ++y){
         for(int x = 0; x < width; ++x){

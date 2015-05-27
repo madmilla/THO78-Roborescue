@@ -39,9 +39,16 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtCore>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <iostream>
+#include <QInputDialog>
 #include "map.h"
 #include "editmapwindow.h"
 #include "simulatemapwindow.h"
+#include "values.h"
+#include "PointCloud.h"
 
 namespace Ui {
 class MainWindow;
@@ -72,6 +79,8 @@ private slots:
     void on_simulateButton_clicked();
 
 private:
+    //! Load the correct window.
+    void load(QString fileName, char type);
     //! Ui pointer for use with QT.
     Ui::MainWindow *ui;
     //! Map pointer containing map information.
