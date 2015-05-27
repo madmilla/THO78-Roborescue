@@ -18,7 +18,7 @@ using namespace std;
 #include <ctime>
 #include "UDPClient.h"
 #include "CPIConnector.h"
-#include "mavlink/udp_mavlink_commands/mavlink.h"
+#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 
 int main(int argc, char **argv)
 {
