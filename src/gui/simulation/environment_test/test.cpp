@@ -283,7 +283,7 @@ int Test::run(){
     testResultsFile << "Enviroment Simulator object behind object test PointCloud" << std::endl;
     Pointcloud pointc = tS.getPointCloud();
 
-    for(Pointcloud::Point p : pointc.getPoints()){
+    for(Pointcloud::Point p : *pointc.getPoints()){
         if(p.X == 3 && p.Y == 0){
             testResultsFile << "PointCloud: " << "Right side object behind object scanned. FAILURE!" << std::endl;
             ++error;
@@ -321,11 +321,11 @@ int Test::run(){
     //PointCloud test
     testResultsFile << "Enviroment Simulator test PointCloud" << std::endl;
     Pointcloud pC = testSim.getPointCloud();
-    if(pC.getPoints().size() > 1){
+    if(pC.getPoints()->size() > 1){
        ++error;
         testResultsFile << "PointCloud: " << "Radius failed" << std::endl;
     }
-    for(Pointcloud::Point p : pC.getPoints()){
+    for(Pointcloud::Point p : *pC.getPoints()){
         //std::cout << "x: " << p.X << " y: " << p.Y;
         if(p.X != 3){
             testResultsFile << "PointCloud: " << "X wrong" << std::endl;

@@ -1,10 +1,12 @@
 #include "TCPServer.h"
 #include <functional>
+#include <iostream>
 
 TCPServer::TCPServer(boost::asio::io_service& service, int portNumber):
 service{ service },
 tcpAcceptor{ service, tcp::endpoint( tcp::v4(), portNumber ) }
 {
+	acceptConnections();
 }
 
 void TCPServer::acceptConnections()
@@ -24,6 +26,7 @@ void TCPServer::broadcast(std::string data)
 
 void TCPServer::connectionAcceptedHandler()
 {
+	std::cout << "incoming connection\n";
 	acceptConnections();
 }
 

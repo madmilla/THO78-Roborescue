@@ -18,6 +18,7 @@ TCPClient::~TCPClient()
 void TCPClient::connect(){
 	std::cout << "connecting/resolving to " << q.service_name() << "\n";
 	std::cout << "resolving...\n";
+	
 	resolv.async_resolve(q, std::bind( &TCPClient::resolveHandler, this, std::placeholders::_1, std::placeholders::_2));
 }
 
@@ -26,18 +27,23 @@ void TCPClient::resolveHandler(const boost::system::error_code &ec, tcp::resolve
 	if (!ec){
 		std::cout << "resolve ok\n";
 		std::cout << "connecting...\n";
+		
 		tcp_socket.async_connect(*it, std::bind(&TCPClient::connectHandler, this, std::placeholders::_1));
-		read();
 	}
-	std::cout << "resolve failed\n";
+	else{
+		std::cout << "resolve failed\n";
+	}
 }
 
 
 void TCPClient::connectHandler(const boost::system::error_code &ec){
 	if (!ec){
 		std::cout << "connecting ok.\n";
+		read();
 	}
-	std::cout << "connecting failed.\n";
+	else{
+		std::cout << "connecting failed.\n";
+	}
 }
 
 void TCPClient::write(std::string s){

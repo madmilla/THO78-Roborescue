@@ -78,15 +78,15 @@ fileName(fileName)
     int y = 0;
     height = pcl->getCloudHeight()+1;
     width = pcl->getCloudWidth()+1;
-    std::vector<Pointcloud::Point> points = pcl->getPoints();
-    if(points.size() == 0){
+    std::vector<Pointcloud::Point> *points = pcl->getPoints();
+    if(points->size() == 0){
         std::cout << "Size = 0" << std::endl;
         return;
     }
     int minX = 0;
     int minY = 0;
 
-    for(Pointcloud::Point point : points){
+    for(Pointcloud::Point point : *points){
         if(point.X < minX){
             minX = point.X;
         }
@@ -113,7 +113,7 @@ fileName(fileName)
       std::cout << y << std::endl;
       y++;
     }
-    for(Pointcloud::Point point : points){
+    for(Pointcloud::Point point : *points){
         setMapObject(1,point.Y + minY,point.X + minX);
         std::cout << "X: " << (point.X + minX) << std::endl << "Y: " << (point.Y + minY) << std::endl;
     }
