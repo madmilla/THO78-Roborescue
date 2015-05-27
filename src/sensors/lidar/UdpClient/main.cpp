@@ -16,13 +16,13 @@ using namespace std;
 #include <string>
 #include <stdlib.h>
 #include <ctime>
-#include "UDPServer.h"
+#include "UDPClient.h"
 #include "CPIConnector.h"
-#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "mavlink/udp_mavlink_commands/mavlink.h"
 
 int main(int argc, char **argv)
 {
-	UDPServer sock;
+	UDPClient sock;
 	CPIConnector cp{1};
 	sock.addListener(&cp);
 

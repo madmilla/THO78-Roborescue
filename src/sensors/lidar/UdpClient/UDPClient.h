@@ -1,5 +1,5 @@
-#ifndef UPDSERVER_H_
-#define UPDSERVER_H_
+#ifndef UPDCLIENT_H_
+#define UPDCLIENT_H_
 
 #include <thread>
 #include <stdio.h>
@@ -8,23 +8,18 @@
 #include <iostream>
 #include <string>
 #include "PracticalSocket.h"
-#include " ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include <queue>
 
 #include "SocketListener.h"
 
 
-/// \author Rene Keijzer<rene.keijzer@student.hu.nl>
-/// \class UDPServer
-/// \brief a test class for udp with rosbee this class may be used in the future for rosbee communication
-/// \brief the constructor of this class initializes an socket and makes it ready for use. this will also start a new thread so the main thread can do other stuff while the udp server is handeling his own messages
 
-
-class UDPServer
+class UDPClient
 {
 public:
-	UDPServer();
-	~UDPServer();
+	UDPClient();
+	~UDPClient();
 
 	/// \param Send a message to a specefic connection.
 	/// \param Message
@@ -55,4 +50,4 @@ private:
 
 };
 
-#endif //UPDSERVER_H_
+#endif //UPDCLIENT_H_
