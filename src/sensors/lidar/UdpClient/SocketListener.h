@@ -9,6 +9,7 @@
 #define SOCKETLISTENER_H_
 
 #include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include <queue>
 
 class SocketListener{
 public:
