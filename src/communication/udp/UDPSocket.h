@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file lidar
+* @file UDPSocket
 * @date Created: 27-5-2015
 *
 * @author Rene Keijzer
@@ -36,74 +36,51 @@
 
 
 
-// class Lidar
-// This class is used to initialize the Lidar and it contains the functions that the Lidar can recieve or send to the CPI
-#ifndef __LIDAR__
-#define __LIDAR__
+// Author@ Rene Keijzer
+// class@ UDPSocket
+// This class is used to make a connection with the client and to send and receive data.
 
-#include <chrono>
-#include "CPIBoundaryObject.h"
+#ifndef __UDPSOCKET__
+#define __UDPSOCKET__
+#include "Socket.h"
+#include "Connection.h"
+#include "UDPServer.h"
 #include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-#include "UDPSocket.h"
-#include "MessageQueue.h"
-#include "RALCPEncoder.h"
-class UDPSocket;
-class Lidar : public CPIBoundaryObject
+#include <iostream>
+
+class UDPSocket : public Socket
 {
 public:
-	// constructor to make a Lidar object (socket)
-	// @param: Socket is used to listen to a specific socket
-	Lidar(UDPSocket * s);
 
-	// initialize the Lidar 
-	void init();
-	void run() override;
+	// Constructor to make a socket
+	// Param@ Connection this is the connection you want to bind to the socket
+	// Param@ UDPServer This is the server where you want to talk with
+	UDPSocket(Connection c, UDPServer * serv) : con(c), server(serv){
+		incomming = new MessageQueue<mavlink_message_t *>();
+	}
 
-	//! \brief Recieve line data from the lidar
-	void recieveLine();
+	// This function sends a messege
+	//Param: message this is the message that you are sending
+	void send(mavlink_message_t * message) override;
 
-	//! \brief standard constructor
-	//! \param[in] msg a reference to the mavlink message struct
-	void recieveRpm();
+	void receive(mavlink_message_t * message) override;
+	// This function returns the connection id
+	// Return@ The id of the connection
+	uint8_t getId() override { return con.id; }
 
-	//! \brief standard constructor
-	//! \param[in] rpm a reference to rpm to be set for the Lidar
-	void sendRpm(int rpm);
+	void print();
 
-	//! \brief start the lidar to scan
-	void Start();
-
-	//! \brief stops the lidar with scanning
-	void Stop();
-
-	//! \brief sends the last knwon positon of the rosbee
-	//! \param[in] postion a reference to the positon of the rosbee
-	void sendRosbeePositie(int postion);
-
-	//! \brief sends the current flank of the rosbee
-	//! \param[in] dagrees a reference to the flank of the rosbee
-	void sendRosbeeFlank(int degrees);
-
-	void getData();
-
-	// This function can finc out who the device is
-	// @param: uint8_t dev this is the device
-	void getDevice(uint8_t dev);
-	void abort();
-	int getId() override;
-
-	~Lidar(){ delete encoder; }
+	// Standard destructor
+	~UDPSocket(){
+	}
+	MessageQueue<mavlink_message_t *> * incomming;
+protected:
 
 private:
-
-
+	friend class UDPServer;
 	friend class RobotManager;
-	UDPSocket * sock;
-	mavlink_message_t message;
-	mavlink_ralcp_t packet;
-	RALCPEncoder * encoder;
+	UDPServer * server;
+	Connection con;
 
-	bool running = false;
-	MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
 };
 #endif

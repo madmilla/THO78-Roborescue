@@ -1,3 +1,8 @@
+#ifndef __CONNECTION__
+#define __CONNECTION__
+
+#include <winsock2.h>
+#include <iostream>
 /**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
@@ -6,8 +11,8 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file lidar
-* @date Created: 27-5-2015
+* @file Connection.h
+* @date Created: 27/5/2015
 *
 * @author Rene Keijzer
 *
@@ -34,76 +39,23 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-
-
-// class Lidar
-// This class is used to initialize the Lidar and it contains the functions that the Lidar can recieve or send to the CPI
-#ifndef __LIDAR__
-#define __LIDAR__
-
-#include <chrono>
-#include "CPIBoundaryObject.h"
-#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-#include "UDPSocket.h"
-#include "MessageQueue.h"
-#include "RALCPEncoder.h"
-class UDPSocket;
-class Lidar : public CPIBoundaryObject
-{
+/// \struct Connection
+/// \brief This is helper struct containing infromation of the connection, like what device is connected and on what socket this connection also carries a unique id for identification
+struct Connection{
 public:
-	// constructor to make a Lidar object (socket)
-	// @param: Socket is used to listen to a specific socket
-	Lidar(UDPSocket * s);
+	
+	enum Identifier{
+		UNKNOWN,
+		ROSBEE,
+		LIDAR,
+		QUADCOPTER,
+		ATV
+	};
 
-	// initialize the Lidar 
-	void init();
-	void run() override;
+	Connection(int ids, Connection::Identifier i, sockaddr_in sock) : id(ids), type(i), sockaddr(sock){}
 
-	//! \brief Recieve line data from the lidar
-	void recieveLine();
-
-	//! \brief standard constructor
-	//! \param[in] msg a reference to the mavlink message struct
-	void recieveRpm();
-
-	//! \brief standard constructor
-	//! \param[in] rpm a reference to rpm to be set for the Lidar
-	void sendRpm(int rpm);
-
-	//! \brief start the lidar to scan
-	void Start();
-
-	//! \brief stops the lidar with scanning
-	void Stop();
-
-	//! \brief sends the last knwon positon of the rosbee
-	//! \param[in] postion a reference to the positon of the rosbee
-	void sendRosbeePositie(int postion);
-
-	//! \brief sends the current flank of the rosbee
-	//! \param[in] dagrees a reference to the flank of the rosbee
-	void sendRosbeeFlank(int degrees);
-
-	void getData();
-
-	// This function can finc out who the device is
-	// @param: uint8_t dev this is the device
-	void getDevice(uint8_t dev);
-	void abort();
-	int getId() override;
-
-	~Lidar(){ delete encoder; }
-
-private:
-
-
-	friend class RobotManager;
-	UDPSocket * sock;
-	mavlink_message_t message;
-	mavlink_ralcp_t packet;
-	RALCPEncoder * encoder;
-
-	bool running = false;
-	MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
-};
+	Identifier type;
+	int id;
+	sockaddr_in sockaddr;
+}; 
 #endif

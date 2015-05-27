@@ -7,14 +7,14 @@ all: $(PROGRAMS)
 clean:
 	rm *.o $(PROGRAMS) &> /dev/null || true
 	
-UDPClient: main.o PracticalSocket.o UDPServer.o CPIConnector.o
-	$(CPP) -o $@ PracticalSocket.o main.o UDPServer.o -lpthread  CPIConnector.o
+UDPClient: main.o PracticalSocket.o UDPClient.o CPIConnector.o
+	$(CPP) -o $@ PracticalSocket.o main.o UDPClient.o -lpthread  CPIConnector.o
 
 %.o: %.cpp
 	$(CPP) $(CPPFLAGS) $<
 
-main.o: main.cpp UDPServer.h CPIConnector.h ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h
+main.o: main.cpp UDPClient.h CPIConnector.h ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h
 PracticalSocket.o: PracticalSocket.h PracticalSocket.cpp
-UDPServer.o: UDPServer.h UDPServer.cpp PracticalSocket.h ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h SocketListener.h
+UDPClient.o: UDPClient.h UDPClient.cpp PracticalSocket.h ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h SocketListener.h
 CPIConnector.o: CPIConnector.h CPIConnector.cpp ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h SocketListener.h
 

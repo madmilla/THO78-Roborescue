@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <queue>
 #include <iostream>
-#include " ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include "SocketListener.h"
 
 class CPIConnector : public SocketListener

@@ -1,29 +1,29 @@
-#include "UDPServer.h"
+#include "UDPClient.h"
 
 #define ipAddress "192.168.43.121"
 #define port 8080
 
 
-UDPServer::UDPServer(): Socketlistener{nullptr}{
+UDPClient::UDPClient(): Socketlistener{nullptr}{
 	sockbind();
 
 	mavlink_ralcp_t ralcp{0, 0, 0};
 	sock.sendTo(&ralcp, sizeof(mavlink_ralcp_t), remoteadr );
 
-	connectionThread = new std::thread(&UDPServer::start, this);
+	connectionThread = new std::thread(&UDPClient::start, this);
 	connectionThread->detach();
 }
 
-UDPServer::~UDPServer(){
+UDPClient::~UDPClient(){
 	stop();
 	delete connectionThread;
 }
 
-void UDPServer::sockbind(){
+void UDPClient::sockbind(){
 	remoteadr = SocketAddress{ipAddress, port, SocketAddress::UDP_SOCKET};
 }
 
-void UDPServer::start(){
+void UDPClient::start(){
 	while(true){
 		receive();
 		std::queue<mavlink_ralcp_t> * messages = Socketlistener->getMessageQueue();
@@ -36,16 +36,16 @@ void UDPServer::start(){
 	}
 }
 
-void UDPServer::send(mavlink_ralcp_t message){
+void UDPClient::send(mavlink_ralcp_t message){
 	sock.sendTo(&message, sizeof(mavlink_ralcp_t), remoteadr);
 }
 
-void UDPServer::receive(){
+void UDPClient::receive(){
 	mavlink_ralcp_t ralcp{0,0,0};
 	sock.recvFrom(&ralcp, sizeof(mavlink_ralcp_t), remoteadr);
 	Socketlistener->onMessage(ralcp);
 }
 
-void UDPServer::stop(){
+void UDPClient::stop(){
 	stopped = true;
 }

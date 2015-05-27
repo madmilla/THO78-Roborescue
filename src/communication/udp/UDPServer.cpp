@@ -1,4 +1,4 @@
-#include "UDPServer.hpp"
+#include "UDPServer.h"
 
 
 UDPServer::UDPServer(RobotManager & manager) : manager(manager){
@@ -65,7 +65,7 @@ void UDPServer::broadcast(mavlink_message_t * message){
 }
 
 void UDPServer::send(UDPSocket * socket, mavlink_message_t * message){
-   if (sendto(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr*) &socket->con.sockaddr, slen) == SOCKET_ERROR){
+   if (sendto(sock, (char*)message, sizeof(mavlink_message_t), 0, (struct sockaddr*) &socket->con.sockaddr, slen) == SOCKET_ERROR){
       printf("sendto() failed with error code : %d\r\n", WSAGetLastError());
    }
 }

@@ -1,3 +1,13 @@
+#ifndef __CPIBOUNDARYOBJECT__
+#define __CPIBOUNDARYOBJECT__
+
+
+#include <cstdint>
+#include "Socket.h"
+#include <iostream>
+#include "mingw.thread.h"
+
+
 /**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
@@ -6,7 +16,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file lidar
+* @file CPIBoundaryObject
 * @date Created: 27-5-2015
 *
 * @author Rene Keijzer
@@ -35,75 +45,30 @@
 **/
 
 
+/// \class CPIBoundaryObject
+/// \brief A boundary object for all the vehicles in the project, an id is used as identification and a device has socket to communicate over
+/// \brief CPiBoundary object is always a thread this thread should be implemented by the subclasses
 
-// class Lidar
-// This class is used to initialize the Lidar and it contains the functions that the Lidar can recieve or send to the CPI
-#ifndef __LIDAR__
-#define __LIDAR__
-
-#include <chrono>
-#include "CPIBoundaryObject.h"
-#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-#include "UDPSocket.h"
-#include "MessageQueue.h"
-#include "RALCPEncoder.h"
-class UDPSocket;
-class Lidar : public CPIBoundaryObject
+class CPIBoundaryObject
 {
 public:
-	// constructor to make a Lidar object (socket)
-	// @param: Socket is used to listen to a specific socket
-	Lidar(UDPSocket * s);
 
-	// initialize the Lidar 
-	void init();
-	void run() override;
+	CPIBoundaryObject(){ 
+		
+	}
+	~CPIBoundaryObject(){}
+protected:
 
-	//! \brief Recieve line data from the lidar
-	void recieveLine();
+	/// \brief Starts implemented robot thread
+	void start(){ robotThread = std::thread(&CPIBoundaryObject::run, this); }
+	/// \brief Pure virtual getid, this method should return the identifier of boundary object
+	/// \return Id of the boundary object
+	virtual int getId() = 0;
 
-	//! \brief standard constructor
-	//! \param[in] msg a reference to the mavlink message struct
-	void recieveRpm();
-
-	//! \brief standard constructor
-	//! \param[in] rpm a reference to rpm to be set for the Lidar
-	void sendRpm(int rpm);
-
-	//! \brief start the lidar to scan
-	void Start();
-
-	//! \brief stops the lidar with scanning
-	void Stop();
-
-	//! \brief sends the last knwon positon of the rosbee
-	//! \param[in] postion a reference to the positon of the rosbee
-	void sendRosbeePositie(int postion);
-
-	//! \brief sends the current flank of the rosbee
-	//! \param[in] dagrees a reference to the flank of the rosbee
-	void sendRosbeeFlank(int degrees);
-
-	void getData();
-
-	// This function can finc out who the device is
-	// @param: uint8_t dev this is the device
-	void getDevice(uint8_t dev);
-	void abort();
-	int getId() override;
-
-	~Lidar(){ delete encoder; }
-
+	/// \brief Robotlogic method this method should be overwritten
+	/// \return void
+	virtual void run(){}
 private:
-
-
-	friend class RobotManager;
-	UDPSocket * sock;
-	mavlink_message_t message;
-	mavlink_ralcp_t packet;
-	RALCPEncoder * encoder;
-
-	bool running = false;
-	MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
-};
+	std::thread robotThread;
+	};
 #endif
