@@ -46,7 +46,7 @@ Pointcloud txtToPointcloud(const std::string & source){
 		x++;
 	}
 	file.close();
-	std::cout << "size of pointcloud: " << pointcloud.getPoints().size() << "\n";
+	std::cout << "size of pointcloud: " << pointcloud.getPoints()->size() << "\n";
 	return pointcloud;
 }
 
@@ -79,7 +79,6 @@ void test(){
 	else{
 		output << circles.size() + lines.size() << " objects detected \t object detection SUCCES";
 	}
-
     sD.writeCirclesToConsole(circles);
     sD.writeLinesToConsole(lines);
 	output.close();
@@ -93,16 +92,20 @@ int main(int argc, char** argv)
         test();
         return 0;
 	}
-
 	std::cout << "running Shape Detection test" << std::endl;
 	ShapeDetector sD;
-	Pointcloud p = txtToPointcloud(argv[1]);
+	Pointcloud pointcloud;
+	pointcloud.loadPointsFromFile(argv[1]);
+	Pointcloud p1;
 	Pointcloud p2;
-	p2.loadPointsFromFile("cloudje");
-	std::cout << " - " << p2.getPoints().size() << " - " << p2.getCloudWidth() << " - " << p2.getCloudHeight();
-	const Mat & orginal_image = sD.createImage(p2, 10);
-	std::cout << "running Shape Detection test" << std::endl;
-	const Mat & orginal_image2 = sD.createImage(p2, 10);
+	Pointcloud p3;
+	p1.loadPointsFromFile("scan1");
+	p2.loadPointsFromFile("scan2");
+	p2.setOffset(Pointcloud::Point{ 2600, 1500 });
+	p3.loadPointsFromFile("scan3");
+	p2.setOffset(Pointcloud::Point{ 0, 4000 });
+	Pointcloud p4 = p1 + p2 + p3;
+	const Mat & orginal_image = sD.createImage(pointcloud,10);
 	Mat customImage = orginal_image.clone();
 	clock_t Start = clock();
 	std::vector<Circle> circles = sD.detectCircles(customImage);

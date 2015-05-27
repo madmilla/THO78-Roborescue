@@ -37,12 +37,12 @@
 #include "PointCloud.h"
 void Pointcloud::setPoint(Point point){
 	removePoint(point.X, point.Y);
-	pointCloud.push_back(point);
+	pointCloud->push_back(point);
 }
 void Pointcloud::setPoint(int x, int y){
 	removePoint(x, y);
 	Point * point = new Point{ x, y };
-	pointCloud.push_back(*point);
+	pointCloud->push_back(*point);
 }
 Pointcloud::Point Pointcloud::getOffset(){
 	return offset;
@@ -52,7 +52,7 @@ void Pointcloud::setOffset(Pointcloud::Point newOffset){
 	int xOffset = offset.X;
 	int yOffset = offset.Y;
 	int newX, newY;
-	for (Pointcloud::Point p : this->getPoints()) {
+	for (Pointcloud::Point p : *this->getPoints()) {
 		int oldX = p.X;
 		int oldY = p.Y;
 		newX = oldX + xOffset;
@@ -61,14 +61,14 @@ void Pointcloud::setOffset(Pointcloud::Point newOffset){
 		this->setPoint(newX,newY);
 	}
 }
-std::vector<Pointcloud::Point> Pointcloud::getPoints(){
+std::vector<Pointcloud::Point> *Pointcloud::getPoints(){
 	return pointCloud;
 }
 void Pointcloud::removePoint(int x, int y){
 	int i = 0;
-	for (Point p : pointCloud){
+	for (Point p : *pointCloud){
 		if (p.X == x && p.Y == y){
-			pointCloud.erase(pointCloud.begin()+i);
+			pointCloud->erase(pointCloud->begin()+i);
 			break;
 		}
 		++i;
@@ -76,15 +76,16 @@ void Pointcloud::removePoint(int x, int y){
 }
 void Pointcloud::removePoint(Point point){
 	int i = 0;
-	for (Point p : pointCloud){
+	for (Point p : *pointCloud){
 		if (p.X == point.X && p.Y == point.Y){
-			pointCloud.erase(pointCloud.begin() + i);
+			pointCloud->erase(pointCloud->begin() + i);
 			break;
 		}
 		++i;
 	}
 }
 Pointcloud::Pointcloud(){
+	pointCloud = new std::vector<Point>();
 	offset.X = 0;
 	offset.Y = 0;
 	orientation = 0;
@@ -92,7 +93,7 @@ Pointcloud::Pointcloud(){
 Pointcloud::Point Pointcloud::getMinValues(){
 	int minX = 0;
 	int minY = 0;
-	for (Pointcloud::Point p : pointCloud){
+	for (Pointcloud::Point p : *pointCloud){
 		if (p.X < minX){
 			minX = p.X;
 		}
@@ -105,7 +106,7 @@ Pointcloud::Point Pointcloud::getMinValues(){
 int Pointcloud::getCloudHeight(){
 	int maxHeight = 0;
 	int minHeight = 0;
-	for (Point p : pointCloud){
+	for (Point p : *pointCloud){
 		if (p.Y < minHeight){
 			minHeight = p.Y;
 		}
@@ -118,10 +119,11 @@ int Pointcloud::getCloudHeight(){
 int Pointcloud::getCloudWidth(){
 	int maxWidth = 0;
 	int minWidth = 0;
-	for (Point p : pointCloud){
+	for (Point p : *pointCloud){
 		if (p.X > maxWidth){
 			maxWidth = p.X;
 		}
+		
 		if (p.X < minWidth){
 			minWidth = p.X;
 		}
@@ -141,7 +143,7 @@ void Pointcloud::savePointsToFile(std::string filename){
     pCFile.open(filename + ".pcl");
     if(!pCFile.is_open()) return;
     pCFile << orientation <<'\n' << offset.X << " " << offset.Y << "\n";
-    for(Pointcloud::Point point : pointCloud){
+    for(Pointcloud::Point point : *pointCloud){
         pCFile << point.X << ":" << point.Y << '\n';
     }
     pCFile.close();
@@ -150,7 +152,7 @@ void Pointcloud::loadPointsFromFile(std::string filename){
     std::ifstream pCFile;
     pCFile.open(filename + ".pcl");
     if(!pCFile.is_open()) return;
-    if(!pointCloud.empty()){
+    if(!pointCloud->empty()){
         std::cout << "Load on a not empty pointcloud?" << std::endl;
         return;
     }
@@ -176,7 +178,7 @@ void Pointcloud::loadPointsFromFile(std::string filename){
 }
 
 void Pointcloud::printPoints(){
-	for (Pointcloud::Point p : this->getPoints()){
+	for (Pointcloud::Point p : *this->getPoints()){
 		std::cout << p << "\n";
 	}
 }
@@ -186,7 +188,7 @@ Pointcloud* Pointcloud::rotate(float angle){
 	float sn = sin(angle*M_PI/halfCircle);
 	float cs = cos(angle*M_PI/halfCircle); 
 
-	for (Pointcloud::Point p : this->getPoints()) {    	
+	for (Pointcloud::Point p : *this->getPoints()) {    	
 		int x = p.X;
 		int y = p.Y;
 		int nx = x * cs - y * sn; 
@@ -209,10 +211,10 @@ std::ostream & operator<<(std::ostream & output, const Pointcloud::Point & s){
 }
 Pointcloud Pointcloud::operator+(Pointcloud & b){
 	Pointcloud pt;
-	for (Pointcloud::Point p : b.getPoints()){
+	for (Pointcloud::Point p : *b.getPoints()){
 		pt.setPoint(p);
 	}
-	for (Pointcloud::Point p : pointCloud){
+	for (Pointcloud::Point p : *pointCloud){
 		pt.removePoint(p);
 		pt.setPoint(p);
 	}
@@ -220,7 +222,7 @@ Pointcloud Pointcloud::operator+(Pointcloud & b){
 	return pt;
 }
 Pointcloud Pointcloud::operator+=(Pointcloud & b){
-	for (Pointcloud::Point p : b.getPoints()){
+	for (Pointcloud::Point p : *b.getPoints()){
 		setPoint(p);
 	}
 	return *this;

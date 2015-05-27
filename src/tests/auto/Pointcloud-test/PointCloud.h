@@ -47,6 +47,9 @@
 #define M_PI 3.14159265358979323846
 class Pointcloud{ //! a struct which will contain a single point
 public:
+	~Pointcloud(){
+		std::cout << "POINTCLOUD ESTROYED\n\n";
+	}
 	//!The Contructor for the pointcloud
 	Pointcloud();
 	//! A object which will contain a single point
@@ -73,7 +76,7 @@ public:
 	@return std::vector<point>: the vector which will contain all the points of the pointcloud
 
 	*/
-	std::vector<Point> getPoints();
+	std::vector<Point> * getPoints();
 	//! remove a point from the pointcloud
 	/*!
 	remove a single point from the pointcloud
@@ -167,7 +170,7 @@ public:
 	Pointcloud operator+=(Pointcloud & b);
 private:
 	Point offset;
-	std::vector<Point> pointCloud; //! the vector which contains all the poins of the pointcloud
+	std::vector<Point> * pointCloud; //! the vector which contains all the poins of the pointcloud
 	int orientation; //! the orientation of the pointcloud
 };
 #endif 
