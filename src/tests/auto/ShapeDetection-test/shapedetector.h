@@ -33,7 +33,7 @@ private:
     const int EDGE_TRESHHOLD = 50; //! the treshhold for detectecting the edges in the image
     const int RESOLUTION_INVERSERATIO = 1; //! the resolution inverseratio
     const int MIN_DISTANCE_CIRCLES = 6; //! the minimun distance between the different circles
-    const int CIRCLE_CENTER_TRESHHOLD = 65; //! the treshold for detecting a circle center
+    const int CIRCLE_CENTER_TRESHHOLD = 45; //! the treshold for detecting a circle center
     const int BLACK_PIXEL = 0; //! the value for a black pixel
     const int WHITE_PIXEL = 255; //! the value for a white pixel
     const int SMOOTH = 7; //! the value in cvSmooth
@@ -42,12 +42,11 @@ private:
     const int CANNY_THRESHHOLD2 = 82; //! the second threshhold used in the canny function
     const double HOUGHLINES_RHO = 1; //! The resolution of the parameter r in pixels. We use 1 pixel.
     const double HOUGHLINES_THETA = CV_PI/180; //! The resolution of the parameter theta in radians. We use 1 degree (CV_PI/180)
-    const int HOUGHLINES_THRESHHOLD = 60; //! The minimum number of intersections to “detect” a line
-    const double HOUGHLINES_MINLINELENGTH = 0; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
-    const double HOUGHLINES_MAXLINEGAP = 50; //! The maximum gap between two points to be considered in the same line.
+    const int HOUGHLINES_THRESHHOLD = 40; //! The minimum number of intersections to “detect” a line
+    const double HOUGHLINES_MINLINELENGTH = 10; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
+    const double HOUGHLINES_MAXLINEGAP = 20; //! The maximum gap between two points to be considered in the same line.
     const CvScalar LINECOLOR = CV_RGB(0,255,0); //! the line color
     const int THICKNESS = 3; //! the thickness of the line
-	const int DEVIDEIMAGESIZE = 10;
 
     //! this function converts a Mat object to a IplImage so the function cvSmooth can be used.
     /*!
@@ -93,7 +92,7 @@ public:
     @param source: The pointcloud to detect circles on
 	@return mat: the created image
     */
-    Mat createImage(Pointcloud & source);
+	Mat createImage(Pointcloud & source, int DEVIDEIMAGESIZE = 1);
 
     //! the function search for lines in the given image and returns the lines
     /*!

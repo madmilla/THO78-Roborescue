@@ -69,7 +69,7 @@ bool ShapeDetector::callCvSmooth(const Mat & m_src, const Mat & m_dest, const in
 	return true;
 }
 
-Mat ShapeDetector::createImage(Pointcloud & source){
+Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	int minX = source.getMinValues().X;
 	int minY = source.getMinValues().Y;
 	std::cout << "min values" << minX << " - " << minY << "\n";
@@ -136,17 +136,20 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 	blur(newImage, frame, Size(5, 5), Point(-1, -1));
 	//cv::GaussianBlur(newImage, frame, cv::Size(3, 3), 3);										////////////////////////////
 	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);                                     ///////////////////////////									
-	imwrite("lines.jpg", newImage);
+	imwrite("lines1.jpg", frame);
+	imwrite("lines2.jpg", newImage);
 	Mat dest;
-	if (!callCvSmooth(newImage, newImage, CV_GAUSSIAN, SMOOTH, SMOOTH)) {						///////////////////////////
+	/*if (!callCvSmooth(newImage, newImage, CV_GAUSSIAN, SMOOTH, SMOOTH)) {						///////////////////////////
 		std::cout << "the source file is empty!" << std::endl;
 		exit(-1);
-	}
+	}*/
+	imwrite("lines3.jpg", newImage);
 	//Sobel(gray, dest, -1, 1, 0, 3, 1, 0, BORDER_DEFAULT);
 	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image	//////////////////////
-	imwrite("linesdest.jpg", dest);
+	imwrite("linesdest1.jpg", dest);
 	vector<Vec4i> lines;  // container to save the lines
-	HoughLinesP(dest, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			///////////////////////////
+	cvtColor(newImage, newImage, CV_RGB2GRAY);
+	HoughLinesP(newImage, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			///////////////////////////
 		HOUGHLINES_MINLINELENGTH, HOUGHLINES_MAXLINEGAP);  //search the lines
 
 	checkLines(lines); //check for double lines

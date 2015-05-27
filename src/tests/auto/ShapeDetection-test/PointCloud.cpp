@@ -122,6 +122,7 @@ int Pointcloud::getCloudWidth(){
 		if (p.X > maxWidth){
 			maxWidth = p.X;
 		}
+		
 		if (p.X < minWidth){
 			minWidth = p.X;
 		}

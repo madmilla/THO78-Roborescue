@@ -51,10 +51,13 @@ Pointcloud txtToPointcloud(const std::string & source){
 }
 
 void test(){
+
 	std::ofstream output("../../../../results/ShapeDetections_results.txt");
     ShapeDetector sD;
 	Pointcloud p = txtToPointcloud("circles400.txt");
+	std::cout << "teast";
 	const Mat & image = sD.createImage(p);
+
 	if (image.size().width < 400 || image.size().height < 400){
 		output << "image WIDTH: " << image.size().width << "\t image HEIGHT: " << image.size().height << "\n";
 		output << "image creation FAILED\n";
@@ -86,22 +89,27 @@ int main(int argc, char** argv)
 {
 
     if(argc <=1){
-        std::cout << "running Shape Detection test" << std::endl;
+        std::cout << "running Shape Detection tests" << std::endl;
         test();
         return 0;
 	}
+
 	std::cout << "running Shape Detection test" << std::endl;
 	ShapeDetector sD;
 	Pointcloud p = txtToPointcloud(argv[1]);
 	Pointcloud p2;
 	p2.loadPointsFromFile("cloudje");
 	std::cout << " - " << p2.getPoints().size() << " - " << p2.getCloudWidth() << " - " << p2.getCloudHeight();
-	const Mat & orginal_image = sD.createImage(p2);
+	const Mat & orginal_image = sD.createImage(p2, 10);
 	std::cout << "running Shape Detection test" << std::endl;
-	const Mat & orginal_image2 = sD.createImage(p2);
+	const Mat & orginal_image2 = sD.createImage(p2, 10);
 	Mat customImage = orginal_image.clone();
+	clock_t Start = clock();
 	std::vector<Circle> circles = sD.detectCircles(customImage);
 	vector<Line> lines = sD.searchLines(customImage);
+	clock_t end = clock();
+	float time = (float)(end - Start) / CLOCKS_PER_SEC;
+	std::cout << (circles.size() + lines.size()) << " Objects detected in " << time << " seconds" << std::endl;
 	sD.writeObjectsToConsole(lines,circles);
 	sD.showObjects(lines,circles, orginal_image, customImage);
 	waitKey();
