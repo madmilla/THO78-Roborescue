@@ -1,7 +1,7 @@
 #include "UDPServer.hpp"
 
 
-UDPServer::UDPServer(){
+UDPServer::UDPServer(RobotManager & manager) : manager(manager){
 	init();
 	sockbind();
    connectionThread = std::thread(&UDPServer::start, this);
@@ -130,10 +130,10 @@ void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
 			   std::cerr << "UNKNOWN DEVICE CONNECTION NOT HANDLED\r\n";
 			return;
 		}
-		
+      //moved when lidar is intergrated		
       connect.type = des;
       UDPSocket * sock = new UDPSocket(connect, this);
-      RobotManager::get()->createRosbee(sock);
+      manager.createRosbee(sock);
 
       _connections.push_back(sock);
       sock->receive(msg);printCon();

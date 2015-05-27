@@ -56,6 +56,7 @@ public:
 	// @param: uint8_t dev this is the device
     void getDevice(uint8_t dev);
     void abort();
+    int getId() override;
 
 	~Rosbee(){ delete encoder;  }
 

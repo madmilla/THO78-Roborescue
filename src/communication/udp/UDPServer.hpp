@@ -1,6 +1,6 @@
 #ifndef __UDPSERVER__
 #define __UDPSERVER__
-
+ 
 #include <stdio.h>
 #include <winsock2.h>
 #include <vector>
@@ -24,11 +24,11 @@ const int port = 8888;
 /// \brief the constructor of this class initializes an socket and makes it ready for use. this will also start a new thread so the main thread can do other stuff while the udp server is handeling his own messages
 
 class UDPSocket;
-
+class RobotManager;
 class UDPServer
 {
 public:
-	UDPServer();
+	UDPServer(RobotManager & manager);
 	~UDPServer();
 	/// \param Message this is the message to be broadcasted on all the known udp connections
 	/// \returns void
@@ -64,7 +64,7 @@ private:
 	struct sockaddr_in server, si_other;
 	int slen, recv_len;
 	WSADATA wsa;
-
+	RobotManager & manager;
 	mavlink_message_t msg;
 	mavlink_ralcp_t packet;
 

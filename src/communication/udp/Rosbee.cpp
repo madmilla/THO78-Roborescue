@@ -15,14 +15,11 @@ void Rosbee::run(){
       if(outgoing->size() > 0){
          auto pair = outgoing->pop();
          encoder->send(COMMAND_DESTINATION::ROSBEE, pair.first, pair.second);
+         std::cout << "Send message!" <<std::endl;
       }
      if(sock->incomming->size() > 0){
-		 std::cout << std::endl << "Got incomming message! size:" << sock->incomming->size() << std::endl;
-		 auto pair = sock->incomming->pop();
-		 mavlink_msg_ralcp_decode(pair, &packet);
-		 sock->print();
-		 std::cout <<"payload:" << packet.Payload <<std::endl;
-      }
+		 //Do stuff with incomming messages
+       }
       std::this_thread::sleep_for(std::chrono::seconds(2));
    }
     
@@ -73,6 +70,10 @@ void Rosbee::BatteryStatus(){
 
 void Rosbee::getDevice(uint8_t dev){
    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETDEVICE, uint64_t(dev << 54)));
+}
+
+int Rosbee::getId(){
+   return sock->getId();
 }
 void Rosbee::abort(){
    running = false;

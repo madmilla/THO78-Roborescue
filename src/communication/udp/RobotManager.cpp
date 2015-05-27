@@ -1,24 +1,59 @@
 #include "RobotManager.h"
-RobotManager * RobotManager::instance = nullptr;
-
-RobotManager * RobotManager::get(){
-	if(instance == nullptr){
-		instance = new RobotManager;
-	}
-
-
-	return instance;
-}
 
 Rosbee * RobotManager::createRosbee(UDPSocket * s){
 	try{
-	Rosbee * rosbee = new Rosbee(s);
-	robots.push_back(rosbee);
-	return rosbee;
-}catch(std::exception &ex){
-	std::cout << ex.what();
-}
-	
-
+		Rosbee * rosbee = new Rosbee(s);
+		robots.push_back(rosbee);
+		return rosbee;
+	}catch(std::exception &ex){
+		std::cout << ex.what();
+	}
 }
 
+std::vector<Rosbee *> RobotManager::getRosbee(){
+	std::vector<Rosbee *> list;
+	for(auto robot : robots){
+		auto r = static_cast<Rosbee *>(robot);
+		if(r != nullptr){
+			list.push_back(r);
+		}
+
+	}
+	return list;
+}
+
+Rosbee * RobotManager::getRosbee(int id){
+	for(auto robot: robots){
+		auto r = static_cast<Rosbee *>(robot);
+		if(r != nullptr){
+			if(id == r->getId()){
+				return r;
+			}
+		}
+	}
+	return nullptr;
+}
+
+int RobotManager::size(){
+	return robots.size();
+}
+
+std::string RobotManager::getDetails(){
+	std::stringstream ss;
+	ss << "=============================" << std::endl;
+	ss << "=        RobotManager       =" << std::endl;
+	ss << "=============================" << std::endl;
+	ss << std::endl;
+	ss << "General Information: "<<std::endl;
+	ss << "\tConnected robots: " << robots.size() << std::endl;
+	ss << std::endl;
+	ss << "Rosbee's:"<<std::endl;
+	for(auto rosbee : getRosbee()){
+		ss << "\tId: " << rosbee->getId() << std::endl;
+
+	}
+	ss << std::endl;
+
+	return ss.str();
+
+}

@@ -23,6 +23,7 @@ public:
 	~CPIBoundaryObject(){}
 protected:
 	void start(){ robotThread = std::thread(&CPIBoundaryObject::run, this); }
+	virtual int getId() = 0;
 	virtual void run(){}
 private:
 	uint16_t DeviceId;
