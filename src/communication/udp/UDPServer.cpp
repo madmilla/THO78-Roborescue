@@ -1,4 +1,4 @@
-#include "UDPServer.hpp"
+#include "UDPServer.h"
 
 
 UDPServer::UDPServer(RobotManager & manager) : manager(manager){
@@ -65,7 +65,7 @@ void UDPServer::broadcast(mavlink_message_t * message){
 }
 
 void UDPServer::send(UDPSocket * socket, mavlink_message_t * message){
-   if (sendto(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr*) &socket->con.sockaddr, slen) == SOCKET_ERROR){
+   if (sendto(sock, (char*)message, sizeof(mavlink_message_t), 0, (struct sockaddr*) &socket->con.sockaddr, slen) == SOCKET_ERROR){
       printf("sendto() failed with error code : %d\r\n", WSAGetLastError());
    }
 }
@@ -103,16 +103,18 @@ void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
             des = Connection::ROSBEE;
             break;
          case COMMAND_DESTINATION::LIDAR:
-			   des = Connection::LIDAR;
-			   break;
-		   default:
+			des = Connection::LIDAR;
+			break;
+		 default:
 			   std::cerr << "UNKNOWN DEVICE CONNECTION NOT HANDLED\r\n";
 			return;
 		}
-      //moved when lidar is intergrated		
-      connect.type = des;
-      UDPSocket * sock = new UDPSocket(connect, this);
-      manager.createRosbee(sock);
+
+      //moved when lidar is intergrated	
+	  connect.type = des;
+	  UDPSocket * sock = new UDPSocket(connect, this);
+
+	 manager.createUDPRobot(sock);
 
       _connections.push_back(sock);
       sock->receive(msg);printCon();
