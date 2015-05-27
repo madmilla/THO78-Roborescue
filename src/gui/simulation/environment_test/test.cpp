@@ -27,12 +27,8 @@ int Test::run(){
 
     //Map from file
     testResultsFile << "Enviroment Simulator test Map from file" << std::endl;
-<<<<<<< HEAD
-    Map testFileMap("../testFileMap.map");
-    int mapsize = testFileMap.getMapContent().size();
-=======
+
     Map testFileMap("testFileMap.map");
->>>>>>> origin/master
 
     if(!testResultsFile.is_open()){
         testResultsFile << "Map from file: " << "testFileMap could not be opend" << std::endl;
