@@ -2,7 +2,7 @@
  * messageListener.h
  *
  *  Created on: May 20, 2015
- *      Author: hamza
+ *      Author: pawel
  */
 
 #ifndef SOCKETLISTENER_H_
