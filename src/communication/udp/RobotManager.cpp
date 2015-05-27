@@ -10,10 +10,11 @@ Rosbee * RobotManager::createRosbee(UDPSocket * s){
 	}
 }
 
-std::vector<Rosbee *> RobotManager::getRosbee(){
-	std::vector<Rosbee *> list;
+template <typename T>
+std::vector<T *> RobotManager::getRobots(){
+	std::vector<T *> list;
 	for(auto robot : robots){
-		auto r = static_cast<Rosbee *>(robot);
+		auto r = static_cast<T *>(robot);
 		if(r != nullptr){
 			list.push_back(r);
 		}
@@ -22,9 +23,10 @@ std::vector<Rosbee *> RobotManager::getRosbee(){
 	return list;
 }
 
-Rosbee * RobotManager::getRosbee(int id){
+template <typename T>
+T * RobotManager::getRobot(int id){
 	for(auto robot: robots){
-		auto r = static_cast<Rosbee *>(robot);
+		auto r = static_cast<T *>(robot);
 		if(r != nullptr){
 			if(id == r->getId()){
 				return r;
@@ -83,7 +85,7 @@ std::string RobotManager::getDetails(){
 	ss << "\tConnected robots: " << robots.size() << std::endl;
 	ss << std::endl;
 	ss << "Rosbee's:"<<std::endl;
-	for(auto rosbee : getRosbee()){
+	for(auto rosbee : getRobots<Rosbee>()){
 		ss << "\tId: " << rosbee->getId() << std::endl;
 
 	}

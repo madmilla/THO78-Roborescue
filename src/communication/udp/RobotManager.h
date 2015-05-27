@@ -11,9 +11,15 @@ class Rosbee;
 class RobotManager{
 public:
 	RobotManager(){}
+
 	Rosbee * createRosbee(UDPSocket * s);
-	std::vector<Rosbee *> getRosbee();
-	Rosbee * getRosbee(int id);
+	
+	template<typename T>
+	std::vector<T *> getRobots();
+	
+	template<typename T>
+	T * getRosbee(int id);
+	
 	std::string getDetails();
 
 	Lidar * createLidar(UDPSocket * s);
