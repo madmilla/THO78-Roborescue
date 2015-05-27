@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     sock.bind(localadr);
     SocketAddress remoteadr;
 
-    UDPServer sock2;
+    UDPClient sock2;
     CPIConnector cp{1};
     sock2.addListener(&cp);
 
