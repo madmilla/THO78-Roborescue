@@ -19,7 +19,7 @@ int Test::run(){
     std::ofstream testResultsFile;
     testResultsFile.open("testResult.txt");
     if(!testResultsFile.is_open()){
-        testResultsFile << "Result log: " << "Log file could not be opend" << std::endl;
+        std::cout << "Result log: " << "Log file could not be opend" << std::endl;
         ++error;
     }
 
@@ -30,10 +30,6 @@ int Test::run(){
 
     Map testFileMap("testFileMap.map");
 
-    if(!testResultsFile.is_open()){
-        testResultsFile << "Map from file: " << "testFileMap could not be opend" << std::endl;
-        ++error;
-    }
 
     if(static_cast<int>(testFileMap.getMapContent().size()) != size){
         testResultsFile << "Map from file: " << "Map y size incorret" << std::endl;
