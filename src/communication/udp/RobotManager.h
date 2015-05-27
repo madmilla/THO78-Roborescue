@@ -8,23 +8,48 @@
 
 class UDPSocket;
 class Rosbee;
+class Lidar;
 class RobotManager{
 public:
 	RobotManager(){}
 
-	Rosbee * createRosbee(UDPSocket * s);
-	
-	template<typename T>
-	std::vector<T *> getRobots();
-	
-	template<typename T>
-	T * getRosbee(int id);
-	
-	std::string getDetails();
+	void createUDPRobot(UDPSocket * s);
 
-	Lidar * createLidar(UDPSocket * s);
-	std::vector<Lidar *> getLidar();
-	Lidar * getLidar(int id);
+	
+	template<typename T>
+	T * getRobot(int id){
+		for(auto robot: robots){
+			auto r = dynamic_cast<T *>(robot);
+			if(r != nullptr){
+				if(id == r->getId()){
+					return r;
+				}
+			}
+		}
+		return nullptr;
+	}
+	
+template <typename T>
+std::vector<T *> getRobots(){
+	std::vector<T *> list;
+
+	for(auto robot : robots){
+		auto r = dynamic_cast<T *>(robot);
+		if(r != nullptr){
+			list.push_back(r);
+		}
+
+	}
+	return list;
+}
+	
+	template <typename T>
+	T * createRobot(UDPSocket * s){
+		T * robot= new T(s);
+		robots.push_back(robot);
+		return robot;
+	}
+
 	std::string getDetails();
 
 	int size();

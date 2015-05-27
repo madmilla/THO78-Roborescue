@@ -40,7 +40,7 @@ protected:
 
 private:
 	friend class UDPServer;
-
+	friend class RobotManager;
 	UDPServer * server;
 	Connection con;
 

@@ -114,14 +114,7 @@ void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
 	  connect.type = des;
 	  UDPSocket * sock = new UDPSocket(connect, this);
 
-	  if (des == COMMAND_DESTINATION::LIDAR)
-	  {
-		  manager.createRosbee(sock);
-	  }
-	  else
-	  {
-		  manager.createLidar(sock);
-	  }
+	 manager.createUDPRobot(sock);
 
       _connections.push_back(sock);
       sock->receive(msg);printCon();

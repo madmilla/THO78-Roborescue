@@ -1,4 +1,5 @@
 #include "UDPServer.hpp"
+#include "Rosbee.hpp"
 int main(){
 	RobotManager manager;
 	
@@ -7,7 +8,7 @@ int main(){
 	while(true){
 		if(manager.size() > cons){
 			std::cout << manager.getDetails();
-			auto rosbee = manager.getRosbee(cons);
+			auto rosbee = manager.getRobot<Rosbee>(cons);
 			rosbee->init();
 			cons++;
 			}

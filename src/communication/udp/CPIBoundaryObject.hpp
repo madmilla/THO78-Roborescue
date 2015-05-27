@@ -1,5 +1,5 @@
 #ifndef __CPIBOUNDARYOBJECT__
-#define __CPIBOUDNARYOBJECT__
+#define __CPIBOUNDARYOBJECT__
 
 
 #include <cstdint>

@@ -1,75 +1,27 @@
 #include "RobotManager.h"
 
-Rosbee * RobotManager::createRosbee(UDPSocket * s){
-	try{
-		Rosbee * rosbee = new Rosbee(s);
-		robots.push_back(rosbee);
-		return rosbee;
-	}catch(std::exception &ex){
-		std::cout << ex.what();
-	}
-}
 
-template <typename T>
-std::vector<T *> RobotManager::getRobots(){
-	std::vector<T *> list;
-	for(auto robot : robots){
-		auto r = static_cast<T *>(robot);
-		if(r != nullptr){
-			list.push_back(r);
+void RobotManager::createUDPRobot(UDPSocket * s){
+	if((s = static_cast<UDPSocket*>(s)) != nullptr ){
+		switch(s->con.type){
+			case Connection::Identifier::ROSBEE:
+				createRobot<Rosbee>(s);
+			break;
+			case Connection::Identifier::LIDAR:
+				createRobot<Lidar>(s);
+			break;
+			default:
+				std::cout << "Unkown destination";
+			break;
 		}
+	}else{
 
-	}
-	return list;
-}
 
-template <typename T>
-T * RobotManager::getRobot(int id){
-	for(auto robot: robots){
-		auto r = static_cast<T *>(robot);
-		if(r != nullptr){
-			if(id == r->getId()){
-				return r;
-			}
-		}
-	}
-	return nullptr;
-}
-
-Lidar * RobotManager::createLidar(UDPSocket * s){
-	try{
-		Lidar * rosbee = new Lidar(s);
-		robots.push_back(rosbee);
-		return rosbee;
-	}
-	catch (std::exception &ex){
-		std::cout << ex.what();
 	}
 }
 
-std::vector<Lidar *> RobotManager::getLidar(){
-	std::vector<Lidar *> list;
-	for (auto robot : robots){
-		auto r = static_cast<Lidar *>(robot);
-		if (r != nullptr){
-			list.push_back(r);
-		}
 
-	}
-	return list;
-}
 
-Lidar * RobotManager::getLidar(int id){
-	for (auto robot : robots){
-		auto r = static_cast<Lidar *>(robot);
-		if (r != nullptr){
-			if (id == r->getId()){
-				return r;
-			}
-		}
-	}
-	return nullptr;
-}
 
 int RobotManager::size(){
 	return robots.size();
@@ -87,7 +39,10 @@ std::string RobotManager::getDetails(){
 	ss << "Rosbee's:"<<std::endl;
 	for(auto rosbee : getRobots<Rosbee>()){
 		ss << "\tId: " << rosbee->getId() << std::endl;
-
+	}
+	ss << "Lidar's" << std::endl;
+	for(auto lidar : getRobots<Lidar>()){
+		ss << "\tId: " << lidar->getId() << std::endl;
 	}
 	ss << std::endl;
 
