@@ -27,7 +27,7 @@ int Test::run(){
 
     //Map from file
     testResultsFile << "Enviroment Simulator test Map from file" << std::endl;
-    Map testFileMap("testFileMap.map");
+    Map testFileMap("../testFileMap.map");
     int mapsize = testFileMap.getMapContent().size();
 
     if(mapsize != size){
@@ -249,6 +249,30 @@ int Test::run(){
     tM->setMapObject(1,8,7);
     testResultsFile << "addObject 8 7 lower side from checkpoint" << std::endl;
 
+    //left up side diagonal
+    tM->setMapObject(1,4,6);
+    testResultsFile << "addObject 4 6 left up side diagonal checkpoint" << std::endl;
+    tM->setMapObject(1,3,5);
+    testResultsFile << "addObject 5 3 left up side diagonal checkpoint" << std::endl;
+
+    //left down side diagonal
+    tM->setMapObject(1,6,6);
+    testResultsFile << "addObject 6 6 left down side diagonal checkpoint" << std::endl;
+    tM->setMapObject(1,7,5);
+    testResultsFile << "addObject 5 7 left down side diagonal checkpoint" << std::endl;
+
+    //right up side diagonal
+    tM->setMapObject(1,4,8);
+    testResultsFile << "addObject 8 4 right up side diagonal checkpoint" << std::endl;
+    tM->setMapObject(1,3,9);
+    testResultsFile << "addObject 9 3 right up side diagonal checkpoint" << std::endl;
+
+    //right down side diagonal
+    tM->setMapObject(1,6,8);
+    testResultsFile << "addObject 8 6 right down side diagonal checkpoint" << std::endl;
+    tM->setMapObject(1,7,9);
+    testResultsFile << "addObject 9 7 right down side diagonal checkpoint" << std::endl;
+
     SimulateMap tS(tM);
 
     tS.addCheckPoint(7,5);
@@ -275,11 +299,23 @@ int Test::run(){
             testResultsFile << "PointCloud: " << "Lower side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
+        else if(p.X ==  -2 && p.Y == -2){
+            testResultsFile << "PointCloud: " << "Upper left diagonal side object behind object scanned. FAILURE!" << std::endl;
+            ++error;
+        }
+        else if(p.X == 2 && p.Y == -2){
+            testResultsFile << "PointCloud: " << "Lower left diagonal side object behind object scanned. FAILURE!" << std::endl;
+            ++error;
+        }
+        else if(p.X == 2 && p.Y == 2){
+            testResultsFile << "PointCloud: " << "Lower right diagonal side object behind object scanned. FAILURE!" << std::endl;
+            ++error;
+        }
+        else if(p.X == -2 && p.Y == 2){
+            testResultsFile << "PointCloud: " << "Upper right diagonal side object behind object scanned. FAILURE!" << std::endl;
+            ++error;
+        }
     }
-
-
-
-
 
     //PointCloud test
     testResultsFile << "Enviroment Simulator test PointCloud" << std::endl;
