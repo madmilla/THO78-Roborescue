@@ -1,8 +1,8 @@
 #include <iostream>
-#include "dimension.h"
-#include "testcopter.h"
-#include "arraymap.h"
-#include "areacoveringalgorithm.h"
+#include "../../../strategy/pathfinding/areacoverage/areacoveringalgorithm.h"
+#include "../../../strategy/pathfinding/areacoverage/dimension.h"
+#include "../../../strategy/pathfinding/areacoverage/testcopter.h"
+#include "../../../strategy/pathfinding/areacoverage/arraymap.h"
 using namespace std;
 void test(int i){
     Dimension Sightrange(3,3);
