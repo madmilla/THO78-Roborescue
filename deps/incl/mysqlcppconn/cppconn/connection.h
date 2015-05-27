@@ -33,7 +33,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "warning.h"
 #include "sqlstring.h"
 #include "variant.h"
-
 namespace sql
 {
 

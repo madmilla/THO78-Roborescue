@@ -206,7 +206,7 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
     while (globalmap->contains(0)) {
     this->registerLocation(mapp, copter);
 
-    if (checkIfBoxedIn(copter, mapp)) {
+    if (isBoxedIn(copter, mapp)) {
       boxed = true;
       moveBackOnRoute(copter);
 
@@ -221,7 +221,7 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
     // 3){QTextStream(stdout) <<"return";return x;}
     if (pointOn(direction.width, direction.height, copter, mapp) ==
             wallnumber ||
-            checkIfCoveredInDirection(direction,copter)||
+            isCoveredInDirection(direction,copter)||
    //     pointOn(direction.width * (sightxinitial),
    //             direction.height * (sightxinitial), copter,
    //             mapp) == coveredNumber ||
@@ -234,12 +234,12 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
         //std::cout << " going down";
 
         if (pointOn(-1, 0, copter, mapp) == wallnumber ||
-            checkIfCoveredInDirection(left,copter) ||
+            isCoveredInDirection(left,copter) ||
             pointOn(-1 * (sightxinitial), 0, copter, mapp) ==
                 wallnumber) // En de copter kan niet naar links
         {
           if (pointOn(1, 0, copter, mapp) == wallnumber ||
-             checkIfCoveredInDirection(right,copter)||
+             isCoveredInDirection(right,copter)||
               pointOn(1 * (sightxinitial), 0, copter, mapp) == wallnumber) {
           //  std::cout << "Ik zit vast";
             moveBackOnRoute(copter);
@@ -257,12 +257,12 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
       {
 
         if (pointOn(0, 1, copter, mapp) == wallnumber ||
-            checkIfCoveredInDirection(down,copter)||
+            isCoveredInDirection(down,copter)||
             pointOn(0, 1 * (sightxinitial), copter, mapp) ==
                 wallnumber) // En de copter kan niet naar beneden
         {
           if (pointOn(0, -1, copter, mapp) == wallnumber ||
-             checkIfCoveredInDirection(forward,copter)||
+             isCoveredInDirection(forward,copter)||
               pointOn(0, (sightxinitial) * -1, copter, mapp) == wallnumber) {
 
             moveBackOnRoute(copter);
@@ -280,12 +280,12 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
       {
 
         if (pointOn(0, -1, copter, mapp) == wallnumber ||
-            checkIfCoveredInDirection(forward,copter)||
+            isCoveredInDirection(forward,copter)||
             pointOn(0, -1 * (sightxinitial), copter, mapp) ==
                 wallnumber) // En de copter kan niet omhoog
         {
           if (pointOn(0, 1, copter, mapp) == wallnumber ||
-              checkIfCoveredInDirection(down,copter)||
+              isCoveredInDirection(down,copter)||
               pointOn(0, 1 * (sightxinitial), copter, mapp) == wallnumber) {
 
             moveBackOnRoute(copter);
@@ -303,12 +303,12 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
       {
 
         if (pointOn(1, 0, copter, mapp) == wallnumber ||
-           checkIfCoveredInDirection(right,copter)||
+           isCoveredInDirection(right,copter)||
             pointOn(1 * (sightxinitial), 0, copter, mapp) ==
                 wallnumber) // En de copter kan niet naar links
         {
           if (pointOn(-1, 0, copter, mapp) == wallnumber ||
-             checkIfCoveredInDirection(left,copter)||
+             isCoveredInDirection(left,copter)||
               pointOn(-1 * (sightxinitial), 0, copter, mapp) == wallnumber) {
 
             moveBackOnRoute(copter);
@@ -367,7 +367,7 @@ void AreaCoveringAlgorithm::registerLocation(ArrayMap *map,
   }
 }
  /** this method checks if there are uncovered areas around the copter. if there are empty areas it will return false else true */
-bool AreaCoveringAlgorithm::checkIfBoxedIn(TestCopter *copter, ArrayMap *map) {
+bool AreaCoveringAlgorithm::isBoxedIn(TestCopter *copter, ArrayMap *map) {
   //int coveredNumber = 0;
   //int sightxinitial = copter->copterSight.width - 1;
   //if (pointOn(-1 * (sightxinitial), 0, copter, map) != coveredNumber &&
@@ -378,10 +378,10 @@ bool AreaCoveringAlgorithm::checkIfBoxedIn(TestCopter *copter, ArrayMap *map) {
   //} else {
     //return false;
   //}
-    if (   !(checkIfCoveredInDirection(forward,copter)|| pointOn(0,-1,copter,map)==1||pointOn(0,-2,copter,map)==1) ){return false;}
-    if (   !(checkIfCoveredInDirection(down,copter)|| pointOn(0,1,copter,map)==1||pointOn(0,2,copter,map)==1) ){return false;}
-    if (   !(checkIfCoveredInDirection(right,copter)|| pointOn(1,0,copter,map)==1|| pointOn(2,0,copter,map)==1) ){return false;}
-    if (   !(checkIfCoveredInDirection(left,copter)|| pointOn(-1,0,copter,map)==1|| pointOn(-2,0,copter,map)==1) ){return false;}
+    if (   !(isCoveredInDirection(forward,copter)|| pointOn(0,-1,copter,map)==1||pointOn(0,-2,copter,map)==1) ){return false;}
+    if (   !(isCoveredInDirection(down,copter)|| pointOn(0,1,copter,map)==1||pointOn(0,2,copter,map)==1) ){return false;}
+    if (   !(isCoveredInDirection(right,copter)|| pointOn(1,0,copter,map)==1|| pointOn(2,0,copter,map)==1) ){return false;}
+    if (   !(isCoveredInDirection(left,copter)|| pointOn(-1,0,copter,map)==1|| pointOn(-2,0,copter,map)==1) ){return false;}
     //pointOn(1 * (sightxinitial), 0, copter, map) != coveredNumber
     return true;
 
@@ -483,8 +483,9 @@ void AreaCoveringAlgorithm::moveBackOnRoute(TestCopter *copter) {
  /** This function checks if the testcopter is covered in the given direction it not only checks directly in front of it but in front of the entire sight range of the copter */
 
 
-bool AreaCoveringAlgorithm::checkIfCoveredInDirection(Dimension d, TestCopter *t ){
+bool AreaCoveringAlgorithm::isCoveredInDirection(Dimension d, TestCopter *t ){
    // std::cout << t->x << " " << t->y;
+    int index;
     bool uncovered=true;
     //std::cout << "DEBIGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG";
     int sightxinitial =2;
