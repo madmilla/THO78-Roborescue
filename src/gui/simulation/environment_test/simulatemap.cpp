@@ -152,9 +152,7 @@ std::string SimulateMap::simulate(){
                                             break;
                                         }
                                     }
-                                }
-
-
+                                }                               
                             }
 
                             if(!obstacleFound){
