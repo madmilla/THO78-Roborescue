@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file lidar
+* @file RALCPEncoder
 * @date Created: 27-5-2015
 *
 * @author Rene Keijzer
@@ -36,74 +36,38 @@
 
 
 
-// class Lidar
-// This class is used to initialize the Lidar and it contains the functions that the Lidar can recieve or send to the CPI
-#ifndef __LIDAR__
-#define __LIDAR__
 
-#include <chrono>
-#include "CPIBoundaryObject.h"
+
+#ifndef __RALCPENCODER__
+#define __RALCPENCODER__
+#include "Socket.h"
+#include <iostream>
 #include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-#include "UDPSocket.h"
-#include "MessageQueue.h"
-#include "RALCPEncoder.h"
-class UDPSocket;
-class Lidar : public CPIBoundaryObject
-{
+
+/// \class@ RALCPEncoder
+/// \brief The RALCPencoder functions as T section between the lidar and the rosbee for communication
+
+class RALCPEncoder{
 public:
-	// constructor to make a Lidar object (socket)
-	// @param: Socket is used to listen to a specific socket
-	Lidar(UDPSocket * s);
-
-	// initialize the Lidar 
-	void init();
-	void run() override;
-
-	//! \brief Recieve line data from the lidar
-	void recieveLine();
-
-	//! \brief standard constructor
-	//! \param[in] msg a reference to the mavlink message struct
-	void recieveRpm();
-
-	//! \brief standard constructor
-	//! \param[in] rpm a reference to rpm to be set for the Lidar
-	void sendRpm(int rpm);
-
-	//! \brief start the lidar to scan
-	void Start();
-
-	//! \brief stops the lidar with scanning
-	void Stop();
-
-	//! \brief sends the last knwon positon of the rosbee
-	//! \param[in] postion a reference to the positon of the rosbee
-	void sendRosbeePositie(int postion);
-
-	//! \brief sends the current flank of the rosbee
-	//! \param[in] dagrees a reference to the flank of the rosbee
-	void sendRosbeeFlank(int degrees);
-
-	void getData();
-
-	// This function can finc out who the device is
-	// @param: uint8_t dev this is the device
-	void getDevice(uint8_t dev);
-	void abort();
-	int getId() override;
-
-	~Lidar(){ delete encoder; }
-
+	RALCPEncoder(Socket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
+   /// \param@ Destination for the message to send to
+	/// \param@ The Rosbee communication function
+	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
+	void send(COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf, uint64_t payload);
+	/// \param@ Destination for the message to send to
+	/// \param@ The Lidar communication function
+	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
+	void send(COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS rcf, uint64_t payload);
+	~RALCPEncoder(){}
 private:
-
-
-	friend class RobotManager;
-	UDPSocket * sock;
-	mavlink_message_t message;
+	mavlink_message_t msg;
 	mavlink_ralcp_t packet;
-	RALCPEncoder * encoder;
-
-	bool running = false;
-	MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
+	Socket * socket;
+	
+	int SYSTEMID;
+	int COMPONENTID;
+	int TARGET_SYSTEMID;
+	int TARGET_COMPONENTID;
 };
+
 #endif

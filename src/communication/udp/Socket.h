@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file lidar
+* @file Socket
 * @date Created: 27-5-2015
 *
 * @author Rene Keijzer
@@ -36,74 +36,33 @@
 
 
 
-// class Lidar
-// This class is used to initialize the Lidar and it contains the functions that the Lidar can recieve or send to the CPI
-#ifndef __LIDAR__
-#define __LIDAR__
 
-#include <chrono>
-#include "CPIBoundaryObject.h"
+#ifndef __SOCKET__
+#define __SOCKET__
+#include <queue>
 #include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-#include "UDPSocket.h"
-#include "MessageQueue.h"
-#include "RALCPEncoder.h"
-class UDPSocket;
-class Lidar : public CPIBoundaryObject
-{
+class UDPServer;
+
+/// author@ Rene Keijzer<rene.keijzer@student.hu.nl>
+/// class@ Socket
+/// brief the base class for a socket, this has the virtual function which needs to be overwritten by other sockets like UDPsocket or a RF socket
+class Socket{
 public:
-	// constructor to make a Lidar object (socket)
-	// @param: Socket is used to listen to a specific socket
-	Lidar(UDPSocket * s);
+   Socket(){}
 
-	// initialize the Lidar 
-	void init();
-	void run() override;
-
-	//! \brief Recieve line data from the lidar
-	void recieveLine();
-
-	//! \brief standard constructor
-	//! \param[in] msg a reference to the mavlink message struct
-	void recieveRpm();
-
-	//! \brief standard constructor
-	//! \param[in] rpm a reference to rpm to be set for the Lidar
-	void sendRpm(int rpm);
-
-	//! \brief start the lidar to scan
-	void Start();
-
-	//! \brief stops the lidar with scanning
-	void Stop();
-
-	//! \brief sends the last knwon positon of the rosbee
-	//! \param[in] postion a reference to the positon of the rosbee
-	void sendRosbeePositie(int postion);
-
-	//! \brief sends the current flank of the rosbee
-	//! \param[in] dagrees a reference to the flank of the rosbee
-	void sendRosbeeFlank(int degrees);
-
-	void getData();
-
-	// This function can finc out who the device is
-	// @param: uint8_t dev this is the device
-	void getDevice(uint8_t dev);
-	void abort();
-	int getId() override;
-
-	~Lidar(){ delete encoder; }
-
-private:
+   /// brief virtual send function which needs to be implemented
+   /// param@ pointer to mavlink message
+   virtual void send(mavlink_message_t * message) {}
 
 
-	friend class RobotManager;
-	UDPSocket * sock;
-	mavlink_message_t message;
-	mavlink_ralcp_t packet;
-	RALCPEncoder * encoder;
+   /// \brief virtual receive function which needs to be implemented
+   /// param@ pointer to mavlink message
+   virtual void receive(mavlink_message_t * message){}
 
-	bool running = false;
-	MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
+
+   /// brief virtual getid function which needs to be implemented, returns 0 on default
+   /// return@ uint8_t id of socket
+   virtual uint8_t getId(){ return 0; }
+   ~Socket(){}
 };
 #endif
