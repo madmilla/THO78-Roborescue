@@ -1,7 +1,7 @@
 
-//Author Rene keijzer
-// class Rosbee
-// This class is used to initialize the rosbee and it contains the functions that the rosbee can recieve or send to the CPI
+/// \Author Rene keijzer
+/// \class Rosbee
+/// \This class is used to initialize the rosbee and it contains the functions that the rosbee can recieve or send to the CPI
 #ifndef __ROSBEE__
 #define __ROSBEE__
 
@@ -15,47 +15,53 @@ class UDPSocket;
 class Rosbee : public CPIBoundaryObject
 {
 public:
-	// constructor to make a Rosbee object (socket)
-	// @param: Socket is used to listen to a specific socket
+	/// \brief constructor to make a Rosbee object (socket)
+	/// \param: Socket is used to listen to a specific socket
 	Rosbee(UDPSocket * s);
 
-	// initialize the Rosbee 
+	/// \brief initialize the Rosbee 
 	void init();
+
+	/// \brief Run method of the rosbee boundary, this run reads it's queue's and handles it messsages
 	void run() override;
 
-	// this function checks if all devices are ready or not
+	/// \brief this method checks if all devices are ready or not
 	void getRequirementStatus();
 
-	// This function starts a mission for a Rosbee
+	/// \brief This method starts a mission for a Rosbee
 	void startMission();
 
-	// This function sends waypoints to the Rosbee so he can ride to his destination
-	// @param: uint8_t x this parameter is used to send the x-axis of the new destination for the rosbee
-	// @param: uint8_t y this parameter is used to send the y-axis of the new destination for the rosbee
+	/// \brief This method sends waypoints to the Rosbee so he can ride to his destination
+	/// \param: uint8_t x this parameter is used to send the x-axis of the new destination for the rosbee
+	/// \param: uint8_t y this parameter is used to send the y-axis of the new destination for the rosbee
 	void sendWaypoint(uint8_t x, uint8_t y);
 
-	// This function can ask for a request at the CPI ( for now it only asks for new waypoints )
+	/// \brief This method can ask for a request at the CPI ( for now it only asks for new waypoints )
 	void getRequest();
 
-	// This function stops the mission of a Rosbee
+	/// \brief This method stops the mission of a Rosbee
 	void stopMission();
 
-	// This function cancells a mission of a Rosbee
+	/// \brief This method cancells a mission of a Rosbee
 	void abortMission();
 
-	// This function sends a sonar interrupt to the CPI 
+	/// \brief This method sends a sonar interrupt to the CPI 
 	void sonarInterrupt();
 
-	// This function is needed for tests
+	/// \brief This method is needed for tests
 	void sendAck();
 
-	// This function is not used for now (maybe in the future)
+	/// \brief This method is not used for now (maybe in the future)
 	void BatteryStatus();
 
-	// This function can finc out who the device is
-	// @param: uint8_t dev this is the device
+	/// \brief This method can finc out who the device is
+	/// \param: uint8_t dev this is the device
     void getDevice(uint8_t dev);
+    
+    /// \brief aborts rosbee
     void abort();
+
+    /// \brief returns unique identifier
     int getId() override;
 
 	~Rosbee(){ delete encoder;  }
