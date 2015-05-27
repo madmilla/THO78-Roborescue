@@ -1,7 +1,7 @@
 #include "UDPClient.h"
 
-#define ipAddress "192.168.43.121"
-#define port 8080
+#define ipAddress "127.0.0.1"
+#define port 8888
 
 
 UDPClient::UDPClient(): Socketlistener{nullptr}{
