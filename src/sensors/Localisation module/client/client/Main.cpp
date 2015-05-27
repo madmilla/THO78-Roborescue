@@ -6,7 +6,7 @@ int main()
 {
 	
 	io_service ioService;
-	TCPClient tcpClient{ ioService, "theboostcpplibraries.com", "80" };
+	TCPClient tcpClient{ ioService, "localhost", "10033" };
 	
 	tcpClient.connect();
 	ioService.run();

@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <thread>
 
-#include "PracticalSocket.h"
+#include "../../../sensors/lidar/UdpClient/PracticalSocket.h"
 #include "../../../sensors/lidar/UdpClient/UDPClient.h"
 #include "../../../sensors/lidar/UdpClient/CPIConnector.h"
 #include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     sock.bind(localadr);
     SocketAddress remoteadr;
 
-    UDPServer sock2;
+    UDPClient sock2;
     CPIConnector cp{1};
     sock2.addListener(&cp);
 
