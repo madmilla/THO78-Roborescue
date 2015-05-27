@@ -103,16 +103,25 @@ void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
             des = Connection::ROSBEE;
             break;
          case COMMAND_DESTINATION::LIDAR:
-			   des = Connection::LIDAR;
-			   break;
-		   default:
+			des = Connection::LIDAR;
+			break;
+		 default:
 			   std::cerr << "UNKNOWN DEVICE CONNECTION NOT HANDLED\r\n";
 			return;
 		}
-      //moved when lidar is intergrated		
-      connect.type = des;
-      UDPSocket * sock = new UDPSocket(connect, this);
-      manager.createRosbee(sock);
+
+      //moved when lidar is intergrated	
+	  connect.type = des;
+	  UDPSocket * sock = new UDPSocket(connect, this);
+
+	  if (des == COMMAND_DESTINATION::LIDAR)
+	  {
+		  manager.createRosbee(sock);
+	  }
+	  else
+	  {
+		  manager.createLidar(sock);
+	  }
 
       _connections.push_back(sock);
       sock->receive(msg);printCon();

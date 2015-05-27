@@ -34,6 +34,41 @@ Rosbee * RobotManager::getRosbee(int id){
 	return nullptr;
 }
 
+Lidar * RobotManager::createLidar(UDPSocket * s){
+	try{
+		Lidar * rosbee = new Lidar(s);
+		robots.push_back(rosbee);
+		return rosbee;
+	}
+	catch (std::exception &ex){
+		std::cout << ex.what();
+	}
+}
+
+std::vector<Lidar *> RobotManager::getLidar(){
+	std::vector<Lidar *> list;
+	for (auto robot : robots){
+		auto r = static_cast<Lidar *>(robot);
+		if (r != nullptr){
+			list.push_back(r);
+		}
+
+	}
+	return list;
+}
+
+Lidar * RobotManager::getLidar(int id){
+	for (auto robot : robots){
+		auto r = static_cast<Lidar *>(robot);
+		if (r != nullptr){
+			if (id == r->getId()){
+				return r;
+			}
+		}
+	}
+	return nullptr;
+}
+
 int RobotManager::size(){
 	return robots.size();
 }
