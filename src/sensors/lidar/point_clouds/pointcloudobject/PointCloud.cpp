@@ -52,7 +52,8 @@ void Pointcloud::setOffset(Pointcloud::Point newOffset){
 	int xOffset = offset.X;
 	int yOffset = offset.Y;
 	int newX, newY;
-	for (Pointcloud::Point p : *this->getPoints()) {
+	std::vector<Point> pc = *this->getPoints();
+	for (Pointcloud::Point p : pc) {
 		int oldX = p.X;
 		int oldY = p.Y;
 		newX = oldX + xOffset;
@@ -187,8 +188,8 @@ Pointcloud* Pointcloud::rotate(float angle){
 	const int halfCircle = 180;
 	float sn = sin(angle*M_PI/halfCircle);
 	float cs = cos(angle*M_PI/halfCircle); 
-
-	for (Pointcloud::Point p : *this->getPoints()) {    	
+	std::vector<Point> pc = *this->getPoints();
+	for (Pointcloud::Point p : pc) {
 		int x = p.X;
 		int y = p.Y;
 		int nx = x * cs - y * sn; 
