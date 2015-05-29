@@ -8,6 +8,7 @@ class TCPServer
 {
 public:
 	TCPServer(boost::asio::io_service& service, int portNumber);
+	void broadcast(std::string data);
 private:
 	boost::asio::io_service& service;
 	tcp::acceptor tcpAcceptor;
@@ -16,8 +17,6 @@ private:
 
 	void acceptConnections();
 	void connectionAcceptedHandler();
-
-	void broadcast(std::string data);
 	void dataWrittenHandler();
 };
 #endif

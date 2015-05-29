@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file TCPServer.cpp
+* @file TCPClient.cpp
 * @date Created: 29-5-2015
 *
 * @author Kjeld Perquin
@@ -33,39 +33,50 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include "TCPServer.h"
-#include <functional>
-#include <iostream>
+#include "TCPClient.h"
 
-TCPServer::TCPServer(boost::asio::io_service& service, int portNumber):
-service{ service },
-tcpAcceptor{ service, tcp::endpoint( tcp::v4(), portNumber ) }
+TCPClient::~TCPClient()
 {
-	acceptConnections();
 }
 
-void TCPServer::acceptConnections()
+TCPClient::TCPClient(io_service& service, std::string host, std::string port):
+tcpQuery{ host, port },
+tcpResolver{ service },
+tcpSocket{ service }
 {
-	connections.push_back(new tcp::socket{ tcpAcceptor.get_io_service() });
-	tcpAcceptor.async_accept(*connections.back(), std::bind( &TCPServer::connectionAcceptedHandler, this ));
+	tcpResolver.async_resolve(tcpQuery, std::bind(&TCPClient::connectionResolvedHandler, this, std::placeholders::_1, std::placeholders::_2));
+	tcp::socket tcpSocket{ service };
 }
 
-void TCPServer::broadcast(std::string data)
+void TCPClient::connectionResolvedHandler(const boost::system::error_code &ec, tcp::resolver::iterator it)
 {
-	sendData = data + '\r' + '\n';
-	for (auto& tcpSocket : connections)
+	if (!ec)
 	{
-		tcpSocket->async_send(boost::asio::buffer(sendData), std::bind(&TCPServer::dataWrittenHandler, this));
+		async_connect(tcpSocket, it, std::bind(&TCPClient::connectedHandler, this, std::placeholders::_1));
 	}
 }
 
-void TCPServer::connectionAcceptedHandler()
+void TCPClient::connectedHandler(const boost::system::error_code &ec)
 {
-	std::cout << "incoming connection\n";
-	acceptConnections();
+	if (!ec)
+	{
+		readData();
+	}
 }
 
+void TCPClient::readData()
+{ 
+	async_read_until(tcpSocket, receiveBuffer, '\n', std::bind(&TCPClient::dataReceivedHandler, this, std::placeholders::_1, std::placeholders::_2));
+}
 
-void TCPServer::dataWrittenHandler()
+void TCPClient::dataReceivedHandler(const boost::system::error_code& ec, size_t bytesTransferred)
 {
+	if (!ec)
+	{
+		std::string message;
+		std::istream is(&receiveBuffer);
+		getline(is, message);
+		handleMessage(message);
+		readData();
+	}
 }

@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file TCPServer.cpp
+* @file XYReceiver.cpp
 * @date Created: 29-5-2015
 *
 * @author Kjeld Perquin
@@ -33,39 +33,55 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include "TCPServer.h"
-#include <functional>
+
+#include "XYReceiver.h"
 #include <iostream>
 
-TCPServer::TCPServer(boost::asio::io_service& service, int portNumber):
-service{ service },
-tcpAcceptor{ service, tcp::endpoint( tcp::v4(), portNumber ) }
-{
-	acceptConnections();
+XYReceiver::XYReceiver(io_service& service, std::string host, std::string port):
+TCPClient{ service, host, port}
+{	
 }
 
-void TCPServer::acceptConnections()
+Coordinate<int> XYReceiver::getCoordinate() const
 {
-	connections.push_back(new tcp::socket{ tcpAcceptor.get_io_service() });
-	tcpAcceptor.async_accept(*connections.back(), std::bind( &TCPServer::connectionAcceptedHandler, this ));
+	return coordinate;
 }
 
-void TCPServer::broadcast(std::string data)
+int XYReceiver::getX() const
 {
-	sendData = data + '\r' + '\n';
-	for (auto& tcpSocket : connections)
+	return coordinate.getX();
+}
+
+int XYReceiver::getY() const
+{
+	return coordinate.getY();
+}
+
+void XYReceiver::handleMessage(std::string message)
+{
+	int xPos;
+	if ((xPos = message.find('X')) != std::string::npos)
 	{
-		tcpSocket->async_send(boost::asio::buffer(sendData), std::bind(&TCPServer::dataWrittenHandler, this));
+		int yPos;
+		if ((yPos = message.find('Y')) != std::string::npos)
+		{
+			if (yPos > xPos)
+			{
+				std::string xString;
+				std::string yString;
+				xString = message.substr(xPos + 1, yPos - xPos);
+				yString = message.substr(yPos + 1, message.length() - yPos);
+				try
+				{
+					auto newX = stoi(xString);
+					auto newY = stoi(yString);
+					coordinate.setX(newX);
+					coordinate.setY(newY);
+				}
+				catch (std::invalid_argument&)
+				{
+				}
+			}
+		}
 	}
-}
-
-void TCPServer::connectionAcceptedHandler()
-{
-	std::cout << "incoming connection\n";
-	acceptConnections();
-}
-
-
-void TCPServer::dataWrittenHandler()
-{
 }
