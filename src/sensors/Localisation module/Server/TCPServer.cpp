@@ -47,7 +47,7 @@ tcpAcceptor{ service, tcp::endpoint( tcp::v4(), portNumber ) }
 void TCPServer::acceptConnections()
 {
 	connections.push_back(new tcp::socket{ tcpAcceptor.get_io_service() });
-	tcpAcceptor.async_accept(*connections.back(), std::bind( &TCPServer::connectionAcceptedHandler, this ));
+	tcpAcceptor.async_accept(*connections.back(), std::bind(&TCPServer::connectionAcceptedHandler, this, std::placeholders::_1));
 }
 
 void TCPServer::broadcast(std::string data)
@@ -55,17 +55,24 @@ void TCPServer::broadcast(std::string data)
 	sendData = data + '\r' + '\n';
 	for (auto& tcpSocket : connections)
 	{
-		tcpSocket->async_send(boost::asio::buffer(sendData), std::bind(&TCPServer::dataWrittenHandler, this));
+		tcpSocket->async_send(boost::asio::buffer(sendData), std::bind(&TCPServer::dataWrittenHandler, this, std::placeholders::_1));
 	}
 }
 
-void TCPServer::connectionAcceptedHandler()
+void TCPServer::connectionAcceptedHandler(const boost::system::error_code &ec)
 {
-	std::cout << "incoming connection\n";
-	acceptConnections();
+	if (!ec)
+	{
+		std::cout << "incoming connection\n";
+		acceptConnections();
+	}
 }
 
 
-void TCPServer::dataWrittenHandler()
+void TCPServer::dataWrittenHandler(const boost::system::error_code &ec)
 {
+	if (!ec)
+	{
+		
+	}
 }
