@@ -96,15 +96,8 @@ int main(int argc, char** argv)
 	ShapeDetector sD;
 	Pointcloud pointcloud;
 	pointcloud.loadPointsFromFile(argv[1]);
-	Pointcloud p1;
-	Pointcloud p2;
-	Pointcloud p3;
-	p1.loadPointsFromFile("scan1");
-	p2.loadPointsFromFile("scan2");
-	p2.setOffset(Pointcloud::Point{ 2600, 1500 });
-	p3.loadPointsFromFile("scan3");
-	p2.setOffset(Pointcloud::Point{ 0, 4000 });
-	Pointcloud p4 = p1 + p2 + p3;
+	std::cout << "size: " << pointcloud.getPoints()->size() << "\n";
+
 	const Mat & orginal_image = sD.createImage(pointcloud,10);
 	Mat customImage = orginal_image.clone();
 	clock_t Start = clock();
