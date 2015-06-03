@@ -4,7 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 LIBS +=  "$$PWD/mysqlcppconn.lib"
 #INCLUDEPATH += "/../../../../deps/incl/mysqlcppconn/"
-INCLUDEPATH = $$PWD/../../../../deps/incl/mysqlcppconn/
+INCLUDEPATH += $$PWD/../../../../deps/incl/mysqlcppconn/
+INCLUDEPATH += $$PWD/../../../../deps/incl/boost/
 
 
 SOURCES += main.cpp \

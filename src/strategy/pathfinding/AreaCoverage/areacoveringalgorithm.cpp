@@ -54,7 +54,7 @@ This is usefull for gui implementations */
 void AreaCoveringAlgorithm::drawWayPoints(ArrayMap *map) {
 
   for (WayPoint point : result) {
-    map->data.at(point.x)->at(point.y) = 15;
+    map->setLocationValue(point.x,point.y,15);
   }
 }
 
@@ -335,10 +335,10 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, ArrayMap *mapp,
  /** this function returns the value on the point of the given map */
 int AreaCoveringAlgorithm::pointOn(int x, int y, TestCopter *copter,
                                    ArrayMap *map) {
-  if (copter->x + x < int(map->data.size() )&& copter->x + x > -1) {
+  if (copter->x + x < int(map->bufferdata.size() )&& copter->x + x > -1) {
 
-    if (copter->y + y > -1 && copter->y + y < int(map->data.at(copter->x)->size())) {
-      return map->data.at(copter->x + x)->at(copter->y + y);
+    if (copter->y + y > -1 && copter->y + y < int(map->bufferdata.at(copter->x)->size())) {
+      return map->bufferdata.at(copter->x + x)->at(copter->y + y);
     } else {
       return 1;
     }
@@ -357,10 +357,10 @@ void AreaCoveringAlgorithm::registerLocation(ArrayMap *map,
 
     for (int ii = copter->y - sightxinitial; ii <= copter->y + sightxinitial;
          ii++) {
-      if (i < int(map->data.size()) && i > -1 && ii > -1 &&
-          ii < int(map->data.at(i)->size())) {
-        if (map->data.at(i)->at(ii) == 0) {
-          map->data.at(i)->at(ii) = 3;
+      if (i < int(map->bufferdata.size()) && i > -1 && ii > -1 &&
+          ii < int(map->bufferdata.at(i)->size())) {
+        if (map->getLocationValue(i,ii) == 0) {
+          map->setLocationValue(i,ii,3);
         }
       }
     }
@@ -465,7 +465,7 @@ cell \n";
 
 }*/
 void AreaCoveringAlgorithm::setCopterSquare(TestCopter copt, ArrayMap *map) {
-  map->data.at(copt.x)->at(copt.y) = 10;
+  map->setLocationValue(copt.x,copt.y,10);
 }
  /** this function moves the testcopter back on the route and keeps track of howfar it went back */
 void AreaCoveringAlgorithm::moveBackOnRoute(TestCopter *copter) {

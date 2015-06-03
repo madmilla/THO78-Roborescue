@@ -17,15 +17,7 @@ void test(int i){
 
 int main(int argc, char *argv[])
 {
-    //test(1);
-    try{
-    databaseConnector Connector("127.0.0.1:3306","root","","robodata");}
-    catch(exception e){
-        std::cout <<e.what();
-
-    }
-    //Connector.setMap(Connector.getMaps().at(0).id);
-    //std::cout <<Connector.isAccessable(point(100,100));
+    test(0);
     return 0;
 
 }

@@ -26,7 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #ifndef _SQL_CONNECTION_H_
 #define _SQL_CONNECTION_H_
-
+#define CPPDBC_PUBLIC_FUNC
 #include <map>
 
 #include "build_config.h"
