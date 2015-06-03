@@ -88,7 +88,6 @@ int findParam ( std::string param,int argc, char *argv[] )
         if ( string ( argv[i] ) ==param ) return i;
 
     return -1;
-
 }
 /************************************
  *
@@ -105,7 +104,6 @@ int main(int argc,char **argv)
             return 0;
         }
         //parse arguments
- 
         //read from camera or from  file
         if (TheInputVideo.find("live")!=string::npos) 
 		{
@@ -155,7 +153,6 @@ int main(int argc,char **argv)
 			MDetector2.pyrDown(ThePyrDownLevel);
 		}
 
-
         //Create gui
 
         //cv::namedWindow("thres",1);
@@ -169,7 +166,6 @@ int main(int argc,char **argv)
 
 		MDetector2.getThresholdParams( ThresParam1, ThresParam2);
 		MDetector2.setCornerRefinementMethod(MarkerDetector::SUBPIX);
-
 
         iThresParam1=ThresParam1;
         iThresParam2=ThresParam2;
@@ -200,20 +196,19 @@ int main(int argc,char **argv)
             //print marker info and draw the markers in image
             //TheInputImage.copyTo(TheInputImageCopy);
 			//TheInputImage2.copyTo(TheInputImageCopy2);
-	    
+
 			cout << "cam1" << endl;
             for (unsigned int i=0;i<TheMarkers.size();i++) 
 			{
                 cout <<endl << TheMarkers[i];
                 //TheMarkers[i].draw(TheInputImageCopy,Scalar(0,0,255),1);
-            }
-	    
+            }	    
 			cout << "cam2" << endl;
 			for (unsigned int i=0;i<TheMarkers2.size();i++) {
 			cout<<endl<<TheMarkers2[i];
+
 			//TheMarkers2[i].draw(TheInputImageCopy2,Scalar(0,0,255),1);
 			}
-
             if (TheMarkers.size()!=0)            cout<<endl;
             //print other rectangles that contains no valid markers
 			/** 
@@ -223,7 +218,6 @@ int main(int argc,char **argv)
                 m.draw(TheInputImageCopy,cv::Scalar(255,0,0));
 				}
 			*/
-
             //draw a 3d cube in each marker if there is 3d info
             if (  TheCameraParameters.isValid())
 			{
@@ -244,13 +238,11 @@ int main(int argc,char **argv)
             key=cv::waitKey(waitTime);//wait for key to be pressed
         }
 		while(key!=27 && TheVideoCapturer.grab() && TheVideoCapturer2.grab());
-
     } 
 	catch (std::exception &ex)
     {
         cout<<"Exception :"<<ex.what()<<endl;
     }
-
 }
 /************************************
  *
@@ -285,7 +277,6 @@ void cvTackBarEvents(int pos,void*)
             CvDrawingUtils::draw3dCube(TheInputImageCopy,TheMarkers[i],TheCameraParameters);
 		}
 	}
-
     //cv::imshow("in",TheInputImageCopy);
     //cv::imshow("thres",MDetector.getThresholdedImage());
 }
