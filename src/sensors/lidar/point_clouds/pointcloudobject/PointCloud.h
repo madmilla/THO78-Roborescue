@@ -11,7 +11,8 @@
 * @date Created: 22-04-15
 *
 * @version 1.1
-* @author Tijmen Bruggeman
+* @author Tijmen Bruggeman 1643463
+* @author Owen Hoogenboezem 1643103
 * @section LICENSE
 * License: newBSD
 *
@@ -121,7 +122,6 @@ public:
 	/*!
 	get the orientation of the pointcloud in degrees
 	@return int: the integer with the orientation of the pointcloud in degrees
-
 	*/
 	int getOrientation();
 	//! set the offset of the pointcloud
@@ -155,7 +155,7 @@ public:
 	
 	
 	
-	/*! Rotate a point could 
+	/*! Rotate a point could with given rotation
 	 * @param angle the rotation angle in Degrees
 	 */ 
 	Pointcloud* rotate(float angle);
