@@ -26,7 +26,7 @@ databaseConnector::~databaseConnector() {
     delete stmt;
 }
 
-std::vector<map> databaseConnector::getMaps(){
+std::vector<databaseConnector::map> databaseConnector::getMaps(){
 	std::vector<map> maps;
 	sql::ResultSet* res = stmt->executeQuery("SELECT id, name FROM map");
 	while (res->next()) {
