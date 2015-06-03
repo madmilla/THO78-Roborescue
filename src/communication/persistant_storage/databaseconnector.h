@@ -20,8 +20,8 @@
  *
  */
 struct map{
-	int id;
-	std::string name;
+    int id;
+    std::string name;
 };
 
 class databaseConnector {
@@ -31,18 +31,17 @@ public:
      * \param  hostname the hostname of the database ex: tcp://127.0.0.1:3306
      * \param  username the username used to connect the database
      * \param  password the password for the user
-     * \param  schemaName the name of the schema you want to use
-     *
+     * \param  schemaName the name of the database that you want to use
      */
     databaseConnector(std::string hostname, std::string username, std::string password, std::string schemaName);
     virtual ~databaseConnector();
 
-	/** \brief returns all known maps
-	*
-	* \return all know maps as a vector of a map struct with a id and name
-	*
-	*/
-	std::vector<map> getMaps();
+    /** \brief returns all known maps
+    *
+    * \return all know maps as a vector of a map struct with a id and name
+    *
+    */
+    std::vector<map> getMaps();
 
     /** \brief returns the looked up map
     *
@@ -53,12 +52,12 @@ public:
     */
     int getMapId(std::string mapName);
 
-	/** \brief Sets the map that is going to be used
-	*
-	* \param id the id of the map
-	*
-	*/
-	void setMap(int id);
+    /** \brief Sets the map that is going to be used
+    *
+    * \param id the id of the map
+    *
+    */
+    void setMap(int id);
 
     /** \brief Add a polygon to the database
      *
@@ -92,7 +91,15 @@ public:
      * This function checks if a point is accesable, outer borders of figures are not included and marked as accesable \n
      * ex: square with on coordinates -10 10. If the functions gets the point 10,10 it returns false. If the functions gets the point 9,9 it returns true
      */
-    bool isAccessable( point& p );
+    bool isAccessable( point& polygon );
+
+     /** \brief checks if a polygon is accesable
+     *
+     * \param polygon the polygon that is checked
+     * \return true if the polygon is accesable false if there's a object on that position
+     *
+     */
+    bool isAccessable( std::vector<point>& polygon );
 
 
     /** \brief this function sets the position of a vehicle at the current time
@@ -173,7 +180,7 @@ private:
     std::string statement_end=");";
     std::string statement_mid="))'),";
     std::string statement_continue="),(GeomFromText('POLYGON((";
-	int mapId = 1;
+    int mapId = -1;
 };
 
 #endif // DATABASECONNECTOR_H
