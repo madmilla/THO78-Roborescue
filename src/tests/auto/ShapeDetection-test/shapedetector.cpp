@@ -143,7 +143,6 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 		exit(-1);
 	}*/
 	imwrite("lines3.jpg", newImage);
-	//Sobel(gray, dest, -1, 1, 0, 3, 1, 0, BORDER_DEFAULT);
 	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image	//////////////////////
 	imwrite("linesdest1.jpg", dest);
 	vector<Vec4i> lines;  // container to save the lines
