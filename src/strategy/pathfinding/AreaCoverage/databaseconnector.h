@@ -22,11 +22,15 @@
  *
  */
 struct map{
-	int id;
-	std::string name;
+    int id;
+    std::string name;
 };
 
 class databaseConnector {
+    struct map{
+        int id;
+        std::string name;
+    };
 public:
     /** \brief  Constructor of the database Connector
      *
@@ -44,7 +48,7 @@ public:
 	* \return all know maps as a vector of a map struct with a id and name
 	*
 	*/
-	std::vector<map> getMaps();
+    std::vector<databaseConnector::map> getMaps();
 
     /** \brief returns the looked up map
     *

@@ -2,9 +2,10 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
+LIBS +=  "$$PWD/mysqlcppconn.lib"
 #INCLUDEPATH += "/../../../../deps/incl/mysqlcppconn/"
 INCLUDEPATH = $$PWD/../../../../deps/incl/mysqlcppconn/
-LIBS +=  "-L $$PWD../../../../deps/lib/mysqlcppconn/linux/x64\(64\ bit\)/ -lmysqlcppconn"
+
 
 SOURCES += main.cpp \
     areacoveringalgorithm.cpp \
