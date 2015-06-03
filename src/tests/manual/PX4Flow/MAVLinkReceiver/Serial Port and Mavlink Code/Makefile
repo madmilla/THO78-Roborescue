@@ -22,6 +22,7 @@ $(info $$(HEADERS) is [$(HEADERS)])
 
 run: $(TARGET)
 	sudo ./$(TARGET)
+	main.exe
 
 rebuild: clean build
 

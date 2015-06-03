@@ -1,10 +1,10 @@
 #include "someListener.h"
 #include <iostream>
 #include "CImg/CImg.h"
-				#define IMGSIZE 64
 int pixel = 0;
-cimg_library::CImg<unsigned char> image(IMGSIZE,IMGSIZE,1,3);
+cimg_library::CImg<unsigned char> image;
 std::string imgS = "";
+int imageWidth, imageHeight, imageSize;
 
 SomeListener::SomeListener(){
 	
@@ -28,19 +28,20 @@ void SomeListener::update(mavlink_message_t* msg){
 				std::cout << "Data transmission handshake -- \n	quality: [" << ((int)mavlink_msg_data_transmission_handshake_get_jpg_quality(msg)) << "]\n	seq: [" << ((int)msg->seq) << "]\n	type: [" << ((int)mavlink_msg_data_transmission_handshake_get_type(msg)) << "]\n	size: [" << ((int)mavlink_msg_data_transmission_handshake_get_size(msg)) << "]\n	packets: [" << ((int)mavlink_msg_data_transmission_handshake_get_packets(msg)) << "]\n	width: [" << ((int)mavlink_msg_data_transmission_handshake_get_width(msg)) << "]\n	height: [" << ((int)mavlink_msg_data_transmission_handshake_get_height(msg)) << "]\n";
 				if (imgS!=""){
 					image.save(imgS.c_str());
+					std::cout << "Saved "<<imgS<<".\n";
 				}
 				pixel = 0;
 				imgS = "img/image";
 				imgS += std::to_string(img);
 				imgS +=".BMP";
 				std::cout << "Creating "<<imgS<<".\n";
-				//image.fill(128);
-					
-					
-				std::cout << "Created "<<imgS<<".\n";
-				//m->sendMessage(*msg);
 				img ++;
 				size = mavlink_msg_data_transmission_handshake_get_size(msg);
+				imageWidth = mavlink_msg_data_transmission_handshake_get_width(msg);
+				imageHeight = mavlink_msg_data_transmission_handshake_get_height(msg);
+				imageSize = imageWidth*imageHeight;
+				image.assign(imageWidth,imageHeight,1,1);
+				std::cout << "Created "<<imgS<<".\n";
 			}
 		break;
 		
@@ -52,16 +53,11 @@ void SomeListener::update(mavlink_message_t* msg){
 			int size = mavlink_msg_encapsulated_data_get_data(msg,buffer);
 			std::cout << "frame ["<<size<<"]\n";
 			for (int i = 0; i < size; i ++){
-				std::cout <<buffer[i];
-				if (pixel < IMGSIZE*IMGSIZE){
-					image(pixel % IMGSIZE,pixel / IMGSIZE,0,0) = buffer[i]; //R
-					image(pixel % IMGSIZE,pixel / IMGSIZE,0,1) = buffer[i]; //G
-					image(pixel % IMGSIZE,pixel / IMGSIZE,0,2) = buffer[i]; //B
+				if (pixel < imageSize){
+					image(pixel % imageWidth,pixel / imageWidth,0,0) = buffer[i]; //R
 				}
 				pixel++;
 			}
-			std::cout << "\n";
-			//imgFile.write((char*)buffer,size);
 		}
 		break;
 		
