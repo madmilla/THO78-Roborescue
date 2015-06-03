@@ -2,11 +2,11 @@
 
 PROG = main
 # the needed cpp files (withoud .cpp)
-MODULES :=  Circle Line PointCloud shapedetector Lidar main
+MODULES :=  Circle Line PointCloud shapedetector Lidar LidarController main
 
 # the deps directory
 DEPS_DIR_WIN:= ..\..\..\..\deps
-DEPS_DIR_LINUX:= ../../../../deps
+DEPS_DIR_LINUX:= ..\..\..\..\deps
 
 HEADER := $(patsubst %,%.h,$(MODULES))
 
@@ -22,22 +22,23 @@ ifeq ($(OS),Windows_NT)
 
 else
 	ARCH := $(shell getconf LONG_BIT)
-	CPP_FLAGS_32 := $(DEPS_DIR_LINUX)/lib/opencv/Linux/x86
-	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/lib/opencv/Linux/x64
-	LINKFLAGS := -Lliba -L$(DEPS_DIR_LINUX)/lib/rplidar/linux-lrplidar -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))
+	CPP_FLAGS_32 := $(DEPS_DIR_LINUX)/incl/opencv/Linux/x86	
+	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/incl/opencv/Linux/x64
+	LINKFLAGS := -Lliba -lrplidar -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))
 	gcc := /usr/bin/g++
-	CFLAGS = -std=c++11 -I$(DEPS_DIR_LINUX)/incl/rplidar -lstdc++ -lpthread -lrt -I$(DEPS_DIR_LINUX)/incl/opencv
+	CFLAGS = -std=c++11   -I$(DEPS_DIR_LINUX) -lstdc++ -lpthread -lrt -I$(DEPS_DIR_LINUX)/incl/opencv
 	rm := rm -f
 	TARGET := $(PROG)
 endif
 .PHONY: build clean
 
-build:	$(TARGET)
-
-clean:
+build:	$(TARGET) 
+	
+clean:		
 	$(rm) $(TARGET) $(OBJECTS)
 
 $(OBJECTS): %.o : $(HEADERS) %.cpp
 	$(gcc) -c  -o  $@  $< $(CFLAGS)
-$(TARGET): $(OBJECTS)
-	$(gcc)  $(OBJECTS) -o $@ $(LINKFLAGS) $(CFLAGS)
+$(TARGET): $(OBJECTS) 
+	$(gcc)  $(OBJECTS) -o $@ $(LINKFLAGS) $(CFLAGS)  
+
