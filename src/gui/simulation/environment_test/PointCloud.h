@@ -51,7 +51,15 @@ public:
 		std::cout << "POINTCLOUD ESTROYED\n\n";
 	}
 	//!The Contructor for the pointcloud
-	Pointcloud();
+    Pointcloud();
+
+    //!The Copy Constructor for the pointcloud
+    /*!
+    Copy a  pointcloud
+    @param the Pointcloud object that gets coppied
+    */
+    Pointcloud(const Pointcloud &pc);
+
 	//! A object which will contain a single point
 	struct Point{
 		int X; //! The x value of a single point
@@ -152,8 +160,7 @@ public:
 
     //! print all points in given cloud    
 	void printPoints();
-	
-	
+
 	
 	/*! Rotate a point could 
 	 * @param angle the rotation angle in Degrees

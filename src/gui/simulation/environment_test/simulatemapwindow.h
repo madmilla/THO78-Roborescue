@@ -78,6 +78,8 @@ private slots:
 
     void on_savePcButton_clicked();
 
+    void on_savePcWNButton_clicked();
+
 private:
     //! UI pointer for use with QT.
     Ui::SimulateMapWindow *ui;

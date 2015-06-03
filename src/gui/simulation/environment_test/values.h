@@ -46,7 +46,8 @@ public:
     const static int EMPTY = 0;
     const static int DRAWWIDTH = 430;
     const static int DRAWHEIGHT = 460;
-    const static int SCANRADIUS = 6;
+    const static int SCANRADIUS = 10;
+    const static int NOISETHRESHOLD = 35;
     const static char EDIT = 0;
     const static char SIMULATE = 1;
 };
