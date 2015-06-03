@@ -128,6 +128,28 @@ bool databaseConnector::isAccessable( std::vector<point>& polygon) {
     return returns;
 }
 
+bool databaseConnector::isAccessable( point& the_point, int width, int height ){
+    if(mapId == -1){
+        throw std::invalid_argument{"no map is set use setMap() first"};
+    }
+    std::string statement = "SELECT count(id) FROM `object` WHERE map_id = " + std::to_string(mapId) + " AND ST_INTERSECTS(`polygon`,GeomFromText('POLYGON((";
+    statement += std::to_string(the_point.getX()) + " " + std::to_string(the_point.getY()) + ",";
+    statement += std::to_string(the_point.getX() + width) + " " + std::to_string(the_point.getY()) + ",";
+    statement += std::to_string(the_point.getX() + width) + " " + std::to_string(the_point.getY() + height) + ",";
+    statement += std::to_string(the_point.getX()) + " " + std::to_string(the_point.getY() + height) + ",";
+    statement += std::to_string(the_point.getX()) + " " + std::to_string(the_point.getY());
+    statement += "))'))";
+    sql::ResultSet* res= stmt->executeQuery ( statement );
+    if ( !res->next() ) {
+        delete res;
+        return false;
+    }
+    bool returns = !res->getInt ( 1 );
+    delete res;
+
+    return returns;   
+}
+
 int databaseConnector::getVehicleId( const std::string& name ) {
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};

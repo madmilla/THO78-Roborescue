@@ -30,11 +30,11 @@ int main(int argc, char* argv[]) {
     point p3(4400, 4000);
     point p4(2800, 4000);
 
-    std::vector<point> polygon{p1,p2,p3,p4,p1};
+    std::vector<point> polygon{p1,p2,p3,p4};
 
     std::cout<<"starting "<<times<<" time isAccessable with a point\n";
     auto start = std::chrono::high_resolution_clock::now();
-   for(int i=0;i<times;i++){
+    for(int i=0;i<times;i++){
         db.isAccessable(p1);
     }
     auto end = std::chrono::high_resolution_clock::now();

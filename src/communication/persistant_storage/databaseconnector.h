@@ -101,6 +101,15 @@ public:
      */
     bool isAccessable( std::vector<point>& polygon );
 
+    /** \brief checks if a square point is accesable
+     *
+     * \param the_point the upper left corner of the square
+     * \param width the width of the square
+     * \param height the height of the square
+     * \return true if the polygon is accesable false if there's a object on that position
+     *
+     */
+    bool isAccessable( point& the_point, int width, int height );
 
     /** \brief this function sets the position of a vehicle at the current time
      *
