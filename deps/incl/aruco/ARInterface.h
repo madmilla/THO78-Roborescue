@@ -54,6 +54,7 @@
 #include <fstream>
 #include <sstream>
 #include "headers/aruco.h"
+#include "Coordinate.h"
 #include <opencv2/highgui/highgui.hpp>
 using namespace cv;
 using namespace aruco;
@@ -105,37 +106,7 @@ public:
 		MDetectorY.getThresholdParams(ThresParam1, ThresParam2);
 		MDetectorY.setCornerRefinementMethod(MarkerDetector::SUBPIX);
 	}
-
-	int getCurrentX()
-	{
-		return currentX;
-	}
-
-	int getCurrentY()
-	{
-		return currentY;
-	}
-
-	bool isNewXValue()
-	{
-		if (newXValue)
-		{
-			newXValue = false;
-			return true;
-		}
-		return false;
-	}
-
-	bool isNewYValue()
-	{
-		if (newYValue)
-		{
-			newYValue = false;
-			return true;
-		}
-		return false;
-	}
-
+	
 	void run()
 	{
 		while(1)
@@ -188,8 +159,11 @@ public:
 				}
 				if (currentClosestId != -1)
 				{
-					currentX = currentClosestId;
-					newXValue = true;
+					if(currentCoordinate.getX() != currentClosestId)
+					{
+						currentCoordinate.setX(currentClosestId);
+						newCoordinate = true;
+					}
 				}
 			}
 			if (TheMarkersY.size()>0)
@@ -224,8 +198,11 @@ public:
 				}
 				if (currentClosestId != -1)
 				{
-					currentY = currentClosestId;
-					newYValue = true;
+					if(currentCoordinate.getY() != currentClosestId)
+					{
+						currentCoordinate.setY(currentClosestId);
+						newCoordinate = true;
+					}
 				}
 			}
 			//DISPLAY
@@ -233,11 +210,23 @@ public:
 			//cv::imshow("in2",TheInputImageCopyY);
 		}
 	}
+
+	Coordinate<int> getCoordinate()
+	{
+		newCoordinate = false;
+		return currentCoordinate;
+	}
+
+
+	bool isNewCoordinate()
+	{
+		return newCoordinate;
+	}
+
 private:
-	int currentX;
-	int currentY;
-	bool newXValue = false;
-	bool newYValue = false;
+	Coordinate<int> currentCoordinate;
+	bool newCoordinate = false;
+	
 	int halfWidthCameraX, halfWidthCameraY;
 	float TheMarkerSizeX = -1;
 	float TheMarkerSizeY = -1;
