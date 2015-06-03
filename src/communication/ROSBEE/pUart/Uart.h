@@ -51,9 +51,12 @@
 /// Note that all data is written and read in a binary format.
 /// Note this class makes use of a cog.
 class Uart{
-private:  
+private:
+  // Read buffer size of 128 chars.
   Channel<char,128> readChannel;
-  char stack[192];  //Don't set it below 192.  
+  // This is the minimum stack size required to for the cog (thread) to run.
+  // Don't set it below 192.
+  char stack[192]; 
   int cogId;
 
   static void readBuffer(void*);
