@@ -17,6 +17,7 @@ void test(int i){
 
 int main(int argc, char *argv[])
 {
+	databaseConnector("127.0.0.1:3306", "root", "", "robodata");
     test(0);
     return 0;
 
