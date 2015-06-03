@@ -69,26 +69,25 @@ bool ShapeDetector::callCvSmooth(const Mat & m_src, const Mat & m_dest, const in
 	return true;
 }
 
-Mat ShapeDetector::createImage(Pointcloud & source){
+Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	int minX = source.getMinValues().X;
 	int minY = source.getMinValues().Y;
-	std::cout << "min values" << minX << " - " << minY << "\n";
 	size_t imageHeight = source.getCloudHeight();
 	size_t imageWidth = source.getCloudWidth();
-
-	Mat mat((int)imageWidth / DEVIDEIMAGESIZE, (int)imageHeight / DEVIDEIMAGESIZE, CV_8UC1); //Create a Mat object which will represent the image with all the pixels
+	Mat mat((int)(imageWidth / DEVIDEIMAGESIZE)+1, (int)(imageHeight / DEVIDEIMAGESIZE)+1, CV_8UC1); //Create a Mat object which will represent the image with all the pixels
 	for (int y = 0; y < imageHeight; ++y){
 		for (int x = 0; x < imageWidth; ++x){
-			mat.at<uchar>(Point(y / DEVIDEIMAGESIZE, x / DEVIDEIMAGESIZE)) = BLACK_PIXEL;
+			mat.at<uchar>(Point((int)(y / DEVIDEIMAGESIZE),(int)( x / DEVIDEIMAGESIZE))) = BLACK_PIXEL;
 		}
 	}
+
 	int i = 0;
-	for (Pointcloud::Point p : source.getPoints()){
+	for (Pointcloud::Point p : *source.getPoints()){
 		//std::cout << i << " - " << p.X << " - " << p.Y << " ----- " << p.Y + (abs(minY)) << " - " <<  p.X + (abs(minX)) << " --- " << imageHeight << " - " << imageWidth << "\n";
 		i++;
-		mat.at<uchar>(Point((p.Y + abs(minY)) / DEVIDEIMAGESIZE, (p.X + abs(minX)) / DEVIDEIMAGESIZE)) = WHITE_PIXEL;
+		mat.at<uchar>(Point( (int) ((p.Y + abs(minY)) / DEVIDEIMAGESIZE), (int)((p.X + abs(minX)) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
 	}
-	imwrite("output.jpg", mat); // save the image
+	imwrite("output.jpg", mat); // save the 
 	Mat image(imread("output.jpg")); //read and return the image
 	return image;
 }
@@ -132,21 +131,19 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 	Mat newImage = image.clone();
 	Mat frame;
 
-	//medianBlur(newImage, frame, 3);
+	
 	blur(newImage, frame, Size(5, 5), Point(-1, -1));
-	//cv::GaussianBlur(newImage, frame, cv::Size(3, 3), 3);										////////////////////////////
-	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);                                     ///////////////////////////									
-	imwrite("lines.jpg", newImage);
+	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);            								
+	imwrite("lines1.jpg", frame);
+	imwrite("lines2.jpg", newImage);
 	Mat dest;
-	if (!callCvSmooth(newImage, newImage, CV_GAUSSIAN, SMOOTH, SMOOTH)) {						///////////////////////////
-		std::cout << "the source file is empty!" << std::endl;
-		exit(-1);
-	}
-	//Sobel(gray, dest, -1, 1, 0, 3, 1, 0, BORDER_DEFAULT);
-	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image	//////////////////////
-	imwrite("linesdest.jpg", dest);
+	
+	imwrite("lines3.jpg", newImage);
+	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image
+	imwrite("linesdest1.jpg", dest);
 	vector<Vec4i> lines;  // container to save the lines
-	HoughLinesP(dest, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			///////////////////////////
+	cvtColor(newImage, newImage, CV_RGB2GRAY);
+	HoughLinesP(newImage, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			
 		HOUGHLINES_MINLINELENGTH, HOUGHLINES_MAXLINEGAP);  //search the lines
 
 	checkLines(lines); //check for double lines

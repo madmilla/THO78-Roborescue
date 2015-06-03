@@ -3,8 +3,10 @@
  * \details Class with functions to detect lines and circles out of a pointcloud object
  * \author Tijmen Bruggeman - 1634346
  * \author Patrick Schoonheym - 1639598
- * \version 2.0
- * \date 22-04-2015
+ * \author Owen Hogenboezen - 1643103
+ * \author Nick Verhaaf - 1641355
+ * \version 2.1
+ * \date 03-06-2015
  */
 
 #ifndef SHAPEDETECTOR_H
