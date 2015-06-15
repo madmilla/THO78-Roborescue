@@ -35,17 +35,6 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "PointCloud.h"
-Pointcloud::Pointcloud(const Pointcloud &pc){
-
-    offset = pc.offset;
-    pointCloud = pc.pointCloud;
-    orientation = pc.orientation;
-
-  //  Pointcloud pNC;
-   // for(Pointcloud::Point p : pc.getPoints()){
-   //     pNC.setPoint(p);
-   // }
-}
 
 void Pointcloud::setPoint(Point point){
 	removePoint(point.X, point.Y);

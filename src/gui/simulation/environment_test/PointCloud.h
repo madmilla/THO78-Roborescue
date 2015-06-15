@@ -53,13 +53,6 @@ public:
 	//!The Contructor for the pointcloud
     Pointcloud();
 
-    //!The Copy Constructor for the pointcloud
-    /*!
-    Copy a  pointcloud
-    @param the Pointcloud object that gets coppied
-    */
-    Pointcloud(const Pointcloud &pc);
-
 	//! A object which will contain a single point
 	struct Point{
 		int X; //! The x value of a single point
