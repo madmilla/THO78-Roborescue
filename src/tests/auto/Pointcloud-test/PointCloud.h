@@ -47,9 +47,6 @@
 #define M_PI 3.14159265358979323846
 class Pointcloud{ //! a struct which will contain a single point
 public:
-	~Pointcloud(){
-		std::cout << "POINTCLOUD ESTROYED\n\n";
-	}
 	//!The Contructor for the pointcloud
 	Pointcloud();
 	//! A object which will contain a single point

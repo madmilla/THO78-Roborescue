@@ -72,11 +72,11 @@ bool operator==(const Line::Point & p1, const Line::Point & p2) {
 }
 
 int Line::getLength() {
-	int deltaX = abs(lineData.end_pos.x - lineData.begin_pos.x);
-	int deltaY = abs(lineData.end_pos.y - lineData.begin_pos.y);
+	int deltaX = lineData.end_pos.x - lineData.begin_pos.x;
+	int deltaY = lineData.end_pos.y - lineData.begin_pos.y;
 
-
+	return (int)sqrt(pow(deltaX, 2) + pow(deltaY, 2));
 }
-bool Line::Lineintersect(Line & l2) {
-	return true;
+int Line::intersect(Line & l2) {
+	
 }

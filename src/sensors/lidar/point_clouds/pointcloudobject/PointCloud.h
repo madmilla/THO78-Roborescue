@@ -11,8 +11,7 @@
 * @date Created: 22-04-15
 *
 * @version 1.1
-* @author Tijmen Bruggeman 1643463
-* @author Owen Hoogenboezem 1643103
+* @author Tijmen Bruggeman
 * @section LICENSE
 * License: newBSD
 *
@@ -48,9 +47,6 @@
 #define M_PI 3.14159265358979323846
 class Pointcloud{ //! a struct which will contain a single point
 public:
-	~Pointcloud(){
-		std::cout << "POINTCLOUD ESTROYED\n\n";
-	}
 	//!The Contructor for the pointcloud
 	Pointcloud();
 	//! A object which will contain a single point
@@ -122,6 +118,7 @@ public:
 	/*!
 	get the orientation of the pointcloud in degrees
 	@return int: the integer with the orientation of the pointcloud in degrees
+
 	*/
 	int getOrientation();
 	//! set the offset of the pointcloud
@@ -155,7 +152,7 @@ public:
 	
 	
 	
-	/*! Rotate a point could with given rotation
+	/*! Rotate a point could 
 	 * @param angle the rotation angle in Degrees
 	 */ 
 	Pointcloud* rotate(float angle);
