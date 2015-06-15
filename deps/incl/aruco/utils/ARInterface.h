@@ -53,8 +53,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "headers/aruco.h"
-#include "Coordinate.h"
+#include "aruco.h"
+#include "cvdrawingutils.h"
 #include <opencv2/highgui/highgui.hpp>
 using namespace cv;
 using namespace aruco;
@@ -106,127 +106,136 @@ public:
 		MDetectorY.getThresholdParams(ThresParam1, ThresParam2);
 		MDetectorY.setCornerRefinementMethod(MarkerDetector::SUBPIX);
 	}
-	
+
+	int getCurrentX()
+	{
+		return currentX;
+	}
+
+	int getCurrentY()
+	{
+		return currentY;
+	}
+
+	bool isNewXValue()
+	{
+		if (newXValue)
+		{
+			newXValue = false;
+			return true;
+		}
+		return false;
+	}
+
+	bool isNewYValue()
+	{
+		if (newYValue)
+		{
+			newYValue = false;
+			return true;
+		}
+		return false;
+	}
+
 	void run()
 	{
-		while(1)
+		TheVideoCapturerX.grab();
+		TheVideoCapturerY.grab();
+
+		TheVideoCapturerX.retrieve(TheInputImageX);
+		TheVideoCapturerY.retrieve(TheInputImageY);
+
+		MDetectorX.detect(TheInputImageX, TheMarkersX,
+			TheCameraParametersX, TheMarkerSizeX);
+		MDetectorY.detect(TheInputImageY, TheMarkersY,
+			TheCameraParametersY, TheMarkerSizeY);
+
+		//TheInputImageX.copyTo(TheInputImageCopyX);
+		//TheInputImageY.copyTo(TheInputImageCopyY);
+
+		if (TheMarkersX.size()>0)
 		{
-			TheVideoCapturerX.grab();
-			TheVideoCapturerY.grab();
+			//cout << "Camera X" << endl;			
 
-			TheVideoCapturerX.retrieve(TheInputImageX);
-			TheVideoCapturerY.retrieve(TheInputImageY);
+			int currentClosestId = -1;
+			float currentClosestX = 1000;
 
-			MDetectorX.detect(TheInputImageX, TheMarkersX,
-				TheCameraParametersX, TheMarkerSizeX);
-			MDetectorY.detect(TheInputImageY, TheMarkersY,
-				TheCameraParametersY, TheMarkerSizeY);
-
-			//TheInputImageX.copyTo(TheInputImageCopyX);
-			//TheInputImageY.copyTo(TheInputImageCopyY);
-
-			if (TheMarkersX.size()>0)
+			for (unsigned int i = 0; i<TheMarkersX.size(); i++)
 			{
-				//cout << "Camera X" << endl;			
+				//cout << "id: " << TheMarkersX[i].id << " ";
 
-				int currentClosestId = -1;
-				float currentClosestX = 1000;
-
-				for (unsigned int i = 0; i<TheMarkersX.size(); i++)
+				float x = 0;
+				for (int j = 0; j<4; j++)
 				{
-					//cout << "id: " << TheMarkersX[i].id << " ";
-
-					float x = 0;
-					for (int j = 0; j<4; j++)
-					{
-						x += TheMarkersX[i][j].x;
-						//cout <<"(" << TheMarkersX[i][j].x ;
-						//cout <<"," << TheMarkersY[i][j].y << ") ";
-					}
-					//cout << endl << " midX: " << x/4 << endl;			
-
-					int distance = abs(halfWidthCameraX - (int)(x / 4));
-					//cout << distance << endl;
-
-					if (distance < currentClosestX)
-					{
-						currentClosestId = TheMarkersX[i].id;
-						currentClosestX = distance;
-					}
-
-					//DISPLAY
-					//TheMarkersX[i].draw(TheInputImageCopyX,Scalar(0,0,255),1);
+					x += TheMarkersX[i][j].x;
+					//cout <<"(" << TheMarkersX[i][j].x ;
+					//cout <<"," << TheMarkersY[i][j].y << ") ";
 				}
-				if (currentClosestId != -1)
+				//cout << endl << " midX: " << x/4 << endl;			
+
+				int distance = abs(halfWidthCameraX - (int)(x / 4));
+				//cout << distance << endl;
+
+				if (distance < currentClosestX)
 				{
-					if(currentCoordinate.getX() != currentClosestId)
-					{
-						currentCoordinate.setX(currentClosestId);
-						newCoordinate = true;
-					}
+					currentClosestId = TheMarkersX[i].id;
+					currentClosestX = distance;
 				}
+
+				//DISPLAY
+				//TheMarkersX[i].draw(TheInputImageCopyX,Scalar(0,0,255),1);
 			}
-			if (TheMarkersY.size()>0)
+			if (currentClosestId != -1)
 			{
-				//cout << "Camera Y" << endl;
-
-				int currentClosestId = -1;
-				float currentClosestX = 1000;
-				for (unsigned int i = 0; i<TheMarkersY.size(); i++)
-				{
-					//cout << "id: " << TheMarkersY[i].id << " ";
-
-					float x = 0;
-					for (int j = 0; j<4; j++)
-					{
-						x += TheMarkersY[i][j].x;
-						//cout <<"(" << TheMarkersY[i][j].x ;
-						//cout <<"," << TheMarkersY[i][j].y << ") ";
-					}
-					//cout << endl << " midX: " << x/4 << endl;
-
-					int distance = abs(halfWidthCameraY - (int)(x / 4));
-					//cout << distance << endl;				
-
-					if (distance < currentClosestX)
-					{
-						currentClosestId = TheMarkersY[i].id;
-						currentClosestX = distance;
-					}
-					//DISPLAY
-					//TheMarkersY[i].draw(TheInputImageCopyY,Scalar(0,0,255),1);
-				}
-				if (currentClosestId != -1)
-				{
-					if(currentCoordinate.getY() != currentClosestId)
-					{
-						currentCoordinate.setY(currentClosestId);
-						newCoordinate = true;
-					}
-				}
+				currentX = currentClosestId;
+				newXValue = true;
 			}
-			//DISPLAY
-			//cv::imshow("in",TheInputImageCopyX);
-			//cv::imshow("in2",TheInputImageCopyY);
 		}
+		if (TheMarkersY.size()>0)
+		{
+			//cout << "Camera Y" << endl;
+
+			int currentClosestId = -1;
+			float currentClosestX = 1000;
+			for (unsigned int i = 0; i<TheMarkersY.size(); i++)
+			{
+				//cout << "id: " << TheMarkersY[i].id << " ";
+
+				float x = 0;
+				for (int j = 0; j<4; j++)
+				{
+					x += TheMarkersY[i][j].x;
+					//cout <<"(" << TheMarkersY[i][j].x ;
+					//cout <<"," << TheMarkersY[i][j].y << ") ";
+				}
+				//cout << endl << " midX: " << x/4 << endl;
+
+				int distance = abs(halfWidthCameraY - (int)(x / 4));
+				//cout << distance << endl;				
+
+				if (distance < currentClosestX)
+				{
+					currentClosestId = TheMarkersY[i].id;
+					currentClosestX = distance;
+				}
+				//DISPLAY
+				//TheMarkersY[i].draw(TheInputImageCopyY,Scalar(0,0,255),1);
+			}
+			if (currentClosestId != -1)
+			{
+				currentY = currentClosestId;
+				newYValue = true;
+			}
+		}
+		//DISPLAY
+		//cv::imshow("in",TheInputImageCopyX);
+		//cv::imshow("in2",TheInputImageCopyY);
 	}
-
-	Coordinate<int> getCoordinate()
-	{
-		newCoordinate = false;
-		return currentCoordinate;
-	}
-
-
-	bool isNewCoordinate()
-	{
-		return newCoordinate;
-	}
-
 private:
-	Coordinate<int> currentCoordinate;
-	bool newCoordinate = false;
-	
+	int currentX;
+	int currentY;
+	bool newXValue = false;
+	bool newYValue = false;
 	int halfWidthCameraX, halfWidthCameraY;
 	float TheMarkerSizeX = -1;
 	float TheMarkerSizeY = -1;
