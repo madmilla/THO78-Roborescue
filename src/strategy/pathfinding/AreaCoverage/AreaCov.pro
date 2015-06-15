@@ -2,6 +2,11 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
+LIBS +=  "$$PWD/mysqlcppconn.lib"
+#INCLUDEPATH += "/../../../../deps/incl/mysqlcppconn/"
+INCLUDEPATH += $$PWD/../../../../deps/incl/mysqlcppconn/
+INCLUDEPATH += $$PWD/../../../../deps/incl/boost/
+
 
 SOURCES += main.cpp \
     areacoveringalgorithm.cpp \
@@ -9,7 +14,10 @@ SOURCES += main.cpp \
     dimension.cpp \
     route.cpp \
     testcopter.cpp \
-    waypoint.cpp
+    waypoint.cpp \
+    databaseconnector.cpp \
+    point.cpp \
+    point.cpp
 
 #include(deployment.pri)
 #qtcAddDeployment()
@@ -20,5 +28,14 @@ HEADERS += \
     dimension.h \
     route.h \
     testcopter.h \
-    waypoint.h
+    waypoint.h \
+    databaseconnector.h \
+    point.hpp \
+    point.hpp
 
+
+#win64:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../deps/lib/mysqlcppconn/windows/x64(64\ bit)/ -lmysqlcppconn
+#else:win64:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../deps/lib/mysqlcppconn/windows/x64(64\ bit)/ -lmysqlcppconn
+
+
+#DEPENDPATH += $$PWD/../../../../deps/incl/mysqlcppconn

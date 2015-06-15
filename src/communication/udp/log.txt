@@ -1,11 +1,383 @@
+In file included from c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\chrono:35:0,
+                 from Rosbee.h:8,
+                 from Rosbee.cpp:1:
+c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\bits\c++0x_warning.h:32:2: error: #error This file requires compiler and library support for the ISO C++ 2011 standard. This support is currently experimental, and must be enabled with the -std=c++11 or -std=gnu++11 compiler options.
+ #error This file requires compiler and library support for the \
+  ^
+In file included from CPIBoundaryObject.h:8:0,
+                 from Rosbee.h:9,
+                 from Rosbee.cpp:1:
+mingw.thread.h:41:17: error: expected ';' at end of member declaration
+     id get_id() const noexcept {return mThreadId;}
+                 ^
+mingw.thread.h:41:23: error: 'noexcept' does not name a type
+     id get_id() const noexcept {return mThreadId;}
+                       ^
+mingw.thread.h:50:35: warning: variadic templates only available with -std=c++11 or -std=gnu++11 [enabled by default]
+     template<class Function, class... Args>
+                                   ^
+mingw.thread.h:51:29: error: expected ',' or '...' before '&&' token
+     explicit thread(Function&& f, Args&&... args)
+                             ^
+mingw.thread.h:85:40: warning: defaulted and deleted functions only available with -std=c++11 or -std=gnu++11 [enabled by default]
+     thread& operator=(const thread&) = delete;
+                                        ^
+mingw.thread.h:86:29: error: expected ',' or '...' before '&&' token
+     thread& operator=(thread&& other) noexcept
+                             ^
+mingw.thread.h:86:37: error: expected ';' at end of member declaration
+     thread& operator=(thread&& other) noexcept
+                                     ^
+mingw.thread.h:86:39: error: 'noexcept' does not name a type
+     thread& operator=(thread&& other) noexcept
+                                       ^
+mingw.thread.h:93:21: error: expected ',' or '...' before '&&' token
+     void swap(thread&& other) noexcept
+                     ^
+mingw.thread.h:93:29: error: expected ';' at end of member declaration
+     void swap(thread&& other) noexcept
+                             ^
+mingw.thread.h:93:31: error: 'noexcept' does not name a type
+     void swap(thread&& other) noexcept
+                               ^
+mingw.thread.h:98:46: error: expected ';' at end of member declaration
+     static unsigned int hardware_concurrency() noexcept {return 1;}
+                                              ^
+mingw.thread.h:98:48: error: 'noexcept' does not name a type
+     static unsigned int hardware_concurrency() noexcept {return 1;}
+                                                ^
+mingw.thread.h: In constructor 'std::thread::thread(Function)':
+mingw.thread.h:53:31: error: ISO C++ forbids declaration of 'decltype' with no type [-fpermissive]
+         typedef decltype(std::bind(f, args...)) Call;
+                               ^
+mingw.thread.h:53:31: error: typedef 'decltype' is initialized (use decltype instead)
+mingw.thread.h:53:26: error: 'bind' is not a member of 'std'
+         typedef decltype(std::bind(f, args...)) Call;
+                          ^
+mingw.thread.h:53:26: note: suggested alternative:
+In file included from c:\mingw\include\windows.h:98:0,
+                 from mingw.thread.h:12,
+                 from CPIBoundaryObject.h:8,
+                 from Rosbee.h:9,
+                 from Rosbee.cpp:1:
+c:\mingw\include\winsock2.h:537:32: note:   'bind'
+ WINSOCK_API_LINKAGE int PASCAL bind(SOCKET,const struct sockaddr*,int);
+                                ^
+In file included from CPIBoundaryObject.h:8:0,
+                 from Rosbee.h:9,
+                 from Rosbee.cpp:1:
+mingw.thread.h:53:36: error: 'f' was not declared in this scope
+         typedef decltype(std::bind(f, args...)) Call;
+                                    ^
+mingw.thread.h:53:39: error: 'args' was not declared in this scope
+         typedef decltype(std::bind(f, args...)) Call;
+                                       ^
+mingw.thread.h:54:9: error: 'Call' was not declared in this scope
+         Call* call = new Call(std::bind(f, args...));
+         ^
+mingw.thread.h:54:15: error: 'call' was not declared in this scope
+         Call* call = new Call(std::bind(f, args...));
+               ^
+mingw.thread.h:54:26: error: expected type-specifier before 'Call'
+         Call* call = new Call(std::bind(f, args...));
+                          ^
+mingw.thread.h:54:26: error: expected ';' before 'Call'
+mingw.thread.h: In static member function 'static unsigned int std::thread::threadfunc(void*)':
+mingw.thread.h:61:9: error: 'unique_ptr' is not a member of 'std'
+         std::unique_ptr<Call> upCall(static_cast<Call*>(arg));
+         ^
+mingw.thread.h:61:29: error: expected primary-expression before '>' token
+         std::unique_ptr<Call> upCall(static_cast<Call*>(arg));
+                             ^
+mingw.thread.h:62:11: error: 'upCall' was not declared in this scope
+         (*upCall)();
+           ^
+mingw.thread.h: In member function 'void std::thread::join()':
+mingw.thread.h:69:58: error: 'generic_category' was not declared in this scope
+             throw system_error(EDEADLK, generic_category());
+                                                          ^
+mingw.thread.h:69:59: error: 'system_error' was not declared in this scope
+             throw system_error(EDEADLK, generic_category());
+                                                           ^
+mingw.thread.h:71:56: error: 'generic_category' was not declared in this scope
+             throw system_error(ESRCH, generic_category());
+                                                        ^
+mingw.thread.h:71:57: error: 'system_error' was not declared in this scope
+             throw system_error(ESRCH, generic_category());
+                                                         ^
+mingw.thread.h:73:57: error: 'generic_category' was not declared in this scope
+             throw system_error(EINVAL, generic_category());
+                                                         ^
+mingw.thread.h:73:58: error: 'system_error' was not declared in this scope
+             throw system_error(EINVAL, generic_category());
+                                                          ^
+mingw.thread.h: In member function 'void std::thread::detach()':
+mingw.thread.h:102:32: error: 'system_error' was not declared in this scope
+             throw system_error();
+                                ^
+mingw.thread.h: At global scope:
+mingw.thread.h:112:27: error: 'chrono' in namespace 'std' does not name a type
+     void sleep_for( const std::chrono::duration<Rep,Period>& sleep_duration)
+                           ^
+mingw.thread.h:112:48: error: expected unqualified-id before '<' token
+     void sleep_for( const std::chrono::duration<Rep,Period>& sleep_duration)
+                                                ^
+mingw.thread.h:112:48: error: expected ')' before '<' token
+mingw.thread.h:112:48: error: expected initializer before '<' token
+mingw.thread.h:117:28: error: 'chrono' in namespace 'std' does not name a type
+     void sleep_until(const std::chrono::time_point<Clock,Duration>& sleep_time)
+                            ^
+mingw.thread.h:117:51: error: expected unqualified-id before '<' token
+     void sleep_until(const std::chrono::time_point<Clock,Duration>& sleep_time)
+                                                   ^
+mingw.thread.h:117:51: error: expected ')' before '<' token
+mingw.thread.h:117:51: error: expected initializer before '<' token
+In file included from Rosbee.h:9:0,
+                 from Rosbee.cpp:1:
+CPIBoundaryObject.h: In member function 'void CPIBoundaryObject::start()':
+CPIBoundaryObject.h:26:71: error: no matching function for call to 'std::thread::thread(void (CPIBoundaryObject::*)(), CPIBoundaryObject* const)'
+  void start(){ robotThread = std::thread(&CPIBoundaryObject::run, this); }
+                                                                       ^
+CPIBoundaryObject.h:26:71: note: candidates are:
+In file included from CPIBoundaryObject.h:8:0,
+                 from Rosbee.h:9,
+                 from Rosbee.cpp:1:
+mingw.thread.h:51:14: note: template<class Function, class ... Args> std::thread::thread(Function)
+     explicit thread(Function&& f, Args&&... args)
+              ^
+mingw.thread.h:51:14: note:   template argument deduction/substitution failed:
+In file included from Rosbee.h:9:0,
+                 from Rosbee.cpp:1:
+CPIBoundaryObject.h:26:71: note:   candidate expects 1 argument, 2 provided
+  void start(){ robotThread = std::thread(&CPIBoundaryObject::run, this); }
+                                                                       ^
+In file included from CPIBoundaryObject.h:8:0,
+                 from Rosbee.h:9,
+                 from Rosbee.cpp:1:
+mingw.thread.h:44:5: note: std::thread::thread(std::thread&)
+     thread(thread& other)
+     ^
+mingw.thread.h:44:5: note:   candidate expects 1 argument, 2 provided
+mingw.thread.h:43:5: note: std::thread::thread()
+     thread(): mHandle(_STD_THREAD_INVALID_HANDLE){}
+     ^
+mingw.thread.h:43:5: note:   candidate expects 0 arguments, 2 provided
+In file included from MessageQueue.h:6:0,
+                 from UDPServer.h:11,
+                 from UDPSocket.h:9,
+                 from Rosbee.h:11,
+                 from Rosbee.cpp:1:
+NonCopyable.h: At global scope:
+NonCopyable.h:10:18: warning: defaulted and deleted functions only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  NonCopyable() = default;
+                  ^
+NonCopyable.h:11:19: warning: defaulted and deleted functions only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  ~NonCopyable() = default;
+                   ^
+NonCopyable.h:13:36: warning: defaulted and deleted functions only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  NonCopyable(const NonCopyable&) = delete;
+                                    ^
+NonCopyable.h:14:50: warning: defaulted and deleted functions only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  NonCopyable& operator = (const NonCopyable &) = delete;
+                                                  ^
+In file included from RobotManager.h:7:0,
+                 from UDPServer.h:14,
+                 from UDPSocket.h:9,
+                 from Rosbee.h:11,
+                 from Rosbee.cpp:1:
+Lidar.h:26:11: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  void run() override;
+           ^
+Lidar.h:59:12: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int getId() override;
+            ^
+Lidar.h:72:17: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  bool running = false;
+                 ^
+Lidar.h:73:58: error: '>>' should be '> >' within a nested template argument list
+  MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
+                                                          ^
+In file included from UDPServer.h:14:0,
+                 from UDPSocket.h:9,
+                 from Rosbee.h:11,
+                 from Rosbee.cpp:1:
+RobotManager.h: In member function 'T* RobotManager::getRobot(int)':
+RobotManager.h:21:12: error: 'robot' does not name a type
+   for(auto robot: robots){
+            ^
+RobotManager.h:29:3: error: expected ';' before 'return'
+   return nullptr;
+   ^
+RobotManager.h:29:3: error: expected primary-expression before 'return'
+RobotManager.h:29:3: error: expected ';' before 'return'
+RobotManager.h:29:3: error: expected primary-expression before 'return'
+RobotManager.h:29:3: error: expected ')' before 'return'
+RobotManager.h:29:10: error: 'nullptr' was not declared in this scope
+   return nullptr;
+          ^
+RobotManager.h: In member function 'std::vector<T*> RobotManager::getRobots()':
+RobotManager.h:36:11: error: 'robot' does not name a type
+  for(auto robot : robots){
+           ^
+RobotManager.h:43:2: error: expected ';' before 'return'
+  return list;
+  ^
+RobotManager.h:43:2: error: expected primary-expression before 'return'
+RobotManager.h:43:2: error: expected ';' before 'return'
+RobotManager.h:43:2: error: expected primary-expression before 'return'
+RobotManager.h:43:2: error: expected ')' before 'return'
+In file included from UDPSocket.h:9:0,
+                 from Rosbee.h:11,
+                 from Rosbee.cpp:1:
+UDPServer.h: At global scope:
+UDPServer.h:62:17: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  bool stopped = false;
+                 ^
+UDPServer.h:72:14: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int ConId = 0;
+              ^
+In file included from Rosbee.h:11:0,
+                 from Rosbee.cpp:1:
+UDPSocket.h:26:39: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  void send(mavlink_message_t * message) override;
+                                       ^
+UDPSocket.h:28:42: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  void receive(mavlink_message_t * message) override;
+                                          ^
+UDPSocket.h:31:16: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  uint8_t getId() override { return con.id; }
+                ^
+In file included from Rosbee.cpp:1:0:
+Rosbee.h:26:11: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  void run() override;
+           ^
+Rosbee.h:65:15: warning: override controls (override/final) only available with -std=c++11 or -std=gnu++11 [enabled by default]
+     int getId() override;
+               ^
+Rosbee.h:78:17: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  bool running = false;
+                 ^
+Rosbee.h:79:59: error: '>>' should be '> >' within a nested template argument list
+  MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
+                                                           ^
+Rosbee.cpp: In constructor 'Rosbee::Rosbee(UDPSocket*)':
+Rosbee.cpp:6:75: error: '>>' should be '> >' within a nested template argument list
+   outgoing = new MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>>();
+                                                                           ^
+Rosbee.cpp: In member function 'virtual void Rosbee::run()':
+Rosbee.cpp:16:15: error: 'pair' does not name a type
+          auto pair = outgoing->pop();
+               ^
+Rosbee.cpp:17:24: error: 'COMMAND_DESTINATION' is not a class or namespace
+          encoder->send(COMMAND_DESTINATION::ROSBEE, pair.first, pair.second);
+                        ^
+Rosbee.cpp:17:53: error: 'pair' was not declared in this scope
+          encoder->send(COMMAND_DESTINATION::ROSBEE, pair.first, pair.second);
+                                                     ^
+Rosbee.cpp:17:53: note: suggested alternative:
+In file included from c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\bits\stl_algobase.h:64:0,
+                 from c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\deque:60,
+                 from c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\queue:60,
+                 from Socket.h:3,
+                 from CPIBoundaryObject.h:6,
+                 from Rosbee.h:9,
+                 from Rosbee.cpp:1:
+c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\bits\stl_pair.h:96:12: note:   'std::pair'
+     struct pair
+            ^
+Rosbee.cpp:23:7: error: 'sleep_for' is not a member of 'std::this_thread'
+       std::this_thread::sleep_for(std::chrono::seconds(2));
+       ^
+Rosbee.cpp:23:40: error: 'std::chrono' has not been declared
+       std::this_thread::sleep_for(std::chrono::seconds(2));
+                                        ^
+Rosbee.cpp: In member function 'void Rosbee::init()':
+Rosbee.cpp:28:63: error: expected primary-expression before '(' token
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ROSBEE_INIT, 0));
+                                                               ^
+Rosbee.cpp:28:64: error: 'ROSBEE_COMMAND_FUNCTIONS' is not a class or namespace
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ROSBEE_INIT, 0));
+                                                                ^
+Rosbee.cpp: In member function 'void Rosbee::getRequirementStatus()':
+Rosbee.cpp:32:63: error: expected primary-expression before '(' token
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETEQUIPMENTSTATUS, 0));
+                                                               ^
+Rosbee.cpp:32:64: error: 'ROSBEE_COMMAND_FUNCTIONS' is not a class or namespace
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETEQUIPMENTSTATUS, 0));
+                                                                ^
+Rosbee.cpp: In member function 'void Rosbee::startMission()':
+Rosbee.cpp:37:63: error: expected primary-expression before '(' token
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::STARTMISSION, 0));
+                                                               ^
+Rosbee.cpp:37:64: error: 'ROSBEE_COMMAND_FUNCTIONS' is not a class or namespace
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::STARTMISSION, 0));
+                                                                ^
 Rosbee.cpp: In member function 'void Rosbee::sendWaypoint(uint8_t, uint8_t)':
-Rosbee.cpp:36:119: warning: left shift count >= width of type [enabled by default]
+Rosbee.cpp:42:119: warning: left shift count >= width of type [enabled by default]
     outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, uint64_t((x << 54 ) | (y << 46))));
                                                                                                                        ^
-Rosbee.cpp:36:132: warning: left shift count >= width of type [enabled by default]
+Rosbee.cpp:42:132: warning: left shift count >= width of type [enabled by default]
     outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, uint64_t((x << 54 ) | (y << 46))));
                                                                                                                                     ^
+Rosbee.cpp:42:63: error: expected primary-expression before '(' token
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, uint64_t((x << 54 ) | (y << 46))));
+                                                               ^
+Rosbee.cpp:42:64: error: 'ROSBEE_COMMAND_FUNCTIONS' is not a class or namespace
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, uint64_t((x << 54 ) | (y << 46))));
+                                                                ^
+Rosbee.cpp:42:119: warning: left shift count >= width of type [enabled by default]
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, uint64_t((x << 54 ) | (y << 46))));
+                                                                                                                       ^
+Rosbee.cpp:42:132: warning: left shift count >= width of type [enabled by default]
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, uint64_t((x << 54 ) | (y << 46))));
+                                                                                                                                    ^
+Rosbee.cpp: In member function 'void Rosbee::getRequest()':
+Rosbee.cpp:46:63: error: expected primary-expression before '(' token
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ROSBEE_GETREQUEST, 0));
+                                                               ^
+Rosbee.cpp:46:64: error: 'ROSBEE_COMMAND_FUNCTIONS' is not a class or namespace
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ROSBEE_GETREQUEST, 0));
+                                                                ^
+Rosbee.cpp: In member function 'void Rosbee::stopMission()':
+Rosbee.cpp:50:63: error: expected primary-expression before '(' token
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::STOPMISSION, 0));
+                                                               ^
+Rosbee.cpp:50:64: error: 'ROSBEE_COMMAND_FUNCTIONS' is not a class or namespace
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::STOPMISSION, 0));
+                                                                ^
+Rosbee.cpp: In member function 'void Rosbee::abortMission()':
+Rosbee.cpp:54:61: error: expected primary-expression before '(' token
+  outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ABORTMISSION, 0));
+                                                             ^
+Rosbee.cpp:54:62: error: 'ROSBEE_COMMAND_FUNCTIONS' is not a class or namespace
+  outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ABORTMISSION, 0));
+                                                              ^
+Rosbee.cpp: In member function 'void Rosbee::sendAck()':
+Rosbee.cpp:63:63: error: expected primary-expression before '(' token
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE, 0));
+                                                               ^
+Rosbee.cpp:63:64: error: 'ROSBEE_COMMAND_FUNCTIONS' is not a class or namespace
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE, 0));
+                                                                ^
+Rosbee.cpp: In member function 'void Rosbee::BatteryStatus()':
+Rosbee.cpp:67:63: error: expected primary-expression before '(' token
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::BATTERYSTATUS, 0));
+                                                               ^
+Rosbee.cpp:67:64: error: 'ROSBEE_COMMAND_FUNCTIONS' is not a class or namespace
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::BATTERYSTATUS, 0));
+                                                                ^
 Rosbee.cpp: In member function 'void Rosbee::getDevice(uint8_t)':
-Rosbee.cpp:66:117: warning: left shift count >= width of type [enabled by default]
+Rosbee.cpp:72:117: warning: left shift count >= width of type [enabled by default]
     outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETDEVICE, uint64_t(dev << 54)));
                                                                                                                      ^
+Rosbee.cpp:72:63: error: expected primary-expression before '(' token
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETDEVICE, uint64_t(dev << 54)));
+                                                               ^
+Rosbee.cpp:72:64: error: 'ROSBEE_COMMAND_FUNCTIONS' is not a class or namespace
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETDEVICE, uint64_t(dev << 54)));
+                                                                ^
+Rosbee.cpp:72:117: warning: left shift count >= width of type [enabled by default]
+    outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETDEVICE, uint64_t(dev << 54)));
+                                                                                                                     ^
+make[1]: *** [Rosbee.o] Error 1
+make: *** [run] Error 2

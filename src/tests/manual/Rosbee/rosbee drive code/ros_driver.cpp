@@ -51,26 +51,26 @@ void ros_driver::closeConnection(){
 }
 
 void ros_driver::stop(){
-	std::cout << "write is: " << ls.write(stopCommand.c_str(), maxBytes) << '\n';
-	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+	ls.write(stopCommand.c_str(), maxBytes);
+	ls.read(&readBytes,maxBytes);
 	
 	sleep(sleepTime);
 	
-	std::cout << "write is: " << ls.write(confirmCommand.c_str(), maxBytes) << '\n';
-	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+	ls.write(confirmCommand.c_str(), maxBytes);
+	ls.read(&readBytes,maxBytes);
 }
 
 void ros_driver::forward(std::string speed){
     std::string command = forwardCommand;
     command+= speed;
 	
-	std::cout << "write is: " << ls.write(command.c_str(), maxBytes) << '\n';
-	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+	ls.write(command.c_str(), maxBytes);
+	ls.read(&readBytes,maxBytes);
 	
 	sleep(sleepTime);
 	
-	std::cout << "write is: " << ls.write(confirmCommand.c_str(), maxBytes) << '\n';
-	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+	ls.write(confirmCommand.c_str(), maxBytes);
+	ls.read(&readBytes,maxBytes);
 }
 
 void ros_driver::rotate(std::string degrees){
@@ -78,11 +78,11 @@ void ros_driver::rotate(std::string degrees){
 	std::string command = rotateCommand;
 	command+= degrees;
 	
-	std::cout << "write is: " << ls.write(command.c_str(), maxBytes) << '\n';
-	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+	ls.write(command.c_str(), maxBytes);
+	ls.read(&readBytes,maxBytes);
 	
 	sleep(sleepTime);
 	
-	std::cout << "write is: " << ls.write(confirmCommand.c_str(), maxBytes) << '\n';
-	std::cout << "read is: " << ls.read(&test,maxBytes) << '\n';
+	ls.write(confirmCommand.c_str(), maxBytes);
+	ls.read(&readBytes,maxBytes);
 }

@@ -1,24 +1,51 @@
 #include "RobotManager.h"
-RobotManager * RobotManager::instance = nullptr;
 
-RobotManager * RobotManager::get(){
-	if(instance == nullptr){
-		instance = new RobotManager;
+
+void RobotManager::createUDPRobot(UDPSocket * s){
+	if((s = static_cast<UDPSocket*>(s)) != nullptr ){
+		switch(s->con.type){
+			case Connection::Identifier::ROSBEE:
+				createRobot<Rosbee>(s);
+			break;
+			case Connection::Identifier::LIDAR:
+				createRobot<Lidar>(s);
+			break;
+			default:
+				std::cout << "Unkown destination";
+			break;
+		}
+	}else{
+
+
 	}
-
-
-	return instance;
 }
 
-Rosbee * RobotManager::createRosbee(Socket & s){
-	try{
-	Rosbee * rosbee = new Rosbee(s);
-	robots.push_back(rosbee);
-	return rosbee;
-}catch(std::exception &ex){
-	std::cout << ex.what();
-}
-	
 
+
+
+int RobotManager::size(){
+	return robots.size();
 }
 
+std::string RobotManager::getDetails(){
+	std::stringstream ss;
+	ss << "=============================" << std::endl;
+	ss << "=        RobotManager       =" << std::endl;
+	ss << "=============================" << std::endl;
+	ss << std::endl;
+	ss << "General Information: "<<std::endl;
+	ss << "\tConnected robots: " << robots.size() << std::endl;
+	ss << std::endl;
+	ss << "Rosbee's:"<<std::endl;
+	for(auto rosbee : getRobots<Rosbee>()){
+		ss << "\tId: " << rosbee->getId() << std::endl;
+	}
+	ss << "Lidar's" << std::endl;
+	for(auto lidar : getRobots<Lidar>()){
+		ss << "\tId: " << lidar->getId() << std::endl;
+	}
+	ss << std::endl;
+
+	return ss.str();
+
+}

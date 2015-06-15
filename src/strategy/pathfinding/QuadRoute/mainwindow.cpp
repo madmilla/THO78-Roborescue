@@ -84,8 +84,8 @@ void MainWindow::newFile(){
  * This method opens an existing map, with the option to choose from where on your pc.
  * */
 void MainWindow::open(){
-    //QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Files (*.*)"));
-    QString fileName = tr("C:\\Users\\Jasper\\Documents\\build-Map-Desktop_Qt_5_2_0_MinGW_32bit-Debug\\Standard.map");
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Files (*.*)"));
+    //QString fileName = tr("C:\\Users\\Jasper\\Documents\\build-Map-Desktop_Qt_5_2_0_MinGW_32bit-Debug\\Standard.map");
     map = Map::loadFromFile(fileName.toStdString().c_str());
     mapCanvas->setMap(map);
     mapCanvas->update();
@@ -96,8 +96,8 @@ void MainWindow::open(){
  * In this method you can save a map to anywhere on your pc.
  * */
 void MainWindow::save(){
-    //QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("Files (*.*)"));
-    QString fileName = tr("C:\\Users\\Jasper\\Documents\\build-Map-Desktop_Qt_5_2_0_MinGW_32bit-Debug\\Standard.map");
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("Files (*.*)"));
+    //QString fileName = tr("C:\\Users\\Jasper\\Documents\\build-Map-Desktop_Qt_5_2_0_MinGW_32bit-Debug\\Standard.map");
     map->saveToFile(fileName.toStdString().c_str());
     std::cout<<"saved"<<std::endl;
 }

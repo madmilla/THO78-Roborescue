@@ -12,16 +12,18 @@
 CC = g++
 CFLAGS = -Wall -Wextra -pedantic -std=c++11
 
-.PHONY: all clean vb1 vb2
+.PHONY: all clean vb1 vb2 PX4Flow
 
 vb1: vb1\Main.o vb1\Class.o
 	$(CC) $(CFLAGS) $^ -o $@\$@ $(LDFLAGS)
 	
 vb2: vb2\Main.o
 	$(CC) $(CFLAGS) $^ -o $@\$@ $(LDFLAGS)
+
+PX4Flow:PX4Flow/main.o
+	$(CC) $(CFLAGS) $^ $@\$@ $(LDFLAGS)
 	
-all: vb1 vb2
-	
+all: vb1 vb2 PX4Flow
 	
 #######Generic rules#######
 %.o: %.cpp

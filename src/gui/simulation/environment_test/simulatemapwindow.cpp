@@ -150,3 +150,15 @@ void SimulateMapWindow::on_savePcButton_clicked()
         pC.savePointsToFile(file);
     }
 }
+
+void SimulateMapWindow::on_savePcWNButton_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), QString());
+
+    if (!fileName.isEmpty()) {
+        std::string file = fileName.toStdString();
+        Pointcloud pC = simMap->getPointCloud();
+        Pointcloud pCN = simMap->addNoise(pC);
+        pCN.savePointsToFile(file);
+    }
+}

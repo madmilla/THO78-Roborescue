@@ -1,4 +1,4 @@
-
+﻿
 /**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
@@ -43,9 +43,13 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
+#include <math.h> 
+#define M_PI 3.14159265358979323846
 class Pointcloud{ //! a struct which will contain a single point
 public:
+	~Pointcloud(){
+		std::cout << "POINTCLOUD ESTROYED\n\n";
+	}
 	//!The Contructor for the pointcloud
 	Pointcloud();
 	//! A object which will contain a single point
@@ -72,7 +76,7 @@ public:
 	@return std::vector<point>: the vector which will contain all the points of the pointcloud
 
 	*/
-	std::vector<Point> getPoints();
+	std::vector<Point> * getPoints();
 	//! remove a point from the pointcloud
 	/*!
 	remove a single point from the pointcloud
@@ -93,6 +97,12 @@ public:
 
 	*/
 	int getCloudWidth();
+	//! get the minimun x and y values of the pointcloud
+	/*!
+	get the minimun X and Y values of the pointcloud
+	@return Point: returns the point with the minimum X and Y value
+	*/
+	Pointcloud::Point getMinValues();
 	//! get the height of the pointcloud
 	/*!
 	get the max height of the poincloud, this equals the max negative value + the max positive value
@@ -142,6 +152,14 @@ public:
 
     //! print all points in given cloud    
 	void printPoints();
+	
+	
+	
+	/*! Rotate a point could 
+	 * @param angle the rotation angle in Degrees
+	 */ 
+	Pointcloud* rotate(float angle);
+	
 	//OPERATORS
 
 	//! a operator to write a point struct to a ostream
@@ -152,7 +170,7 @@ public:
 	Pointcloud operator+=(Pointcloud & b);
 private:
 	Point offset;
-	std::vector<Point> pointCloud; //! the vector which contains all the poins of the pointcloud
+	std::vector<Point> * pointCloud; //! the vector which contains all the poins of the pointcloud
 	int orientation; //! the orientation of the pointcloud
 };
 #endif 

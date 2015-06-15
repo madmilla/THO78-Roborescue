@@ -98,6 +98,14 @@ public:
     *   \brief The default destructor of simulate map
     */
     ~SimulateMap();
+
+    /*!
+    *   Adds noise to a pointcloud
+    *   \brief Returns the pointcloud with noise based on distance of the points and percentage
+    *   @param Pointcloud that gets noise
+    *   @return Pointcloud object containing
+    */
+    Pointcloud addNoise(Pointcloud pc);
 };
 
 #endif // SIMULATEMAP_H

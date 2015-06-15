@@ -85,6 +85,7 @@ void Quadroute::createRoute(pointer_to_arrays objectMatrix, Map *map){
     int previousX = quadLocationX;
     int previousY = quadLocationY;
     bool locationEdited;
+    int loopround = 0;
 
     std::cout << "start quad (" << quadLocationX << "," << quadLocationY << ")" << std::endl;
 
@@ -92,7 +93,9 @@ void Quadroute::createRoute(pointer_to_arrays objectMatrix, Map *map){
         tempX = quadLocationX - finishX;
         tempY = quadLocationY - finishY;
         locationEdited = false;
-        std::cout << "(" << quadLocationX << "," << quadLocationY << ")" << std::endl;
+
+        loopround++;
+        std::cout << "Loopround: " << loopround << " (" << quadLocationX << "," << quadLocationY << ")" << std::endl;
 
         //ERROR HANDLING
         if(waypointsX[i] == waypointsX[i-1] &&
@@ -345,6 +348,10 @@ void Quadroute::createRoute(pointer_to_arrays objectMatrix, Map *map){
         i++;
         waypointsX[i] = quadLocationX;
         waypointsY[i] = quadLocationY;
+        if(loopround>MAP_HEIGHT*MAP_WIDTH){
+            std::cout << "Unavailable route" << std::endl;
+            break;
+        }
     }
     for(int j = 1; j<i; j++){
         std::cout << "j = " << j << ", waypoint (" << waypointsX[j] << "," << waypointsY[j] << ")" << std::endl;

@@ -3,6 +3,8 @@
 #include "testcopter.h"
 #include "arraymap.h"
 #include "areacoveringalgorithm.h"
+#include "databaseconnector.h"
+#include "point.hpp"
 using namespace std;
 void test(int i){
     Dimension Sightrange(3,3);
@@ -15,7 +17,8 @@ void test(int i){
 
 int main(int argc, char *argv[])
 {
-    test(1);
+	databaseConnector("127.0.0.1:3306", "root", "", "robodata");
+    test(0);
     return 0;
 
 }
