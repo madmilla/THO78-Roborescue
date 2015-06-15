@@ -78,5 +78,5 @@ int Line::getLength() {
 
 }
 bool Line::Lineintersect(Line & l2) {
-	
+	return true;
 }
