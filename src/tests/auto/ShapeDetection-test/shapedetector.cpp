@@ -146,7 +146,7 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 	HoughLinesP(newImage, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			
 		HOUGHLINES_MINLINELENGTH, HOUGHLINES_MAXLINEGAP);  //search the lines
 
-	checkLines(lines); //check for double lines
+	
 	vector<Line> newLines;
 	for (Vec4i line : lines){
 		Line::Point begin{ line[0], line[1] };
@@ -154,6 +154,7 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 		Line newLine(begin,end);
 		newLines.push_back(newLine);
 	}
+	//checkLines(lines); //check for double lines
 	return newLines;  // return the saved lines
 }
 
