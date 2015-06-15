@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     node.cpp \
     rotation30.cpp \
     map.cpp \
-    mapitem.cpp
+    mapitem.cpp \
+    display.cpp
 
 HEADERS  += mainwindow.h \
     pathfinding.h \
@@ -27,6 +28,7 @@ HEADERS  += mainwindow.h \
     rotationoption.h \
     rotation30.h \
     map.h \
-    mapitem.h
+    mapitem.h \
+    display.h
 
 FORMS    += mainwindow.ui

@@ -27,8 +27,8 @@ public:
 
    void setOrder(float order);
 
-   Vector<float> getPosition();
-   int getRotation();
+   Vector<float> getPosition() const;
+   int getRotation() const;
 
    bool isPath();
 
