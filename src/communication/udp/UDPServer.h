@@ -52,7 +52,10 @@
 #include "RobotManager.h"
 
 #include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-#pragma comment(lib,"ws2_32.lib")
+#include "../../../deps/incl/communication/udp/PracticalSocket.h"
+
+//#pragma comment(lib,"ws2_32.lib")
+
 const int bufferlen = 512;
 const int port = 8888;
 
@@ -89,23 +92,23 @@ public:
 	int received(){return recv;}
 	void printCon();
 private:
-	
+
+	UDPSocket sock;
+
+	char echoBuffer[ECHOMAX];         // Buffer for echo string                
+	std::string sourceAddress;             // Address of datagram source
+	unsigned short sourcePort;// Port of datagram source
+	int recv;
 	void init();
-	void sockbind();
 	void start();
 	void startTest();
-	void addConnection(sockaddr_in con, mavlink_message_t * msg);
-	void handleMessage(sockaddr_in con, mavlink_message_t * msg);
-	int recv;
+	void addConnection(std::string con,unsigned short port, mavlink_message_t * msg);
+	void handleMessage(std::string con,unsigned short port, mavlink_message_t * msg);
 	bool stopped = false;
-	SOCKET sock;
-	struct sockaddr_in server, si_other;
-	int slen, recv_len;
-	WSADATA wsa;
 	RobotManager & manager;
 	mavlink_message_t msg;
 	mavlink_ralcp_t packet;
-
+	
 	std::vector<UDPSocket*> _connections;
 	int ConId = 0;
 	std::thread connectionThread;
