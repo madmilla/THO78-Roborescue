@@ -1,6 +1,7 @@
 /**
 * @file databaseconnector.h
 * @author Robert Bezem
+* @author Jeroen Steendam
 * @date 18 04 2015
 * @brief File containing the declaration of the databaseConnector class
 *
@@ -14,6 +15,7 @@
 #include <string>
 #include <vector>
 #include "point.hpp"
+#include "QRCode.h"
 
 /** \class databaseConnector
  * \brief This class handles all the communication with the database
@@ -179,6 +181,32 @@ public:
      *
      */
     int getVehicleId( const std::string& Name );
+
+    /** \brief adds a new QR Code
+     *
+     * \param value Value of the QR Code
+     * \param x X position of the QR Code
+     * \param y Y position of the QR Code
+     *
+     */
+    void setQRCode(const std::string& value, int x, int y);
+
+    /** \brief adds a new QR Code
+     *
+     * \param code The new QR Code
+     *
+     */
+    void setQRCode(QRCode& code);
+
+    /** \brief Gets the position of the QR Code.
+     * \returns the position of the specified QR Code
+     */
+    QRCode getQRCode(const std::string& value);
+
+    /** \brief Gets the value of the QR Code at the specified location
+     * \returns the value of the specified QR Code
+     */
+    QRCode getQRCode(int x, int y);
 
 private:
     std::vector<point> polygonParser( const std::string& polygonString );

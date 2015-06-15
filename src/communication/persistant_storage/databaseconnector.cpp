@@ -258,3 +258,20 @@ point databaseConnector::pointParser( const std::string& pointString ) {
     int y = std::stoi ( tmp.substr ( spaceIndex + 1 ) ); // y of point
     return point ( x,y );
 }
+
+void databaseConnector::setQRCode(const std::string& value, int x, int y) {
+    stmt->executeUpdate ( "INSERT INTO `qr` (`x`, `y`) VALUES (" + std::to_string(x) + ", " + std::to_string(y) + ")" );
+}   
+
+void databaseConnector::setQRCode(QRCode& code) {
+    stmt->executeUpdate ( "INSERT INTO `qr` (`x`, `y`) VALUES (" + std::to_string(code.getX()) + ", " + std::to_string(code.getY()) + ")" );
+}
+
+QRCode databaseConnector::getQRCode(const std::string& value) {
+    // sql::ResultSet* res= stmt->executeQuery ( "SELECT asText(position) FROM `qr` WHERE map_id = " + std::to_string(mapId) + " AND vehicle_id = (SELECT id FROM `vehicle` WHERE name = '" + vehicleName + "') ORDER BY time DESC LIMIT 0,1" );
+    // if ( res->next() ) {
+    //     return pointParser ( res->getString ( 1 ) );
+    // }
+    // return point ( 0,0 );
+    return QRCode();
+}

@@ -59,11 +59,11 @@ void Node::setOrder(float order){
    this->order = order;
 }
 
-Vector<float> Node::getPosition(){
+Vector<float> Node::getPosition() const{
    return position;
 }
 
-int Node::getRotation(){
+int Node::getRotation() const{
    return rotation;
 }
 

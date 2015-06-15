@@ -1,6 +1,7 @@
 #include "someListener.h"
 #include <iostream>
 #include "CImg/CImg.h"
+
 int pixel = 0;
 cimg_library::CImg<unsigned char> image;
 std::string imgS = "";
@@ -15,6 +16,7 @@ SomeListener::SomeListener(MavlinkSubject * m){
 	this->m = m;
 	//m->addListener(this);
 	//m->addListener(this);
+	//pX4FlowWrapper = new PX4FlowWrapper();
 }
 void SomeListener::update(mavlink_message_t* msg){
 	
@@ -66,11 +68,8 @@ void SomeListener::update(mavlink_message_t* msg){
 		break;
 		
 		case MAVLINK_MSG_ID_OPTICAL_FLOW:
-			std::cout << "Optical flow -- ground distance:["<< mavlink_msg_optical_flow_get_ground_distance(msg) << "]\n";
-		break;
-		
 		case MAVLINK_MSG_ID_OPTICAL_FLOW_RAD:
-			std::cout << "Optical flow rad -- ground distance:["<< mavlink_msg_optical_flow_rad_get_distance(msg) << "]\n";
+			pX4FlowWrapper->ReceiveMAVLinkMessage(msg);
 		break;
 		
 		default:

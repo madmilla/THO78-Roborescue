@@ -56,7 +56,7 @@ void PathFinding::find(Vector<float> startPosition, Vector<float> targetPosition
 
       //check collision en set order of childs
       for(int i = 0; i < 3; i++){
-         if(isColliding(childs[i])){
+         if(isColliding(*childs[i])){
             childs[i]->setDeath();
          }else{
             childs[i]->setOrder(distance(childs[i]->getPosition(), targetPosition));
