@@ -62,34 +62,111 @@ using namespace aruco;
 class ARInterface
 {
 private:
+	/**
+	* VIDEO_DEVICE_X
+	* a static const int used for indicating the video deviceX
+	*/
 	static const int VIDEO_DEVICE_X = 0;
+	/**
+	* VIDEO_DEVICE_Y
+	* a static const int used for indicating the video deviceY
+	*/
 	static const int VIDEO_DEVICE_Y = 1;
-	
+	/**
+	* currentCoordinate
+	* an interger used to indicate the current coordinates
+	*/
 	Coordinate<int> currentCoordinate;
+	/**
+	* newCoordinate
+	* boolean used to flag new coordinate received
+	*/
 	bool newCoordinate;
+	/**
+	* erroOnInit
+	* boolean used to flag an error on initialization
+	*/
 	bool errorOnInit;
-	
+	/**
+	* error
+	* the string that is returned when an error on initialization is encountered
+	*/
 	std::string error;
-	
+	/**
+	* halfWidthCameraX, halfWidthCameraY
+	* intergers to indicate the half width of cameraX and cameraY
+	*/
 	int halfWidthCameraX, halfWidthCameraY;
-	float theMarkerSizeX;
-	float theMarkerSizeY;
+	/**
+	* theMarkerSizeX, theMarkerSizeY
+	* floats used to indicate the marker size for video_deviceX and video_deviceY
+	*/
+	float theMarkerSizeX, theMarkerSizeY;
+	/**
+	* thePyrDownLevel
+	* interger used to indicate the current pyrdownlevel
+	*/
 	int thePyrDownLevel;
-	
+	/**
+	* markerDetectorX
+	* creates makerDetectorX for video_deviceX
+	*/
 	MarkerDetector markerDetectorX;
+	/**
+	* markerDetectorY
+	* creates makerDetectorY for video_deviceY
+	*/
 	MarkerDetector markerDetectorY;
+	/**
+	* theVideoCapturerX
+	* creates theVideoCapturerX for video_deviceX
+	*/
 	VideoCapture theVideoCapturerX;
+	/**
+	* theVideoCapturerY
+	* creates theVideoCapturerY for video_deviceY
+	*/
 	VideoCapture theVideoCapturerY;
+	/**
+	* theMarkersX
+	* creates a vector to contain all the X markers
+	*/
 	vector<Marker> theMarkersX;
+	/**
+	* theMarkersY
+	* creates a vector to contain all the Y markers
+	*/
 	vector<Marker> theMarkersY;
+	/**
+	* theInputImageX
+	* creates a theImputImageX mat image 
+	*/
 	Mat theInputImageX;
+	/**
+	* theInputImageY
+	* creates a theImputImageY mat image
+	*/
 	Mat theInputImageY;
-	
+	/**
+	* theCameraParametersX
+	* creates theCameraParametersX
+	*/
 	CameraParameters theCameraParametersX;
+	/**
+	* theCameraParametersY
+	* creates theCameraParametersY
+	*/
 	CameraParameters theCameraParametersY;
-
+	/**
+	* thresParam1,thresParam2
+	* creates the doubles thresParam1 and thresParam2 used for the threshold
+	*/
 	double thresParam1, thresParam2;
-	
+	/**
+	* getClosetId()
+	* getClosetId a function for retreiving the closest id tag (to the center)
+	* in the list of markers
+	*/
 	int getClosestId(vector<Marker> &theMarkers, int halfWidthCamera)
 	{
 		if (theMarkers.size()>0)
@@ -122,6 +199,10 @@ private:
 		return -1;
 	}
 public:
+	/**
+	* ARInterface()
+	* the constructor for ARInterface
+	*/
 	ARInterface() :
 		newCoordinate {false},
 		errorOnInit { false},
@@ -164,50 +245,79 @@ public:
 		markerDetectorY.setCornerRefinementMethod(MarkerDetector::SUBPIX);
 	}
 	
+	/**
+	* run() is the the method that will be called by the user of ARInterface.
+	* It will grab the images from the webcams, and runs the marker detection on
+	* those images.
+	* If a new coordinate is found in a marker, it will also set
+	* the 'newCoordinate' bool on true, which can be accessed through
+	* isNewCoordinate().
+	* run() is usually used in a seperate thread.
+	*/
 	void run()
 	{
-		while(1)
+		while (1)
 		{
+			//Grabs the X and Y images (otherwise .retrieve() will always 
+			// return the same image)
 			theVideoCapturerX.grab();
 			theVideoCapturerY.grab();
 
+			//Retrieves the images and puts them in theInputImages
 			theVideoCapturerX.retrieve(theInputImageX);
 			theVideoCapturerY.retrieve(theInputImageY);
 
+			//Detects markers in the images, and puts them in theMarkers
 			markerDetectorX.detect(theInputImageX, theMarkersX,
 				theCameraParametersX, theMarkerSizeX);
 			markerDetectorY.detect(theInputImageY, theMarkersY,
 				theCameraParametersY, theMarkerSizeY);
 
+			//Gets the closest marker to the center of the image
+			//getClosestId can return -1 if it didn't find anything,
+			//so we need to test if it isn't -1, and after that check if 
+			//the new coordinate isn't the same as it already is
 			int closestIdX = getClosestId(theMarkersX, halfWidthCameraX);
 			if (closestIdX != -1)
 			{
-				if(currentCoordinate.getX() != closestIdX)
+				if (currentCoordinate.getX() != closestIdX)
 				{
 					currentCoordinate.setX(closestIdX);
 					newCoordinate = true;
 				}
 			}
-		
+
 			int closestIdY = getClosestId(theMarkersY, halfWidthCameraY);
 			if (closestIdY != -1)
 			{
-				if(currentCoordinate.getY() != closestIdY)
+				if (currentCoordinate.getY() != closestIdY)
 				{
 					currentCoordinate.setY(closestIdY);
 					newCoordinate = true;
 				}
 			}
 		}
-	}	
+	}
 
+	/**
+	* getCoordinate returns the current coordinate of the localization system.
+	* It returns an <int> Coordinate, with X and Y attributes for the current
+	* position.
+	*
+	*/
 	Coordinate<int> getCoordinate()
 	{
 		newCoordinate = false;
 		return currentCoordinate;
 	}
 
-
+	/**
+	* isNewCoordinate is called by the user of ARInterface to determine if there
+	* is a new coordinate available. Iif it is, getCoordinate() is usually
+	* called.
+	* It returns a bool.
+	*
+	*/
 	bool isNewCoordinate()
 	{
 		return newCoordinate;
