@@ -9,11 +9,6 @@ LidarWindow::LidarWindow(Lidar &lidar, QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->startLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
-    connect(ui->stopLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
-    connect(ui->setRpm,SIGNAL(returnPressed()),this,SLOT(setRpm()));
-    connect(&timer,SIGNAL(timeout()),this,SLOT(timerPassed()));
-
-    timer.start(1000);
     lidarMissionRunning(false);
 }
 
@@ -23,10 +18,7 @@ LidarWindow::~LidarWindow(){
     delete ui;
 }
 
-void LidarWindow::setRpm(){
-        qDebug() << "dit is het ingevuld rpm " << ui->setRpm->text();
 
-}
 
 void LidarWindow::handleButtonLidar(){
     //! this function will handle the buttoncall and down below it will be processed.
@@ -60,8 +52,7 @@ void LidarWindow::lidarMissionRunning(bool isRunning){
 }
 
 
-void LidarWindow::timerPassed(){
-    ui->showRpm->setNum(lidar.rpmStatus());
-    ui->showStatus->setText(QString::fromStdString(lidar.getStatus()));
-}
+void LidarWindow::on_startLidar_clicked()
+{
 
+}

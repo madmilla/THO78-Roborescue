@@ -85,14 +85,11 @@ private slots:
 
     void handleButtonLidar();
 
-    void setRpm();
-    void timerPassed();
 
 private:
     void lidarMissionRunning(bool isRunning);
     Ui::LidarWindow *ui;
     Lidar & lidar;
-    QTimer timer;
 };
 
 #endif // LIDARWINDOW_H
