@@ -61,190 +61,266 @@ using namespace aruco;
 
 class ARInterface
 {
-public:
-	ARInterface()
+private:
+	/**
+	* VIDEO_DEVICE_X
+	* a static const int used for indicating the video deviceX
+	*/
+	static const int VIDEO_DEVICE_X = 0;
+	/**
+	* VIDEO_DEVICE_Y
+	* a static const int used for indicating the video deviceY
+	*/
+	static const int VIDEO_DEVICE_Y = 1;
+	/**
+	* currentCoordinate
+	* an interger used to indicate the current coordinates
+	*/
+	Coordinate<int> currentCoordinate;
+	/**
+	* newCoordinate
+	* boolean used to flag new coordinate received
+	*/
+	bool newCoordinate;
+	/**
+	* erroOnInit
+	* boolean used to flag an error on initialization
+	*/
+	bool errorOnInit;
+	/**
+	* error
+	* the string that is returned when an error on initialization is encountered
+	*/
+	std::string error;
+	/**
+	* halfWidthCameraX, halfWidthCameraY
+	* intergers to indicate the half width of cameraX and cameraY
+	*/
+	int halfWidthCameraX, halfWidthCameraY;
+	/**
+	* theMarkerSizeX, theMarkerSizeY
+	* floats used to indicate the marker size for video_deviceX and video_deviceY
+	*/
+	float theMarkerSizeX, theMarkerSizeY;
+	/**
+	* thePyrDownLevel
+	* interger used to indicate the current pyrdownlevel
+	*/
+	int thePyrDownLevel;
+	/**
+	* markerDetectorX
+	* creates makerDetectorX for video_deviceX
+	*/
+	MarkerDetector markerDetectorX;
+	/**
+	* markerDetectorY
+	* creates makerDetectorY for video_deviceY
+	*/
+	MarkerDetector markerDetectorY;
+	/**
+	* theVideoCapturerX
+	* creates theVideoCapturerX for video_deviceX
+	*/
+	VideoCapture theVideoCapturerX;
+	/**
+	* theVideoCapturerY
+	* creates theVideoCapturerY for video_deviceY
+	*/
+	VideoCapture theVideoCapturerY;
+	/**
+	* theMarkersX
+	* creates a vector to contain all the X markers
+	*/
+	vector<Marker> theMarkersX;
+	/**
+	* theMarkersY
+	* creates a vector to contain all the Y markers
+	*/
+	vector<Marker> theMarkersY;
+	/**
+	* theInputImageX
+	* creates a theImputImageX mat image 
+	*/
+	Mat theInputImageX;
+	/**
+	* theInputImageY
+	* creates a theImputImageY mat image
+	*/
+	Mat theInputImageY;
+	/**
+	* theCameraParametersX
+	* creates theCameraParametersX
+	*/
+	CameraParameters theCameraParametersX;
+	/**
+	* theCameraParametersY
+	* creates theCameraParametersY
+	*/
+	CameraParameters theCameraParametersY;
+	/**
+	* thresParam1,thresParam2
+	* creates the doubles thresParam1 and thresParam2 used for the threshold
+	*/
+	double thresParam1, thresParam2;
+	/**
+	* getClosetId()
+	* getClosetId a function for retreiving the closest id tag (to the center)
+	* in the list of markers
+	*/
+	int getClosestId(vector<Marker> &theMarkers, int halfWidthCamera)
 	{
-		//read from camera or from  file
+		if (theMarkers.size()>0)
+		{
+			int currentClosestId = -1;
+			float currentClosestX = 1000;
 
-		TheVideoCapturerX.open(0);
-		TheVideoCapturerY.open(1);
+			for (unsigned int i = 0; i<theMarkers.size(); i++)
+			{
+				float xValueTotal = 0;
+				//Add all the x values of the 4 points
+				for (int j = 0; j < 4; j++)
+				{
+					xValueTotal += theMarkers[i][j].x;
+				}	
+				//Divide the values by 4 to get the average, and substract
+				//That from the middle point of the image; this way we get
+				//The distance from the middle
+				int distance = abs(halfWidthCameraX - (int)(xValueTotal / 4));
+				
+				//Get the closest distance from all the markers
+				if (distance < currentClosestX)
+				{
+					currentClosestId = theMarkers[i].id;
+					currentClosestX = distance;
+				}
+			}			
+			return currentClosestId;
+		}
+		return -1;
+	}
+public:
+	/**
+	* ARInterface()
+	* the constructor for ARInterface
+	*/
+	ARInterface() :
+		newCoordinate {false},
+		errorOnInit { false},
+		error {""},
+		theMarkerSizeX { -1},
+		theMarkerSizeY { -1}	
+	{
+		//Open the camera's
+		theVideoCapturerX.open(VIDEO_DEVICE_X);
+		theVideoCapturerY.open(VIDEO_DEVICE_Y);
 
-		//check video is open
-		if (!TheVideoCapturerX.isOpened() || !TheVideoCapturerY.isOpened())
+		//Check video is open
+		if (!theVideoCapturerX.isOpened() || !theVideoCapturerY.isOpened())
 		{
 			cerr << "Could not open video" << endl;
-			//return -1;
+			errorOnInit = true;
+			error += " Could not open video devices";
 		}
-		//read first image to get the dimensions
-		TheVideoCapturerX >> TheInputImageX;
-		TheVideoCapturerY >> TheInputImageY;
+		//Read first image to get the dimensions of the image
+		theVideoCapturerX >> theInputImageX;
+		theVideoCapturerY >> theInputImageY;
 
-		cv::Size sizeX = TheInputImageX.size();
-		cout << "xw: " << sizeX.width << endl;
-		cout << "xh: " << sizeX.height << endl;
-
+		//Get the half of the width of the images
+		cv::Size sizeX = theInputImageX.size();
 		halfWidthCameraX = sizeX.width / 2;
-
-		cv::Size sizeY = TheInputImageY.size();
-		cout << "yw: " << sizeY.width << endl;
-		cout << "yh: " << sizeY.height << endl;
-
+		
+		cv::Size sizeY = theInputImageY.size();
 		halfWidthCameraY = sizeY.width / 2;
 
 		//Configure other parameters
-		if (ThePyrDownLevel>0)
+		if (thePyrDownLevel>0)
 		{
-			MDetectorX.pyrDown(ThePyrDownLevel);
-			MDetectorY.pyrDown(ThePyrDownLevel);
+			markerDetectorX.pyrDown(thePyrDownLevel);
+			markerDetectorY.pyrDown(thePyrDownLevel);
 		}
-		//DISPLAY
-		//cv::namedWindow("in",1);
-		//cv::namedWindow("in2",1);
-
-		MDetectorX.getThresholdParams(ThresParam1, ThresParam2);
-		MDetectorX.setCornerRefinementMethod(MarkerDetector::SUBPIX);
-		MDetectorY.getThresholdParams(ThresParam1, ThresParam2);
-		MDetectorY.setCornerRefinementMethod(MarkerDetector::SUBPIX);
+		
+		markerDetectorX.getThresholdParams(thresParam1, thresParam2);
+		markerDetectorX.setCornerRefinementMethod(MarkerDetector::SUBPIX);
+		markerDetectorY.getThresholdParams(thresParam1, thresParam2);
+		markerDetectorY.setCornerRefinementMethod(MarkerDetector::SUBPIX);
 	}
 	
+	/**
+	* run() is the the method that will be called by the user of ARInterface.
+	* It will grab the images from the webcams, and runs the marker detection on
+	* those images.
+	* If a new coordinate is found in a marker, it will also set
+	* the 'newCoordinate' bool on true, which can be accessed through
+	* isNewCoordinate().
+	* run() is usually used in a seperate thread.
+	*/
 	void run()
 	{
-		while(1)
+		while (1)
 		{
-			TheVideoCapturerX.grab();
-			TheVideoCapturerY.grab();
+			//Grabs the X and Y images (otherwise .retrieve() will always 
+			// return the same image)
+			theVideoCapturerX.grab();
+			theVideoCapturerY.grab();
 
-			TheVideoCapturerX.retrieve(TheInputImageX);
-			TheVideoCapturerY.retrieve(TheInputImageY);
+			//Retrieves the images and puts them in theInputImages
+			theVideoCapturerX.retrieve(theInputImageX);
+			theVideoCapturerY.retrieve(theInputImageY);
 
-			MDetectorX.detect(TheInputImageX, TheMarkersX,
-				TheCameraParametersX, TheMarkerSizeX);
-			MDetectorY.detect(TheInputImageY, TheMarkersY,
-				TheCameraParametersY, TheMarkerSizeY);
+			//Detects markers in the images, and puts them in theMarkers
+			markerDetectorX.detect(theInputImageX, theMarkersX,
+				theCameraParametersX, theMarkerSizeX);
+			markerDetectorY.detect(theInputImageY, theMarkersY,
+				theCameraParametersY, theMarkerSizeY);
 
-			//TheInputImageX.copyTo(TheInputImageCopyX);
-			//TheInputImageY.copyTo(TheInputImageCopyY);
-
-			if (TheMarkersX.size()>0)
+			//Gets the closest marker to the center of the image
+			//getClosestId can return -1 if it didn't find anything,
+			//so we need to test if it isn't -1, and after that check if 
+			//the new coordinate isn't the same as it already is
+			int closestIdX = getClosestId(theMarkersX, halfWidthCameraX);
+			if (closestIdX != -1)
 			{
-				//cout << "Camera X" << endl;			
-
-				int currentClosestId = -1;
-				float currentClosestX = 1000;
-
-				for (unsigned int i = 0; i<TheMarkersX.size(); i++)
+				if (currentCoordinate.getX() != closestIdX)
 				{
-					//cout << "id: " << TheMarkersX[i].id << " ";
-
-					float x = 0;
-					for (int j = 0; j<4; j++)
-					{
-						x += TheMarkersX[i][j].x;
-						//cout <<"(" << TheMarkersX[i][j].x ;
-						//cout <<"," << TheMarkersY[i][j].y << ") ";
-					}
-					//cout << endl << " midX: " << x/4 << endl;			
-
-					int distance = abs(halfWidthCameraX - (int)(x / 4));
-					//cout << distance << endl;
-
-					if (distance < currentClosestX)
-					{
-						currentClosestId = TheMarkersX[i].id;
-						currentClosestX = distance;
-					}
-
-					//DISPLAY
-					//TheMarkersX[i].draw(TheInputImageCopyX,Scalar(0,0,255),1);
-				}
-				if (currentClosestId != -1)
-				{
-					if(currentCoordinate.getX() != currentClosestId)
-					{
-						currentCoordinate.setX(currentClosestId);
-						newCoordinate = true;
-					}
+					currentCoordinate.setX(closestIdX);
+					newCoordinate = true;
 				}
 			}
-			if (TheMarkersY.size()>0)
+
+			int closestIdY = getClosestId(theMarkersY, halfWidthCameraY);
+			if (closestIdY != -1)
 			{
-				//cout << "Camera Y" << endl;
-
-				int currentClosestId = -1;
-				float currentClosestX = 1000;
-				for (unsigned int i = 0; i<TheMarkersY.size(); i++)
+				if (currentCoordinate.getY() != closestIdY)
 				{
-					//cout << "id: " << TheMarkersY[i].id << " ";
-
-					float x = 0;
-					for (int j = 0; j<4; j++)
-					{
-						x += TheMarkersY[i][j].x;
-						//cout <<"(" << TheMarkersY[i][j].x ;
-						//cout <<"," << TheMarkersY[i][j].y << ") ";
-					}
-					//cout << endl << " midX: " << x/4 << endl;
-
-					int distance = abs(halfWidthCameraY - (int)(x / 4));
-					//cout << distance << endl;				
-
-					if (distance < currentClosestX)
-					{
-						currentClosestId = TheMarkersY[i].id;
-						currentClosestX = distance;
-					}
-					//DISPLAY
-					//TheMarkersY[i].draw(TheInputImageCopyY,Scalar(0,0,255),1);
-				}
-				if (currentClosestId != -1)
-				{
-					if(currentCoordinate.getY() != currentClosestId)
-					{
-						currentCoordinate.setY(currentClosestId);
-						newCoordinate = true;
-					}
+					currentCoordinate.setY(closestIdY);
+					newCoordinate = true;
 				}
 			}
-			//DISPLAY
-			//cv::imshow("in",TheInputImageCopyX);
-			//cv::imshow("in2",TheInputImageCopyY);
 		}
 	}
 
+	/**
+	* getCoordinate returns the current coordinate of the localization system.
+	* It returns an <int> Coordinate, with X and Y attributes for the current
+	* position.
+	*
+	*/
 	Coordinate<int> getCoordinate()
 	{
 		newCoordinate = false;
 		return currentCoordinate;
 	}
 
-
+	/**
+	* isNewCoordinate is called by the user of ARInterface to determine if there
+	* is a new coordinate available. Iif it is, getCoordinate() is usually
+	* called.
+	* It returns a bool.
+	*
+	*/
 	bool isNewCoordinate()
 	{
 		return newCoordinate;
 	}
-
-private:
-	Coordinate<int> currentCoordinate;
-	bool newCoordinate = false;
-	
-	int halfWidthCameraX, halfWidthCameraY;
-	float TheMarkerSizeX = -1;
-	float TheMarkerSizeY = -1;
-	int ThePyrDownLevel;
-	MarkerDetector MDetectorX;
-	MarkerDetector MDetectorY;
-	VideoCapture TheVideoCapturerX;
-	VideoCapture TheVideoCapturerY;
-	vector<Marker> TheMarkersX;
-	vector<Marker> TheMarkersY;
-	Mat TheInputImageX;
-	Mat TheInputImageY;
-
-	//DISPLAY
-	//Mat TheInputImageCopyX, TheInputImageCopyY;
-	CameraParameters TheCameraParametersX;
-	CameraParameters TheCameraParametersY;
-
-	double ThresParam1, ThresParam2;
 };
 #endif

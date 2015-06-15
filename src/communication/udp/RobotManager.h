@@ -76,7 +76,6 @@ std::vector<T *> getRobots(){
 		if(r != nullptr){
 			list.push_back(r);
 		}
-
 	}
 	return list;
 }

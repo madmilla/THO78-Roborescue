@@ -19,6 +19,7 @@ int Test::run(){
     std::ofstream testResultsFile;
     testResultsFile.open("testResult.txt");
     if(!testResultsFile.is_open()){
+        testResultsFile << "Error: ";
         std::cout << "Result log: " << "Log file could not be opend" << std::endl;
         ++error;
     }
@@ -32,6 +33,7 @@ int Test::run(){
 
 
     if(static_cast<int>(testFileMap.getMapContent().size()) != size){
+        testResultsFile << "Error: ";
         testResultsFile << "Map from file: " << "Map y size incorret" << std::endl;
         ++error;
     }
@@ -39,10 +41,12 @@ int Test::run(){
     for(int y = 0; y < testFileMap.height; y++){
         for(int x = 0; x < testFileMap.width; x++){
             if(static_cast<int>(testFileMap.getMapContent()[y].size()) != size){
+                testResultsFile << "Error: ";
                 testResultsFile << "Map from file: " << "Map x size incorret" << std::endl;
                 ++error;
             }
             if(testFileMap.getMapObject(y,x) != 0){
+                testResultsFile << "Error: ";
                 testResultsFile << "Map from file: " << "Conntent error. != 0" << std::endl;
                 ++error;
             }
@@ -53,6 +57,7 @@ int Test::run(){
     for(int y = 0; y < testFileMap.height; y++){
         for(int x = 0; x < testFileMap.width; x++){
             if(testFileMap.getMapObject(y,x) != 1){
+                testResultsFile << "Error: ";
                 testResultsFile << "Map from file: " << "Conntent error. != 1" << std::endl;
                 ++error;
             }
@@ -69,6 +74,7 @@ int Test::run(){
     Map testMap("testMap.map", size,size);
 
     if(static_cast<int>(testMap.getMapContent().size()) != size){
+        testResultsFile << "Error: ";
         testResultsFile << "Map not from file: " << "Map y size incorret" << std::endl;
         ++error;
     }
@@ -76,10 +82,12 @@ int Test::run(){
     for(int y = 0; y < testMap.height; y++){
         for(int x = 0; x < testMap.width; x++){
             if(static_cast<int>(testMap.getMapContent()[y].size()) != size){
+                testResultsFile << "Error: ";
                 testResultsFile << "Map not from file: " << "Map x size incorret" << std::endl;
                 ++error;
             }
             if(testMap.getMapObject(y,x) != 0){
+                testResultsFile << "Error: ";
                 testResultsFile << "Map not from file: " << "Conntent error. != 0" << std::endl;
                 ++error;
             }
@@ -90,6 +98,7 @@ int Test::run(){
     for(int y = 0; y < testMap.height; y++){
         for(int x = 0; x < testMap.width; x++){
             if(testMap.getMapObject(y,x) != 1){
+                testResultsFile << "Error: ";
                 testResultsFile << "Map not from file: " << "Conntent error. != 1" << std::endl;
                 ++error;
             }
@@ -99,42 +108,49 @@ int Test::run(){
 
     testMap.setMapObject(0,size - 5, size - 2);
     if(testMap.getMapObject(size - 5,size - 2) != 0){
+        testResultsFile << "Error: ";
         testResultsFile << "Map not from file: " << "Object error size - 5,size - 2 != 0" << std::endl;
         ++error;
     }
 
     testMap.setMapObject(1,size - size,size - size);
     if(testMap.getMapObject(size - size,size -size) != 1){
+        testResultsFile << "Error: ";
         testResultsFile << "Map not from file: " << "Object error 0,0 != 1" << std::endl;
         ++error;
     }
 
     testMap.setMapObject(1,size - 1,size - (size - 1));
     if(testMap.getMapObject(size - 1,size - (size - 1)) != 1){
+        testResultsFile << "Error: ";
         testResultsFile << "Map not from file: " << "Object error size - 1,size - (size - 1) != 1" << std::endl;
         ++error;
     }
 
     testMap.setMapObject(0,size - 1,size - 1);
     if(testMap.getMapObject(size - 1,size - 1) != 0){
+        testResultsFile << "Error: ";
         testResultsFile << "Map not from file: " << "Object error size - 1,size - (size - 1) != 0" << std::endl;
         ++error;
     }
 
     testMap.setMapObject(0,size + 1,size + 1);
     if(testMap.getMapObject(size + 1,size + 1) != -1){
+        testResultsFile << "Error: ";
         testResultsFile << "Map not from file: " << "Object error size - 1,size - (size - 1) != -1" << std::endl;
         ++error;
     }
 
     testMap.setMapObject(0,size,size);
     if(testMap.getMapObject(size,size) != -1){
+        testResultsFile << "Error: ";
         testResultsFile << "Map not from file: " << "Object error size, size != -1" << std::endl;
         ++error;
     }
 
     testMap.setMapObject(0,size - 21,size - 21);
     if(testMap.getMapObject(size - 21,size - 21) != -1){
+        testResultsFile << "Error: ";
         testResultsFile << "Map not from file: " << "Object error size - 21,size - 21 + 1 != 1" << std::endl;
         ++error;
     }
@@ -152,6 +168,7 @@ int Test::run(){
     std::ifstream mapFile;
     mapFile.open("testMap.map");
     if(!mapFile.is_open()){
+        testResultsFile << "Error: ";
         testResultsFile << "File: " << "Map file could not be opend" << std::endl;
         ++error;
     }
@@ -162,6 +179,7 @@ int Test::run(){
         mapFile >> content;
 
         if(content != testMap.getMapObject(y,x)){
+            testResultsFile << "Error: ";
             testResultsFile << "File: " << "Map connect not equal to file content" << std::endl;
             ++error;
             break;
@@ -285,34 +303,42 @@ int Test::run(){
 
     for(Pointcloud::Point p : *pointc.getPoints()){
         if(p.X == 3 && p.Y == 0){
+            testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Right side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
         else if(p.X == -3 && p.Y == 0){
+            testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Left side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
         else if(p.X == 0 && p.Y == 3){
+            testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Upper side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
         else if(p.X == 0 && p.Y == -3){
+            testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Lower side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
         else if(p.X ==  -2 && p.Y == -2){
+            testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Upper left diagonal side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
         else if(p.X == 2 && p.Y == -2){
+            testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Lower left diagonal side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
         else if(p.X == 2 && p.Y == 2){
+            testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Lower right diagonal side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
         else if(p.X == -2 && p.Y == 2){
+            testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Upper right diagonal side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
@@ -322,20 +348,36 @@ int Test::run(){
     testResultsFile << "Enviroment Simulator test PointCloud" << std::endl;
     Pointcloud pC = testSim.getPointCloud();
     if(pC.getPoints()->size() > 1){
+        testResultsFile << "Error: ";
        ++error;
         testResultsFile << "PointCloud: " << "Radius failed" << std::endl;
     }
     for(Pointcloud::Point p : *pC.getPoints()){
         //std::cout << "x: " << p.X << " y: " << p.Y;
         if(p.X != 3){
+            testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "X wrong" << std::endl;
             ++error;
         }
         if(p.Y != 1){
+            testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Y wrong" << std::endl;
             ++error;
         }
     }
+
+    //save pc
+    pC.savePointsToFile("testpC.pcl");
+    Pointcloud loadpC;
+    //load pc from file
+    loadpC.loadPointsFromFile("testpC.pcl");
+    //make map from loaded pc
+    Map pCloadMap("testpC.map", &loadpC);
+    //check point
+    if(pCloadMap.getMapObject(1,3) != 1){
+        testResultsFile << "PointCloud: " << "Load from file failed" << std::endl;
+    }
+
     //Done
     testResultsFile << "Enviroment Simulator test done" << std::endl;
     if(error == 0){
