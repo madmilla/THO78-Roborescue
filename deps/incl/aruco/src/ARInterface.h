@@ -61,155 +61,145 @@ using namespace aruco;
 
 class ARInterface
 {
-public:
-	ARInterface()
+private:
+	static const int VIDEO_DEVICE_X = 0;
+	static const int VIDEO_DEVICE_Y = 1;
+	
+	Coordinate<int> currentCoordinate;
+	bool newCoordinate;
+	bool errorOnInit;
+	
+	std::string error;
+	
+	int halfWidthCameraX, halfWidthCameraY;
+	float theMarkerSizeX;
+	float theMarkerSizeY;
+	int thePyrDownLevel;
+	
+	MarkerDetector markerDetectorX;
+	MarkerDetector markerDetectorY;
+	VideoCapture theVideoCapturerX;
+	VideoCapture theVideoCapturerY;
+	vector<Marker> theMarkersX;
+	vector<Marker> theMarkersY;
+	Mat theInputImageX;
+	Mat theInputImageY;
+	
+	CameraParameters theCameraParametersX;
+	CameraParameters theCameraParametersY;
+
+	double thresParam1, thresParam2;
+	
+	int getClosestId(vector<Marker> &theMarkers, int halfWidthCamera)
 	{
-		//read from camera or from  file
+		if (theMarkers.size()>0)
+		{
+			int currentClosestId = -1;
+			float currentClosestX = 1000;
 
-		TheVideoCapturerX.open(0);
-		TheVideoCapturerY.open(1);
+			for (unsigned int i = 0; i<theMarkers.size(); i++)
+			{
+				float xValueTotal = 0;
+				//Add all the x values of the 4 points
+				for (int j = 0; j < 4; j++)
+				{
+					xValueTotal += theMarkers[i][j].x;
+				}	
+				//Divide the values by 4 to get the average, and substract
+				//That from the middle point of the image; this way we get
+				//The distance from the middle
+				int distance = abs(halfWidthCameraX - (int)(xValueTotal / 4));
+				
+				//Get the closest distance from all the markers
+				if (distance < currentClosestX)
+				{
+					currentClosestId = theMarkers[i].id;
+					currentClosestX = distance;
+				}
+			}			
+			return currentClosestId;
+		}
+		return -1;
+	}
+public:
+	ARInterface() :
+		newCoordinate {false},
+		errorOnInit { false},
+		error {""},
+		theMarkerSizeX { -1},
+		theMarkerSizeY { -1}	
+	{
+		//Open the camera's
+		theVideoCapturerX.open(VIDEO_DEVICE_X);
+		theVideoCapturerY.open(VIDEO_DEVICE_Y);
 
-		//check video is open
-		if (!TheVideoCapturerX.isOpened() || !TheVideoCapturerY.isOpened())
+		//Check video is open
+		if (!theVideoCapturerX.isOpened() || !theVideoCapturerY.isOpened())
 		{
 			cerr << "Could not open video" << endl;
-			//return -1;
+			errorOnInit = true;
+			error += " Could not open video devices";
 		}
-		//read first image to get the dimensions
-		TheVideoCapturerX >> TheInputImageX;
-		TheVideoCapturerY >> TheInputImageY;
+		//Read first image to get the dimensions of the image
+		theVideoCapturerX >> theInputImageX;
+		theVideoCapturerY >> theInputImageY;
 
-		cv::Size sizeX = TheInputImageX.size();
-		cout << "xw: " << sizeX.width << endl;
-		cout << "xh: " << sizeX.height << endl;
-
+		//Get the half of the width of the images
+		cv::Size sizeX = theInputImageX.size();
 		halfWidthCameraX = sizeX.width / 2;
-
-		cv::Size sizeY = TheInputImageY.size();
-		cout << "yw: " << sizeY.width << endl;
-		cout << "yh: " << sizeY.height << endl;
-
+		
+		cv::Size sizeY = theInputImageY.size();
 		halfWidthCameraY = sizeY.width / 2;
 
 		//Configure other parameters
-		if (ThePyrDownLevel>0)
+		if (thePyrDownLevel>0)
 		{
-			MDetectorX.pyrDown(ThePyrDownLevel);
-			MDetectorY.pyrDown(ThePyrDownLevel);
+			markerDetectorX.pyrDown(thePyrDownLevel);
+			markerDetectorY.pyrDown(thePyrDownLevel);
 		}
-		//DISPLAY
-		//cv::namedWindow("in",1);
-		//cv::namedWindow("in2",1);
-
-		MDetectorX.getThresholdParams(ThresParam1, ThresParam2);
-		MDetectorX.setCornerRefinementMethod(MarkerDetector::SUBPIX);
-		MDetectorY.getThresholdParams(ThresParam1, ThresParam2);
-		MDetectorY.setCornerRefinementMethod(MarkerDetector::SUBPIX);
+		
+		markerDetectorX.getThresholdParams(thresParam1, thresParam2);
+		markerDetectorX.setCornerRefinementMethod(MarkerDetector::SUBPIX);
+		markerDetectorY.getThresholdParams(thresParam1, thresParam2);
+		markerDetectorY.setCornerRefinementMethod(MarkerDetector::SUBPIX);
 	}
 	
 	void run()
 	{
 		while(1)
 		{
-			TheVideoCapturerX.grab();
-			TheVideoCapturerY.grab();
+			theVideoCapturerX.grab();
+			theVideoCapturerY.grab();
 
-			TheVideoCapturerX.retrieve(TheInputImageX);
-			TheVideoCapturerY.retrieve(TheInputImageY);
+			theVideoCapturerX.retrieve(theInputImageX);
+			theVideoCapturerY.retrieve(theInputImageY);
 
-			MDetectorX.detect(TheInputImageX, TheMarkersX,
-				TheCameraParametersX, TheMarkerSizeX);
-			MDetectorY.detect(TheInputImageY, TheMarkersY,
-				TheCameraParametersY, TheMarkerSizeY);
+			markerDetectorX.detect(theInputImageX, theMarkersX,
+				theCameraParametersX, theMarkerSizeX);
+			markerDetectorY.detect(theInputImageY, theMarkersY,
+				theCameraParametersY, theMarkerSizeY);
 
-			//TheInputImageX.copyTo(TheInputImageCopyX);
-			//TheInputImageY.copyTo(TheInputImageCopyY);
-
-			if (TheMarkersX.size()>0)
+			int closestIdX = getClosestId(theMarkersX, halfWidthCameraX);
+			if (closestIdX != -1)
 			{
-				//cout << "Camera X" << endl;			
-
-				int currentClosestId = -1;
-				float currentClosestX = 1000;
-
-				for (unsigned int i = 0; i<TheMarkersX.size(); i++)
+				if(currentCoordinate.getX() != closestIdX)
 				{
-					//cout << "id: " << TheMarkersX[i].id << " ";
-
-					float x = 0;
-					for (int j = 0; j<4; j++)
-					{
-						x += TheMarkersX[i][j].x;
-						//cout <<"(" << TheMarkersX[i][j].x ;
-						//cout <<"," << TheMarkersY[i][j].y << ") ";
-					}
-					//cout << endl << " midX: " << x/4 << endl;			
-
-					int distance = abs(halfWidthCameraX - (int)(x / 4));
-					//cout << distance << endl;
-
-					if (distance < currentClosestX)
-					{
-						currentClosestId = TheMarkersX[i].id;
-						currentClosestX = distance;
-					}
-
-					//DISPLAY
-					//TheMarkersX[i].draw(TheInputImageCopyX,Scalar(0,0,255),1);
-				}
-				if (currentClosestId != -1)
-				{
-					if(currentCoordinate.getX() != currentClosestId)
-					{
-						currentCoordinate.setX(currentClosestId);
-						newCoordinate = true;
-					}
+					currentCoordinate.setX(closestIdX);
+					newCoordinate = true;
 				}
 			}
-			if (TheMarkersY.size()>0)
+		
+			int closestIdY = getClosestId(theMarkersY, halfWidthCameraY);
+			if (closestIdY != -1)
 			{
-				//cout << "Camera Y" << endl;
-
-				int currentClosestId = -1;
-				float currentClosestX = 1000;
-				for (unsigned int i = 0; i<TheMarkersY.size(); i++)
+				if(currentCoordinate.getY() != closestIdY)
 				{
-					//cout << "id: " << TheMarkersY[i].id << " ";
-
-					float x = 0;
-					for (int j = 0; j<4; j++)
-					{
-						x += TheMarkersY[i][j].x;
-						//cout <<"(" << TheMarkersY[i][j].x ;
-						//cout <<"," << TheMarkersY[i][j].y << ") ";
-					}
-					//cout << endl << " midX: " << x/4 << endl;
-
-					int distance = abs(halfWidthCameraY - (int)(x / 4));
-					//cout << distance << endl;				
-
-					if (distance < currentClosestX)
-					{
-						currentClosestId = TheMarkersY[i].id;
-						currentClosestX = distance;
-					}
-					//DISPLAY
-					//TheMarkersY[i].draw(TheInputImageCopyY,Scalar(0,0,255),1);
-				}
-				if (currentClosestId != -1)
-				{
-					if(currentCoordinate.getY() != currentClosestId)
-					{
-						currentCoordinate.setY(currentClosestId);
-						newCoordinate = true;
-					}
+					currentCoordinate.setY(closestIdY);
+					newCoordinate = true;
 				}
 			}
-			//DISPLAY
-			//cv::imshow("in",TheInputImageCopyX);
-			//cv::imshow("in2",TheInputImageCopyY);
 		}
-	}
+	}	
 
 	Coordinate<int> getCoordinate()
 	{
@@ -222,29 +212,5 @@ public:
 	{
 		return newCoordinate;
 	}
-
-private:
-	Coordinate<int> currentCoordinate;
-	bool newCoordinate = false;
-	
-	int halfWidthCameraX, halfWidthCameraY;
-	float TheMarkerSizeX = -1;
-	float TheMarkerSizeY = -1;
-	int ThePyrDownLevel;
-	MarkerDetector MDetectorX;
-	MarkerDetector MDetectorY;
-	VideoCapture TheVideoCapturerX;
-	VideoCapture TheVideoCapturerY;
-	vector<Marker> TheMarkersX;
-	vector<Marker> TheMarkersY;
-	Mat TheInputImageX;
-	Mat TheInputImageY;
-
-	//DISPLAY
-	//Mat TheInputImageCopyX, TheInputImageCopyY;
-	CameraParameters TheCameraParametersX;
-	CameraParameters TheCameraParametersY;
-
-	double ThresParam1, ThresParam2;
 };
 #endif
