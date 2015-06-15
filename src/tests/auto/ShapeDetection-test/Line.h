@@ -99,6 +99,9 @@ public:
 	check if 2 Points are the same
 	*/
 	friend bool operator==(const Point & p1, const Point & p2);
+
+	int getLength();
+	bool intersect(Line & l2);
 };
 #endif
 
