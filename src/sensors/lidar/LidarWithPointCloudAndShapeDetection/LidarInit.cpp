@@ -1,3 +1,4 @@
+#include "LidarInit.h"
 #include "rplidar.h"
 #include "Lidar.h"
 //#include "LidarController.h"
