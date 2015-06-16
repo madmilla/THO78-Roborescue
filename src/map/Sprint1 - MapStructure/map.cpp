@@ -138,3 +138,30 @@ map map::getRegion(int x, int y, unsigned int width, unsigned int height){
 map map::getRegion(point & p, unsigned int width, unsigned int height){
     return getRegion(p.getX(), p.getY(), width, height);
 }
+
+//2D vector to check if points are accessible and seen
+std::vector<std::vector<int>*> access; //accessible = 0, notAccessible = 1, seen = 5
+
+//check if x,y is accessible
+//eventueel met boost isAccessible
+bool isAccessible(int x, int y, int sizeCell){}
+
+//add object to position x,y
+void addObject(std::vector<int> objects, int x, int y){}
+
+//fill object (circle or polygon) so that middle is not accessible
+void fillObjects(std::vector<int> object){}
+
+//when pathfinding is done, make all cells unseen again. seen = false;	
+void makeUnseen(){}
+
+//translate lines to points in 2d vector
+void translateToPoints(){
+	for (int i = 0; i < x; i++){
+		for (int j = 0; j < y; j++){
+			if (getPointLines(x, y) != null){
+				access.insert(x,y)
+			}
+		}
+	}
+}
