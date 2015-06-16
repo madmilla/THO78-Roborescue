@@ -4,11 +4,10 @@
 #include <thread>
 #include <stdio.h>
 #include <stdlib.h>
-#include <vector>
 #include <iostream>
-#include <string>
 #include "PracticalSocket.h"
-#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+//#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "mavlink/udp_mavlink_commands/mavlink.h"
 #include <queue>
 
 #include "BaseLidar.h"
