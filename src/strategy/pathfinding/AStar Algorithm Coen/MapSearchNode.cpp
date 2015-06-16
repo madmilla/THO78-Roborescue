@@ -1,26 +1,3 @@
-/**
-* A* Algorithm Implementation using STL is
-* Copyright (C)2001-2005 Justin Heyes-Jones
-* Permission is given by the author to freely redistribute and
-* include this code in any program as long as this credit is
-* given where due.
-*
-* COVERED CODE IS PROVIDED UNDER THIS LICENSE ON AN "AS IS" BASIS,
-* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
-* INCLUDING, WITHOUT LIMITATION, WARRANTIES THAT THE COVERED CODE
-* IS FREE OF DEFECTS, MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE
-* OR NON-INFRINGING. THE ENTIRE RISK AS TO THE QUALITY AND
-* PERFORMANCE OF THE COVERED CODE IS WITH YOU. SHOULD ANY COVERED
-* CODE PROVE DEFECTIVE IN ANY RESPECT, YOU (NOT THE INITIAL
-* DEVELOPER OR ANY OTHER CONTRIBUTOR) ASSUME THE COST OF ANY
-* NECESSARY SERVICING, REPAIR OR CORRECTION. THIS DISCLAIMER OF
-* WARRANTY CONSTITUTES AN ESSENTIAL PART OF THIS LICENSE. NO USE
-* OF ANY COVERED CODE IS AUTHORIZED HEREUNDER EXCEPT UNDER
-* THIS DISCLAIMER.
-*
-* Use at your own risk!
-**/
-
 #include "MapSearchNode.h"
 
 MapSearchNode::MapSearchNode(){
@@ -114,14 +91,14 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
     std::cout << "henk" << std::endl;
     std::cout << map->henk() <<std::endl;
     std::cout << "henk1" << std::endl;
-    if( (map->GetMap( x-1, y ) < 9)
+    if( (map->getTile( x-1, y ) < 9)
         && !((parent_x == x-1) && (parent_y == y))
       )
     {
         NewNode = MapSearchNode( x-1, y );
         astarsearch->AddSuccessor( NewNode );
     }
-    if( (map->GetMap( x, y-1 ) < 9)
+    if( (map->getTile( x, y-1 ) < 9)
         && !((parent_x == x) && (parent_y == y-1))
       )
     {
@@ -129,7 +106,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
         astarsearch->AddSuccessor( NewNode );
     }
 
-    if( (map->GetMap( x+1, y ) < 9)
+    if( (map->getTile( x+1, y ) < 9)
         && !((parent_x == x+1) && (parent_y == y))
       )
     {
@@ -138,7 +115,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
     }
 
 
-    if( (map->GetMap( x, y+1 ) < 9)
+    if( (map->getTile( x, y+1 ) < 9)
         && !((parent_x == x) && (parent_y == y+1))
         )
     {
@@ -155,7 +132,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
 
 float MapSearchNode::GetCost( MapSearchNode &successor )
 {
-    return (float) map->GetMap( x, y );
+    return (float) map->getTile( x, y );
 
 }
 
