@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Lidar Gui</string>
+     <string>Manual Lidar Gui</string>
     </property>
    </widget>
   </widget>
