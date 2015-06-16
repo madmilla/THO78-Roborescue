@@ -11,7 +11,7 @@
 #include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include <queue>
 
-#include "SocketListener.h"
+#include "BaseLidar.h"
 
 
 
@@ -24,7 +24,7 @@ public:
 	/// \param Send a message to a specefic connection.
 	/// \param Message
 	/// \returns void 
-	void send(mavlink_ralcp_t message);
+	int send(mavlink_message_t message);
 	
 	
 	/// \param buffer for the message to be received in
@@ -34,19 +34,19 @@ public:
 	/// \brief stops the udpServer thread
 	void stop();
 
-	void addListener(SocketListener * sl){Socketlistener = sl;};
+	void addListener(BaseLidar * sl){lidar = sl;};
 
 private:
 	void sockbind();
 	void start();
 	void addConnection(sockaddr_in con);
+	void checkConnectionStatus();
 	std::thread * connectionThread;
 
+	bool stopped;
 	UDPSocket sock;
 	SocketAddress remoteadr;
-
-	bool stopped = false;
-	SocketListener * Socketlistener;
+	BaseLidar * lidar;
 
 };
 

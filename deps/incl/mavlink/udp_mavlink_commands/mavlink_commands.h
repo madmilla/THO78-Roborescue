@@ -41,7 +41,8 @@ typedef enum COMMAND_DESTINATION
 {
 	ROSBEE=1, /* The device id of the Rosbee | */
 	LIDAR=2, /* The device id of the Lidar | */
-	COMMAND_DESTINATION_ENUM_END=3, /*  | */
+	CPI=3, /*  The device id of the CPI| */
+	COMMAND_DESTINATION_ENUM_END=4, /*  | */
 } COMMAND_DESTINATION;
 #endif
 
@@ -52,14 +53,13 @@ typedef enum LIDAR_COMMAND_FUNCTIONS
 {
 	LIDAR_INIT = 0, /* initialize Lidar | */
 	LIDAR_GETDEVICE = 11, /* WHICH DEVICE IS SENDING | */
-	RECEIVELINE=12, /* Recieve line from lidar | */
-	RECIEVERPM=13, /* Recieve RPM from lidar | */
-	SENDRPM=14, /* Send RPM from lidar | */
-	START=15, /* Start the lidar | */
-	STOP=16, /* Stop the lidar | */
-	SENDROSBEEPOSITION=17, /* Send the current position of the rosbee | */
-	SENDROSBEEFLANK=18, /* Send the current flank of the rosbee | */
-	LIDAR_COMMAND_FUNCTIONS_ENUM_END=19, /*  | */
+	LINEDATA=12, /* Recieve line from lidar | */
+	RPM=13, /* Send RPM from lidar | */
+	START=14, /* Start the lidar | */
+	STOP=15, /* Stop the lidar | */
+	ROSBEEPOSITION=16, /* Send the current position of the rosbee | */
+	ROSBEEFLANK=17, /* Send the current flank of the rosbee | */
+	LIDAR_COMMAND_FUNCTIONS_ENUM_END=18, /*  | */
 } LIDAR_COMMAND_FUNCTIONS;
 #endif
 
