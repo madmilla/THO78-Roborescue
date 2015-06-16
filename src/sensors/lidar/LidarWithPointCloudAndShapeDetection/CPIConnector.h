@@ -18,7 +18,7 @@ public:
 	void sendCommand(uint64_t payload, COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS lcf);
 	void onMessage(mavlink_message_t & function) override;
 private:
-	LidarInit lidar;
+	LidarInit *lidar;
 };
 
 #endif //CPICONNECTOR_H_
