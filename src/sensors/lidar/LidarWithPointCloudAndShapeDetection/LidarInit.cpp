@@ -8,7 +8,7 @@
 #include "PointCloud.h"
 #include "CPIConnector.h"
 
-LidarInit::LidarInit(CPIConnector &CPI) :
+LidarInit::LidarInit(CPIConnector *CPI) :
 CPI(CPI)
 {}
 
@@ -37,11 +37,11 @@ void LidarInit::start(){
 	sD.writeLinesToConsole(lines);
 
 	for (Line l : lines){
-		CPI.sendCommand(uint64_t(l), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+		CPI->sendCommand(l, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
 	for (Circle c : circles){
-		CPI.sendCommand(uint64_t(c), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+		CPI->sendCommand(c, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
 	

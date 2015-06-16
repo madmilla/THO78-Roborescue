@@ -2,7 +2,8 @@
 #include "LidarInit.h"
 
 CPIConnector::CPIConnector(){
-	lidar = new LidarInit();
+	CPIConnector *tes = this;
+	lidar = new LidarInit(tes);
 }
 
 CPIConnector::~CPIConnector(){
@@ -36,7 +37,7 @@ void CPIConnector::onMessage(mavlink_message_t & msg){
 			break;
 
 		case LIDAR_COMMAND_FUNCTIONS::START:
-			lidar.start();
+			lidar->start();
 
 			sendCommand(uint64_t(LIDAR_COMMAND_FUNCTIONS::START), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::START );
 			break;
