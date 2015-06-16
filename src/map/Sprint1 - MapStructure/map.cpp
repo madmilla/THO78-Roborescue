@@ -193,8 +193,10 @@ map map::getRegion(point & p, unsigned int width, unsigned int height){
 }
 
 //add object to position x,y
-void map::addObject(std::vector<int> object, int x, int y){
-	//punten uit object invoegen in xy van access
+void map::addObject(polygon object){
+	objects.push_back(object);
+
+
 }
 
 //fill object (circle or polygon) so that middle is not accessible
@@ -248,4 +250,10 @@ bool map::isAccessible(int x, int y){
 		return false;
 	}
 	
+}
+int main(){
+	map map;
+	polygon object(std::vector<point>{point(1, 1), point(1, 10), point(10, 5)});
+	map.addObject(object);
+
 }

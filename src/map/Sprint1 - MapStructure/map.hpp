@@ -4,7 +4,7 @@
 #include "line.hpp"
 #include <iostream>
 #include <vector>
-
+#include "polygon.h"
 class map
 {
 public:
@@ -77,7 +77,7 @@ public:
 	bool isAccessible(int x, int y);
 
 	//add object to position x,y
-	void addObject(std::vector<int> objects, int x, int y);
+	void addObject(polygon p);
 
 	//fill object (circle or polygon) so that middle is not accessible
 	void fillObjects(std::vector<int> object);
@@ -96,4 +96,6 @@ public:
 	int contains(int value);
 private:
 	std::vector<line> mapData;
+	std::vector<polygon> objects;
+
 };

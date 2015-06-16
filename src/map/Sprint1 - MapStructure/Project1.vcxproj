@@ -67,11 +67,13 @@
     <ClCompile Include="line.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="point.cpp" />
+    <ClCompile Include="polygon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="line.hpp" />
     <ClInclude Include="map.hpp" />
     <ClInclude Include="point.hpp" />
+    <ClInclude Include="polygon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
