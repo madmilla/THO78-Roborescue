@@ -1,0 +1,38 @@
+Enviroment Simulator test begin
+Enviroment Simulator test Map from file
+Enviroment Simulator test Map from corrupt file
+Map from corrupt file: Lets see
+Enviroment Simulator test Map not from file
+Enviroment Simulator test Save file
+Enviroment Simulator test Vector abuse
+Vector: Set map content with too small vector
+Vector: Set map content with too big vector
+Enviroment Simulator test Simulate
+addCheckPoint 21 21
+addCheckPoint -1 -1
+Simulate: Lest see
+Simulate: Lest see
+Simulate: Lest see
+addObject 5 9 right side from checkpoint
+addObject 5 10 right side from checkpoint
+addObject 5 5 left side from checkpoint
+addObject 5 4 left side from checkpoint
+addObject 3 7 upper side from checkpoint
+addObject 2 7 upper side from checkpoint
+addObject 7 7 lower side from checkpoint
+addObject 8 7 lower side from checkpoint
+addObject 4 6 left up side diagonal checkpoint
+addObject 5 3 left up side diagonal checkpoint
+addObject 6 6 left down side diagonal checkpoint
+addObject 5 7 left down side diagonal checkpoint
+addObject 8 4 right up side diagonal checkpoint
+addObject 9 3 right up side diagonal checkpoint
+addObject 8 6 right down side diagonal checkpoint
+addObject 9 7 right down side diagonal checkpoint
+addCheckPoint 5 7
+Enviroment Simulator object behind object test PointCloud
+Enviroment Simulator test PointCloud
+Enviroment Simulator test done
+Test Succes!
+
+
