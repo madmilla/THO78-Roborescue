@@ -21,7 +21,7 @@
 
 
 #include <errno.h>             // For errno
-
+#include <cstdio>
 using namespace std;
 
 #ifdef WIN32
@@ -325,9 +325,10 @@ int UDPSocket::recvFrom(void *buffer, int bufferLen, string &sourceAddress,
 	sockaddr_in clntAddr;
 	socklen_t addrLen = sizeof(clntAddr);
 	int rtn;
-	if ((rtn = recvfrom(sockDesc, (raw_type *)buffer, bufferLen, 0,
-		(sockaddr *)&clntAddr, (socklen_t *)&addrLen)) < 0) {
+
+	if ((rtn = recvfrom(sockDesc, (raw_type *)buffer, bufferLen, 0, (struct sockaddr *)&clntAddr, (socklen_t *)&addrLen)) < 0) {
 		throw SocketException("Receive failed (recvfrom())", true);
+		//printf("recvfrom() failed with error code : %d\r\n", WSAGetLastError());
 	}
 	sourceAddress = inet_ntoa(clntAddr.sin_addr);
 	sourcePort = ntohs(clntAddr.sin_port);

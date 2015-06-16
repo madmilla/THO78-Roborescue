@@ -93,7 +93,7 @@ public:
 	void printCon();
 private:
 
-	UDPSocket sock;
+	UDPSocket  * udpsock = nullptr;
 
 	std::string sourceAddress;             // Address of datagram source
 	unsigned short sourcePort;// Port of datagram source
