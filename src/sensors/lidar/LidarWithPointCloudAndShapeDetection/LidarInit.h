@@ -4,7 +4,6 @@
 #include "CPIConnector.h"
 
 class LidarInit{
-
 public:
 	void start();
 private:
