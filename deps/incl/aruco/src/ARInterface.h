@@ -377,16 +377,28 @@ public:
 		return newCoordinate;
 	}
 	
+	/**
+	* Returns wether an error in the initialisation (constructor) has occured
+	*
+	*/
 	bool isErrorOnInit()
 	{
 		return errorOnInit;
 	}
 	
+	/**
+	* Returns wether an error in the run (run()) has occured 
+	*
+	*/
 	bool isErrorInRun()
 	{
 		return errorInRun;
 	}
 	
+	/**
+	* Returns the error string 
+	*
+	*/
 	std::string getErrorString()
 	{
 		return error;
