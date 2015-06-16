@@ -201,7 +201,7 @@ private:
 public:
 	/**
 	* ARInterface()
-	* the constructor for ARInterface
+	* the constructor for ARInterface opens the video_devices
 	*/
 	ARInterface() :
 		newCoordinate {false},
@@ -300,7 +300,7 @@ public:
 	}
 
 	/**
-	* getCoordinate returns the current coordinate of the localization system.
+	* getCoordinate() returns the current coordinate of the localization system.
 	* It returns an <int> Coordinate, with X and Y attributes for the current
 	* position.
 	*
@@ -312,7 +312,7 @@ public:
 	}
 
 	/**
-	* isNewCoordinate is called by the user of ARInterface to determine if there
+	* isNewCoordinate() is called by the user of ARInterface to determine if there
 	* is a new coordinate available. Iif it is, getCoordinate() is usually
 	* called.
 	* It returns a bool.
