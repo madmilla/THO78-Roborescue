@@ -8,66 +8,68 @@
 
 #include "databaseconnector.h"
 
-#include <cppconn/driver.h>
-#include <cppconn/resultset.h>
-#include <cppconn/datatype.h>
-#include <cppconn/exception.h>
-
 databaseConnector::databaseConnector( std::string hostname,std::string username, std::string password, std::string schema ) {
-
-    sql::Driver* driver = get_driver_instance();
-    con = driver->connect ( hostname,username,password );
-    con->setSchema ( schema );
-    stmt = con->createStatement();
+    std::cout << "opening database" << std::endl;
+    db = QSqlDatabase::addDatabase("QMYSQL","connection");
+    db.setHostName(QString::fromStdString(hostname));
+    db.setDatabaseName(QString::fromStdString(schema));
+    db.setUserName(QString::fromStdString(username));
+    db.setPassword(QString::fromStdString(password));
+    db.open();
+    if(db.isOpenError()){
+        throw std::exception(db.lastError().text().toStdString().c_str());
+    }
 }
 
 databaseConnector::~databaseConnector() {
-    delete con;
-    delete stmt;
+    db.close();
 }
 
 std::vector<map> databaseConnector::getMaps(){
-	std::vector<map> maps;
-	sql::ResultSet* res = stmt->executeQuery("SELECT id, name FROM map");
-	while (res->next()) {
-		maps.push_back(map{res->getInt(1),res->getString(2)});
-	}
-	delete res;
-	return maps;
+    QSqlQuery query = QSqlQuery(db);
+    std::vector<map> maps;
+    query.exec("SELECT id, name FROM map");
+    while (query.next()) {
+        map m{ query.value(0).toInt(),query.value(1).toString().toStdString()};
+        maps.push_back(m);
+    }
+
+    return maps;
 }
 
 int databaseConnector::getMapId(std::string mapName){
-	sql::ResultSet* res = stmt->executeQuery("SELECT id FROM map WHERE name = "+mapName);
-	int returnId;
-	if(!res->next()){
-		delete res;
-		return -1;
-	}
-	returnId = res->getInt(1);
-	delete res;
-	return returnId;
+    QSqlQuery query = QSqlQuery(db);
+    query.exec(QString::fromStdString("SELECT id FROM map WHERE name = "+mapName));
+    int result = -1;
+    query.next();
+    result = query.value(0).toInt();
+
+    return result;
 }
 
 void databaseConnector::setMap(int id){
-	mapId = id;
+    mapId = id;
 }
 
 void databaseConnector::addPolygon( const std::vector<point>& polygon ) {
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
+    QSqlQuery query = QSqlQuery(db);
     std::string statement = statement_start;
     for ( unsigned int i = 0; i < polygon.size(); i++ ) {
         statement += std::to_string ( polygon.at ( i ).getX() ) + ' ' + std::to_string ( polygon.at ( i ).getY() ) + ( ( i == polygon.size()-1 ) ? ' ' : ',' );
     }
     statement += statement_mid + std::to_string(mapId) + statement_end;
-    stmt->execute ( statement );
+    query.exec(QString::fromStdString(statement));
+
 }
 
 void databaseConnector::addPolygon( const std::vector<std::vector<point> >& polygons  ) {
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
+    QSqlQuery query = QSqlQuery(db);
     std::string statement = statement_start;
     for (unsigned int i=0; i<polygons.size(); i++ ) {
         for ( unsigned int ii = 0; ii < polygons.at ( i ).size(); ii++ ) {
@@ -78,18 +80,20 @@ void databaseConnector::addPolygon( const std::vector<std::vector<point> >& poly
         }
     }
     statement+= statement_mid + std::to_string(mapId) + statement_end;
-    stmt->execute ( statement );
+    query.exec(QString::fromStdString(statement));
+
 }
 std::vector<std::vector<point> > databaseConnector::getPolygons() {
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
+    QSqlQuery query = QSqlQuery(db);
     std::vector<std::vector<point> > polygons;
-    sql::ResultSet* res = stmt->executeQuery ( "SELECT AsText(`polygon`) FROM object WHERE map_id = " + std::to_string(mapId) );
-    while ( res->next() ) {
-        polygons.push_back ( polygonParser ( res->getString ( 1 ) ) );
+    query.exec( QString::fromStdString("SELECT AsText(`polygon`) FROM object WHERE map_id = " + std::to_string(mapId) ));
+    while ( query.next() ) {
+        polygons.push_back ( polygonParser ( query.value(0).toString().toStdString() ) );
     }
-    delete res;
+
     return polygons;
 }
 
@@ -97,41 +101,39 @@ bool databaseConnector::isAccessable( point& p ) {
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
-    sql::ResultSet* res= stmt->executeQuery ( "SELECT count(id) FROM `object` WHERE map_id = " + std::to_string(mapId) + " AND ST_CONTAINS(`polygon`,GeomFromText('POINT("+std::to_string ( p.getX() ) + ' ' + std::to_string ( p.getY() ) + ")'))" );
-    if ( !res->next() ) {
-    	delete res;
+    QSqlQuery query = QSqlQuery(db);
+    query.exec(QString::fromStdString("SELECT count(id) FROM `object` WHERE map_id = " + std::to_string(mapId) + " AND ST_CONTAINS(`polygon`,GeomFromText('POINT("+std::to_string ( p.getX() ) + ' ' + std::to_string ( p.getY() ) + ")'))" ));
+    if( !query.next() ) {
+
         return false;
     }
-    bool returns = !res->getInt ( 1 );
-    delete res;
-
-    return returns;
+    return !query.value(0).toInt();
 }
 
 bool databaseConnector::isAccessable( std::vector<point>& polygon) {
-	if(mapId == -1){
+    if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
+    QSqlQuery query = QSqlQuery(db);
     std::string statement = "SELECT count(id) FROM `object` WHERE map_id = " + std::to_string(mapId) + " AND ST_INTERSECTS(`polygon`,GeomFromText('POLYGON((";
-	for ( unsigned int i = 0; i < polygon.size(); i++ ) {
+    for ( unsigned int i = 0; i < polygon.size(); i++ ) {
         statement += std::to_string ( polygon.at ( i ).getX() ) + ' ' + std::to_string ( polygon.at ( i ).getY() ) + ( ( i == polygon.size()-1 ) ? ' ' : ',' );
     }
     statement+= "))'))";
-    sql::ResultSet* res= stmt->executeQuery ( statement );
-    if ( !res->next() ) {
-    	delete res;
+    query.exec(QString::fromStdString(statement));
+    if ( !query.next()) {
+
         return false;
     }
-    bool returns = !res->getInt ( 1 );
-    delete res;
 
-    return returns;
+    return !query.value(0).toInt();
 }
 
 bool databaseConnector::isAccessable( point& the_point, int width, int height ){
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
+    QSqlQuery query = QSqlQuery(db);
     std::string statement = "SELECT count(id) FROM `object` WHERE map_id = " + std::to_string(mapId) + " AND ST_INTERSECTS(`polygon`,GeomFromText('POLYGON((";
     statement += std::to_string(the_point.getX()) + " " + std::to_string(the_point.getY()) + ",";
     statement += std::to_string(the_point.getX() + width) + " " + std::to_string(the_point.getY()) + ",";
@@ -139,73 +141,87 @@ bool databaseConnector::isAccessable( point& the_point, int width, int height ){
     statement += std::to_string(the_point.getX()) + " " + std::to_string(the_point.getY() + height) + ",";
     statement += std::to_string(the_point.getX()) + " " + std::to_string(the_point.getY());
     statement += "))'))";
-    sql::ResultSet* res= stmt->executeQuery ( statement );
-    if ( !res->next() ) {
-        delete res;
+    query.exec( QString::fromStdString(statement ));
+    if ( !query.next() ) {
+
         return false;
     }
-    bool returns = !res->getInt ( 1 );
-    delete res;
 
-    return returns;   
+    return !query.value(0).toInt();
 }
 
 int databaseConnector::getVehicleId( const std::string& name ) {
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
-    sql::ResultSet* res= stmt->executeQuery ( "SELECT id FROM `vehicle` WHERE name = '" + name + "'" );
-    if ( !res->next() ) {
+    QSqlQuery query = QSqlQuery(db);
+    query.exec( QString::fromStdString("SELECT id FROM `vehicle` WHERE name = '" + name + "'" ));
+    if ( !query.next() ) {
+
         return -1;
     }
-    return res->getInt ( 1 );
+
+    return query.value(0).toInt();
 }
 
 void databaseConnector::setPosition( const int& vehicleId,const point& position ) {
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
-    stmt->executeUpdate ( "INSERT INTO `checkpoint` (`vehicle_id`, `time`, `position`, `map_id`) VALUES ('" + std::to_string ( vehicleId ) + "', CURRENT_TIMESTAMP, GeomFromText('POINT(" + std::to_string ( position.getX() ) + " " + std::to_string ( position.getY() ) + ")')," + std::to_string(mapId) + " );" );
+    QSqlQuery query = QSqlQuery(db);
+    query.exec(QString::fromStdString( "INSERT INTO `checkpoint` (`vehicle_id`, `time`, `position`, `map_id`) VALUES ('" + std::to_string ( vehicleId ) + "', CURRENT_TIMESTAMP, GeomFromText('POINT(" + std::to_string ( position.getX() ) + " " + std::to_string ( position.getY() ) + ")')," + std::to_string(mapId) + " );" ));
+
 }
 
 void databaseConnector::setPosition( const std::string& vehicleName,const point& position) {
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
-    stmt->executeUpdate ( "INSERT INTO `checkpoint` (`vehicle_id`, `time`, `position`) VALUES ((SELECT id FROM `vehicle` WHERE name = '" + vehicleName + "'), CURRENT_TIMESTAMP,  GeomFromText('POINT(" + std::to_string ( position.getX() ) + " " + std::to_string ( position.getY() ) + ")')," + std::to_string(mapId) + ");" );
+    QSqlQuery query = QSqlQuery(db);
+    query.exec(QString::fromStdString( "INSERT INTO `checkpoint` (`vehicle_id`, `time`, `position`) VALUES ((SELECT id FROM `vehicle` WHERE name = '" + vehicleName + "'), CURRENT_TIMESTAMP,  GeomFromText('POINT(" + std::to_string ( position.getX() ) + " " + std::to_string ( position.getY() ) + ")')," + std::to_string(mapId) + ");" ));
+
 }
 
 point databaseConnector::getLastPosition( const int& vehicleId ) {
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
-    sql::ResultSet* res= stmt->executeQuery ( "SELECT asText(position) FROM `checkpoint` WHERE map_id = " + std::to_string(mapId) + " AND vehicle_id = '" + std::to_string ( vehicleId ) + "' ORDER BY time DESC LIMIT 0,1" );
-    if ( res->next() ) {
-        return pointParser ( res->getString ( 1 ) );
+    QSqlQuery query = QSqlQuery(db);
+    query.exec(QString::fromStdString( "SELECT asText(position) FROM `checkpoint` WHERE map_id = " + std::to_string(mapId) + " AND vehicle_id = '" + std::to_string ( vehicleId ) + "' ORDER BY time DESC LIMIT 0,1" ));
+    if ( !query.next() ) {
+
+        throw std::invalid_argument{"no Last position known"};
     }
-    return point ( 0,0 );
+
+    return pointParser( query.value(0).toString().toStdString() );
+
 }
 
 point databaseConnector::getLastPosition( const std::string& vehicleName ) {
-    if(mapId == -1){
-        throw std::invalid_argument{"no map is set use setMap() first"};
-    }
-    sql::ResultSet* res= stmt->executeQuery ( "SELECT asText(position) FROM `checkpoint` WHERE map_id = " + std::to_string(mapId) + " AND vehicle_id = (SELECT id FROM `vehicle` WHERE name = '" + vehicleName + "') ORDER BY time DESC LIMIT 0,1" );
-    if ( res->next() ) {
-        return pointParser ( res->getString ( 1 ) );
-    }
-    return point ( 0,0 );
+   if(mapId == -1){
+       throw std::invalid_argument{"no map is set use setMap() first"};
+   }
+   QSqlQuery query = QSqlQuery(db);
+   query.exec(QString::fromStdString("SELECT asText(position) FROM `checkpoint` WHERE map_id = " + std::to_string(mapId) + " AND vehicle_id = (SELECT id FROM `vehicle` WHERE name = '" + vehicleName + "') ORDER BY time DESC LIMIT 0,1" ));
+   if ( !query.next() ) {
+
+       throw std::invalid_argument{"no Last position known"};
+   }
+
+   return pointParser( query.value(0).toString().toStdString() );
 }
 
 std::vector<point> databaseConnector::getAllPositions( const int& vehicleId,const bool& reverse) {
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
-    sql::ResultSet* res = stmt->executeQuery ( "SELECT asText(position) FROM `checkpoint` WHERE map_id = " + std::to_string(mapId) + " AND vehicle_id = '" + std::to_string ( vehicleId ) + "' ORDER BY time "+ ( reverse? "DESC" : "ASC" ) );
+    QSqlQuery query = QSqlQuery(db);
+    query.exec(QString::fromStdString( "SELECT asText(position) FROM `checkpoint` WHERE map_id = " + std::to_string(mapId) + " AND vehicle_id = '" + std::to_string ( vehicleId ) + "' ORDER BY time "+ ( reverse? "DESC" : "ASC" ) ));
     std::vector<point> points;
-    while ( res->next() ) {
-        points.push_back ( pointParser ( res->getString ( 1 ) ) );
+    while ( query.next() ) {
+        points.push_back ( pointParser ( query.value(0).toString().toStdString() ) );
     }
+
     return points;
 }
 
@@ -213,11 +229,13 @@ std::vector<point> databaseConnector::getAllPositions( const std::string& vehicl
     if(mapId == -1){
         throw std::invalid_argument{"no map is set use setMap() first"};
     }
-    sql::ResultSet* res= stmt->executeQuery ( "SELECT asText(position) FROM `checkpoint` WHERE map_id = " + std::to_string(mapId) + " AND vehicle_id = (SELECT id FROM `vehicle` WHERE name = '" + vehicleName + "') ORDER BY time "+ ( reverse? "DESC" : "ASC" ) );
+    QSqlQuery query = QSqlQuery(db);
+    query.exec(QString::fromStdString("SELECT asText(position) FROM `checkpoint` WHERE map_id = " + std::to_string(mapId) + " AND vehicle_id = (SELECT id FROM `vehicle` WHERE name = '" + vehicleName + "') ORDER BY time "+ ( reverse? "DESC" : "ASC" ) ));
     std::vector<point> points;
-    while ( res->next() ) {
-        points.push_back ( pointParser ( res->getString ( 1 ) ) );
+    while ( query.next() ) {
+        points.push_back ( pointParser ( query.value(0).toString().toStdString() ) );
     }
+
     return points;
 }
 
@@ -260,18 +278,17 @@ point databaseConnector::pointParser( const std::string& pointString ) {
 }
 
 void databaseConnector::setQRCode(const std::string& value, int x, int y) {
-    stmt->executeUpdate ( "INSERT INTO `qr` (`x`, `y`) VALUES (" + std::to_string(x) + ", " + std::to_string(y) + ")" );
-}   
+    QSqlQuery query = QSqlQuery(db);
+    query.exec( QString::fromStdString("INSERT INTO `qr` (`x`, `y`) VALUES (" + std::to_string(x) + ", " + std::to_string(y) + ")" ));
+
+}
 
 void databaseConnector::setQRCode(QRCode& code) {
-    stmt->executeUpdate ( "INSERT INTO `qr` (`x`, `y`) VALUES (" + std::to_string(code.getX()) + ", " + std::to_string(code.getY()) + ")" );
+    QSqlQuery query = QSqlQuery(db);
+    query.exec(QString::fromStdString( "INSERT INTO `qr` (`x`, `y`) VALUES (" + std::to_string(code.getX()) + ", " + std::to_string(code.getY()) + ")" ));
+
 }
 
 QRCode databaseConnector::getQRCode(const std::string& value) {
-    // sql::ResultSet* res= stmt->executeQuery ( "SELECT asText(position) FROM `qr` WHERE map_id = " + std::to_string(mapId) + " AND vehicle_id = (SELECT id FROM `vehicle` WHERE name = '" + vehicleName + "') ORDER BY time DESC LIMIT 0,1" );
-    // if ( res->next() ) {
-    //     return pointParser ( res->getString ( 1 ) );
-    // }
-    // return point ( 0,0 );
     return QRCode();
 }
