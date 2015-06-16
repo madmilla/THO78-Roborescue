@@ -13,26 +13,26 @@ int world_map[ MAP_WIDTH * MAP_HEIGHT ] =
 {
 
 // 0001020304050607080910111213141516171819
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,   // 00
-    1,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,   // 01
-    1,9,9,1,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 02
-    1,9,9,1,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 03
-    1,9,1,1,1,1,9,9,1,9,1,9,1,1,1,1,9,9,1,1,   // 04
-    1,9,1,1,9,1,1,1,1,9,1,1,1,1,9,1,1,1,1,1,   // 05
-    1,9,9,9,9,1,1,1,1,1,1,9,9,9,9,1,1,1,1,1,   // 06
-    1,9,9,9,9,9,9,9,9,1,1,1,9,9,9,9,9,9,9,1,   // 07
-    1,9,1,1,1,1,1,1,1,1,1,9,1,1,1,1,1,1,1,1,   // 08
-    1,9,1,9,9,9,9,9,9,9,1,1,9,9,9,9,9,9,9,1,   // 09
-    1,9,1,1,1,1,9,1,1,9,1,1,1,1,1,1,1,1,1,1,   // 10
-    1,9,9,9,9,9,1,9,1,9,1,9,9,9,9,9,1,1,1,1,   // 11
-    1,9,1,9,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 12
-    1,9,1,9,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 13
-    1,9,1,1,1,1,9,9,1,9,1,9,1,1,1,1,9,9,1,1,   // 14
-    1,9,1,1,9,1,1,1,1,9,1,1,1,1,9,1,1,1,1,1,   // 15
-    1,9,9,9,9,1,1,1,1,1,1,9,9,9,9,1,1,1,1,1,   // 16
-    1,1,9,9,9,9,9,9,9,1,1,1,9,9,9,1,9,9,9,9,   // 17
-    1,9,1,1,1,1,1,1,1,1,1,9,1,1,1,1,1,1,1,1,   // 18
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,   // 19
+    9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,   // 00
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 01
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 02
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 03
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 04
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 05
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 06
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 07
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 08
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 09
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 10
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 11
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 12
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 13
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 14
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 15
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 16
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 17
+    9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,   // 18
+    9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,   // 19
 
 };
 
@@ -69,9 +69,7 @@ Map::~Map(){
  */
 
 void Map::setTile(int x, int y, int * value){
-    std::cout << *value << std::endl;
-    myMap[x][y] = value;
-    std::cout << myMap[x][y] << std::endl;
+    world_map[(y*MAP_WIDTH)+x] = *value;
 }
 
 /**
@@ -109,6 +107,16 @@ bool Map::isMapFullScanned(){
         }
     }
     return true;
+}
+
+void Map::tilesInRangeLidar(){
+    int x = rosbee->getRosbeeLocationX()-2;
+    int y = rosbee->getRosbeeLocationY()-2;
+    for(int i = 0; i < 5; i++){
+        for(int ii = 0; ii < 5; ii++){
+            setTile((x+i), (y+ii), 2);
+        }
+    }
 }
 
 /**
@@ -150,22 +158,22 @@ int * Map::getTileForMidAlgorithm(int x, int y){
     // Create temp to save tile location.
     static int tileLocation[1];
     // Check tile above to the rosbee.
-    if(getTile(x, y-1) == 0){
+    if(GetMap(x, y-1) == 0){
         tileLocation[0] = int(x);
         tileLocation[1] = int(y-1);
     }
     // Check tile right to the rosbee.
-    else if(getTile(x+1, y) == 0){
+    else if(GetMap(x+1, y) == 0){
         tileLocation[0] = int(x+1);
         tileLocation[1] = int(y);
     }
     // Check tile left to the rosbee.
-    else if(getTile(x-1, y) == 0){
+    else if(GetMap(x-1, y) == 0){
         tileLocation[0] = int(x-1);
         tileLocation[1] = int(y);
     }
     // Check tile below to the rosbee.
-    else if(getTile(x, y+1) == 0){
+    else if(GetMap(x, y+1) == 0){
         tileLocation[0] = int(x);
         tileLocation[1] = int(y+1);
     }
@@ -269,9 +277,6 @@ const char * Map::chooseMap(){
  */
 
 void Map::loadMap(const char * filename){
-
-
-
     int xLength = 0;
     int yLength = 0;
     ifstream file(filename, ifstream::binary);
@@ -299,7 +304,6 @@ void Map::loadMap(const char * filename){
 
             int * pointer = new int;
             *pointer = character;
-            std::cout <<"Buffer" << *pointer << std::endl;
             //setTile(xLength, yLength, pointer);
             xLength = xLength + 1;
         //}
@@ -313,15 +317,11 @@ void Map::loadMap(const char * filename){
     }
     // Set rosbee location.
 
-    rosbee->setRosbeeLocationX(19);
-    rosbee->setRosbeeLocationY(19);
+    rosbee->setRosbeeLocationX(1);
+    rosbee->setRosbeeLocationY(1);
     // Set loaded on true.
     bool_isLoaded = true;
     std::cout << "map loaded" << std::endl;
-}
-
-int Map::henk(){
-    return 9;
 }
 
 int Map::GetMap( int x, int y )
@@ -334,7 +334,5 @@ int Map::GetMap( int x, int y )
     {
         return 9;
     }
-    //std::cout << world_map[(y*MAP_WIDTH)+x] << std::endl;
-    //std::cout << getTile(0,0) << std::endl;
     return world_map[(y*MAP_WIDTH)+x];
 }

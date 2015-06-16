@@ -48,9 +48,9 @@ public:
     // Function to get number of steps.
     int getNumberOfSteps();
     int GetMap( int x, int y );
-    int henk();
     int blockWidth;
     int blockHeight;
+    void tilesInRangeLidar();
 
 protected:
     Rosbee * rosbee;

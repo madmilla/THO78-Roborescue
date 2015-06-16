@@ -58,7 +58,7 @@ void mapCanvas::paintEvent(QPaintEvent *){
         for(int iix = 0; iix < 20; iix++){
             QRect rect(map->blockWidth * iix, map->blockHeight * iiy, map->blockWidth , map->blockHeight);
             // Switch case to check which tile is selected.
-            switch(map->getTile(iix, iiy)){
+            switch(map->GetMap(iix, iiy)){
                 // Scanned.
                 case 1:
                     painter.fillRect(rect,Qt::yellow);

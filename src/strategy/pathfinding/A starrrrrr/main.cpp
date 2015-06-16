@@ -18,19 +18,18 @@
  */
 
 int main(int argc, char *argv[]){
-    //QApplication a(argc, argv);
+    QApplication a(argc, argv);
     Rosbee rosbee;
     Map map(&rosbee);
-    Test test(&map);
-    scanArea scanarea(&map, &rosbee);
-    //MainWindow w(&map, &rosbee, &scanarea);
+    Test test(&map);  
     map.loadMap(map.chooseMap());
     MapSearchNode mapSearchNode(&map);
-    mapSearchNode.Search(10,10,15,15);
+    scanArea scanarea(&map, &rosbee, &mapSearchNode);
+    MainWindow w(&map, &rosbee, &scanarea);
     test.testsBeforeScanning();
-    //scanarea.run();
+    scanarea.run();
     test.testsAfterScanning();
-    //w.show();
-    //return a.exec();
-    return 0;
+    w.show();
+    return a.exec();
+    //return 0;
 }

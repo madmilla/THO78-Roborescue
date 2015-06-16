@@ -88,9 +88,6 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
     MapSearchNode NewNode;
 
     // push each possible move except allowing the search to go backwards
-    std::cout << "henk" << std::endl;
-    std::cout << map->henk() <<std::endl;
-    std::cout << "henk1" << std::endl;
     if( (map->GetMap( x-1, y ) < 9)
         && !((parent_x == x-1) && (parent_y == y))
       )

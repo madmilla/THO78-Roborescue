@@ -10,13 +10,14 @@
 #include <iostream>
 #include "Map.h"
 #include "Rosbee.h"
+#include "MapSearchNode.h"
 
 
 class scanArea
 {
 public:
     // Constructor of scanArea.
-    scanArea(Map *map, Rosbee *rosbee);
+    scanArea(Map *map, Rosbee *rosbee, MapSearchNode *mapSearchNode);
     // Destructor of scanArea.
     ~scanArea();
     // Function to start the scan algorithm.
@@ -26,6 +27,8 @@ public:
 private:
     Map *map;
     Rosbee *rosbee;
+    MapSearchNode *mapSearchNode;
+
 };
 
 #endif // SCANAREA_H

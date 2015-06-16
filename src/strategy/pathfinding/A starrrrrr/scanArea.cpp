@@ -14,10 +14,11 @@
  * @param rosbee
  */
 
-scanArea::scanArea(Map *map, Rosbee *rosbee){
+scanArea::scanArea(Map *map, Rosbee *rosbee, MapSearchNode *mapSearchNode){
     // Constructor
     this->map = map;
     this->rosbee = rosbee;
+    this->mapSearchNode = mapSearchNode;
 }
 
 /**
@@ -35,7 +36,7 @@ scanArea::~scanArea(){
 
 void scanArea::run(){
     if(map->isLoaded()){
-        scanMidAlgorithm(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY());
+        mapSearchNode->Search(10,10,15,15);
     }
 }
 
