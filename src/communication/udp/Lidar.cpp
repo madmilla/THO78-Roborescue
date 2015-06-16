@@ -30,11 +30,11 @@ void Lidar::init(){
 }
 
 void Lidar::recieveLine(){
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::RECEIVELINE, 0));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::LINEDATA, 0));
 }
 
 void Lidar::recieveRpm(){
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::RECIEVERPM, 0));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::RPM, 0));
 }
 
 void Lidar::Start(){
@@ -46,11 +46,11 @@ void Lidar::Stop(){
 }
 
 void Lidar::sendRosbeePositie(int postion){
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::SENDROSBEEPOSITION, postion));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::ROSBEEPOSITION, postion));
 }
 
 void Lidar::sendRosbeeFlank(int degrees){
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::SENDROSBEEFLANK, degrees));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::ROSBEEFLANK, degrees));
 }
 
 void Lidar::getDevice(uint8_t dev){
