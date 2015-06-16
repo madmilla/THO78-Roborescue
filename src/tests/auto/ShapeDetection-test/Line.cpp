@@ -72,11 +72,85 @@ bool operator==(const Line::Point & p1, const Line::Point & p2) {
 }
 
 int Line::getLength() {
-	int deltaX = lineData.end_pos.x - lineData.begin_pos.x;
-	int deltaY = lineData.end_pos.y - lineData.begin_pos.y;
-
-	return (int)sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+	float deltaX = lineData.end_pos.x - lineData.begin_pos.x;
+	float deltaY = lineData.end_pos.y - lineData.begin_pos.y;
+	//std::cout << "lengthe = " << deltaX << " - " << deltaY << std::endl;
+	return sqrt(pow(deltaX, 2) + pow(deltaY, 2));
 }
-int Line::intersect(Line & l2) {
-	
+
+Line::Point Line::getFormula() {
+	float deltaX = lineData.end_pos.x - lineData.begin_pos.x;
+	float deltaY = lineData.end_pos.y - lineData.begin_pos.y;
+	float a = deltaY / deltaX;
+	float b = this->lineData.begin_pos.y - (a * this->lineData.begin_pos.x);
+	//std::cout << "y = " << a << " x + " << b << std::endl;
+	return Line::Point{ a, b };
+}
+
+bool Line::pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData & data) {
+	const int THRESHHOLD{ 8 };
+	float y = (lineFormula.x * p.x) + lineFormula.y;
+	//std::cout << "point on line: " << p.x << " - " << p.y << " - - - " << data.begin_pos.x << " - " << data.end_pos.x << std::endl;
+	if (y < (THRESHHOLD + p.y) && y >(p.y - THRESHHOLD) && p.x <= (data.end_pos.x + THRESHHOLD) && p.x > (data.begin_pos.x- THRESHHOLD)) {
+		return true;
+	}
+	return false;
+}
+
+int Line::intersect(Line & line2) {
+	static int aapje;
+	std::cout << aapje << "\n";
+	aapje++;
+	float line1Length = this->getLength();
+	float line2Length = line2.getLength();
+	bool isLongestLine{ false };
+	if (line1Length > line2Length) {
+		isLongestLine = true;
+		//std::cout << "eerste optie \n";
+		//std::cout << "true op lijn1\n";
+		Line::Point abLine1 = this->getFormula();
+		if (this->pointOnLine(line2.lineData.begin_pos, abLine1, this->lineData)) {
+			if (this->pointOnLine(line2.lineData.end_pos, abLine1, this->lineData)) {
+				//std::cout << "true op lijn1\n";
+				return 100;
+			}
+		}
+		Line::Point abLine2 = line2.getFormula();
+		if (this->pointOnLine(this->lineData.begin_pos, abLine2, line2.lineData)) {
+			if (this->pointOnLine(line2.lineData.end_pos, abLine1, this->lineData)) {
+				float length = Line(this->lineData.begin_pos, line2.lineData.end_pos).getLength();
+				//std::cout << "true op lijn23: " << line1Length << " - " << length << " - " << line2Length << std::endl;
+				return ((length / line1Length) * 100);
+			}
+		}
+	}
+	else {
+		Line::Point abLine2 = line2.getFormula();
+		if (this->pointOnLine(this->lineData.begin_pos, abLine2, line2.lineData)) {
+			if (this->pointOnLine(this->lineData.end_pos, abLine2, line2.lineData)) {
+				//std::cout << "true op lijn2\n";
+				return 100;
+			}
+			Line::Point abLine1 = this->getFormula();
+			if (this->pointOnLine(line2.lineData.end_pos, abLine1, this->lineData)) {
+				float length = Line(this->lineData.begin_pos, line2.lineData.end_pos).getLength();
+				return ((length / line1Length) * 100);
+			}
+		}
+		Line::Point abLine1 = this->getFormula();
+		if (this->pointOnLine(line2.lineData.begin_pos, abLine1, this->lineData)) {
+			if (this->pointOnLine(this->lineData.end_pos, abLine1, line2.lineData)) {
+				float length = Line(this->lineData.begin_pos, line2.lineData.end_pos).getLength();
+				//std::cout << "true op lijn3: " << line1Length << " - " << length << std::endl;
+				return ((length / line1Length) * 100);
+			}
+			else{
+				return -2;
+			}
+		}
+		else{
+			return -1;
+		}
+	}
+	return 0;
 }

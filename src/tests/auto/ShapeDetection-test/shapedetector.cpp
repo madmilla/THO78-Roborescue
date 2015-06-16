@@ -92,8 +92,44 @@ Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	return image;
 }
 
-void ShapeDetector::checkLines(vector<Vec4i> & lines) {
-
+void ShapeDetector::checkLines(std::vector<Line> & lines) {
+	std::vector<Line> cpy = lines;
+	vector<Line>::iterator it1;
+	for(int i = 0; i < cpy.size(); ++i){
+		for (int y = 0; y < cpy.size(); ++y){
+			if(cpy[i].intersect(cpy[y])> 95){
+				if(cpy[i].getLength()< cpy[y].getLength()){
+					lines.erase(lines.begin()+i);
+				}
+				else{
+					lines.erase(lines.begin()+i);
+				}
+			}
+		}
+	}
+	/*for(it1 = cpy.begin(); it1 != cpy.end(); ++it1) {
+		vector<Line>::iterator it2;
+		for(it2 = cpy.begin(); it2 != cpy.end(); ++it2) {
+			if((*it1).intersect(*it2) > 95){
+				if((*it1).getLength() < (*it2).getLength()){
+					if(((*it1).getLine().begin_pos.x != cpy[0].getLine().begin_pos.x) && ((*it1).getLine().begin_pos.y != cpy[0].getLine().begin_pos.y)){
+						if(((*it1).getLine().begin_pos.x != cpy[cpy.size()-1].getLine().begin_pos.x) && ((*it1).getLine().begin_pos.y != cpy[cpy.size()-1].getLine().begin_pos.y)){
+							lines.erase(it1);
+						}
+					}
+				}
+				else{
+					if(((*it1).getLine().begin_pos.x != cpy[0].getLine().begin_pos.x) && ((*it1).getLine().begin_pos.y != cpy[0].getLine().begin_pos.y)){
+						if(((*it1).getLine().begin_pos.x != cpy[cpy.size()-1].getLine().begin_pos.x) && ((*it1).getLine().begin_pos.y != cpy[cpy.size()-1].getLine().begin_pos.y)){
+							lines.erase(it2);
+						}
+					}
+				}
+			}
+		}
+	}*/
+		
+/*
 	for (size_t i = 0; i < lines.size(); i++) {    //walk through the line container
 		Vec4i second = lines[i];
 		for (size_t j = 0; j < lines.size(); j++) {
@@ -119,7 +155,7 @@ void ShapeDetector::checkLines(vector<Vec4i> & lines) {
 				}
 			}
 		}
-	}
+	}*/
 }
 
 vector<Line> ShapeDetector::searchLines(const Mat & image) {
@@ -154,7 +190,7 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 		Line newLine(begin,end);
 		newLines.push_back(newLine);
 	}
-	//checkLines(lines); //check for double lines
+	//checkLines(newLines); //check for double lines
 	return newLines;  // return the saved lines
 }
 

@@ -64,7 +64,7 @@ private:
     /*!
      @param lines: the given lines to check on
      */
-    void checkLines(vector<Vec4i> & lines);
+    void checkLines(std::vector<Line>& lines);
 
 public:
     ShapeDetector();
