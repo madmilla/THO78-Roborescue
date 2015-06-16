@@ -1,7 +1,36 @@
 #include "map.hpp"
 
 map::map(){
+
+	access.resize(70);
+	for (int i = 0; i < access.size();i++){
+		access.at(i).resize(70);
 	
+	}
+
+	line a(point(0,0), point(0, access.size()));
+	line b(point(0,0), point(access.size(),0));
+
+	line c(point(access.size()-1, access.size()-1), point(0, access.size()-1));
+	line d(point(access.size()-1, access.size()-1), point(access.size()-1, 0));
+
+	appendLine(a);
+	appendLine(b);
+	appendLine(c);
+	appendLine(d);
+	translateToPoints();
+
+	for (int i = 0; i < 70; i++){
+		for (int ii = 0; ii < 70; ii++){
+			std::cout << isAccessible(i, ii);
+		}
+		std::cout << "\n";
+	}
+	
+}
+int main(){
+	map map;
+	while (true);
 }
 
 map::map(line & l){
@@ -158,6 +187,8 @@ void makeUnseen(){
 
 //translate lines to points in 2d vector
 void map::translateToPoints(){
+	
+
 	int maxX = 0, maxY = 0;
 	for (line & lCmp : mapData){
 		if (lCmp.getPoint(0).getX() > maxX){
@@ -173,14 +204,14 @@ void map::translateToPoints(){
 			maxY = lCmp.getPoint(0).getY();
 		}
 	}
-	for (int x = 0; x < maxX; x++){
-		for (int y = 0; y < maxY; y++){
+	for (int x = 0; x < access.size(); x++){
+		for (int y = 0; y < access.size(); y++){
 			if (getPointLines(point(x,y)).size() != 0){
-				access.at(x)->at(y) = new int(0); //accessible
+				access.at(x).at(y) = 0; //accessible
 				
 			}
 			else{
-				access.at(x)->at(y) = new int(1); //not accessible
+				access.at(x).at(y) = 1; //not accessible
 			}
 		}
 	}
@@ -188,10 +219,10 @@ void map::translateToPoints(){
 
 //check if x,y is accessible
 bool map::isAccessible(int x, int y){
-	if (access.at(x)->at(y) == 0){
+	if (access.at(x).at(y) == 0){
 		return true;
 	}
-	else if(access.at(x)->at(y) == new int(1)){
+	else if(access.at(x).at(y) = 1){
 		return false;
 	}
 	

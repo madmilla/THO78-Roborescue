@@ -70,7 +70,7 @@ public:
 	map getRegion(point & p, unsigned int width, unsigned int height);
 
 	//2D vector to check if points are accessible and seen
-	std::vector<std::vector<int*>*> access; //accessible = 0, notAccessible = 1, seen = 5
+	std::vector<std::vector<int>> access; //accessible = 0, notAccessible = 1, seen = 5
 
 	//check if x,y is accessible
 	//eventueel met boost isAccessible
