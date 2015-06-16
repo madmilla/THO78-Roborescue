@@ -23,7 +23,11 @@ public:
     void paintGL();
     void resizeGL(int width, int height);
 
+    int minX, maxX, minY, maxY;
+
 private:
+
+    void addGridSquare(int x, int y, int length, int width);
 
     /*!
     *   Draws a 3D green square at the bottom of the OpenGL widget
@@ -78,7 +82,7 @@ private:
     *   Before the lines are drawn, they will be normalized within this function
     *   @param lines Vector of lines to draw
     */
-    void setLines(const std::vector<Line<int> > lines);
+    void setLines(const std::vector<Line<int> > lines, int minX, int maxX, int minY, int maxY);
 
     /*!
     *   Draws the ground and a vector of lines isometricly (2.5D).
@@ -86,6 +90,14 @@ private:
     *   @return linesIso Vector of lines to draw
     */
     void setLinesIso(const std::vector<Line<int> > linesIso);
+
+    /*!
+      TODO DO
+    *   Draws the ground and a vector of lines isometricly (2.5D).
+    *   Before the lines are drawn, they will be normalized within this function
+    *   @return linesIso Vector of lines to draw
+    */
+    void setPolygons(const std::vector<std::vector<point> >& polygons);
 
     /*!
     *   Remembers the begin click position for the mouseMoveEvent
@@ -149,7 +161,7 @@ public slots:
     *   Rotate the GLWidget around the Z axis
     *   @param angle Angle (degrees, 0-360) of the camera
     */
-    void rotateZ(int angle);
+    /*void rotateZ(int angle);*/
 
     /*!
     *   Pan the camera to the left

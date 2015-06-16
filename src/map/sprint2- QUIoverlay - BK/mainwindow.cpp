@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->xAxis, SIGNAL(valueChanged(int)), ui->glWidget, SLOT(rotateX(int)));
     connect(ui->yAxis, SIGNAL(valueChanged(int)), ui->glWidget, SLOT(rotateY(int)));
-    connect(ui->zAxis, SIGNAL(valueChanged(int)), ui->glWidget, SLOT(rotateZ(int)));
+    //connect(ui->zAxis, SIGNAL(valueChanged(int)), ui->glWidget, SLOT(rotateZ(int)));
 
     connect(ui->buttonUp, SIGNAL(clicked()), ui->glWidget, SLOT(panUp()));
     connect(ui->buttonDown, SIGNAL(clicked()), ui->glWidget, SLOT(panDown()));
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->glWidget, SIGNAL(xRotationChanged(int)), ui->xAxis, SLOT(setValue(int)));
     connect(ui->glWidget, SIGNAL(yRotationChanged(int)), ui->yAxis, SLOT(setValue(int)));
-    connect(ui->glWidget, SIGNAL(zRotationChanged(int)), ui->zAxis, SLOT(setValue(int)));
+    //connect(ui->glWidget, SIGNAL(zRotationChanged(int)), ui->zAxis, SLOT(setValue(int)));
 
     connect(ui->glWidget, SIGNAL(zoomChanged(int)), ui->zoom, SLOT(setValue(int)));
 }
