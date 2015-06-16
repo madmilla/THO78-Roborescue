@@ -1,8 +1,40 @@
-/**
- * @file Map.cpp
- * @author Coen Andriessen
- * @version 1.8
- */
+﻿/**
+*               __
+*    _________ / /_  ____  ________  ____________  _____
+*   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
+*  / / / /_/ / /_/ / /_/ / /  /  __(__  ) /__/ /_/ /  __/
+* /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
+*
+*
+* @file map.cpp
+* @date Created: 6/15/2015
+*
+* @author Coen Andriessen
+*
+* @version 1.8
+*
+* @section LICENSE
+* License: newBSD
+*
+* Copyright � 2015, HU University of Applied Sciences Utrecht.
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+* - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+* - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+* - Neither the name of the HU University of Applied Sciences Utrecht nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED. IN NO EVENT SHALL THE HU UNIVERSITY OF APPLIED SCIENCES UTRECHT
+* BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**/
 
 #include "Map.h"
 
@@ -68,10 +100,8 @@ Map::~Map(){
  * @param value
  */
 
-void Map::setTile(int x, int y, int * value){
-    std::cout << *value << std::endl;
+void Map::setTile(int x, int y, const char * value){
     myMap[x][y] = value;
-    std::cout << myMap[x][y] << std::endl;
 }
 
 /**
@@ -86,9 +116,7 @@ int Map::getTile(int x, int y){
     if(x < 0 || x > 19 || y < 0 || y > 19){
         return 9;
     }else{
-        std::cout <<"Debug:" << x<<y;
-        std::cout <<"Debug:" <<myMap[x][y];
-        return *myMap[x][y];
+        return atoi(myMap[x][y].c_str());
     }
 
 }
@@ -120,9 +148,7 @@ void Map::rosbeeLocationChanged(){
     // Check if the location of the rosbee is changed.
     if(rosbee->isLocationChanged()){
         // Set tile where to rosbee was on isScanned.
-        int * tmp = new int;
-        *tmp=1;
-        setTile(rosbee->getOldRosbeeLocationX(), rosbee->getOldRosbeeLocationY(), tmp);
+        setTile(rosbee->getOldRosbeeLocationX(), rosbee->getOldRosbeeLocationY(), "1");
         // Create pair temp to store the old rosbee location.
         std::pair <int, int> temp;
         temp.first = rosbee->getOldRosbeeLocationX();
@@ -269,9 +295,6 @@ const char * Map::chooseMap(){
  */
 
 void Map::loadMap(const char * filename){
-
-
-
     int xLength = 0;
     int yLength = 0;
     ifstream file(filename, ifstream::binary);
@@ -287,23 +310,18 @@ void Map::loadMap(const char * filename){
     // Loop through buffer.
     for(int i = 0; i < int(strlen(buffer)); i++){
         // Store character at i in buffer in character.
-        int character = int(buffer[i]);
+        char character = char(buffer[i]);
         // When xLength is 20 set xLength on 0 and increase yLength by 1.
         if(xLength == 20){
             xLength = 0;
             yLength = yLength + 1;
         }
         // Check for correct input.
-        //if(character == '0' || character == '3' || character == '2'){
+        if(character == '0' || character == '3' || character == '2'){
             // Create tile with value of character.
-
-            int * pointer = new int;
-            *pointer = character;
-            std::cout <<"Buffer" << *pointer << std::endl;
-            setTile(xLength, yLength, pointer);
+            setTile(xLength, yLength, &character);
             xLength = xLength + 1;
-        //}
-        /*
+        }/*
         if(character == 'Q'){
             for(int henk = (i + 1); henk < (i + 6); henk++){
             temp += buffer[henk];
@@ -312,7 +330,6 @@ void Map::loadMap(const char * filename){
        // }
     }
     // Set rosbee location.
-
     rosbee->setRosbeeLocationX(19);
     rosbee->setRosbeeLocationY(19);
     // Set loaded on true.
