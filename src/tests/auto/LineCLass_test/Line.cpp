@@ -88,7 +88,7 @@ Line::Point Line::getFormula() {
 }
 
 bool Line::pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData & data) {
-	const int THRESHHOLD{ 3 };
+	const int THRESHHOLD{10 };
 	float y = (lineFormula.x * p.x) + lineFormula.y;
 	//std::cout << "point on line: " << p.x << " - " << p.y << " - - - " << data.begin_pos.x << " - " << data.end_pos.x << std::endl;
 	if (y < (THRESHHOLD + p.y) && y >(p.y - THRESHHOLD) && p.x <= (data.end_pos.x + THRESHHOLD) && p.x > (data.begin_pos.x- THRESHHOLD)) {
@@ -98,55 +98,56 @@ bool Line::pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData
 }
 
 int Line::intersect(Line & line2) {
+	//static int aapje;
+	//std::cout << aapje << "\n";
+	//aapje++;
 	float line1Length = this->getLength();
 	float line2Length = line2.getLength();
-	bool isLongestLine{ false };
+	Line::Point abLine1 = this->getFormula();
+	Line::Point abLine2 = line2.getFormula();
 	if (line1Length > line2Length) {
-		isLongestLine = true;
-		//std::cout << "eerste optie \n";
-		//std::cout << "true op lijn1\n";
 		Line::Point abLine1 = this->getFormula();
 		if (this->pointOnLine(line2.lineData.begin_pos, abLine1, this->lineData)) {
 			if (this->pointOnLine(line2.lineData.end_pos, abLine1, this->lineData)) {
-				//std::cout << "true op lijn1\n";
 				return 100;
 			}
+			else{
+				std::cout << "1002\n";
+			}
 		}
-		Line::Point abLine2 = line2.getFormula();
-		if (this->pointOnLine(this->lineData.begin_pos, abLine2, line2.lineData)) {
+		else if (this->pointOnLine(this->lineData.begin_pos, abLine2, line2.lineData)) {
 			if (this->pointOnLine(line2.lineData.end_pos, abLine1, this->lineData)) {
 				float length = Line(this->lineData.begin_pos, line2.lineData.end_pos).getLength();
-				//std::cout << "true op lijn23: " << line1Length << " - " << length << " - " << line2Length << std::endl;
 				return ((length / line1Length) * 100);
+			}
+			else{
+				std::cout << "mek100\n";
 			}
 		}
 	}
 	else {
-		Line::Point abLine2 = line2.getFormula();
+		
 		if (this->pointOnLine(this->lineData.begin_pos, abLine2, line2.lineData)) {
 			if (this->pointOnLine(this->lineData.end_pos, abLine2, line2.lineData)) {
-				//std::cout << "true op lijn2\n";
 				return 100;
 			}
-			Line::Point abLine1 = this->getFormula();
-			if (this->pointOnLine(line2.lineData.end_pos, abLine1, this->lineData)) {
+			else if (this->pointOnLine(line2.lineData.end_pos, abLine1, this->lineData)) {
 				float length = Line(this->lineData.begin_pos, line2.lineData.end_pos).getLength();
+				int value = (length / line1Length) * 100;
+				if (value > 100){ /////////////HIER ZIT NOG EEN BUGG, VALUE WORDT GROTER DAN 100 HOE KAN DAT?
+					//std::cout << "true op lijn43: " << line1Length << " - " << length << " - " << *this << line2 << line2Length << std::endl;
+				}
 				return ((length / line1Length) * 100);
 			}
 		}
-		Line::Point abLine1 = this->getFormula();
-		if (this->pointOnLine(line2.lineData.begin_pos, abLine1, this->lineData)) {
-			if (this->pointOnLine(this->lineData.end_pos, abLine1, line2.lineData)) {
+		else if (this->pointOnLine(line2.lineData.begin_pos, abLine1, this->lineData)) {
+			if (this->pointOnLine(this->lineData.end_pos, abLine2, line2.lineData)) {
 				float length = Line(this->lineData.begin_pos, line2.lineData.end_pos).getLength();
-				//std::cout << "true op lijn3: " << line1Length << " - " << length << std::endl;
 				return ((length / line1Length) * 100);
 			}
-			else{
-				return -2;
+			else if (this->pointOnLine(line2.lineData.end_pos,abLine1, this->lineData)){
+				return 100;
 			}
-		}
-		else{
-			return -1;
 		}
 	}
 	return 0;
