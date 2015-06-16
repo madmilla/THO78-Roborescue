@@ -8,7 +8,7 @@ UDPServer::UDPServer(RobotManager & manager) : manager(manager){
 	}
 
 void UDPServer::init(){
-	sock = UDPSocket('127.0.0.1');
+	UDPSocket sock(8888); 
 }
 
 void UDPServer::start(){
@@ -16,7 +16,7 @@ void UDPServer::start(){
 		while (!stopped) {  // Run forever
 			// Block until receive message from a client
 			receive(&msg);
-			addconnection(sourceAddress, sourcePort, &msg);
+			addConnection(sourceAddress, sourcePort, &msg);
 			handleMessage(sourceAddress, sourcePort, &msg); 	
 		}
 	}
@@ -55,8 +55,8 @@ void UDPServer::broadcast(mavlink_message_t * message){
 	}
 }
 
-void UDPServer::send(UDPSocket * socket, mavlink_message_t * message){
-	sock.sendTo(message, sizeof(mavlink_message_t), socket->sockaddr, socket_Port);
+void UDPServer::send(CPIUDPSocket * socket, mavlink_message_t * message){
+	sock.sendTo(message, sizeof(mavlink_message_t), socket->con.sockaddr, socket->con.port);
 }
 
 void UDPServer::receive(mavlink_message_t * message){
@@ -67,7 +67,7 @@ void UDPServer::receive(mavlink_message_t * message){
 
 void UDPServer::handleMessage(std::string con,unsigned short port, mavlink_message_t * msg){
    for (auto & socket : _connections){
-	   if (socket->sockaddr == con && socket->port == port){
+	   if (socket->con.sockaddr == con && socket->con.port == port){
          socket->receive(msg);
       }
    }
@@ -76,7 +76,7 @@ void UDPServer::handleMessage(std::string con,unsigned short port, mavlink_messa
 void UDPServer::addConnection(std::string con,unsigned short port, mavlink_message_t * msg){
    bool found = false;
    for (auto * socket : _connections){
-	   if (socket->sockaddr == con && socket->port == port){
+	   if (socket->con.sockaddr == con && socket->con.port == port){
 		   found = true;
 		   return;
 	   }
@@ -100,7 +100,7 @@ void UDPServer::addConnection(std::string con,unsigned short port, mavlink_messa
 
       //moved when lidar is intergrated	
 	  connect.type = des;
-	  UDPSocket * sock = new UDPSocket(connect, this);
+	  CPIUDPSocket * sock = new CPIUDPSocket(connect, this);
 
 	 manager.createUDPRobot(sock);
 

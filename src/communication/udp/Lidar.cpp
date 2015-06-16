@@ -1,6 +1,6 @@
 #include "Lidar.h"
 
-Lidar::Lidar(UDPSocket * s) : sock(s){
+Lidar::Lidar(CPIUDPSocket * s) : sock(s){
 
 	encoder = new RALCPEncoder(s, s->getId(), 0, 0, 0);
 	outgoing = new MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>>();

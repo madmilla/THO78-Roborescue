@@ -1,8 +1,8 @@
 #include "RobotManager.h"
 
 
-void RobotManager::createUDPRobot(UDPSocket * s){
-	if((s = static_cast<UDPSocket*>(s)) != nullptr ){
+void RobotManager::createUDPRobot(CPIUDPSocket * s){
+	if((s = static_cast<CPIUDPSocket*>(s)) != nullptr ){
 		switch(s->con.type){
 			case Connection::Identifier::ROSBEE:
 				createRobot<Rosbee>(s);

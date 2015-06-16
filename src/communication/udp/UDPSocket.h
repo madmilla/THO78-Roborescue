@@ -48,14 +48,14 @@
 #include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include <iostream>
 
-class UDPSocket : public Socket
+class CPIUDPSocket : public CPISocket
 {
 public:
 
 	// Constructor to make a socket
 	// Param@ Connection this is the connection you want to bind to the socket
 	// Param@ UDPServer This is the server where you want to talk with
-	UDPSocket(Connection c, UDPServer * serv) : con(c), server(serv){
+	CPIUDPSocket(Connection c, UDPServer * serv) : con(c), server(serv){
 		incomming = new MessageQueue<mavlink_message_t *>();
 	}
 
@@ -71,7 +71,7 @@ public:
 	void print();
 
 	// Standard destructor
-	~UDPSocket(){
+	~CPIUDPSocket(){
 	}
 	MessageQueue<mavlink_message_t *> * incomming;
 protected:

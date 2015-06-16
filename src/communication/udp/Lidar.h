@@ -47,13 +47,13 @@
 #include "UDPSocket.h"
 #include "MessageQueue.h"
 #include "RALCPEncoder.h"
-class UDPSocket;
+class CPIUDPSocket;
 class Lidar : public CPIBoundaryObject
 {
 public:
 	// constructor to make a Lidar object (socket)
 	// @param: Socket is used to listen to a specific socket
-	Lidar(UDPSocket * s);
+	Lidar(CPIUDPSocket * s);
 
 	// initialize the Lidar 
 	void init();
@@ -98,7 +98,7 @@ private:
 
 
 	friend class RobotManager;
-	UDPSocket * sock;
+	CPIUDPSocket * sock;
 	mavlink_message_t message;
 	mavlink_ralcp_t packet;
 	RALCPEncoder * encoder;

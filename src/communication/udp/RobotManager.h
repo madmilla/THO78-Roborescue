@@ -14,7 +14,7 @@
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -44,14 +44,14 @@
 #include "Rosbee.h"
 #include "Lidar.h"
 
-class UDPSocket;
+class CPIUDPSocket;
 class Rosbee;
 class Lidar;
 class RobotManager{
 public:
 	RobotManager(){}
 
-	void createUDPRobot(UDPSocket * s);
+	void createUDPRobot(CPIUDPSocket * s);
 
 	
 	template<typename T>
@@ -81,7 +81,7 @@ std::vector<T *> getRobots(){
 }
 	
 	template <typename T>
-	T * createRobot(UDPSocket * s){
+	T * createRobot(CPIUDPSocket * s){
 		T * robot= new T(s);
 		robots.push_back(robot);
 		return robot;

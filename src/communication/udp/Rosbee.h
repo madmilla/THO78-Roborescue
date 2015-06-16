@@ -47,13 +47,13 @@
 #include "UDPSocket.h"
 #include "MessageQueue.h"
 #include "RALCPEncoder.h"
-class UDPSocket;
+class CPIUDPSocket;
 class Rosbee : public CPIBoundaryObject
 {
 public:
 	/// \brief constructor to make a Rosbee object (socket)
 	/// \param: Socket is used to listen to a specific socket
-	Rosbee(UDPSocket * s);
+	Rosbee(CPIUDPSocket * s);
 
 	/// \brief initialize the Rosbee 
 	void init();
@@ -106,7 +106,7 @@ private:
 
 
 	friend class RobotManager;
-	UDPSocket * sock;
+	CPIUDPSocket * sock;
 	mavlink_message_t message;
 	mavlink_ralcp_t packet;
 	RALCPEncoder * encoder;
