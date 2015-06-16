@@ -1,0 +1,4 @@
+image WIDTH: 400	 image HEIGHT: 382
+image creation FAILED
+30 Objects detected in 2.59 seconds
+30 objects detected 	 object detection SUCCES

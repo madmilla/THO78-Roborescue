@@ -2,10 +2,10 @@
 #define LIDARINIT_H
 
 #include "CPIConnector.h"
-//class CPIConnector;
+class CPIConnector;
 class LidarInit{
 public:
-LidarInit(CPIConnector *CPI);
+	LidarInit(CPIConnector *CPI);
 	void start();
 private:
 	CPIConnector *CPI;

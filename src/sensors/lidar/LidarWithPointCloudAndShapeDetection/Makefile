@@ -2,7 +2,7 @@
 
 PROG = main
 # the needed cpp files (withoud .cpp)
-MODULES :=  Circle Line PointCloud shapedetector LidarInit Lidar LidarController PracticalSocket UDPClient CPIConnector  main
+MODULES :=  Circle Line PointCloud shapedetector Lidar LidarController PracticalSocket UDPClient CPIConnector LidarInit main
 
 # the deps directory
 DEPS_DIR_WIN:= ..\..\..\..\deps
@@ -24,7 +24,7 @@ else
 	ARCH := $(shell getconf LONG_BIT)
 	CPP_FLAGS_32 := $(DEPS_DIR_LINUX)/lib/opencv/Linux/x86
 	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/lib/opencv/Linux/x64
-	LINKFLAGS := -Lliba -L$(DEPS_DIR_LINUX)/lib/rplidar/linux-lrplidar -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))
+	LINKFLAGS := -L$(DEPS_DIR_LINUX)/lib/rplidar/linux -lrplidar -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))
 	gcc := /usr/bin/g++
 	CFLAGS = -std=c++11 -I$(DEPS_DIR_LINUX)/incl/rplidar -lstdc++ -lpthread -lrt -I$(DEPS_DIR_LINUX)/incl/opencv
 	rm := rm -f

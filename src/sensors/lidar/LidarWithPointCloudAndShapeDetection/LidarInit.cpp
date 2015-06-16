@@ -37,11 +37,11 @@ void LidarInit::start(){
 	sD.writeLinesToConsole(lines);
 
 	for (Line l : lines){
-		CPI->sendCommand(l, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+		CPI->sendCommand(20000, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
 	for (Circle c : circles){
-		CPI->sendCommand(c, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+		CPI->sendCommand(18766776, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
 	

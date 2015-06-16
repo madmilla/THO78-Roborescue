@@ -16,7 +16,8 @@ void CPIConnector::onMessage(mavlink_message_t & msg){
 
 	switch (function.Function){
 		case LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT:
-
+			std::cout << "INIITT";
+			lidar->start();
 			systemID = function.Payload;
 			sendCommand(uint64_t(COMMAND_DESTINATION::LIDAR), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT );
 			break;
@@ -37,7 +38,6 @@ void CPIConnector::onMessage(mavlink_message_t & msg){
 			break;
 
 		case LIDAR_COMMAND_FUNCTIONS::START:
-			lidar->start();
 
 			sendCommand(uint64_t(LIDAR_COMMAND_FUNCTIONS::START), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::START );
 			break;
