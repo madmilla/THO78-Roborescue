@@ -64,9 +64,6 @@ void SomeListener::update(mavlink_message_t* msg){
 		break;
 		
 		case MAVLINK_MSG_ID_DEBUG_VECT:
-			std::cout << "Debug vect -- time_usec:[" << mavlink_msg_debug_vect_get_time_usec(msg)<<"]\n";
-		break;
-		
 		case MAVLINK_MSG_ID_OPTICAL_FLOW:
 		case MAVLINK_MSG_ID_OPTICAL_FLOW_RAD:
 			pX4FlowWrapper->ReceiveMAVLinkMessage(msg);
