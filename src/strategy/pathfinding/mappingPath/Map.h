@@ -8,7 +8,7 @@
 #define MAP_H
 
 #include <iostream>
-#include <Rosbee.h>
+#include "Rosbee.h"
 #include <string>
 #include <fstream>
 #include <stdio.h>
@@ -54,11 +54,11 @@ private:
     bool bool_isLoaded;
     string myMap[20][20];
     vector <std::pair<int, int>> myRoute;
-    const char * pathMap1 = "C:\\Users\\coen__000\\Documents\\TestSystem\\Map1.txt";
-    const char * pathMap2 = "C:\\Users\\coen__000\\Documents\\TestSystem\\Map2.txt";
-    const char * pathMap3 = "C:\\Users\\coen__000\\Documents\\TestSystem\\Map3.txt";
-    const char * pathMap4 = "C:\\Users\\coen__000\\Documents\\TestSystem\\Map4.txt";
-    const char * pathMap5 = "C:\\Users\\coen__000\\Documents\\TestSystem\\Map5.txt";
+    const char * pathMap1 = "Map1.txt";
+    const char * pathMap2 = "Map2.txt";
+    const char * pathMap3 = "Map3.txt";
+    const char * pathMap4 = "Map4.txt";
+    const char * pathMap5 = "Map5.txt";
     int numberOfSteps = 0;
 
 

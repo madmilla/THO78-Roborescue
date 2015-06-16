@@ -1,13 +1,18 @@
-SRC = RALCPEncoder.cpp Rosbee.cpp UDPServer.cpp UDPSocket.cpp main.cpp
-HEADERS = $(SRC:.cpp:.hpp) Socket.hpp Connection.hpp CPIBoundaryObject.hpp mingw.thread.h
+SRC = RALCPEncoder.cpp Rosbee.cpp Lidar.cpp UDPServer.cpp UDPSocket.cpp main.cpp RobotManager.cpp Windows-udp/Client/client.cpp ../../../deps/incl/communication/udp/practicalsocket.cpp
+HEADERS = $(SRC:.cpp:.h) Socket.h Connection.h CPIBoundaryObject.h mingw.thread.h MessageQueue.h RobotManager.h
 OBJ = $(SRC:.cpp=.o)
 EXEC = Udpserver
 CC = g++
 LDFLAGS =
 LIBS = ws2_32
-CFLAGS = -std=c++11
+CFLAGS = -std=c++11 -DWIN32
 
-.phony: clean run rebuild
+
+ifeq ($(shell uname),SunOS)
+  LIBS = -lsocket -lnsl
+endif
+
+.phony: clean run rebuild test client
 all: $(SRC) $(EXEC)
 
 $(EXEC):  $(OBJ)
@@ -26,3 +31,11 @@ run:
 rebuild:
 	make clean
 	make run
+client:
+	$(CC) -c $(CFLAGS) Windows-UDP/Client/client.cpp -o client.o
+
+test:
+	make clean
+	make all
+	make client
+	cp *.o ../../tests/auto/UDPCommunication-test

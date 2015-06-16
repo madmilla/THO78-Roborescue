@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>212</width>
-    <height>128</height>
+    <width>992</width>
+    <height>671</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>91</width>
-      <height>31</height>
+      <y>310</y>
+      <width>231</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="text">
@@ -30,10 +30,10 @@
    <widget class="QPushButton" name="ATVButton">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>10</y>
-      <width>91</width>
-      <height>31</height>
+      <x>360</x>
+      <y>310</y>
+      <width>231</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="text">
@@ -44,35 +44,35 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
-      <width>91</width>
-      <height>31</height>
+      <y>10</y>
+      <width>231</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="text">
-     <string>Rosbee</string>
+     <string>Rosbee Gui</string>
     </property>
    </widget>
    <widget class="QPushButton" name="LidarButton">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>50</y>
-      <width>91</width>
-      <height>31</height>
+      <x>360</x>
+      <y>10</y>
+      <width>231</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="text">
-     <string>Lidar</string>
+     <string>Lidar Gui</string>
     </property>
    </widget>
    <widget class="QPushButton" name="MapButton">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>90</y>
-      <width>91</width>
-      <height>31</height>
+      <x>690</x>
+      <y>110</y>
+      <width>191</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="text">
@@ -82,14 +82,54 @@
    <widget class="QPushButton" name="ExitButton">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>90</y>
-      <width>91</width>
-      <height>31</height>
+      <x>690</x>
+      <y>420</y>
+      <width>191</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="text">
      <string>Exit</string>
+    </property>
+   </widget>
+   <widget class="QListView" name="Rosbeelist">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>90</y>
+      <width>231</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QListView" name="listView">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>90</y>
+      <width>231</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QListView" name="listView_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>390</y>
+      <width>231</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QListView" name="listView_3">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>390</y>
+      <width>231</width>
+      <height>192</height>
+     </rect>
     </property>
    </widget>
   </widget>

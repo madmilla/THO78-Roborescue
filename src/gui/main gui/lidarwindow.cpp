@@ -1,31 +1,21 @@
 #include "lidarwindow.h"
 #include "ui_lidarwindow.h"
 
+//! create the lidar and qwidget
 LidarWindow::LidarWindow(Lidar &lidar, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::lidarwindow()),
     lidar(lidar)
 {
     ui->setupUi(this);
-
     connect(ui->startLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
-    connect(ui->stopLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
-    connect(ui->setRpm,SIGNAL(returnPressed()),this,SLOT(setRpm()));
-    connect(&timer,SIGNAL(timeout()),this,SLOT(timerPassed()));
-
-    timer.start(1000);
     lidarMissionRunning(false);
 }
 
 
-
+//! delete the lidarwindow
 LidarWindow::~LidarWindow(){
     delete ui;
-}
-
-void LidarWindow::setRpm(){
-        qDebug() << "dit is het ingevuld rpm " << ui->setRpm->text();
-
 }
 
 void LidarWindow::handleButtonLidar(){
@@ -33,14 +23,15 @@ void LidarWindow::handleButtonLidar(){
     QPushButton * button = static_cast<QPushButton *>(sender());
 
     if(button == nullptr) return;
-
+    //! startlidar has been pressed
     if(button == ui->startLidar){
         try{
-            lidar.startLidar();
+            lidar.Start();
             lidarMissionRunning(true);
         }
-        catch(...){ //moet een exception gemaakt worden voor het afvangen van geen rpm
-            QMessageBox::critical(this,"Error:, No rpm set.", "mission already started");
+    //! catch if the lidar already has been started.
+        catch(...){
+            QMessageBox::critical(this,"Lidar has already started");
         }
     }
     else if(button == ui->stopLidar){
@@ -60,8 +51,7 @@ void LidarWindow::lidarMissionRunning(bool isRunning){
 }
 
 
-void LidarWindow::timerPassed(){
-    ui->showRpm->setNum(lidar.rpmStatus());
-    ui->showStatus->setText(QString::fromStdString(lidar.getStatus()));
-}
+void LidarWindow::on_startLidar_clicked()
+{
 
+}

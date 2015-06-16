@@ -17,89 +17,27 @@
    <widget class="QPushButton" name="startLidar">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>80</y>
+      <x>70</x>
+      <y>60</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Start</string>
+     <string>Start Scan</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="stopLidar">
+   <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>80</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Stop</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="statusLabel">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Status</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="showStatus">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>40</y>
-      <width>71</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ShowStatus</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="showRpm">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>60</y>
-      <width>51</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ShowRPM</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="rpmlabel">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>setRPM</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="setRpm">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>10</y>
+      <x>50</x>
+      <y>20</y>
       <width>113</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="text">
+     <string>Manual Lidar Gui</string>
     </property>
    </widget>
   </widget>

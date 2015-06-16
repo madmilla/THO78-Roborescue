@@ -1,0 +1,82 @@
+/**
+*               __
+*    _________ / /_  ____  ________  ____________  _____
+*   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
+*  / / / /_/ / /_/ / /_/ / /  /  __(__  ) /__/ /_/ /  __/
+* /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
+*
+*
+* @file Line.cpp
+* @date Created: 29-04-2015
+* @version 1.2
+* @author Patrick Schoonheym
+*
+* @section LICENSE
+* License: newBSD
+*
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+* - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+* - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+* - Neither the name of the HU University of Applied Sciences Utrecht nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED. IN NO EVENT SHALL THE HU UNIVERSITY OF APPLIED SCIENCES UTRECHT
+* BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**/
+
+
+
+#include "Line.h"
+
+Line::Line(const Line::Point & begin_pos, const Line::Point & end_pos)	{
+	lineData.begin_pos = begin_pos;
+	lineData.end_pos = end_pos;
+}
+
+Line::~Line() {
+}
+
+void Line::setLine(const Line::Point & begin_pos, const Line::Point & end_pos) {
+	lineData.begin_pos = begin_pos;
+	lineData.end_pos = end_pos;
+}
+Line::LineData& Line::getLine() {
+	return lineData;
+}
+
+std::ostream& operator<<(std::ostream & stream, const Line::Point & point) {
+	stream << '(' << point.x << ' ' << point.y << ')';
+	return stream;
+}
+
+std::ostream& operator<<(std::ostream & stream, const Line & line) {
+	stream << line.lineData.begin_pos << ' ' << line.lineData.end_pos;
+	return stream;
+}
+
+bool operator==(const Line::Point & p1, const Line::Point & p2) {
+	if (p1.x == p2.x && p1.y == p2.y) {
+		return true;
+	}
+	return false;
+}
+
+int Line::getLength() {
+	int deltaX = lineData.end_pos.x - lineData.begin_pos.x;
+	int deltaY = lineData.end_pos.y - lineData.begin_pos.y;
+
+	return (int)sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+}
+bool Line::intersect(Line & l2) {
+	
+}

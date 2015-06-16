@@ -1,112 +1,110 @@
-#include "UDPServer.hpp"
+#include "UDPServer.h"
 
 
-UDPServer::UDPServer(){
-	id = 0;
+UDPServer::UDPServer(RobotManager & manager) : manager(manager){
+	recv = 0;
+	sourceAddress = "";
+	sourcePort = 0;
+	std::cout << "Created server instance" << std::endl;
 	init();
-	sockbind();
    connectionThread = std::thread(&UDPServer::start, this);
+
 	}
 
 void UDPServer::init(){
-   printf("\nInitialising Winsock...");
-   if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0){
-      printf("Failed. Error Code : %d", WSAGetLastError());
-      exit(EXIT_FAILURE);
-	}
-   printf("UDPServer Initialised.\n");
-   slen = sizeof(si_other);
-
-   if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET){
-      printf("Could not create socket : %d", WSAGetLastError());
-   }
-   printf("Socket created.\n");
-
-   server.sin_family = AF_INET;
-   server.sin_addr.s_addr = INADDR_ANY;
-   server.sin_port = htons(port);
+	udpsock = new UDPSocket("127.0.0.1", 8888);
+	std::cout << "Initialized socket at: \t 127.0.0.1:8888" << std::endl;
 }
-
-void UDPServer::sockbind(){
-   if (bind(sock, (struct sockaddr *)&server, sizeof(server)) == SOCKET_ERROR){
-      printf("Bind failed with error code : %d\n", WSAGetLastError());
-      exit(EXIT_FAILURE);
-   }
-   std::cout << "Bind done!" << std::endl;
-}
-
 
 void UDPServer::start(){
-   stopped = false;
-   while (!stopped){
-      printf("Waiting for data...\r\n");
-      fflush(stdout);
-
-      receive(&msg);
-
-      addConnection(si_other, &msg);
-
-
-      mavlink_msg_ralcp_encode(1, 1, &msg, &packet);
-		
-	   std::cout << packet.Payload << std::endl;
-      packet.Payload = packet.Payload + packet.Payload;
-      mavlink_msg_ralcp_encode(1, 1, &msg, &packet);
-
-      send(_connections[0], &msg);
+	try {
+		while (!stopped) {
+			try{
+				std::cout << "Waiting for message..." << std::endl;
+				receive(&msg);
+				addConnection(sourceAddress, sourcePort, &msg);
+				handleMessage(sourceAddress, sourcePort, &msg);
+			}
+			catch (SocketException ex){
+				std::cout << "Nothing received : " << ex.what() << std::endl;
+			}
+		}
 	}
+	catch (SocketException &e) {
+		cerr << e.what() << endl;
+		exit(1);
+	}
+
    std::this_thread::yield();
 }
 
+void UDPServer::printCon(){
+   std::cout << "================= connections  "<< _connections.size() <<" ==========="<<std::endl;
+   for(auto & sock : _connections){
+      sock->print();
+   }
+
+   std::cout << "============== end - connections ==========="<<std::endl;
+}
+
+
 void UDPServer::broadcast(mavlink_message_t * message){
-   for (auto socket : _connections){
+   for (auto & socket : _connections){
       send(socket, message);
 	}
 }
 
-
-void UDPServer::send(UDPSocket & socket, mavlink_message_t * message){
-   if (sendto(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr*) &socket.con.sockaddr, slen) == SOCKET_ERROR){
-      printf("sendto() failed with error code : %d\r\n", WSAGetLastError());
-   }
+void UDPServer::send(CPIUDPSocket * socket, mavlink_message_t * message){
+	udpsock->sendTo(message, sizeof(mavlink_message_t), socket->con.sockaddr, socket->con.port);
 }
 
 void UDPServer::receive(mavlink_message_t * message){
-   if ((recv_len = recvfrom(sock, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr *) &si_other, &slen)) == SOCKET_ERROR){
-      printf("recvfrom() failed with error code : %d\r\n", WSAGetLastError());
-      }
+	auto data = udpsock->recvFrom(&msg, sizeof(mavlink_message_t), sourceAddress, sourcePort);
+	std::cout << "data : " << data << std::endl;	
+	recv++;
 }
 
-void UDPServer::addConnection(sockaddr_in con, mavlink_message_t * msg){
+void UDPServer::handleMessage(std::string con,unsigned short port, mavlink_message_t * msg){
+   for (auto & socket : _connections){
+	   if (socket->con.sockaddr == con && socket->con.port == port){
+		socket->receive(msg);
+      }
+   }
+}
+
+void UDPServer::addConnection(std::string con,unsigned short port, mavlink_message_t * msg){
    bool found = false;
-   for (auto socket : _connections){
-      if (inet_ntoa(socket.con.sockaddr.sin_addr) == inet_ntoa(con.sin_addr) && (socket.con.sockaddr.sin_port) == con.sin_port){
-         found = true;
-         break;
-		}
+   for (auto * socket : _connections){
+	   if (socket->con.sockaddr == con && socket->con.port == port){
+		   found = true;
+		   return;
+	   }
 	}
    if (!found){
       mavlink_msg_ralcp_decode(msg, &packet);
-      Connection connect = Connection(id++, Connection::UNKNOWN, con);
+      Connection connect = Connection(ConId, Connection::UNKNOWN, con,port);
+      ConId++;
       Connection::Identifier des = Connection::UNKNOWN;
       switch(packet.Destination){
          case COMMAND_DESTINATION::ROSBEE:
             des = Connection::ROSBEE;
             break;
          case COMMAND_DESTINATION::LIDAR:
-			   des = Connection::LIDAR;
-			   break;
-		   default:
+			des = Connection::LIDAR;
+			break;
+		 default:
 			   std::cerr << "UNKNOWN DEVICE CONNECTION NOT HANDLED\r\n";
 			return;
 		}
-		
-      connect.type = des;
-      UDPSocket sock(connect, this);
+
+      //moved when lidar is intergrated	
+	  connect.type = des;
+	  CPIUDPSocket * sock = new CPIUDPSocket(connect, this);
+
+	 manager.createUDPRobot(sock);
+
       _connections.push_back(sock);
-      printf("New connection from %s:%d\r\n", inet_ntoa(con.sin_addr), ntohs(con.sin_port));
-      std::cout << "packet function was:" << packet.Function << std::endl;
-      std::cout << "Packet data was: " << packet.Payload << std::endl;
+      sock->receive(msg);printCon();
 	}
 }
 
@@ -115,5 +113,9 @@ void UDPServer::stop(){
 }
 
 UDPServer::~UDPServer(){
+	for(auto * sock : _connections)
+	{
+		delete sock;
+	}
    stop();
 }

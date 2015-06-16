@@ -52,6 +52,7 @@
 #include "lidar.h"
 #include "atv.h"
 #include "quadcopter.h"
+#include "RoboManager.h"
 
 namespace Ui {
 class MainWindow;
@@ -74,11 +75,13 @@ public:
 private slots:
     void handleButton();
 
+    std::vector getRosbee();
+
 private:
     Ui::MainWindow *ui;
-
     std::vector<QMainWindow *> subWindows;
 
+    std::vector<CPIBoundaryObject *>robots;
     Rosbee & rosbee;
     lidar & l;
     ATV & atv;

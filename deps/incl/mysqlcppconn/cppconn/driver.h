@@ -26,7 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #ifndef _SQL_DRIVER_H_
 #define _SQL_DRIVER_H_
-
+#define CPPDBC_PUBLIC_FUNC
 #include "connection.h"
 #include "build_config.h"
 

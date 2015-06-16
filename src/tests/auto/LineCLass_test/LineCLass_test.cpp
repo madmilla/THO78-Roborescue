@@ -1,10 +1,20 @@
 #include <iostream>
-#include "../../../sensors/lidar/LineClass/Line.h"
+//#include "../../../sensors/lidar/LineClass/Line.h"
+#include "Line.h"
 #include <fstream>
 
 class Line;
 
 void test() {
+
+	Line::Point jemoeder1{ 50, 50 };
+	Line::Point jemoeder2{ 54, 53 };
+
+	Line testLine(jemoeder1, jemoeder2);
+
+	std::cout << "length() " << testLine.getLength() << std::endl;
+
+	std::cout << "................................................\n";
 	std::cout << "running test..." << std::endl << std::endl;
 
 	std::ofstream output("LineClass Results.txt", std::ofstream::out);

@@ -37,11 +37,12 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <QVector>
-#include <QTableWidget>
 #include "simulatemap.h"
-
-using namespace std;
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include "PointCloud.h"
 
 class Map
 {
@@ -51,7 +52,13 @@ public:
     *   \brief Given a filename this constructor will read and convert a .map file to a map object.
     *   @param fileName the name of a .map file containing map information.
     */
-    Map(string fileName);
+    Map(std::string fileName);
+    /*!
+    *   Map constructor with a given file.
+    *   \brief Given a pointcloud pointer this constructor will convert a pointcloud object to a map object.
+    *   @param pcl the pointer of the pointcloud. The pointcloud containing point information.
+    */
+    Map(std::string fileName, Pointcloud *pcl);
     /*!
     *   Map constructor with given file, height and width.
     *   \brief This constructor is used for making a new map with a standard height & width.
@@ -59,19 +66,19 @@ public:
     *   @param height the height of the map
     *   @param width the width of the map
     */
-    Map(string fileName, int height, int width);
+    Map(std::string fileName, int height, int width);
     /*!
     *   getMapContent gets all the information of a map.
     *   \brief This function gets and returns all information of a map object in a 2D-vector.
     *   @return std::vector<vector< int > > a 2D-vector containing all the map information.
     */
-    vector<vector< int > > getMapContent();
+    std::vector<std::vector< int > > getMapContent();
     /*!
     *   setMapContent is used to set a map to the content of a given 2D-vector.
     *   \brief Sets al the data in the map to the data in a given 2D-vector containing ints.
     *   @param newMapLayout is a 2D-Vector containing ints with information about the map.
     */
-    void setMapContent(vector<vector< int > > newMapLayout);
+    void setMapContent(std::vector<std::vector< int > > newMapLayout);
     /*!
     *   setMapObject sets a object at a given position.
     *   \brief Sets a spot at a given x and y position to the desired object.
@@ -97,7 +104,7 @@ public:
     */
     ~Map();
     //! the filename
-    string fileName;
+    std::string fileName;
     //! the width of the map from 1 to x
     int height;
     //! the width of the map from 1 to x
@@ -106,11 +113,11 @@ public:
 
 private:
     //! The vector which contains all the data of the map by this template mapLayout[y][x].
-    vector<vector< int > > mapLayout;
+    std::vector<std::vector< int > > mapLayout;
     //! Creates a new map given a fileName.
-    void createNewMap(string fileName);
+    void createNewMap(std::string fileName);
     //! Loads the map with the given filename.
-    void loadMap(string fileName);
+    void loadMap(std::string fileName);
 };
 
 #endif // MAP_H
