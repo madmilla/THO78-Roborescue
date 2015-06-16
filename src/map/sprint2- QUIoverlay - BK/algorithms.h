@@ -10,6 +10,7 @@
 
 #include <vector>
 #include "line.h"
+#include "point.h"
 
 class Algorithms
 {
@@ -30,13 +31,25 @@ public:
     static const float NEAR_VAL = 5.0f;
     static const float FAR_VAL = 30.0f;
 
+    static void test();
+
+    static void getMinMax(const std::vector<Line<int> > lines, int &minX, int &maxX, int &minY, int &maxY);
+
     /*!
     *   Finds the minimum and maximum x and y for the range of the map and
     *   normalizes the x and y values of the lines between -1.0 and 1.0
     *   @param lines vector of lines that need to be normalized
     *   @return returns a vector of lines between -1.0 and 1.0
     */
-    static const std::vector<Line<float> > normalizeLines(const std::vector<Line<int> > lines);
+    static const std::vector<Line<float> > getNormalizedLinesForPolygons(const std::vector<std::vector<point> >& polygons);
+
+    /*!
+    *   Finds the minimum and maximum x and y for the range of the map and
+    *   normalizes the x and y values of the lines between -1.0 and 1.0
+    *   @param lines vector of lines that need to be normalized
+    *   @return returns a vector of lines between -1.0 and 1.0
+    */
+    static const std::vector<Line<float> > normalizeLines(const std::vector<Line<int> > lines, int &minX, int &maxX, int &minY, int &maxY);
 
     /*!
     *   Calculate the coordinates were a line should be drawn for an isometric representation
