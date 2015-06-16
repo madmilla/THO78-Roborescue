@@ -8,6 +8,7 @@
 
 #include "BaseLidar.h"
 #include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "LidarInit.h"
 
 class CPIConnector : public BaseLidar
 {
