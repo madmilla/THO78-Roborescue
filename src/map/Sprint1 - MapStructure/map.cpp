@@ -157,11 +157,5 @@ void makeUnseen(){}
 
 //translate lines to points in 2d vector
 void translateToPoints(){
-	for (int i = 0; i < x; i++){
-		for (int j = 0; j < y; j++){
-			if (getPointLines(x, y) != null){
-				access.insert(x,y)
-			}
-		}
-	}
+
 }
