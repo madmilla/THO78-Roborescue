@@ -673,6 +673,8 @@ void UDPSocket::setMulticastTTL(unsigned char multicastTTL)
  
  //added
  void CatchAlarm(int sgtype){
+	 int i = sgtype + 30;
+	 i++;
  }
  
  //added

@@ -5,18 +5,16 @@
 #include <cstdint>
 #include <queue>
 #include <iostream>
-#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-#include "SocketListener.h"
 
-class CPIConnector : public SocketListener
+#include "BaseLidar.h"
+#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+
+class CPIConnector : public BaseLidar
 {
 public:
-	CPIConnector(uint16_t id);
+	CPIConnector();
 	void sendCommand(LIDAR_COMMAND_FUNCTIONS cmd, uint64_t payload);
-	void onMessage(mavlink_ralcp_t & function) override;
-
-private:
-	uint16_t DeviceId;
+	void onMessage(mavlink_message_t & function) override;
 };
 
 #endif //CPICONNECTOR_H_

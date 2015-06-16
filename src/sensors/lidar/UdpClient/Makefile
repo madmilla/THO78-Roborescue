@@ -15,6 +15,6 @@ UDPClient: main.o PracticalSocket.o UDPClient.o CPIConnector.o
 
 main.o: main.cpp UDPClient.h CPIConnector.h ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h
 PracticalSocket.o: PracticalSocket.h PracticalSocket.cpp
-UDPClient.o: UDPClient.h UDPClient.cpp PracticalSocket.h ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h SocketListener.h
-CPIConnector.o: CPIConnector.h CPIConnector.cpp ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h SocketListener.h
+UDPClient.o: UDPClient.h UDPClient.cpp PracticalSocket.h ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h BaseLidar.h
+CPIConnector.o: CPIConnector.h CPIConnector.cpp ../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h BaseLidar.h
 

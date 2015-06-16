@@ -26,7 +26,7 @@ void LidarWindow::handleButtonLidar(){
     //! startlidar has been pressed
     if(button == ui->startLidar){
         try{
-            lidar.startLidar();
+            lidar.Start();
             lidarMissionRunning(true);
         }
     //! catch if the lidar already has been started.
