@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
     QElapsedTimer timer;
     try{
-        databaseConnector dbc("127.0.0.1","root","desktop","robodata");
+        databaseConnector dbc("127.0.0.1","roborescue","robodata","robodata");
         dbc.setMap(1);
 
         point p1(2800, 3000);
