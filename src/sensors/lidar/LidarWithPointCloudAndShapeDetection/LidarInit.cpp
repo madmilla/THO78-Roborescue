@@ -8,7 +8,7 @@
 #include "PointCloud.h"
 #include "CPIConnector.h"
 
-LidarInit::LidarInit(CPIConnector &CPI):
+LidarInit::LidarInit(CPIConnector &CPI) :
 CPI(CPI)
 {}
 
