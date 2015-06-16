@@ -1,6 +1,6 @@
 #include "Rosbee.h"
 
-Rosbee::Rosbee(UDPSocket * s) : sock(s){
+Rosbee::Rosbee(CPIUDPSocket * s) : sock(s){
 
 		encoder = new RALCPEncoder(s, s->getId(), 0, 0, 0);
 		outgoing = new MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>>();

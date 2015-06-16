@@ -64,7 +64,7 @@ const int port = 8888;
 /// \brief a test class for udp with rosbee this class may be used in the future for rosbee communication
 /// \brief the constructor of this class initializes an socket and makes it ready for use. this will also start a new thread so the main thread can do other stuff while the udp server is handeling his own messages
 
-class UDPSocket;
+class CPIUDPSocket;
 class RobotManager;
 class UDPServer
 {
@@ -78,7 +78,7 @@ public:
 	/// \param Send a message to a specefic connection.
 	/// \param Message
 	/// \returns void 
-	void send(UDPSocket * connection, mavlink_message_t * message);
+	void send(CPIUDPSocket * connection, mavlink_message_t * message);
 	
 	/// \param buffer for the message to be received in
 	/// \returns void
@@ -95,7 +95,6 @@ private:
 
 	UDPSocket sock;
 
-	char echoBuffer[ECHOMAX];         // Buffer for echo string                
 	std::string sourceAddress;             // Address of datagram source
 	unsigned short sourcePort;// Port of datagram source
 	int recv;
@@ -109,7 +108,7 @@ private:
 	mavlink_message_t msg;
 	mavlink_ralcp_t packet;
 	
-	std::vector<UDPSocket*> _connections;
+	std::vector<CPIUDPSocket*> _connections;
 	int ConId = 0;
 	std::thread connectionThread;
 };

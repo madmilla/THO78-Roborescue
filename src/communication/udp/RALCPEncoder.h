@@ -49,7 +49,7 @@
 
 class RALCPEncoder{
 public:
-	RALCPEncoder(Socket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
+	RALCPEncoder(CPISocket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
    /// \param@ Destination for the message to send to
 	/// \param@ The Rosbee communication function
 	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
@@ -62,7 +62,7 @@ public:
 private:
 	mavlink_message_t msg;
 	mavlink_ralcp_t packet;
-	Socket * socket;
+	CPISocket * socket;
 	
 	int SYSTEMID;
 	int COMPONENTID;

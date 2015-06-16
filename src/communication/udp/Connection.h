@@ -52,11 +52,11 @@ public:
 		ATV
 	};
 
-	Connection(int ids, Connection::Identifier i, string sock,unsigned short prt) : id(ids), type(i), sockaddr(sock),port(prt){}
+	Connection(int ids, Connection::Identifier i, std::string sock,unsigned short prt) : id(ids), type(i), sockaddr(sock),port(prt){}
 
 	Identifier type;
 	int id;
-	string sockaddr;
+	std::string sockaddr;
 	unsigned short port;
 }; 
 #endif
