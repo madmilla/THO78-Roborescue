@@ -19,7 +19,7 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	UDPSocket sock;
-	SocketAddress localadr("127.0.0.1", 2222, SocketAddress::UDP_SOCKET);
+	SocketAddress localadr("145.89.98.137", 2222, SocketAddress::UDP_SOCKET);
 	sock.bind(localadr);
 	SocketAddress remoteadr;
 	sock.setTimeOut(2);

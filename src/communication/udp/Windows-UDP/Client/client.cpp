@@ -41,10 +41,10 @@ void Client::sendMessage(){
       if (sendto(s, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr *) &si_other, slen) == SOCKET_ERROR){
          printf("sendto() failed with error code : %d", WSAGetLastError());
 		}
-
-//	  if (recvfrom(s, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr *) &si_other, &slen) == SOCKET_ERROR){
- //        printf("recvfrom() failed with error code : %d", WSAGetLastError());
- //     }
+     
+ if (recvfrom(s, (char*)&msg, sizeof(mavlink_message_t), 0, (struct sockaddr *) &si_other, &slen) == SOCKET_ERROR){
+        printf("recvfrom() failed with error code : %d", WSAGetLastError());
+    }
 		
    }
 
