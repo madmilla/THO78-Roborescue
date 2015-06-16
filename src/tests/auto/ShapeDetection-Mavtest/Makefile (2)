@@ -7,8 +7,8 @@ all: $(PROGRAMS)
 clean:
 	rm *.o $(PROGRAMS) &> /dev/null || true
 	
-UDPClient: main.o PracticalSocket.o UDPClient.o CPIConnector.o LidarInit.o
-	$(CPP) -o $@ PracticalSocket.o main.o UDPClient.o -lpthread  CPIConnector.o LidarInit.o
+UDPClient: main.o PracticalSocket.o UDPClient.o CPIConnector.o
+	$(CPP) -o $@ PracticalSocket.o main.o UDPClient.o -lpthread  CPIConnector.o
 
 %.o: %.cpp
 	$(CPP) $(CPPFLAGS) $<

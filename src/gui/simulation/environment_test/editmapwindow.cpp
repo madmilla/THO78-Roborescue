@@ -91,16 +91,21 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
 
 void EditMapWindow::paintEvent(QPaintEvent * /*UNUSED*/){
     if(!mousePressed) return;
-    QPainter painter(this);
+    mousePressed = false;
+    QPainter myPainter(this);
     int y = 0;
     for(std::vector<int> fory : map->getMapContent()){
         int x = 0;
         for(int forx : fory){
-            painter.fillRect((x*objectx),(y*objecty),objectx,objecty,QBrush(getColorById(forx)));
+            if(forx != 0){
+                myPainter.fillRect((x*objectx),(y*objecty),objectx,objecty,QBrush(getColorById(forx)));
+                std::cout << (x*objectx) << " " << " " << (y*objecty) << " " << objectx << " " << objecty << std::endl;
+            }
             ++x;
         }
         ++y;
     }
+    std::cout << "paint event" << std::endl;
 }
 
 Qt::GlobalColor EditMapWindow::getColorById(int id){
