@@ -69,6 +69,25 @@ public:
     //! @return A map within the region given as parameters
     map getRegion(point & p, unsigned int width, unsigned int height);
 
+	//2D vector to check if points are accessible and seen
+	std::vector<std::vector<int>*> access; //accessible = 0, notAccessible = 1, seen = 5
+
+	//check if x,y is accessible
+	//eventueel met boost isAccessible
+	bool isAccessible(int x, int y, int sizeCell);
+
+	//add object to position x,y
+	void addObject(std::vector<int> objects, int x, int y);
+
+	//fill object (circle or polygon) so that middle is not accessible
+	void fillObjects(std::vector<int> object);
+
+	//when pathfinding is done, make all cells unseen again. seen = false;	
+	void makeUnseen();
+		
+	//translate lines to points in 2d vector
+	void translateToPoints();
+
 private:
     std::vector<line> mapData;
 };
