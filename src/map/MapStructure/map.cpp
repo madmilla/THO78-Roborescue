@@ -252,8 +252,51 @@ bool map::isAccessible(int x, int y){
 	
 }
 int main(){
-	map map;
-	polygon object(std::vector<point>{point(1, 1), point(1, 10), point(10, 5)});
-	map.addObject(object);
+}
+void map::setScale(int x){ scale = x; }
+bool map::isScaledAccessible(int x, int y ){
+	x = x*scale;
+	y = y*scale;
 
+	for (int i = 0; i < scale; i++){
+		std::cout << "\n";
+		for (int ii = 0; ii < scale; ii++){
+			std::cout << x << " " << y;
+			if (!this->isAccessible(i+x, ii+y)){
+				return false;
+			
+			}
+
+
+
+		}
+	}
+	return true;
+}
+int map::getScaledLocationValue(int x, int y){
+	x = x*scale;
+	y = y*scale;
+	int highestvalue=0;
+	for (int i = 0; i < scale; i++){
+		std::cout << "\n";
+		for (int ii = 0; ii < scale; ii++){
+			
+			//std::cout << scale << " ";
+			
+
+			if (highestvalue < this->getLocationValue(x + i, y + ii))
+			{
+				highestvalue = this->getLocationValue(x + i, y + ii);
+			}
+			if (highestvalue==1){
+				return 1;
+
+			}
+			
+
+
+
+		}
+	}
+	return highestvalue;
 }
