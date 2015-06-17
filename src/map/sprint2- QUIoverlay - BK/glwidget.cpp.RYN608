@@ -99,11 +99,14 @@ void GLWidget::drawMap(map *m) {
     std::vector<line>::iterator it;
 
     for(it = mapData.begin(); it != mapData.end(); ++it) {
-        Lines<int> l(it->getPoint(0).getX(), it->getPoint(0).getY(), it->getPoint(1).getX(), it->getPoint(1).getY());
-        mapDataInt.push_back(l);
+        int ding = it->getPoint(0).getX();
+
+
+//        Line<int> l(it.getPoint(0).getX(), it.getPoint(0).getY(), it.getPoint(1).getX(), it.getPoint(1).getY());
+//        mapDataInt.push_back(l);
     }
-    Algorithms::getMinMax(mapDataInt, minX, maxX, minY, maxY);
-    setLines(mapDataInt, minX, maxX, minY, maxY);
+//  Algorithms::getMinMax(lines, minX, maxX, minY, maxY);
+//  setLines(lines, minX, maxX, minY, maxY);
 }
 
 void GLWidget::addGridSquare(int x, int y, int length, int width){

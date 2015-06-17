@@ -9,31 +9,31 @@
 #define ALGORITHMS_H
 
 #include <vector>
-#include "line.h"
-#include "point.h"
+#include "lines.h"
+#include "points.h"
 
 class Algorithms
 {
 public:  
 
-    static const float MAX_X =  1.0f;
-    static const float MIN_X = -1.0f;
-    static const float MAX_Y =  1.0f;
-    static const float MIN_Y = -1.0f;
+    static constexpr float MAX_X =  1.0f;
+    static constexpr float MIN_X = -1.0f;
+    static constexpr float MAX_Y =  1.0f;
+    static constexpr float MIN_Y = -1.0f;
 
-    static const float DIF_X = 2.0f; // MAX_X - MIN_X;
-    static const float DIF_Y = 2.0f; // MAX_Y - MIN_Y;
+    static constexpr float DIF_X = 2.0f; // MAX_X - MIN_X;
+    static constexpr float DIF_Y = 2.0f; // MAX_Y - MIN_Y;
 
-    static const float BOTTOM = -1.0f;
-    static const float HEIGHT = 0.5f;
-    static const float HEIGHT_ISO = 0.2f;
+    static constexpr float BOTTOM = -1.0f;
+    static constexpr float HEIGHT = 0.5f;
+    static constexpr float HEIGHT_ISO = 0.2f;
 
-    static const float NEAR_VAL = 5.0f;
-    static const float FAR_VAL = 30.0f;
+    static constexpr float NEAR_VAL = 5.0f;
+    static constexpr float FAR_VAL = 30.0f;
 
     static void test();
 
-    static void getMinMax(const std::vector<Line<int> > lines, int &minX, int &maxX, int &minY, int &maxY);
+    static void getMinMax(const std::vector<Lines<int> > lines, int &minX, int &maxX, int &minY, int &maxY);
 
     /*!
     *   Finds the minimum and maximum x and y for the range of the map and
@@ -41,7 +41,7 @@ public:
     *   @param lines vector of lines that need to be normalized
     *   @return returns a vector of lines between -1.0 and 1.0
     */
-    static const std::vector<Line<float> > getNormalizedLinesForPolygons(const std::vector<std::vector<point> >& polygons);
+    static const std::vector<Lines<float> > getNormalizedLinesForPolygons(const std::vector<std::vector<points> >& polygons);
 
     /*!
     *   Finds the minimum and maximum x and y for the range of the map and
@@ -49,21 +49,21 @@ public:
     *   @param lines vector of lines that need to be normalized
     *   @return returns a vector of lines between -1.0 and 1.0
     */
-    static const std::vector<Line<float> > normalizeLines(const std::vector<Line<int> > lines, int &minX, int &maxX, int &minY, int &maxY);
+    static const std::vector<Lines<float> > normalizeLines(const std::vector<Lines<int> > lines, int &minX, int &maxX, int &minY, int &maxY);
 
     /*!
     *   Calculate the coordinates were a line should be drawn for an isometric representation
     *   @param line Normalized line to calculate isometric positions for
     *   @return returns Line with coordinates translated to isometric position
     */
-    static const Line<float> twoDToIso(const Line<float> line);
+    static const Lines<float> twoDToIso(const Lines<float> line);
 
     /*!
     *   Calculate the coordinates were the lines should be drawn for an isometric representation
     *   @param linesNormalized Normalized lines to calculate isometric positions for
     *   @return returns Vector of lines with coordinates translated to isometric position
     */
-    static const std::vector<Line<float> > twoDToIsoVector(const std::vector<Line<float> > linesNormalized);
+    static const std::vector<Lines<float> > twoDToIsoVector(const std::vector<Lines<float> > linesNormalized);
 };
 
 #endif // ALGORITHMS_H

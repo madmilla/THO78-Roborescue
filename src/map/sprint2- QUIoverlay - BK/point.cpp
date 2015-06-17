@@ -1,13 +1,14 @@
-#include "point.h"
+#include "point.hpp"
 
-point::point ( int mX, int mY ) {
+point::point(int mX, int mY)
+{
     x = mX;
     y = mY;
 }
 
-point::~point() {}
+point::~point(){}
 
-std::ostream& operator<< ( std::ostream& out, const point& p ) {
+std::ostream & operator<< (std::ostream &out, const point &p){
     return out << "(" << p.x << "," << p.y << ")";
 }
 
@@ -15,13 +16,9 @@ std::ostream& operator<< ( std::ostream& out, const point& p ) {
     return lhs.x == rhs.x && lhs.y == rhs.y;
 }*/
 
-bool point::equals ( const point& p ) {
+bool point::equals(const point & p){
     return x == p.x && y == p.y;
 }
 
-int point::getX() const {
-    return x;
-}
-int point::getY() const {
-    return y;
-}
+int point::getX(){ return x; }
+int point::getY(){ return y; }

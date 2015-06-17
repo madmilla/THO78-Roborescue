@@ -8,11 +8,11 @@
 
 template <typename T>
 
-class Line
+class Lines
 {
 //T must be a int or float
 public:
-    Line<T>(T x1, T y1, T x2, T y2) :
+    Lines<T>(T x1, T y1, T x2, T y2) :
         x1(x1),
         y1(y1),
         x2(x2),
