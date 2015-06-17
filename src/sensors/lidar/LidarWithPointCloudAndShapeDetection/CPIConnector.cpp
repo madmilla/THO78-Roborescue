@@ -1,13 +1,8 @@
 #include "CPIConnector.h"
-#include "LidarInit.h"
 
 CPIConnector::CPIConnector(){
 	CPIConnector *tes = this;
 	lidar = new LidarInit(tes);
-}
-
-CPIConnector::~CPIConnector(){
-	delete lidar;
 }
 
 void CPIConnector::onMessage(mavlink_message_t & msg){
@@ -17,7 +12,7 @@ void CPIConnector::onMessage(mavlink_message_t & msg){
 	switch (function.Function){
 		case LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT:
 			std::cout << "INIITT";
-			lidar->start();
+			start();
 			systemID = function.Payload;
 			sendCommand(uint64_t(COMMAND_DESTINATION::LIDAR), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT );
 			break;
@@ -66,3 +61,48 @@ void CPIConnector::onMessage(mavlink_message_t & msg){
 void CPIConnector::sendCommand(uint64_t payload, COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS lcf){
 	messages.push(encodeRalcpMessage(payload, dest, lcf ));
 }
+
+void CPIConnector::start(){
+	ShapeDetector sD;
+	Pointcloud pCloud;
+	//Lidar lidar("\\\\.\\com3");
+	Lidar lidar("/dev/ttyAMA0");
+	lidar.connectDriversLidar();
+
+	std::vector<scanDot> data = lidar.startSingleLidarScan();
+
+	if (!data.empty()) {
+		std::vector<scanCoordinate> scanCoorde = lidar.convertToCoordinates(data);
+
+		for (int pos = 0; pos < (int)scanCoorde.size(); ++pos) {
+			pCloud.setPoint(scanCoorde[pos].x, scanCoorde[pos].y);
+			fprintf(stderr, "x: %d , y: %d\n", scanCoorde[pos].x, scanCoorde[pos].y);
+		}
+	}
+
+	const Mat & image = sD.createImage(pCloud);
+	std::vector<Circle> circles = sD.detectCircles(image);
+	std::vector<Line> lines = sD.searchLines(image);
+	sD.writeCirclesToConsole(circles);
+	sD.writeLinesToConsole(lines);
+
+	for (Line l : lines){
+		CPI->sendCommand(20000, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+	}
+
+	for (Circle c : circles){
+		CPI->sendCommand(18766776, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+	}
+
+
+
+
+	//LidarController lController(lidar, sD, pCloud);
+	//std::thread lthread(&LidarController::run, &lController);
+	//lthread.detach();
+
+	// lController.setNumberOfScans(1);
+	//lController.resume();
+	//std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+}
+
