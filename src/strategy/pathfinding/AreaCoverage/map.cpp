@@ -1,7 +1,7 @@
 #include "map.hpp"
 
 map::map(){
-
+	std::cout << "NEW MAP";
 	access.resize(70);
 	for (int i = 0; i < access.size();i++){
 		access.at(i).resize(70);
@@ -20,30 +20,43 @@ map::map(){
 	appendLine(d);
 	translateToPoints();
 
-	for (int i = 0; i < 70; i++){
-		for (int ii = 0; ii < 70; ii++){
-			std::cout << this->getLocationValue(i, ii);
-		}
-		std::cout << "\n";
-	}
+	
 	
 }
 void map::setLocationValue(int x, int y, int value)
 {
-	access.at(x).at(y) = value;
+	if (x < access.size()){
+		access.at(x).at(y) = value;
+	}
 
 }
+void map::setScaledLocationValue(int x, int y, int value)
+{
+	x = x*scale;
+	y = y*scale;
+	for (int i = 0; i < scale; i++){
+		for (int ii = 0; ii < scale; ii++){
+			this->setLocationValue(x + ii, y + i,value);
+
+			
+		}
+	}
+}
+
+
 int map::getLocationValue(int x, int y)
 {
-	return access.at(x).at(y);
+	if (x < access.size() && y < access.size()){
+		return access.at(x).at(y); }
+	else return 1;
 
 }
 int map::contains(int value)
 {
-	for (int i = 0; i < access.size();i++)
+	for (int i = 0; i < getScaledWidth();i++)
 		{
-		for (int ii = 0; ii < access.size(); ii++){
-			if (this->getLocationValue(i, ii) == value)
+		for (int ii = 0; ii < getScaledHeight(); ii++){
+			if (this->getScaledLocationValue(i, ii) == value)
 				{
 				return true;
 				}
@@ -193,8 +206,10 @@ map map::getRegion(point & p, unsigned int width, unsigned int height){
 }
 
 //add object to position x,y
-void map::addObject(std::vector<int> object, int x, int y){
-	//punten uit object invoegen in xy van access
+void map::addObject(polygon object){
+	objects.push_back(object);
+
+
 }
 
 //fill object (circle or polygon) so that middle is not accessible
@@ -248,4 +263,72 @@ bool map::isAccessible(int x, int y){
 		return false;
 	}
 	
+}
+void map::setScale(int x){ scale = x; }
+bool map::isScaledAccessible(int x, int y ){
+	x = x*scale;
+	y = y*scale;
+
+	for (int i = 0; i < scale; i++){
+		for (int ii = 0; ii < scale; ii++){
+			if (!this->isAccessible(i+x, ii+y)){
+				return false;
+			
+			}
+
+
+
+		}
+	}
+	return true;
+}
+
+int map::getScaledWidth(){
+	return access.size() / scale;
+
+
+	}
+int map::getScaledHeight(){
+	return access.size() / scale;
+
+
+}
+void map::print(){
+	for (int i = 0; i < getScaledWidth(); i++){
+		for (int ii = 0; ii < getScaledHeight(); ii++){
+			std::cout << this->getScaledLocationValue(i, ii);
+		}
+		std::cout << "\n";
+	}
+
+
+
+}
+int map::getScale(){ return scale; }
+int map::getScaledLocationValue(int x, int y){
+	x = x*scale;
+	y = y*scale;
+	int highestvalue=0;
+	for (int i = 0; i < scale; i++){
+		for (int ii = 0; ii < scale; ii++){
+			
+			
+
+			if (highestvalue < this->getLocationValue(x + i, y + ii))
+			{
+				highestvalue = this->getLocationValue(x + i, y + ii);
+			}
+			if (highestvalue==1){
+			//	std::cout << "Returned solid \n";
+
+				return 1;
+			}
+			
+
+
+
+		}
+
+	}
+	return highestvalue;
 }

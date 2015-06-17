@@ -12,14 +12,10 @@ void test(int i){
     AreaCoveringAlgorithm alg(copter,&map);
     //alg.testCoverage();
 	std::cout << "\n";
-
-	for (int i = 0; i < 70; i++){
-		for (int ii = 0; ii < 70; ii++){
-			std::cout << map.getLocationValue(i, ii);
-			//std::cout << ii;
-		}
-		std::cout << "\n";
-	}
+	
+	std::cout << alg.getRoute();
+	std::cout << alg.getRoute().scale;
+	while (1){}
 }
 
 int main(int argc, char *argv[])
@@ -27,7 +23,7 @@ int main(int argc, char *argv[])
     test(0);
 
 
-	while (true);
+	//while (true);
     return 0;
 
 

@@ -8,6 +8,7 @@
 class map
 {
 public:
+	int getScale();
 	map();
 	map(line & l);
 	map(std::vector<line> & l);
@@ -70,7 +71,7 @@ public:
 	map getRegion(point & p, unsigned int width, unsigned int height);
 
 	//2D vector to check if points are accessible and seen
-	std::vector<std::vector<int>> access; //accessible = 0, notAccessible = 1, seen = 5
+	
 
 	//check if x,y is accessible
 	//eventueel met boost isAccessible
@@ -96,11 +97,14 @@ public:
 	int getLocationValue(int x, int y);
 
 	int getScaledLocationValue(int x, int y);
-
+	int getScaledWidth();
+	int getScaledHeight();
 	int contains(int value);
+	void setScaledLocationValue(int x, int y, int value);
+	void print();
 private:
 	int scale;
 	std::vector<line> mapData;
 	std::vector<polygon> objects;
-
+	std::vector<std::vector<int>> access; //accessible = 0, notAccessible = 1, seen = 5
 };
