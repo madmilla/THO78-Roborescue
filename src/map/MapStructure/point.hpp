@@ -1,5 +1,5 @@
 #ifndef POINT_H
-#define POINT_h
+#define POINT_H
 
 #include <iostream>
 
