@@ -288,19 +288,17 @@ std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordin
 			{ { coordinate.first, coordinate.second - 1 }, -1 }, //up
 			{ { coordinate.first, coordinate.second + 1 }, -1 }  //down
 	} };
-	for (auto pointIterator = 0; pointIterator < 4; ++pointIterator)
+	for (auto& point : connectedPoints)
 	{
-		auto point = connectedPoints[pointIterator];
 		if ((point.first.first < 0 || point.first.second < 0 || point.first.first > map.getWidth() || point.first.second > map.getHeight())
 			|| std::find(closedCells.begin(), closedCells.end(), point.first) != closedCells.end()
 			|| map.isObstacle(point.first.first, point.first.second))
 		{
-			connectedPoints[pointIterator].second = -1;
+			point.second = -1;
 		}
 		else
 		{
-			connectedPoints[pointIterator].second = (abs((point.first.first) - (endPoint.first))) + (abs((point.first.second) - (endPoint.second)));
-			openCells.push_back(point.first);
+			point.second = (abs((point.first.first) - (endPoint.first))) + (abs((point.first.second) - (endPoint.second)));
 		}
 	}
 	return connectedPoints;
@@ -310,13 +308,12 @@ Coordinate aStar::getShortestDistance(std::array<std::pair<Coordinate, int>, 4> 
 {
 	Coordinate closestCoordinate{ -1, -1 };
 	int shortestDistance = -1;
-	for (auto distanceIterator = 0; distanceIterator < 4; ++distanceIterator)
+	for (auto& point : connectedPoints)
 	{
-		auto distance = distances[distanceIterator].second;
-		if ((distance < shortestDistance && distance > -1) || shortestDistance == -1)
+		if(point.second < shortestDistance || shortestDistance == -1)
 		{
-			shortestDistance = distance;
-			closestCoordinate = distances[distanceIterator].first;
+			closestCoordinate = point.first;
+			shortestDistance = point.second;
 		}
 	}
 	return closestCoordinate;
