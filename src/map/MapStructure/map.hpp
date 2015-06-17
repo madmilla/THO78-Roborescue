@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MAP_H
+#define MAP_H
 
 #include "point.hpp"
 #include "line.hpp"
@@ -108,3 +109,5 @@ private:
 	std::vector<polygon> objects;
 	std::vector<std::vector<int>> access; //accessible = 0, notAccessible = 1, seen = 5
 };
+
+#endif

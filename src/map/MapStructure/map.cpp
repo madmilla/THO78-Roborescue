@@ -26,7 +26,7 @@ map::map(){
 void map::setLocationValue(int x, int y, int value)
 {
 	if (x < access.size()){
-		access.at(x).at(y) = value;
+	access.at(x).at(y) = value;
 	}
 
 }
