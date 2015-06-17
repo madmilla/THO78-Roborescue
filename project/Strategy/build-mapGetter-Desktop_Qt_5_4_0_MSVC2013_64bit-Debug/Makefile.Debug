@@ -14,7 +14,7 @@ CXX           = cl
 DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -FS -Zi -MDd -W3 /Fddebug\mapGetter.pdb $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -FS -Zi -MDd -GR -W3 -w34100 -w34189 -EHsc /Fddebug\mapGetter.pdb $(DEFINES)
-INCPATH       = -I"C:\Program Files\MySQL\MySQL Connector C 6.1\lib" -I"D:\Qt\5.4\msvc2013_64\include" -I"D:\Qt\5.4\msvc2013_64\include\QtSql" -I"D:\Qt\5.4\msvc2013_64\include\QtCore" -I"debug" -I"." -I"D:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013"
+INCPATH       = -I"D:\users\Robert\Documents\GitHub\THO78-Roborescue\project\Strategy\mapGetter" -I"D:\Qt\5.4\msvc2013_64\include" -I"D:\Qt\5.4\msvc2013_64\include\QtSql" -I"D:\Qt\5.4\msvc2013_64\include\QtCore" -I"debug" -I"." -I"D:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013"
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:CONSOLE "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
 LIBS          = /LIBPATH:D:\Qt\5.4\msvc2013_64\lib D:\Qt\5.4\msvc2013_64\lib\Qt5Sqld.lib D:\Qt\5.4\msvc2013_64\lib\Qt5Cored.lib 
@@ -45,47 +45,31 @@ OBJECTS_DIR   = debug
 
 SOURCES       = D:\users\Robert\Documents\GitHub\THO78-Roborescue\project\Strategy\mapGetter\main.cpp \
 		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\databaseconnector.cpp \
-		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 \
-		- \
-		MapStructure\line.cpp \
-		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 \
-		- \
-		MapStructure\map.cpp \
-		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 \
-		- \
-		MapStructure\point.cpp 
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\QRCode.cpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\line.cpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\map.cpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\polygon.cpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\point.cpp 
 OBJECTS       = debug\main.obj \
 		debug\databaseconnector.obj \
-		debug\Sprint1.obj \
-		debug\-.obj \
+		debug\QRCode.obj \
 		debug\line.obj \
-		debug\Sprint1.obj \
-		debug\-.obj \
 		debug\map.obj \
-		debug\Sprint1.obj \
-		debug\-.obj \
+		debug\polygon.obj \
 		debug\point.obj
 
 DIST          =  D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\databaseconnector.h \
-		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 \
-		- \
-		MapStructure\line.hpp \
-		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 \
-		- \
-		MapStructure\map.hpp \
-		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 \
-		- \
-		MapStructure\point.hpp D:\users\Robert\Documents\GitHub\THO78-Roborescue\project\Strategy\mapGetter\main.cpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\QRCode.h \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\line.hpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\map.hpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\polygon.h \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\point.hpp D:\users\Robert\Documents\GitHub\THO78-Roborescue\project\Strategy\mapGetter\main.cpp \
 		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\databaseconnector.cpp \
-		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 \
-		- \
-		MapStructure\line.cpp \
-		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 \
-		- \
-		MapStructure\map.cpp \
-		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 \
-		- \
-		MapStructure\point.cpp
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\QRCode.cpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\line.cpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\map.cpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\polygon.cpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\point.cpp
 QMAKE_TARGET  = mapGetter
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = mapGetter.exe
@@ -94,26 +78,6 @@ DESTDIR_TARGET = debug\mapGetter.exe
 ####### Implicit rules
 
 .SUFFIXES: .c .cpp .cc .cxx
-
-{MapStructure}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{MapStructure}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{MapStructure}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{MapStructure}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
 
 {.}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
@@ -131,26 +95,6 @@ DESTDIR_TARGET = debug\mapGetter.exe
 <<
 
 {.}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
@@ -195,6 +139,26 @@ DESTDIR_TARGET = debug\mapGetter.exe
 	$<
 <<
 
+{D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure}.cpp{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure}.cc{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure}.cxx{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure}.c{debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
 ####### Build rules
 
 first: all
@@ -214,7 +178,7 @@ dist:
 	$(ZIP) mapGetter.zip $(SOURCES) $(DIST) ..\mapGetter\mapGetter.pro D:\Qt\5.4\msvc2013_64\mkspecs\features\spec_pre.prf D:\Qt\5.4\msvc2013_64\mkspecs\common\shell-win32.conf D:\Qt\5.4\msvc2013_64\mkspecs\qconfig.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axbase.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axbase_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axcontainer.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axcontainer_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axserver.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_axserver_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_bluetooth.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_bluetooth_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_bootstrap_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_clucene_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_concurrent.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_concurrent_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_core.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_core_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_declarative.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_declarative_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_designer.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_designer_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_designercomponents_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_enginio.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_enginio_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_gui.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_gui_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_help.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_help_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_location.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_location_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimedia.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimedia_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_network.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_network_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_nfc.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_nfc_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_opengl.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_opengl_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_openglextensions.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_openglextensions_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_platformsupport_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_positioning.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_positioning_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_printsupport.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_printsupport_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qml.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qml_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qmltest.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qmltest_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quick.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quick_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quickparticles_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_script.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_script_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_scripttools.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_scripttools_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sensors.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sensors_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_serialport.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_serialport_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sql.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_sql_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_svg.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_svg_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_testlib.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_testlib_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_uitools.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_uitools_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webchannel.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webchannel_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webengine.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webengine_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginecore.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginecore_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginewidgets.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkit.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkit_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkitwidgets.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webkitwidgets_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_websockets.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_websockets_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webview.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_webview_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_widgets.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_widgets_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_winextras.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_winextras_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xml.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xml_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns.pri D:\Qt\5.4\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\Qt\5.4\msvc2013_64\mkspecs\features\qt_functions.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\qt_config.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\win32\qt_config.prf D:\Qt\5.4\msvc2013_64\mkspecs\win32-msvc2013\qmake.conf D:\Qt\5.4\msvc2013_64\mkspecs\features\spec_post.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\exclusive_builds.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\default_pre.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\win32\default_pre.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\resolve_config.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\exclusive_builds_post.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\default_post.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\build_pass.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\win32\console.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\win32\rtti.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\precompile_header.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\warn_on.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\qt.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\resources.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\moc.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\testcase_targets.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\exceptions.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\yacc.prf D:\Qt\5.4\msvc2013_64\mkspecs\features\lex.prf D:\users\Robert\Documents\GitHub\THO78-Roborescue\project\Strategy\mapGetter\mapGetter.pro D:/Qt/5.4/msvc2013_64/lib/Qt5Sqld.prl D:/Qt/5.4/msvc2013_64/lib/Qt5Cored.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.obj debug\databaseconnector.obj debug\Sprint1.obj debug\-.obj debug\line.obj debug\Sprint1.obj debug\-.obj debug\map.obj debug\Sprint1.obj debug\-.obj debug\point.obj
+	-$(DEL_FILE) debug\main.obj debug\databaseconnector.obj debug\QRCode.obj debug\line.obj debug\map.obj debug\polygon.obj debug\point.obj
 	-$(DEL_FILE) debug\mapGetter.exp debug\mapGetter.ilk debug\mapGetter.idb
 
 distclean: clean 
@@ -300,10 +264,208 @@ debug\main.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\project\Strate
 		D:\Qt\5.4\msvc2013_64\include\QtCore\qisenum.h \
 		D:\Qt\5.4\msvc2013_64\include\QtCore\qobject_impl.h \
 		D:\Qt\5.4\msvc2013_64\include\QtCore\qeventloop.h \
-		D:\Qt\5.4\msvc2013_64\include\QtCore\QElapsedTimer \
-		D:\Qt\5.4\msvc2013_64\include\QtCore\qelapsedtimer.h
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\databaseconnector.h \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\point.hpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\QRCode.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\QtSql \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\QtSqlDepends \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\QtCore \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\QtCoreDepends \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qabstractanimation.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qanimationgroup.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qparallelanimationgroup.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qpauseanimation.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qpropertyanimation.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qvariantanimation.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qeasingcurve.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qvector.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qpoint.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qvariant.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qmap.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qpair.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qdebug.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qhash.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qtextstream.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qiodevice.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qlocale.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qshareddata.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qset.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qcontiguouscache.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qstringlist.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qdatastream.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qregexp.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qstringmatcher.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsequentialanimationgroup.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qtextcodec.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qendian.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qlibraryinfo.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qdatetime.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qbuffer.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qdir.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfileinfo.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfile.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfiledevice.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qdiriterator.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfileselector.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\QObject \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\QStringList \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfilesystemwatcher.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qlockfile.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qloggingcategory.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qprocess.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qresource.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsavefile.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsettings.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qstandardpaths.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qstorageinfo.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qtemporarydir.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\QScopedPointer \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qtemporaryfile.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qurl.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qurlquery.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qabstractitemmodel.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qabstractproxymodel.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qidentityproxymodel.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qitemselectionmodel.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsortfilterproxymodel.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qstringlistmodel.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qjsonarray.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qjsonvalue.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qjsondocument.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qjsonobject.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qabstracteventdispatcher.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qabstractnativeeventfilter.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qbasictimer.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qmath.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qmetaobject.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qmimedata.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qobjectcleanuphandler.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qpointer.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsharedpointer.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsharedpointer_impl.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsharedmemory.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsignalmapper.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsocketnotifier.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsystemsemaphore.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qtimer.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qtranslator.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qwineventnotifier.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qmimedatabase.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qmimetype.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfactoryinterface.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qlibrary.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qplugin.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qpluginloader.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\quuid.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qabstractstate.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qabstracttransition.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qeventtransition.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfinalstate.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qhistorystate.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsignaltransition.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qstate.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qstatemachine.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qexception.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfuture.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfutureinterface.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qrunnable.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qresultstore.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfuturesynchronizer.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qfuturewatcher.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qreadwritelock.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsemaphore.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qthread.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qthreadpool.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qthreadstorage.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qwaitcondition.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qarraydataops.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qarraydatapointer.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qbitarray.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qbytearraymatcher.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qcache.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qcollator.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qcommandlineoption.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qcommandlineparser.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qcryptographichash.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qelapsedtimer.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qline.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qlinkedlist.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qmargins.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qmessageauthenticationcode.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qqueue.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qrect.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qsize.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qregularexpression.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qscopedvaluerollback.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qstack.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qtextboundaryfinder.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qtimeline.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qtimezone.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qxmlstream.h \
+		D:\Qt\5.4\msvc2013_64\include\QtCore\qtcoreversion.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsql.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqldatabase.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqldriver.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqldriverplugin.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqlerror.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqlfield.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqlindex.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqlrecord.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqlquery.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqlresult.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqlquerymodel.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqlrelationaldelegate.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qitemdelegate.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qstyleoption.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qwidget.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qwindowdefs.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qwindowdefs_win.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qpaintdevice.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qpalette.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qcolor.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qrgb.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qbrush.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qmatrix.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qpolygon.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qregion.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qtransform.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qpainterpath.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qimage.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qpixelformat.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qpixmap.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qfont.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qfontmetrics.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qfontinfo.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qsizepolicy.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qcursor.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qkeysequence.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qevent.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qvector2d.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qtouchdevice.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qvalidator.h \
+		D:\Qt\5.4\msvc2013_64\include\QtGui\qicon.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qslider.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractslider.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qstyle.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qtabbar.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qtabwidget.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qrubberband.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qframe.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qlistview.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractitemview.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
+		D:\Qt\5.4\msvc2013_64\include\QtWidgets\qcombobox.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqlrelationaltablemodel.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqltablemodel.h \
+		D:\Qt\5.4\msvc2013_64\include\QtSql\qtsqlversion.h \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\map.hpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\line.hpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\polygon.h
 
 debug\databaseconnector.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\databaseconnector.cpp D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\databaseconnector.h \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\point.hpp \
 		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\QRCode.h \
 		D:\Qt\5.4\msvc2013_64\include\QtSql\QtSql \
 		D:\Qt\5.4\msvc2013_64\include\QtSql\QtSqlDepends \
@@ -550,23 +712,20 @@ debug\databaseconnector.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\s
 		D:\Qt\5.4\msvc2013_64\include\QtSql\qsqltablemodel.h \
 		D:\Qt\5.4\msvc2013_64\include\QtSql\qtsqlversion.h
 
-debug\Sprint1.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 
+debug\QRCode.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\communication\persistant_storage\QRCode.cpp 
 
-debug\-.obj: - 
+debug\line.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\line.cpp D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\line.hpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\point.hpp
 
-debug\line.obj: MapStructure\line.cpp 
+debug\map.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\map.cpp D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\map.hpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\point.hpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\line.hpp \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\polygon.h
 
-debug\Sprint1.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 
+debug\polygon.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\polygon.cpp D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\polygon.h \
+		D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\point.hpp
 
-debug\-.obj: - 
-
-debug\map.obj: MapStructure\map.cpp 
-
-debug\Sprint1.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\Sprint1 
-
-debug\-.obj: - 
-
-debug\point.obj: MapStructure\point.cpp 
+debug\point.obj: D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\point.cpp D:\users\Robert\Documents\GitHub\THO78-Roborescue\src\map\MapStructure\point.hpp
 
 ####### Install
 

@@ -16,15 +16,19 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-        $$PWD/../../src/communication/persistant_storage/databaseconnector.cpp \
-        "$$PWD/../../src/map/Sprint1-MapStructure/line.cpp"\
-        "$$PWD/../../src/map/Sprint1-MapStructure/map.cpp"\
-        "$$PWD/../../src/map/Sprint1-MapStructure/point.cpp"
+        "$$PWD/../../../src/communication/persistant_storage/databaseconnector.cpp"\
+        "$$PWD/../../../src/communication/persistant_storage/QRCode.cpp"\
+        "$$PWD/../../../src/map/MapStructure/line.cpp"\
+        "$$PWD/../../../src/map/MapStructure/map.cpp"\
+        "$$PWD/../../../src/map/MapStructure/polygon.cpp"\
+        "$$PWD/../../../src/map/MapStructure/point.cpp"
 
-HEADERS += \
-        $$PWD/../../src/communication/persistant_storage/databaseconnector.h \
-        $$PWD/../../src/map/Sprint1-MapStructure/line.hpp \
-        $$PWD/../../src/map/Sprint1-MapStructure/map.hpp \
-        $$PWD/../../src/map/Sprint1-MapStructure/point.hpp
+HEADERS +=
+        "$$PWD/../../../src/communication/persistant_storage/databaseconnector.h"\
+        "$$PWD/../../../src/communication/persistant_storage/QRCode.h"\
+        "$$PWD/../../../src/map/MapStructure/line.hpp"\
+        "$$PWD/../../../src/map/MapStructure/map.hpp"\
+        "$$PWD/../../../src/map/MapStructure/polygon.h"\
+        "$$PWD/../../../src/map/MapStructure/point.hpp"
 
-INCLUDEPATH += "C:\Program Files\MySQL\MySQL Connector C 6.1\lib"
+INCLUDEPATH += "$$PWD"

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MAP_H
+#define MAP_H
 
 #include "point.hpp"
 #include "line.hpp"
@@ -99,3 +100,5 @@ private:
 	std::vector<polygon> objects;
 
 };
+
+#endif

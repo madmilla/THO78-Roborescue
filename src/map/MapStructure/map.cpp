@@ -94,26 +94,26 @@ bool map::hasLine(std::vector<line> & l){
 
 std::vector<line> map::getPointLines(point & p){
 	std::vector<line> rtn;
-	for (line & lCmp : mapData)
-	{
-		point a = lCmp.getPoint(0);
-		point b = lCmp.getPoint(1);
-		point c = p;
+    for (line & lCmp : mapData)
+    {
+        point a = lCmp.getPoint(0);
+        point b = lCmp.getPoint(1);
+        point c = p;
 
-		int crossproduct = (c.getY() - a.getY()) * (b.getX() - a.getX()) - (c.getX() - a.getX()) * (b.getY() - a.getY());
-		if (abs(crossproduct) != 0)
-			continue;
+        int crossproduct = (c.getY() - a.getY()) * (b.getX() - a.getX()) - (c.getX() - a.getX()) * (b.getY() - a.getY());
+        if (abs(crossproduct) != 0)
+            continue;
 
-		int dotproduct = (c.getX() - a.getX()) * (b.getX() - a.getX()) + (c.getY() - a.getY())*(b.getY() - a.getY());
-		if (dotproduct < 0)
-			continue;
+        int dotproduct = (c.getX() - a.getX()) * (b.getX() - a.getX()) + (c.getY() - a.getY())*(b.getY() - a.getY());
+        if (dotproduct < 0)
+            continue;
 
-		int squaredlengthba = (b.getX() - a.getX())*(b.getX() - a.getX()) + (b.getY() - a.getY())*(b.getY() - a.getY());
-		if (dotproduct > squaredlengthba)
-			continue;
+        int squaredlengthba = (b.getX() - a.getX())*(b.getX() - a.getX()) + (b.getY() - a.getY())*(b.getY() - a.getY());
+        if (dotproduct > squaredlengthba)
+            continue;
 
-		rtn.push_back(lCmp);
-	}
+        rtn.push_back(lCmp);
+    }
 	return rtn;
 }
 
@@ -250,10 +250,4 @@ bool map::isAccessible(int x, int y){
 		return false;
 	}
 	
-}
-int main(){
-	map map;
-	polygon object(std::vector<point>{point(1, 1), point(1, 10), point(10, 5)});
-	map.addObject(object);
-
 }

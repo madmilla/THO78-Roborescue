@@ -25,12 +25,12 @@ databaseConnector::~databaseConnector() {
     db.close();
 }
 
-std::vector<map> databaseConnector::getMaps(){
+std::vector<mapIdName> databaseConnector::getMaps(){
     QSqlQuery query = QSqlQuery(db);
-    std::vector<map> maps;
+    std::vector<mapIdName> maps;
     query.exec("SELECT id, name FROM map");
     while (query.next()) {
-        map m{ query.value(0).toInt(),query.value(1).toString().toStdString()};
+        mapIdName m{ query.value(0).toInt(),query.value(1).toString().toStdString()};
         maps.push_back(m);
     }
 

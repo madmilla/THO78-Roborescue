@@ -12,7 +12,7 @@
 
 #include <string>
 #include <vector>
-#include "point.h"
+#include "../../map/MapStructure/point.hpp"
 #include "QRCode.h"
 #include <QtSql>
 
@@ -20,7 +20,7 @@
  * \brief This class handles all the communication with the database
  *
  */
-struct map{
+struct mapIdName{
     int id;
     std::string name;
 };
@@ -42,7 +42,7 @@ public:
     * \return all know maps as a vector of a map struct with a id and name
     *
     */
-    std::vector<map> getMaps();
+    std::vector<mapIdName> getMaps();
 
     /** \brief returns the looked up map
     *
