@@ -92,32 +92,26 @@ Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	return image;
 }
 
-void ShapeDetector::checkLines(vector<Vec4i> & lines) {
+void ShapeDetector::checkLines(std::vector<Line> & lines) {
 
-	for (size_t i = 0; i < lines.size(); i++) {    //walk through the line container
-		Vec4i second = lines[i];
-		for (size_t j = 0; j < lines.size(); j++) {
-			Vec4i current = lines[j];
-
-			const int current_x1 = (current[0]);
-			const int current_y1 = (current[1]);
-			const int current_x2 = (current[2]);
-			const int current_y2 = (current[3]);
-
-			const int second_x1 = second[0];
-			const int second_y1 = second[1];
-			const int second_x2 = second[2];
-			const int second_y2 = second[3];
-
-			if ((second_x1 - RANGE_CHECK)< current_x1 && (second_x2 + RANGE_CHECK) > current_x2) {
-				if (((second_y1 < (current_y1 + RANGE_CHECK)) && second_y1 >(current_y1 - RANGE_CHECK)) &&  //compare the current and the second line
-					((second_y2 < (current_y2 + RANGE_CHECK)) && second_y2 >(current_y2 - RANGE_CHECK))){    // coordinates in a range
-
-					if (j != i){
-						lines.erase(lines.begin() + j); // erase the target line
+	for(int i = 0; i < lines.size(); ++i){
+		int vectorPosition = 0;
+		for (auto it = lines.begin(); it != lines.end();){
+			++vectorPosition;
+			int value = lines[i].intersect(*it);
+			if (value != 0 && value != 100) {
+				//std::cout << value << "\n";
+			}
+			if(value > 95){
+				if (lines[i].getLength() >= (*it).getLength()){
+					if (!(lines[i].getLine().begin_pos == it->getLine().begin_pos && lines[i].getLine().end_pos == it->getLine().end_pos)){
+						it = lines.erase(it);
+						if (vectorPosition <= i) { --i; }
+						continue;
 					}
 				}
 			}
+			++it;
 		}
 	}
 }
@@ -146,14 +140,17 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 	HoughLinesP(newImage, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			
 		HOUGHLINES_MINLINELENGTH, HOUGHLINES_MAXLINEGAP);  //search the lines
 
-	checkLines(lines); //check for double lines
+	
 	vector<Line> newLines;
 	for (Vec4i line : lines){
-		Line::Point begin{ line[0], line[1] };
-		Line::Point end{ line[2], line[3] };
+		Line::Point begin{ (float)line[0],  (float)line[1] };
+		Line::Point end{ (float)line[2], (float)line[3] };
 		Line newLine(begin,end);
 		newLines.push_back(newLine);
 	}
+	checkLines(newLines); //check for double lines
+	std::cout << "\n\n";
+	//checkLines(newLines); //check for double lines
 	return newLines;  // return the saved lines
 }
 
@@ -172,8 +169,9 @@ void ShapeDetector::writeLinesToConsole(const vector<Line> & lines){
 
 void ShapeDetector::drawLines(const std::vector<Line> lines, Mat & final_dest) {
 	for (Line l : lines){
-		l.getLine().end_pos.x;
 		line(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), Point(l.getLine().end_pos.x, l.getLine().end_pos.y), LINECOLOR, THICKNESS, CV_AA);
+		circle(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(0, 0, 255), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
+		circle(final_dest, Point(l.getLine().end_pos.x, l.getLine().end_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(255, 0, 0), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
 	}
 }
 
@@ -184,6 +182,7 @@ void ShapeDetector::writeObjectsToConsole(const std::vector<Line> & lines, const
 
 void ShapeDetector::showObjects(const vector<Line> & lines, const std::vector<Circle> circles, const Mat & orginal_image, Mat & custom_image){
 	drawLines(lines, custom_image);
+	imwrite("newImage.png",custom_image);
 	drawCircles(circles, custom_image);
 	imshow("orginal image", orginal_image);
 	imshow("detected lines & circles", custom_image);

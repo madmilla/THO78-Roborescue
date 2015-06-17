@@ -31,7 +31,7 @@ private:
     const int CIRCLE_LINE_TYPE = 8; //! the line type of the circumference
     const int CENTER_THICKNESS = -1;//! the thickness of the point in the middle of the circle
     const int CIRCLE_THICKNESS = 2; //! the thickness of the circumferenc of the circle
-    const int CIRCLE_CENTER_RADIUS = 3; //! the radius(size) of the point in the middle of the circle
+    const int CIRCLE_CENTER_RADIUS = 1; //! the radius(size) of the point in the middle of the circle
     const int EDGE_TRESHHOLD = 50; //! the treshhold for detectecting the edges in the image
     const int RESOLUTION_INVERSERATIO = 1; //! the resolution inverseratio
     const int MIN_DISTANCE_CIRCLES = 6; //! the minimun distance between the different circles
