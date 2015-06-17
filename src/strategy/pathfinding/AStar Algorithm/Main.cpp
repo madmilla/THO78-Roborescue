@@ -25,9 +25,9 @@ int main(int argc, char * argv[])
 	{
 		Map.setLocationValue(cell.first, cell.second, 3);
 	}
-	for (int i = 0; i < 70; i++){
-		for (int ii = 0; ii < 70; ii++){
-			std::cout << Map.getLocationValue(i, ii);
+	for (int y = 0; y < 70; y++){
+		for (int x = 0; x < 70; x++){
+			std::cout << Map.getLocationValue(x, y);
 		}
 		std::cout << "\n";
 	}

@@ -11,7 +11,7 @@ map::map(){
 	line a(point(0,0), point(0, access.size()));
 	line b(point(0,0), point(access.size(),0));
 
-	line e(point(1, 2), point(2, 2));
+	line e(point(1, 2), point(4, 8));
 	line f(point(2, 1), point(2, 2));
 	line g(point(11, 11), point(9, 11));
 	line h(point(11, 11), point(11, 9));
@@ -25,15 +25,15 @@ map::map(){
 	appendLine(d);
 
 	appendLine(e);
-	appendLine(f);
+	//appendLine(f);
 	//appendLine(g);
 	//appendLine(h);
 
 	translateToPoints();
 
-	for (int i = 0; i < 70; i++){
-		for (int ii = 0; ii < 70; ii++){
-			std::cout << this->getLocationValue(i, ii);
+	for (int y = 0; y < 70; y++){
+		for (int x = 0; x < 70; x++){
+			std::cout << this->getLocationValue(x, y);
 		}
 		std::cout << "\n";
 	}
