@@ -39,6 +39,7 @@
 #include "map.hpp"
 #include "testcopter.h"
 #include <vector>
+#include "route.h"
 class AreaCoveringAlgorithm
 {
 public:
@@ -51,6 +52,7 @@ public:
     std::vector<WayPoint> result;
     void drawWayPoints(map*);
     bool testCoverage();
+	Route getRoute();
 private:
 	// isCoveredInDirecten true or fales TI rules
     bool isCoveredInDirection(Dimension d, TestCopter* t );

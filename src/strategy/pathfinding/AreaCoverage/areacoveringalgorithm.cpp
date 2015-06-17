@@ -44,7 +44,9 @@
 */
 AreaCoveringAlgorithm::AreaCoveringAlgorithm(TestCopter copter,
                                              map *mapp) {
-  globalmap = mapp;
+	mapp->setScale(5);
+	globalmap = mapp;
+  
   std::cout << "Start";
   followWall(&copter, mapp, 1);
   std::cout << "followed wall";
@@ -56,7 +58,7 @@ This is usefull for gui implementations */
 void AreaCoveringAlgorithm::drawWayPoints(map *map) {
 
   for (WayPoint point : result) {
-    map->setLocationValue(point.x,point.y,7);
+    map->setScaledLocationValue(point.x,point.y,7);
   }
 }
 
@@ -84,8 +86,7 @@ int AreaCoveringAlgorithm::followWall(TestCopter *copter, map *mapp,
   direction.height = 1;
 	int x=0;
   while(true) {
-	  //std::cout << copter->x << "  " << copter->y << "\n";
-
+	  
 	x++;
     this->registerLocation(mapp, copter);
     if (result.size() > 2 && result.at(result.size() - 1) == result.at(0)) {
@@ -94,6 +95,7 @@ int AreaCoveringAlgorithm::followWall(TestCopter *copter, map *mapp,
     if (pointOn(direction.width, direction.height, copter, mapp) ==
         wallnumber) // Als er iets in de wegstaat voor de copter
     {
+		std::cout << "Iets in de weg";
       if (direction == down) // als hij op het scherm naar beneden gaat
       {
 
@@ -198,15 +200,20 @@ int AreaCoveringAlgorithm::followWall(TestCopter *copter, map *mapp,
  /** this function makes the area coverage function foollow his own covered area effectifly covering all the area's of the map.
   */
 int AreaCoveringAlgorithm::followCovered(TestCopter *copter, map *mapp,
-                                         int wallnumber, int coveredNumber) {
+	                          int wallnumber, int coveredNumber) {
   bool boxed = false;
+  int checker = 0;
   moveingBack=false;
   coveredNumber++;
   Dimension direction(0, 0);
   direction.height = 1;
   int sightxinitial = copter->copterSight.width - 1;
   //for(int i=0; i<300;i++){
-    while (globalmap->contains(0)) {
+  while (globalmap->contains(0)) {
+	  checker++;
+		
+		this->drawWayPoints(mapp);
+		
     this->registerLocation(mapp, copter);
 
     if (isBoxedIn(copter, mapp)) {
@@ -335,13 +342,21 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, map *mapp,
   }
   return 0;
 }
+Route AreaCoveringAlgorithm::getRoute(){
+	Route route(result);
+	route.scale = globalmap->getScale();
+	route.scaleWaypoints();
+	return route;
+
+}
+
  /** this function returns the value on the point of the given map */
 int AreaCoveringAlgorithm::pointOn(int x, int y, TestCopter *copter,
                                    map *map) {
-  if (copter->x + x < int(map->access.size() )&& copter->x + x > -1) {
+  if (copter->x + x < int(map->getScaledWidth() )&& copter->x + x > -1) {
 
-    if (copter->y + y > -1 && copter->y + y < int(map->access.at(copter->x).size())) {
-      return map->access.at(copter->x + x).at(copter->y + y);
+    if (copter->y + y > -1 && copter->y + y < int(map->getScaledHeight())) {
+      return map->getScaledLocationValue(copter->x + x,copter->y + y);
     } else {
       return 1;
     }
@@ -360,10 +375,10 @@ void AreaCoveringAlgorithm::registerLocation(map *map,
 
     for (int ii = copter->y - sightxinitial; ii <= copter->y + sightxinitial;
          ii++) {
-      if (i < int(map->access.size()) && i > -1 && ii > -1 &&
-          ii < int(map->access.at(i).size())) {
-        if (map->getLocationValue(i,ii) == 0) {
-          map->setLocationValue(i,ii,3);
+      if (i < int(map->getScaledWidth()) && i > -1 && ii > -1 &&
+		  ii < int(map->getScaledHeight())) {
+        if (map->getScaledLocationValue(i,ii) == 0) {
+          map->setScaledLocationValue(i,ii,3);
         }
       }
     }
@@ -371,16 +386,6 @@ void AreaCoveringAlgorithm::registerLocation(map *map,
 }
  /** this method checks if there are uncovered areas around the copter. if there are empty areas it will return false else true */
 bool AreaCoveringAlgorithm::isBoxedIn(TestCopter *copter, map *map) {
-  //int coveredNumber = 0;
-  //int sightxinitial = copter->copterSight.width - 1;
-  //if (pointOn(-1 * (sightxinitial), 0, copter, map) != coveredNumber &&
-      //pointOn(1 * (sightxinitial), 0, copter, map) != coveredNumber &&
-      //pointOn(0, (sightxinitial)*1, copter, map) != coveredNumber &&
-     // pointOn(0, (sightxinitial) * -1, copter, map) != coveredNumber) {
-    //return true;
-  //} else {
-    //return false;
-  //}
     if (   !(isCoveredInDirection(forward,copter)|| pointOn(0,-1,copter,map)==1||pointOn(0,-2,copter,map)==1) ){return false;}
     if (   !(isCoveredInDirection(down,copter)|| pointOn(0,1,copter,map)==1||pointOn(0,2,copter,map)==1) ){return false;}
     if (   !(isCoveredInDirection(right,copter)|| pointOn(1,0,copter,map)==1|| pointOn(2,0,copter,map)==1) ){return false;}
@@ -468,7 +473,7 @@ cell \n";
 
 }*/
 void AreaCoveringAlgorithm::setCopterSquare(TestCopter copt, map *map) {
-  map->setLocationValue(copt.x,copt.y,10);
+  map->setScaledLocationValue(copt.x,copt.y,10);
 }
  /** this function moves the testcopter back on the route and keeps track of howfar it went back */
 void AreaCoveringAlgorithm::moveBackOnRoute(TestCopter *copter) {

@@ -4,10 +4,11 @@
 #include "line.hpp"
 #include <iostream>
 #include <vector>
-
+#include "polygon.h"
 class map
 {
 public:
+	int getScale();
 	map();
 	map(line & l);
 	map(std::vector<line> & l);
@@ -70,14 +71,16 @@ public:
 	map getRegion(point & p, unsigned int width, unsigned int height);
 
 	//2D vector to check if points are accessible and seen
-	std::vector<std::vector<int>> access; //accessible = 0, notAccessible = 1, seen = 5
+	
 
 	//check if x,y is accessible
 	//eventueel met boost isAccessible
 	bool isAccessible(int x, int y);
+	void setScale(int x);
+	bool isScaledAccessible(int x, int y);
 
 	//add object to position x,y
-	void addObject(std::vector<int> objects, int x, int y);
+	void addObject(polygon p);
 
 	//fill object (circle or polygon) so that middle is not accessible
 	void fillObjects(std::vector<int> object);
@@ -93,7 +96,15 @@ public:
 
 	int getLocationValue(int x, int y);
 
+	int getScaledLocationValue(int x, int y);
+	int getScaledWidth();
+	int getScaledHeight();
 	int contains(int value);
+	void setScaledLocationValue(int x, int y, int value);
+	void print();
 private:
+	int scale;
 	std::vector<line> mapData;
+	std::vector<polygon> objects;
+	std::vector<std::vector<int>> access; //accessible = 0, notAccessible = 1, seen = 5
 };

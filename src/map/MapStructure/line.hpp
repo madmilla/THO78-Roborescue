@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LINE_H
+#define LINE_H
 
 #include <iostream>
 #include "point.hpp"
@@ -38,3 +39,5 @@ private:
     point p1{ 0, 0 };	//The starting point of the line
     point p2{ 0, 0 };	//The ending point of the line
 };
+
+#endif

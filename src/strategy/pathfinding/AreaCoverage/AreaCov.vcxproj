@@ -142,6 +142,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="point.cpp" />
+    <ClCompile Include="polygon.cpp" />
     <ClCompile Include="route.cpp" />
     <ClCompile Include="testcopter.cpp" />
     <ClCompile Include="waypoint.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="line.hpp" />
     <ClInclude Include="map.hpp" />
     <ClInclude Include="point.hpp" />
+    <ClInclude Include="polygon.h" />
     <ClInclude Include="route.h" />
     <ClInclude Include="testcopter.h" />
     <ClInclude Include="waypoint.h" />

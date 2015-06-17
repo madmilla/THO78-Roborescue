@@ -15,16 +15,16 @@ OBJECTS := $(patsubst %,%.o,$(MODULES))
 
 ifeq ($(OS),Windows_NT)
 	gcc = g++
-	LINKFLAGS = -L$(DEPS_DIR_WIN)\lib\rplidar\windows -L$(DEPS_DIR_WIN)\lib\opencv\Windows  -lopencv_core2410 -lopencv_highgui2410 -lopencv_imgproc2410
+	LINKFLAGS = -L$(DEPS_DIR_WIN)\lib\rplidar\windows -lrplidar -L$(DEPS_DIR_WIN)\lib\opencv\Windows  -lopencv_core2410 -lopencv_highgui2410 -lopencv_imgproc2410
 	rm = rm -f
 	TARGET := $(PROG).exe
-	CFLAGS = -std=c++11   -I$(DEPS_DIR_WIN)\incl\rplidar -I$(DEPS_DIR_WIN)\incl\opencv -g
+	CFLAGS = -std=c++11 -I$(DEPS_DIR_WIN)\incl\rplidar -I$(DEPS_DIR_WIN)\incl\opencv -g
 
 else
 	ARCH := $(shell getconf LONG_BIT)
 	CPP_FLAGS_32 := $(DEPS_DIR_LINUX)/lib/opencv/Linux/x86
 	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/lib/opencv/Linux/x64
-	LINKFLAGS := -Lliba -L$(DEPS_DIR_LINUX)/lib/rplidar/linux-lrplidar -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))
+	LINKFLAGS := -L$(DEPS_DIR_LINUX)/lib/rplidar/linux -lrplidar -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))
 	gcc := /usr/bin/g++
 	CFLAGS = -std=c++11 -I$(DEPS_DIR_LINUX)/incl/rplidar -lstdc++ -lpthread -lrt -I$(DEPS_DIR_LINUX)/incl/opencv
 	rm := rm -f

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef POLYGON_H
+#define POLYGON_H
 #include<vector>
 #include "point.hpp"
 
@@ -10,3 +11,4 @@ public:
 	~polygon();
 };
 
+#endif
