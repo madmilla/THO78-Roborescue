@@ -1,8 +1,6 @@
 #include "CPIConnector.h"
 
 CPIConnector::CPIConnector(){
-	CPIConnector *tes = this;
-	lidar = new LidarInit(tes);
 }
 
 void CPIConnector::onMessage(mavlink_message_t & msg){
@@ -87,11 +85,11 @@ void CPIConnector::start(){
 	sD.writeLinesToConsole(lines);
 
 	for (Line l : lines){
-		CPI->sendCommand(20000, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+		sendCommand(20000, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
 	for (Circle c : circles){
-		CPI->sendCommand(18766776, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+		sendCommand(18766776, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
 
