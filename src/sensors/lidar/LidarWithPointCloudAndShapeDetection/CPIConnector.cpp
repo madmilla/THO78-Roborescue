@@ -60,35 +60,51 @@ void CPIConnector::sendCommand(uint64_t payload, COMMAND_DESTINATION dest, LIDAR
 	messages.push(encodeRalcpMessage(payload, dest, lcf ));
 }
 
+void CPIConnector::init(){
+	//ShapeDetector sD;
+	//Pointcloud pCloud;
+	//Lidar lidar("\\\\.\\com3");
+	lidar = new Lidar("/dev/ttyAMA0");
+	lidar->connectDriversLidar();
+}
+
 void CPIConnector::start(){
+	if(lidar == nullptr){
+		init();
+	}
+
 	ShapeDetector sD;
 	Pointcloud pCloud;
-	//Lidar lidar("\\\\.\\com3");
-	Lidar lidar("/dev/ttyAMA0");
-	lidar.connectDriversLidar();
 
-	std::vector<scanDot> data = lidar.startSingleLidarScan();
+	std::vector<scanDot> data = lidar->startSingleLidarScan();
 
 	if (!data.empty()) {
-		std::vector<scanCoordinate> scanCoorde = lidar.convertToCoordinates(data);
+		std::vector<scanCoordinate> scanCoorde = lidar->convertToCoordinates(data);
 
 		for (int pos = 0; pos < (int)scanCoorde.size(); ++pos) {
 			pCloud.setPoint(scanCoorde[pos].x, scanCoorde[pos].y);
 			fprintf(stderr, "x: %d , y: %d\n", scanCoorde[pos].x, scanCoorde[pos].y);
 		}
 	}
-
-	const Mat & image = sD.createImage(pCloud);
+	
+	pCloud.savePointsToFile("pointcuefnef.pcl");
+	std::cout << "image maken";
+	const Mat & image = sD.createImage(pCloud, 10);
+	std::cout << "image gemaakt";
 	std::vector<Circle> circles = sD.detectCircles(image);
+	std::cout << " circles detected";
 	std::vector<Line> lines = sD.searchLines(image);
+	std::cout <<  "lines detected" ;
 	sD.writeCirclesToConsole(circles);
 	sD.writeLinesToConsole(lines);
 
 	for (Line l : lines){
+		printf("koekoek!\n");
 		sendCommand(20000, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
 	for (Circle c : circles){
+		printf("lalalala");
 		sendCommand(18766776, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
@@ -103,4 +119,3 @@ void CPIConnector::start(){
 	//lController.resume();
 	//std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 }
-

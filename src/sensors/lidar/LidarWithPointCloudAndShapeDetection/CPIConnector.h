@@ -25,6 +25,8 @@ public:
 	void onMessage(mavlink_message_t & function) override;
 private:
 	void start();
+	void init();
+	Lidar *lidar = nullptr;
 };
 
 #endif //CPICONNECTOR_H_
