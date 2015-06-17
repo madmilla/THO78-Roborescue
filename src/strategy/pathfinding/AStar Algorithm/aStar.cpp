@@ -2,8 +2,7 @@
 #include <iostream>
 #include <array>
 
-aStar::aStar(Map newMap):
-map{newMap}
+aStar::aStar()
 {
 }
 
@@ -12,11 +11,16 @@ aStar::~aStar()
 {
 }
 
-std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int endX, int endY)
+std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int endX, int endY, map& theMap)
 {
+	std::vector<Coordinate> path;
+	if (startX < 0 || startY < 0 || startX > width || startY > height || endX < 0 || endY < 0 || endX > width || endY > height)
+	{
+		return path;
+	}
 	startPoint = Coordinate{ startX, startY };
 	endPoint = Coordinate{ endX, endY };
-	std::vector<Coordinate> path;
+	
 	path.push_back(startPoint);
 	
 	while (path.back() != endPoint)
@@ -24,15 +28,31 @@ std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int end
 		bool wentBack = false;
 		auto currentPoint = path.back();
 		closedCells.push_back(currentPoint);
-		std::array<std::pair<Coordinate, int>, 4> distances = getDistances(currentPoint, map);
+		std::array<std::pair<Coordinate, int>, 4> distances = getDistances(currentPoint, theMap);
 		for (auto& distance : distances)
 		{
 			if (std::find(openCells.begin(), openCells.end(), distance.first) != openCells.end())
 			{
 				closedCells.erase(std::find(closedCells.begin(), closedCells.end(), currentPoint));
-				std::array<std::pair<Coordinate, int>, 4> openCellDistances = getDistances(distance.first, map);
-				int pathDistanceToEnd = (abs((currentPoint.first) - (endPoint.first))) + (abs((currentPoint.second) - (endPoint.second)));
-				int openCellDistanceToEnd = (abs((distance.first.first) - (endPoint.first))) + (abs((distance.first.second) - (endPoint.second)));
+				std::array<std::pair<Coordinate, int>, 4> openCellDistances = getDistances(distance.first, theMap);
+				int pathDistanceToEnd = 0;
+				int openCellDistanceToEnd = 0;
+				path.pop_back();
+				for (auto& openCellDistance : openCellDistances)
+				{
+					auto iterator = std::find(path.begin(), path.end(), openCellDistance.first);
+					if (iterator != path.end())
+					{
+						auto itCounter = path.size() - 1;
+						while (path[itCounter] != openCellDistance.first)
+						{
+							pathDistanceToEnd++;
+							itCounter--;
+						}
+						path.push_back(currentPoint);
+						break;
+					}
+				}
 				if (openCellDistanceToEnd < pathDistanceToEnd)
 				{
 					path.pop_back();
@@ -72,7 +92,11 @@ std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int end
 					}
 				}
 				path.pop_back();
-				std::array<std::pair<Coordinate, int>, 4> previousCellDistances = getDistances(path.back(), map);
+				if (path.size() == 0)
+				{
+					break;
+				}
+				std::array<std::pair<Coordinate, int>, 4> previousCellDistances = getDistances(path.back(), theMap);
 				for (auto& previousCellDistance : previousCellDistances)
 				{
 					auto iterator = std::find(openCells.begin(), openCells.end(), previousCellDistance.first);
@@ -109,109 +133,9 @@ std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int end
 		}
 	}
 	return path;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/*std::vector<Coordinate> path;
-	startPoint.first = startX;
-	startPoint.second = startY;
-	endPoint.first = endX;
-	endPoint.second = endY;
-	bool wentBack = false;
-	path.push_back(startPoint);
-	closedCells.push_back(startPoint);
-	int i = 0;
-	while (path.back() != endPoint)
-	{
-		i++;
-		bool wentBack = false;
-		Coordinate currentPoint = path.back();
-		std::array<std::pair<Coordinate, int>, 4> distances = getDistances(currentPoint, map);
-		Coordinate closest = getShortestDistance(distances);
-		//std::cout << currentPoint.first << ',' << currentPoint.second << std::endl;
-		if (closest == Coordinate{-1,-1})
-		{
-			path.pop_back();
-			closedCells.push_back(closest);
-			continue;
-		}
-		for (auto& distance : distances)
-		{
-			if (std::find(openCells.begin(), openCells.end(), distance.first) != openCells.end())
-			{
-				closedCells.erase(std::find(closedCells.begin(), closedCells.end(), currentPoint));
-				path.erase(std::find(path.begin(), path.end(), currentPoint));
-				std::array<std::pair<Coordinate, int>, 4> errorDistances = getDistances(distance.first, map);
-				for (auto& distance2 : distances)
-				{
-					auto iterator = std::find(openCells.begin(), openCells.end(), distance2.first);
-					if (iterator != openCells.end())
-					{
-						openCells.erase(iterator);
-					}
-				}
-				for (auto& distance2 : errorDistances)
-				{
-					if(std::find(path.begin(), path.end(), distance2.first) != path.end())
-					{
-						std::array<std::pair<Coordinate, int>, 4> newPointDistances = getDistances(distance2.first, map);
-						for (auto& distance3 : newPointDistances)
-						{
-							auto iterator = std::find(openCells.begin(), openCells.end(), distance3.first);
-							if (iterator != openCells.end())
-							{
-								openCells.erase(iterator);
-							}
-						}
-						while (path.back() != distance2.first)
-						{
-							path.pop_back();
-							wentBack = true;
-						}
-					}
-					if (wentBack)
-					{
-						break;
-					}
-				}
-				break;
-			}
-			else if (distance.second > -1)
-			{
-				openCells.push_back(distance.first);
-			}
-			else
-			{
-				if (std::find(closedCells.begin(), closedCells.end(), distance.first) == closedCells.end())
-				{
-					closedCells.push_back(distance.first);
-				}
-			}
-		}
-		if (wentBack)
-		{
-			//wentBack = false;
-			continue;
-		}
-		openCells.erase(std::find(openCells.begin(), openCells.end(), closest));
-		path.push_back(closest);
-		closedCells.push_back(closest);
-	}
-	return path;*/
 }
 
-std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordinate, Map& map)
+std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordinate, map& theMap)
 {
 	std::array<std::pair<Coordinate, int>, 4> connectedPoints
 	{ {
@@ -222,9 +146,19 @@ std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordin
 	} };
 	for (auto& point : connectedPoints)
 	{
-		if ((point.first.first < 0 || point.first.second < 0 || point.first.first > map.getWidth() || point.first.second > map.getHeight())
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//change the check for width and height with function when those are made for the map
+		if ((point.first.first < 0 || point.first.second < 0 || point.first.first > width/*theMap.getScaledWidth()*/ || point.first.second > height/*theMap.getScaledHeight()*/)
 			|| std::find(closedCells.begin(), closedCells.end(), point.first) != closedCells.end()
-			|| map.isObstacle(point.first.first, point.first.second))
+			|| !theMap.isAccessible(point.first.first, point.first.second))
 		{
 			point.second = -1;
 		}
@@ -250,15 +184,3 @@ Coordinate aStar::getShortestDistance(std::array<std::pair<Coordinate, int>, 4> 
 	}
 	return closestCoordinate;
 }
-/*closedCells.push_back(distance.first);
-path.pop_back();
-for (auto& distance2 : distances)
-{
-	auto iterator = std::find(openCells.begin(), openCells.end(), distance2.first);
-	if (iterator != openCells.end() && distance2 != distance)
-	{
-		openCells.erase(iterator);
-	}
-}
-wentBack = true;
-break;*/

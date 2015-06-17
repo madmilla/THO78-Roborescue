@@ -1,11 +1,47 @@
 #include <iostream>
 #include <fstream>
-#include "Map.h"
+#include "map.hpp"
 #include "aStar.h"
 
 int main(int argc, char * argv[])
 {
-	Map map;
+
+	map Map;
+
+
+	// randomly select start and finish locations
+	int xA = 1;
+	int yA = 1;
+	int xB = 10;
+	int yB = 10;
+
+	//std::cout << "Map Size (X,Y): " << n << "," << m << std::endl;
+	std::cout << "Start: " << xA << "," << yA << std::endl;
+	std::cout << "Finish: " << xB << "," << yB << std::endl;
+	aStar star = aStar();
+	std::vector<Coordinate> route = star.findPath(xA, yA, xB, yB, Map);
+
+	for (auto& cell : route)
+	{
+		Map.setLocationValue(cell.first, cell.second, 3);
+	}
+	for (int i = 0; i < 70; i++){
+		for (int ii = 0; ii < 70; ii++){
+			std::cout << Map.getLocationValue(i, ii);
+		}
+		std::cout << "\n";
+	}
+	std::cout << "Route:" << std::endl;
+	//std::cout << route << std::endl << std::endl;
+	for (auto& e : route)
+	{
+		std::cout << '(' << e.first << ',' << e.second << ')' << std::endl;
+	}
+
+
+
+
+	/*Map map;
 	std::fstream pFile("map.txt");
 	char c;
 	int tempWidth = 0;
@@ -41,7 +77,7 @@ int main(int argc, char * argv[])
 	for (auto& e : path)
 	{
 		std::cout << '(' << e.first << ',' << e.second << ')' << std::endl;
-	}
+	}*/
 	system("pause");
 	return 0;
 }
