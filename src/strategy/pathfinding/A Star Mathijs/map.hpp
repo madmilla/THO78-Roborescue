@@ -1,5 +1,4 @@
-#ifndef MAP_H
-#define MAP_H
+#pragma once
 
 #include "point.hpp"
 #include "line.hpp"
@@ -76,8 +75,6 @@ public:
 	//check if x,y is accessible
 	//eventueel met boost isAccessible
 	bool isAccessible(int x, int y);
-	void setScale(int x);
-	bool isScaledAccessible(int x, int y);
 
 	//add object to position x,y
 	void addObject(polygon p);
@@ -96,14 +93,9 @@ public:
 
 	int getLocationValue(int x, int y);
 
-	int getScaledLocationValue(int x, int y);
-
 	int contains(int value);
 private:
-	int scale;
 	std::vector<line> mapData;
 	std::vector<polygon> objects;
 
 };
-
-#endif

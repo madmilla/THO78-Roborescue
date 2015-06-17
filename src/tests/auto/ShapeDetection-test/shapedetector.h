@@ -48,7 +48,7 @@ private:
     const double HOUGHLINES_MINLINELENGTH = 5; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
     const double HOUGHLINES_MAXLINEGAP = 20; //! The maximum gap between two points to be considered in the same line.
     const CvScalar LINECOLOR = CV_RGB(0,255,0); //! the line color
-    const int THICKNESS = 3; //! the thickness of the line
+    const int THICKNESS = 1; //! the thickness of the line
 
     //! this function converts a Mat object to a IplImage so the function cvSmooth can be used.
     /*!
@@ -64,7 +64,7 @@ private:
     /*!
      @param lines: the given lines to check on
      */
-    void checkLines(vector<Vec4i> & lines);
+    void checkLines(std::vector<Line>& lines);
 
 public:
     ShapeDetector();

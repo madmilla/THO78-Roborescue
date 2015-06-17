@@ -152,7 +152,10 @@ void Pointcloud::savePointsToFile(std::string filename){
 void Pointcloud::loadPointsFromFile(std::string filename){
     std::ifstream pCFile;
     pCFile.open(filename + ".pcl");
-    if(!pCFile.is_open()) return;
+	if (!pCFile.is_open()){
+		std::cout << "could not load pointcloud";
+		exit(-1);
+	}
     if(!pointCloud->empty()){
         std::cout << "Load on a not empty pointcloud?" << std::endl;
         return;

@@ -10,6 +10,7 @@ map::map(){
 
 	line a(point(0,0), point(0, access.size()));
 	line b(point(0,0), point(access.size(),0));
+	line e(point(3, 3), point(3, 8));
 
 	line c(point(access.size()-1, access.size()-1), point(0, access.size()-1));
 	line d(point(access.size()-1, access.size()-1), point(access.size()-1, 0));
@@ -18,6 +19,7 @@ map::map(){
 	appendLine(b);
 	appendLine(c);
 	appendLine(d);
+	appendLine(e);
 	translateToPoints();
 
 	for (int i = 0; i < 70; i++){
@@ -94,26 +96,26 @@ bool map::hasLine(std::vector<line> & l){
 
 std::vector<line> map::getPointLines(point & p){
 	std::vector<line> rtn;
-    for (line & lCmp : mapData)
-    {
-        point a = lCmp.getPoint(0);
-        point b = lCmp.getPoint(1);
-        point c = p;
+	for (line & lCmp : mapData)
+	{
+		point a = lCmp.getPoint(0);
+		point b = lCmp.getPoint(1);
+		point c = p;
 
-        int crossproduct = (c.getY() - a.getY()) * (b.getX() - a.getX()) - (c.getX() - a.getX()) * (b.getY() - a.getY());
-        if (abs(crossproduct) != 0)
-            continue;
+		int crossproduct = (c.getY() - a.getY()) * (b.getX() - a.getX()) - (c.getX() - a.getX()) * (b.getY() - a.getY());
+		if (abs(crossproduct) != 0)
+			continue;
 
-        int dotproduct = (c.getX() - a.getX()) * (b.getX() - a.getX()) + (c.getY() - a.getY())*(b.getY() - a.getY());
-        if (dotproduct < 0)
-            continue;
+		int dotproduct = (c.getX() - a.getX()) * (b.getX() - a.getX()) + (c.getY() - a.getY())*(b.getY() - a.getY());
+		if (dotproduct < 0)
+			continue;
 
-        int squaredlengthba = (b.getX() - a.getX())*(b.getX() - a.getX()) + (b.getY() - a.getY())*(b.getY() - a.getY());
-        if (dotproduct > squaredlengthba)
-            continue;
+		int squaredlengthba = (b.getX() - a.getX())*(b.getX() - a.getX()) + (b.getY() - a.getY())*(b.getY() - a.getY());
+		if (dotproduct > squaredlengthba)
+			continue;
 
-        rtn.push_back(lCmp);
-    }
+		rtn.push_back(lCmp);
+	}
 	return rtn;
 }
 
@@ -250,51 +252,4 @@ bool map::isAccessible(int x, int y){
 		return false;
 	}
 	
-}
-void map::setScale(int x){ scale = x; }
-bool map::isScaledAccessible(int x, int y ){
-	x = x*scale;
-	y = y*scale;
-
-	for (int i = 0; i < scale; i++){
-		std::cout << "\n";
-		for (int ii = 0; ii < scale; ii++){
-			std::cout << x << " " << y;
-			if (!this->isAccessible(i+x, ii+y)){
-				return false;
-			
-			}
-
-
-
-		}
-	}
-	return true;
-}
-int map::getScaledLocationValue(int x, int y){
-	x = x*scale;
-	y = y*scale;
-	int highestvalue=0;
-	for (int i = 0; i < scale; i++){
-		std::cout << "\n";
-		for (int ii = 0; ii < scale; ii++){
-			
-			//std::cout << scale << " ";
-			
-
-			if (highestvalue < this->getLocationValue(x + i, y + ii))
-			{
-				highestvalue = this->getLocationValue(x + i, y + ii);
-			}
-			if (highestvalue==1){
-				return 1;
-
-			}
-			
-
-
-
-		}
-	}
-	return highestvalue;
 }

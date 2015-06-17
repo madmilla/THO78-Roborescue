@@ -37,6 +37,9 @@
 #define LINE_H
 
 #include <iostream>
+#include <math.h>
+#include <cmath>
+#include <stdlib.h>
 
 class Line
 {
@@ -46,8 +49,8 @@ public:
 	The data structure for the origins X and Y
 	*/
 	struct Point {
-		int x;
-		int y;
+		float x;
+		float y;
 	};
 private:
 	//! Data structure for the line coordinates
@@ -59,6 +62,9 @@ private:
 		Point end_pos;
 	};
 	LineData lineData;
+
+	Line::Point getFormula();
+	bool pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData & data);
 
 public:
 	//! The Contructor for the Lidar
@@ -99,6 +105,9 @@ public:
 	check if 2 Points are the same
 	*/
 	friend bool operator==(const Point & p1, const Point & p2);
+
+	int getLength();
+	int intersect(Line & line2);
 };
 #endif
 

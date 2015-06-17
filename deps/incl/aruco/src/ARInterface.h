@@ -56,6 +56,8 @@
 #include "headers/aruco.h"
 #include "Coordinate.h"
 #include <opencv2/highgui/highgui.hpp>
+#include <unistd.h>
+
 using namespace cv;
 using namespace aruco;
 
@@ -83,10 +85,16 @@ private:
 	*/
 	bool newCoordinate;
 	/**
-	* erroOnInit
+	* errorOnInit
 	* boolean used to flag an error on initialization
 	*/
 	bool errorOnInit;
+	/**
+	* errorInRun
+	* boolean used to flag an error in running
+	*/
+	bool errorInRun;
+	/**
 	/**
 	* error
 	* the string that is returned when an error on initialization is encountered
@@ -210,16 +218,32 @@ public:
 		theMarkerSizeX { -1},
 		theMarkerSizeY { -1}	
 	{
+		if(geteuid() != 0)
+		{			
+			error += "Program requires root (sudo) to reset video drivers with different parameters!";
+			errorOnInit = true;
+			return;
+		}
+		std::cout << "Disabling video driver" << std::endl;
+		std::system("sudo rmmod uvcvideo");
+		std::cout << "Enabling video driver with timeout parameter" << std::endl;
+		std::system("sudo modprobe uvcvideo nodrop=1 timeout=2000");
 		//Open the camera's
 		theVideoCapturerX.open(VIDEO_DEVICE_X);
 		theVideoCapturerY.open(VIDEO_DEVICE_Y);
 
 		//Check video is open
-		if (!theVideoCapturerX.isOpened() || !theVideoCapturerY.isOpened())
+		if (!theVideoCapturerX.isOpened())
 		{
-			cerr << "Could not open video" << endl;
 			errorOnInit = true;
-			error += " Could not open video devices";
+			error += " Could not open video device X";
+			return;
+		}
+		if (!theVideoCapturerY.isOpened())
+		{
+			error += " Could not open video device Y";
+			errorOnInit = true;
+			return;
 		}
 		//Read first image to get the dimensions of the image
 		theVideoCapturerX >> theInputImageX;
@@ -243,6 +267,7 @@ public:
 		markerDetectorX.setCornerRefinementMethod(MarkerDetector::SUBPIX);
 		markerDetectorY.getThresholdParams(thresParam1, thresParam2);
 		markerDetectorY.setCornerRefinementMethod(MarkerDetector::SUBPIX);
+		std::cout << "Ending constructor" << std::endl;
 	}
 	
 	/**
@@ -260,18 +285,46 @@ public:
 		{
 			//Grabs the X and Y images (otherwise .retrieve() will always 
 			// return the same image)
-			theVideoCapturerX.grab();
-			theVideoCapturerY.grab();
+			if(!theVideoCapturerX.grab())
+			{
+				error += " Cannot grab image from X camera";
+				errorInRun = true;
+			}
+			cout << "GX." << ends;
+			cout.flush();
+			if(!theVideoCapturerY.grab())
+			{
+				error += " Cannot grab image from Y camera";
+				errorInRun = true;
+			}
+			cout << "GY " << ends;
+			cout.flush();
 
 			//Retrieves the images and puts them in theInputImages
-			theVideoCapturerX.retrieve(theInputImageX);
-			theVideoCapturerY.retrieve(theInputImageY);
+			if(!theVideoCapturerX.retrieve(theInputImageX))
+			{
+				error += " Cannot retrieve image from X camera";
+				errorInRun = true;
+			}
+			cout << "RX." << ends;
+			cout.flush();
+			if(!theVideoCapturerY.retrieve(theInputImageY))
+			{
+				error += " Cannot retrieve image from Y camera";
+				errorInRun = true;
+			}
+			cout << "RY " << ends;
+			cout.flush();
 
 			//Detects markers in the images, and puts them in theMarkers
 			markerDetectorX.detect(theInputImageX, theMarkersX,
 				theCameraParametersX, theMarkerSizeX);
+			cout << "MX." << ends;
+			cout.flush();
 			markerDetectorY.detect(theInputImageY, theMarkersY,
 				theCameraParametersY, theMarkerSizeY);
+			cout << "MY " << ends;
+			cout.flush();
 
 			//Gets the closest marker to the center of the image
 			//getClosestId can return -1 if it didn't find anything,
@@ -280,22 +333,23 @@ public:
 			int closestIdX = getClosestId(theMarkersX, halfWidthCameraX);
 			if (closestIdX != -1)
 			{
-				if (currentCoordinate.getX() != closestIdX)
-				{
+				//if (currentCoordinate.getX() != closestIdX)
+				//{
 					currentCoordinate.setX(closestIdX);
 					newCoordinate = true;
-				}
+				//}
 			}
 
 			int closestIdY = getClosestId(theMarkersY, halfWidthCameraY);
 			if (closestIdY != -1)
 			{
-				if (currentCoordinate.getY() != closestIdY)
-				{
+				//if (currentCoordinate.getY() != closestIdY)
+				//{
 					currentCoordinate.setY(closestIdY);
 					newCoordinate = true;
-				}
+				//}
 			}
+			cout << endl << flush;
 		}
 	}
 
@@ -321,6 +375,33 @@ public:
 	bool isNewCoordinate()
 	{
 		return newCoordinate;
+	}
+	
+	/**
+	* Returns wether an error in the initialisation (constructor) has occured
+	*
+	*/
+	bool isErrorOnInit()
+	{
+		return errorOnInit;
+	}
+	
+	/**
+	* Returns wether an error in the run (run()) has occured 
+	*
+	*/
+	bool isErrorInRun()
+	{
+		return errorInRun;
+	}
+	
+	/**
+	* Returns the error string 
+	*
+	*/
+	std::string getErrorString()
+	{
+		return error;
 	}
 };
 #endif
