@@ -28,10 +28,21 @@ public:
     int minX, maxX, minY, maxY;
 
 private:
-
+    /*!
+     * drawMap draws the lines from a map object
+     * @param m map object
+     */
     void drawMap(map *m);
 
-    void addGridSquare(int x, int y, int length, int width);
+    /*!
+     * addGridSquare adds a grid square with the given color to the map
+     * @param x
+     * @param y
+     * @param length
+     * @param width
+     * @param color
+     */
+    void addGridSquare(int x, int y, int length, int width, int color);
 
     /*!
     *   Draws a 3D green square at the bottom of the OpenGL widget
@@ -147,6 +158,9 @@ private:
 
     QPoint lastPos;
 
+    float red = 0.0f;
+    float green = 0.0f;
+    float blue = 0.0f;
 
 public slots:
     /*!
@@ -160,12 +174,6 @@ public slots:
     *   @param angle Angle (degrees, 0-360) of the camera
     */
     void rotateY(int angle);
-
-    /*!
-    *   Rotate the GLWidget around the Z axis
-    *   @param angle Angle (degrees, 0-360) of the camera
-    */
-    /*void rotateZ(int angle);*/
 
     /*!
     *   Pan the camera to the left

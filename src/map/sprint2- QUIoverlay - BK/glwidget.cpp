@@ -27,57 +27,6 @@ void GLWidget::paintGL(){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-//    std::vector<Lines<int> > lines;
-//    //buitenkant
-//    Lines<int> line1(0,      0,      10000,  0);
-//    Lines<int> line2(10000,  0,      10000,  5000);
-//    Lines<int> line3(10000,  5000,   0,      5000);
-//    Lines<int> line4(0,      5000,   0,      0);
-//    //Vierkant 1
-//    Lines<int> line5(2000, 3000, 3000, 3000);
-//    Lines<int> line6(3000, 3000, 3000, 4000);
-//    Lines<int> line7(3000, 4000, 2000, 4000);
-//    Lines<int> line8(2000, 4000, 2000, 3000);
-//    //Vierkant 2
-//    Lines<int> line9(5000, 2000, 6000, 2000);
-//    Lines<int> line10(6000, 2000, 6000, 3500);
-//    Lines<int> line11(6000, 3500, 5000, 3500);
-//    Lines<int> line12(5000, 3500, 5000, 2000);
-//    //Vierkant 3
-//    Lines<int> line13(7000, 1000, 8000, 1000);
-//    Lines<int> line14(8000, 1000, 8000, 1500);
-//    Lines<int> line15(8000, 1500, 7000, 1500);
-//    Lines<int> line16(7000, 1500, 7000, 1000);
-//    //Random lijnen
-//    Lines<int> line17(1800, 1300, 5000, 1300);
-//    Lines<int> line18(2000, 3000, 1000, 2500);
-//    Lines<int> line19(1000, 2500, 3000, 3000);
-//    Lines<int> line20(7300, 3500, 9000, 2750);
-
-//    lines.push_back(line1);
-//    lines.push_back(line2);
-//    lines.push_back(line3);
-//    lines.push_back(line4);
-//    lines.push_back(line5);
-//    lines.push_back(line6);
-//    lines.push_back(line7);
-//    lines.push_back(line8);
-//    lines.push_back(line9);
-//    lines.push_back(line10);
-//    lines.push_back(line11);
-//    lines.push_back(line12);
-//    lines.push_back(line13);
-//    lines.push_back(line14);
-//    lines.push_back(line15);
-//    lines.push_back(line16);
-//    lines.push_back(line17);
-//    lines.push_back(line18);
-//    lines.push_back(line19);
-//    lines.push_back(line20);
-
-//    Algorithms::getMinMax(lines, minX, maxX, minY, maxY);
-//    setLines(lines, minX, maxX, minY, maxY);
-
     map m;
     drawMap(&m);
 }
@@ -106,22 +55,50 @@ void GLWidget::drawMap(map *m) {
     setLines(mapDataInt, minX, maxX, minY, maxY);
 }
 
-void GLWidget::addGridSquare(int x, int y, int length, int width){
+void GLWidget::addGridSquare(int x, int y, int length, int width, int color){
     int difX = maxX - minX;
     int difY = maxY - minY;
 
+    //Normalizes the x, y, width and length from the lines between -1 and 1
+    //Depending on what the minimal (minX, minY) and maximal (maxX, maxY) value,
+    //a coordinate for example x will be normalizes between the -1 and 1
     float normalizedX = ((float(x - minX) / difX) * Algorithms::DIF_X) + Algorithms::MIN_X;
     float normalizedY = ((float(y - minY) / difY) * Algorithms::DIF_Y) + Algorithms::MIN_Y;
     float normalizedWidth = ((float(width - minX) / difX) * Algorithms::DIF_X) + Algorithms::MIN_X;
     float normalizedLength = ((float(length - minY) / difY) * Algorithms::DIF_Y) + Algorithms::MIN_Y;
 
-    std::cout << "x: " << normalizedX << "\n";
-    std::cout << "y: " << normalizedY << "\n";
-    std::cout << "w: " << normalizedWidth << "\n";
-    std::cout << "l: " << normalizedLength << "\n";
+    if(color == 2){
+        //green
+        green = 1.0f;
+    }
+    if(color == 3){
+        //blue
+        blue = 1.0f;
+    }
+    if(color == 4){
+        //orange
+        red = 1.0f;
+        green = 0.5f;
+    }
+    if(color == 5){
+        //cyan
+        green = 1.0f;
+        blue = 1.0f;
+    }
+    if(color == 6){
+        //red
+        red = 1.0f;
+        blue = 1.0f;
+    }
+    if(color == 7){
+        //black
+        red = 0.5f;
+        green = 0.5f;
+        blue = 0.5f;
+    }
 
     glBegin(GL_QUADS);
-    glColor3f(0.0f, 0.0f, 0.0f);
+    glColor3f(red, green, blue);
 
     glVertex3f( normalizedX , Algorithms::BOTTOM,                   normalizedY );
     glVertex3f( normalizedX + normalizedLength,Algorithms::BOTTOM, normalizedY );
@@ -167,7 +144,7 @@ void GLWidget::setLines(const std::vector<Lines<int> > lines, int minX, int maxX
     glRotatef(zRotate, 0.0, 0.0, 1.0); //rotate z degress around z-axis
 
     drawGround();
-    addGridSquare(3245, 2345, 1244, 4633);
+    addGridSquare(50, 30, 13, 43, 7);
     const std::vector<Lines<float> > normalizedLines = Algorithms::normalizeLines(lines,  minX,  maxX,  minY,  maxY);
     drawLines(normalizedLines);
 }
@@ -240,19 +217,6 @@ void GLWidget::rotateY(int angle) {
     emit yRotationChanged(angle);
     updateGL();
 }
-/*
-void GLWidget::rotateZ(int angle) {
-    if(angle >90){
-       angle = 90;
-    }
-    else if( angle < 0){
-        angle = 0;
-    }
-    zRotate = (float)angle;
-    emit zRotationChanged(angle);
-    updateGL();
-}
-*/
 
 void GLWidget::panLeft(){
     xPan -= 0.1f;
@@ -298,10 +262,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event) {
     if (event->buttons() & Qt::LeftButton) {
         rotateX(xRotate + dy/10);
         rotateY(yRotate + dx/10);
-    } /*else if (event->buttons() & Qt::RightButton) {
-        rotateX(xRotate + dy/10);
-        rotateZ(zRotate + dx/10);
-    }*/
+    }
 }
 
 //Zoom with mouse
