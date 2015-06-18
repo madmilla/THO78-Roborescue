@@ -3,6 +3,9 @@
 CPIConnector::CPIConnector(){
 }
 
+CPIConnector::~CPIConnector(){
+}
+
 void CPIConnector::onMessage(mavlink_message_t & msg){
 
 	mavlink_ralcp_t function = decodeRalcpMessage(msg);
@@ -103,10 +106,9 @@ void CPIConnector::start(){
 	}
 
 	for (Circle c : circles){
-		uint_64_t beginCode;
-		beginCode |= 0b0001;
 
-		sendCommand(18766776, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+		sendCommand(beginCode, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+
 	}
 
 
