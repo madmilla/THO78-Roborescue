@@ -10,7 +10,7 @@ SOURCES += $(patsubst %,%.cpp,$(MODULES) $(PROJECT))
 
 FLAGS   := -std=gnu++11
 # -pthread
-LFLAGS  := -I mavlink/include -I mavlink/include/telemetryTest -I mavlink/include/common -I CImg -I ../../../../../sensors/PX4Flow -I ../../../../../../deps/incl/mavlink/common -I../deps/incl/mavlink/include/common -O2 -lgdi32
+LFLAGS  := -I mavlink/include -I mavlink/include/telemetryTest -I mavlink/include/common -I CImg -I ../../../../../sensors/PX4Flow -I ../../../../../../deps/incl/mavlink/common -I ../../../../../../deps/incl/CImg -I../deps/incl/mavlink/include/common -O2 -lgdi32
 #-L/usr/local/ssl/lib/ -lssl -lcrypto -lpthread
 
 rm := rm -rf
