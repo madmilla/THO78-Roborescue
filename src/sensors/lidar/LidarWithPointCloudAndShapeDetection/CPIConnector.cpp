@@ -99,12 +99,13 @@ void CPIConnector::start(){
 	sD.writeLinesToConsole(lines);
 
 	for (Line l : lines){
-		printf("koekoek!\n");
 		sendCommand(20000, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
 	for (Circle c : circles){
-		printf("lalalala");
+		uint_64_t beginCode;
+		beginCode |= 0b0001;
+
 		sendCommand(18766776, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
