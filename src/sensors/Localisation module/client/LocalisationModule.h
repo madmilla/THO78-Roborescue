@@ -1,12 +1,12 @@
-#ifndef _XYRECEIVER_H
-#define _XYRECEIVER_H
+#ifndef _LocalisationModule_H
+#define _LocalisationModule_H
 #include "TCPClient.h"
 #include "Coordinate.h"
 
-class XYReceiver : public TCPClient
+class LocalisationModule : public TCPClient
 {
 public:
-	XYReceiver(io_service& service, std::string host, std::string port);
+	LocalisationModule(io_service& service, std::string host, std::string port);
 
 	/**
 	* \brief Get coordinate.
