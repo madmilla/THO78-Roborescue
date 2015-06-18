@@ -30,6 +30,27 @@ void map::setLocationValue(int x, int y, int value)
 	}
 
 }
+void map::addCircle(int xCentre, int yCentre, int radius){
+	for (int degrees = 0; degrees < 360; degrees++){
+		float x = radius*cos(degrees) + xCentre;
+		float y = radius*sin(degrees) + yCentre;
+		this->setLocationValue(std::round(x), std::round(y), 1);
+
+
+
+
+
+	}
+}
+
+
+int main(){
+	map Map;
+	Map.addCircle(9, 9, 4);
+	Map.print();
+	while (1);
+
+}
 void map::setScaledLocationValue(int x, int y, int value)
 {
 	x = x*scale;
