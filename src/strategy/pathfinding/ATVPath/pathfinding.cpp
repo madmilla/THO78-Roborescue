@@ -3,6 +3,7 @@
 #include "rotation30.h"
 #include <cfloat>
 #include <iostream>
+#include <QDebug>
 
 PathFinding::PathFinding(float rotationRadius, Vector<float> ATVSize, Map &map) : rotationMath(new Rotation30(rotationRadius, ATVSize)), root(nullptr), ATVSize(ATVSize), map(map)
 {
@@ -24,6 +25,7 @@ bool PathFinding::isColliding(const Node & node) const{
 }
 
 void PathFinding::find(Vector<float> startPosition, Vector<float> targetPosition){
+   qDebug() << "Hi1?";
    if(working) return;
 
    delete root;
@@ -99,4 +101,12 @@ void PathFinding::find(Vector<float> startPosition, Vector<float> targetPosition
    working = false;
    std::cout << "Solution found!\n";
    //FOUND A PATH
+}
+
+Node * PathFinding::getPath(){
+   return root;
+}
+
+Map & PathFinding::getMap(){
+   return map;
 }

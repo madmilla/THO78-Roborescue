@@ -17,6 +17,10 @@ public:
 
    float distance(Vector<float> point, Vector<float> targetPosition) const;
 
+   Node * getPath();
+
+   Map & getMap();
+
 private:
    Vector<float> ATVSize;
    RotationOption * rotationMath;
