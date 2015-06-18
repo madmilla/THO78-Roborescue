@@ -1,6 +1,6 @@
 #ifndef _PRIORITESMAVLINKMESSAGE_H
 #define _PRIORITESMAVLINKMESSAGE_H
-#include "../Dependencies/MAVLink/ardupilotmega/mavlink.h"
+#include "ardupilotmega/mavlink.h"
 #include <array>
 #include <chrono>
 
