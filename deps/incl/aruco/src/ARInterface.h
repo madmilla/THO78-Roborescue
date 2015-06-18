@@ -78,7 +78,7 @@ private:
 	* currentCoordinate
 	* an interger used to indicate the current coordinates
 	*/
-	Coordinate<int> currentCoordinate;
+	Coordinate<int> currentCoordinate {-1, -1};
 	/**
 	* newCoordinate
 	* boolean used to flag new coordinate received
@@ -331,10 +331,10 @@ public:
 	{
 		while (1)
 		{
-			double t1, t2;
+			//double t1, t2;
 			
-			markerDetectorX.getThresholdParams(t1, t2);
-			std::cout << "t1: " << t1 << " t2: " << t2 << std::endl;
+			//markerDetectorX.getThresholdParams(t1, t2);
+			//std::cout << "t1: " << t1 << " t2: " << t2 << std::endl;
 			//Grabs the X and Y images (otherwise .retrieve() will always 
 			// return the same image)
 			if(!theVideoCapturerX.grab())
@@ -342,15 +342,15 @@ public:
 				error += " Cannot grab image from X camera";
 				errorInRun = true;
 			}
-			cout << "GX." << ends;
-			cout.flush();
+			//cout << "GX." << ends;
+			//cout.flush();
 			if(!theVideoCapturerY.grab())
 			{
 				error += " Cannot grab image from Y camera";
 				errorInRun = true;
 			}
-			cout << "GY " << ends;
-			cout.flush();
+			//cout << "GY " << ends;
+			//cout.flush();
 
 			//Retrieves the images and puts them in theInputImages
 			if(!theVideoCapturerX.retrieve(theInputImageX))
@@ -358,24 +358,20 @@ public:
 				error += " Cannot retrieve image from X camera";
 				errorInRun = true;
 			}
-			cout << "RX." << ends;
-			cout.flush();
+			//cout << "RX." << ends;
+			//cout.flush();
 			if(!theVideoCapturerY.retrieve(theInputImageY))
 			{
 				error += " Cannot retrieve image from Y camera";
 				errorInRun = true;
 			}
-			cout << "RY " << ends;
-			cout.flush();
 
 			//Detects markers in the images, and puts them in theMarkers
 			markerDetectorX.detect(theInputImageX, theMarkersX,
 				theCameraParametersX, theMarkerSizeX);
-			cout << "MX." << ends;
-			cout.flush();
 			markerDetectorY.detect(theInputImageY, theMarkersY,
 				theCameraParametersY, theMarkerSizeY);
-			cout << "MY " << ends;
+			cout << ".";
 			cout.flush();
 
 			//Gets the closest marker to the center of the image
@@ -385,23 +381,23 @@ public:
 			int closestIdX = getClosestId(theMarkersX, halfWidthCameraX);
 			if (closestIdX != -1)
 			{
-				//if (currentCoordinate.getX() != closestIdX)
-				//{
+				if (currentCoordinate.getX() != closestIdX)
+				{
 					currentCoordinate.setX(closestIdX);
 					newCoordinate = true;
-				//}
+				}
 			}
 
 			int closestIdY = getClosestId(theMarkersY, halfWidthCameraY);
 			if (closestIdY != -1)
 			{
-				//if (currentCoordinate.getY() != closestIdY)
-				//{
+				if (currentCoordinate.getY() != closestIdY)
+				{
 					currentCoordinate.setY(closestIdY);
 					newCoordinate = true;
-				//}
+				}
 			}
-			cout << endl << flush;
+			//cout << endl << flush;
 			if(hasGui)
 				{
 				theInputImageX.copyTo(theInputImageCopyX);
