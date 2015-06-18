@@ -1,25 +1,25 @@
 #Vehicles
-QUADCOPTER_DIR 					= Src\Vehicles\Quadcopter
-ATV_DIR 						= Src\Vehicles\ATV
-ROSBEE_DIR 						= Src\Vehicles\Rosbee
+QUADCOPTER_DIR 					= src\Vehicles\Quadcopter
+ATV_DIR 						= src\Vehicles\ATV
+ROSBEE_DIR 						= src\Vehicles\Rosbee
 
 #Sensors
-PROPELLOR_ENCODER_DIR 			= 
-PROPELLOR_SIRC_DIR 				= 
-PROPELLOR_TEMPERATURESENSOR_DIR =
-PROPELLOR_ULTRASONICSENSOR_DIR 	=
-PX4FLOW_DIR 					=
-LIDAR_DIR 						= 
-LOCALISATION_BASESTATION_DIR 	=
-LOCALISATION_SERVER_DIR			= 
+PROPELLOR_ENCODER_DIR 			= src\sensors\Propellor-Encoder
+PROPELLOR_SIRC_DIR 				= src\sensors\Propellor-SIRC
+PROPELLOR_TEMPERATURESENSOR_DIR = src\sensors\Propellor-TemperatureSensor
+PROPELLOR_ULTRASONICSENSOR_DIR 	= src\sensors\Propellor-UltrasonicSensor
+PX4FLOW_DIR 					= src\sensors\PX4Flow
+LIDAR_DIR 						= src\sensors\lidar
+LOCALISATION_BASESTATION_DIR 	= src\sensors\Localisation-Module\Localisation-Basestation
+LOCALISATION_SERVER_DIR			= src\sensors\Localisation-Module\Localisation-Server
 
 #GUI's
-MAIN_GUI_DIR 					=
-QUADCOPTER_GUI_DIR 				= 
-ATV_GUI_DIR 					= 
-ROSBEE_GUI_DIR 					= 
-LIDAR_GUI_DIR 					= 
-MAP_GUI_DIR 					= 
+MAIN_GUI_DIR 					= src\gui\mission-gui
+QUADCOPTER_GUI_DIR 				= src\gui\mission-gui\quadcopter-gui
+ATV_GUI_DIR 					= src\gui\mission-gui\ATV-gui
+ROSBEE_GUI_DIR 					= src\gui\mission-gui\rosbee-gui
+LIDAR_GUI_DIR 					= src\gui\mission-gui\lidar-gui
+MAP_GUI_DIR 					= src\gui\mission-gui\map-gui
 
 #MAP
 MAP_DIR 						= src\map
