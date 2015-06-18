@@ -1,10 +1,9 @@
-#include "QuadLocalization.h"
+#include "QuadLocalisation.h"
 
 
 QuadLocalisation::QuadLocalisation(Quadcopter& qc, LocalisationModule& lM)
 {
 }
-
 
 QuadLocalisation::~QuadLocalisation()
 {

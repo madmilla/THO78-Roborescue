@@ -50,20 +50,20 @@
 #ifndef _QUADLOCALISATION_H
 #define _QUADLOCALISATION_H
 #include "Quadcopter.h"
-#include "../../sensor/Localisation_Module/Localisation_Basestation/LocalisationModule.h"
+#include "../../sensors/Localisation_Module/Localisation_Basestation/LocalisationModule.h"
+#include "../../sensors/Localisation_Module/Localisation_Basestation/Coordinate.h"
 
 class QuadLocalisation
 {
 public:
 	QuadLocalisation(Quadcopter& qc, LocalisationModule& lM);
 	~QuadLocalisation();
-	void goToXY();
-	void run();
-
+	void goToXY(Coordinate<int> xy);
+	Coordinate<int> getPosition();
 private:
-
+	Quadcopter& quadRef;
+	LocalisationModule& localisationRef;
 };
-
 #endif
 
 /*
