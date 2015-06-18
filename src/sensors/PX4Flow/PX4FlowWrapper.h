@@ -35,6 +35,13 @@
 **/
 
 #include "mavlink.h"
+#include <fstream>
+#include "../../../deps/incl/CImg/CImg.h"
+
+#define SYSTEMID 82
+#define COMPONENTID 1
+#define PX4FLOWSYSTEMID 81
+#define PX4FLOWCOMPONENTID 50
 
 /**
 * PX4FlowWrapper is a class that is used to get useful data from the PX4Flow. The messages sent by the PX4Flow have to be forwarded to this class, which will then interpret it and calculate the position in the room based on those messages. The PX4FlowWrapper on its own can't provide an accurate absolute position. Therefore, the PX4Flow has to be calibrated on the fly, by calling both the setPosition and the setHeading functions. Calibrating it should allow for accurate positioning for the next while, but the more often they get called the more accurate the system will be.
@@ -90,22 +97,45 @@ public:
 	*/
 	double getHeadingInDegrees();
 	
-	mavlink_message_t* requestImage(unsigned char size);
+	/**
+	* Generates a mavlink message. Sending this message will trigger the PX4Flow to start transmitting an image.
+	*
+	* @return nullptr if an image has already been requested. Otherwise, a mavlink_message_t pointer, pointing to the message to be sent.
+	*/
+	mavlink_message_t* requestImage();
 	
+	/**
+	* Checks if an image has been requested.
+	*
+	* @return true if an image has been requested, false otherwise.
+	*/
 	bool isImageRequested();
 	
+	/**
+	* Checks if an image is ready to request from the wrappper.
+	*
+	* @return true if an image is ready to be readed out from the PX4FlowWrapper, false otherwise.
+	*/
 	bool isImageReady();
 	
-	unsigned char getRequestedImageSize();
-	
-	bool getImage(char* image);
-	
-	void imageFull();
+	/**
+	* Reads out the image from the PX4FlowWrapper.
+	*
+	* @return a copy of the internally stored CImg.
+	*/
+	cimg_library::CImg<unsigned char>* getImage();
 private:
-	unsigned char requestedImageSize;
 	bool imageRequested = false;
 	bool imageReady = false;
 	
 	float x=0.f,y=0.f;
 	float heading=0;
+	
+	std::fstream imgFile;
+	int size = 0;
+	
+	
+	void imageFull();
+	cimg_library::CImg<unsigned char> image;
+	int imageWidth, imageHeight, imageSize;
 };

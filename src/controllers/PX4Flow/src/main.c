@@ -233,7 +233,7 @@ void sendPhoto(uint16_t image_size_send, uint8_t ** current_image, uint8_t ** pr
 
 	image_width_send = global_data.param[PARAM_IMAGE_WIDTH];
 	image_height_send = global_data.param[PARAM_IMAGE_HEIGHT];
-	delay(250);
+	//delay(250);
 	mavlink_msg_data_transmission_handshake_send(
 			MAVLINK_COMM_2,
 			MAVLINK_DATA_STREAM_IMG_RAW8U,
@@ -246,7 +246,7 @@ void sendPhoto(uint16_t image_size_send, uint8_t ** current_image, uint8_t ** pr
 	//send_image_now = false;
 	
 	uint16_t frame = 0;
-	delay(250);
+	//delay(250);
 	
 	dma_copy_image_buffers(current_image, previous_image, image_size_send, 1);
 
@@ -255,7 +255,7 @@ void sendPhoto(uint16_t image_size_send, uint8_t ** current_image, uint8_t ** pr
 		LEDOn(LED_ERR);
 		mavlink_msg_encapsulated_data_send(MAVLINK_COMM_2, frame, ((uint8_t *) current_image)[frame * MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN]);
 		LEDOff(LED_ERR);
-		delay(250);
+		//delay(250);
 		//send_image_now = false;
 	}
 }
@@ -612,7 +612,7 @@ int main(void)
 							accumulated_gyro_x, accumulated_gyro_y, accumulated_gyro_z,
 							gyro_temp, accumulated_quality/accumulated_framecount,
 							time_since_last_sonar_update,ground_distance);
-					delay(250);
+					//delay(250);
 				}
 
 
@@ -707,7 +707,7 @@ int main(void)
 					image_size_send / MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN + 1,
 					MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN,
 					100);
-			delay(250);
+			//delay(250);
 			send_image_now = false;
 			
 			uint16_t frame = 0;
@@ -739,7 +739,7 @@ int main(void)
 			for (frame = 0; frame < image_size_send / MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN + 1; frame++)
 			{
 				mavlink_msg_encapsulated_data_send(MAVLINK_COMM_2, frame, &((uint8_t *) newImage)[frame * MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN]);
-				delay(300);
+				//delay(300);
 				send_image_now = false;
 			}
 
