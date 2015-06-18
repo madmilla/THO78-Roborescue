@@ -31,7 +31,7 @@ private:
     const int CIRCLE_LINE_TYPE = 8; //! the line type of the circumference
     const int CENTER_THICKNESS = -1;//! the thickness of the point in the middle of the circle
     const int CIRCLE_THICKNESS = 2; //! the thickness of the circumferenc of the circle
-    const int CIRCLE_CENTER_RADIUS = 3; //! the radius(size) of the point in the middle of the circle
+    const int CIRCLE_CENTER_RADIUS = 1; //! the radius(size) of the point in the middle of the circle
     const int EDGE_TRESHHOLD = 50; //! the treshhold for detectecting the edges in the image
     const int RESOLUTION_INVERSERATIO = 1; //! the resolution inverseratio
     const int MIN_DISTANCE_CIRCLES = 6; //! the minimun distance between the different circles
@@ -48,7 +48,7 @@ private:
     const double HOUGHLINES_MINLINELENGTH = 5; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
     const double HOUGHLINES_MAXLINEGAP = 20; //! The maximum gap between two points to be considered in the same line.
     const CvScalar LINECOLOR = CV_RGB(0,255,0); //! the line color
-    const int THICKNESS = 3; //! the thickness of the line
+    const int THICKNESS = 1; //! the thickness of the line
 
     //! this function converts a Mat object to a IplImage so the function cvSmooth can be used.
     /*!
@@ -64,7 +64,7 @@ private:
     /*!
      @param lines: the given lines to check on
      */
-    void checkLines(vector<Vec4i> & lines);
+    void checkLines(std::vector<Line>& lines);
 
 public:
     ShapeDetector();

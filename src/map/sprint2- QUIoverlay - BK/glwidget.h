@@ -10,8 +10,10 @@
 #include <QGLWidget>
 #include <QtWidgets>
 #include <QtOpenGL>
-#include "line.h"
+#include "line.hpp"
+#include "lines.h"
 #include "algorithms.h"
+#include "map.hpp"
 
 class GLWidget : public QGLWidget
 {
@@ -23,7 +25,13 @@ public:
     void paintGL();
     void resizeGL(int width, int height);
 
+    int minX, maxX, minY, maxY;
+
 private:
+
+    void drawMap(map *m);
+
+    void addGridSquare(int x, int y, int length, int width);
 
     /*!
     *   Draws a 3D green square at the bottom of the OpenGL widget
@@ -42,7 +50,7 @@ private:
     *   by the Algorithm::normalizeLines function.
     *   @param line Normalized line to draw
     */
-    void drawLine(const Line<float> &line);
+    void drawLine(const Lines<float> &line);
 
     /*!
     *   Draws a vector of lines as a set of walls in 3D on top of the ground drawn by drawGround.
@@ -51,7 +59,7 @@ private:
     *   by the Algorithm::normalizeLines function.
     *   @param linesNormalized Vector of normalized lines to draw
     */
-    void drawLines(const std::vector<Line<float> > linesNormalized);
+    void drawLines(const std::vector<Lines<float> > linesNormalized);
 
     /*!
     *   Draws a single line isometric on top the ground drawn by drawGroundIso
@@ -61,7 +69,7 @@ private:
     *   calculated by Algorithms::twoDToIso.
     *   @param lineIso Normalized line of which the isometric coordinates have been calculated
     */
-    void drawLineIso(const Line<float> &lineIso);
+    void drawLineIso(const Lines<float> &lineIso);
 
     /*!
     *   Draws a vector of lines in 2.5D (isometric) on top the ground drawn by drawGroundIso
@@ -71,21 +79,29 @@ private:
     *   calculated by Algorithms::twoDToIso.
     *   @param linesNormalizedIso Vector of normalized lines of which the isometric coordinates have been calculated
     */
-    void drawLinesIso(const std::vector<Line<float> > linesNormalizedIso);
+    void drawLinesIso(const std::vector<Lines<float> > linesNormalizedIso);
 
     /*!
     *   Draws the ground and a vector of lines in 3D.
     *   Before the lines are drawn, they will be normalized within this function
     *   @param lines Vector of lines to draw
     */
-    void setLines(const std::vector<Line<int> > lines);
+    void setLines(const std::vector<Lines<int> > lines, int minX, int maxX, int minY, int maxY);
 
     /*!
     *   Draws the ground and a vector of lines isometricly (2.5D).
     *   Before the lines are drawn, they will be normalized within this function
     *   @return linesIso Vector of lines to draw
     */
-    void setLinesIso(const std::vector<Line<int> > linesIso);
+    void setLinesIso(const std::vector<Lines<int> > linesIso);
+
+    /*!
+      TODO DO
+    *   Draws the ground and a vector of lines isometricly (2.5D).
+    *   Before the lines are drawn, they will be normalized within this function
+    *   @return linesIso Vector of lines to draw
+    */
+    void setPolygons(const std::vector<std::vector<points> >& polygons);
 
     /*!
     *   Remembers the begin click position for the mouseMoveEvent
@@ -113,16 +129,16 @@ private:
     */
     void keyPressEvent(QKeyEvent *event);
 
-    static const float X_ROTATE_DEFAULT = 45.0;
-    static const float Y_ROTATE_DEFAULT = 45.0;
-    static const float Z_ROTATE_DEFAULT = 0.0;
+    static constexpr float X_ROTATE_DEFAULT = 45.0;
+    static constexpr float Y_ROTATE_DEFAULT = 45.0;
+    static constexpr float Z_ROTATE_DEFAULT = 0.0;
 
     float xRotate;
     float yRotate;
     float zRotate;
 
-    static const float MIN_ZOOM = -8.0f;
-    static const float MAX_ZOOM = -4.0f;
+    static constexpr float MIN_ZOOM = -8.0f;
+    static constexpr float MAX_ZOOM = -4.0f;
     float zPan;
     float xPan;
     float yPan;
@@ -149,7 +165,7 @@ public slots:
     *   Rotate the GLWidget around the Z axis
     *   @param angle Angle (degrees, 0-360) of the camera
     */
-    void rotateZ(int angle);
+    /*void rotateZ(int angle);*/
 
     /*!
     *   Pan the camera to the left

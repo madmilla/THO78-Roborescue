@@ -159,7 +159,7 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_VIDEO_ONLY], "VIDEO_ONLY");
 	global_data.param_access[PARAM_VIDEO_ONLY] = READ_WRITE;
 
-	global_data.param[PARAM_VIDEO_RATE] = 10000;
+	global_data.param[PARAM_VIDEO_RATE] = 1;
 	strcpy(global_data.param_name[PARAM_VIDEO_RATE], "VIDEO_RATE");
 	global_data.param_access[PARAM_VIDEO_RATE] = READ_WRITE;
 

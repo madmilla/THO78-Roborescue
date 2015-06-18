@@ -10,18 +10,17 @@
 #ifndef DATABASECONNECTOR_H
 #define DATABASECONNECTOR_H
 
-#include <mysql_connection.h>
-#include <cppconn/statement.h>
 #include <string>
 #include <vector>
-#include "point.hpp"
+#include "../../map/MapStructure/point.hpp"
 #include "QRCode.h"
+#include <QtSql>
 
 /** \class databaseConnector
  * \brief This class handles all the communication with the database
  *
  */
-struct map{
+struct mapIdName{
     int id;
     std::string name;
 };
@@ -43,7 +42,7 @@ public:
     * \return all know maps as a vector of a map struct with a id and name
     *
     */
-    std::vector<map> getMaps();
+    std::vector<mapIdName> getMaps();
 
     /** \brief returns the looked up map
     *
@@ -211,13 +210,13 @@ public:
 private:
     std::vector<point> polygonParser( const std::string& polygonString );
     point pointParser( const std::string& pointString );
-    sql::Connection* con;
-    sql::Statement* stmt;
     std::string statement_start="INSERT INTO `object` (`polygon`,map_id) VALUES (GeomFromText('POLYGON((";
     std::string statement_end=");";
     std::string statement_mid="))'),";
     std::string statement_continue="),(GeomFromText('POLYGON((";
     int mapId = -1;
+
+    QSqlDatabase db;
 };
 
 #endif // DATABASECONNECTOR_H

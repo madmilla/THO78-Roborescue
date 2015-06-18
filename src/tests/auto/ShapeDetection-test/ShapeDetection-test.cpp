@@ -96,7 +96,7 @@ int main(int argc, char** argv)
 	ShapeDetector sD;
 	Pointcloud pointcloud;
 	pointcloud.loadPointsFromFile(argv[1]);
-	std::cout << "size: " << pointcloud.getPoints()->size() << "\n";
+	std::cout << "PointcloudSize: " << pointcloud.getPoints()->size() << "\n";
 
 	const Mat & orginal_image = sD.createImage(pointcloud,10);
 	Mat customImage = orginal_image.clone();
@@ -106,7 +106,7 @@ int main(int argc, char** argv)
 	clock_t end = clock();
 	float time = (float)(end - Start) / CLOCKS_PER_SEC;
 	std::cout << (circles.size() + lines.size()) << " Objects detected in " << time << " seconds" << std::endl;
-	sD.writeObjectsToConsole(lines,circles);
+	//sD.writeObjectsToConsole(lines,circles);
 	sD.showObjects(lines,circles, orginal_image, customImage);
 	waitKey();
     return 0;

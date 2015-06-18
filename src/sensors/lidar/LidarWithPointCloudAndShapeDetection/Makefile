@@ -15,10 +15,10 @@ OBJECTS := $(patsubst %,%.o,$(MODULES))
 
 ifeq ($(OS),Windows_NT)
 	gcc = g++
-	LINKFLAGS = -L$(DEPS_DIR_WIN)\lib\rplidar\windows -L$(DEPS_DIR_WIN)\lib\opencv\Windows  -lopencv_core2410 -lopencv_highgui2410 -lopencv_imgproc2410
+	LINKFLAGS = -L$(DEPS_DIR_WIN)\lib\rplidar\windows -lrplidar -L$(DEPS_DIR_WIN)\lib\opencv\Windows  -lopencv_core2410 -lopencv_highgui2410 -lopencv_imgproc2410
 	rm = rm -f
 	TARGET := $(PROG).exe
-	CFLAGS = -std=c++11   -I$(DEPS_DIR_WIN)\incl\rplidar -I$(DEPS_DIR_WIN)\incl\opencv -g
+	CFLAGS = -std=c++11 -I$(DEPS_DIR_WIN)\incl\rplidar -I$(DEPS_DIR_WIN)\incl\opencv -g
 
 else
 	ARCH := $(shell getconf LONG_BIT)

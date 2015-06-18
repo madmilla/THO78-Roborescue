@@ -36,31 +36,34 @@
 #ifndef AREACOVERINGALGORITHM_H
 #define AREACOVERINGALGORITHM_H
 #include "waypoint.h"
-#include "arraymap.h"
+#include "map.hpp"
 #include "testcopter.h"
+#include <vector>
+#include "route.h"
 class AreaCoveringAlgorithm
 {
 public:
-    void setCopterSquare(TestCopter copt, ArrayMap* map);
-    int followCovered(TestCopter *copter, ArrayMap* mapp, int wallnumber, int coveredNumber);
-    void registerLocation(ArrayMap*,TestCopter*);
-    AreaCoveringAlgorithm(TestCopter copter, ArrayMap *mapp);
+    void setCopterSquare(TestCopter copt, map* map);
+    int followCovered(TestCopter *copter, map* mapp, int wallnumber, int coveredNumber);
+    void registerLocation(map*,TestCopter*);
+    AreaCoveringAlgorithm(TestCopter copter, map *mapp);
     ~AreaCoveringAlgorithm();
-    int followWall(TestCopter *copter, ArrayMap* mapp, int wallnumber);
+    int followWall(TestCopter *copter, map* mapp, int wallnumber);
     std::vector<WayPoint> result;
-    void drawWayPoints(ArrayMap*);
+    void drawWayPoints(map*);
     bool testCoverage();
+	Route getRoute();
 private:
 	// isCoveredInDirecten true or fales TI rules
     bool isCoveredInDirection(Dimension d, TestCopter* t );
-    bool isBoxedIn(TestCopter*, ArrayMap *map);
+    bool isBoxedIn(TestCopter*, map *map);
     void moveBackOnRoute(TestCopter* copter);
-    ArrayMap* globalmap;
+    map* globalmap;
     void goForward();
     bool moveingBack;
     int movesBack=0;
     int stuckWaypointIndex;
-    int pointOn(int x, int y, TestCopter *copter, ArrayMap* map);
+    int pointOn(int x, int y, TestCopter *copter, map* map);
 };
 
 #endif // AREACOVERINGALGORITHM_H

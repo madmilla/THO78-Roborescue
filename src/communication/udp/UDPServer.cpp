@@ -2,39 +2,38 @@
 
 
 UDPServer::UDPServer(RobotManager & manager) : manager(manager){
+	recv = 0;
+	sourceAddress = "";
+	sourcePort = 0;
+	std::cout << "Created server instance" << std::endl;
 	init();
    connectionThread = std::thread(&UDPServer::start, this);
-   recv =0;
+
 	}
 
 void UDPServer::init(){
-	UDPSocket sock(8888); 
+	udpsock = new UDPSocket("127.0.0.1", 8888);
+	std::cout << "Initialized socket at: \t 127.0.0.1:8888" << std::endl;
 }
 
 void UDPServer::start(){
 	try {
-		while (!stopped) {  // Run forever
-			// Block until receive message from a client
-			receive(&msg);
-			addConnection(sourceAddress, sourcePort, &msg);
-			handleMessage(sourceAddress, sourcePort, &msg); 	
+		while (!stopped) {
+			try{
+				std::cout << "Waiting for message..." << std::endl;
+				receive(&msg);
+				addConnection(sourceAddress, sourcePort, &msg);
+				handleMessage(sourceAddress, sourcePort, &msg);
+			}
+			catch (SocketException ex){
+				std::cout << "Nothing received : " << ex.what() << std::endl;
+			}
 		}
 	}
 	catch (SocketException &e) {
 		cerr << e.what() << endl;
 		exit(1);
 	}
-	
-	
-	/*while(!stopped){
-      try{
-      receive(&msg);
-      addConnection(si_other, &msg);
-      handleMessage(si_other, &msg);
-      }catch(std::exception & ex){
-         std::cout << ex.what();
-      }
-}*/
 
    std::this_thread::yield();
 }
@@ -56,19 +55,19 @@ void UDPServer::broadcast(mavlink_message_t * message){
 }
 
 void UDPServer::send(CPIUDPSocket * socket, mavlink_message_t * message){
-	sock.sendTo(message, sizeof(mavlink_message_t), socket->con.sockaddr, socket->con.port);
+	udpsock->sendTo(message, sizeof(mavlink_message_t), socket->con.sockaddr, socket->con.port);
 }
 
 void UDPServer::receive(mavlink_message_t * message){
-	sock.recvFrom(&msg, sizeof(mavlink_message_t), sourceAddress,sourcePort);
-	
+	auto data = udpsock->recvFrom(&msg, sizeof(mavlink_message_t), sourceAddress, sourcePort);
+	std::cout << "data : " << data << std::endl;	
 	recv++;
 }
 
 void UDPServer::handleMessage(std::string con,unsigned short port, mavlink_message_t * msg){
    for (auto & socket : _connections){
 	   if (socket->con.sockaddr == con && socket->con.port == port){
-         socket->receive(msg);
+		socket->receive(msg);
       }
    }
 }
