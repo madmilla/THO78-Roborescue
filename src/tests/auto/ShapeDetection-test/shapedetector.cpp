@@ -99,8 +99,8 @@ void ShapeDetector::checkLines(std::vector<Line> & lines) {
 		for (auto it = lines.begin(); it != lines.end();){
 			++vectorPosition;
 			int value = lines[i].intersect(*it);
-			if (value != 0 && value != 100) {
-				//std::cout << value << "\n";
+			if (value != 0 && value != 100){
+				std::cout << value << "\n";
 			}
 			if(value > 95){
 				if (lines[i].getLength() >= (*it).getLength()){
@@ -150,7 +150,7 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 	}
 	checkLines(newLines); //check for double lines
 	std::cout << "\n\n";
-	checkLines(newLines); //check for double lines
+	//checkLines(newLines); //check for double lines
 	return newLines;  // return the saved lines
 }
 
@@ -169,9 +169,11 @@ void ShapeDetector::writeLinesToConsole(const vector<Line> & lines){
 
 void ShapeDetector::drawLines(const std::vector<Line> lines, Mat & final_dest) {
 	for (Line l : lines){
-		line(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), Point(l.getLine().end_pos.x, l.getLine().end_pos.y), LINECOLOR, THICKNESS, CV_AA);
-		circle(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(0, 0, 255), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
-		circle(final_dest, Point(l.getLine().end_pos.x, l.getLine().end_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(255, 0, 0), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
+		//if (l.getLine().begin_pos.x > 200 && l.getLine().end_pos.x < 280 && l.getLine().begin_pos.y < 250 ){
+			line(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), Point(l.getLine().end_pos.x, l.getLine().end_pos.y), LINECOLOR, THICKNESS, CV_AA);
+			circle(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(0, 0, 255), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
+			circle(final_dest, Point(l.getLine().end_pos.x, l.getLine().end_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(255, 0, 0), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
+		//}
 	}
 }
 

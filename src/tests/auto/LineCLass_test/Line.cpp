@@ -81,7 +81,14 @@ int Line::getLength() {
 Line::Point Line::getFormula() {
 	float deltaX = lineData.end_pos.x - lineData.begin_pos.x;
 	float deltaY = lineData.end_pos.y - lineData.begin_pos.y;
-	float a = deltaY / deltaX;
+	float a = 0;
+	if(deltaX != 0){
+		a = deltaY / deltaX;
+	}
+	else{
+		a = 0;
+	}	
+	//std::cout << "formula " << deltaY << " - " << deltaX << " - "<<  a << std::endl;
 	float b = this->lineData.begin_pos.y - (a * this->lineData.begin_pos.x);
 	//std::cout << "y = " << a << " x + " << b << std::endl;
 	return Line::Point{ a, b };
@@ -90,14 +97,16 @@ Line::Point Line::getFormula() {
 bool Line::pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData & data) {
 	const int THRESHHOLD{10 };
 	if (data.end_pos.x < data.begin_pos.x){
-		std::cout << "er gaat iets mis ik stop: " << data.begin_pos << " - " << data.begin_pos;
+		std::cout << "er gaat iets mis ik stop: " << data.begin_pos << " - " << data.end_pos;
 		//exit(-1);
 	}
 	float y = (lineFormula.x * p.x) + lineFormula.y;
-	//std::cout << "point on line: " << p.x << " - " << p.y << " - - - " << data.begin_pos.x << " - " << data.end_pos.x << std::endl;
+	std::cout << "point on line: " << p.x << " - " << p.y << " - - - " << data.begin_pos.x << " - " << data.end_pos.x << std::endl;
 	if (y < (THRESHHOLD + p.y) && y >(p.y - THRESHHOLD) && p.x <= (data.end_pos.x + THRESHHOLD) && p.x > (data.begin_pos.x- THRESHHOLD)) {
 		return true;
 	}
+	std::cout << "y = ax + b ________ y = " << lineFormula.x << "x + " << lineFormula.y << std::endl;
+	std::cout << p.x << " + " <<p.y << " ++++++++ " << y << std::endl;
 	return false;
 }
 

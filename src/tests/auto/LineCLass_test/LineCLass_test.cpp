@@ -7,26 +7,29 @@ class Line;
 
 void test() {
 
-	Line::Point begin1{ 33, 6 };
-	Line::Point end1{196,6 };
+	Line::Point begin1{ 21, 11 };
+	Line::Point end1{22,210 };
 	Line testLine(begin1, end1);
 
-	Line::Point begin2{ 33,4 };
-	Line::Point end2{167, 2 };
+	Line::Point begin2{21,10 };
+	Line::Point end2{23, 210};
 	Line testLine2(begin2, end2);
 
 	std::cout << "\nintersect functie " << testLine2.intersect(testLine) << "%s\n";
 
 	std::cout << "\n................................................\n";
-	Line::Point begin3{ 0, 300 };
-	Line::Point end3{ 66.66, 200 };
-	Line testLine3(begin3, end3);
+	Line::Point begin5{23,210 };
+	Line::Point end5{23, 220};
+	
+	
+	Line testLine5(begin2, end2);
+
 
 	Line::Point begin4{ 33.33, 250 };
 	Line::Point end4{ 200, 0 };
 	Line testLine4(begin4, end4);
 
-	std::cout << "\nintersect functie " << testLine4.intersect(testLine3) << "%\n";
+	//std::cout << "\nintersect functie " << testLine5.intersect(testLine) << "%\n";
 
 	std::cout << "................................................\n";
 	std::cout << "running test..." << std::endl << std::endl;

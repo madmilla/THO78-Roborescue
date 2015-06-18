@@ -97,7 +97,7 @@ int main(int argc, char** argv)
 	Pointcloud pointcloud;
 	pointcloud.loadPointsFromFile(argv[1]);
 	std::cout << "PointcloudSize: " << pointcloud.getPoints()->size() << "\n";
-
+	//pointcloud.rotate(90);
 	const Mat & orginal_image = sD.createImage(pointcloud,10);
 	Mat customImage = orginal_image.clone();
 	clock_t Start = clock();
