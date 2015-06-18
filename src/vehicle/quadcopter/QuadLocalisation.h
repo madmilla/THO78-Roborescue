@@ -6,11 +6,11 @@
 * /_/   \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file 			QuadLocalization.h
+* @file 			QuadLocalisation.h
 * @date Created:	18-06-15
 *
 *  @author	Jos Roijakkers
-*
+*  @author	Daan Leijen
 *
 *  @section LICENSE
 *  License:	newBSD
@@ -47,15 +47,16 @@
 *	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef _QUADLOCALIZATION_H
-#define _QUADLOCALIZATION_H
+#ifndef _QUADLOCALISATION_H
+#define _QUADLOCALISATION_H
 #include "Quadcopter.h"
+#include "../../sensor/Localisation_Module/Localisation_Basestation/LocalisationModule.h"
 
-class QuadLocalization
+class QuadLocalisation
 {
 public:
-	QuadLocalization();
-	~QuadLocalization();
+	QuadLocalisation(Quadcopter& qc, LocalisationModule& lM);
+	~QuadLocalisation();
 	void goToXY();
 	void run();
 
