@@ -77,6 +77,8 @@ void XYReceiver::handleMessage(std::string message)
 					auto newY = stoi(yString);
 					coordinate.setX(newX);
 					coordinate.setY(newY);
+					std::cout << "Coordinate: " << getX() << ',' << getY() << std::endl;
+
 				}
 				catch (std::invalid_argument&)
 				{
