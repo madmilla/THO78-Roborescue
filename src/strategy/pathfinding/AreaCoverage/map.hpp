@@ -103,7 +103,7 @@ public:
 	void setScaledLocationValue(int x, int y, int value);
 	void print();
 private:
-	int scale;
+	int scale=1;
 	std::vector<line> mapData;
 	std::vector<polygon> objects;
 	std::vector<std::vector<int>> access; //accessible = 0, notAccessible = 1, seen = 5

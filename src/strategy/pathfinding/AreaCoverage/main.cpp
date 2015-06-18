@@ -15,7 +15,8 @@ void test(int i){
 	
 	std::cout << alg.getRoute();
 	std::cout << alg.getRoute().scale;
-	while (1){}
+	map.print();
+	getchar();
 }
 
 int main(int argc, char *argv[])

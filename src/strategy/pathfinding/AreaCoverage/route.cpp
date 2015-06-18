@@ -13,11 +13,11 @@ Route::~Route()
 {
 
 }
-
+void Route::addRoutePart(Route in) { waypoints.insert(waypoints.end(), in.waypoints.begin(), in.waypoints.end()); }
 std::ostream & operator<<(std::ostream & os, Route & l){
 	std::stringstream output;
 	for (auto i : l.waypoints){
-		output << i.x << " " << i.y << "\n";
+		output << i.x << " " << i.y << " ";
 
 
 	}

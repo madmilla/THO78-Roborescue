@@ -137,6 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="areacoveringalgorithm.cpp" />
+    <ClCompile Include="aStar.cpp" />
     <ClCompile Include="dimension.cpp" />
     <ClCompile Include="line.cpp" />
     <ClCompile Include="main.cpp" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="areacoveringalgorithm.h" />
+    <ClInclude Include="aStar.h" />
     <ClInclude Include="dimension.h" />
     <ClInclude Include="line.hpp" />
     <ClInclude Include="map.hpp" />

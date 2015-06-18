@@ -10,23 +10,40 @@ map::map(){
 
 	line a(point(0,0), point(0, access.size()));
 	line b(point(0,0), point(access.size(),0));
+	line c(point(access.size() - 1, access.size() - 1), point(0, access.size() - 1));
+	line d(point(access.size() - 1, access.size() - 1), point(access.size() - 1, 0));
 
-	line c(point(access.size()-1, access.size()-1), point(0, access.size()-1));
-	line d(point(access.size()-1, access.size()-1), point(access.size()-1, 0));
+	line e(point(5, 5), point(10, 5));
+	line f(point(5, 8), point(10, 8));
+	line g(point(10, 5), point(10,8 ));
+	//line h(point(11, 11), point(11, 9));
+
+	
 
 	appendLine(a);
 	appendLine(b);
 	appendLine(c);
 	appendLine(d);
+
+	appendLine(e);
+	appendLine(f);
+	appendLine(g);
+	//appendLine(h);
+
 	translateToPoints();
 
-	
+	for (int y = 0; y < 70; y++){
+		for (int x = 0; x < 70; x++){
+			std::cout << this->getLocationValue(x, y);
+		}
+		std::cout << "\n";
+	}
 	
 }
 void map::setLocationValue(int x, int y, int value)
 {
 	if (x < access.size()){
-		access.at(x).at(y) = value;
+	access.at(x).at(y) = value;
 	}
 
 }
@@ -256,12 +273,11 @@ void map::translateToPoints(){
 
 //check if x,y is accessible
 bool map::isAccessible(int x, int y){
-	if (access.at(x).at(y) == 0){
-		return true;
-	}
-	else if(access.at(x).at(y) = 1){
+
+	if(access.at(x).at(y) == 1){
 		return false;
 	}
+	return true;
 	
 }
 void map::setScale(int x){ scale = x; }

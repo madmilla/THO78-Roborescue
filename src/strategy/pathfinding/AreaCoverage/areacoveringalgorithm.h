@@ -36,20 +36,24 @@
 #ifndef AREACOVERINGALGORITHM_H
 #define AREACOVERINGALGORITHM_H
 #include "waypoint.h"
+#include "point.hpp"
 #include "map.hpp"
 #include "testcopter.h"
 #include <vector>
 #include "route.h"
+#include "aStar.h"
 class AreaCoveringAlgorithm
 {
 public:
+	point astarfrom=point(0,0);
+	point astarto=point(0,0);
     void setCopterSquare(TestCopter copt, map* map);
     int followCovered(TestCopter *copter, map* mapp, int wallnumber, int coveredNumber);
     void registerLocation(map*,TestCopter*);
     AreaCoveringAlgorithm(TestCopter copter, map *mapp);
     ~AreaCoveringAlgorithm();
     int followWall(TestCopter *copter, map* mapp, int wallnumber);
-    std::vector<WayPoint> result;
+    Route result;
     void drawWayPoints(map*);
     bool testCoverage();
 	Route getRoute();

@@ -8,6 +8,7 @@
 class Route
 {
 public:
+	void addRoutePart(Route);
     std::vector<WayPoint> waypoints;
     Route();
 	int scale;
