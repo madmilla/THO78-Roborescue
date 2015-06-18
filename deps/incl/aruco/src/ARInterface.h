@@ -114,7 +114,7 @@ private:
 	* thePyrDownLevel
 	* interger used to indicate the current pyrdownlevel
 	*/
-	int thePyrDownLevel;
+	int thePyrDownLevel = 0;
 	/**
 	* markerDetectorX
 	* creates makerDetectorX for video_deviceX
@@ -206,17 +206,45 @@ private:
 		}
 		return -1;
 	}
+	
+	void detectPX4FlowTag()
+	{
+		cv::namedWindow("PX4Test",1);
+		cv::namedWindow("PX4TestT",1);
+			
+		Mat image, imageCopy;
+		image = imread("image5.BMP", CV_LOAD_IMAGE_COLOR);
+		markerDetectorY.detect(image, theMarkersY,
+				theCameraParametersY, theMarkerSizeY);
+		
+		image.copyTo(imageCopy);
+			
+		for (unsigned int i=0;i<theMarkersY.size();i++) 
+		{
+			std::cout << "PXFLOW ID DETECTED: " << theMarkersY[i].id <<std::endl;
+			theMarkersY[i].draw(imageCopy,Scalar(0,0,255),1);
+		}	
+		
+		cv::imshow("PX4Test",imageCopy);
+		cv::imshow("PX4TestT",markerDetectorY.getThresholdedImage());
+	}
+	
+	bool hasGui;
+	Mat theInputImageCopyX, theInputImageCopyY;
 public:
 	/**
 	* ARInterface()
 	* the constructor for ARInterface opens the video_devices
 	*/
-	ARInterface() :
+	ARInterface(bool hasGui = false, double thres1 = 7, double thres2 = 7) :
 		newCoordinate {false},
 		errorOnInit { false},
 		error {""},
 		theMarkerSizeX { -1},
-		theMarkerSizeY { -1}	
+		theMarkerSizeY { -1},
+		hasGui {hasGui},
+		thresParam1{thres1},
+		thresParam2{thres2}
 	{
 		if(geteuid() != 0)
 		{			
@@ -230,7 +258,13 @@ public:
 		std::system("sudo modprobe uvcvideo nodrop=1 timeout=2000");
 		//Open the camera's
 		theVideoCapturerX.open(VIDEO_DEVICE_X);
-		theVideoCapturerY.open(VIDEO_DEVICE_Y);
+		theVideoCapturerX.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
+		theVideoCapturerX.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
+		
+		theVideoCapturerY.open(VIDEO_DEVICE_Y);		
+		theVideoCapturerY.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
+		theVideoCapturerY.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
+		
 
 		//Check video is open
 		if (!theVideoCapturerX.isOpened())
@@ -263,11 +297,25 @@ public:
 			markerDetectorY.pyrDown(thePyrDownLevel);
 		}
 		
-		markerDetectorX.getThresholdParams(thresParam1, thresParam2);
+		markerDetectorX.setThresholdParams(thresParam1, thresParam2);
+		markerDetectorY.setThresholdParams(thresParam1, thresParam2);
+		
+		//markerDetectorX.getThresholdParams(thresParam1, thresParam2);
 		markerDetectorX.setCornerRefinementMethod(MarkerDetector::SUBPIX);
-		markerDetectorY.getThresholdParams(thresParam1, thresParam2);
+		//markerDetectorY.getThresholdParams(thresParam1, thresParam2);
 		markerDetectorY.setCornerRefinementMethod(MarkerDetector::SUBPIX);
+		
+		if(hasGui)
+		{
+			cv::namedWindow("X",1);		
+			cv::namedWindow("Y",1);
+			cv::namedWindow("XT",1);		
+			cv::namedWindow("YT",1);
+			detectPX4FlowTag();
+		}
+			
 		std::cout << "Ending constructor" << std::endl;
+        
 	}
 	
 	/**
@@ -283,6 +331,10 @@ public:
 	{
 		while (1)
 		{
+			double t1, t2;
+			
+			markerDetectorX.getThresholdParams(t1, t2);
+			std::cout << "t1: " << t1 << " t2: " << t2 << std::endl;
 			//Grabs the X and Y images (otherwise .retrieve() will always 
 			// return the same image)
 			if(!theVideoCapturerX.grab())
@@ -350,11 +402,33 @@ public:
 				//}
 			}
 			cout << endl << flush;
+			if(hasGui)
+				{
+				theInputImageX.copyTo(theInputImageCopyX);
+				theInputImageY.copyTo(theInputImageCopyY);
+				for (unsigned int i=0;i<theMarkersX.size();i++) 
+				{
+					theMarkersX[i].draw(theInputImageCopyX,Scalar(0,0,255),1);
+				}
+			
+				for (unsigned int i=0;i<theMarkersY.size();i++) 
+				{
+					theMarkersY[i].draw(theInputImageCopyY,Scalar(0,0,255),1);
+				}
+			
+				cv::imshow("X",theInputImageCopyX);
+				cv::imshow("XT",markerDetectorX.getThresholdedImage());
+				
+				cv::imshow("Y",theInputImageCopyY);
+				cv::imshow("YT",markerDetectorY.getThresholdedImage());
+				char key = cv::waitKey(50);
+			}
 		}
 	}
+	
 
 	/**
-	* getCoordinate() returns the current coordinate of the localization system.
+	* getCoordinate returns the current coordinate of the localization system.
 	* It returns an <int> Coordinate, with X and Y attributes for the current
 	* position.
 	*
@@ -366,7 +440,7 @@ public:
 	}
 
 	/**
-	* isNewCoordinate() is called by the user of ARInterface to determine if there
+	* isNewCoordinate is called by the user of ARInterface to determine if there
 	* is a new coordinate available. Iif it is, getCoordinate() is usually
 	* called.
 	* It returns a bool.
@@ -376,7 +450,6 @@ public:
 	{
 		return newCoordinate;
 	}
-	
 	/**
 	* Returns wether an error in the initialisation (constructor) has occured
 	*

@@ -8,16 +8,34 @@
 
 boost::asio::io_service service;
 TCPServer server{ service, 10033 };
-ARInterface arRecogniser;
+ARInterface* arRecogniser;
 
-int main()
+int main(int argc, char *argv[])
 {
-	if(arRecogniser.isErrorOnInit())
+	std::cout << "Number of args: " << argc << std::endl;
+	bool gui = false;
+	int tresh1 = 7, tresh2 = 7;
+	if(argc >= 2)
 	{
-		std::cout << arRecogniser.getErrorString() << std::endl;
+		if(strcmp(argv[1],"gui")==0)
+		{
+			gui = true;
+		}
+	}
+	if(argc == 4)
+	{
+		tresh1 = atoi(argv[2]);
+		tresh2 = atoi(argv[3]);
+	}
+	std::cout << "treshparams: " << tresh1 << ", " <<tresh2 <<std::endl;
+	arRecogniser = new ARInterface(gui, tresh1, tresh2);
+	
+	if(arRecogniser->isErrorOnInit())
+	{
+		std::cout << arRecogniser->getErrorString() << std::endl;
 		return 0;
 	}
-	std::thread recogniserThread{ &ARInterface::run, &arRecogniser};
+	std::thread recogniserThread{ &ARInterface::run, arRecogniser};
 	//std::thread serviceThread{ [&service]()
 	//{
 	//	service.run();
@@ -28,14 +46,14 @@ int main()
 	
 	while(1)
 	{
-		if(arRecogniser.isErrorInRun())
+		if(arRecogniser->isErrorInRun())
 		{
-			std::cout << arRecogniser.getErrorString() << std::endl;
+			std::cout << arRecogniser->getErrorString() << std::endl;
 			return 0;
 		}
-		if(arRecogniser.isNewCoordinate())
+		if(arRecogniser->isNewCoordinate())
 		{
-			auto coordinate = arRecogniser.getCoordinate();
+			auto coordinate = arRecogniser->getCoordinate();
 			std::string message = 'X' + std::to_string(coordinate.getX()) + 'Y' + std::to_string(coordinate.getY());
 			std::cout << message <<std::endl;
 			//server.broadcast(message);
