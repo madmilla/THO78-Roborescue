@@ -22,19 +22,19 @@ LIDAR_GUI_DIR 					=
 MAP_GUI_DIR 					= 
 
 #MAP
-MAP_DIR 						= 
+MAP_DIR 						= src\map
 
 #COMMUNICATION
-MAVLINK_EXCHANGER_DIR 			= 
-PERSISTANT_STORAGE_DIR 			= 
-UDP_DIR 						= 
-UPDATE_VEHICLE_POSITION_DIR 	= 
+MAVLINK_EXCHANGER_DIR 			= src\communication\MavlinkExchanger
+PERSISTANT_STORAGE_DIR 			= src\communication\Persistant-Storage
+UDP_DIR 						= src\communication\UDP
+UPDATE_VEHICLE_POSITION_DIR 	= src\communication\Update-Vehicle-Position
 
 #DEPENDENCIES
-ARUCO_DIR 						=
-LIB_SERIAL_DIR					=
-MAVLINK_DIR						=
-MYSQLCPPCONN_DIR				=
-RPLIDAR_DIR						=
+ARUCO_DIR 						= deps\incl\aruco
+LIB_SERIAL_DIR					= deps\incl\libserial
+MAVLINK_DIR						= deps\incl\mavlink
+MYSQLCPPCONN_DIR				= deps\incl\mysqlcppconn
+RPLIDAR_DIR						= deps\incl\rplidar
 
 include Makefile.local
