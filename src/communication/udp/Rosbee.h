@@ -47,8 +47,10 @@
 #include "UDPSocket.h"
 #include "MessageQueue.h"
 #include "RALCPEncoder.h"
-class CPIUDPSocket;
-class Rosbee : public CPIBoundaryObject
+#include "UDPRobot.h"
+
+
+class Rosbee : public UDPRobot
 {
 public:
 	/// \brief constructor to make a Rosbee object (socket)
@@ -100,18 +102,14 @@ public:
     /// \brief returns unique identifier
     int getId() override;
 
-	~Rosbee(){ delete encoder;  }
+	
 
 private:
 
 
 	friend class RobotManager;
-	CPIUDPSocket * sock;
-	mavlink_message_t message;
-	mavlink_ralcp_t packet;
-	RALCPEncoder * encoder;
-
 	bool running = false;
 	MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
+	
 };
 #endif

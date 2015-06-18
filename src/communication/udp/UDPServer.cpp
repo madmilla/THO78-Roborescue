@@ -12,8 +12,8 @@ UDPServer::UDPServer(RobotManager & manager) : manager(manager){
 	}
 
 void UDPServer::init(){
-	udpsock = new UDPSocket("127.0.0.1", 8888);
-	std::cout << "Initialized socket at: \t 127.0.0.1:8888" << std::endl;
+	udpsock = new UDPSocket(8888);
+	std::cout << "Initialized socket at: \t 8888" << std::endl;
 }
 
 void UDPServer::start(){
@@ -60,7 +60,6 @@ void UDPServer::send(CPIUDPSocket * socket, mavlink_message_t * message){
 
 void UDPServer::receive(mavlink_message_t * message){
 	auto data = udpsock->recvFrom(&msg, sizeof(mavlink_message_t), sourceAddress, sourcePort);
-	std::cout << "data : " << data << std::endl;	
 	recv++;
 }
 
@@ -96,15 +95,14 @@ void UDPServer::addConnection(std::string con,unsigned short port, mavlink_messa
 			   std::cerr << "UNKNOWN DEVICE CONNECTION NOT HANDLED\r\n";
 			return;
 		}
-
-      //moved when lidar is intergrated	
 	  connect.type = des;
 	  CPIUDPSocket * sock = new CPIUDPSocket(connect, this);
 
 	 manager.createUDPRobot(sock);
 
       _connections.push_back(sock);
-      sock->receive(msg);printCon();
+      sock->receive(msg);
+      printCon();
 	}
 }
 
