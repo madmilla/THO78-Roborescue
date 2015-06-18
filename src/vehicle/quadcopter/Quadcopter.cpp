@@ -15,9 +15,8 @@ void Quadcopter::liftOff(int newAltitude)
 	changeAltitude(newAltitude);
 }
 
-void Quadcopter::changeAltitude(float newAltitude)
+void Quadcopter::changeAltitude(float targetAltitude)
 {
-	targetAltitude = newAltitude;
 	int newChannelThree = UINT16_MAX;
 	if (targetAltitude > altitude)
 	{
@@ -45,8 +44,8 @@ void Quadcopter::changeAltitude(float newAltitude)
 void Quadcopter::holdAltitude()
 {
 	auto newChannelThree = (RCTrimValues.CHANNEL_THREE_HIGH - 
-		RCTrimValues.CHANNEL_THREE_LOW) * HOLD_PERCENTAGE / 
-		100 + RCTrimValues.CHANNEL_THREE_LOW;
+		RCTrimValues.CHANNEL_THREE_LOW) * (HOLD_PERCENTAGE /
+		100) + RCTrimValues.CHANNEL_THREE_LOW;
 	sendRCMessage(UINT16_MAX, UINT16_MAX, newChannelThree);
 }
 
