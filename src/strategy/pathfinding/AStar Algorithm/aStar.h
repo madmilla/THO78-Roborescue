@@ -2,9 +2,9 @@
 #define _A_STAR_H
 
 #include <vector>
-#include "map.hpp"
+#include <map.hpp>
 #include <array>
-#include "route.h"
+#include <route.h>
 typedef std::pair<int, int> Coordinate;
 
 class aStar

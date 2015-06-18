@@ -223,16 +223,12 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, map *mapp,
 	  std::cout << "Boxed in";
       moveBackOnRoute(copter);
 	  std::cout << "Boxed in g";
-	  getchar();
 
       continue;
     } else if (boxed) {
 	  astarto =point(copter->x, copter->y);
 	  aStar findroute;
 	  Route shortest =findroute.getRoute(findroute.findPath(astarfrom.getX(), astarfrom.getY(), astarto.getX(), astarto.getY(),*globalmap));
-	  std::cout << "FROM" << astarfrom.getX() << " " << astarfrom.getY() << "TO " << astarfrom.getX() << " " << astarto.getY() << "\n";
-	  std::cout << shortest << "\n" << "SHORTEST";
-	  getchar();
 	  result.addRoutePart(shortest);
       moveingBack = false;
       boxed = false;

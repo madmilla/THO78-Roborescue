@@ -27,8 +27,6 @@ Route aStar::getRoute(std::vector<std::pair<int, int>> input){
 
 std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int endX, int endY, map& theMap)
 {
-	theMap.print();
-	getchar();
 	std::vector<Coordinate> path;
 	if (startX < 0 || startY < 0 || startX > width || startY > height || endX < 0 || endY < 0 || endX > width || endY > height)
 	{

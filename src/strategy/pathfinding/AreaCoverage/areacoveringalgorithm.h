@@ -35,13 +35,13 @@
 **/
 #ifndef AREACOVERINGALGORITHM_H
 #define AREACOVERINGALGORITHM_H
-#include "waypoint.h"
-#include "point.hpp"
-#include "map.hpp"
-#include "testcopter.h"
+#include <waypoint.h>
+#include <point.hpp>
+#include <map.hpp>
+#include <quadCopter.h>
 #include <vector>
-#include "route.h"
-#include "aStar.h"
+#include <route.h>
+#include <aStar.h>
 class AreaCoveringAlgorithm
 {
 public:
