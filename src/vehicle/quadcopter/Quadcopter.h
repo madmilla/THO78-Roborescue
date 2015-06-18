@@ -10,7 +10,13 @@
 * @date Created:	01-04-2015
 *
 *  @author	Kjeld Perquin
-*  @author	-
+*  @author	Daan Leijn 
+*  @author	Hylco Uding	
+*  @author	Daniel van den Berg
+*  @author	Feiko Wielsma	
+*  @author	Bart Muelders
+*  @author	Jos Rooijakkers
+*  @author 	Yorrick Lans
 *
 *  @section LICENSE
 *  License:	newBSD
@@ -198,6 +204,7 @@ public:
 	* Sets a new target altitude, and commands the rotors to move upwards or
 	* backwards. 
 	* @param the new target altitude where the quadcopter should move to.
+	* @warning uses the barometer. The barometer isn't accurate.
 	*/
 	void changeAltitude(float);
 

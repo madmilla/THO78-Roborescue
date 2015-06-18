@@ -245,8 +245,6 @@ void makeUnseen(){
 
 //translate lines to points in 2d vector
 void map::translateToPoints(){
-	
-
 	int maxX = 0, maxY = 0;
 	for (line & lCmp : mapData){
 		if (lCmp.getPoint(0).getX() > maxX){

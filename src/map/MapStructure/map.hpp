@@ -73,11 +73,16 @@ public:
 
 	//2D vector to check if points are accessible and seen
 	
-
-	//check if x,y is accessible
-	//eventueel met boost isAccessible
+	//! Check if the indices given are accessible
+	//! @param The x index
+	//! @param The y index
+	//! @return The result of the accessible check
 	bool isAccessible(int x, int y);
+	
+	//!
 	void setScale(int x);
+	
+	//! 
 	bool isScaledAccessible(int x, int y);
 
 	//add object to position x,y
@@ -93,6 +98,9 @@ public:
 	void setLocationValue(int x, int y,int value);
 
 	//translate lines to points in 2d vector
+	//! Translates a line vector to a grid map
+	//! Line data from the parameter will be translated to
+	//! point data to the return.
 	void translateToPoints();
 
 	int getLocationValue(int x, int y);

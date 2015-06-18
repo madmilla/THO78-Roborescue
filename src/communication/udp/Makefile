@@ -1,4 +1,4 @@
-SRC = RALCPEncoder.cpp Rosbee.cpp Lidar.cpp UDPServer.cpp UDPSocket.cpp main.cpp RobotManager.cpp Windows-udp/Client/client.cpp ../../../deps/incl/communication/udp/practicalsocket.cpp
+SRC = RALCPEncoder.cpp Rosbee.cpp Lidar.cpp UDPServer.cpp UDPSocket.cpp main.cpp RobotManager.cpp Windows-udp/Client/client.cpp ../../../deps/incl/communication/udp/practicalsocket.cpp UDPRobot.cpp
 HEADERS = $(SRC:.cpp:.h) Socket.h Connection.h CPIBoundaryObject.h mingw.thread.h MessageQueue.h RobotManager.h
 OBJ = $(SRC:.cpp=.o)
 EXEC = Udpserver

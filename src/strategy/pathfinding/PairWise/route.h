@@ -6,9 +6,17 @@
 class Route
 {
 public:
-    std::vector<WayPoint> waypoints;
     Route();
     ~Route();
+
+    void randomRoute(int mapWidth, int mapHeight);
+    WayPoint* getWaypoint(int wayPoint);
+    void pushWayPoint(WayPoint* wayPoint);
+    int getRouteSize();
+    void clearRoute();
+
+private:
+    std::vector<WayPoint*> wayPoints;
 };
 
 #endif // ROUTE_H

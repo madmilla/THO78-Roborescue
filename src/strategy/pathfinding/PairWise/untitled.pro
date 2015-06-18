@@ -18,7 +18,11 @@ SOURCES +=\
     pairwisemove.cpp \
     ../../../tests/auto/PairWise-test/main.cpp \
     ATV.cpp \
-    quadCopter.cpp
+    quadCopter.cpp \
+    ../../../map/MapStructure/map.cpp \
+    ../../../map/MapStructure/point.cpp \
+    ../../../map/MapStructure/line.cpp \
+    ../../../map/MapStructure/polygon.cpp
 
 HEADERS  += \
     dimension.h \
@@ -26,5 +30,9 @@ HEADERS  += \
     route.h \
     pairwisemove.h \
     ATV.h \
-    quadCopter.h
+    quadCopter.h \
+    ../../../map/MapStructure/map.hpp \
+    ../../../map/MapStructure/line.hpp \
+    ../../../map/MapStructure/point.hpp \
+    ../../../map/MapStructure/polygon.h
 

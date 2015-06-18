@@ -21,11 +21,8 @@ public:
 
 private:
    Ui::MainWindow *ui;
-
-   QPointF convertToQPointF(const Vector<float> p);
-   QPolygonF convertToQPolygonF(const MapItem mi);
 protected:
-   void paintEvent(QPaintEvent *);
+
 };
 
 #endif // MAINWINDOW_H

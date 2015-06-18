@@ -438,11 +438,11 @@ void mavlink_send_uart_bytes(mavlink_channel_t chan, const uint8_t * ch, uint16_
 	{
 		/* send to USB serial port */
 		//usart2_tx_ringbuffer_push(ch, length);
-		usart3_tx_ringbuffer_push(ch, length);
-		/*for (int i = 0; i < length; i++)
+		//usart3_tx_ringbuffer_push(ch, length);
+		for (int i = 0; i < length; i++)
 		{
 			VCP_put_char(ch[i]);
-		}*/
+		}
 	}
 }
 

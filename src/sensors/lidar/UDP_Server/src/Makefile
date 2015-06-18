@@ -1,13 +1,13 @@
 CPP = g++
 CPPFLAGS = -std=c++0x -O3 -c -lpthread
 
-PROGRAMS=UDPClient
+PROGRAMS=UDPServer
 all: $(PROGRAMS)
 
 clean:
 	rm *.o $(PROGRAMS) &> /dev/null || true
 	
-UDPClient: PracticalSocket.o UDP_Server.o
+UDPServer: PracticalSocket.o UDP_Server.o
 	$(CPP) -o $@ PracticalSocket.o UDP_Server.o -lpthread
 
 %.o: %.cpp
