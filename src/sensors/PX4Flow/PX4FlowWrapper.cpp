@@ -5,7 +5,7 @@
 #define PXTOMETERS 0.0007
 #define GYROTODEGREES (1.f * 360.f / 19.f)
 
-#define DEBUGOPTICAL
+//#define DEBUGOPTICAL
 
 PX4FlowWrapper::PX4FlowWrapper(){
 }
@@ -66,4 +66,44 @@ float PX4FlowWrapper::getY(){
 
 double PX4FlowWrapper::getHeadingInDegrees(){
 	return heading;
+}
+
+mavlink_message_t* PX4FlowWrapper::requestImage(unsigned char size){
+	if (isImageRequested()){
+		return nullptr;
+	}
+	requestedImageSize = size;
+	imageRequested = true;
+	imageReady = false;
+	
+	mavlink_message_t* msg = new mavlink_message_t();
+	
+	//TODO: make better
+
+	mavlink_msg_param_set_pack(82, 51, msg, 81, 50, "USB_SEND_VIDEO", 1, 1);
+	return msg;
+}
+	
+bool PX4FlowWrapper::isImageRequested(){
+	return imageRequested;
+}
+
+bool PX4FlowWrapper::isImageReady(){
+	return imageReady;
+}
+
+unsigned char PX4FlowWrapper::getRequestedImageSize(){
+	return requestedImageSize;
+}
+
+bool PX4FlowWrapper::getImage(char* image){
+	if (!isImageRequested() || !isImageRequested()){
+		return false;
+	}
+	imageReady = false;
+	imageRequested = false;
+}
+
+void PX4FlowWrapper::imageFull(){
+	imageRequested = false;
 }

@@ -1,6 +1,7 @@
 #include "someListener.h"
 #include <iostream>
 #include "CImg/CImg.h"
+#include <bitset>
 
 int pixel = 0;
 cimg_library::CImg<unsigned char> image;
@@ -22,7 +23,13 @@ void SomeListener::update(mavlink_message_t* msg){
 	
 	switch (msg->msgid){
 		case MAVLINK_MSG_ID_HEARTBEAT:
+		{
 			std::cout << "Heartbeat\n";
+			mavlink_message_t* msg = pX4FlowWrapper->requestImage(96);
+			if (msg != nullptr){
+				m->sendMessage(*msg);
+			}
+		}
 		break;
 		
 		case MAVLINK_MSG_ID_DATA_TRANSMISSION_HANDSHAKE:
@@ -54,11 +61,18 @@ void SomeListener::update(mavlink_message_t* msg){
 			mavlink_msg_encapsulated_data_decode(msg,data);
 			int size = mavlink_msg_encapsulated_data_get_data(msg,buffer);
 			std::cout << "frame ["<<size<<"]\n";
-			for (int i = 0; i < size; i ++){
-				if (pixel < imageSize){
-					image(pixel % imageWidth,pixel / imageWidth,0,0) = buffer[i]; //R
+			for (unsigned int i = 0; i < size; i ++){
+				unsigned char px = buffer[i];
+				for (unsigned int a = 0; a < 8; a++){
+					if (pixel < imageSize){
+						image(pixel % imageWidth,pixel / imageWidth,0,0) = (px & (1<<7)?255:0);//((buffer[i]>>a)&&1 != 0)*255; //R
+						px <<= 1;
+						pixel++;
+					}
 				}
-				pixel++;
+			}
+			if (pixel >= imageSize){
+				pX4FlowWrapper->imageFull();
 			}
 		}
 		break;

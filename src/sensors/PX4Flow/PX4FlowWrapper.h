@@ -89,7 +89,23 @@ public:
 	* @return the heading of the PX4Flow in degrees.
 	*/
 	double getHeadingInDegrees();
+	
+	mavlink_message_t* requestImage(unsigned char size);
+	
+	bool isImageRequested();
+	
+	bool isImageReady();
+	
+	unsigned char getRequestedImageSize();
+	
+	bool getImage(char* image);
+	
+	void imageFull();
 private:
+	unsigned char requestedImageSize;
+	bool imageRequested = false;
+	bool imageReady = false;
+	
 	float x=0.f,y=0.f;
 	float heading=0;
 };

@@ -243,7 +243,7 @@ void sendPhoto(uint16_t image_size_send, uint8_t ** current_image, uint8_t ** pr
 			image_size_send / MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN + 1,
 			MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN,
 			100);
-	send_image_now = false;
+	//send_image_now = false;
 	
 	uint16_t frame = 0;
 	delay(250);
@@ -252,9 +252,11 @@ void sendPhoto(uint16_t image_size_send, uint8_t ** current_image, uint8_t ** pr
 
 	for (frame = 0; frame < image_size_send / MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN + 1; frame++)
 	{
+		LEDOn(LED_ERR);
 		mavlink_msg_encapsulated_data_send(MAVLINK_COMM_2, frame, ((uint8_t *) current_image)[frame * MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN]);
+		LEDOff(LED_ERR);
 		delay(250);
-		send_image_now = false;
+		//send_image_now = false;
 	}
 }
 
@@ -682,14 +684,64 @@ int main(void)
 		}
 
 		/*  transmit raw 8-bit image */
-		if (global_data.param[PARAM_USB_SEND_VIDEO] && send_image_now)
+		if (global_data.param[PARAM_USB_SEND_VIDEO]/* && send_image_now*/)
 		{
 			//#define NOIMAGE
 			#ifndef NOIMAGE
 			LEDOn(LED_COM);
 			send_image_now = false;
 			/* get size of image to send */
-			sendPhoto(image_size, &current_image, &previous_image);
+			uint16_t image_size_send;
+			uint16_t image_width_send;
+			uint16_t image_height_send;
+
+			image_size_send = image_size/8;
+			image_width_send = global_data.param[PARAM_IMAGE_WIDTH];
+			image_height_send = global_data.param[PARAM_IMAGE_HEIGHT];
+			mavlink_msg_data_transmission_handshake_send(
+					MAVLINK_COMM_2,
+					MAVLINK_DATA_STREAM_IMG_RAW8U,
+					image_size_send,
+					image_width_send,
+					image_height_send,
+					image_size_send / MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN + 1,
+					MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN,
+					100);
+			delay(250);
+			send_image_now = false;
+			
+			uint16_t frame = 0;
+			
+		/*for (int i = 0; i < global_data.param[PARAM_IMAGE_WIDTH] * global_data.param[PARAM_IMAGE_HEIGHT]; i++)
+		{
+			current_image[i] = 'a' + i % 26;
+		}*/
+			dma_copy_image_buffers(&current_image, &previous_image, image_size, 1);
+
+			unsigned int threshold = 0;
+			for (int px = 0; px < image_size; px++){
+				threshold += current_image[px];
+			}
+			
+			threshold /= image_size;
+			
+			unsigned char newImage[image_size_send];
+			
+			for (unsigned int px = 0; px < image_size_send; px++){
+				newImage[px] = 0;
+			}
+			for (unsigned int px = 0; px < image_size; px++){
+				newImage[px/8] <<= 1;
+				newImage[px/8] |= (current_image[px] > threshold?1:0);
+			}
+			
+		
+			for (frame = 0; frame < image_size_send / MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN + 1; frame++)
+			{
+				mavlink_msg_encapsulated_data_send(MAVLINK_COMM_2, frame, &((uint8_t *) newImage)[frame * MAVLINK_MSG_ENCAPSULATED_DATA_FIELD_DATA_LEN]);
+				delay(300);
+				send_image_now = false;
+			}
 
 			LEDOff(LED_COM);
 			send_image_now = false;
@@ -697,7 +749,7 @@ int main(void)
 		}
 		else if (!global_data.param[PARAM_USB_SEND_VIDEO])
 		{
-			LEDOff(LED_COM);
+			LEDOff(LED_ERR);
 		}
 	}
 }
