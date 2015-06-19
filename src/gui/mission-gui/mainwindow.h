@@ -1,4 +1,4 @@
-/**
+﻿/**
 *                __
 *    _________  / /_  ____  ________  ____________  _____
 *   / ___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -46,7 +46,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include <vector>
 #include "rosbee.h"
 #include "lidar.h"

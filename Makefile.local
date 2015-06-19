@@ -1,8 +1,8 @@
-BOOST_INCL_DIR 	= 
-BOOST_DEPS_DIR 	= 
+BOOST_INCL_DIR 	= C:\Boost\boost_1_58_0
+BOOST_LIB_DIR 	= C:\Boost\boost_1_58_0\stage\lib
 
 OPENCV_INCL_DIR = 
-OPENCV_DEPS_DIR = 
+OPENCV_LIB_DIR 	= 
 
-QT_INCL_DIR 	= 
-QT_DEPS_DIR		= 
+QT_INCL_DIR 	= C:\Qt\Qt5.4.2\5.4\mingw491_32\include
+QT_LIB_DIR		= C:\Qt\Qt5.4.2\5.4\mingw491_32\lib
