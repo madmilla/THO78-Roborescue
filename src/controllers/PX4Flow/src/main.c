@@ -742,7 +742,9 @@ int main(void)
 				//delay(300);
 				send_image_now = false;
 			}
-
+	
+			global_data.param[PARAM_USB_SEND_VIDEO] = 0;
+	
 			LEDOff(LED_COM);
 			send_image_now = false;
 			#endif

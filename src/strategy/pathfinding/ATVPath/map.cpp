@@ -1,7 +1,6 @@
 #include "map.h"
 
-Map::Map()
-{
+Map::Map(){
 
 }
 
@@ -18,4 +17,12 @@ bool Map::isColliding(const MapItem & mi) const{
       if(mi.isColliding(mi2)) return true;
    }
    return false;
+}
+
+MapItem & Map::operator[](int index){
+   return items.at(index);
+}
+
+std::vector<MapItem> & Map::getMapItems(){
+   return items;
 }

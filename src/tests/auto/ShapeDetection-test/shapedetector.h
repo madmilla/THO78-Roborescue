@@ -114,8 +114,9 @@ public:
     /*!
     @param lines: contains the lines to draw;
     @param final_dest: the image to draw on
+	@param lidarPoint: the position of the lidar to be drawn on the image
     */
-    void drawLines(const std::vector<Line> lines, Mat & final_dest);
+	void drawLines(const std::vector<Line> lines, Mat & final_dest, Line::Point lidarPoint = Line::Point{ 0, 0 });
 
     //! write the circle and line objects to the console
     /*!
@@ -130,8 +131,9 @@ public:
      @param circles: the given circles to show
      @param orginal_image: the orginal input image to show
      @param custom_image: the edited image with the lines and circles to show
+	 @param lidarPoint: the position of the lidar to be drawn on the screen
      */
-    void showObjects(const vector<Line> & lines, const vector<Circle> circles, const Mat & orginal_image, Mat & custom_image);
+	void showObjects(const vector<Line> & lines, const vector<Circle> circles, const Mat & orginal_image, Mat & custom_image, Line::Point lidarPoint = Line::Point{ 0, 0 });
 
 };
 

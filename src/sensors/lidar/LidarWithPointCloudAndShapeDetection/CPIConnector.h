@@ -21,6 +21,7 @@ class CPIConnector : public BaseLidar
 {
 public:
 	CPIConnector();
+	~CPIConnector();
 	void sendCommand(uint64_t payload, COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS lcf);
 	void onMessage(mavlink_message_t & function) override;
 private:

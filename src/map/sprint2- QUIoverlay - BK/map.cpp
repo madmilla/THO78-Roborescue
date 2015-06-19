@@ -20,12 +20,12 @@ map::map(){
 	appendLine(d);
 	translateToPoints();
 
-	for (int i = 0; i < 70; i++){
-		for (int ii = 0; ii < 70; ii++){
-			std::cout << this->getLocationValue(i, ii);
-		}
-		std::cout << "\n";
-	}
+//	for (int i = 0; i < 70; i++){
+//		for (int ii = 0; ii < 70; ii++){
+//			std::cout << this->getLocationValue(i, ii);
+//		}
+//		std::cout << "\n";
+//	}
 	
 }
 void map::setLocationValue(int x, int y, int value)

@@ -176,7 +176,7 @@ void Pointcloud::loadPointsFromFile(std::string filename){
         std::stringstream convertY(item);
         if ( !(convertY >> result) )result = 0;
         point.Y = result;
-        setPoint(point);
+		setPoint(point);
     }
     pCFile.close();
 }

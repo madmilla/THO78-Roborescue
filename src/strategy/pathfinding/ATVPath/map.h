@@ -4,8 +4,7 @@
 #include <vector>
 #include "mapitem.h"
 
-class Map
-{
+class Map {
 public:
    Map();
 
@@ -13,6 +12,10 @@ public:
    void clear();
 
    bool isColliding(const MapItem & mi) const;
+
+   MapItem & operator[](int index);
+
+   std::vector<MapItem> & getMapItems();
 
 private:
    std::vector<MapItem> items;

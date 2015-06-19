@@ -70,17 +70,21 @@ bool ShapeDetector::callCvSmooth(const Mat & m_src, const Mat & m_dest, const in
 }
 
 Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
+	source.rotate(90); //by converting the image from x/y as to only positive values the image will be rotated with -90 degrees, to get the original image we rotate with 90
 	int minX = source.getMinValues().X;
 	int minY = source.getMinValues().Y;
 	size_t imageHeight = source.getCloudHeight();
 	size_t imageWidth = source.getCloudWidth();
-	Mat mat((int)(imageWidth / DEVIDEIMAGESIZE)+1, (int)(imageHeight / DEVIDEIMAGESIZE)+1, CV_8UC1); //Create a Mat object which will represent the image with all the pixels
+	Mat mat((int)(imageWidth / DEVIDEIMAGESIZE) + 1, (int)(imageHeight / DEVIDEIMAGESIZE) + 1, CV_8UC1); //Create a Mat object which will represent the image with all the pixels
 	for (int y = 0; y < imageHeight; ++y){
 		for (int x = 0; x < imageWidth; ++x){
 			mat.at<uchar>(Point((int)(y / DEVIDEIMAGESIZE),(int)( x / DEVIDEIMAGESIZE))) = BLACK_PIXEL;
 		}
 	}
-
+	cv::Size s = mat.size();
+	int rows = s.height;
+	int cols = s.width;
+	std::cout << "size rows: " << rows << "cols " << cols << std::endl;
 	int i = 0;
 	for (Pointcloud::Point p : *source.getPoints()){
 		//std::cout << i << " - " << p.X << " - " << p.Y << " ----- " << p.Y + (abs(minY)) << " - " <<  p.X + (abs(minX)) << " --- " << imageHeight << " - " << imageWidth << "\n";
@@ -99,8 +103,11 @@ void ShapeDetector::checkLines(std::vector<Line> & lines) {
 		for (auto it = lines.begin(); it != lines.end();){
 			++vectorPosition;
 			int value = lines[i].intersect(*it);
-			if (value != 0 && value != 100) {
-				//std::cout << value << "\n";
+			if ((value != 0 && value != 100)){
+				std::cout << value << "\n";
+			}
+			if (lines[i].getLine().begin_pos.x > 200 && lines[i].getLine().end_pos.x < 280 && lines[i].getLine().begin_pos.y < 250){
+				std::cout << value << "\n";
 			}
 			if(value > 95){
 				if (lines[i].getLength() >= (*it).getLength()){
@@ -150,7 +157,7 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 	}
 	checkLines(newLines); //check for double lines
 	std::cout << "\n\n";
-	checkLines(newLines); //check for double lines
+	//checkLines(newLines); //check for double lines
 	return newLines;  // return the saved lines
 }
 
@@ -167,11 +174,17 @@ void ShapeDetector::writeLinesToConsole(const vector<Line> & lines){
 	std::cout << stream.str();
 }
 
-void ShapeDetector::drawLines(const std::vector<Line> lines, Mat & final_dest) {
+void ShapeDetector::drawLines(const std::vector<Line> lines, Mat & final_dest, Line::Point lidarPoint) {
+	if (lidarPoint.x != 0){
+		line(final_dest, Point(lidarPoint.x - 10, lidarPoint.y), Point(lidarPoint.x + 10, lidarPoint.y), CV_RGB(255,0, 150), THICKNESS, CV_AA); //Draw lidarPoint position
+		line(final_dest, Point(lidarPoint.x, lidarPoint.y - 10), Point(lidarPoint.x, lidarPoint.y + 10), CV_RGB(255,0, 150), THICKNESS, CV_AA);//Draw lidarPoint position
+	}
 	for (Line l : lines){
-		line(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), Point(l.getLine().end_pos.x, l.getLine().end_pos.y), LINECOLOR, THICKNESS, CV_AA);
-		circle(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(0, 0, 255), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
-		circle(final_dest, Point(l.getLine().end_pos.x, l.getLine().end_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(255, 0, 0), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
+		//if (l.getLine().begin_pos.x > 200 && l.getLine().end_pos.x < 280 && l.getLine().begin_pos.y < 250 ){
+			line(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), Point(l.getLine().end_pos.x, l.getLine().end_pos.y), LINECOLOR, THICKNESS, CV_AA);
+			circle(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(0, 0, 255), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
+			circle(final_dest, Point(l.getLine().end_pos.x, l.getLine().end_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(255, 0, 0), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
+		//}
 	}
 }
 
@@ -180,8 +193,8 @@ void ShapeDetector::writeObjectsToConsole(const std::vector<Line> & lines, const
 	writeLinesToConsole(lines);
 }
 
-void ShapeDetector::showObjects(const vector<Line> & lines, const std::vector<Circle> circles, const Mat & orginal_image, Mat & custom_image){
-	drawLines(lines, custom_image);
+void ShapeDetector::showObjects(const vector<Line> & lines, const std::vector<Circle> circles, const Mat & orginal_image, Mat & custom_image, Line::Point lidarPoint){
+	drawLines(lines, custom_image, lidarPoint);
 	imwrite("newImage.png",custom_image);
 	drawCircles(circles, custom_image);
 	imshow("orginal image", orginal_image);

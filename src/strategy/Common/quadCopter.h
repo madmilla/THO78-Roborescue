@@ -1,7 +1,7 @@
-#include "dimension.h"
-
 #ifndef QUADCOPTER_H
 #define QUADCOPTER_H
+
+#include "dimension.h"
 
 class quadCopter
 {

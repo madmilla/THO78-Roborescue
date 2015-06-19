@@ -1,7 +1,7 @@
 #include "aStar.h"
 #include <iostream>
 #include <array>
-
+#include "waypoint.h"
 aStar::aStar()
 {
 }
@@ -10,6 +10,20 @@ aStar::aStar()
 aStar::~aStar()
 {
 }
+
+Route aStar::getRoute(std::vector<std::pair<int, int>> input){
+	std::cout << input.size();
+	Route output;
+	for (Coordinate c : input){
+		output.waypoints.push_back(WayPoint(c.first, c.second));
+
+	}
+	return output;
+
+
+
+}
+
 
 std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int endX, int endY, map& theMap)
 {
