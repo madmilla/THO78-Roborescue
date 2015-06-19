@@ -8,6 +8,11 @@
 #include "algorithms.h"
 
 int main(int argc, char *argv[]) {
+	
+	int maxX = 0;
+	int maxY = 0;
+	int minX = 0;
+	int minY = 0;
 	// Initialize lines vector with "random" numbers
     std::vector<Lines<int> > lines;
     Lines<int> line1(-533445, 535435, -23424, 312312);
@@ -20,7 +25,7 @@ int main(int argc, char *argv[]) {
     lines.push_back(line4);
 	
 	// Normalize lines between -1 and 1 floats
-	const std::vector<Lines<float> > normalizedLines = Algorithms::normalizeLines(lines);
+	const std::vector<Lines<float> > normalizedLines = Algorithms::normalizeLines(lines, minX, maxX, minY, maxY);
 
     for(std::vector<Lines<float> >::const_iterator it = normalizedLines.begin(); it != normalizedLines.end(); ++it) {
         if (it->x1 > 1 || it->x1 < -1) {
