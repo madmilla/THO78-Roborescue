@@ -38,15 +38,20 @@
 		testMap.appendLine(l3);
 		testMap.appendLine(l4);
 
-		std::cout << "testmap: " << testMap;
+		std::cout << "testmap: " << testMap << "\n";
 	}
 
 	//check if max integer is accepted
 	void test2(){
-		if (l5.getPoints() >= (INT_MAX,INT_MAX) || )
-		testMap.appendLine(l5);
-		testMap.appendLine(l6);
-
+		if (l5.getPoints().first.getX() <= INT_MAX && l5.getPoints().first.getY() <= INT_MAX &&l5.getPoints().first.getX() <= INT_MIN && l5.getPoints().first.getY() <= INT_MIN){
+			testMap.appendLine(l5);
+		}
+		else if (l6.getPoints().first.getX() <= INT_MAX && l6.getPoints().first.getY() <= INT_MAX && l6.getPoints().first.getX() <= INT_MIN && l6.getPoints().first.getY() <= INT_MIN){
+			testMap.appendLine(l6);
+		}
+		else{
+			std::cout << "Error: value out of bounds\n";
+		}
 	}
 
 	//performance with 1 million lines
