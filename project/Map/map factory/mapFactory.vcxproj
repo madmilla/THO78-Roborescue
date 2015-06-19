@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\src\map\Map Factory;..\..\..\src\map\mapStructure</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\src\map\Map Factory;..\..\..\src\map\mapStructure;..\..\..\src\strategy\Common</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

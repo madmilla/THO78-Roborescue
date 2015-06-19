@@ -119,19 +119,19 @@ public:
 	void addCircle(int x, int y, int radius);
 
 	// Vehicle Positions Getters and Setters
-	//! @returns the rosbee position
+	//! \returns the rosbee position
 	Rosbee* getRosbeePosition() { return rosbeePosition; }
-	//! @returns the atv position
+	//! \returns the atv position
 	ATV* getATVPosition() { return ATVPosition; }
-	//! @returns the quadcopter position
+	//! \returns the quadcopter position
 	QuadCopter* getQuadCopterPositon() { return quadcopterPosition; }
 
 	//! Sets the rosbee position
 	void setRosbeePosition(Rosbee* newPosition) { this->rosbeePosition = newPosition; }
 	//! Sets the atv position
-	void getATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
+	void setATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
 	//! Sets the quadcopter position
-	void getQuadCopterPositon(QuadCopter* newPosition) { this->quadcopterPosition = newPosition; }
+	void setQuadCopterPositon(QuadCopter* newPosition) { this->quadcopterPosition = newPosition; }
 private:
 	int scale=1;
 	std::vector<line> mapData;
