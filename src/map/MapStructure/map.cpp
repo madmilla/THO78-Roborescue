@@ -336,4 +336,5 @@ void map::addLidarInput(int lidarInputArray[]){
 	if (lidarInputArray[1] == 1){
 		addCircle(lidarInputArray[1], lidarInputArray[2], lidarInputArray[3]);
 	}
+	translateToPoints();
 }
