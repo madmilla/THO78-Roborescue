@@ -1,13 +1,5 @@
 #include "CPIConnector.h"
 
-CPIConnector::CPIConnector(){
-}
-
-CPIConnector::~CPIConnector(){
-}
-
-#include "CPIConnector.h"
-
 //This is an example child class
 CPIConnector::CPIConnector() :BaseRobot{}{}
 
