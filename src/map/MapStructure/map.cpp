@@ -327,6 +327,7 @@ bool map::isReachable(point p, point p1){
 
 void map::setNotReachable(point p){
 	return;
+}
 
 void map::addLidarInput(int lidarInputArray[]){
 	if (lidarInputArray[0] == 0){
