@@ -68,12 +68,14 @@
     <ClCompile Include="..\..\..\src\map\MapStructure\map.cpp" />
     <ClCompile Include="..\..\..\src\map\MapStructure\point.cpp" />
     <ClCompile Include="..\..\..\src\map\MapStructure\polygon.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\map\MapStructure\line.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\map.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\point.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\polygon.h" />
+    <ClInclude Include="Test.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

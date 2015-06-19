@@ -49,6 +49,7 @@ line mapFactory::linestringToLine(std::string linestring){
 
 
 	// Elems now contains x, y, x1, y1 as string
+	//AtoI = String to Integer
 	int x = atoi(elems[0].c_str());
 	int y = atoi(elems[1].c_str());
 	int x1 = atoi(elems[2].c_str());
