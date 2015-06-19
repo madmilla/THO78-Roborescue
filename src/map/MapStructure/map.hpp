@@ -9,12 +9,10 @@
 #include <QuadCopter.h>
 #include <Rosbee.h>
 #include <ATV.h>
-
-class aStar;
-
+#include <aStar.h>
 
 
-class map
+class map : public mapImplementation
 {
 public:
 	int getScale();
@@ -117,7 +115,7 @@ public:
 	void makeUnseen();
 
 	//when pathfinding is done, make all cells unseen again. seen = false;	
-	void setLocationValue(int x, int y,int value);
+	void setLocationValue(unsigned int x, int y, int value);
 
 	//translate lines to points in 2d vector
 	//! Translates a line vector to a grid map
@@ -125,7 +123,7 @@ public:
 	//! point data to the return.
 	void translateToPoints();
 
-	int getLocationValue(int x, int y);
+	int getLocationValue(unsigned int x, unsigned int y);
 
 	int getScaledLocationValue(int x, int y);
 	int getScaledWidth();
@@ -165,7 +163,6 @@ private:
 	Rosbee* rosbeePosition;
 	ATV* ATVPosition;
 	QuadCopter* quadcopterPosition;
-
 };
 
 #endif

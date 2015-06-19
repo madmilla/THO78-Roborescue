@@ -89,5 +89,8 @@
     <ClInclude Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\map\MapStructure\mapImplementation.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
