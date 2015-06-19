@@ -1,7 +1,12 @@
 #include "map.hpp"
 
-map::map(){
-	std::cout << "NEW MAP";
+map::map() {
+	// Initialize Vehicle Positions
+	rosbeePosition = nullptr;
+	ATVPosition = nullptr;
+	quadcopterPosition = nullptr;
+
+	std::cout << "NEW MAP" <<std::endl;
 	access.resize(70);
 	for (int i = 0; i < access.size();i++){
 		access.at(i).resize(70);
@@ -18,11 +23,9 @@ map::map(){
 	appendLine(b);
 	appendLine(c);
 	appendLine(d);
-	translateToPoints();
-
-	
-	
+	translateToPoints();	
 }
+
 void map::setLocationValue(int x, int y, int value)
 {
 	if (x < access.size()){
@@ -30,20 +33,14 @@ void map::setLocationValue(int x, int y, int value)
 	}
 
 }
+
 void map::addCircle(int xCentre, int yCentre, int radius){
 	for (int degrees = 0; degrees < 360; degrees++){
 		float x = radius*cos(degrees) + xCentre;
 		float y = radius*sin(degrees) + yCentre;
 		this->setLocationValue(std::round(x), std::round(y), 1);
-
-
-
-
-
 	}
 }
-
-
 
 void map::setScaledLocationValue(int x, int y, int value)
 {
@@ -51,13 +48,10 @@ void map::setScaledLocationValue(int x, int y, int value)
 	y = y*scale;
 	for (int i = 0; i < scale; i++){
 		for (int ii = 0; ii < scale; ii++){
-			this->setLocationValue(x + ii, y + i,value);
-
-			
+			this->setLocationValue(x + ii, y + i,value);			
 		}
 	}
 }
-
 
 int map::getLocationValue(int x, int y)
 {
@@ -66,22 +60,18 @@ int map::getLocationValue(int x, int y)
 	else return 1;
 
 }
+
 int map::contains(int value)
 {
-	for (int i = 0; i < getScaledWidth();i++)
-		{
+	for (int i = 0; i < getScaledWidth();i++){
 		for (int ii = 0; ii < getScaledHeight(); ii++){
-			if (this->getScaledLocationValue(i, ii) == value)
-				{
+			if (this->getScaledLocationValue(i, ii) == value){
 				return true;
-				}
 			}
-	
-		}
+		}	
+	}
 	return false;
-
 }
-
 
 map::map(line & l){
 	mapData.push_back(l);
@@ -92,8 +82,7 @@ map::map(std::vector<line> & l){
 }
 
 std::ostream & operator<<(std::ostream & os, const map & m){
-	for (const line & l : m.mapData)
-	{
+	for (const line & l : m.mapData){
 		os << l << "\n";
 	}
 	return os;
@@ -102,8 +91,7 @@ std::ostream & operator<<(std::ostream & os, const map & m){
 map::~map(){}
 
 bool map::hasLine(line & l){
-	for (const line & lCmp : mapData)
-	{
+	for (const line & lCmp : mapData){
 		if (l.equals(lCmp)){
 			return true;
 		}
@@ -112,10 +100,10 @@ bool map::hasLine(line & l){
 }
 
 bool map::hasLine(std::vector<line> & l){
-	for (line & lCmp : l)
-	{
-		if (!hasLine(lCmp))
+	for (line & lCmp : l){
+		if (!hasLine(lCmp)){
 			return false;
+		}
 	}
 	return true;
 }
@@ -167,8 +155,7 @@ bool map::removeLine(line & l){
 }
 
 bool map::removeLine(std::vector<line> & l){
-	for (line & lCmp : l)
-	{
+	for (line & lCmp : l){
 		removeLine(lCmp);
 	}
 	return hasLine(l);
@@ -223,8 +210,6 @@ map map::getRegion(point & p, unsigned int width, unsigned int height){
 //add object to position x,y
 void map::addObject(polygon object){
 	objects.push_back(object);
-
-
 }
 
 //fill object (circle or polygon) so that middle is not accessible
@@ -285,12 +270,8 @@ bool map::isScaledAccessible(int x, int y ){
 	for (int i = 0; i < scale; i++){
 		for (int ii = 0; ii < scale; ii++){
 			if (!this->isAccessible(i+x, ii+y)){
-				return false;
-			
+				return false;			
 			}
-
-
-
 		}
 	}
 	return true;
@@ -298,14 +279,12 @@ bool map::isScaledAccessible(int x, int y ){
 
 int map::getScaledWidth(){
 	return access.size() / scale;
+}
 
-
-	}
 int map::getScaledHeight(){
 	return access.size() / scale;
-
-
 }
+
 void map::print(){
 	for (int i = 0; i < getScaledWidth(); i++){
 		for (int ii = 0; ii < getScaledHeight(); ii++){
@@ -313,38 +292,30 @@ void map::print(){
 		}
 		std::cout << "\n";
 	}
-
-
-
 }
-int map::getScale(){ return scale; }
+
+int map::getScale(){ 
+	return scale; 
+}
+
 int map::getScaledLocationValue(int x, int y){
 	x = x*scale;
 	y = y*scale;
 	int highestvalue=0;
 	for (int i = 0; i < scale; i++){
 		for (int ii = 0; ii < scale; ii++){
-			
-			
-
-			if (highestvalue < this->getLocationValue(x + i, y + ii))
-			{
+			if (highestvalue < this->getLocationValue(x + i, y + ii)){
 				highestvalue = this->getLocationValue(x + i, y + ii);
 			}
 			if (highestvalue==1){
 			//	std::cout << "Returned solid \n";
-
 				return 1;
 			}
-			
-
-
-
 		}
-
 	}
 	return highestvalue;
 }
+
 
 bool map::isReachable(int x, int y, int x1, int y1){
 	return true;
@@ -356,4 +327,12 @@ bool map::isReachable(point p, point p1){
 
 void map::setNotReachable(point p){
 	return;
+
+void map::addLidarInput(int lidarInputArray[]){
+	if (lidarInputArray[0] == 0){
+		appendLine(line(point(lidarInputArray[1], lidarInputArray[2]), point(lidarInputArray[3], lidarInputArray[4])));
+	}
+	if (lidarInputArray[1] == 1){
+		addCircle(lidarInputArray[1], lidarInputArray[2], lidarInputArray[3]);
+	}
 }

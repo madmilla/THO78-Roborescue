@@ -35,7 +35,7 @@
 **/
 #include "quadCopter.h"
 
-TestCopter::TestCopter(Dimension copter, Dimension copterSight, int x, int y):
+QuadCopter::QuadCopter(Dimension copter, Dimension copterSight, int x, int y):
 copter{copter},
   copterSight{copterSight},
 x{x},
@@ -44,7 +44,7 @@ y{y}
 
 }
 
-TestCopter::~TestCopter()
+QuadCopter::~QuadCopter()
 {
 
 }

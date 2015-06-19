@@ -5,11 +5,11 @@
 #include <cstdint>
 #include <iostream>
 
-#include "BaseLidar.h"
+#include "BaseRobot.h"
 #include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 
-
-class CPIConnector : public BaseLidar
+//This is an example child class
+class CPIConnector : public BaseRobot
 {
 public:
 	CPIConnector();

@@ -13,14 +13,13 @@
 #include "CPIConnector.h"
 #include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 
-
 #define SLEEP 1
 
 int main()
 {
 	UDPClient sock;
 	CPIConnector cp;
-	sock.addListener(&cp);
+	sock.setBaseRobot(&cp);
 
 	while(true){
 		std::cout << "Main" << std::endl;

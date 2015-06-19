@@ -146,6 +146,8 @@ std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int end
 			}
 		}
 	}
+	openCells.clear();
+	closedCells.clear();
 	return path;
 }
 
