@@ -1,6 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
-
+ #include <cmath>
 #include "point.hpp"
 #include "line.hpp"
 #include <iostream>
@@ -31,7 +31,7 @@ public:
 	//! Get all the lines that intersect the point parameter
 	//! @param The point to be checked for intersecting lines
 	//! @return A vector of lines that intersect the point parameter.
-	std::vector<line> getPointLines(point & p);
+    std::vector<line> getPointLines(const point & p);
 
 	//! Append a line to the map
 	//! @param A line to be appended to the map data

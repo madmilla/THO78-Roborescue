@@ -10,6 +10,7 @@
 #include "../../strategy/Common/Rosbee.h"
 #include "../../strategy/Common/ATV.h"
 #include "../../strategy/pathfinding/Stop-them-spaces/aStar.h"
+#include "mapImplementation.hpp"
 
 
 class map : public mapImplementation

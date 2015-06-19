@@ -78,6 +78,6 @@ int main(int argc, char * argv[])
 	{
 		std::cout << '(' << e.first << ',' << e.second << ')' << std::endl;
 	}*/
-	system("pause");
+    //system("pause");
 	return 0;
 }
