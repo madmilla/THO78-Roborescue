@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\map\MapStructure\line.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\map.hpp" />
+    <ClInclude Include="..\..\..\src\map\MapStructure\mapImplementation.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\point.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\polygon.h" />
     <ClInclude Include="..\..\..\src\strategy\Common\ATV.h" />

@@ -68,7 +68,17 @@ void test3(){
 }
 	
 int main() {
-	test1();
-	test2();
-	test3();
+	//test1();
+	//test2();
+	//test3();
+
+	std::cout << "Running\n";
+	map m = map();
+	m.addCircle(20, 20, 5);
+	std::cout << std::endl;
+	m.print();
+	m.isReachable(1, 1, 21, 21);
+	m.print();
+
+	(void)getchar();
 }
