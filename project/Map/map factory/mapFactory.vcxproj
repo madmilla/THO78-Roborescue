@@ -84,6 +84,10 @@
     <ClCompile Include="..\..\..\src\map\MapStructure\map.cpp" />
     <ClCompile Include="..\..\..\src\map\MapStructure\point.cpp" />
     <ClCompile Include="..\..\..\src\map\MapStructure\polygon.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\Common\ATV.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\Common\dimension.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\Common\quadCopter.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\Common\Rosbee.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +96,10 @@
     <ClInclude Include="..\..\..\src\map\MapStructure\map.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\point.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\polygon.h" />
+    <ClInclude Include="..\..\..\src\strategy\Common\ATV.h" />
+    <ClInclude Include="..\..\..\src\strategy\Common\dimension.h" />
+    <ClInclude Include="..\..\..\src\strategy\Common\quadCopter.h" />
+    <ClInclude Include="..\..\..\src\strategy\Common\Rosbee.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
