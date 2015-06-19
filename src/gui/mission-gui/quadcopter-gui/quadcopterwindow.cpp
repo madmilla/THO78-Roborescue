@@ -1,7 +1,6 @@
 #include "quadcopterwindow.h"
 #include "ui_quadcopterwindow.h"
 #include "quadcopter.h"
-#include "qdebug.h"
 
 
 
@@ -107,7 +106,6 @@ void QuadCopterWindow::notifyListener(Subject& subject, StatusText statusText)
         }
     }
     if (statusText != StatusText::NONE){
-        qDebug() << printable.c_str();
         ui->messageOutput->append(printable.c_str());
     }
     //qDebug() << printable.c_str();

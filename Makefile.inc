@@ -3,7 +3,9 @@ CXX 							= g++
 CXXFLAGS						= -std=c++11
 LDFLAGS							= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
 INCLUDES 						= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR)
-LDLIBS							= -lboost_regex-mgw49-mt-d-1_58
+LDLIBS							= 
+MOC								= $(QT_BIN_DIR)/moc.exe
+UIC								= $(QT_BIN_DIR)/uic.exe
 
 #Vehicles
 QUADCOPTER_DIR 					= src\vehicles\quadcopter
@@ -58,6 +60,8 @@ UDP_DIR 						= src\communication\UDP
 INCLUDES						+= -I$(UDP_DIR)
 UPDATE_VEHICLE_POSITION_DIR 	= src\communication\Update-Vehicle-Position
 INCLUDES						+= -I$(UPDATE_VEHICLE_POSITION_DIR)
+SERIAL_PORT_DIR					= src\communication\SerialPort
+INCLUDES						+= -I$(SERIAL_PORT_DIR)
 
 #LIBRARIES
 ARUCO_DIR 						= deps\incl\aruco
@@ -70,6 +74,16 @@ MYSQLCPPCONN_DIR				= deps\incl\mysqlcppconn
 INCLUDES						+= -I$(MYSQLCPPCONN_DIR)
 RPLIDAR_DIR						= deps\incl\rplidar
 INCLUDES						+= -I$(RPLIDAR_DIR)
+
+#
+#moc_mainwindow.cpp : mainwindow.h
+#	$(MOC) $(INCLUDES) $< -o $@
+
+ui_%.h : %.ui
+	$(UIC) $< -o $@
+	
+moc_quadcopterwindow.cpp : $(QUADCOPTER_GUI_DIR)\quadcopterwindow.h
+	$(MOC) $(INCLUDES) $< -o $@
 
 %.o : %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c -o $@ $< 

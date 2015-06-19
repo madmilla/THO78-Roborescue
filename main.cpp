@@ -1,20 +1,14 @@
-#include <boost/regex.hpp>
-#include <iostream>
-#include <string>
+#include "quadcopterwindow.h"
+#include "quadcopter.h"
+#include "MAVlinkExchanger.h"
+#include "SerialPort.h"
 
 int main()
 {
-	std::cout << "hoi";
-	system("pause");
+	SerialPort p("");
+	MAVlinkExchanger e(p);
+	Quadcopter q(e);
+	QuadCopterWindow w(q);
+	w.show();
 	return 0;
-    std::string line;
-    boost::regex pat( "^Subject: (Re: |Aw: )*(.*)" );
-
-    while (std::cin)
-    {
-        std::getline(std::cin, line);
-        boost::smatch matches;
-        if (boost::regex_match(line, matches, pat))
-            std::cout << matches[2] << std::endl;
-    }
 }
