@@ -6,7 +6,7 @@ map::map() {
 	ATVPosition = nullptr;
 	quadcopterPosition = nullptr;
 
-	std::cout << "NEW MAP";
+	std::cout << "NEW MAP" <<std::endl;
 	access.resize(70);
 	for (int i = 0; i < access.size();i++){
 		access.at(i).resize(70);
