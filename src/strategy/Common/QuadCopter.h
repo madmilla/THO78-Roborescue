@@ -1,5 +1,5 @@
-#ifndef QUADCOPTER_H
-#define QUADCOPTER_H
+#ifndef QuadCopter_H
+#define QuadCopter_H
 
 #include "dimension.h"
 
@@ -24,4 +24,4 @@ private:
     int y;
 };
 
-#endif // QUADCOPTER_H
+#endif // QuadCopter_H
