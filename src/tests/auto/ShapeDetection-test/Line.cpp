@@ -94,20 +94,23 @@ bool Line::pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData
 	float B1 = lineFormula.y; //Y1 = A1x + B1 -> invert naar Y2 = (1/a1) x2 + B2
 	float A2 = -1 / A1;
 	float B2 = p.y - (A2 * p.x);
-
+//std::cout << std::endl << p << " +++++ " << data.begin_pos <<  " ++++ " << data.end_pos <<"\t+ " << A1<<  std::endl;
+	//std::cout << "C+++ " <<A1 << " + "<< A2 << " + " << B1 << " + " <<B2 << " + " <<C <<std::endl;
 	//Y  = A1 X + B1 = A2 X + B2 --> --> --> A1X - A2X  = B2 - B1	 ->>> (A1-A2)X = B2 - B1	 -> --> --> X = (B2 - B1) / A1 - A2
 	C.x = (B2 - B1) / (A1 - A2);
 	C.y = (A2 * C.x) + B2;
 
 	if (Line(C, p).getLength() <= THRESHHOLD && (p.x + THRESHHOLD > data.begin_pos.x) && (p.x - THRESHHOLD < data.end_pos.x)){
 		if (A1 > 0){
-			if ((p.y - THRESHHOLD > data.end_pos.y) && (p.y + THRESHHOLD < data.begin_pos.y)){
+			if ((p.y - THRESHHOLD < data.end_pos.y) && (p.y + THRESHHOLD > data.begin_pos.y)){
+				//std::cout << "true" << std::endl;
 				return true;
 			}
 			return false;
 		}
 		else{
 			if ((p.y - THRESHHOLD < data.begin_pos.y) && (p.y + THRESHHOLD > data.end_pos.y)){
+				//std::cout << "true" << std::endl;
 				return true;
 			}
 			return false;

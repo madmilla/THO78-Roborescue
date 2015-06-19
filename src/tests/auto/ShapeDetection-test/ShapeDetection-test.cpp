@@ -96,7 +96,7 @@ int main(int argc, char** argv)
 	ShapeDetector sD;
 	Pointcloud pointcloud;
 	pointcloud.loadPointsFromFile(argv[1]);
-	std::cout << "PointcloudSize: " << pointcloud.getPoints()->size() << "\n";
+	std::cout << "PointcloudSize: " << pointcloud.getPoints()->size() << " Min: " << pointcloud.getMinValues() <<   " ImageSize: " << pointcloud.getCloudWidth() << "," << pointcloud.getCloudHeight() << "\n";
 	//pointcloud.rotate(90);
 	const Mat & orginal_image = sD.createImage(pointcloud,10);
 	Mat customImage = orginal_image.clone();
@@ -104,10 +104,10 @@ int main(int argc, char** argv)
 	std::vector<Circle> circles = sD.detectCircles(customImage);
 	vector<Line> lines = sD.searchLines(customImage);
 	clock_t end = clock();
-	float time = (float)(end - Start) / CLOCKS_PER_SEC;
+	float time = (float)(end - Start) / CLOCKS_PER_SEC; 
 	std::cout << (circles.size() + lines.size()) << " Objects detected in " << time << " seconds" << std::endl;
 	//sD.writeObjectsToConsole(lines,circles);
-	sD.showObjects(lines,circles, orginal_image, customImage);
+	sD.showObjects(lines, circles, orginal_image, customImage, Line::Point{ (float)abs(pointcloud.getMinValues().Y) / 10, (float)abs(pointcloud.getMinValues().X) / 10 });
 	waitKey();
     return 0;
 
