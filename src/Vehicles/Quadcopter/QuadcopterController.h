@@ -49,10 +49,13 @@
 
 #ifndef _QUADCOPTERCONTROLLER_H
 #define _QUADCOPTERCONTROLLER_H
+#include "Quadcopter.h"
+#include "..\..\sensors\Localisation-Module\Localisation_Basestation.h"
 class QuadcopterController
 {
 public:
-	QuadcopterController();
+	QuadcopterController(Quadcopter& quad);
+	void registerLocalisation(LocalisationModule& LocMod);
 	~QuadcopterController();
 };
 #endif
