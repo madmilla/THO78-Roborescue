@@ -35,11 +35,11 @@
 **/
 #include "QuadCopter.h"
 
-QuadCopter::QuadCopter(Dimension copter, Dimension copterSight, int x, int y):
-copter{copter},
-  copterSight{copterSight},
-x{x},
-y{y}
+QuadCopter::QuadCopter(Dimension size, Dimension fov, int x, int y):
+    size{size},
+    fov{fov},
+    x{x},
+    y{y}
 {
 
 }
@@ -55,8 +55,8 @@ void QuadCopter::goTo(int x, int y){
 }
 
 bool QuadCopter::inView(int x, int y){
-    if(((this->x) -(copterSight.width/2) <= x) && ((this->x) + (copterSight.width/2) >= x)){
-        if(((this->y) - (copterSight.height/2) <= y) && ((this->y) + copterSight.height/2) >= y){
+    if(((this->x) -(fov.width/2) <= x) && ((this->x) + (fov.width/2) >= x)){
+        if(((this->y) - (fov.height/2) <= y) && ((this->y) + fov.height/2) >= y){
             return true;
         }
     }

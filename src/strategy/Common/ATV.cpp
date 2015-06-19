@@ -1,7 +1,7 @@
 #include "ATV.h"
 
-ATV::ATV(Dimension atv, int x, int y):
-    atv{atv},
+ATV::ATV(Dimension size, int x, int y):
+    size{size},
     x{x},
     y{y}{}
 
