@@ -132,6 +132,7 @@ public:
 	void setATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
 	//! Sets the quadcopter position
 	void setQuadCopterPositon(QuadCopter* newPosition) { this->quadcopterPosition = newPosition; }
+	void addLidarInput(int lidarInputArray[]);
 private:
 	int scale=1;
 	std::vector<line> mapData;

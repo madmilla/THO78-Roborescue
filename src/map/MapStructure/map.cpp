@@ -1,7 +1,7 @@
 #include "map.hpp"
 
 map::map() {
-	// Initializa Vehicle Positions
+	// Initialize Vehicle Positions
 	rosbeePosition = nullptr;
 	ATVPosition = nullptr;
 	quadcopterPosition = nullptr;
@@ -210,8 +210,6 @@ map map::getRegion(point & p, unsigned int width, unsigned int height){
 //add object to position x,y
 void map::addObject(polygon object){
 	objects.push_back(object);
-
-
 }
 
 //fill object (circle or polygon) so that middle is not accessible
@@ -316,4 +314,13 @@ int map::getScaledLocationValue(int x, int y){
 		}
 	}
 	return highestvalue;
+}
+
+void map::addLidarInput(int lidarInputArray[]){
+	if (lidarInputArray[0] == 0){
+		appendLine(line(point(lidarInputArray[1], lidarInputArray[2]), point(lidarInputArray[3], lidarInputArray[4])));
+	}
+	if (lidarInputArray[1] == 1){
+		addCircle(lidarInputArray[1], lidarInputArray[2], lidarInputArray[3]);
+	}
 }
