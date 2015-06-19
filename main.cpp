@@ -4,5 +4,6 @@
 int main()
 {
 	std::cout << "hoi";
+	system("pause");
 	return 0;
 }
