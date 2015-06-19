@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 
-#include "line.h"
+#include "lines.h"
 #include "algorithms.h"
 
 int main(int argc, char *argv[]) {
