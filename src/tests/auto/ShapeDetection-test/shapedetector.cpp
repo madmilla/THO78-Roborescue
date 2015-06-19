@@ -76,35 +76,21 @@ Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	size_t imageHeight = source.getCloudHeight();
 	size_t imageWidth = source.getCloudWidth();
 	Mat mat((int)(imageWidth / DEVIDEIMAGESIZE) + 1, (int)(imageHeight / DEVIDEIMAGESIZE) + 1, CV_8UC1); //Create a Mat object which will represent the image with all the pixels
-	for (int y = 0; y < imageHeight; ++y){
-		for (int x = 0; x < imageWidth; ++x){
-			mat.at<uchar>(Point((int)(y / DEVIDEIMAGESIZE),(int)( x / DEVIDEIMAGESIZE))) = BLACK_PIXEL;
-		}
-	}
-	cv::Size s = mat.size();
-	int rows = s.height;
-	int cols = s.width;
-	std::cout << "size rows: " << rows << "cols " << cols << std::endl;
-	int i = 0;
 	for (Pointcloud::Point p : *source.getPoints()){
-		//std::cout << i << " - " << p.X << " - " << p.Y << " ----- " << p.Y + (abs(minY)) << " - " <<  p.X + (abs(minX)) << " --- " << imageHeight << " - " << imageWidth << "\n";
-		i++;
 		mat.at<uchar>(Point( (int) ((p.Y + abs(minY)) / DEVIDEIMAGESIZE), (int)((p.X + abs(minX)) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
 	}
-	imwrite("output.jpg", mat); // save the 
-	Mat image(imread("output.jpg")); //read and return the image
+	imwrite("ScanImage.jpg", mat); // save the 
+	Mat image(imread("ScanImage.jpg")); //read and return the image
 	return image;
 }
-
-void ShapeDetector::checkLines(std::vector<Line> & lines) {
-
+void ShapeDetector::removeLines(std::vector<Line> & lines){
 	for(int i = 0; i < lines.size(); ++i){
 		int vectorPosition = 0;
 		for (auto it = lines.begin(); it != lines.end();){
 			++vectorPosition;
 			int value = lines[i].intersect(*it);
 			if ((value != 0 && value != 100)){
-				std::cout << value << "\n";
+				std::cout << value << " + "<< lines[i].getFormula().x << " + " << (*it).getFormula().x <<"\n";
 			}
 			if (lines[i].getLine().begin_pos.x > 200 && lines[i].getLine().end_pos.x < 280 && lines[i].getLine().begin_pos.y < 250){
 				std::cout << value << "\n";
@@ -121,6 +107,41 @@ void ShapeDetector::checkLines(std::vector<Line> & lines) {
 			++it;
 		}
 	}
+}
+Line ShapeDetector::combineTwoLines(Line & line1, Line & line2){
+	std::cout << "combine:  " <<std::endl;
+	Line::Point formula2 = line2.getFormula();
+	if (line1.pointOnLine(line1.getLine().begin_pos, formula2, line2.getLine())){
+		return Line{ line2.getLine().begin_pos, line1.getLine().end_pos };
+	}
+	else{
+		return Line{ line1.getLine().begin_pos, line2.getLine().end_pos };
+	}
+}
+void ShapeDetector::combineLines(std::vector<Line> & lines){
+	float SLOPE_THRESHOLD = 0.1;
+	for (int i = 0; i < lines.size(); ++i){
+		for (auto it = lines.begin(); it != lines.end();){
+			int value = lines[i].intersect(*it);
+			if (value > 0){
+				float slopeA = lines[i].getFormula().x;
+				float slopeB = (*it).getFormula().x;
+				if (abs(slopeA - slopeB) < SLOPE_THRESHOLD && value!=100){
+					lines[i].setLine(combineTwoLines(lines[i], *it).getLine().begin_pos, combineTwoLines(lines[i], *it).getLine().end_pos);
+					lines.erase(it);
+				}
+			}
+			++it;
+		}
+		
+	}
+}
+void ShapeDetector::checkLines(std::vector<Line> & lines) {
+
+	removeLines(lines);
+	combineLines(lines);
+	removeLines(lines);
+	
 }
 
 vector<Line> ShapeDetector::searchLines(const Mat & image) {

@@ -63,8 +63,7 @@ private:
 	};
 	LineData lineData;
 
-	Line::Point getFormula();
-	bool pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData & data);
+	
 
 public:
 	//! The Contructor for the Lidar
@@ -108,6 +107,8 @@ public:
 
 	int getLength();
 	int intersect(Line & line2);
+	Line::Point getFormula();
+	bool pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData & data);
 };
 #endif
 

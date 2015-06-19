@@ -78,7 +78,7 @@ int Line::getLength() {
 	return sqrt(pow(deltaX, 2) + pow(deltaY, 2));
 }
 
-Line::Point Line::getFormula() {
+Line::Point  Line::getFormula() {
 	float deltaX = lineData.end_pos.x - lineData.begin_pos.x;
 	float deltaY = lineData.end_pos.y - lineData.begin_pos.y;
 	float a = deltaY / deltaX;

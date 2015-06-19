@@ -65,7 +65,9 @@ private:
      @param lines: the given lines to check on
      */
     void checkLines(std::vector<Line>& lines);
-
+	void removeLines(std::vector<Line> & lines);
+	void combineLines(std::vector<Line> & lines);
+	Line combineTwoLines(Line &line1, Line& line2);
 public:
     ShapeDetector();
     ~ShapeDetector();
