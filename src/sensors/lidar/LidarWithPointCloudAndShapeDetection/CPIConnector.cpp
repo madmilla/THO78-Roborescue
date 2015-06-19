@@ -1,7 +1,7 @@
 #include "CPIConnector.h"
 
 //This is an example child class
-CPIConnector::CPIConnector() :BaseRobot{}{}
+CPIConnector::CPIConnector() :BaseRobot{}
 
 void CPIConnector::onMessage(mavlink_message_t & msg){
 
