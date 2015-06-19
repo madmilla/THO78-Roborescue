@@ -3,7 +3,7 @@
 #include <algorithm>
 
 Quadcopter::Quadcopter(MAVLinkExchanger& communicator) :
-communicator(communicator),
+//communicator(communicator),
 flightMode{ FlightMode::UNKNOWN },
 armed{ false },
 failsafe{ false }
@@ -66,7 +66,7 @@ void Quadcopter::arm()
 		0,
 		0,
 		0);
-	communicator.enqueueMessage(message);
+	//communicator.enqueueMessage(message);
 }
 
 void Quadcopter::disarm()
@@ -86,7 +86,7 @@ void Quadcopter::disarm()
 		0,
 		0,
 		0);
-	communicator.enqueueMessage(message);
+	//communicator.enqueueMessage(message);
 }
 
 void Quadcopter::moveLeft(signed int value)
@@ -166,7 +166,7 @@ void Quadcopter::restart()
 		0,
 		0,
 		0);
-	communicator.enqueueMessage(message);
+	//communicator.enqueueMessage(message);
 }
 
 void Quadcopter::changeMode(FlightMode mode)
@@ -178,7 +178,7 @@ void Quadcopter::changeMode(FlightMode mode)
 		TARGET_SYSTEMID, 
 		TARGET_COMPONENTID,
 		static_cast<uint32_t>(mode));
-	communicator.enqueueMessage(message);
+	//communicator.enqueueMessage(message);
 }
 
 void Quadcopter::loop()
@@ -205,10 +205,11 @@ void Quadcopter::loop()
 					<< targetAltitude << std::endl;
 			}
 		}
+		/*
 		if (communicator.receiveQueueSize())
 		{
 			handleIncomingMessage(communicator.dequeueMessage());
-		}
+		}*/
 		if (!failsafe)
 		{
 			if (std::chrono::system_clock::now() - lastRCSent >= 
@@ -420,7 +421,7 @@ void Quadcopter::sendRCMessage(
 		channelSix,
 		channelSeven,
 		channelEight);
-	communicator.enqueueMessage(message);
+	//communicator.enqueueMessage(message);
 	lastRCSent = std::chrono::system_clock::now();
 }
 }

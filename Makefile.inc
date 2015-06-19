@@ -1,10 +1,16 @@
-INCLUDES 						= 
+include Makefile.local
+CXX 							= g++
+CXXFLAGS						= -std=c++11
+LDFLAGS							= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
+INCLUDES 						= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR)
+LDLIBS							= -lboost_regex-mgw49-mt-d-1_58
+
 #Vehicles
-QUADCOPTER_DIR 					= src\Vehicles\Quadcopter
+QUADCOPTER_DIR 					= src\vehicles\quadcopter
 INCLUDES						+= -I$(QUADCOPTER_DIR)
-ATV_DIR 						= src\Vehicles\ATV
+ATV_DIR 						= src\vehicles\atv
 INCLUDES						+= -I$(ATV_DIR)
-ROSBEE_DIR 						= src\Vehicles\Rosbee
+ROSBEE_DIR 						= src\vehicles\rosbee
 INCLUDES						+= -I$(ROSBEE_DIR)
 
 #Sensors
@@ -65,16 +71,5 @@ INCLUDES						+= -I$(MYSQLCPPCONN_DIR)
 RPLIDAR_DIR						= deps\incl\rplidar
 INCLUDES						+= -I$(RPLIDAR_DIR)
 
-include Makefile.local
-INCLUDES						+= -I$(BOOST_INCL_DIR)
-INCLUDES						+= -I$(OPENCV_INCL_DIR)
-INCLUDES						+= -I$(QT_INCL_DIR)
-LIBRARIES 						+= -l$(BOOST_DEPS_DIR)
-LIBRARIES						+= -l$(OPENCV_DEPS_DIR)
-LIBRARIES						+= -l$(QT_DEPS_DIR)
-
-CXX 							= g++
-CXXFLAGS						= -std=c++11
-
 %.o : %.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBRARIES) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c -o $@ $< 

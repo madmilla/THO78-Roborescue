@@ -1,4 +1,4 @@
-/**
+﻿/**
 *                __
 *    _________  / /_  ____  ________  ____________  _____
 *   / ___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -46,7 +46,7 @@
 #ifndef QUADCOPTERWINDOW_H
 #define QUADCOPTERWINDOW_H
 
-#include <QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include "Listener.h"
 #include "StatusText.h"
 

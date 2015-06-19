@@ -8,7 +8,7 @@
 #ifndef BASELIDAR_H_
 #define BASELIDAR_H_
 
-#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "udp_mavlink_commands/mavlink.h"
 #include <queue>
 
 class BaseLidar{

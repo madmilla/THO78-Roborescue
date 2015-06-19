@@ -1,4 +1,4 @@
-/**
+﻿/**
 *                __
 *    _________  / /_  ____  ________  ____________  _____
 *   / ___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -49,9 +49,9 @@
 #ifndef _ATV_H
 #define _ATV_H
 
-#include "../../../deps/incl/mavlink/ardupilotmega/mavlink.h"
-#include "MAVLinkCommunicator.h"
-#include "PriorityMessage.h"
+#include "ardupilotmega/mavlink.h"
+#include "MAVLinkExchanger.h"
+#include "PrioritisedMAVLinkMessage.h"
 
 class ATV
 {

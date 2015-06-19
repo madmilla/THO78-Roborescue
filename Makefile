@@ -4,5 +4,5 @@ include Makefile.inc
 
 all: main.exe
 
-main.exe : main.o quadcopter.o
-	$(CXX) $(CXXFLAGS) -o $@ $^
+main.exe : main.o
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LDLIBS)
