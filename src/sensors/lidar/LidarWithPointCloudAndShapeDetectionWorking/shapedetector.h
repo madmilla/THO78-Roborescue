@@ -3,8 +3,10 @@
  * \details Class with functions to detect lines and circles out of a pointcloud object
  * \author Tijmen Bruggeman - 1634346
  * \author Patrick Schoonheym - 1639598
- * \version 2.0
- * \date 22-04-2015
+ * \author Owen Hogenboezen - 1643103
+ * \author Nick Verhaaf - 1641355
+ * \version 2.1
+ * \date 03-06-2015
  */
 
 #ifndef SHAPEDETECTOR_H
@@ -42,11 +44,11 @@ private:
     const int CANNY_THRESHHOLD2 = 82; //! the second threshhold used in the canny function
     const double HOUGHLINES_RHO = 1; //! The resolution of the parameter r in pixels. We use 1 pixel.
     const double HOUGHLINES_THETA = CV_PI/180; //! The resolution of the parameter theta in radians. We use 1 degree (CV_PI/180)
-    const int HOUGHLINES_THRESHHOLD = 40; //! The minimum number of intersections to “detect” a line
-    const double HOUGHLINES_MINLINELENGTH = 10; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
+    const int HOUGHLINES_THRESHHOLD = 20; //! The minimum number of intersections to “detect” a line
+    const double HOUGHLINES_MINLINELENGTH = 5; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
     const double HOUGHLINES_MAXLINEGAP = 20; //! The maximum gap between two points to be considered in the same line.
     const CvScalar LINECOLOR = CV_RGB(0,255,0); //! the line color
-    const int THICKNESS = 3; //! the thickness of the line
+    const int THICKNESS = 1; //! the thickness of the line
 
     //! this function converts a Mat object to a IplImage so the function cvSmooth can be used.
     /*!
@@ -62,7 +64,7 @@ private:
     /*!
      @param lines: the given lines to check on
      */
-    void checkLines(vector<Vec4i> & lines);
+    void checkLines(std::vector<Line>& lines);
 
 public:
     ShapeDetector();

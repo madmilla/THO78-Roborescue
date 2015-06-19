@@ -74,50 +74,47 @@ Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	int minY = source.getMinValues().Y;
 	size_t imageHeight = source.getCloudHeight();
 	size_t imageWidth = source.getCloudWidth();
+		std::cout << imageHeight << " width: " << imageWidth << std::endl;
+
 	Mat mat((int)(imageWidth / DEVIDEIMAGESIZE)+1, (int)(imageHeight / DEVIDEIMAGESIZE)+1, CV_8UC1); //Create a Mat object which will represent the image with all the pixels
+	imwrite("output2.jpg", mat);
+	std::cout << " first forloop from creatimage" ;
 	for (int y = 0; y < imageHeight; ++y){
 		for (int x = 0; x < imageWidth; ++x){
 			mat.at<uchar>(Point((int)(y / DEVIDEIMAGESIZE),(int)( x / DEVIDEIMAGESIZE))) = BLACK_PIXEL;
 		}
 	}
-
+	imwrite("output4.jpg", mat);
 	int i = 0;
+	std::cout << "second forloop from creatcircle" ;
 	for (Pointcloud::Point p : *source.getPoints()){
-		//std::cout << i << " - " << p.X << " - " << p.Y << " ----- " << p.Y + (abs(minY)) << " - " <<  p.X + (abs(minX)) << " --- " << imageHeight << " - " << imageWidth << "\n";
+		//std::cout << i << " + " << p.X << " + " << p.Y << " +++ " << p.Y + (abs(minY)) << " +++ " <<  p.X + (abs(minX)) << " ++++ " << imageHeight << " ++++ " << imageWidth << "\n";
+		std::cout << (int) ((p.Y + abs(minY+1)) / DEVIDEIMAGESIZE) << " && " << (int)((p.X + abs(minX+1)) / DEVIDEIMAGESIZE) << "\n";
 		i++;
-		mat.at<uchar>(Point( (int) ((p.Y + abs(minY)) / DEVIDEIMAGESIZE), (int)((p.X + abs(minX)) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
+		mat.at<uchar>(Point( (int) ((p.Y + abs(minY+1)) / DEVIDEIMAGESIZE), (int)((p.X + abs(minX+1)) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
 	}
-	imwrite("output.jpg", mat); // save the 
-	Mat image(imread("output.jpg")); //read and return the image
+	std::cout << " save image in createcircle" ;
+	imwrite("FINALIMAGE2.jpg", mat); // save the 
+	imwrite("output.jpg",mat);
+	Mat image(imread("FINALIMAGE2.jpg")); //read and return the image
 	return image;
 }
 
-void ShapeDetector::checkLines(vector<Vec4i> & lines) {
-
-	for (size_t i = 0; i < lines.size(); i++) {    //walk through the line container
-		Vec4i second = lines[i];
-		for (size_t j = 0; j < lines.size(); j++) {
-			Vec4i current = lines[j];
-
-			const int current_x1 = (current[0]);
-			const int current_y1 = (current[1]);
-			const int current_x2 = (current[2]);
-			const int current_y2 = (current[3]);
-
-			const int second_x1 = second[0];
-			const int second_y1 = second[1];
-			const int second_x2 = second[2];
-			const int second_y2 = second[3];
-
-			if ((second_x1 - RANGE_CHECK)< current_x1 && (second_x2 + RANGE_CHECK) > current_x2) {
-				if (((second_y1 < (current_y1 + RANGE_CHECK)) && second_y1 >(current_y1 - RANGE_CHECK)) &&  //compare the current and the second line
-					((second_y2 < (current_y2 + RANGE_CHECK)) && second_y2 >(current_y2 - RANGE_CHECK))){    // coordinates in a range
-
-					if (j != i){
-						lines.erase(lines.begin() + j); // erase the target line
+void ShapeDetector::checkLines(std::vector<Line> & lines) {
+	for(int i = 0; i < lines.size(); ++i){
+		for (auto it = lines.begin(); it != lines.end();){
+			int value = lines[i].intersect(*it);
+			if (value != 0 && value != 100) {
+				//std::cout << value << "\n";
+			}
+			if(value > 95){
+				if (lines[i].getLength() >= (*it).getLength()){
+					if (!(lines[i].getLine().begin_pos == it->getLine().begin_pos && lines[i].getLine().end_pos == it->getLine().end_pos)){
+						it = lines.erase(it);
 					}
 				}
 			}
+			++it;
 		}
 	}
 }
@@ -131,34 +128,33 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 	Mat newImage = image.clone();
 	Mat frame;
 
-	//medianBlur(newImage, frame, 3);
+	
 	blur(newImage, frame, Size(5, 5), Point(-1, -1));
-	//cv::GaussianBlur(newImage, frame, cv::Size(3, 3), 3);										////////////////////////////
-	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);                                     ///////////////////////////									
+	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);            								
 	imwrite("lines1.jpg", frame);
 	imwrite("lines2.jpg", newImage);
 	Mat dest;
-	/*if (!callCvSmooth(newImage, newImage, CV_GAUSSIAN, SMOOTH, SMOOTH)) {						///////////////////////////
-		std::cout << "the source file is empty!" << std::endl;
-		exit(-1);
-	}*/
+	
 	imwrite("lines3.jpg", newImage);
-	//Sobel(gray, dest, -1, 1, 0, 3, 1, 0, BORDER_DEFAULT);
-	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image	//////////////////////
+	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image
 	imwrite("linesdest1.jpg", dest);
 	vector<Vec4i> lines;  // container to save the lines
 	cvtColor(newImage, newImage, CV_RGB2GRAY);
-	HoughLinesP(newImage, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			///////////////////////////
+	HoughLinesP(newImage, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			
 		HOUGHLINES_MINLINELENGTH, HOUGHLINES_MAXLINEGAP);  //search the lines
 
-	checkLines(lines); //check for double lines
+	
 	vector<Line> newLines;
 	for (Vec4i line : lines){
-		Line::Point begin{ line[0], line[1] };
-		Line::Point end{ line[2], line[3] };
+		Line::Point begin{ (float)line[0],  (float)line[1] };
+		Line::Point end{ (float)line[2], (float)line[3] };
 		Line newLine(begin,end);
 		newLines.push_back(newLine);
 	}
+	std::cout << "tot hier gaat het goed\n";
+	//checkLines(newLines); //check for double lines
+	//checkLines(newLines); //check for double lines
+	std::cout << "tot hier gaat het ook nog goed\n";
 	return newLines;  // return the saved lines
 }
 
@@ -189,6 +185,7 @@ void ShapeDetector::writeObjectsToConsole(const std::vector<Line> & lines, const
 
 void ShapeDetector::showObjects(const vector<Line> & lines, const std::vector<Circle> circles, const Mat & orginal_image, Mat & custom_image){
 	drawLines(lines, custom_image);
+	imwrite("newImage.png",custom_image);
 	drawCircles(circles, custom_image);
 	imshow("orginal image", orginal_image);
 	imshow("detected lines & circles", custom_image);
