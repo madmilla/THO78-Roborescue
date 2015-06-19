@@ -4,8 +4,6 @@
  * @version 1.3
  */
 
-//#include "mainwindow.h"
-//#include <QApplication>
 #include <scanArea.h>
 #include <Rosbee.h>
 #include <map.hpp>
@@ -13,6 +11,7 @@
 #include <MapSearchNode.h>
 #include <mapLogicVSLAM.h>
 #include <Route.h>
+#include <Lidar.h>
 
 /**
  *
@@ -20,23 +19,21 @@
  */
 
 int main(int argc, char *argv[]){
-    //QApplication a(argc, argv);
     Rosbee rosbee;
+	Lidar lidar;
     Route *route = new Route;
     map Map;
     Test test(&Map);  
-    //Map.loadMap(Map.chooseMap());
     MapSearchNode mapSearchNode(&Map, route);
-	mapLogicVSLAM MapLogicVSLAM(&Map, &rosbee);
-	scanArea scanarea(&Map, &rosbee, &mapSearchNode, route, &MapLogicVSLAM);
-    //MainWindow w(&map, &rosbee, &scanarea);
-    //test.testsBeforeScanning();
-    scanarea.run();
-    //test.testsAfterScanning();
-    //w.show();
-    //return a.exec();
-	while (true){
-
+	mapLogicVSLAM MapLogicVSLAM(&Map, &rosbee, &lidar);
+	scanArea scanarea(&Map, &rosbee, &mapSearchNode, route, &MapLogicVSLAM, &lidar);
+	while(1){
+		scanarea.run();
+		if (MapLogicVSLAM.isMapFullyScanned()){
+			break;
+		}
 	}
+	Map.print();
+	while (true);
     return 0;
 }

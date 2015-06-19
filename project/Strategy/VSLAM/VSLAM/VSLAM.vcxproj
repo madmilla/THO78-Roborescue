@@ -10,49 +10,8 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="AStar\MapSearchNode.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map\line.cpp" />
-    <ClCompile Include="Map\Map.cpp" />
-    <ClCompile Include="Map\mapFactory.cpp" />
-    <ClCompile Include="Map\point.cpp" />
-    <ClCompile Include="Map\polygon.cpp" />
-    <ClCompile Include="VSLAM\Container.cpp" />
-    <ClCompile Include="VSLAM\mapLogicVSLAM.cpp" />
-    <ClCompile Include="VSLAM\Rosbee.cpp" />
-    <ClCompile Include="VSLAM\Route.cpp" />
-    <ClCompile Include="VSLAM\scanArea.cpp" />
-    <ClCompile Include="VSLAM\Test.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AStar\AstarSearch.h" />
-    <ClInclude Include="AStar\fsa.h" />
-    <ClInclude Include="AStar\MapSearchNode.h" />
-    <ClInclude Include="AStar\stlastar.h" />
-    <ClInclude Include="Map\line.hpp" />
-    <ClInclude Include="Map\map.hpp" />
-    <ClInclude Include="Map\mapFactory.h" />
-    <ClInclude Include="Map\point.hpp" />
-    <ClInclude Include="Map\polygon.h" />
-    <ClInclude Include="VSLAM\Container.h" />
-    <ClInclude Include="VSLAM\mapLogicVSLAM.h" />
-    <ClInclude Include="VSLAM\Rosbee.h" />
-    <ClInclude Include="VSLAM\Route.h" />
-    <ClInclude Include="VSLAM\scanArea.h" />
-    <ClInclude Include="VSLAM\Test.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="VSLAM\Map1.txt" />
-    <Text Include="VSLAM\Map2.txt" />
-    <Text Include="VSLAM\Map3.txt" />
-    <Text Include="VSLAM\Map4.txt" />
-    <Text Include="VSLAM\Map5.txt" />
-    <Text Include="VSLAM\Map6.txt" />
-    <Text Include="VSLAM\testresults.txt" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E7FCD104-AC27-4B84-95E9-3021906805B6}</ProjectGuid>
+    <ProjectGuid>{1B0A3FC7-80E3-44C3-BA47-1DFF9394D17F}</ProjectGuid>
     <RootNamespace>VSLAM</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -85,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\coen__000\Documents\Visual Studio 2013\Projects\VSLAM\VSLAM\VSLAM;C:\Users\coen__000\Documents\Visual Studio 2013\Projects\VSLAM\VSLAM\Map;C:\Users\coen__000\Documents\Visual Studio 2013\Projects\VSLAM\VSLAM\AStar;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\coen__000\Documents\GitHub\THO78-Roborescue\src\map\MapStructure;C:\Users\coen__000\Documents\GitHub\THO78-Roborescue\src\strategy\pathfinding\AStar;C:\Users\coen__000\Documents\GitHub\THO78-Roborescue\src\strategy\pathfinding\Lidar;C:\Users\coen__000\Documents\GitHub\THO78-Roborescue\src\strategy\pathfinding\VSLAM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -105,6 +64,38 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\map\MapStructure\line.cpp" />
+    <ClCompile Include="..\..\..\..\src\map\MapStructure\map.cpp" />
+    <ClCompile Include="..\..\..\..\src\map\MapStructure\point.cpp" />
+    <ClCompile Include="..\..\..\..\src\map\MapStructure\polygon.cpp" />
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\AStar\MapSearchNode.cpp" />
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\Lidar\Lidar.cpp" />
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Container.cpp" />
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\main.cpp" />
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\mapLogicVSLAM.cpp" />
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Rosbee.cpp" />
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Route.cpp" />
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\scanArea.cpp" />
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\src\map\MapStructure\line.hpp" />
+    <ClInclude Include="..\..\..\..\src\map\MapStructure\map.hpp" />
+    <ClInclude Include="..\..\..\..\src\map\MapStructure\point.hpp" />
+    <ClInclude Include="..\..\..\..\src\map\MapStructure\polygon.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\AStar\AstarSearch.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\AStar\fsa.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\AStar\MapSearchNode.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\AStar\stlastar.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\Lidar\Lidar.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Container.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\mapLogicVSLAM.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Rosbee.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Route.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\scanArea.h" />
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Test.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
