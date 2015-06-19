@@ -201,8 +201,7 @@ Pointcloud* Pointcloud::rotate(float angle){
 		this->setPoint(nx,ny);
 		nx = 0;
 		ny = 0;
-	}
-	
+	}	
 	return this;
 }
 

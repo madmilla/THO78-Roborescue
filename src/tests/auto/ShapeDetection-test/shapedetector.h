@@ -26,8 +26,12 @@ using namespace cv;
 class ShapeDetector
 {
 private:
-    CvScalar CIRCLE_CENTER_COLOR = CV_RGB(255,0,0); //! The color for the center of the circle
-    CvScalar CIRCUMFERENCE_COLOR = CV_RGB(0,0,255); //! The color for the circumference of the circle
+    const CvScalar CIRCLE_CENTER_COLOR = CV_RGB(255,0,0); //! The color for the center of the circle
+    const CvScalar CIRCUMFERENCE_COLOR = CV_RGB(0,0,255); //! The color for the circumference of the circle
+	const CvScalar LINECOLOR = CV_RGB(0, 255, 0); //! the line color
+	const CvScalar LINE_BEGINPOINT_COLOR = CV_RGB(0, 0, 255); //!The color of the beginMark of a line
+	const CvScalar LINE_ENDPOINT_COLOR = CV_RGB(255, 0, 0); //! the color of the endmark of a line
+	const CvScalar LIDAR_MARK_COLOR = CV_RGB(255, 0, 150); //! the color of the mark for the lidarposition on the image
     const int CIRCLE_LINE_TYPE = 8; //! the line type of the circumference
     const int CENTER_THICKNESS = -1;//! the thickness of the point in the middle of the circle
     const int CIRCLE_THICKNESS = 2; //! the thickness of the circumferenc of the circle
@@ -47,8 +51,8 @@ private:
     const int HOUGHLINES_THRESHHOLD = 20; //! The minimum number of intersections to “detect” a line
     const double HOUGHLINES_MINLINELENGTH = 5; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
     const double HOUGHLINES_MAXLINEGAP = 20; //! The maximum gap between two points to be considered in the same line.
-    const CvScalar LINECOLOR = CV_RGB(0,255,0); //! the line color
-    const int THICKNESS = 1; //! the thickness of the line
+    const int LINE_THICKNESS = 1; //! the thickness of the line
+	float SLOPE_THRESHOLD = 0.1; //! the Maximum difference between slope a en b in combineLines
 
     //! this function converts a Mat object to a IplImage so the function cvSmooth can be used.
     /*!
@@ -65,11 +69,32 @@ private:
      @param lines: the given lines to check on
      */
     void checkLines(std::vector<Line>& lines);
+
+	//! remove double lines
+	/*!
+	remove double lines from the vector, only lines who intersect 100% will be removed
+	@param lines: a vector with the lines to be checked
+	*/
 	void removeLines(std::vector<Line> & lines);
+	//! combine lines on the same line
+	/*!
+	combines lines which intersects for more than 0% and has the same slope
+	@param lines: a vector with the lines to be checked
+	*/
 	void combineLines(std::vector<Line> & lines);
+	//! combines two lines to one line
+	/*!
+	combines two specific lines to one line.
+	@param line1: the first line to be combined with another line
+	@param line2: the second line
+	@return Line: the combined line
+	*/
 	Line combineTwoLines(Line &line1, Line& line2);
+
 public:
+	//! The Constructor of ShapeDetector
     ShapeDetector();
+	//! THe destructor of ShapeDetector
     ~ShapeDetector();
     //! write circles on the
     /*!
@@ -110,7 +135,6 @@ public:
     @param lines: the vec4i lines to draw to the console
     */
     void writeLinesToConsole(const vector<Line> & lines);
-
 
     //! draw the lines in a given matrix
     /*!

@@ -31,27 +31,23 @@ void ShapeDetector::drawCircles(const std::vector<Circle> circles, Mat & image){
 }
 
 std::vector<Circle> ShapeDetector::detectCircles(const Mat & image){
+
 	Mat newImage = image.clone();
 	Mat frame;
 	cv::GaussianBlur(newImage, frame, cv::Size(0, 0), 3);
 	cv::addWeighted(frame, 100, newImage, -100, 10, newImage);
 	IplImage img = newImage;
-
 	IplImage* gray = cvCreateImage(cvGetSize(&img), IPL_DEPTH_8U, 1); // create a new image with only black and white pixels
 	CvMemStorage* storage = cvCreateMemStorage(0);
-
 	cvCvtColor(&img, gray, CV_BGR2GRAY); // transform the created image into the black/white image
-
 	cvSmooth(gray, gray, CV_GAUSSIAN, SMOOTH, SMOOTH); // This is done so as to prevent a lot of false circles from being detected
 	IplImage* canny = cvCreateImage(cvGetSize(&img), IPL_DEPTH_8U, 1); // Create a image which will only contain the edges of the objects
 	cvCanny(gray, canny, EDGE_TRESHHOLD, EDGE_TRESHHOLD); // Detect edges int he image
-
 	CvSeq* circles = cvHoughCircles(gray, storage, CV_HOUGH_GRADIENT, RESOLUTION_INVERSERATIO, gray->height / MIN_DISTANCE_CIRCLES, EDGE_TRESHHOLD * 3, CIRCLE_CENTER_TRESHHOLD); // Detect circles in the gray image
 	std::vector<Circle> newCircles;
 	for (int i = 0; i < circles->total; i++) // walk through the circles
 	{
 		// round the floats to an int
-		std::cout << "Circle " << i + 1 << std::endl;
 		float* p = (float*)cvGetSeqElem(circles, i);
 		Circle c(cvRound(p[0]), cvRound(p[1]), cvRound(p[2]));
 		newCircles.push_back(c);
@@ -75,7 +71,7 @@ Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	int minY = source.getMinValues().Y;
 	size_t imageHeight = source.getCloudHeight();
 	size_t imageWidth = source.getCloudWidth();
-	Mat mat((int)(imageWidth / DEVIDEIMAGESIZE) + 1, (int)(imageHeight / DEVIDEIMAGESIZE) + 1, CV_8UC1); //Create a Mat object which will represent the image with all the pixels
+	Mat mat((int)(imageWidth / DEVIDEIMAGESIZE), (int)(imageHeight / DEVIDEIMAGESIZE) , CV_8UC1); //Create a Mat object which will represent the image with all the pixels
 	for (Pointcloud::Point p : *source.getPoints()){
 		mat.at<uchar>(Point( (int) ((p.Y + abs(minY)) / DEVIDEIMAGESIZE), (int)((p.X + abs(minX)) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
 	}
@@ -90,10 +86,7 @@ void ShapeDetector::removeLines(std::vector<Line> & lines){
 			++vectorPosition;
 			int value = lines[i].intersect(*it);
 			if ((value != 0 && value != 100)){
-				std::cout << value << " + "<< lines[i].getFormula().x << " + " << (*it).getFormula().x <<"\n";
-			}
-			if (lines[i].getLine().begin_pos.x > 200 && lines[i].getLine().end_pos.x < 280 && lines[i].getLine().begin_pos.y < 250){
-				std::cout << value << "\n";
+				//std::cout << value << 
 			}
 			if(value > 95){
 				if (lines[i].getLength() >= (*it).getLength()){
@@ -109,7 +102,6 @@ void ShapeDetector::removeLines(std::vector<Line> & lines){
 	}
 }
 Line ShapeDetector::combineTwoLines(Line & line1, Line & line2){
-	std::cout << "combine:  " <<std::endl;
 	Line::Point formula2 = line2.getFormula();
 	if (line1.pointOnLine(line1.getLine().begin_pos, formula2, line2.getLine())){
 		return Line{ line2.getLine().begin_pos, line1.getLine().end_pos };
@@ -119,7 +111,6 @@ Line ShapeDetector::combineTwoLines(Line & line1, Line & line2){
 	}
 }
 void ShapeDetector::combineLines(std::vector<Line> & lines){
-	float SLOPE_THRESHOLD = 0.1;
 	for (int i = 0; i < lines.size(); ++i){
 		for (auto it = lines.begin(); it != lines.end();){
 			int value = lines[i].intersect(*it);
@@ -137,7 +128,6 @@ void ShapeDetector::combineLines(std::vector<Line> & lines){
 	}
 }
 void ShapeDetector::checkLines(std::vector<Line> & lines) {
-
 	removeLines(lines);
 	combineLines(lines);
 	removeLines(lines);
@@ -145,7 +135,6 @@ void ShapeDetector::checkLines(std::vector<Line> & lines) {
 }
 
 vector<Line> ShapeDetector::searchLines(const Mat & image) {
-
 	if (image.empty()) { //check if there is an image
 		std::cout << "could not read image" << std::endl;
 		exit(-1);
@@ -156,13 +145,8 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 	
 	blur(newImage, frame, Size(5, 5), Point(-1, -1));
 	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);            								
-	imwrite("lines1.jpg", frame);
-	imwrite("lines2.jpg", newImage);
 	Mat dest;
-	
-	imwrite("lines3.jpg", newImage);
 	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image
-	imwrite("linesdest1.jpg", dest);
 	vector<Vec4i> lines;  // container to save the lines
 	cvtColor(newImage, newImage, CV_RGB2GRAY);
 	HoughLinesP(newImage, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			
@@ -177,8 +161,6 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 		newLines.push_back(newLine);
 	}
 	checkLines(newLines); //check for double lines
-	std::cout << "\n\n";
-	//checkLines(newLines); //check for double lines
 	return newLines;  // return the saved lines
 }
 
@@ -197,15 +179,13 @@ void ShapeDetector::writeLinesToConsole(const vector<Line> & lines){
 
 void ShapeDetector::drawLines(const std::vector<Line> lines, Mat & final_dest, Line::Point lidarPoint) {
 	if (lidarPoint.x != 0){
-		line(final_dest, Point(lidarPoint.x - 10, lidarPoint.y), Point(lidarPoint.x + 10, lidarPoint.y), CV_RGB(255,0, 150), THICKNESS, CV_AA); //Draw lidarPoint position
-		line(final_dest, Point(lidarPoint.x, lidarPoint.y - 10), Point(lidarPoint.x, lidarPoint.y + 10), CV_RGB(255,0, 150), THICKNESS, CV_AA);//Draw lidarPoint position
+		line(final_dest, Point(lidarPoint.x - 10, lidarPoint.y), Point(lidarPoint.x + 10, lidarPoint.y), LIDAR_MARK_COLOR, LINE_THICKNESS, CV_AA); //Draw lidarPoint position
+		line(final_dest, Point(lidarPoint.x, lidarPoint.y - 10), Point(lidarPoint.x, lidarPoint.y + 10), LIDAR_MARK_COLOR, LINE_THICKNESS, CV_AA);//Draw lidarPoint position
 	}
 	for (Line l : lines){
-		//if (l.getLine().begin_pos.x > 200 && l.getLine().end_pos.x < 280 && l.getLine().begin_pos.y < 250 ){
-			line(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), Point(l.getLine().end_pos.x, l.getLine().end_pos.y), LINECOLOR, THICKNESS, CV_AA);
-			circle(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(0, 0, 255), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
-			circle(final_dest, Point(l.getLine().end_pos.x, l.getLine().end_pos.y), CIRCLE_CENTER_RADIUS, CV_RGB(255, 0, 0), CENTER_THICKNESS, CIRCLE_LINE_TYPE);
-		//}
+		line(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), Point(l.getLine().end_pos.x, l.getLine().end_pos.y), LINECOLOR, LINE_THICKNESS, CV_AA);
+		circle(final_dest, Point(l.getLine().begin_pos.x, l.getLine().begin_pos.y), CIRCLE_CENTER_RADIUS, LINE_BEGINPOINT_COLOR, CENTER_THICKNESS, CIRCLE_LINE_TYPE);
+		circle(final_dest, Point(l.getLine().end_pos.x, l.getLine().end_pos.y), CIRCLE_CENTER_RADIUS, LINE_ENDPOINT_COLOR, CENTER_THICKNESS, CIRCLE_LINE_TYPE);
 	}
 }
 
