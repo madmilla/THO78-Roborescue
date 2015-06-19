@@ -44,13 +44,7 @@ void map::addCircle(int xCentre, int yCentre, int radius){
 }
 
 
-int main(){
-	map Map;
-	Map.addCircle(9, 9, 4);
-	Map.print();
-	while (1);
 
-}
 void map::setScaledLocationValue(int x, int y, int value)
 {
 	x = x*scale;

@@ -15,52 +15,31 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Quadcopter.cpp">
+    <ClCompile Include="..\..\..\src\map\MapStructure\line.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="..\..\..\src\map\MapStructure\map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MAVLinkExchanger.cpp">
+    <ClCompile Include="..\..\..\src\map\MapStructure\point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendedMAVLinkMessage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PrioritisedMAVLinkMessage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QuadLocalisation.cpp">
+    <ClCompile Include="..\..\..\src\map\MapStructure\polygon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Quadcopter.h">
+    <ClInclude Include="..\..\..\src\map\MapStructure\line.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MAVLinkExchanger.h">
+    <ClInclude Include="..\..\..\src\map\MapStructure\map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedMAVLinkMessage.h">
+    <ClInclude Include="..\..\..\src\map\MapStructure\point.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PrioritisedMAVLinkMessage.h">
+    <ClInclude Include="..\..\..\src\map\MapStructure\polygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Listener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Subject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StatusText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QuadLocalisation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Makefile" />
   </ItemGroup>
 </Project>

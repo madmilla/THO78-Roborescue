@@ -6,10 +6,10 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Testcopter.cpp
-* @date Created: 4/28/2015
+* @file LocalisationModule.cpp
+* @date Created: 29-5-2015
 *
-* @author Mathijs Arends
+* @author Kjeld Perquin
 *
 * @section LICENSE
 * License: newBSD
@@ -33,19 +33,57 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include "quadCopter.h"
 
-TestCopter::TestCopter(Dimension copter, Dimension copterSight, int x, int y):
-copter{copter},
-  copterSight{copterSight},
-x{x},
-y{y}
-{
+#include "LocalisationModule.h"
+#include <iostream>
 
+LocalisationModule::LocalisationModule(io_service& service, std::string host, std::string port):
+TCPClient{ service, host, port}
+{	
 }
 
-TestCopter::~TestCopter()
+Coordinate<int> LocalisationModule::getCoordinate() const
 {
-
+	return coordinate;
 }
 
+int LocalisationModule::getX() const
+{
+	return coordinate.getX();
+}
+
+int LocalisationModule::getY() const
+{
+	return coordinate.getY();
+}
+
+void LocalisationModule::handleMessage(std::string message)
+{
+	int xPos;
+	if ((xPos = message.find('X')) != std::string::npos)
+	{
+		int yPos;
+		if ((yPos = message.find('Y')) != std::string::npos)
+		{
+			if (yPos > xPos)
+			{
+				std::string xString;
+				std::string yString;
+				xString = message.substr(xPos + 1, yPos - xPos);
+				yString = message.substr(yPos + 1, message.length() - yPos);
+				try
+				{
+					auto newX = stoi(xString);
+					auto newY = stoi(yString);
+					coordinate.setX(newX);
+					coordinate.setY(newY);
+					std::cout << "Coordinate: " << getX() << ',' << getY() << std::endl;
+
+				}
+				catch (std::invalid_argument&)
+				{
+				}
+			}
+		}
+	}
+}
