@@ -4,11 +4,9 @@
 
 int main()
 {
-<<<<<<< HEAD
 	std::cout << "hoi";
 	system("pause");
 	return 0;
-=======
     std::string line;
     boost::regex pat( "^Subject: (Re: |Aw: )*(.*)" );
 
@@ -19,5 +17,4 @@ int main()
         if (boost::regex_match(line, matches, pat))
             std::cout << matches[2] << std::endl;
     }
->>>>>>> origin/Makefile-/-dependencies-fix
 }
