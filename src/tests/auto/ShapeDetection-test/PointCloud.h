@@ -151,7 +151,7 @@ public:
 	void printPoints();
 	
 	
-	
+
 	/*! Rotate a point could 
 	 * @param angle the rotation angle in Degrees
 	 */ 
@@ -166,7 +166,7 @@ public:
 	//! a operator to add a Pointcloud to another pointcloud
 	Pointcloud operator+=(Pointcloud & b);
 private:
-	Point offset;
+	Point offset; //! the offset of the pointlcoud
 	std::vector<Point> * pointCloud; //! the vector which contains all the poins of the pointcloud
 	int orientation; //! the orientation of the pointcloud
 };

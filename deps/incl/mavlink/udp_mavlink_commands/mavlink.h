@@ -1,5 +1,5 @@
 /** @file
- *	@brief MAVLink comm protocol built from mavlink_commands(2).xml
+ *	@brief MAVLink comm protocol built from ralcp.xml
  *	@see http://mavlink.org
  */
 #ifndef MAVLINK_H
@@ -22,6 +22,6 @@
 #endif
 
 #include "version.h"
-#include "mavlink_commands.h"
+#include "ralcp.h"
 
 #endif // MAVLINK_H

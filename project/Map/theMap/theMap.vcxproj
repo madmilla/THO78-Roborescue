@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\src\strategy\pathfinding\AStar Algorithm;..\..\..\src\map\MapStructure;..\..\..\src\strategy\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -68,12 +69,29 @@
     <ClCompile Include="..\..\..\src\map\MapStructure\map.cpp" />
     <ClCompile Include="..\..\..\src\map\MapStructure\point.cpp" />
     <ClCompile Include="..\..\..\src\map\MapStructure\polygon.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\Common\ATV.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\Common\dimension.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\Common\quadCopter.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\Common\Rosbee.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\Common\route.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\Common\waypoint.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\map\MapStructure\line.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\map.hpp" />
+    <ClInclude Include="..\..\..\src\map\MapStructure\mapImplementation.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\point.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\polygon.h" />
+    <ClInclude Include="..\..\..\src\strategy\Common\ATV.h" />
+    <ClInclude Include="..\..\..\src\strategy\Common\dimension.h" />
+    <ClInclude Include="..\..\..\src\strategy\Common\quadCopter.h" />
+    <ClInclude Include="..\..\..\src\strategy\Common\Rosbee.h" />
+    <ClInclude Include="..\..\..\src\strategy\Common\route.h" />
+    <ClInclude Include="..\..\..\src\strategy\Common\waypoint.h" />
+    <ClInclude Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.h" />
+    <ClInclude Include="Test.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

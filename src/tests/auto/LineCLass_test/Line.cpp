@@ -81,32 +81,42 @@ int Line::getLength() {
 Line::Point Line::getFormula() {
 	float deltaX = lineData.end_pos.x - lineData.begin_pos.x;
 	float deltaY = lineData.end_pos.y - lineData.begin_pos.y;
-	float a = 0;
-	if(deltaX != 0){
-		a = deltaY / deltaX;
-	}
-	else{
-		a = 0;
-	}	
-	//std::cout << "formula " << deltaY << " - " << deltaX << " - "<<  a << std::endl;
+	float a = deltaY / deltaX;
 	float b = this->lineData.begin_pos.y - (a * this->lineData.begin_pos.x);
-	//std::cout << "y = " << a << " x + " << b << std::endl;
+	std::cout << "y = " << a << " x + " << b << std::endl;
 	return Line::Point{ a, b };
 }
 
 bool Line::pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData & data) {
-	const int THRESHHOLD{10 };
-	if (data.end_pos.x < data.begin_pos.x){
-		std::cout << "er gaat iets mis ik stop: " << data.begin_pos << " - " << data.end_pos;
-		//exit(-1);
+	const int THRESHHOLD{11 };
+	Point C; //Point p projected on the line. Het snijpunt tussen del lijn van punt p tot de lijn.
+	float A1 = lineFormula.x;
+	float B1 = lineFormula.y; //Y1 = A1x + B1 -> invert naar Y2 = (1/a1) x2 + B2
+	float A2 = -1 / A1;
+	float B2 = p.y - (A2 * p.x);
+std::cout << std::endl << p << " +++++ " << data.begin_pos <<  " ++++ " << data.end_pos <<"\t+ " << A1<<  std::endl;
+	//std::cout << "C+++ " <<A1 << " + "<< A2 << " + " << B1 << " + " <<B2 << " + " <<C <<std::endl;
+	//Y  = A1 X + B1 = A2 X + B2 --> --> --> A1X - A2X  = B2 - B1	 ->>> (A1-A2)X = B2 - B1	 -> --> --> X = (B2 - B1) / A1 - A2
+	C.x = (B2 - B1) / (A1 - A2);
+	C.y = (A2 * C.x) + B2;
+
+	if (Line(C, p).getLength() <= THRESHHOLD && (p.x + THRESHHOLD > data.begin_pos.x) && (p.x - THRESHHOLD < data.end_pos.x)){
+		if (A1 > 0){
+			if ((p.y - THRESHHOLD < data.end_pos.y) && (p.y + THRESHHOLD > data.begin_pos.y)){
+				std::cout << "true" << std::endl;
+				return true;
+			}
+			return false;
+		}
+		else{
+			if ((p.y - THRESHHOLD < data.begin_pos.y) && (p.y + THRESHHOLD > data.end_pos.y)){
+				std::cout << "true" << std::endl;
+				return true;
+			}
+			return false;
+		}
+
 	}
-	float y = (lineFormula.x * p.x) + lineFormula.y;
-	std::cout << "point on line: " << p.x << " - " << p.y << " - - - " << data.begin_pos.x << " - " << data.end_pos.x << std::endl;
-	if (y < (THRESHHOLD + p.y) && y >(p.y - THRESHHOLD) && p.x <= (data.end_pos.x + THRESHHOLD) && p.x > (data.begin_pos.x- THRESHHOLD)) {
-		return true;
-	}
-	std::cout << "y = ax + b ________ y = " << lineFormula.x << "x + " << lineFormula.y << std::endl;
-	std::cout << p.x << " + " <<p.y << " ++++++++ " << y << std::endl;
 	return false;
 }
 
@@ -118,9 +128,8 @@ int Line::intersect(Line & line2) {
 	float line2Length = line2.getLength();
 	Line::Point abLine1 = this->getFormula();
 	Line::Point abLine2 = line2.getFormula();
-	if ((abLine1.x < 0 && abLine2.x > 0) || (abLine2.x < 0 && abLine1.x>0)){
-		//std::cout << aapje << "foutje1:\t\t\t\t" << abLine1.x << " + " << abLine2.x << "\n";
-		//return 100;
+	if ((this->getLine().begin_pos.x > 200 && this->getLine().end_pos.x < 280 && this->getLine().begin_pos.y < 250) && (line2.getLine().begin_pos.x > 200 && line2.getLine().end_pos.x < 280 && line2.getLine().begin_pos.y < 250)){
+		std::cout << *this << " + " << line2 << std::endl;
 	}
 	if (this->pointOnLine(this->lineData.begin_pos, abLine2, line2.lineData)){
 		if (this->pointOnLine(this->lineData.end_pos, abLine2, line2.lineData)){

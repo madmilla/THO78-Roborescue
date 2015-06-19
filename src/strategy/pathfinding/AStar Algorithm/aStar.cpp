@@ -25,7 +25,7 @@ Route aStar::getRoute(std::vector<std::pair<int, int>> input){
 }
 
 
-std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int endX, int endY, map& theMap)
+std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int endX, int endY, mapImplementation& theMap)
 {
 	std::vector<Coordinate> path;
 	if (startX < 0 || startY < 0 || startX > width || startY > height || endX < 0 || endY < 0 || endX > width || endY > height)
@@ -146,10 +146,12 @@ std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int end
 			}
 		}
 	}
+	openCells.clear();
+	closedCells.clear();
 	return path;
 }
 
-std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordinate, map& theMap)
+std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordinate, mapImplementation& theMap)
 {
 	std::array<std::pair<Coordinate, int>, 4> connectedPoints
 	{ {

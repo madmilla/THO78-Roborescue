@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Quadcopter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,7 +30,11 @@
     <ClCompile Include="PrioritisedMAVLinkMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD:src/Vehicles/Quadcopter/Archief/Quadcopter.vcxproj.filters
     <ClCompile Include="QuadcopterControl.cpp">
+=======
+    <ClCompile Include="QuadLocalisation.cpp">
+>>>>>>> origin/master:src/vehicle/quadcopter/Quadcopter.vcxproj.filters
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +60,11 @@
     <ClInclude Include="StatusText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD:src/Vehicles/Quadcopter/Archief/Quadcopter.vcxproj.filters
     <ClInclude Include="QuadcopterController.h">
+=======
+    <ClInclude Include="QuadLocalisation.h">
+>>>>>>> origin/master:src/vehicle/quadcopter/Quadcopter.vcxproj.filters
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

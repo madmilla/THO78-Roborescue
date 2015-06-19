@@ -18,12 +18,40 @@ std::ostream & operator<<(std::ostream & os, Route & l){
 	std::stringstream output;
 	for (auto i : l.waypoints){
 		output << i.x << " " << i.y << " ";
-
-
-	}
-
+    }
 	return os << output.str();
 }
+
+void Route::randomRoute(int mapWidth, int mapHeight){
+   int waypoints = rand() % 22 + 3;
+
+   for(int i = 0; i < waypoints; i++){
+       int randomX = rand() % mapWidth;
+       int randomY = rand() % mapHeight;
+
+       WayPoint* wayPoint = new WayPoint(randomX, randomY);
+
+       wayPoints.push_back(wayPoint);
+   }
+}
+
+int Route::getRouteSize(){
+    return wayPoints.size();
+}
+
+WayPoint* Route::getWaypoint(int wayPoint){
+    return wayPoints[wayPoint];
+}
+
+void Route::pushWayPoint(WayPoint* wayPoint){
+    wayPoints.push_back(wayPoint);
+}
+
+void Route::clearRoute(){
+    wayPoints.clear();
+}
+
+
 void Route::scaleWaypoints(){
 	for (int index = 0; index < waypoints.size(); index++){
 		WayPoint point = waypoints.at(index);
@@ -31,4 +59,4 @@ void Route::scaleWaypoints(){
 		waypoints.at(index) = point;
 	}
 
-	}
+}

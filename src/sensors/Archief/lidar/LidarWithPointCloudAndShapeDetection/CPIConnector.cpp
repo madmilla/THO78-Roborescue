@@ -1,67 +1,46 @@
 #include "CPIConnector.h"
 
+//This is an example child class
 CPIConnector::CPIConnector(){
+
 }
 
 CPIConnector::~CPIConnector(){
+	delete lidar;
 }
 
 void CPIConnector::onMessage(mavlink_message_t & msg){
 
-	mavlink_ralcp_t function = decodeRalcpMessage(msg);
+	mavlink_lidar_message_t function = decodeLidarMessage(msg);
+	int32_t temp[5] = { 1, 1, 1, 1, 1 };
 
 	switch (function.Function){
-		case LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT:
-			std::cout << "INIITT";
-			start();
-			systemID = function.Payload;
-			sendCommand(uint64_t(COMMAND_DESTINATION::LIDAR), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT );
-			break;
+	case LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT:
 
-		case LIDAR_COMMAND_FUNCTIONS::LIDAR_GETDEVICE:
+		systemID = function.Payload[1];
+		sendLidarCommand(temp, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT);
+		break;
 
-			sendCommand(uint64_t(LIDAR_COMMAND_FUNCTIONS::LIDAR_GETDEVICE), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LIDAR_GETDEVICE );
-			break;
+	case LIDAR_COMMAND_FUNCTIONS::RPM:
 
-		case LIDAR_COMMAND_FUNCTIONS::LINEDATA:
+		sendLidarCommand(temp, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::RPM);
+		break;
 
-			sendCommand(uint64_t(LIDAR_COMMAND_FUNCTIONS::LINEDATA), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA );
-			break;
+	case LIDAR_COMMAND_FUNCTIONS::START:
+		start();
+		sendLidarCommand(temp, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::START);
+		break;
 
-		case LIDAR_COMMAND_FUNCTIONS::RPM:
+	case LIDAR_COMMAND_FUNCTIONS::STOP:
 
-			sendCommand(uint64_t(LIDAR_COMMAND_FUNCTIONS::RPM), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::RPM );
-			break;
+		sendLidarCommand(temp, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::STOP);
+		break;
 
-		case LIDAR_COMMAND_FUNCTIONS::START:
-
-			sendCommand(uint64_t(LIDAR_COMMAND_FUNCTIONS::START), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::START );
-			break;
-
-		case LIDAR_COMMAND_FUNCTIONS::STOP:
-
-			sendCommand(uint64_t(LIDAR_COMMAND_FUNCTIONS::STOP), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::STOP );
-			break;
-
-		case LIDAR_COMMAND_FUNCTIONS::ROSBEEPOSITION:
-
-			sendCommand(uint64_t(LIDAR_COMMAND_FUNCTIONS::ROSBEEPOSITION), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::ROSBEEPOSITION );
-			break;
-
-		case LIDAR_COMMAND_FUNCTIONS::ROSBEEFLANK:
-
-			sendCommand(uint64_t(LIDAR_COMMAND_FUNCTIONS::ROSBEEFLANK), COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::ROSBEEFLANK );
-			break;
-
-		default:
-			break;
+	default:
+		break;
 	}
-
 }
 
-void CPIConnector::sendCommand(uint64_t payload, COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS lcf){
-	messages.push(encodeRalcpMessage(payload, dest, lcf ));
-}
 
 void CPIConnector::init(){
 	//ShapeDetector sD;
@@ -102,12 +81,20 @@ void CPIConnector::start(){
 	sD.writeLinesToConsole(lines);
 
 	for (Line l : lines){
-		sendCommand(20000, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+		int32_t beginPosX = static_cast<int32_t>(l.getLine().begin_pos.x);
+		int32_t beginPosY = static_cast<int32_t>(l.getLine().begin_pos.y);
+		int32_t endPosX = static_cast<int32_t>(l.getLine().end_pos.x);
+		int32_t endPosY = static_cast<int32_t>(l.getLine().end_pos.y);
+		int32_t data[5] = { 0, beginPosX, beginPosY, endPosX, endPosY };
+		sendLidarCommand(data, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
 	for (Circle c : circles){
-
-		sendCommand(beginCode, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
+		int32_t originX = static_cast<int32_t>(c.getCircle().originX);
+		int32_t originY = static_cast<int32_t>(c.getCircle().originY);
+		int32_t radius = static_cast<int32_t>(c.getCircle().radius);
+		int32_t data[4] = { 1, originX, originY, radius };
+		sendLidarCommand(data, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 
 	}
 

@@ -16,20 +16,20 @@ class Algorithms
 {
 public:  
 
-    static constexpr float MAX_X =  1.0f;
-    static constexpr float MIN_X = -1.0f;
-    static constexpr float MAX_Y =  1.0f;
-    static constexpr float MIN_Y = -1.0f;
+    static const float MAX_X =  1.0f;
+    static const float MIN_X = -1.0f;
+    static const float MAX_Y =  1.0f;
+    static const float MIN_Y = -1.0f;
 
-    static constexpr float DIF_X = 2.0f; // MAX_X - MIN_X;
-    static constexpr float DIF_Y = 2.0f; // MAX_Y - MIN_Y;
+    static const float DIF_X = 2.0f; // MAX_X - MIN_X;
+    static const float DIF_Y = 2.0f; // MAX_Y - MIN_Y;
 
-    static constexpr float BOTTOM = -1.0f;
-    static constexpr float HEIGHT = 0.5f;
-    static constexpr float HEIGHT_ISO = 0.2f;
+    static const float BOTTOM = -1.0f;
+    static const float HEIGHT = 0.5f;
+    static const float HEIGHT_ISO = 0.2f;
 
-    static constexpr float NEAR_VAL = 5.0f;
-    static constexpr float FAR_VAL = 30.0f;
+    static const float NEAR_VAL = 5.0f;
+    static const float FAR_VAL = 30.0f;
 
     static void test();
 

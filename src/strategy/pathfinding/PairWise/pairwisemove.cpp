@@ -40,28 +40,58 @@
 
 PairWiseMove::PairWiseMove(){}
 
-Route *PairWiseMove::quadCopterPairRoute(Route atvRoute,
+void PairWiseMove::movePairWise(Route atvRoute,
                                   ATV atv,
-                                  quadCopter copter, map map){
-    Route* quadRoute = new Route;
-    if(copter.x != atv.x || copter.y != atv.y){			//Quadcopter on ATV start position?
-        if(map.isAccessible(atv.x, atv.y)){
-            quadRoute->pushWayPoint(new WayPoint(atv.x, atv.y));		//If not -> move to ATV
-            copter.goTo(atv.x, atv.y);
-        }
-
+                                  QuadCopter copter, map map){
+    aStar routemaker;
+	if (copter.getX() != atv.getX() || copter.getY() != atv.getY()){			//QuadCopter on ATV start position?
+		auto route = routemaker.findPath(copter.getX(), copter.getY(), atv.getX(), atv.getY(), map);
+       for(auto wayPoint : route){                      //If not -> QuadCopter move to ATV
+           copter.goTo(wayPoint.first, wayPoint.second);
+       }
     }
     for(int i = 0; i < atvRoute.getRouteSize(); i++){			//Loop trough ATV route
         WayPoint* atvPosition = atvRoute.getWaypoint(i);
-
-        if(!copter.inView(atvPosition->x, atvPosition->y)){				//Check if ATV is in view
-            if(map.isAccessible(atvPosition->x, atvPosition->y)){
-                quadRoute->pushWayPoint(new WayPoint(atvPosition->x,atvPosition->y));	//if not -> move to ATV
-                copter.goTo(atvPosition->x, atvPosition->y);
+        if(!copter.inView(atvPosition->x, atvPosition->y)){		//Check if ATV is in view
+			auto route = routemaker.findPath(copter.getX(), copter.getY(), atv.getX(), atv.getY(), map);
+            for(auto wayPoint : route){                         //If not -> QuadCopter move to ATV
+                copter.goTo(wayPoint.first, wayPoint.second);
             }
         }
-
         atv.goTo(atvPosition->x, atvPosition->y);						//Move ATV
     }
-    return quadRoute;
 }
+
+std::pair<Route*, Route*>* PairWiseMove::QuadCopterPairRoute(Route atvRoute,
+                                  ATV atv,
+                                  QuadCopter copter, map map){
+    aStar routemaker;
+    Route* quadPairRoute = new Route;
+    Route* atvPairRoute  = new Route;
+
+	if (copter.getX() != atv.getX() || copter.getY() != atv.getY()){                             //QuadCopter on ATV start position?
+        auto route = routemaker.findPath(copter.getX(), copter.getY(), atv.getX(), atv.getY(), map);
+        for(auto wayPoint : route){                                         //If not -> QuadCopter move to ATV
+            quadPairRoute->pushWayPoint(new WayPoint(wayPoint.first, wayPoint.second));
+            atvPairRoute->pushWayPoint(new WayPoint(atv.getX(), atv.getY()));         //ATV stay on position!
+        }
+
+    }
+    for(int i = 0; i < atvRoute.getRouteSize(); i++){                       //Loop trough ATV route
+        WayPoint* atvNextPosition = atvRoute.getWaypoint(i);                //Get next ATV position
+
+        if(!copter.inView(atvNextPosition->x, atvNextPosition->y)){                 //Check if ATV is in view
+            auto route = routemaker.findPath(copter.getX(), copter.getY(), atvNextPosition->x, atvNextPosition->y, map);
+            for(auto wayPoint : route){
+                quadPairRoute->pushWayPoint(new WayPoint(wayPoint.first, wayPoint.second));//If not -> move to ATV
+                atvPairRoute->pushWayPoint(new WayPoint(atvNextPosition->x, atvNextPosition->x));//Atv stay on place
+            }
+        }
+        else{
+            quadPairRoute->pushWayPoint(new WayPoint(copter.getX(), copter.getY()));//Quadcopter stay on place
+            atvPairRoute->pushWayPoint(new WayPoint(atvNextPosition->x, atvNextPosition->y ));//atv move to next position
+        }
+    }
+    return new std::pair<Route*, Route*>(quadPairRoute, atvPairRoute);
+}
+

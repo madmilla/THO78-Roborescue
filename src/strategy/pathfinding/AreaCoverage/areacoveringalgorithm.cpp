@@ -42,7 +42,7 @@
 #define down Dimension(0, 1)
  /** Basic constructor, This requiers a test copter and a map to function
 */
-AreaCoveringAlgorithm::AreaCoveringAlgorithm(TestCopter copter,
+AreaCoveringAlgorithm::AreaCoveringAlgorithm(QuadCopter copter,
                                              map *mapp) {
 	mapp->setScale(1);
 	globalmap = mapp;
@@ -78,7 +78,7 @@ bool AreaCoveringAlgorithm::testCoverage() {
 /** This function makes the area coverage algorithm follow the wall
 */
 
-int AreaCoveringAlgorithm::followWall(TestCopter *copter, map *mapp,
+int AreaCoveringAlgorithm::followWall(QuadCopter *copter, map *mapp,
                                       int wallnumber) {
   this->registerLocation(mapp, copter);
 
@@ -199,7 +199,7 @@ int AreaCoveringAlgorithm::followWall(TestCopter *copter, map *mapp,
 }
  /** this function makes the area coverage function foollow his own covered area effectifly covering all the area's of the map.
   */
-int AreaCoveringAlgorithm::followCovered(TestCopter *copter, map *mapp,
+int AreaCoveringAlgorithm::followCovered(QuadCopter *copter, map *mapp,
 	                          int wallnumber, int coveredNumber) {
   bool boxed = false;
   int checker = 0;
@@ -228,6 +228,7 @@ int AreaCoveringAlgorithm::followCovered(TestCopter *copter, map *mapp,
     } else if (boxed) {
 	  astarto =point(copter->x, copter->y);
 	  aStar findroute;
+
 	  Route shortest =findroute.getRoute(findroute.findPath(astarfrom.getX(), astarfrom.getY(), astarto.getX(), astarto.getY(),*globalmap));
 	  result.addRoutePart(shortest);
       moveingBack = false;
@@ -365,7 +366,7 @@ Route AreaCoveringAlgorithm::getRoute(){
 }
 
  /** this function returns the value on the point of the given map */
-int AreaCoveringAlgorithm::pointOn(int x, int y, TestCopter *copter,
+int AreaCoveringAlgorithm::pointOn(int x, int y, QuadCopter *copter,
                                    map *map) {
   if (copter->x + x < int(map->getScaledWidth() )&& copter->x + x > -1) {
 
@@ -379,7 +380,7 @@ int AreaCoveringAlgorithm::pointOn(int x, int y, TestCopter *copter,
 }
  /** This method sets empty the area's around the test copter to covered.  */
 void AreaCoveringAlgorithm::registerLocation(map *map,
-                                             TestCopter *copter) {
+                                             QuadCopter *copter) {
   result.waypoints.push_back(WayPoint(copter->x, copter->y));
   int sightxinitial = copter->copterSight.width - 1;
   sightxinitial = sightxinitial / 2;
@@ -399,7 +400,7 @@ void AreaCoveringAlgorithm::registerLocation(map *map,
   }
 }
  /** this method checks if there are uncovered areas around the copter. if there are empty areas it will return false else true */
-bool AreaCoveringAlgorithm::isBoxedIn(TestCopter *copter, map *map) {
+bool AreaCoveringAlgorithm::isBoxedIn(QuadCopter *copter, map *map) {
     if (   !(isCoveredInDirection(forward,copter)|| pointOn(0,-1,copter,map)==1||pointOn(0,-2,copter,map)==1) ){return false;}
     if (   !(isCoveredInDirection(down,copter)|| pointOn(0,1,copter,map)==1||pointOn(0,2,copter,map)==1) ){return false;}
     if (   !(isCoveredInDirection(right,copter)|| pointOn(1,0,copter,map)==1|| pointOn(2,0,copter,map)==1) ){return false;}
@@ -486,11 +487,11 @@ cell \n";
 
 
 }*/
-void AreaCoveringAlgorithm::setCopterSquare(TestCopter copt, map *map) {
+void AreaCoveringAlgorithm::setCopterSquare(QuadCopter copt, map *map) {
   map->setScaledLocationValue(copt.x,copt.y,10);
 }
- /** this function moves the testcopter back on the route and keeps track of howfar it went back */
-void AreaCoveringAlgorithm::moveBackOnRoute(TestCopter *copter) {
+ /** this function moves the QuadCopter back on the route and keeps track of howfar it went back */
+void AreaCoveringAlgorithm::moveBackOnRoute(QuadCopter *copter) {
   if (moveingBack) {
 
     copter->x = result.waypoints.at(stuckWaypointIndex + movesBack).x;
@@ -502,10 +503,10 @@ void AreaCoveringAlgorithm::moveBackOnRoute(TestCopter *copter) {
     movesBack = 0;
   }
 }
- /** This function checks if the testcopter is covered in the given direction it not only checks directly in front of it but in front of the entire sight range of the copter */
+ /** This function checks if the QuadCopter is covered in the given direction it not only checks directly in front of it but in front of the entire sight range of the copter */
 
 
-bool AreaCoveringAlgorithm::isCoveredInDirection(Dimension d, TestCopter *t ){
+bool AreaCoveringAlgorithm::isCoveredInDirection(Dimension d, QuadCopter *t ){
    // std::cout << t->x << " " << t->y;
     int index;
     bool uncovered=true;

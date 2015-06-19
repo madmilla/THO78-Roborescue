@@ -100,10 +100,10 @@ void GLWidget::addGridSquare(int x, int y, int length, int width, int color){
     glBegin(GL_QUADS);
     glColor3f(red, green, blue);
 
-    glVertex3f( normalizedX , Algorithms::BOTTOM,                   normalizedY );
-    glVertex3f( normalizedX + normalizedLength,Algorithms::BOTTOM, normalizedY );
-    glVertex3f( normalizedX + normalizedLength, Algorithms::BOTTOM,normalizedY  + normalizedWidth );
-    glVertex3f( normalizedX ,   Algorithms::BOTTOM,                normalizedY + normalizedWidth );
+    glVertex3f( normalizedX ,                   Algorithms::BOTTOM, normalizedY );
+    glVertex3f( normalizedX + normalizedLength, Algorithms::BOTTOM, normalizedY );
+    glVertex3f( normalizedX + normalizedLength, Algorithms::BOTTOM, normalizedY  + normalizedWidth );
+    glVertex3f( normalizedX ,                   Algorithms::BOTTOM, normalizedY + normalizedWidth );
 
     glEnd();
 }
@@ -121,8 +121,8 @@ void GLWidget::drawGround(){
 }
 
 void GLWidget::drawLine(const Lines<float> &line){
-    glVertex3f(line.x1, Algorithms::BOTTOM, line.y1);
-    glVertex3f(line.x2, Algorithms::BOTTOM, line.y2);
+    glVertex3f(line.x1, Algorithms::BOTTOM,                      line.y1);
+    glVertex3f(line.x2, Algorithms::BOTTOM,                      line.y2);
     glVertex3f(line.x2, Algorithms::BOTTOM + Algorithms::HEIGHT, line.y2);
     glVertex3f(line.x1, Algorithms::BOTTOM + Algorithms::HEIGHT, line.y1);
 }
@@ -197,7 +197,7 @@ void GLWidget::setPolygons(const std::vector<std::vector<points> >& polygons){
 }
 
 void GLWidget::rotateX(int angle) {
-    if(angle >90){
+    if(angle > 90){
        angle = 90;
     }
     else if( angle < 0){
