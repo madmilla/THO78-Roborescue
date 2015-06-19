@@ -81,7 +81,7 @@ int Rosbee::getOldRosbeeLocationY(){
  */
 
 void Rosbee::setRosbeeLocationX(int x){
-    rosbeeLocationX = x;
+    rosbeeLocationX = x + rosbeeLocationX;
 }
 
 /**
@@ -92,7 +92,11 @@ void Rosbee::setRosbeeLocationX(int x){
 
 // Set value for rosbeeLocationY.
 void Rosbee::setRosbeeLocationY(int y){
-    rosbeeLocationY = y;
+    rosbeeLocationY = y + rosbeeLocationY;
+}
+
+void Rosbee::moveTo(int x, int y){
+	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
 }
 
 

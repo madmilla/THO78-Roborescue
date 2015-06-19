@@ -30,11 +30,12 @@ public:
     void setRosbeeLocationY(int y);
     // Function to set the rosbee location x.
     void setRosbeeLocationX(int x);
+	void moveTo(int x, int y);
 private:
-    int rosbeeLocationX;
+    int rosbeeLocationX = 1;
     int oldRosbeeLocationX;
     int oldRosbeeLocationY;
-    int rosbeeLocationY;
+    int rosbeeLocationY = 1;
 };
 
 #endif // ROSBEE_H
