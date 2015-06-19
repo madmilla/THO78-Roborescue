@@ -1,9 +1,6 @@
 #ifndef CPICONNECTOR_H_
 #define CPICONNECTOR_H_
 
-#ifndef CPICONNECTOR_H_
-#define CPICONNECTOR_H_
-
 
 #include <cstdint>
 #include <iostream>
