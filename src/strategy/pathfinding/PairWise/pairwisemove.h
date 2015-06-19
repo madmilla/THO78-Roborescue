@@ -36,11 +36,12 @@
 **/
 
 
-#include "waypoint.h"
-#include "quadCopter.h"
-#include "ATV.h"
-#include "route.h"
+#include "../../Common/waypoint.h"
+#include "../../Common/quadCopter.h"
+#include "../../Common/ATV.h"
+#include "../../Common/route.h"
 #include "../../../map/MapStructure/map.hpp"
+#include "../Stop-them-spaces/aStar.h"
 #include <vector>
 
 
@@ -74,11 +75,15 @@ public:
      * @return	A std::vector with WayPoints for quadcopter;
      */
 
-    Route * quadCopterPairRoute(Route atvRoute,
-                                             ATV atv,
-                                             quadCopter copter,
-                                             map map
-                                             );
+    std::pair<Route*, Route*>* quadCopterPairRoute(Route atvRoute,
+                                                                    ATV atv,
+                                                                    quadCopter copter,
+                                                                    map map);
+
+    void movePairWise(Route atvRoute,
+                         ATV atv,
+                         quadCopter copter,
+                         map map);
 };
 
 #endif // PAIRWISEMOVE

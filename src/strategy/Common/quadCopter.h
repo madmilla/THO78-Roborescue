@@ -1,14 +1,20 @@
-#ifndef TESTCOPTER_H
-#define TESTCOPTER_H
 #include "dimension.h"
-class TestCopter
+
+#ifndef QUADCOPTER_H
+#define QUADCOPTER_H
+
+class quadCopter
 {
 public:
-    TestCopter(Dimension copter, Dimension copterSight,int x,int y);
-    ~TestCopter();
+    quadCopter(Dimension copter, Dimension copterSight,int x,int y);
+    ~quadCopter();
+
+    void goTo(int x, int y);
+    bool inView(int x, int y);
+
     Dimension copter;
     Dimension copterSight;
     int x,y;
 };
 
-#endif // TESTCOPTER_H
+#endif // QUADCOPTER_H
