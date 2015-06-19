@@ -6,13 +6,10 @@
 #include <iostream>
 #include <vector>
 #include "polygon.h"
-<<<<<<< HEAD
 #include <aStar.h>
-=======
 #include <quadCopter.h>
 #include <Rosbee.h>
 #include <ATV.h>
->>>>>>> origin/master
 
 class map
 {
