@@ -6,10 +6,13 @@
 #include <iostream>
 #include <vector>
 #include "polygon.h"
-#include <aStar.h>
-#include <quadCopter.h>
+#include <QuadCopter.h>
 #include <Rosbee.h>
 #include <ATV.h>
+
+class aStar;
+
+
 
 class map
 {

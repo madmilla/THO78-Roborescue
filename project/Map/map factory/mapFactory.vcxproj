@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\src\map\Map Factory;..\..\..\src\map\mapStructure;..\..\..\src\strategy\Common</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\src\strategy\pathfinding\AStar Algorithm;..\..\..\src\map\Map Factory;..\..\..\src\map\mapStructure;..\..\..\src\strategy\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -88,6 +88,8 @@
     <ClCompile Include="..\..\..\src\strategy\Common\dimension.cpp" />
     <ClCompile Include="..\..\..\src\strategy\Common\quadCopter.cpp" />
     <ClCompile Include="..\..\..\src\strategy\Common\Rosbee.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +102,8 @@
     <ClInclude Include="..\..\..\src\strategy\Common\dimension.h" />
     <ClInclude Include="..\..\..\src\strategy\Common\quadCopter.h" />
     <ClInclude Include="..\..\..\src\strategy\Common\Rosbee.h" />
+    <ClInclude Include="..\..\..\src\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.h" />
+    <ClInclude Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

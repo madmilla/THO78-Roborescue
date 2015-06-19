@@ -47,27 +47,27 @@ class AreaCoveringAlgorithm
 public:
 	point astarfrom=point(0,0);
 	point astarto=point(0,0);
-    void setCopterSquare(TestCopter copt, map* map);
-    int followCovered(TestCopter *copter, map* mapp, int wallnumber, int coveredNumber);
-    void registerLocation(map*,TestCopter*);
-    AreaCoveringAlgorithm(TestCopter copter, map *mapp);
+    void setCopterSquare(QuadCopter copt, map* map);
+    int followCovered(QuadCopter *copter, map* mapp, int wallnumber, int coveredNumber);
+    void registerLocation(map*,QuadCopter*);
+    AreaCoveringAlgorithm(QuadCopter copter, map *mapp);
     ~AreaCoveringAlgorithm();
-    int followWall(TestCopter *copter, map* mapp, int wallnumber);
+    int followWall(QuadCopter *copter, map* mapp, int wallnumber);
     Route result;
     void drawWayPoints(map*);
     bool testCoverage();
 	Route getRoute();
 private:
 	// isCoveredInDirecten true or fales TI rules
-    bool isCoveredInDirection(Dimension d, TestCopter* t );
-    bool isBoxedIn(TestCopter*, map *map);
-    void moveBackOnRoute(TestCopter* copter);
+    bool isCoveredInDirection(Dimension d, QuadCopter* t );
+    bool isBoxedIn(QuadCopter*, map *map);
+    void moveBackOnRoute(QuadCopter* copter);
     map* globalmap;
     void goForward();
     bool moveingBack;
     int movesBack=0;
     int stuckWaypointIndex;
-    int pointOn(int x, int y, TestCopter *copter, map* map);
+    int pointOn(int x, int y, QuadCopter *copter, map* map);
 };
 
 #endif // AREACOVERINGALGORITHM_H

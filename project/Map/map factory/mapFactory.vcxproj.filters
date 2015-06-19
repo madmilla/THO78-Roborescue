@@ -39,6 +39,12 @@
     <ClCompile Include="..\..\..\src\strategy\Common\dimension.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\map\Map Factory\mapFactory.h">
@@ -66,6 +72,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\strategy\Common\dimension.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

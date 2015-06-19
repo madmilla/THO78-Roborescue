@@ -19,6 +19,7 @@ std::ostream & operator<<(std::ostream & os, Route & l){
 	for (auto i : l.waypoints){
 		output << i.x << " " << i.y << " ";
     }
+	return os << output.str();
 }
 
 void Route::randomRoute(int mapWidth, int mapHeight){
@@ -50,9 +51,7 @@ void Route::clearRoute(){
     wayPoints.clear();
 }
 
-friend std::ostream & operator<<(std::ostream & os, Route & l){
-	return os << output.str();
-}
+
 void Route::scaleWaypoints(){
 	for (int index = 0; index < waypoints.size(); index++){
 		WayPoint point = waypoints.at(index);

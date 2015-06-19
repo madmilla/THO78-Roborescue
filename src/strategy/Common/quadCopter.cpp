@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Testcopter.cpp
+* @file QuadCopter.cpp
 * @date Created: 4/28/2015
 *
 * @author Mathijs Arends

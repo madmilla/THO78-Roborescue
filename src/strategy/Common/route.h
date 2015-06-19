@@ -25,9 +25,8 @@ public:
     void pushWayPoint(WayPoint* wayPoint);
     int getRouteSize();
     void clearRoute();
-
+	std::vector<WayPoint*> wayPoints;
 private:
-    //std::vector<WayPoint*> wayPoints; //mathijs code not prepared for this
+    // //mathijs code not prepared for this
 };
-
 #endif // ROUTE_H
