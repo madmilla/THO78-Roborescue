@@ -81,18 +81,18 @@ void CPIConnector::start(){
 	sD.writeLinesToConsole(lines);
 
 	for (Line l : lines){
-		int32_t beginPosX = static_cast<int32_t>l.getLine().begin_pos.x;
-		int32_t beginPosY = static_cast<int32_t>l.getLine().begin_pos.y;
-		int32_t endPosX = static_cast<int32_t>l.getLine().end_pos.x;
-		int32_t endPosY = static_cast<int32_t>l.getLine().end_pos.y;
+		int32_t beginPosX = static_cast<int32_t>(l.getLine().begin_pos.x);
+		int32_t beginPosY = static_cast<int32_t>(l.getLine().begin_pos.y);
+		int32_t endPosX = static_cast<int32_t>(l.getLine().end_pos.x);
+		int32_t endPosY = static_cast<int32_t>(l.getLine().end_pos.y);
 		int32_t data[5] = { 0, beginPosX, beginPosY, endPosX, EndposY };
 		sendLidarCommand(data, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
 	for (Circle c : circles){
-		int32_t originX = static_cast<int32_t>c.getCircle().originX;
-		int32_t originY = static_cast<int32_t>c.getCircle().originY;
-		int32_t radius = static_cast<int32_t>c.getCircle().radius;
+		int32_t originX = static_cast<int32_t>(c.getCircle().originX);
+		int32_t originY = static_cast<int32_t>(c.getCircle().originY);
+		int32_t radius = static_cast<int32_t>(c.getCircle().radius);
 		int32_t data[4] = { 1, originX, originY, radius };
 		sendLidarCommand(data, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 
