@@ -1,5 +1,6 @@
 #ifndef ROUTE_H
 #define ROUTE_H
+
 #include <vector>
 #include "waypoint.h"
 #include <sstream>
@@ -8,14 +9,16 @@
 class Route
 {
 public:
-	void addRoutePart(Route);
-    std::vector<WayPoint> waypoints;
+
     Route();
-	int scale;
-	Route(std::vector<WayPoint> waypoints);
+    Route(std::vector<WayPoint> waypoints);
     ~Route();
-	friend std::ostream & operator<<(std::ostream & os, Route & l);
-	void scaleWaypoints();
+
+    void addRoutePart(Route);
+    std::vector<WayPoint> waypoints;
+    int scale;
+    friend std::ostream & operator<<(std::ostream & os, Route & l);
+    void scaleWaypoints();
 
     void randomRoute(int mapWidth, int mapHeight);
     WayPoint* getWaypoint(int wayPoint);

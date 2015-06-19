@@ -3,11 +3,11 @@
 
 #include "dimension.h"
 
-class quadCopter
+class QuadCopter
 {
 public:
-    quadCopter(Dimension copter, Dimension copterSight,int x,int y);
-    ~quadCopter();
+    QuadCopter(Dimension copter, Dimension copterSight,int x,int y);
+    ~QuadCopter();
 
     void goTo(int x, int y);
     bool inView(int x, int y);
