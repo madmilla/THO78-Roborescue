@@ -6,10 +6,11 @@
 #include <iostream>
 #include <vector>
 #include "polygon.h"
-#include <QuadCopter.h>
-#include <Rosbee.h>
-#include <ATV.h>
-#include <aStar.h>
+#include "../../strategy/Common/QuadCopter.h"
+#include "../../strategy/Common/Rosbee.h"
+#include "../../strategy/Common/atv.h"
+#include "../../strategy/pathfinding/Stop-them-spaces/aStar.h"
+
 
 class map : public mapImplementation
 {
