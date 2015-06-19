@@ -10,7 +10,7 @@
 * @date Created:	19-06-2015
 *
 *  @author	Jos Roijakkers
-*  @author	
+*  @author	Daan Leijen
 *
 *  @section LICENSE
 *  License:	newBSD
@@ -54,8 +54,14 @@
 class QuadcopterController
 {
 public:
-	QuadcopterController(Quadcopter& quad);
+	QuadcopterController(Quadcopter& quadcopter);
 	void registerLocalisation(LocalisationModule& LocMod);
+	void setTarget(coordinate& coordinate);
+	void setPosition();
+	void setHeight();
 	~QuadcopterController();
+
+private:
+
 };
 #endif

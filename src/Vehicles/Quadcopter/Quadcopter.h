@@ -15,7 +15,7 @@
 *  @author	Daniel van den Berg
 *  @author	Feiko Wielsma	
 *  @author	Bart Muelders
-*  @author	Jos Rooijakkers
+*  @author	Jos Roijakkers
 *  @author 	Yorrick Lans
 *
 *  @section LICENSE
