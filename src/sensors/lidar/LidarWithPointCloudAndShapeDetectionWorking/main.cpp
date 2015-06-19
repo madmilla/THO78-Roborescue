@@ -26,9 +26,12 @@ int main()
 			fprintf(stderr,"x: %d , y: %d\n", scanCoorde[pos].x, scanCoorde[pos].y);
 		}
 	}
+	std::cout << "Create image \n";
 	clock_t Start = clock();
-	const Mat & image = sD.createImage(pCloud);
+	const Mat & image = sD.createImage(pCloud, 10);
+	std::cout << "Detect circles - Time: \n";
 	std::vector<Circle> circles = sD.detectCircles(image);
+	std::cout << "Detect Lines - Time: \n";
 	std::vector<Line> lines = sD.searchLines(image);
 	sD.writeCirclesToConsole(circles);
 	sD.writeLinesToConsole(lines);

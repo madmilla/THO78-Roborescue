@@ -74,29 +74,12 @@ Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	int minY = source.getMinValues().Y;
 	size_t imageHeight = source.getCloudHeight();
 	size_t imageWidth = source.getCloudWidth();
-		std::cout << imageHeight << " width: " << imageWidth << std::endl;
-
 	Mat mat((int)(imageWidth / DEVIDEIMAGESIZE)+1, (int)(imageHeight / DEVIDEIMAGESIZE)+1, CV_8UC1); //Create a Mat object which will represent the image with all the pixels
-	imwrite("output2.jpg", mat);
-	std::cout << " first forloop from creatimage" ;
-	for (int y = 0; y < imageHeight; ++y){
-		for (int x = 0; x < imageWidth; ++x){
-			mat.at<uchar>(Point((int)(y / DEVIDEIMAGESIZE),(int)( x / DEVIDEIMAGESIZE))) = BLACK_PIXEL;
-		}
-	}
-	imwrite("output4.jpg", mat);
-	int i = 0;
-	std::cout << "second forloop from creatcircle" ;
 	for (Pointcloud::Point p : *source.getPoints()){
-		//std::cout << i << " + " << p.X << " + " << p.Y << " +++ " << p.Y + (abs(minY)) << " +++ " <<  p.X + (abs(minX)) << " ++++ " << imageHeight << " ++++ " << imageWidth << "\n";
-		std::cout << (int) ((p.Y + abs(minY+1)) / DEVIDEIMAGESIZE) << " && " << (int)((p.X + abs(minX+1)) / DEVIDEIMAGESIZE) << "\n";
-		i++;
 		mat.at<uchar>(Point( (int) ((p.Y + abs(minY+1)) / DEVIDEIMAGESIZE), (int)((p.X + abs(minX+1)) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
 	}
-	std::cout << " save image in createcircle" ;
-	imwrite("FINALIMAGE2.jpg", mat); // save the 
-	imwrite("output.jpg",mat);
-	Mat image(imread("FINALIMAGE2.jpg")); //read and return the image
+	imwrite("ScanImage.jpg", mat); // save the image
+	Mat image(imread("ScanImage.jpg")); //read and return the image
 	return image;
 }
 
