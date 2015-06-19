@@ -20,7 +20,7 @@ public:
 private:
     Dimension size;
     Dimension fov;
-    int x
+    int x;
     int y;
 };
 

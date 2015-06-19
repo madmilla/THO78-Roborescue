@@ -1,4 +1,3 @@
-#include "QRect"
 #include "dimension.h"
 
 #ifndef ATV_H

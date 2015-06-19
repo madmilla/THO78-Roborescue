@@ -6,9 +6,9 @@
 #include <iostream>
 #include <vector>
 #include "polygon.h"
-#include <QuadCopter.h>
-#include <Rosbee.h>
-#include <ATV.h>
+#include <../../Common/QuadCopter.h>
+#include <../../Common/Rosbee.h>
+#include <../../Common/ATV.h>
 
 class aStar;
 
