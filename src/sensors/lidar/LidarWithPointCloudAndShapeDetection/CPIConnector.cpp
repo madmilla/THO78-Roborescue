@@ -85,7 +85,7 @@ void CPIConnector::start(){
 		int32_t beginPosY = static_cast<int32_t>(l.getLine().begin_pos.y);
 		int32_t endPosX = static_cast<int32_t>(l.getLine().end_pos.x);
 		int32_t endPosY = static_cast<int32_t>(l.getLine().end_pos.y);
-		int32_t data[5] = { 0, beginPosX, beginPosY, endPosX, EndposY };
+		int32_t data[5] = { 0, beginPosX, beginPosY, endPosX, endposY };
 		sendLidarCommand(data, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
 	}
 
