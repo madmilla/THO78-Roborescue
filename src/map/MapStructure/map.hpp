@@ -6,6 +6,8 @@
 #include <iostream>
 #include <vector>
 #include "polygon.h"
+#include <aStar.h>
+
 class map
 {
 public:
@@ -79,6 +81,20 @@ public:
 	//! @return The result of the accessible check
 	bool isAccessible(int x, int y);
 	
+	//! Check if a destination is accessible from a location
+	//! If the destination is not reachable it will be set unaccessible in the grid.
+	//! @param The x coördinate of the starting point
+	//! @param The y coördinate of the starting point
+	//! @param The x coördinate of the destination
+	//! @param The y coördinate of the destination
+	bool isReachable(int x, int y, int x1, int y1);
+
+	//! Check if a destination is accessible from a location
+	//! If the destination is not reachable it will be set unaccessible in the grid.
+	//! @param The x coördinate of the starting point
+	//! @param The y coördinate of the starting point
+	bool isReachable(point p, point p1);
+
 	//!
 	void setScale(int x);
 	
@@ -113,11 +129,17 @@ public:
 	void print();
 
 	void addCircle(int x, int y, int radius);
+
 private:
 	int scale=1;
 	std::vector<line> mapData;
 	std::vector<polygon> objects;
 	std::vector<std::vector<int>> access; //accessible = 0, notAccessible = 1, seen = 5
+
+	//! Set the given point to not reachable in the access grid
+	//! @param The point on the grid
+	void setNotReachable(point p);
+
 };
 
 #endif

@@ -345,3 +345,15 @@ int map::getScaledLocationValue(int x, int y){
 	}
 	return highestvalue;
 }
+
+bool map::isReachable(int x, int y, int x1, int y1){
+	return true;
+}
+
+bool map::isReachable(point p, point p1){
+	return isReachable(p.getX(), p.getY(), p1.getX(), p1.getY());
+}
+
+void map::setNotReachable(point p){
+	return;
+}
