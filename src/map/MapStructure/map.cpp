@@ -1,6 +1,11 @@
 #include "map.hpp"
 
-map::map(){
+map::map() {
+	// Initializa Vehicle Positions
+	rosbeePosition = nullptr;
+	ATVPosition = nullptr;
+	quadcopterPosition = nullptr;
+
 	std::cout << "NEW MAP";
 	access.resize(70);
 	for (int i = 0; i < access.size();i++){
@@ -18,11 +23,9 @@ map::map(){
 	appendLine(b);
 	appendLine(c);
 	appendLine(d);
-	translateToPoints();
-
-	
-	
+	translateToPoints();	
 }
+
 void map::setLocationValue(int x, int y, int value)
 {
 	if (x < access.size()){
