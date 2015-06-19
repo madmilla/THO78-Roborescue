@@ -36,12 +36,12 @@
 **/
 
 
-#include "../../Common/waypoint.h"
-#include "../../Common/quadCopter.h"
-#include "../../Common/ATV.h"
-#include "../../Common/route.h"
-#include "../../../map/MapStructure/map.hpp"
-#include "../Stop-them-spaces/aStar.h"
+#include <waypoint.h>
+#include <QuadCopter.h>
+#include <ATV.h>
+#include <route.h>
+#include <map.hpp>
+#include <aStar.h>
 #include <vector>
 
 
@@ -61,28 +61,28 @@ public:
     PairWiseMove();
 
     /**
-     * @fn	std::vector<WayPoint> PairWiseMove::quadCopterPairRoute(std::vector<WayPoint> atvRoute, 
-     * 		ATV atv, quadCopter copter );
+     * @fn	std::vector<WayPoint> PairWiseMove::QuadCopterPairRoute(std::vector<WayPoint> atvRoute, 
+     * 		ATV atv, QuadCopter copter );
      *
-     * @brief	Creates a quadcopter route from an ATV route.
-     * 			As long as the ATV is in sight of quadcopter, quadcopter does not move.
-     * 			Else the quadcopter moves to next ATV position.
+     * @brief	Creates a QuadCopter route from an ATV route.
+     * 			As long as the ATV is in sight of QuadCopter, QuadCopter does not move.
+     * 			Else the QuadCopter moves to next ATV position.
      *
      * @param	atvRoute	The atv route.
      * @param	atv			The atv.
      * @param	copter  	The copter.
      *
-     * @return	A std::vector with WayPoints for quadcopter;
+     * @return	A std::vector with WayPoints for QuadCopter;
      */
 
-    std::pair<Route*, Route*>* quadCopterPairRoute(Route atvRoute,
+    std::pair<Route*, Route*>* QuadCopterPairRoute(Route atvRoute,
                                                                     ATV atv,
-                                                                    quadCopter copter,
+                                                                    QuadCopter copter,
                                                                     map map);
 
     void movePairWise(Route atvRoute,
                          ATV atv,
-                         quadCopter copter,
+                         QuadCopter copter,
                          map map);
 };
 

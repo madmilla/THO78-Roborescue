@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AB3E345C-2970-4229-971C-BE775BA11B60}</ProjectGuid>
-    <RootNamespace>theMap</RootNamespace>
+    <ProjectGuid>{22C45F15-A365-44E8-8C7B-B1E3D7E0E2A4}</ProjectGuid>
+    <RootNamespace>Pairwise</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\src\strategy\pathfinding\AStar Algorithm;..\..\..\src\map\MapStructure;..\..\..\src\strategy\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\src\strategy\pathfinding\pairwise;..\..\..\src\map\MapStructure;..\..\..\src\strategy\pathfinding\stop-them-spaces;C:\THO78-Roborescue\src\strategy\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -75,13 +75,13 @@
     <ClCompile Include="..\..\..\src\strategy\Common\Rosbee.cpp" />
     <ClCompile Include="..\..\..\src\strategy\Common\route.cpp" />
     <ClCompile Include="..\..\..\src\strategy\Common\waypoint.cpp" />
-    <ClCompile Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.cpp" />
-    <ClCompile Include="Test.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\pathfinding\PairWise\pairwisemove.cpp" />
+    <ClCompile Include="..\..\..\src\strategy\pathfinding\Stop-them-spaces\aStar.cpp" />
+    <ClCompile Include="..\..\..\src\tests\auto\PairWise-test\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\map\MapStructure\line.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\map.hpp" />
-    <ClInclude Include="..\..\..\src\map\MapStructure\mapImplementation.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\point.hpp" />
     <ClInclude Include="..\..\..\src\map\MapStructure\polygon.h" />
     <ClInclude Include="..\..\..\src\strategy\Common\ATV.h" />
@@ -90,8 +90,8 @@
     <ClInclude Include="..\..\..\src\strategy\Common\Rosbee.h" />
     <ClInclude Include="..\..\..\src\strategy\Common\route.h" />
     <ClInclude Include="..\..\..\src\strategy\Common\waypoint.h" />
-    <ClInclude Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.h" />
-    <ClInclude Include="Test.hpp" />
+    <ClInclude Include="..\..\..\src\strategy\pathfinding\PairWise\pairwisemove.h" />
+    <ClInclude Include="..\..\..\src\strategy\pathfinding\Stop-them-spaces\aStar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

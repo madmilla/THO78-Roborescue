@@ -51,9 +51,9 @@
 #define _A_STAR_H
 
 #include <vector>
-#include <map.hpp>
 #include <array>
 #include <route.h>
+#include <mapImplementation.hpp>
 
 //	pair of ints representing a coordinate
 typedef std::pair<int, int> Coordinate;
@@ -74,7 +74,7 @@ public:
 	*	/return A vector of the coordinates of the path from start to end. will return an empty vector when
 	*		no path is found.
 	**/
-	std::vector<std::pair<int, int>> findPath(int startX, int startY, int endX, int endY, map& theMap);
+	std::vector<std::pair<int, int>> findPath(int startX, int startY, int endX, int endY, mapImplementation& theMap);
 
 	/**	/brief Get the distances to the endpoint around the given coordinate on the given map
 	*
@@ -84,7 +84,7 @@ public:
 	*		distance when the coordinate is out of the map bounds, is an obstacle or is a coordinate
 	*		in closedcells.
 	**/
-	std::array<std::pair<Coordinate, int>, 4> getDistances(Coordinate coordinate, map& theMap);
+	std::array<std::pair<Coordinate, int>, 4> getDistances(Coordinate coordinate, mapImplementation& theMap);
 
 	/**	/brief Get the shortest distance from 4 coordinates with their distances to the endpoint
 	*

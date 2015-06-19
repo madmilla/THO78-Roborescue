@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VSLAM", "VSLAM\VSLAM.vcxproj", "{E7FCD104-AC27-4B84-95E9-3021906805B6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pairwise", "Pairwise.vcxproj", "{22C45F15-A365-44E8-8C7B-B1E3D7E0E2A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E7FCD104-AC27-4B84-95E9-3021906805B6}.Debug|Win32.ActiveCfg = Debug|Win32
-		{E7FCD104-AC27-4B84-95E9-3021906805B6}.Debug|Win32.Build.0 = Debug|Win32
-		{E7FCD104-AC27-4B84-95E9-3021906805B6}.Release|Win32.ActiveCfg = Release|Win32
-		{E7FCD104-AC27-4B84-95E9-3021906805B6}.Release|Win32.Build.0 = Release|Win32
+		{22C45F15-A365-44E8-8C7B-B1E3D7E0E2A4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{22C45F15-A365-44E8-8C7B-B1E3D7E0E2A4}.Debug|Win32.Build.0 = Debug|Win32
+		{22C45F15-A365-44E8-8C7B-B1E3D7E0E2A4}.Release|Win32.ActiveCfg = Release|Win32
+		{22C45F15-A365-44E8-8C7B-B1E3D7E0E2A4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

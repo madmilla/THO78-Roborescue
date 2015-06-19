@@ -1,7 +1,7 @@
 #include "aStar.h"
 #include <iostream>
 #include <array>
-
+#include <algorithm>
 aStar::aStar()
 {
 }
@@ -29,12 +29,12 @@ std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int end
 		auto currentPoint = path.back();
 		closedCells.push_back(currentPoint);
 		std::array<std::pair<Coordinate, int>, 4> distances = getDistances(currentPoint, theMap);
-		for (auto& distance : distances)
+        for (std::pair<Coordinate,int>& distance : distances)
         {
             if (std::find(openCells.begin(), openCells.end(), distance.first) != openCells.end())
 			{
 				closedCells.erase(std::find(closedCells.begin(), closedCells.end(), currentPoint));
-				std::array<std::pair<Coordinate, int>, 4> openCellDistances = getDistances(distance.first, theMap);
+                std::array<std::pair<Coordinate, int>, 4> openCellDistances = getDistances(distance.first, theMap);
 				int pathDistanceToEnd = 0;
 				int openCellDistanceToEnd = 0;
 				path.pop_back();

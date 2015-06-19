@@ -11,13 +11,10 @@ Route::~Route()
 }
 
 void Route::setRouteTile(int x, int y){
-    //std::cout << "new route" << x << y << std::endl;
     std::pair <int, int> temp;
     temp.first = x;
     temp.second = y;
     newRoute.push_back(temp);
-	//std::cout << "Ping";
-	
 }
 
 int * Route::getNewTile(){

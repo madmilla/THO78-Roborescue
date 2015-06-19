@@ -6,15 +6,14 @@
 #include <iostream>
 #include <vector>
 #include "polygon.h"
-#include <QuadCopter.h>
-#include <Rosbee.h>
-#include <ATV.h>
+#include "../../strategy/Common/QuadCopter.h"
+#include "../../strategy/Common/Rosbee.h"
+#include "../../strategy/Common/ATV.h"
+#include "../../strategy/pathfinding/Stop-them-spaces/aStar.h"
+#include "mapImplementation.hpp"
 
-class aStar;
 
-
-
-class map
+class map : public mapImplementation
 {
 public:
 	int getScale();
@@ -117,7 +116,7 @@ public:
 	void makeUnseen();
 
 	//when pathfinding is done, make all cells unseen again. seen = false;	
-	void setLocationValue(int x, int y,int value);
+	void setLocationValue(unsigned int x, int y, int value);
 
 	//translate lines to points in 2d vector
 	//! Translates a line vector to a grid map
@@ -125,7 +124,7 @@ public:
 	//! point data to the return.
 	void translateToPoints();
 
-	int getLocationValue(int x, int y);
+	int getLocationValue(unsigned int x, unsigned int y);
 
 	int getScaledLocationValue(int x, int y);
 	int getScaledWidth();
@@ -165,7 +164,6 @@ private:
 	Rosbee* rosbeePosition;
 	ATV* ATVPosition;
 	QuadCopter* quadcopterPosition;
-
 };
 
 #endif

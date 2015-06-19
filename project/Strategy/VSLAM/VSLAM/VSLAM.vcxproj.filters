@@ -15,100 +15,91 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VSLAM\Container.cpp">
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VSLAM\mapLogicVSLAM.cpp">
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\mapLogicVSLAM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VSLAM\Rosbee.cpp">
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Rosbee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VSLAM\Route.cpp">
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Route.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VSLAM\scanArea.cpp">
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\scanArea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VSLAM\Test.cpp">
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map\line.cpp">
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\Lidar\Lidar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map\Map.cpp">
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\AStar\MapSearchNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map\mapFactory.cpp">
+    <ClCompile Include="..\..\..\..\src\map\MapStructure\line.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map\point.cpp">
+    <ClCompile Include="..\..\..\..\src\map\MapStructure\map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map\polygon.cpp">
+    <ClCompile Include="..\..\..\..\src\map\MapStructure\point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AStar\MapSearchNode.cpp">
+    <ClCompile Include="..\..\..\..\src\map\MapStructure\polygon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="..\..\..\..\src\strategy\pathfinding\VSLAM\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="VSLAM\Container.h">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Container.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VSLAM\mapLogicVSLAM.h">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\mapLogicVSLAM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VSLAM\Rosbee.h">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Rosbee.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VSLAM\Route.h">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Route.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VSLAM\scanArea.h">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\scanArea.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VSLAM\Test.h">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\VSLAM\Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Map\line.hpp">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\Lidar\Lidar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Map\map.hpp">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\AStar\AstarSearch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Map\mapFactory.h">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\AStar\fsa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Map\point.hpp">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\AStar\MapSearchNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Map\polygon.h">
+    <ClInclude Include="..\..\..\..\src\strategy\pathfinding\AStar\stlastar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AStar\AstarSearch.h">
+    <ClInclude Include="..\..\..\..\src\map\MapStructure\line.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AStar\fsa.h">
+    <ClInclude Include="..\..\..\..\src\map\MapStructure\map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AStar\MapSearchNode.h">
+    <ClInclude Include="..\..\..\..\src\map\MapStructure\point.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AStar\stlastar.h">
+    <ClInclude Include="..\..\..\..\src\map\MapStructure\polygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="VSLAM\Map1.txt" />
-    <Text Include="VSLAM\Map2.txt" />
-    <Text Include="VSLAM\Map3.txt" />
-    <Text Include="VSLAM\Map4.txt" />
-    <Text Include="VSLAM\Map5.txt" />
-    <Text Include="VSLAM\Map6.txt" />
-    <Text Include="VSLAM\testresults.txt" />
   </ItemGroup>
 </Project>

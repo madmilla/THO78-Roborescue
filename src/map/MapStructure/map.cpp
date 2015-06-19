@@ -8,7 +8,7 @@ map::map() {
 
 	std::cout << "NEW MAP" <<std::endl;
 	access.resize(70);
-	for (int i = 0; i < access.size();i++){
+	for (unsigned int i = 0; i < access.size();i++){
 		access.at(i).resize(70);
 	
 	}
@@ -26,7 +26,7 @@ map::map() {
 	translateToPoints();	
 }
 
-void map::setLocationValue(int x, int y, int value)
+void map::setLocationValue(unsigned int x, int y, int value)
 {
 	if (x < access.size()){
 	access.at(x).at(y) = value;
@@ -35,10 +35,10 @@ void map::setLocationValue(int x, int y, int value)
 }
 
 void map::addCircle(int xCentre, int yCentre, int radius){
-	for (int degrees = 0; degrees < 360; degrees++){
+	for (float degrees = 0; degrees < 360; degrees++){
 		float x = radius*cos(degrees) + xCentre;
 		float y = radius*sin(degrees) + yCentre;
-		this->setLocationValue(std::round(x), std::round(y), 1);
+		this->setLocationValue((int)std::round(x), (int)std::round(y), 1);
 	}
 }
 
@@ -53,7 +53,7 @@ void map::setScaledLocationValue(int x, int y, int value)
 	}
 }
 
-int map::getLocationValue(int x, int y)
+int map::getLocationValue(unsigned int x, unsigned int y)
 {
 	if (x < access.size() && y < access.size()){
 		return access.at(x).at(y); }
@@ -239,8 +239,8 @@ void map::translateToPoints(){
 			maxY = lCmp.getPoint(0).getY();
 		}
 	}
-	for (int x = 0; x < access.size(); x++){
-		for (int y = 0; y < access.size(); y++){
+	for (unsigned int x = 0; x < access.size(); x++){
+		for (unsigned int y = 0; y < access.size(); y++){
 			if (getPointLines(point(x,y)).size() != 0){
 				access.at(x).at(y) = 1; //not accessible
 				
@@ -316,19 +316,6 @@ int map::getScaledLocationValue(int x, int y){
 	return highestvalue;
 }
 
-
-bool map::isReachable(int x, int y, int x1, int y1){
-	return true;
-}
-
-bool map::isReachable(point p, point p1){
-	return isReachable(p.getX(), p.getY(), p1.getX(), p1.getY());
-}
-
-void map::setNotReachable(point p){
-	return;
-}
-
 void map::addLidarInput(int lidarInputArray[]){
 	if (lidarInputArray[0] == 0){
 		appendLine(line(point(lidarInputArray[1], lidarInputArray[2]), point(lidarInputArray[3], lidarInputArray[4])));
@@ -337,4 +324,25 @@ void map::addLidarInput(int lidarInputArray[]){
 		addCircle(lidarInputArray[1], lidarInputArray[2], lidarInputArray[3]);
 	}
 	translateToPoints();
+}
+
+bool map::isReachable(int x, int y, int x1, int y1){
+	aStar aS = aStar();
+	std::vector<std::pair<int, int>> theRoute;
+	theRoute = aS.findPath(x, y, x1, y1, *this);
+
+	if (theRoute.size() <= 0){
+		setNotReachable(point(x1, y1));
+		return false;
+	}
+
+	return true;
+}
+
+bool map::isReachable(point p, point p1){
+	return isReachable(p.getX(), p.getY(), p1.getX(), p1.getY());
+}
+
+void map::setNotReachable(point p){
+	access.at(p.getX()).at(p.getY()) = 1;
 }
