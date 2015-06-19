@@ -18,18 +18,18 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-struct qt_meta_stringdata_QuadcopterWindow_t {
+struct qt_meta_stringdata_QuadCopterWindow_t {
     QByteArrayData data[7];
     char stringdata[150];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_QuadcopterWindow_t, stringdata) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_QuadCopterWindow_t, stringdata) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_QuadcopterWindow_t qt_meta_stringdata_QuadcopterWindow = {
+static const qt_meta_stringdata_QuadCopterWindow_t qt_meta_stringdata_QuadCopterWindow = {
     {
-QT_MOC_LITERAL(0, 0, 16), // "QuadcopterWindow"
+QT_MOC_LITERAL(0, 0, 16), // "QuadCopterWindow"
 QT_MOC_LITERAL(1, 17, 32), // "on_sendMaxAltitudeButton_clicked"
 QT_MOC_LITERAL(2, 50, 0), // ""
 QT_MOC_LITERAL(3, 51, 20), // "on_armButton_clicked"
@@ -38,7 +38,7 @@ QT_MOC_LITERAL(5, 102, 24), // "on_restartButton_clicked"
 QT_MOC_LITERAL(6, 127, 22) // "on_abortButton_clicked"
 
     },
-    "QuadcopterWindow\0on_sendMaxAltitudeButton_clicked\0"
+    "QuadCopterWindow\0on_sendMaxAltitudeButton_clicked\0"
     "\0on_armButton_clicked\0"
     "on_takeOff_LandButton_clicked\0"
     "on_restartButton_clicked\0"
@@ -46,7 +46,7 @@ QT_MOC_LITERAL(6, 127, 22) // "on_abortButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_QuadcopterWindow[] = {
+static const uint qt_meta_data_QuadCopterWindow[] = {
 
  // content:
        7,       // revision
@@ -76,10 +76,10 @@ static const uint qt_meta_data_QuadcopterWindow[] = {
        0        // eod
 };
 
-void QuadcopterWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void QuadCopterWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        QuadcopterWindow *_t = static_cast<QuadcopterWindow *>(_o);
+        QuadCopterWindow *_t = static_cast<QuadCopterWindow *>(_o);
         switch (_id) {
         case 0: _t->on_sendMaxAltitudeButton_clicked(); break;
         case 1: _t->on_armButton_clicked(); break;
@@ -92,28 +92,28 @@ void QuadcopterWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
     Q_UNUSED(_a);
 }
 
-const QMetaObject QuadcopterWindow::staticMetaObject = {
-    { &QMainWindow::staticMetaObject, qt_meta_stringdata_QuadcopterWindow.data,
-      qt_meta_data_QuadcopterWindow,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
+const QMetaObject QuadCopterWindow::staticMetaObject = {
+    { &QMainWindow::staticMetaObject, qt_meta_stringdata_QuadCopterWindow.data,
+      qt_meta_data_QuadCopterWindow,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
 
-const QMetaObject *QuadcopterWindow::metaObject() const
+const QMetaObject *QuadCopterWindow::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *QuadcopterWindow::qt_metacast(const char *_clname)
+void *QuadCopterWindow::qt_metacast(const char *_clname)
 {
     if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_QuadcopterWindow.stringdata))
-        return static_cast<void*>(const_cast< QuadcopterWindow*>(this));
+    if (!strcmp(_clname, qt_meta_stringdata_QuadCopterWindow.stringdata))
+        return static_cast<void*>(const_cast< QuadCopterWindow*>(this));
     if (!strcmp(_clname, "Listener"))
-        return static_cast< Listener*>(const_cast< QuadcopterWindow*>(this));
+        return static_cast< Listener*>(const_cast< QuadCopterWindow*>(this));
     return QMainWindow::qt_metacast(_clname);
 }
 
-int QuadcopterWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int QuadCopterWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)

@@ -7,6 +7,12 @@ LDLIBS							=
 MOC								= $(QT_BIN_DIR)/moc.exe
 UIC								= $(QT_BIN_DIR)/uic.exe
 
+#QT includes
+QTCORE_DIR						= $(QT_INCL_DIR)/QtCore
+INCLUDES						+= -I$(QTCORE_DIR)
+QTWIDGETS_DIR					= $(QT_INCL_DIR)/QtWidgets
+INCLUDES						+= -I$(QTWIDGETS_DIR)
+
 #Vehicles
 QUADCOPTER_DIR 					= src\vehicles\quadcopter
 INCLUDES						+= -I$(QUADCOPTER_DIR)

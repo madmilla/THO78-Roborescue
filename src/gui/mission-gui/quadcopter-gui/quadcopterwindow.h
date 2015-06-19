@@ -62,7 +62,7 @@ class QuadcopterWindow;
 * @date   April, 2015
 * @brief  this class handles ui input from the RosbeeWindow
 */
-class QuadcopterWindow : public QMainWindow, public Listener
+class QuadCopterWindow : public QMainWindow, public Listener
 {
     Q_OBJECT
 
@@ -72,12 +72,12 @@ public:
     * @param quadcopter A reference to a Quadcopter object
     * @param parent A QWidget parent, default = 0
     */
-    explicit QuadcopterWindow( Quadcopter& quadcopter, QWidget *parent = 0);
+    explicit QuadCopterWindow( Quadcopter& quadcopter, QWidget *parent = 0);
 
    /**
     * Deconstructor Window
     */
-    ~QuadcopterWindow();
+    ~QuadCopterWindow();
 
 private slots:
 

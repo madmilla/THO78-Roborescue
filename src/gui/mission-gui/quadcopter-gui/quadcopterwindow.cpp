@@ -1,12 +1,12 @@
 #include "quadcopterwindow.h"
 #include "ui_quadcopterwindow.h"
-#include "quadcopter.h"
+#include "Quadcopter.h"
 
 
 
 QuadCopterWindow::QuadCopterWindow(Quadcopter& quadcopter, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::QuadCopterWindow),
+    ui(new Ui::QuadcopterWindow),
 	quadcopter{ quadcopter }
 {
     quadcopter.registerListener(this);
@@ -65,7 +65,7 @@ void QuadCopterWindow::on_takeOff_LandButton_clicked()
 void QuadCopterWindow::on_restartButton_clicked()
 {
     ui->messageOutput->append("Restart Button Clicked");
-    quadcopter.shutdown();
+    quadcopter.restart();
 
 }
 

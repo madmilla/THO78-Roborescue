@@ -1,12 +1,12 @@
 #include "quadcopterwindow.h"
-#include "quadcopter.h"
+#include "Quadcopter.h"
 #include "MAVlinkExchanger.h"
 #include "SerialPort.h"
 
 int main()
 {
 	SerialPort p("");
-	MAVlinkExchanger e(p);
+	MAVLinkExchanger e(p);
 	Quadcopter q(e);
 	QuadCopterWindow w(q);
 	w.show();
