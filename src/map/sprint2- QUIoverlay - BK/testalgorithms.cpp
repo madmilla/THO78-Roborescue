@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[]) {
 	// Initialize lines vector with "random" numbers
-    std::vector<Line<int> > lines;
+    std::vector<Lines<int> > lines;
     Lines<int> line1(-533445, 535435, -23424, 312312);
     Lines<int> line2(343242, 223, 0, -42);
     Lines<int> line3(211, 25454, 44674, 1665432);
