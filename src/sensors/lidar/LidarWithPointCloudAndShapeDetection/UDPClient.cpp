@@ -1,12 +1,12 @@
 #include "UDPClient.h"
 
-#define CPI_IP_ADRESS "145.89.158.190"
+#define CPI_IP_ADRESS "172.16.120.134"
 #define PORT 8888
-#define LONG_SLEEP 5
+#define LONG_SLEEP 1
 #define SHORT_SLEEP 500
 
 
-UDPClient::UDPClient(): stopped{false}, lidar{nullptr}{
+UDPClient::UDPClient(): stopped{false}, baseRobot{nullptr}{
 	sockbind();
 
 	connectionThread = new std::thread(&UDPClient::start, this);
@@ -23,11 +23,12 @@ void UDPClient::sockbind(){
 }
 
 void UDPClient::start(){
+	std::queue<mavlink_message_t> * messages = baseRobot->getMessageQueue();
+
 	while(true){
 		std::cout << "Client" << std::endl;
 		checkConnectionStatus();
 		receive();
-		std::queue<mavlink_message_t> * messages = lidar->getMessageQueue();
 		while(!messages->empty()){
 			send(messages->front());
 			usleep(SHORT_SLEEP);
@@ -35,6 +36,8 @@ void UDPClient::start(){
 		}
 		sleep(LONG_SLEEP);
 	}
+
+	delete(messages);
 }
 
 int UDPClient::send(mavlink_message_t message){
@@ -55,7 +58,7 @@ void UDPClient::receive(){
 		sock.recvFrom(&msg, sizeof(mavlink_message_t), remoteadr);
 
 		if(msg.len != 0 && msg.payload64 != 0){
-			lidar->onMessage(msg);
+			baseRobot->onMessage(msg);
 		}
 
 	}catch(SocketException e){

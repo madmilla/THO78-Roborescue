@@ -4,14 +4,12 @@
 #include <thread>
 #include <stdio.h>
 #include <stdlib.h>
-#include <vector>
 #include <iostream>
-#include <string>
 #include "PracticalSocket.h"
 #include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include <queue>
 
-#include "BaseLidar.h"
+#include "BaseRobot.h"
 
 
 
@@ -34,7 +32,7 @@ public:
 	/// \brief stops the udpServer thread
 	void stop();
 
-	void addListener(BaseLidar * sl){lidar = sl;};
+	void setBaseRobot(BaseRobot * sl){baseRobot = sl;};
 
 private:
 	void sockbind();
@@ -46,7 +44,8 @@ private:
 	bool stopped;
 	UDPSocket sock;
 	SocketAddress remoteadr;
-	BaseLidar * lidar;
+	BaseRobot * baseRobot;
+	std::queue<mavlink_message_t> * robotMessages;
 
 };
 
