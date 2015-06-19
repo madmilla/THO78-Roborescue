@@ -11,7 +11,6 @@
 #include <ATV.h>
 #include <aStar.h>
 
-
 class map : public mapImplementation
 {
 public:

@@ -20,7 +20,11 @@ public:
 private:
     Dimension size;
     Dimension fov;
+<<<<<<< HEAD
 	int x;
+=======
+    int x;
+>>>>>>> dac2d9b94fe678359bdf8fd564ce903533a05067
     int y;
 };
 
