@@ -121,7 +121,7 @@ bool map::hasLine(std::vector<line> & l){
 	return true;
 }
 
-std::vector<line> map::getPointLines(point & p){
+std::vector<line> map::getPointLines(const point &p){
 	std::vector<line> rtn;
 	for (line & lCmp : mapData)
 	{
@@ -130,7 +130,7 @@ std::vector<line> map::getPointLines(point & p){
 		point c = p;
 
 		int crossproduct = (c.getY() - a.getY()) * (b.getX() - a.getX()) - (c.getX() - a.getX()) * (b.getY() - a.getY());
-		if (abs(crossproduct) != 0)
+        if (std::abs(crossproduct) != 0)
 			continue;
 
 		int dotproduct = (c.getX() - a.getX()) * (b.getX() - a.getX()) + (c.getY() - a.getY())*(b.getY() - a.getY());
