@@ -332,7 +332,11 @@ bool map::isReachable(int x, int y, int x1, int y1){
 	theRoute = aS.findPath(x, y, x1, y1, *this);
 
 	if (theRoute.size() <= 0){
-		setNotReachable(point(x1, y1));
+		// Choose from making just the selected point 
+		// not reachable or the whole closed area.
+
+		//setNotReachable(point(x1, y1));
+		floodFillLocation(point(x1, y1), 0, 1);
 		return false;
 	}
 
@@ -345,4 +349,20 @@ bool map::isReachable(point p, point p1){
 
 void map::setNotReachable(point p){
 	access.at(p.getX()).at(p.getY()) = 1;
+}
+
+void map::floodFillLocation(point node, int target, int replacement){
+	if (target == replacement) return; // Nothing to do here
+	if (access.at(node.getX()).at(node.getY()) != target) return; // Node != target
+	access.at(node.getX()).at(node.getY()) = replacement;
+
+	if (isAccessible(node.getX() + 1, node.getY())) // Go right
+		floodFillLocation(point(node.getX() + 1, node.getY()), target, replacement);
+	if (isAccessible(node.getX() - 1, node.getY())) // Go left
+		floodFillLocation(point(node.getX() - 1, node.getY()), target, replacement);
+	if (isAccessible(node.getX(), node.getY() + 1)) // Go up
+		floodFillLocation(point(node.getX(), node.getY() + 1), target, replacement);
+	if (isAccessible(node.getX(), node.getY() - 1)) // Go down
+		floodFillLocation(point(node.getX(), node.getY() - 1), target, replacement);
+	return;
 }

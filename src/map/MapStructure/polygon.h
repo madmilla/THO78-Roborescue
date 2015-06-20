@@ -6,7 +6,7 @@
 class polygon
 {
 public:
-	std::vector<point> points;
+	std::vector<point> vPoints;
 	polygon(std::vector<point>);
 	~polygon();
 };

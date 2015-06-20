@@ -161,6 +161,12 @@ private:
 	//! @param The point on the grid
 	void setNotReachable(point p);
 
+	//! Recursive flood function to fill the targets with the replacement starting at node
+	//! @param The node to start the flooding from
+	//! @param The target property of the node (point)
+	//! @param The replacement property of the node (point)
+	void floodFillLocation(point node, int target, int replacement);
+
 	Rosbee* rosbeePosition;
 	ATV* ATVPosition;
 	QuadCopter* quadcopterPosition;
