@@ -1,95 +1,83 @@
-include Makefile.local
+QT_LIB_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/lib
+QT_INCL_DIR 					= D:/Qt/Qt5.4.2/5.4/mingw491_32/include
+QT_BIN_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/bin
+BOOST_LIB_DIR 					= C:/Boost/boost_1_58_0/stage/lib
+BOOST_INCL_DIR 					= C:/Boost/boost_1_58_0
+
 CXX 							= g++
 CXXFLAGS						= -std=c++11
 LDFLAGS							= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
 INCLUDES 						= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR)
-LDLIBS							= 
+LDLIBS							= -lQt5Core -lQt5Widgets -lQt5Gui
+SRC 							= 
+UI 								= 
+UI_HEADERS						=
+MODULES 						=
 MOC								= $(QT_BIN_DIR)/moc.exe
 UIC								= $(QT_BIN_DIR)/uic.exe
 
-#QT includes
-QTCORE_DIR						= $(QT_INCL_DIR)/QtCore
-INCLUDES						+= -I$(QTCORE_DIR)
-QTWIDGETS_DIR					= $(QT_INCL_DIR)/QtWidgets
-INCLUDES						+= -I$(QTWIDGETS_DIR)
+########MODULES########
+#GUI
+MAIN_GUI_MODULE 				= Src/GUI/mission-gui/
+QUADCOPTER_GUI_MODULE 			= Src/GUI/mission-gui/quadcopter-gui/
+ATV_GUI_MODULE 					= Src/GUI/mission-gui/ATV-gui/
+ROSBEE_GUI_MODULE 				= Src/GUI/mission-gui/rosbee-gui/
+LIDAR_GUI_MODULE 				= Src/GUI/mission-gui/lidar-gui/
 
-#Vehicles
-QUADCOPTER_DIR 					= src\vehicles\quadcopter
-INCLUDES						+= -I$(QUADCOPTER_DIR)
-ATV_DIR 						= src\vehicles\atv
-INCLUDES						+= -I$(ATV_DIR)
-ROSBEE_DIR 						= src\vehicles\rosbee
-INCLUDES						+= -I$(ROSBEE_DIR)
+#VEHICLES
+QUADCOPTER_MODULE				= Src/Vehicles/Quadcopter/
+ATV_MODULE						= Src/Vehicles/ATV/
 
-#Sensors
-PROPELLOR_ENCODER_DIR 			= src\sensors\Propellor-Encoder
-INCLUDES						+= -I$(PROPELLOR_ENCODER_DIR)
-PROPELLOR_SIRC_DIR 				= src\sensors\Propellor-SIRC
-INCLUDES						+= -I$(PROPELLOR_SIRC_DIR)
-PROPELLOR_TEMPERATURESENSOR_DIR = src\sensors\Propellor-TemperatureSensor.
-INCLUDES						+= -I$(PROPELLOR_TEMPERATURESENSOR_DIR)
-PROPELLOR_ULTRASONICSENSOR_DIR 	= src\sensors\Propellor-UltrasonicSensor
-INCLUDES						+= -I$(PROPELLOR_ULTRASONICSENSOR_DIR)
-PX4FLOW_DIR 					= src\sensors\PX4Flow
-INCLUDES						+= -I$(PX4FLOW_DIR)
-LIDAR_DIR 						= src\sensors\lidar
-INCLUDES						+= -I$(LIDAR_DIR)
-LOCALISATION_BASESTATION_DIR 	= src\sensors\Localisation-Module\Localisation-Basestation
-INCLUDES						+= -I$(LOCALISATION_BASESTATION_DIR)
-LOCALISATION_SERVER_DIR			= src\sensors\Localisation-Module\Localisation-Server
-INCLUDES						+= -I$(LOCALISATION_SERVER_DIR)
+#SENSORS
+PROPELLOR_ENCODER_MODULE 		= Src/Sensors/Propellor-Encoder/
+PROPELLOR_SIRC_MODULE			= Src/Sensors/Propellor-SIRC/
+PROPELLOR_TEMPERATURE_MODULE 	= Src/Sensors/Propellor-TemperatureSensor/
+PROPELLOR_ULTRASONIC_MODULE		= Src/Sensors/Propellor-UltrasonicSensor/
 
-#GUI's
-MAIN_GUI_DIR 					= src\gui\mission-gui
-INCLUDES						+= -I$(MAIN_GUI_DIR)
-QUADCOPTER_GUI_DIR 				= src\gui\mission-gui\quadcopter-gui
-INCLUDES						+= -I$(QUADCOPTER_GUI_DIR)
-ATV_GUI_DIR 					= src\gui\mission-gui\ATV-gui
-INCLUDES						+= -I$(ATV_GUI_DIR)
-ROSBEE_GUI_DIR 					= src\gui\mission-gui\rosbee-gui
-INCLUDES						+= -I$(ROSBEE_GUI_DIR)
-LIDAR_GUI_DIR 					= src\gui\mission-gui\lidar-gui
-INCLUDES						+= -I$(LIDAR_GUI_DIR)
-MAP_GUI_DIR 					= src\gui\mission-gui\map-gui
-INCLUDES						+= -I$(MAP_GUI_DIR)
+#MISSIONS
+MISSION1_MODULE					= Src/Missions/Mission1/
 
-#MAP
-MAP_DIR 						= src\map
-INCLUDES						+= -I$(MAP_DIR)
+#TARGET MODULES
+ROBORESCUE_MISSION1				= $(MISSION1_MODULE) 
+ROBORESCUE_MISSION1			   += $(MAIN_GUI_MODULE)
+ROBORESCUE_MISSION1			   += $(QUADCOPTER_GUI_MODULE)
+ROBORESCUE_MISSION1			   += $(ATV_GUI_MODULE)
+ROBORESCUE_MISSION1			   += $(ROSBEE_GUI_MODULE)
+ROBORESCUE_MISSION1			   += $(LIDAR_GUI_MODULE)
+ROBORESCUE_MISSION1			   += $(QUADCOPTER_MODULE)
+ROBORESCUE_MISSION1			   += $(ATV_MODULE)
 
-#COMMUNICATION
-MAVLINK_EXCHANGER_DIR 			= src\communication\MavlinkExchanger
-INCLUDES						+= -I$(MAVLINK_EXCHANGER_DIR)
-PERSISTANT_STORAGE_DIR 			= src\communication\Persistant-Storage
-INCLUDES						+= -I$(PERSISTANT_STORAGE_DIR)
-UDP_DIR 						= src\communication\UDP
-INCLUDES						+= -I$(UDP_DIR)
-UPDATE_VEHICLE_POSITION_DIR 	= src\communication\Update-Vehicle-Position
-INCLUDES						+= -I$(UPDATE_VEHICLE_POSITION_DIR)
-SERIAL_PORT_DIR					= src\communication\SerialPort
-INCLUDES						+= -I$(SERIAL_PORT_DIR)
+ROBORESCUE_LOCALISATION_MODULE  =
+ROBORESCUE_LIDAR				=
+ROBORESCUE_ROSBEE				=
 
-#LIBRARIES
-ARUCO_DIR 						= deps\incl\aruco
-INCLUDES						+= -I$(ARUCO_DIR)
-LIB_SERIAL_DIR					= deps\incl\libserial
-INCLUDES						+= -I$(LIB_SERIAL_DIR)
-MAVLINK_DIR						= deps\incl\mavlink
-INCLUDES						+= -I$(MAVLINK_DIR)
-MYSQLCPPCONN_DIR				= deps\incl\mysqlcppconn
-INCLUDES						+= -I$(MYSQLCPPCONN_DIR)
-RPLIDAR_DIR						= deps\incl\rplidar
-INCLUDES						+= -I$(RPLIDAR_DIR)
 
-#
-#moc_mainwindow.cpp : mainwindow.h
-#	$(MOC) $(INCLUDES) $< -o $@
+ifeq ($(MAKECMDGOALS),mission1)
+	MODULES += $(ROBORESCUE_MISSION1)
+endif
+ifeq ($(MAKECMDGOALS),localisationmodule)
+	MODULES += $(ROBORESCUE_LOCALISATION_MODULE)
+endif
+ifeq ($(MAKECMDGOALS),lidar)
+	MODULES += $(ROBORESCUE_LIDAR)
+endif
+ifeq ($(MAKECMDGOALS),rosbee)
+	MODULES += $(ROBORESCUE_ROSBEE)
+endif
 
+INCLUDES 	+= $(patsubst %, -I%, $(MODULES))
+include $(MODULES:=module.mk)
+UI_HEADERS 	+= $(UI:.ui=.h)
+OBJ 		+= $(SRC:.cpp=.o)
+
+%.d : %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -MM -MT"$@" $< -MF $@
+	
+%.o : %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ -c $<
+	
+moc_%.cpp : %.h
+	$(MOC) $< -o $@
+	
 ui_%.h : %.ui
 	$(UIC) $< -o $@
-	
-moc_quadcopterwindow.cpp : $(QUADCOPTER_GUI_DIR)\quadcopterwindow.h
-	$(MOC) $(INCLUDES) $< -o $@
-
-%.o : %.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c -o $@ $< 

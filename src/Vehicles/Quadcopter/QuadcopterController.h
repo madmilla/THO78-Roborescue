@@ -50,13 +50,17 @@
 #ifndef _QUADCOPTERCONTROLLER_H
 #define _QUADCOPTERCONTROLLER_H
 #include "Quadcopter.h"
-#include "..\..\sensors\Localisation-Module\Localisation_Basestation.h"
+//#include "LocalisationModule.h"
+
+class LocalisationModule;
+class Coordinate;
+
 class QuadcopterController
 {
 public:
 	QuadcopterController(Quadcopter& quadcopter);
 	void registerLocalisation(LocalisationModule& LocMod);
-	void setTarget(coordinate& coordinate);
+	void setTarget(Coordinate& coordinate);
 	void setPosition();
 	void setHeight();
 	~QuadcopterController();

@@ -1,6 +1,6 @@
 #ifndef _SERIALPORTXP_H
 #define _SERIALPORTXP_H
-#include "../Serial.h"
+#include "Serial.h"
 #include <windows.h>
 
 class SerialPortWindows : public Serial

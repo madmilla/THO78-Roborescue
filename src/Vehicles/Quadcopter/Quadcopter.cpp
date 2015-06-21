@@ -3,7 +3,7 @@
 #include <algorithm>
 
 Quadcopter::Quadcopter(MAVLinkExchanger& communicator) :
-//communicator(communicator),
+communicator(communicator),
 flightMode{ FlightMode::UNKNOWN },
 armed{ false },
 failsafe{ false }

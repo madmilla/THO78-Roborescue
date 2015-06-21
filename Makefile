@@ -1,8 +1,23 @@
 include Makefile.inc
 
-.PHONY: all
+.PHONY : mission1 localisationmodule lidar rosbee clean doxygen
 
-all: main.exe
+mission1 : $(UI_HEADERS) $(OBJ)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
+	
+localisationmodule : 
+	
 
-main.exe : $(QUADCOPTER_GUI_DIR)\ui_quadcopterwindow.h moc_quadcopterwindow.o $(QUADCOPTER_GUI_DIR)\quadcopterwindow.o main.o
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+lidar : 
+	
+
+rosbee : 
+	
+
+clean : 
+	
+
+doxygen:
+	
+
+-include $(OBJ:.o=.d)

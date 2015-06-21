@@ -1,5 +1,5 @@
 #include "MAVLinkExchanger.h"
-#include "../Dependencies/Serial/SerialPort.h"
+#include "SerialPort.h"
 #include <iostream>
 
 MAVLinkExchanger::MAVLinkExchanger(SerialPort& serialPort):

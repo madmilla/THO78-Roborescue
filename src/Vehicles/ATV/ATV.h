@@ -9,8 +9,10 @@
 * @file 			ATV.h
 * @date Created:	2015-04-08
 *
-*  @author	Hylco Uding	
 *  @author	Yorrick Lans
+*  @author  Kjeld Perquin
+*  @author  Jos Roijakkers
+*  @author	Hylco Uding
 *  @author	Bart Muelders
 *
 *  @version 1.0
@@ -60,7 +62,7 @@ public:
 	* The Constructor for the ATV
 	* @param MAVLinkCommunicator is the mavlinkCommunicator
 	*/
-	ATV(MAVLinkCommunicator & mavlinkCommunicator);
+	ATV(MAVLinkExchanger & mavlinkCommunicator);
 	
 	/**
 	* The default deconstructor
@@ -137,14 +139,14 @@ public:
 	const int getSteeringDirection();
 
 private:
-	MAVLinkCommunicator & mavlinkCommunicator;
-	PriorityMessage message;
+	MAVLinkExchanger & mavlinkCommunicator;
+	PrioritisedMAVLinkMessage message;
 	
 	
 	int batteryRemaining = 0;
 	int neutralSteeringValue = 1467;
 	int neutralthrottleValue = 1500;
-	void handleIncomingMessage(PriorityMessage incomingMessage);
+	void handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage);
 
 	const int MAX_PERCENTAGE{ 100 };
 

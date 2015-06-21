@@ -9,7 +9,7 @@ void QuadcopterController::registerLocalisation(LocalisationModule& LocMod)
 {
 }
 
-void QuadcopterController::setTarget(coordinate& coordinate)
+void QuadcopterController::setTarget(Coordinate& coordinate)
 {
 }
 
