@@ -12,7 +12,6 @@
 #include "../../strategy/pathfinding/Stop-them-spaces/aStar.h"
 #include "mapImplementation.hpp"
 
-
 class map : public mapImplementation
 {
 public:
@@ -166,6 +165,12 @@ private:
 	//! @param The target property of the node (point)
 	//! @param The replacement property of the node (point)
 	void floodFillLocation(point node, int target, int replacement);
+
+	//! Flood fill function using a queue to fill the targets with the replacement starting at node
+	//! @param The node to start the flooding from
+	//! @param The target property of the node (point)
+	//! @param The replacement property of the node (point)
+	void floodFillLocationQueue(point node, int target, int replacement);
 
 	Rosbee* rosbeePosition;
 	ATV* ATVPosition;

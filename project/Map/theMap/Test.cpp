@@ -19,8 +19,8 @@ point p8{ 19, 28 };
 point p9{ INT_MIN, INT_MIN };
 point p10{ INT_MAX, INT_MAX };
 
-point p11{ INT_MIN -1, INT_MIN -1 };
-point p12{ INT_MAX +1, INT_MAX +1 };
+point p11{ INT_MIN - 1, INT_MIN - 1 };
+point p12{ INT_MAX + 1, INT_MAX + 1 };
 
 line l1{ p1, p2 };
 line l2{ p3, p4 };
@@ -62,15 +62,16 @@ void test3(){
 		testMap.appendLine(l1);
 		testMap.removeLine(l1);
 	}
-		
-	duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+
+	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 	std::cout << "Test 3 duration: " << duration << " sec\n";
 }
-	
+
 int main() {
 	//test1();
 	//test2();
 	//test3();
+
 
 	std::cout << "Running\n";
 	map m = map();

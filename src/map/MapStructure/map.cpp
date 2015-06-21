@@ -332,11 +332,17 @@ bool map::isReachable(int x, int y, int x1, int y1){
 	theRoute = aS.findPath(x, y, x1, y1, *this);
 
 	if (theRoute.size() <= 0){
-		// Choose from making just the selected point 
-		// not reachable or the whole closed area.
+		/*
+		Below can be chosen from three different options:
+		- Set just the point not reachable
+		- Set the closed area not reachable with recursion
+		- Set the closed area not reachable with a queue
+		*/
 
 		//setNotReachable(point(x1, y1));
-		floodFillLocation(point(x1, y1), 0, 1);
+		//floodFillLocation(point(x1, y1), 0, 1);
+		floodFillLocationQueue(point(x1, y1), 0, 1);
+
 		return false;
 	}
 
@@ -352,7 +358,7 @@ void map::setNotReachable(point p){
 }
 
 void map::floodFillLocation(point node, int target, int replacement){
-	if (target == replacement) return; // Nothing to do here
+	if (target == replacement) return;	// Nothing to do here
 	if (access.at(node.getX()).at(node.getY()) != target) return; // Node != target
 	access.at(node.getX()).at(node.getY()) = replacement;
 
@@ -365,4 +371,22 @@ void map::floodFillLocation(point node, int target, int replacement){
 	if (isAccessible(node.getX(), node.getY() - 1)) // Go down
 		floodFillLocation(point(node.getX(), node.getY() - 1), target, replacement);
 	return;
+}
+
+void map::floodFillLocationQueue(point node, int target, int replacement){
+	if (target == replacement) return;	// Nothing to do here
+	std::vector<std::pair<int, int>> myQueue;
+	myQueue.push_back(std::pair<int, int>(node.getX(), node.getY()));
+	while (myQueue.size() > 0){			// While queue not empy
+		std::pair<int, int> tmp = myQueue.at(0);
+		myQueue.erase(myQueue.begin());	// Pop first element
+		if (access.at(tmp.first).at(tmp.second) == target){
+			access.at(tmp.first).at(tmp.second) = replacement;
+
+			myQueue.push_back(std::pair<int, int>(tmp.first + 1, tmp.second));
+			myQueue.push_back(std::pair<int, int>(tmp.first - 1, tmp.second));
+			myQueue.push_back(std::pair<int, int>(tmp.first, tmp.second + 1));
+			myQueue.push_back(std::pair<int, int>(tmp.first, tmp.second - 1));
+		}
+	}
 }
