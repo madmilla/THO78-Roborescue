@@ -1,0 +1,1 @@
+SRC += src/sensors/Propellor-SIRC/Sirc.cpp
