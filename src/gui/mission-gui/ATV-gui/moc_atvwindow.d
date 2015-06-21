@@ -1,5 +1,6 @@
-src/GUI/mission-gui/moc_mainwindow.d: \
- src/GUI/mission-gui/moc_mainwindow.cpp src/GUI/mission-gui/mainwindow.h \
+src/gui/mission-gui/ATV-gui/moc_atvwindow.d: \
+ src/gui/mission-gui/ATV-gui/moc_atvwindow.cpp \
+ src/gui/mission-gui/ATV-gui/atvwindow.h \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/QMainWindow \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qmainwindow.h \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qwidget.h \
@@ -78,7 +79,9 @@ src/GUI/mission-gui/moc_mainwindow.d: \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtGui/qkeysequence.h \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qtabwidget.h \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtGui/qicon.h \
- Src/Vehicles/Rosbee/rosbee.h Src/Sensors/lidar/lidar.h \
+ D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/QTimer \
+ D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qtimer.h \
+ D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qbasictimer.h \
  Src/Vehicles/ATV/atv.h Deps/incl/mavlink/ardupilotmega/mavlink.h \
  Deps/incl/mavlink/ardupilotmega/version.h \
  Deps/incl/mavlink/ardupilotmega/ardupilotmega.h \
@@ -243,5 +246,4 @@ src/GUI/mission-gui/moc_mainwindow.d: \
  Src/Communication/MavlinkExchanger/MAVLinkExchanger.h \
  Src/Communication/MavlinkExchanger/PrioritisedMAVLinkMessage.h \
  Src/Communication/MavlinkExchanger/PrioritisedMAVLinkMessage.h \
- Src/Vehicles/Quadcopter/quadcopter.h Src/Vehicles/Quadcopter/Subject.h \
  Src/Vehicles/Quadcopter/Listener.h Src/Vehicles/Quadcopter/StatusText.h

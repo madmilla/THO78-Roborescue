@@ -1,5 +1,5 @@
 #include "QuadcopterController.h"
-
+#include <iostream>
 
 QuadcopterController::QuadcopterController(Quadcopter& quadcopter, LocalisationModule& locMod) :
 registeredQuacopter(quadcopter),
@@ -13,11 +13,8 @@ void QuadcopterController::setTarget(coordinate target, float targetHeight)
 	targetHeight = targetHeight;
 }
 
-<<<<<<< HEAD
 void QuadcopterController::setTarget(Coordinate& coordinate)
-=======
 void QuadcopterController::setPosition()
->>>>>>> origin/Makefile-/-dependencies-fix
 {
 	recentPosition = registeredLocalisationSystem.getCoordinate();
 }

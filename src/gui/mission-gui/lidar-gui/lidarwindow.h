@@ -1,4 +1,4 @@
-/**
+﻿/**
 *                __
 *    _________  / /_  ____  ________  ____________  _____
 *   / ___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -47,10 +47,10 @@
 #ifndef LIDARWINDOW_H
 #define LIDARWINDOW_H
 
-#include <QMainWindow>
-#include <QMessageBox>
-#include <QDebug>
-#include <QTimer>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMessageBox>
+#include <QtCore/QDebug>
+#include <QtCore/QTimer>
 #include "lidar.h"
 
 namespace Ui {

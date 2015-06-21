@@ -1,9 +1,7 @@
 #include "rosbeewindow.h"
 #include "ui_rosbeewindow.h"
 
-#include "exceptions.h"
-
-#include <QMessageBox>
+#include <QtWidgets/QMessageBox>
 
 RosbeeWindow::RosbeeWindow(Rosbee &rosbee, QWidget *parent) :
    QMainWindow(parent),
@@ -19,7 +17,7 @@ RosbeeWindow::RosbeeWindow(Rosbee &rosbee, QWidget *parent) :
 
    timer.start(1000);
 
-   unsigned int result = rosbee.init();
+   unsigned int result;// = rosbee.init();
    QLabel * iRL = ui->initResultLabel;
    if(result == 0){
       iRL->setText("All OK");
@@ -51,7 +49,7 @@ RosbeeWindow::~RosbeeWindow()
 }
 
 void RosbeeWindow::handleButton(){
-   QPushButton * button = static_cast<QPushButton *>(sender());
+   /*QPushButton * button = static_cast<QPushButton *>(sender());
    if(button == nullptr) return;
 
    if(button == ui->startButton){
@@ -70,7 +68,7 @@ void RosbeeWindow::handleButton(){
 
       rosbee.stopMission();
       SetMissionRunning(false);
-   }
+   }*/
 }
 
 void RosbeeWindow::SetMissionRunning(bool is_mission_running){
@@ -80,6 +78,6 @@ void RosbeeWindow::SetMissionRunning(bool is_mission_running){
 }
 
 void RosbeeWindow::timerTick(){
-   ui->batteryBar->setValue(static_cast<int>(rosbee.batteryStatus()));
-   ui->statusValueLabel->setText(QString::fromStdString(rosbee.getStatus()));
+   //ui->batteryBar->setValue(static_cast<int>(rosbee.batteryStatus()));
+   //ui->statusValueLabel->setText(QString::fromStdString(rosbee.getStatus()));
 }

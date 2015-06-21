@@ -48,10 +48,10 @@
 
 #include <QtWidgets/QMainWindow>
 #include <vector>
-#include "rosbee.h"
-#include "lidar.h"
-#include "atv.h"
-#include "quadcopter.h"
+#include "Rosbee.h"
+#include "Lidar.h"
+#include "ATV.h"
+#include "Quadcopter.h"
 #include "RoboManager.h"
 
 namespace Ui {
@@ -69,7 +69,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(Quadcopter & quadcopter, Rosbee & rosbee, lidar & l, ATV & atv, QWidget *parent = 0);
+    explicit MainWindow(Quadcopter & quadcopter, Rosbee & rosbee, Lidar & l, ATV & atv, QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
@@ -83,7 +83,7 @@ private:
 
     std::vector<CPIBoundaryObject *>robots;
     Rosbee & rosbee;
-    lidar & l;
+    Lidar & l;
     ATV & atv;
     Quadcopter & quad;
 

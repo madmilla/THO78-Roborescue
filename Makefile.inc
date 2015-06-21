@@ -7,7 +7,7 @@ BOOST_INCL_DIR 					= C:/Boost/boost_1_58_0
 CXX 							= g++
 CXXFLAGS						= -std=c++11
 LDFLAGS							= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
-INCLUDES 						= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR)
+INCLUDES 						= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR) -IDeps/incl/mavlink
 LDLIBS							= -lQt5Core -lQt5Widgets -lQt5Gui
 SRC 							= 
 UI 								= 
@@ -27,12 +27,18 @@ LIDAR_GUI_MODULE 				= Src/GUI/mission-gui/lidar-gui/
 #VEHICLES
 QUADCOPTER_MODULE				= Src/Vehicles/Quadcopter/
 ATV_MODULE						= Src/Vehicles/ATV/
+ROSBEE_LOCAL_MODULE				= Src/Vehicles/Rosbee/
 
 #SENSORS
 PROPELLOR_ENCODER_MODULE 		= Src/Sensors/Propellor-Encoder/
 PROPELLOR_SIRC_MODULE			= Src/Sensors/Propellor-SIRC/
 PROPELLOR_TEMPERATURE_MODULE 	= Src/Sensors/Propellor-TemperatureSensor/
 PROPELLOR_ULTRASONIC_MODULE		= Src/Sensors/Propellor-UltrasonicSensor/
+LIDAR_LOCAL_MODULE				= Src/Sensors/lidar/
+
+#COMMUNICATION
+MAVLINK_EXCHANGER_MODULE		= Src/Communication/MavlinkExchanger/
+SERIAL_PORT_MODULE				= Src/Communication/SerialPort/
 
 #MISSIONS
 MISSION1_MODULE					= Src/Missions/Mission1/
@@ -46,6 +52,10 @@ ROBORESCUE_MISSION1			   += $(ROSBEE_GUI_MODULE)
 ROBORESCUE_MISSION1			   += $(LIDAR_GUI_MODULE)
 ROBORESCUE_MISSION1			   += $(QUADCOPTER_MODULE)
 ROBORESCUE_MISSION1			   += $(ATV_MODULE)
+ROBORESCUE_MISSION1			   += $(MAVLINK_EXCHANGER_MODULE)
+ROBORESCUE_MISSION1			   += $(SERIAL_PORT_MODULE)
+ROBORESCUE_MISSION1			   += $(ROSBEE_LOCAL_MODULE)
+ROBORESCUE_MISSION1			   += $(LIDAR_LOCAL_MODULE)
 
 ROBORESCUE_LOCALISATION_MODULE  =
 ROBORESCUE_LIDAR				=

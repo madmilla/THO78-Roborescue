@@ -1,4 +1,4 @@
-/**
+﻿/**
 *                __
 *    _________  / /_  ____  ________  ____________  _____
 *   / ___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -46,8 +46,8 @@
 #ifndef ROSBEEWINDOW_H
 #define ROSBEEWINDOW_H
 
-#include <QMainWindow>
-#include <QTimer>
+#include <QtWidgets/QMainWindow>
+#include <QtCore/QTimer>
 #include "rosbee.h"
 
 namespace Ui {

@@ -1,4 +1,4 @@
-/**
+﻿/**
 *                __
 *    _________  / /_  ____  ________  ____________  _____
 *   / ___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -47,8 +47,8 @@
 #ifndef ATVWINDOW_H
 #define ATVWINDOW_H
 
-#include <QMainWindow>
-#include <QTimer>
+#include <QtWidgets/QMainWindow>
+#include <QtCore/QTimer>
 #include "atv.h"
 #include "Listener.h"
 

@@ -1,5 +1,6 @@
-src/GUI/mission-gui/mainwindow.d: src/GUI/mission-gui/mainwindow.cpp \
- src/GUI/mission-gui/mainwindow.h \
+src/gui/mission-gui/rosbee-gui/moc_rosbeewindow.d: \
+ src/gui/mission-gui/rosbee-gui/moc_rosbeewindow.cpp \
+ src/gui/mission-gui/rosbee-gui/rosbeewindow.h \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/QMainWindow \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qmainwindow.h \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qwidget.h \
@@ -78,49 +79,7 @@ src/GUI/mission-gui/mainwindow.d: src/GUI/mission-gui/mainwindow.cpp \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtGui/qkeysequence.h \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qtabwidget.h \
  D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtGui/qicon.h \
- src/GUI/mission-gui/ui_mainwindow.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/QVariant \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qvariant.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qmap.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/QAction \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qaction.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qvariant.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qactiongroup.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qaction.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/QApplication \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qapplication.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qcoreapplication.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qcoreevent.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qeventloop.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtGui/qguiapplication.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtGui/qinputmethod.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qlocale.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/QButtonGroup \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qbuttongroup.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/QHeaderView \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qheaderview.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qabstractitemview.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qabstractscrollarea.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qframe.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qabstractitemmodel.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qitemselectionmodel.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qset.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qabstractitemdelegate.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qstyleoption.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qabstractspinbox.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtGui/qvalidator.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qregularexpression.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qslider.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qabstractslider.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qstyle.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qtabbar.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qrubberband.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/QMenuBar \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qmenubar.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qmenu.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/QStatusBar \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qstatusbar.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/QToolBar \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qtoolbar.h \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/QWidget \
- D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtWidgets/qwidget.h
+ D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/QTimer \
+ D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qtimer.h \
+ D:/Qt/Qt5.4.2/5.4/mingw491_32/include/QtCore/qbasictimer.h \
+ Src/Vehicles/Rosbee/rosbee.h

@@ -1,7 +1,7 @@
 #include "atvwindow.h"
 #include "ui_atvwindow.h"
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 ATVWindow::ATVWindow(ATV & atv, QWidget *parent) :
     QMainWindow(parent),
