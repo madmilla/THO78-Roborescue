@@ -49,19 +49,31 @@
 
 #ifndef _QUADCOPTERCONTROLLER_H
 #define _QUADCOPTERCONTROLLER_H
+#include <stdio>
 #include "Quadcopter.h"
-#include "..\..\sensors\Localisation-Module\Localisation_Basestation.h"
+#include "..\..\sensors\Localisation-Module\Localisation_Basestation\LocalisationModule.h"
+#include "..\..\sensors\Localisation-Module\Localisation_Server\Coordinate.h"
+
 class QuadcopterController
 {
 public:
-	QuadcopterController(Quadcopter& quadcopter);
-	void registerLocalisation(LocalisationModule& LocMod);
-	void setTarget(coordinate& coordinate);
+	QuadcopterController(Quadcopter& quadcopter, LocalisationModule& locMod);
+	void setTarget(coordinate target, float targetHeight);
 	void setPosition();
-	void setHeight();
+	void setHeight(float currentHeight);
+	void moveTowardsTarget();
 	~QuadcopterController();
 
 private:
+	Quadcopter& registeredQuad;
+	LocalisationModule& registeredLocationModule;
 
+	Coordinate<int> recentLocation;
+	float recentHeight;
+
+	Coordinate<int> targetLocation = nullptr;
+	float targetHeight = -1;
+
+	float allowedDeviation = 0.2;
 };
 #endif
