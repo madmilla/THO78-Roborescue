@@ -37,6 +37,8 @@
 #ifndef LIDAR_H
 #define LIDAR_H
 #include "rplidar.h"
+#include "shapedetector.h"
+#include "PointCloud.h"
 #include <vector>
 #include <string>
 
