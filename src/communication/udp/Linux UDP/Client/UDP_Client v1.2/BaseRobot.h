@@ -8,11 +8,14 @@
 #ifndef BASEROBOT_H_
 #define BASEROBOT_H_
 
-#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include “../../../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include <queue>
 
 class BaseRobot{
 public:
+
+	BaseRobot():systemID{0}{}
+
 	//The function onMessage() will be called by the UDPClient. This function determine what to do with the recieved message.
 	//The message must first be decoded from the default mavlink_message_t to an mavlink_ralcp_t.
 	virtual void onMessage(mavlink_message_t & function) = 0;
@@ -26,23 +29,49 @@ public:
 protected:
 	//The function sendCommand pushes a message in the message Queue.
 	//This function can be used to send a message to the CPI.
-	void sendCommand(uint64_t payload, COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS lcf){
-		messages.push(encodeRalcpMessage(payload, dest, lcf ));
+	void sendRosbeeCommand(uint64_t payload, COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS lcf){
+		messages.push(encodeRosbeeMessage(payload, dest, lcf ));
+	}
+
+	void sendLidarCommand(int32_t * payload, COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS lcf){
+		messages.push(encodeLidarMessage(payload, dest, lcf ));
 	}
 
 	//The function encodeRalcpMessage encodes an mavlink_ralcp_t to an mavlink_message_t
-	mavlink_message_t encodeRalcpMessage(uint64_t payload, COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS lcf){
+	mavlink_message_t encodeRosbeeMessage(uint64_t payload, COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS lcf){
 		mavlink_message_t mavlinkMessage;
-		mavlink_ralcp_t mavlinkRALCP{payload, dest, lcf};
-		mavlink_msg_ralcp_encode(systemID, COMMAND_DESTINATION::LIDAR, &mavlinkMessage, &mavlinkRALCP);
+		mavlink_rosbee_message_t mavlinkRALCP{payload, dest, lcf};
+		mavlink_msg_rosbee_message_encode(systemID, COMMAND_DESTINATION::ROSBEE, &mavlinkMessage, &mavlinkRALCP);
+
+		return mavlinkMessage;
+	}
+
+	mavlink_message_t encodeLidarMessage(int32_t * payload, COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS lcf){
+
+		mavlink_message_t mavlinkMessage;
+		mavlink_lidar_message_t mavlinkRALCP;
+		for(int i=0; i< 6; i++){
+			mavlinkRALCP.Payload[i] = payload[i];
+		}
+
+		mavlinkRALCP.Destination = dest;
+		mavlinkRALCP.Function = lcf;
+		mavlink_msg_lidar_message_encode(systemID, COMMAND_DESTINATION::LIDAR, &mavlinkMessage, &mavlinkRALCP);
 
 		return mavlinkMessage;
 	}
 
 	//The function decodeRalcpMessage decodes an mavlink_message_t to an mavlink_ralcp_t
-	mavlink_ralcp_t decodeRalcpMessage(mavlink_message_t & mavlinkMessage){
-		mavlink_ralcp_t mavlinkRALCP;
-		mavlink_msg_ralcp_decode(&mavlinkMessage, &mavlinkRALCP);
+	mavlink_rosbee_message_t decodeRosbeeMessage(mavlink_message_t & mavlinkMessage){
+		mavlink_rosbee_message_t mavlinkRALCP;
+		mavlink_msg_rosbee_message_decode(&mavlinkMessage, &mavlinkRALCP);
+
+		return mavlinkRALCP;
+	}
+
+	mavlink_lidar_message_t decodeLidarMessage(mavlink_message_t & mavlinkMessage){
+		mavlink_lidar_message_t mavlinkRALCP;
+		mavlink_msg_lidar_message_decode(&mavlinkMessage, &mavlinkRALCP);
 
 		return mavlinkRALCP;
 	}
