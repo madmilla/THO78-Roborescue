@@ -60,13 +60,15 @@ class QuadcopterController
 {
 public:
 	/**
-	* QuadcopterController constructor has a quadcopter
-	* and a localisationmodule reference
+	* QuadcopterController constructor
+	* @param quadcopter a quadcopter reference
+	* @param locMod a localisationModule reference
 	*/
 	QuadcopterController(Quadcopter& quadcopter, LocalisationModule& locMod);
 	/**
-	* setTarget sets a target destination with a target
-	* coordinate and target height
+	* setTarget sets a target destination
+	* @param coordinate target 
+	* @param targetHeight a float used for indicating the target height
 	*/
 	void setTarget(coordinate target, float targetHeight);
 	/**
@@ -76,7 +78,7 @@ public:
 	void setPosition();
 	/**
 	* setHeight sets the current height 
-	* 
+	* @param currentHeight a float used for indicating the current height
 	*/
 	void setHeight(float currentHeight);
 	/**
@@ -86,44 +88,41 @@ public:
 	void moveTowardsTarget();
 	/**
 	* QuadcopterController default destructor
-	* 
 	*/
 	~QuadcopterController();
 
 private:
 	/**
 	* registeredQuad
-	* 
 	*/
 	Quadcopter& registeredQuad;
 	/**
 	* registeredLocationModule
-	* 
 	*/
 	LocalisationModule& registeredLocationModule;
 	/**
 	* recentLocation
-	* 
+	* vector of intergers used for the recent location
 	*/
 	Coordinate<int> recentLocation;
 	/**
 	* recentHeight
-	* 
+	* float used to indicate the recentheight
 	*/
 	float recentHeight;
 	/**
 	* targetLocation
-	* 
+	* vector of intergers used for the target location
 	*/
 	Coordinate<int> targetLocation = nullptr;
 	/**
 	* targetHeight
-	* 
+	* float default set to -1.0f
 	*/
-	float targetHeight = -1;
+	float targetHeight = -1.0f;
 	/**
 	* allowedDeviation
-	* 
+	* float default set to 0.2
 	*/
 	float allowedDeviation = 0.2;
 };
