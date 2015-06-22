@@ -88,44 +88,41 @@ public:
 	void moveTowardsTarget();
 	/**
 	* QuadcopterController default destructor
-	* 
 	*/
 	~QuadcopterController();
 
 private:
 	/**
 	* registeredQuad
-	* 
 	*/
 	Quadcopter& registeredQuad;
 	/**
 	* registeredLocationModule
-	* 
 	*/
 	LocalisationModule& registeredLocationModule;
 	/**
 	* recentLocation
-	* 
+	* vector of intergers used for the recent location
 	*/
 	Coordinate<int> recentLocation;
 	/**
 	* recentHeight
-	* 
+	* float used to indicate the recentheight
 	*/
 	float recentHeight;
 	/**
 	* targetLocation
-	* 
+	* vector of intergers used for the target location
 	*/
 	Coordinate<int> targetLocation = nullptr;
 	/**
 	* targetHeight
-	* 
+	* float default set to -1.0f
 	*/
-	float targetHeight = -1;
+	float targetHeight = -1.0f;
 	/**
 	* allowedDeviation
-	* 
+	* float default set to 0.2
 	*/
 	float allowedDeviation = 0.2;
 };
