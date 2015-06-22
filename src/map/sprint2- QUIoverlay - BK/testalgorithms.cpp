@@ -11,8 +11,15 @@ int main(int argc, char *argv[]) {
 
     // Initialize lines vector with "random" numbers
     std::vector<std::vector<points> > polygons;
+    std::vector<points> polygon0;
     std::vector<points> polygon1;
     std::vector<points> polygon2;
+
+    points p01(-235, -123);
+    points p02(1232424, 1233325);
+
+    polygon0.push_back(p01);
+    polygon0.push_back(p02);
 
     points p1(42, 36);
     points p2(53, 23);
@@ -42,6 +49,7 @@ int main(int argc, char *argv[]) {
     polygon2.push_back(p11);
     polygon2.push_back(p13);
 
+    polygons.push_back(polygon0);
     polygons.push_back(polygon1);
     polygons.push_back(polygon2);
 
@@ -58,7 +66,15 @@ int main(int argc, char *argv[]) {
 	
 	// Normalize lines between -1 and 1 floats
     const std::vector<Lines<float> > normalizedLines = Algorithms::getNormalizedLinesForPolygons(polygons);
+    bool first;
     for(std::vector<Lines<float> >::const_iterator it = normalizedLines.begin(); it != normalizedLines.end(); ++it) {
+        if (first) {
+            if (it->x1 > -0.99 || it->y1 > -0.99 || it->x2 < 0.99 || it->y2 < 0.99) {
+                std::cout << "Minimum or maximum values did not normalize to (-)1";
+                return -1;
+            }
+            first = false;
+        }
         if (it->x1 > 1 || it->x1 < -1) {
             std::cout << "X1 value was out of bounds";
             return -1;
