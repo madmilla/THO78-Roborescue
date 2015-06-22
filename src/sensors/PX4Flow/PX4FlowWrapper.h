@@ -36,7 +36,7 @@
 
 #include "mavlink.h"
 #include <fstream>
-#include "../../../deps/incl/CImg/CImg.h"
+#include "CImg.h"
 
 #define SYSTEMID 82
 #define COMPONENTID 1

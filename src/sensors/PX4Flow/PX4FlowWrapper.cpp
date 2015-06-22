@@ -78,13 +78,16 @@ void PX4FlowWrapper::ReceiveMAVLinkMessage(mavlink_message_t* msg){
 				}
 			}
 			if (pixel >= imageSize){
+				#ifdef DEBUGIMAGES
+					std::cout << "Image full.\n";
+				#endif
 				imageFull();
 			}
 		}
 		break;
 		
 		default:
-			std::cout << "Unsupported MSG: " << (int)msg->msgid << "\n";
+			//std::cout << "Unsupported MSG: " << (int)msg->msgid << "\n";
 			(void)0;
 	}
 }
