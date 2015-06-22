@@ -1,7 +1,7 @@
 #include "CPIConnector.h"
 //This is an example child class
 CPIConnector::CPIConnector(){
-	lidar = new Lidar("/dev/ttyAMA0", this);
+	lidar = new Lidar("/dev/ttyAMA0");
 }
 
 CPIConnector::~CPIConnector(){
