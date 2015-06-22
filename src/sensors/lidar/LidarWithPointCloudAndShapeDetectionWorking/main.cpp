@@ -26,6 +26,7 @@ int main()
 			fprintf(stderr,"x: %d , y: %d\n", scanCoorde[pos].x, scanCoorde[pos].y);
 		}
 	}
+	pCloud.savePointsToFile("scan");
 	std::cout << "Create image \n";
 	clock_t Start = clock();
 	const Mat & image = sD.createImage(pCloud, 10);
