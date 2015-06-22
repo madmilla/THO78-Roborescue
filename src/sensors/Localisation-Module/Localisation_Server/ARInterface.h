@@ -53,7 +53,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "headers/aruco.h"
+#include "aruco.h"
 #include "Coordinate.h"
 #include <opencv2/highgui/highgui.hpp>
 #include <unistd.h>
