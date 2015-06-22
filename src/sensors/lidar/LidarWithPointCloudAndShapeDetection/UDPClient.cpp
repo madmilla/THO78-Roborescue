@@ -1,6 +1,6 @@
 #include "UDPClient.h"
 
-#define CPI_IP_ADRESS "172.16.120.134"
+#define CPI_IP_ADRESS "145.89.158.190"
 #define PORT 8888
 #define LONG_SLEEP 1
 #define SHORT_SLEEP 500

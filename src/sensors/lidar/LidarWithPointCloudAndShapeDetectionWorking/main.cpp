@@ -27,6 +27,7 @@ int main()
 		}
 	}
 	pCloud.savePointsToFile("scan");
+	/*
 	std::cout << "Create image \n";
 	clock_t Start = clock();
 	const Mat & image = sD.createImage(pCloud, 10);
@@ -39,7 +40,7 @@ int main()
 	clock_t end = clock();
 	float time = (float)(end - Start) / CLOCKS_PER_SEC;
 	std::cout << "Time: " << time << "\n";
-
+*/
 	//LidarController lController(lidar, sD, pCloud);
     //std::thread lthread(&LidarController::run, &lController);
     //lthread.detach();

@@ -18,6 +18,7 @@ void CPIConnector::onMessage(mavlink_message_t & msg){
 
 		systemID = function.Payload[1];
 		sendLidarCommand(temp, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT);
+		lidar->start();	
 		break;
 
 	case LIDAR_COMMAND_FUNCTIONS::RPM:

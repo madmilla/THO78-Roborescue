@@ -41,6 +41,8 @@
 #include "Lidar.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "time.h"
+#include "ctime"
 
 #ifndef _countof
 #define _countof(_Array) (int)(sizeof(_Array) / sizeof(_Array[0]))
@@ -199,6 +201,7 @@ std::vector<scanCoordinate> Lidar::convertToCoordinates(std::vector<scanDot> dat
 
 
 std::vector<Line> Lidar::start(){
+	clock_t Start = clock();
 	ShapeDetector sD;
 	Pointcloud pCloud;
 	std::vector<scanDot> data = startSingleLidarScan();
@@ -219,6 +222,8 @@ std::vector<Line> Lidar::start(){
 	std::vector<Line> lines = sD.searchLines(image);
 	std::cout << "lines detected";
 	sD.writeLinesToConsole(lines);
-
+	clock_t end = clock();
+	float time = (float)(end - Start) / CLOCKS_PER_SEC;
+	std::cout << "Time: " << time << "\n";
 	return lines;
 }
