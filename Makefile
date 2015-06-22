@@ -15,6 +15,13 @@ rosbee :
 	
 
 clean : 
+	for prefix in $(CLEAN_MODULES); do \
+		rm -f "$$prefix"*.o; \
+		rm -f "$$prefix"*.d; \
+		rm -f "$$prefix"ui_*.h; \
+		rm -f "$$prefix"moc_*.cpp; \
+	done
+	rm -f *.exe
 	
 
 doxygen:
