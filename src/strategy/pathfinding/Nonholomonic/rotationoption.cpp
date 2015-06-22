@@ -1,5 +1,7 @@
 #include "rotationoption.h"
 
+#define M_PI 3.14159265358979323846 /* pi */
+
 RotationOption::RotationOption(float rotationRadius, int rotationCount) :
    rotationRadius(rotationRadius),
    rotationCount(rotationCount),

@@ -1,5 +1,9 @@
 #include "rotation30.h"
 
+#include <cmath>
+
+#define M_PI 3.14159265358979323846 /* pi */
+
 const Vector<float> Rotation30::baseRotationPoints[12] = {
    Vector<float>(1, 0),
    Vector<float>(std::cos(1.0f * 1.0f / 6.0f * M_PI), std::sin(1.0f * 1.0f / 6.0f * M_PI)),

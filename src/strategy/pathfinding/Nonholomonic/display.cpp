@@ -6,7 +6,7 @@
 Display::Display(QWidget *parent) : QWidget(parent), timer(new QTimer()), executeRunning(false)
 {
    timer->setSingleShot(false);
-   timer->setInterval(1000);
+   timer->setInterval(100);
 
    connect(timer, SIGNAL(timeout()), this, SLOT(repaint()));
 }

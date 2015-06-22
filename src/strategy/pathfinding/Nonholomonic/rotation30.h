@@ -1,9 +1,6 @@
 #ifndef ROTATION30_H
 #define ROTATION30_H
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 #include "rotationoption.h"
 
 class Rotation30 : public RotationOption

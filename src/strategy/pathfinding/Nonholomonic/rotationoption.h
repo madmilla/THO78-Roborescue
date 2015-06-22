@@ -1,9 +1,6 @@
 #ifndef ROTATIONOPTION
 #define ROTATIONOPTION
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 #include "node.h"
 #include "mapitem.h"
 
