@@ -16,11 +16,13 @@ MODULES 						=
 MOC								= $(QT_BIN_DIR)/moc.exe
 UIC								= $(QT_BIN_DIR)/uic.exe
 
-########MODULES########
-#LIBRARIES
+#######LIBRARIES#######
 DONAHOO_LIB						= deps/incl/Donahoo/
+MAVLINK_LIB						= deps/incl/mavlink/
+CIMG_LIB						= deps/incl/CImg/
+ARUCO_LIB						= deps/incl/aruco/
 
-
+########MODULES########
 #GUI
 MAIN_GUI_MODULE 				= Src/GUI/mission-gui/
 QUADCOPTER_GUI_MODULE 			= Src/GUI/mission-gui/quadcopter-gui/
@@ -40,15 +42,17 @@ PROPELLOR_SIRC_MODULE			= Src/Sensors/Propellor-SIRC/
 PROPELLOR_TEMPERATURE_MODULE 	= Src/Sensors/Propellor-TemperatureSensor/
 PROPELLOR_ULTRASONIC_MODULE		= Src/Sensors/Propellor-UltrasonicSensor/
 LIDAR_BASESTATION_MODULE		= Src/Sensors/lidar/LIDAR-Basestation/
-PX4FLOW_MODULE 					= Src/Sensors/PX4Flow/
+PX4FLOW_MODULE 					= src/sensors/PX4Flow/
+LOCALISATION_SERVER				= src/sensors/Localisation-Module/Localisation_Server/
 
 #COMMUNICATION
-MAVLINK_EXCHANGER_MODULE		= Src/Communication/MavlinkExchanger/
-SERIAL_PORT_MODULE				= Src/Communication/SerialPort/
+MAVLINK_EXCHANGER_MODULE		= src/communication/MavlinkExchanger/
+SERIAL_PORT_MODULE				= src/communication/SerialPort/
 UDP_MODULE						= Src/Communication/udp/
 
-#MISSIONS
-MISSION1_MODULE					= Src/Missions/Mission1/
+#MODULES
+MISSION1_MODULE					= Src/Modules/Mission1/
+LOCALISATION_MODULE_MODULE		= src/Modules/Localisationmodule/
 
 #TARGET MODULES
 ROBORESCUE_MISSION1				= $(MISSION1_MODULE) 
@@ -68,11 +72,14 @@ ROBORESCUE_MISSION1			   += $(MAP_GUI_MODULE)
 ROBORESCUE_MISSION1			   += $(DONAHOO_LIB)
 
 #LOCALISATION MODULES
-ROBORESCUE_LOCALISATION_MODULE  = Src/Sensors/Localisation-Module/Localisation_Basestation/
-ROBORESCUE_LOCALISATION_MODULE += $(PX4FLOW_MODULE)
-
-
-
+ROBORESCUE_LOCALISATION_MODULE  = $(PX4FLOW_MODULE)
+ROBORESCUE_LOCALISATION_MODULE += $(LOCALISATION_MODULE_MODULE)
+ROBORESCUE_LOCALISATION_MODULE += $(LOCALISATION_SERVER)
+ROBORESCUE_LOCALISATION_MODULE += $(ARUCO_LIB)
+ROBORESCUE_LOCALISATION_MODULE += $(MAVLINK_EXCHANGER_MODULE)
+ROBORESCUE_LOCALISATION_MODULE += $(SERIAL_PORT_MODULE)
+INCLUDES += -I$(MAVLINK_LIB)
+INCLUDES += -I$(CIMG_LIB)
 
 #CLEAN MODULES
 CLEAN_MODULES					= $(MISSION1_MODULE) 

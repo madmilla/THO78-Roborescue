@@ -1,0 +1,13 @@
+SRC += deps/incl/aruco/ar_omp.cpp
+SRC += deps/incl/aruco/aruco.cpp
+SRC += deps/incl/aruco/arucofidmarkers.cpp
+SRC += deps/incl/aruco/board.cpp
+SRC += deps/incl/aruco/boarddetector.cpp
+SRC += deps/incl/aruco/cameraparameters.cpp
+SRC += deps/incl/aruco/chromaticmask.cpp
+SRC += deps/incl/aruco/cvdrawingutils.cpp
+SRC += deps/incl/aruco/exports.cpp
+SRC += deps/incl/aruco/highlyreliablemarkers.cpp
+SRC += deps/incl/aruco/marker.cpp
+SRC += deps/incl/aruco/markerdetector.cpp
+SRC += deps/incl/aruco/subpixelcorner.cpp
