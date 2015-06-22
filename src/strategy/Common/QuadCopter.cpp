@@ -10,6 +10,7 @@
 * @date Created: 4/28/2015
 *
 * @author Mathijs Arends
+* @author Jeroen Steendam
 *
 * @section LICENSE
 * License: newBSD
