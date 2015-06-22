@@ -50,37 +50,81 @@
 #ifndef _QUADCOPTERCONTROLLER_H
 #define _QUADCOPTERCONTROLLER_H
 #include "Quadcopter.h"
-//#include "LocalisationModule.h"
+#include "LocalisationModule.h"
+#include "Coordinate.h"
 
 class LocalisationModule;
 class Coordinate;
-=======
-#include "LocalisationModule.h"
-#include "Coordinate.h"
 
 class QuadcopterController
 {
 public:
-	QuadcopterController(Quadcopter& quadcopter);
-	void registerLocalisation(LocalisationModule& LocMod);
-	void setTarget(Coordinate& coordinate);
+	/**
+	* QuadcopterController constructor has a quadcopter
+	* and a localisationmodule reference
+	*/
 	QuadcopterController(Quadcopter& quadcopter, LocalisationModule& locMod);
+	/**
+	* setTarget sets a target destination with a target
+	* coordinate and target height
+	*/
 	void setTarget(coordinate target, float targetHeight);
+	/**
+	* setPosition sets the latest registered position as position
+	*
+	*/
 	void setPosition();
+	/**
+	* setHeight sets the current height 
+	* 
+	*/
 	void setHeight(float currentHeight);
+	/**
+	* moveTowardsTarget a function that allows the quadcopter to move 
+	* towards the set target coordinate and height 
+	*/
 	void moveTowardsTarget();
+	/**
+	* QuadcopterController default destructor
+	* 
+	*/
 	~QuadcopterController();
 
 private:
+	/**
+	* registeredQuad
+	* 
+	*/
 	Quadcopter& registeredQuad;
+	/**
+	* registeredLocationModule
+	* 
+	*/
 	LocalisationModule& registeredLocationModule;
-
+	/**
+	* recentLocation
+	* 
+	*/
 	Coordinate<int> recentLocation;
+	/**
+	* recentHeight
+	* 
+	*/
 	float recentHeight;
-
+	/**
+	* targetLocation
+	* 
+	*/
 	Coordinate<int> targetLocation = nullptr;
+	/**
+	* targetHeight
+	* 
+	*/
 	float targetHeight = -1;
-
+	/**
+	* allowedDeviation
+	* 
+	*/
 	float allowedDeviation = 0.2;
 };
 #endif

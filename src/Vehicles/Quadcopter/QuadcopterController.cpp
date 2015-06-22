@@ -13,7 +13,6 @@ void QuadcopterController::setTarget(coordinate target, float targetHeight)
 	targetHeight = targetHeight;
 }
 
-void QuadcopterController::setTarget(Coordinate& coordinate)
 void QuadcopterController::setPosition()
 {
 	recentPosition = registeredLocalisationSystem.getCoordinate();
