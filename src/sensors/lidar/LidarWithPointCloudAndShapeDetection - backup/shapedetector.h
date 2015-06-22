@@ -3,8 +3,10 @@
  * \details Class with functions to detect lines and circles out of a pointcloud object
  * \author Tijmen Bruggeman - 1634346
  * \author Patrick Schoonheym - 1639598
- * \version 2.0
- * \date 22-04-2015
+ * \author Owen Hogenboezen - 1643103
+ * \author Nick Verhaaf - 1641355
+ * \version 2.1
+ * \date 03-06-2015
  */
 
 #ifndef SHAPEDETECTOR_H
@@ -24,12 +26,16 @@ using namespace cv;
 class ShapeDetector
 {
 private:
-    CvScalar CIRCLE_CENTER_COLOR = CV_RGB(255,0,0); //! The color for the center of the circle
-    CvScalar CIRCUMFERENCE_COLOR = CV_RGB(0,0,255); //! The color for the circumference of the circle
+    const CvScalar CIRCLE_CENTER_COLOR = CV_RGB(255,0,0); //! The color for the center of the circle
+    const CvScalar CIRCUMFERENCE_COLOR = CV_RGB(0,0,255); //! The color for the circumference of the circle
+	const CvScalar LINECOLOR = CV_RGB(0, 255, 0); //! the line color
+	const CvScalar LINE_BEGINPOINT_COLOR = CV_RGB(0, 0, 255); //!The color of the beginMark of a line
+	const CvScalar LINE_ENDPOINT_COLOR = CV_RGB(255, 0, 0); //! the color of the endmark of a line
+	const CvScalar LIDAR_MARK_COLOR = CV_RGB(255, 0, 150); //! the color of the mark for the lidarposition on the image
     const int CIRCLE_LINE_TYPE = 8; //! the line type of the circumference
     const int CENTER_THICKNESS = -1;//! the thickness of the point in the middle of the circle
     const int CIRCLE_THICKNESS = 2; //! the thickness of the circumferenc of the circle
-    const int CIRCLE_CENTER_RADIUS = 3; //! the radius(size) of the point in the middle of the circle
+    const int CIRCLE_CENTER_RADIUS = 1; //! the radius(size) of the point in the middle of the circle
     const int EDGE_TRESHHOLD = 50; //! the treshhold for detectecting the edges in the image
     const int RESOLUTION_INVERSERATIO = 1; //! the resolution inverseratio
     const int MIN_DISTANCE_CIRCLES = 6; //! the minimun distance between the different circles
@@ -42,11 +48,11 @@ private:
     const int CANNY_THRESHHOLD2 = 82; //! the second threshhold used in the canny function
     const double HOUGHLINES_RHO = 1; //! The resolution of the parameter r in pixels. We use 1 pixel.
     const double HOUGHLINES_THETA = CV_PI/180; //! The resolution of the parameter theta in radians. We use 1 degree (CV_PI/180)
-    const int HOUGHLINES_THRESHHOLD = 40; //! The minimum number of intersections to “detect” a line
-    const double HOUGHLINES_MINLINELENGTH = 10; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
+    const int HOUGHLINES_THRESHHOLD = 20; //! The minimum number of intersections to “detect” a line
+    const double HOUGHLINES_MINLINELENGTH = 5; //! The minimum number of points that can form a line. Lines with less than this number of points are disregarded.
     const double HOUGHLINES_MAXLINEGAP = 20; //! The maximum gap between two points to be considered in the same line.
-    const CvScalar LINECOLOR = CV_RGB(0,255,0); //! the line color
-    const int THICKNESS = 3; //! the thickness of the line
+    const int LINE_THICKNESS = 1; //! the thickness of the line
+	float SLOPE_THRESHOLD = 0.1; //! the Maximum difference between slope a en b in combineLines
 
     //! this function converts a Mat object to a IplImage so the function cvSmooth can be used.
     /*!
@@ -62,10 +68,33 @@ private:
     /*!
      @param lines: the given lines to check on
      */
-    void checkLines(vector<Vec4i> & lines);
+    void checkLines(std::vector<Line>& lines);
+
+	//! remove double lines
+	/*!
+	remove double lines from the vector, only lines who intersect 100% will be removed
+	@param lines: a vector with the lines to be checked
+	*/
+	void removeLines(std::vector<Line> & lines);
+	//! combine lines on the same line
+	/*!
+	combines lines which intersects for more than 0% and has the same slope
+	@param lines: a vector with the lines to be checked
+	*/
+	void combineLines(std::vector<Line> & lines);
+	//! combines two lines to one line
+	/*!
+	combines two specific lines to one line.
+	@param line1: the first line to be combined with another line
+	@param line2: the second line
+	@return Line: the combined line
+	*/
+	Line combineTwoLines(Line &line1, Line& line2);
 
 public:
+	//! The Constructor of ShapeDetector
     ShapeDetector();
+	//! THe destructor of ShapeDetector
     ~ShapeDetector();
     //! write circles on the
     /*!
@@ -107,13 +136,13 @@ public:
     */
     void writeLinesToConsole(const vector<Line> & lines);
 
-
     //! draw the lines in a given matrix
     /*!
     @param lines: contains the lines to draw;
     @param final_dest: the image to draw on
+	@param lidarPoint: the position of the lidar to be drawn on the image
     */
-    void drawLines(const std::vector<Line> lines, Mat & final_dest);
+	void drawLines(const std::vector<Line> lines, Mat & final_dest, Line::Point lidarPoint = Line::Point{ 0, 0 });
 
     //! write the circle and line objects to the console
     /*!
@@ -128,8 +157,9 @@ public:
      @param circles: the given circles to show
      @param orginal_image: the orginal input image to show
      @param custom_image: the edited image with the lines and circles to show
+	 @param lidarPoint: the position of the lidar to be drawn on the screen
      */
-    void showObjects(const vector<Line> & lines, const vector<Circle> circles, const Mat & orginal_image, Mat & custom_image);
+	void showObjects(const vector<Line> & lines, const vector<Circle> circles, const Mat & orginal_image, Mat & custom_image, Line::Point lidarPoint = Line::Point{ 0, 0 });
 
 };
 
