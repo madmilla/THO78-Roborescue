@@ -45,6 +45,12 @@
     <ClCompile Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\strategy\Common\route.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\strategy\Common\waypoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\map\Map Factory\mapFactory.h">
@@ -78,6 +84,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\map\MapStructure\mapImplementation.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\strategy\Common\route.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\strategy\Common\waypoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
