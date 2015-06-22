@@ -48,7 +48,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QtCore/QTimer>
-#include "rosbee.h"
+#include "Rosbee.h"
 
 namespace Ui {
 class RosbeeWindow;

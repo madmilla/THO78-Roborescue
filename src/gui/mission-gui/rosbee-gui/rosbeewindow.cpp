@@ -49,7 +49,7 @@ RosbeeWindow::~RosbeeWindow()
 }
 
 void RosbeeWindow::handleButton(){
-   /*QPushButton * button = static_cast<QPushButton *>(sender());
+   QPushButton * button = static_cast<QPushButton *>(sender());
    if(button == nullptr) return;
 
    if(button == ui->startButton){
@@ -68,7 +68,7 @@ void RosbeeWindow::handleButton(){
 
       rosbee.stopMission();
       SetMissionRunning(false);
-   }*/
+   }
 }
 
 void RosbeeWindow::SetMissionRunning(bool is_mission_running){
