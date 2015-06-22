@@ -140,16 +140,16 @@ private:
     */
     void keyPressEvent(QKeyEvent *event);
 
-    static constexpr float X_ROTATE_DEFAULT = 45.0;
-    static constexpr float Y_ROTATE_DEFAULT = 45.0;
-    static constexpr float Z_ROTATE_DEFAULT = 0.0;
+    static const float X_ROTATE_DEFAULT = 45.0;
+    static const float Y_ROTATE_DEFAULT = 45.0;
+    static const float Z_ROTATE_DEFAULT = 0.0;
 
     float xRotate;
     float yRotate;
     float zRotate;
 
-    static constexpr float MIN_ZOOM = -8.0f;
-    static constexpr float MAX_ZOOM = -4.0f;
+    static const float MIN_ZOOM = -8.0f;
+    static const float MAX_ZOOM = -4.0f;
     float zPan;
     float xPan;
     float yPan;

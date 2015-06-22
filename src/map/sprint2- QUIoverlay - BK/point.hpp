@@ -1,4 +1,5 @@
-#pragma once
+#ifndef POINTS_H
+#define POINTS_H
 
 #include <iostream>
 
@@ -35,3 +36,5 @@ public:
 private:
     int x, y;
 };
+
+#endif

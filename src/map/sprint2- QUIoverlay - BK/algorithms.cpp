@@ -44,6 +44,8 @@ void Algorithms::getMinMax(const std::vector<Lines<int> > lines, int &minX, int 
 const std::vector<Lines<float> > Algorithms::getNormalizedLinesForPolygons(const std::vector<std::vector<points> >& polygons) {
     std::vector<std::vector<points> >::const_iterator it_polygons;
     std::vector<points>::const_iterator it;
+    int prevX;
+    int prevY;
 
     // Set initial values to extremes of the opposites
     int minX = INT_MAX;
@@ -75,19 +77,21 @@ const std::vector<Lines<float> > Algorithms::getNormalizedLinesForPolygons(const
 
     std::vector<Lines<float> > linesNormalized;
     for(it_polygons = polygons.begin(); it_polygons != polygons.end(); ++it_polygons) {
-        points *prev = NULL;
+        bool first = true;
         for(it = (*it_polygons).begin(); it != (*it_polygons).end(); ++it) {
-            if (prev != NULL) {
+            if (!first) {
                 // Normalize x and y between -1.0 and 1.0
-                float x1 = ((float(prev->getX() - minX) / difX) * DIF_X) + MIN_X;
-                float y1 = ((float(prev->getY() - minY) / difY) * DIF_Y) + MIN_Y;
+                float x1 = ((float(prevX - minX) / difX) * DIF_X) + MIN_X;
+                float y1 = ((float(prevY - minY) / difY) * DIF_Y) + MIN_Y;
                 float x2 = ((float(it->getX() - minX) / difX) * DIF_X) + MIN_X;
                 float y2 = ((float(it->getY() - minY) / difY) * DIF_Y) + MIN_Y;
 
                 Lines<float> lineNormalized(x1, y1, x2, y2);
                 linesNormalized.push_back(lineNormalized);
             }
-            *prev = *it;
+            prevX = it->getX();
+            prevY = it->getY();
+            first = false;
         }
     }
 

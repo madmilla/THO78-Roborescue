@@ -6,7 +6,7 @@
 
 QT       += core gui opengl
 
-CONFIG   += c++11
+#CONFIG   += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     points.cpp \
     map.cpp \
     line.cpp \
-    polygon.cpp
+    polygon.cpp \
+    testalgorithms.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
