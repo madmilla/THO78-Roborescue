@@ -132,7 +132,23 @@ int main(int argc, char *argv[])
 				//std::cout << "Broadcasting" << std::endl;
 				server.broadcast(message);
 			}
+			char c;
+			std::cin >> c;
+			if(c == 'v')
+			{
+				int detectedId = 954;
+				std::string message = 'V' + std::to_string(detectedId);				
+				std::cout << message <<std::endl;
+				server.broadcast(message);
+			}
+			else if (c=='l')
+			{
 			
+				Coordinate<int> currentCoordinate = Coordinate<int>{32,75};
+				std::string message = 'X' + std::to_string(currentCoordinate.getX()) + 'Y' + std::to_string(108-currentCoordinate.getY());		
+				std::cout << message <<std::endl;
+				server.broadcast(message);
+			}
 		}
 	}};
 	std::cout << "Starting mavlinkthread\n";
