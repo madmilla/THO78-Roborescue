@@ -52,7 +52,9 @@ Lidar::Lidar(const char *opt_com_path):
     opt_com_path(opt_com_path),
     opt_com_baudrate(115200), 	// Default baudrate of 115200 is recommended
     drv(RPlidarDriver::CreateDriver(RPlidarDriver::DRIVER_TYPE_SERIALPORT))
-{}
+{
+	connectDriversLidar();
+}
 
 void Lidar::connectDriversLidar()
 {
@@ -193,4 +195,30 @@ std::vector<scanCoordinate> Lidar::convertToCoordinates(std::vector<scanDot> dat
         tempData.push_back(tempCoord);
     }
     return tempData;
+}
+
+
+std::vector<Line> Lidar::start(){
+	ShapeDetector sD;
+	Pointcloud pCloud;
+	std::vector<scanDot> data = startSingleLidarScan();
+
+	if (!data.empty()) {
+		std::vector<scanCoordinate> scanCoorde = convertToCoordinates(data);
+
+		for (int pos = 0; pos < (int)scanCoorde.size(); ++pos) {
+			pCloud.setPoint(scanCoorde[pos].x, scanCoorde[pos].y);
+			fprintf(stderr, "x: %d , y: %d\n", scanCoorde[pos].x, scanCoorde[pos].y);
+		}
+	}
+
+	pCloud.savePointsToFile("pointcuefnef.pcl");
+	std::cout << "image maken";
+	const Mat & image = sD.createImage(pCloud, 10);
+	std::cout << "image gemaakt";
+	std::vector<Line> lines = sD.searchLines(image);
+	std::cout << "lines detected";
+	sD.writeLinesToConsole(lines);
+
+	return lines;
 }

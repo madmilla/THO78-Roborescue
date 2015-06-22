@@ -18,8 +18,6 @@ public:
 	~CPIConnector();
 	void onMessage(mavlink_message_t & function) override;
 private:
-	void start();
-	void init();
 	Lidar *lidar = nullptr;
 };
 
