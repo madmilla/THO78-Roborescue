@@ -1,1 +1,0 @@
-SRC += Src/Sensors/lidar/Lidar.cpp

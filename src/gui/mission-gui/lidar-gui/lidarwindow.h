@@ -51,7 +51,7 @@
 #include <QtWidgets/QMessageBox>
 #include <QtCore/QDebug>
 #include <QtCore/QTimer>
-#include "lidar.h"
+#include "Lidar.h"
 
 namespace Ui {
 class LidarWindow;

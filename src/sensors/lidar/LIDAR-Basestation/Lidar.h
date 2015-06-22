@@ -43,7 +43,7 @@
 
 #include <chrono>
 #include "CPIBoundaryObject.h"
-#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "udp_mavlink_commands/mavlink.h"
 #include "UDPSocket.h"
 #include "MessageQueue.h"
 #include "RALCPEncoder.h"

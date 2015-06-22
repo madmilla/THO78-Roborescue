@@ -51,8 +51,8 @@
 #include "UDPSocket.h"
 #include "RobotManager.h"
 
-#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-#include "../../../deps/incl/communication/udp/PracticalSocket.h"
+#include "udp_mavlink_commands/mavlink.h"
+#include "PracticalSocket.h"
 
 //#pragma comment(lib,"ws2_32.lib")
 
