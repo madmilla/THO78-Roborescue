@@ -2,15 +2,15 @@
 #include "ARInterface.h"
 #include <thread>
 #include <boost/asio/io_service.hpp>
-#include "headers/TCPServer.h"
+#include "TCPServer.h"
 #include "Coordinate.h"
 #include <cstdlib>
 #define cimg_display 0
-#include "headers/CImg.h"
-#include "headers/PX4FlowWrapper.h"
-#include "headers/MAVLinkExchanger.h"
-#include "headers/SerialPort.h"
-#include "headers/CImg.h"
+#include "CImg.h"
+#include "PX4FlowWrapper.h"
+#include "MAVLinkExchanger.h"
+#include "SerialPort.h"
+#include "CImg.h"
 #include <chrono>
 
 boost::asio::io_service service;
