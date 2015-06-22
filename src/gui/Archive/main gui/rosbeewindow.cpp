@@ -1,8 +1,6 @@
 #include "rosbeewindow.h"
 #include "ui_rosbeewindow.h"
 
-#include "exceptions.h"
-
 #include <QMessageBox>
 
 RosbeeWindow::RosbeeWindow(Rosbee &rosbee, QWidget *parent) :
