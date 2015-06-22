@@ -8,7 +8,7 @@ CXX 							= g++
 CXXFLAGS						= -std=c++11
 LDFLAGS							= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
 INCLUDES 						= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR) -IDeps/incl/mavlink
-LDLIBS							= -lQt5Core -lQt5Widgets -lQt5Gui
+LDLIBS							= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5OpenGL
 SRC 							= 
 UI 								= 
 UI_HEADERS						=
@@ -23,6 +23,7 @@ QUADCOPTER_GUI_MODULE 			= Src/GUI/mission-gui/quadcopter-gui/
 ATV_GUI_MODULE 					= Src/GUI/mission-gui/ATV-gui/
 ROSBEE_GUI_MODULE 				= Src/GUI/mission-gui/rosbee-gui/
 LIDAR_GUI_MODULE 				= Src/GUI/mission-gui/lidar-gui/
+MAP_GUI_MODULE 					= Src/GUI/mission-gui/map-gui/
 
 #VEHICLES
 QUADCOPTER_MODULE				= Src/Vehicles/Quadcopter/
@@ -57,6 +58,7 @@ ROBORESCUE_MISSION1			   += $(MAVLINK_EXCHANGER_MODULE)
 ROBORESCUE_MISSION1			   += $(SERIAL_PORT_MODULE)
 ROBORESCUE_MISSION1			   += $(ROSBEE_LOCAL_MODULE)
 ROBORESCUE_MISSION1			   += $(LIDAR_LOCAL_MODULE)
+ROBORESCUE_MISSION1			   += $(MAP_GUI_MODULE)
 
 #LOCALISATION MODULES
 ROBORESCUE_LOCALISATION_MODULE  = Src/Sensors/Localisation-Module/Localisation_Basestation/
@@ -83,6 +85,7 @@ CLEAN_MODULES			   		+= $(LIDAR_LOCAL_MODULE)
 CLEAN_MODULES			   		+= $(MAVLINK_EXCHANGER_MODULE)
 CLEAN_MODULES			   		+= $(SERIAL_PORT_MODULE)
 CLEAN_MODULES			   		+= $(MISSION1_MODULE)
+CLEAN_MODULES					+= $(MAIN_GUI_MODULE)
 
 
 ROBORESCUE_LIDAR				=
