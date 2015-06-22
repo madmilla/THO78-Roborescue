@@ -32,16 +32,16 @@ int main(){
 		) {
 		std::cout << "Rosbee storage test Pass" << std::endl;
 	}
-	if (atv->atv == newATV->atv
-		&& atv->x == newATV->x
-		&& atv->y == newATV->y
+	if (atv->getSize() == newATV->getSize()
+		&& atv->getX() == newATV->getX()
+		&& atv->getY() == newATV->getY()
 		) {
 		std::cout << "ATV storage test Pass" << std::endl;
 	}
-	if (quadcopter->copter == newQuadCopter->copter
-		&& quadcopter->copterSight == newQuadCopter->copterSight
-		&& quadcopter->x == newQuadCopter->x
-		&& quadcopter->y == newQuadCopter->y
+	if (quadcopter->getSize() == newQuadCopter->getSize()
+		&& quadcopter->getFov() == newQuadCopter->getFov()
+		&& quadcopter->getX() == newQuadCopter->getX()
+		&& quadcopter->getY() == newQuadCopter->getY()
 		) {
 		std::cout << "QuadCopter storage test Pass" << std::endl;
 	}
