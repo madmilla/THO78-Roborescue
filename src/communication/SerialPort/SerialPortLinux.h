@@ -6,7 +6,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
-#include "../Serial.h"
+#include "Serial.h"
 
 class SerialPortLinux : public Serial
 {

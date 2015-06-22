@@ -1,5 +1,6 @@
 #include "SerialPort.h"
 #include "Serial.h"
+#define linux
 #ifdef _WIN32
 	#include "SerialPortWindows.h"
 #endif

@@ -1,3 +1,5 @@
+#define linux
+
 #include <iostream>
 #include "ARInterface.h"
 #include <thread>
@@ -84,16 +86,25 @@ void handleArguments( int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
+	std::cout << "Handlearguments\n";
 	handleArguments(argc, argv);
 	
+	std::cout << "ErrorOnInitCheck\n";
 	if(arRecogniser->isErrorOnInit())
 	{
 		std::cout << arRecogniser->getErrorString() << std::endl;
 		return 0;
-	}
+	}	
+	std::cout << "Creating recog thread\n";
 	std::thread recogniserThread{ &ARInterface::run, arRecogniser};
+
+	std::cout << "Creating mavlink thread\n";
 	std::thread mavLinkThread{ &MAVLinkExchanger::loop, &exchanger};
+	
+	std::cout << "Creating px4flow thread\n";
 	std::thread px4FlowThread{ handlePX4Flow};
+	
+	std::cout << "Creating main thread\n";
 	std::thread mainThread{[&server, &exchanger]()
 	{
 		std::cout << "Starting mainfred\n";
@@ -121,13 +132,18 @@ int main(int argc, char *argv[])
 				//std::cout << "Broadcasting" << std::endl;
 				server.broadcast(message);
 			}
+			
 		}
 	}};
-	
+	std::cout << "Starting mavlinkthread\n";
 	mavLinkThread.detach();
+	std::cout << "Starting recogthread\n";
 	recogniserThread.detach();
+	std::cout << "Starting px4thread\n";
 	px4FlowThread.detach();
+	std::cout << "Starting mainthread\n";
 	mainThread.detach();
+	std::cout << "Running servicethread\n";
 	service.run();	
 	
 	return 0;
