@@ -63,9 +63,6 @@ private:
 	};
 	LineData lineData;
 
-	Line::Point getFormula();
-	bool pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData & data);
-
 public:
 	//! The Contructor for the Lidar
 	/*!
@@ -74,8 +71,8 @@ public:
 	@param end_pos: Set the end position of the line
 	*/
 	Line(const Point & begin_pos, const Point & end_pos);
+
 	~Line();
-	
 	//! The setter for the line object
 	/*!
 	set new values for the line object
@@ -105,9 +102,35 @@ public:
 	check if 2 Points are the same
 	*/
 	friend bool operator==(const Point & p1, const Point & p2);
-
+	//! Get the length of a line
+	/*!
+	Get the length of a line
+	@return int: get the length of a line in rounded integers
+	*/
 	int getLength();
+
+	//! check if a line does intersect another line
+	/*!
+	Check if current line is intersecting with line 2
+	@param line2: The line to be checked on intersection with current line
+	@return int: A integer with the % of intersection. 100% means line 2 is completely on current line
+	*/
 	int intersect(Line & line2);
+
+	//! get the A en B from lineformule of current line
+	/*!
+	Get the A en B values of the lineformule of current line --> Y = AX + B
+	@return Line::Point: a point with the values, A is in the X, B is in the Y of the point
+	*/
+	Line::Point getFormula();
+	//! Check if a point is on a specific finite line
+	/*!
+	Check if point p is on a specific line 
+	@param  LineFormula: the Point with A and B values of the lineformula of the line --> Y = Ax + b
+	@param data: the data of the line, the beginPoint and the endPoint of the line in a data struct
+	@return bool': a boolean which tells of the point is on the line or not. 
+	*/
+	bool pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData & data);
 };
 #endif
 
