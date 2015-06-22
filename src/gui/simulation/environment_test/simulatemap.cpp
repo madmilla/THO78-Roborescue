@@ -166,7 +166,6 @@ std::string SimulateMap::simulate(){
                 y++;
             }
         }
-        pC.savePointsToFile("pointCloud");
         s += oss.str();
     }
     return s;
@@ -215,8 +214,6 @@ Pointcloud SimulateMap::addNoise(Pointcloud pc){
     for(Pointcloud::Point p : *pc.getPoints()){
         pNC.setPoint(p);
     }
-    pNC.offset = pc.offset;
-    pNC.orientation = pc.orientation;
 
     int cPx = checkpoints[0].getX();
     int cPy = checkpoints[0].getY();
