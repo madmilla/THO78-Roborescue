@@ -21,8 +21,14 @@ public:
 
 private:
    Ui::MainWindow *ui;
-protected:
+   enum class Status{firstUse, setStart, setStop, setObstacel, None};
+   Status status;
 
+   void statusUpdate();
+private slots:
+   void buttonClicked();
+   void fieldClicked(QPointF position);
+   void executeDone();
 };
 
 #endif // MAINWINDOW_H

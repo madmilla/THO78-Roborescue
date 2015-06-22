@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     rotation30.cpp \
     map.cpp \
     mapitem.cpp \
-    display.cpp
+    display.cpp \
+    rotationoption.cpp
 
 HEADERS  += mainwindow.h \
     pathfinding.h \

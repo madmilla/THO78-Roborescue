@@ -4,9 +4,6 @@
 #include <vector>
 #include "vector.h"
 
-#include <QPolygonF>
-#include <QGraphicsPolygonItem>
-
 class MapItem
 {
 public:
@@ -18,6 +15,7 @@ public:
    void removePoint(int index);
 
    Vector<float> operator[](int index) const;
+   int pointCount() const;
 
    std::vector<Vector<float>>::const_iterator begin() const;
    std::vector<Vector<float>>::const_iterator end() const;

@@ -66,7 +66,17 @@ int Test::run(){
 
     //Map from corrupt file
     testResultsFile << "Enviroment Simulator test Map from corrupt file" << std::endl;
-    //Map corruptMap("testFileMapCorrupt.map");
+    try{
+        Map corruptMap("testFileMapCorrupt.map");
+        ++error;
+    }
+    catch(int e){
+        if(e != 2){
+            testResultsFile << "Error: ";
+            testResultsFile << "Map from corrupt file: " << "Excpention error." << std::endl;
+        }
+    }
+
     testResultsFile << "Map from corrupt file: " << "Lets see" << std::endl;
 
     //Map not from file

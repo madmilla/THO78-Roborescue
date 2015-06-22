@@ -43,6 +43,7 @@
 #include <vector>
 #include <algorithm>
 #include "PointCloud.h"
+#include "values.h"
 
 class Map
 {

@@ -57,7 +57,7 @@ Map::Map(std::string fileName):
         std::ifstream mapFile;
         mapFile.open(fileName);
         if(!mapFile.is_open()){
-            return;
+            throw Values::FILEEXCEPTION;
         }
         if(height == 0 && width == 0){
             std::string line;
@@ -81,7 +81,7 @@ fileName(fileName)
     std::vector<Pointcloud::Point> *points = pcl->getPoints();
     if(points->size() == 0){
         std::cout << "Size = 0" << std::endl;
-        return;
+        throw Values::CONTENTEXCEPTION;
     }
     int minX = 0;
     int minY = 0;
@@ -127,19 +127,18 @@ void Map::loadMap(std::string fileName){
     std::ifstream mapFile;
     mapFile.open(fileName);
     if(!mapFile.is_open()){
-        return;
+        throw Values::FILEEXCEPTION;
     }
     int x = 0,y = 0;
-    int content = 0;
+    int content = -1;
 
     mapLayout.resize(height);
     mapLayout[y].resize(width);
     while(y < height){
-        try{
-            mapFile >> content;
-        }
-        catch(std::ifstream::failure e){
-            std::cout << e.what() << std::endl;
+        mapFile >> content;
+
+        if(content == -1){
+            throw Values::CONTENTEXCEPTION;
         }
 
         mapLayout[y][x] = content;
@@ -151,7 +150,7 @@ void Map::loadMap(std::string fileName){
                mapLayout[y].resize(width);
            }
         }
-
+        content = -1;
     }    
     mapFile.close();
 }

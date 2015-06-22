@@ -22,6 +22,7 @@ public:
    Map & getMap();
 
 private:
+   float rotationRadius;
    Vector<float> ATVSize;
    RotationOption * rotationMath;
    Map & map;

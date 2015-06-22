@@ -21,6 +21,10 @@ Vector<float> MapItem::operator[](int index) const{
    return points.at(index);
 }
 
+int MapItem::pointCount() const{
+   return points.size();
+}
+
 std::vector<Vector<float>>::const_iterator MapItem::begin() const{
    return points.begin();
 }

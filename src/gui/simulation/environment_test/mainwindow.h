@@ -81,6 +81,8 @@ private slots:
 private:
     //! Load the correct window.
     void load(QString fileName, char type);
+    //! Load the correct window.
+    void msgBox(QString msg);
     //! Ui pointer for use with QT.
     Ui::MainWindow *ui;
     //! Map pointer containing map information.

@@ -1,9 +1,6 @@
 #ifndef ROTATION30_H
 #define ROTATION30_H
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 #include "rotationoption.h"
 
 class Rotation30 : public RotationOption
@@ -16,7 +13,7 @@ public:
 
 private:
    static const Vector<float> baseRotationPoints[12];
-   const Vector<float> rotationPoints[12];
+   Vector<float> rotationPoints[12];
    Vector<float> atvRotations[12][4];
 };
 
