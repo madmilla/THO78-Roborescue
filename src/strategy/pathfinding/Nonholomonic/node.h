@@ -34,11 +34,14 @@ public:
 
    static const float deathOrder;
 
+   void setDrawing(bool value);
+
 private:
    Node * pparent;
    std::array<Node *, 3> childs;
    bool death;
    float order;
+   bool drawing;
 
    Vector<float> position;
    int rotation;

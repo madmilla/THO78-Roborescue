@@ -7,7 +7,8 @@ Node::Node(Vector<float> position) :
    childs({nullptr, nullptr, nullptr}),
    death(false),
    position(position),
-   rotation(0)
+   rotation(0),
+   drawing(false)
 {}
 
 Node::Node(Node & parent, Vector<float> position, int rotation) :
@@ -42,6 +43,9 @@ bool Node::isDeath(){
 
 void Node::setDeath(){
    death = true;
+
+   while(drawing){}
+
    delete childs[0];
    delete childs[1];
    delete childs[2];
@@ -70,4 +74,8 @@ int Node::getRotation() const{
 bool Node::isPath(){
    if(death) return false;
    return childs[0] != nullptr;
+}
+
+void Node::setDrawing(bool value){
+   drawing = value;
 }

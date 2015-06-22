@@ -16,7 +16,7 @@ public:
 
 private:
    static const Vector<float> baseRotationPoints[12];
-   const Vector<float> rotationPoints[12];
+   Vector<float> rotationPoints[12];
    Vector<float> atvRotations[12][4];
 };
 

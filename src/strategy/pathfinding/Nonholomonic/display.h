@@ -15,19 +15,39 @@ public:
    void setPathFinding(PathFinding & pf) { this->pf = &pf; }
    PathFinding * getPathFinding() { return this->pf; }
 
-signals:
+   void setStartPoint(QPointF startPoint);
+   void setStopPoint(QPointF stopPoint);
+   void execute();
 
+   void pushMapItem();
+   void cancelMapItem();
+   MapItem & getTempMapItem();
+
+   bool isExecuting() {return executeRunning;}
+
+signals:
+   void clicked(QPointF clickedMapPos);
+   void executeDone();
 public slots:
 
 protected:
    void paintEvent(QPaintEvent *);
+   void mousePressEvent(QMouseEvent*);
+   void mouseReleaseEvent(QMouseEvent*event);
 private:
    PathFinding * pf = nullptr;
    Vector<float> translation;
+   bool executeRunning;
+   QPointF startPoint, endPoint;
+
+   MapItem tempMapItem;
+
+   QTimer * timer;
 
    QPointF convertToQPointF(const Vector<float> p);
    QPolygonF convertToQPolygonF(const MapItem & mi);
    void drawNode(QPainter & painter, Node * node);
+   void executeTask();
 };
 
 #endif // DISPLAY_H

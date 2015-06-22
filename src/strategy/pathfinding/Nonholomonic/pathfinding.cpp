@@ -2,16 +2,17 @@
 
 #include "rotation30.h"
 #include <cfloat>
-#include <iostream>
-#include <QDebug>
 
-PathFinding::PathFinding(float rotationRadius, Vector<float> ATVSize, Map &map) : rotationMath(new Rotation30(rotationRadius, ATVSize)), root(nullptr), ATVSize(ATVSize), map(map)
-{
+PathFinding::PathFinding(float rotationRadius, Vector<float> ATVSize, Map &map) :
+   rotationRadius(rotationRadius),
+   rotationMath(new Rotation30(rotationRadius, ATVSize)),
+   root(nullptr),
+   ATVSize(ATVSize),
+   map(map),
+   working(false)
+{}
 
-}
-
-PathFinding::~PathFinding()
-{
+PathFinding::~PathFinding(){
    delete rotationMath;
 }
 
@@ -25,14 +26,17 @@ bool PathFinding::isColliding(const Node & node) const{
 }
 
 void PathFinding::find(Vector<float> startPosition, Vector<float> targetPosition){
-   qDebug() << "Hi1?";
+   const float near = rotationMath->getStraightLength() * rotationMath->getStraightLength() * 1.1f;
    if(working) return;
+   working = true;
 
    delete root;
    root = new Node(startPosition);
 
    Node * currentNode = root;
-   while(currentNode->getPosition().distance2(targetPosition) > 16.0f){ //EXPLORE LUS
+   while(currentNode->getPosition().distance2(targetPosition) > near){ //EXPLORE LUS
+      //qDebug() << currentNode->getPosition().distance2(targetPosition) << "\n";
+      //std::this_thread::sleep_for(std::chrono::seconds(1));
 
       //Create childs
       Node * childs[3];
@@ -93,13 +97,13 @@ void PathFinding::find(Vector<float> startPosition, Vector<float> targetPosition
 
       if(currentNode == nullptr){
          working = false;
-         std::cerr << "No solution found!\n";
+         //qDebug() << "No solution found!\n";
          return;
       }
    } //END EXPLORE LUS
 
    working = false;
-   std::cout << "Solution found!\n";
+   //qDebug() << "Solution found!\n";
    //FOUND A PATH
 }
 
