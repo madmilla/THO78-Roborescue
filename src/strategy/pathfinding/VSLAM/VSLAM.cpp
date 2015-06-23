@@ -41,7 +41,7 @@
  * Constructor of VSLAM.
  */
 
-VSLAM::VSLAM(map *Map, Rosbee *rosbee,Route* route, Lidar *lidar){
+VSLAM::VSLAM(map *Map, VirutalRosbee *rosbee, Route* route, Lidar *lidar){
     
     
     this->Map = Map;

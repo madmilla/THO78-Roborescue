@@ -1,7 +1,7 @@
 #include "StrategyController.h"
 
 
-StrategyController::StrategyController(map Map,QuadCopter copter,Rosbee rosbee,Lidar lidar):
+StrategyController::StrategyController(map Map, QuadCopter copter, VirutalRosbee rosbee, Lidar lidar) :
 copter{ copter },
 rosbee{ rosbee },
 Map{ Map },
