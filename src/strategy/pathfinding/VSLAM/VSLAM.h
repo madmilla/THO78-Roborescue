@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Container.h
+* @file VSLAM.h
 * @date Created: 6/21/2015
 * @version 1.0
 *
@@ -35,33 +35,73 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef CONTAINER_H
-#define CONTAINER_H
+#ifndef VSLAM_H
+#define VSLAM_H
 
-#include <vector>
 #include <iostream>
+#include <map.hpp>
+#include <Rosbee.h>
+#include <MapSearchNode.h>
 #include <Route.h>
+#include <mapLogicVSLAM.h>
+#include <Lidar.h>
 
-class Container
+class VSLAM
 {
 public:
 	/**
-	* @fn	static void setRouteTile(int x, int y){
-		route.setRouteTile(x, y);
-	}
+	* @fn	VSLAM(map *Map, Rosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, Lidar *lidar);
 	*
-	* @brief	Function to set the location in the vector of route.
-	*
-	* @param	int x	x value of the location.
-	* @param	int y	y value of the location.
+	* @brief	Constructor of the class VSLAM.
 	*/
-	static void setRouteTile(int x, int y){
-		route.setRouteTile(x, y);
-	}
+	VSLAM(map *Map, Rosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, Lidar *lidar);
+	/**
+	* @fn	~VSLAM();
+	*
+	* @brief	Destructor of the class VSLAM.
+	*/
+	~VSLAM();
+	/**
+	* @fn	void run();
+	*
+	* @brief	Function to start the scanning of the unknown area. The function is not recursive. Each time the funcion is 
+	* called the rosbee wil get a new destination from the function. 
+	*/
+    void run();
+	bool wholeRouteInRangeLidar();
+private:
+	/**
+	* @brief Map object.
+	*/
+    map *Map;
+	/**
+	* @brief rosbee object.
+	*/
+    Rosbee *rosbee;
+	/**
+	* @brief mapSearchNode object.
+	*/
+    MapSearchNode *mapSearchNode;
+	/**
+	* @brief MapLogicVSLAM object.
+	*/
+	mapLogicVSLAM *MapLogicVSLAM;
 	/**
 	* @brief route object.
 	*/
-	static Route route;
+    Route * route;
+	/**
+	* @brief lidar object.
+	*/
+	Lidar * lidar;
+	/**
+	* @brief int * newRosbeeLocation variable to store the new location of the rosbee.
+	*/
+	int * newRosbeeLocation;
+	/**
+	* @brief int * tileLocation variable to store a tile location.
+	*/
+	int * tileLocation;
 };
 
-#endif  //CONTAINER_H
+#endif // VSLAM_H
