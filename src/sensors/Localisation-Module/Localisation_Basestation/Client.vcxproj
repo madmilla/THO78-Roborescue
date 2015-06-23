@@ -66,14 +66,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LocalisationModule.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TCPClient.cpp" />
-    <ClCompile Include="XYReceiver.cpp" />
+    <ClCompile Include="VictimLocalisationModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="LocalisationModule.h" />
     <ClInclude Include="TCPClient.h" />
-    <ClInclude Include="XYReceiver.h" />
+    <ClInclude Include="VictimLocalisationModule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
