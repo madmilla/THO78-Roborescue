@@ -66,20 +66,20 @@ bool ShapeDetector::callCvSmooth(const Mat & m_src, const Mat & m_dest, const in
 }
 
 Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
-	source.rotate(90); //by converting the image from x/y as to only positive values the image will be rotated with -90 degrees, to get the original image we rotate with 90
 	int minX = source.getMinValues().X;
 	int minY = source.getMinValues().Y;
+
 	size_t imageHeight = source.getCloudHeight();
-	size_t imageWidth = source.getCloudWidth();
-	Mat mat((int)(imageWidth / DEVIDEIMAGESIZE), (int)(imageHeight / DEVIDEIMAGESIZE) , CV_8UC1); //Create a Mat object which will represent the image with all the pixels
+	size_t imageWidth = source.getCloudWidth();		
+	Mat mat((int)(imageHeight / DEVIDEIMAGESIZE), (int)(imageWidth / DEVIDEIMAGESIZE), CV_8U); //Create a Mat object which will represent the image with all the pixels
 	for (Pointcloud::Point p : *source.getPoints()){
-		mat.at<uchar>(Point( (int) ((p.Y + abs(minY)) / DEVIDEIMAGESIZE), (int)((p.X + abs(minX)) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
+		mat.at<uchar>(Point( (int) ((p.X + abs(minX)) / DEVIDEIMAGESIZE), (int)( ((p.Y + abs(minY) )) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
 	}
 	imwrite("ScanImage.jpg", mat); // save the 
 	Mat image(imread("ScanImage.jpg")); //read and return the image
 	return image;
 }
-void ShapeDetector::removeLines(std::vector<Line> & lines){
+void ShapeDetector::removeLines(std::vector<Line> & lines){ 
 	for(int i = 0; i < lines.size(); ++i){
 		int vectorPosition = 0;
 		for (auto it = lines.begin(); it != lines.end();){
@@ -178,6 +178,7 @@ void ShapeDetector::writeLinesToConsole(const vector<Line> & lines){
 }
 
 void ShapeDetector::drawLines(const std::vector<Line> lines, Mat & final_dest, Line::Point lidarPoint) {
+	std::cout << lidarPoint << "\t LIDARPOINT\n";
 	if (lidarPoint.x != 0){
 		line(final_dest, Point(lidarPoint.x - 10, lidarPoint.y), Point(lidarPoint.x + 10, lidarPoint.y), LIDAR_MARK_COLOR, LINE_THICKNESS, CV_AA); //Draw lidarPoint position
 		line(final_dest, Point(lidarPoint.x, lidarPoint.y - 10), Point(lidarPoint.x, lidarPoint.y + 10), LIDAR_MARK_COLOR, LINE_THICKNESS, CV_AA);//Draw lidarPoint position

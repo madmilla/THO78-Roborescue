@@ -39,8 +39,9 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
 
-#include "../LineClass/Line.h" 
+#include "Line.h" 
 #include <vector>
+#include <math.h>
 
 class Line;
 
