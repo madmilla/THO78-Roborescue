@@ -2,36 +2,31 @@
 
 class ImageProvider{
 public:
-	enum ImageType{
+	enum class ImageType{
 		CIMG,
 		OPENCV
-	}
-	
-	class[] ImageClasses{
-		CIMG = cimg_library::CImg<unsigned char>* ,
-		OPENCV = nullptr
-	}
+	};
 	
 	template <typename imgType>
-	void provideImage<imgType>(imgType image, ImageType imageType){
-		switch imageType{
-			case CIMG:
+	void provideImage(imgType image, ImageType imageType){
+		switch (imageType){
+			case ImageType::CIMG:
 				provideImageCImg(static_cast<cimg_library::CImg<unsigned char>*>(image));
 			break;
-			case OPENCV:
+			case ImageType::OPENCV:
 				int zero = 0;
 				int a = 1 / zero;
 			break;
 		}
 	}
 	
-	template <typeNamge imgType>
-	imgType requestImage<imgType>(ImageType imageType){
-		switch imageType{
-			case CIMG:
+	template <typename imgType>
+	imgType requestImage(ImageType imageType){
+		switch (imageType){
+			case ImageType::CIMG:
 				return requestImageCImg();
 			break;
-			case OPENCV:
+			case ImageType::OPENCV:
 				int zero = 0;
 				return 1 / zero;
 			break;
@@ -44,9 +39,9 @@ private:
 		this->cImg = cImg;
 	}
 	
-	cimg_library::CImg<unsigned char>* cImg requestImageCImg(){
+	cimg_library::CImg<unsigned char>* requestImageCImg(){
 		return cImg;
 	}
 	
 	cimg_library::CImg<unsigned char>* cImg = nullptr;
-}
+};
