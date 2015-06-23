@@ -1,6 +1,6 @@
 // MESSAGE rosbee_message PACKING
 
-#define MAVLINK_MSG_ID_rosbee_message 0
+#define MAVLINK_MSG_ID_rosbee_message 194
 
 typedef struct __mavlink_rosbee_message_t
 {
@@ -10,10 +10,10 @@ typedef struct __mavlink_rosbee_message_t
 } mavlink_rosbee_message_t;
 
 #define MAVLINK_MSG_ID_rosbee_message_LEN 10
-#define MAVLINK_MSG_ID_0_LEN 10
+#define MAVLINK_MSG_ID_194_LEN 10
 
 #define MAVLINK_MSG_ID_rosbee_message_CRC 67
-#define MAVLINK_MSG_ID_0_CRC 67
+#define MAVLINK_MSG_ID_194_CRC 67
 
 
 

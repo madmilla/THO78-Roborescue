@@ -1,28 +1,28 @@
 // MESSAGE lidar_message PACKING
 
-#define MAVLINK_MSG_ID_lidar_message 1
+#define MAVLINK_MSG_ID_lidar_message 195
 
 typedef struct __mavlink_lidar_message_t
 {
- int32_t Payload[5]; ///< Payload
+ int32_t Payload[4]; ///< Payload
  uint8_t Destination; ///< Device ID
  uint8_t Function; ///< Name of the function
 } mavlink_lidar_message_t;
 
-#define MAVLINK_MSG_ID_lidar_message_LEN 22
-#define MAVLINK_MSG_ID_1_LEN 22
+#define MAVLINK_MSG_ID_lidar_message_LEN 18
+#define MAVLINK_MSG_ID_195_LEN 18
 
-#define MAVLINK_MSG_ID_lidar_message_CRC 159
-#define MAVLINK_MSG_ID_1_CRC 159
+#define MAVLINK_MSG_ID_lidar_message_CRC 253
+#define MAVLINK_MSG_ID_195_CRC 253
 
-#define MAVLINK_MSG_lidar_message_FIELD_PAYLOAD_LEN 5
+#define MAVLINK_MSG_lidar_message_FIELD_PAYLOAD_LEN 4
 
 #define MAVLINK_MESSAGE_INFO_lidar_message { \
 	"lidar_message", \
 	3, \
-	{  { "Payload", NULL, MAVLINK_TYPE_INT32_T, 5, 0, offsetof(mavlink_lidar_message_t, Payload) }, \
-         { "Destination", NULL, MAVLINK_TYPE_UINT8_T, 0, 20, offsetof(mavlink_lidar_message_t, Destination) }, \
-         { "Function", NULL, MAVLINK_TYPE_UINT8_T, 0, 21, offsetof(mavlink_lidar_message_t, Function) }, \
+	{  { "Payload", NULL, MAVLINK_TYPE_INT32_T, 4, 0, offsetof(mavlink_lidar_message_t, Payload) }, \
+         { "Destination", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_lidar_message_t, Destination) }, \
+         { "Function", NULL, MAVLINK_TYPE_UINT8_T, 0, 17, offsetof(mavlink_lidar_message_t, Function) }, \
          } \
 }
 
@@ -43,15 +43,15 @@ static inline uint16_t mavlink_msg_lidar_message_pack(uint8_t system_id, uint8_t
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_lidar_message_LEN];
-	_mav_put_uint8_t(buf, 20, Destination);
-	_mav_put_uint8_t(buf, 21, Function);
-	_mav_put_int32_t_array(buf, 0, Payload, 5);
+	_mav_put_uint8_t(buf, 16, Destination);
+	_mav_put_uint8_t(buf, 17, Function);
+	_mav_put_int32_t_array(buf, 0, Payload, 4);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_lidar_message_LEN);
 #else
 	mavlink_lidar_message_t packet;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	mav_array_memcpy(packet.Payload, Payload, sizeof(int32_t)*5);
+	mav_array_memcpy(packet.Payload, Payload, sizeof(int32_t)*4);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_lidar_message_LEN);
 #endif
 
@@ -80,15 +80,15 @@ static inline uint16_t mavlink_msg_lidar_message_pack_chan(uint8_t system_id, ui
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_lidar_message_LEN];
-	_mav_put_uint8_t(buf, 20, Destination);
-	_mav_put_uint8_t(buf, 21, Function);
-	_mav_put_int32_t_array(buf, 0, Payload, 5);
+	_mav_put_uint8_t(buf, 16, Destination);
+	_mav_put_uint8_t(buf, 17, Function);
+	_mav_put_int32_t_array(buf, 0, Payload, 4);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_lidar_message_LEN);
 #else
 	mavlink_lidar_message_t packet;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	mav_array_memcpy(packet.Payload, Payload, sizeof(int32_t)*5);
+	mav_array_memcpy(packet.Payload, Payload, sizeof(int32_t)*4);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_lidar_message_LEN);
 #endif
 
@@ -141,9 +141,9 @@ static inline void mavlink_msg_lidar_message_send(mavlink_channel_t chan, const 
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char buf[MAVLINK_MSG_ID_lidar_message_LEN];
-	_mav_put_uint8_t(buf, 20, Destination);
-	_mav_put_uint8_t(buf, 21, Function);
-	_mav_put_int32_t_array(buf, 0, Payload, 5);
+	_mav_put_uint8_t(buf, 16, Destination);
+	_mav_put_uint8_t(buf, 17, Function);
+	_mav_put_int32_t_array(buf, 0, Payload, 4);
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_lidar_message, buf, MAVLINK_MSG_ID_lidar_message_LEN, MAVLINK_MSG_ID_lidar_message_CRC);
 #else
@@ -153,7 +153,7 @@ static inline void mavlink_msg_lidar_message_send(mavlink_channel_t chan, const 
 	mavlink_lidar_message_t packet;
 	packet.Destination = Destination;
 	packet.Function = Function;
-	mav_array_memcpy(packet.Payload, Payload, sizeof(int32_t)*5);
+	mav_array_memcpy(packet.Payload, Payload, sizeof(int32_t)*4);
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_lidar_message, (const char *)&packet, MAVLINK_MSG_ID_lidar_message_LEN, MAVLINK_MSG_ID_lidar_message_CRC);
 #else
@@ -174,9 +174,9 @@ static inline void mavlink_msg_lidar_message_send_buf(mavlink_message_t *msgbuf,
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
 	char *buf = (char *)msgbuf;
-	_mav_put_uint8_t(buf, 20, Destination);
-	_mav_put_uint8_t(buf, 21, Function);
-	_mav_put_int32_t_array(buf, 0, Payload, 5);
+	_mav_put_uint8_t(buf, 16, Destination);
+	_mav_put_uint8_t(buf, 17, Function);
+	_mav_put_int32_t_array(buf, 0, Payload, 4);
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_lidar_message, buf, MAVLINK_MSG_ID_lidar_message_LEN, MAVLINK_MSG_ID_lidar_message_CRC);
 #else
@@ -186,7 +186,7 @@ static inline void mavlink_msg_lidar_message_send_buf(mavlink_message_t *msgbuf,
 	mavlink_lidar_message_t *packet = (mavlink_lidar_message_t *)msgbuf;
 	packet->Destination = Destination;
 	packet->Function = Function;
-	mav_array_memcpy(packet->Payload, Payload, sizeof(int32_t)*5);
+	mav_array_memcpy(packet->Payload, Payload, sizeof(int32_t)*4);
 #if MAVLINK_CRC_EXTRA
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_lidar_message, (const char *)packet, MAVLINK_MSG_ID_lidar_message_LEN, MAVLINK_MSG_ID_lidar_message_CRC);
 #else
@@ -208,7 +208,7 @@ static inline void mavlink_msg_lidar_message_send_buf(mavlink_message_t *msgbuf,
  */
 static inline uint16_t mavlink_msg_lidar_message_get_Payload(const mavlink_message_t* msg, int32_t *Payload)
 {
-	return _MAV_RETURN_int32_t_array(msg, Payload, 5,  0);
+	return _MAV_RETURN_int32_t_array(msg, Payload, 4,  0);
 }
 
 /**
@@ -218,7 +218,7 @@ static inline uint16_t mavlink_msg_lidar_message_get_Payload(const mavlink_messa
  */
 static inline uint8_t mavlink_msg_lidar_message_get_Destination(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_uint8_t(msg,  20);
+	return _MAV_RETURN_uint8_t(msg,  16);
 }
 
 /**
@@ -228,7 +228,7 @@ static inline uint8_t mavlink_msg_lidar_message_get_Destination(const mavlink_me
  */
 static inline uint8_t mavlink_msg_lidar_message_get_Function(const mavlink_message_t* msg)
 {
-	return _MAV_RETURN_uint8_t(msg,  21);
+	return _MAV_RETURN_uint8_t(msg,  17);
 }
 
 /**
