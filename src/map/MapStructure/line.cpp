@@ -1,4 +1,5 @@
 #include "line.hpp"
+line::line(){}
 
 line::line(point mP1, point mP2)
 {

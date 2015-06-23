@@ -8,6 +8,7 @@ public:
     //! Constructor of the point
     //! @param The X-value of the point
     //! @param The Y-value of the point
+	point();
     point ( int mX, int mY );
     ~point();
 

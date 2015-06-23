@@ -1,4 +1,5 @@
 #include "point.hpp"
+point::point(){}
 
 point::point ( int mX, int mY ) {
     x = mX;

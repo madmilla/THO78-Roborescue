@@ -76,6 +76,7 @@
     <ClCompile Include="..\..\..\src\strategy\Common\route.cpp" />
     <ClCompile Include="..\..\..\src\strategy\Common\waypoint.cpp" />
     <ClCompile Include="..\..\..\src\strategy\pathfinding\AStar Algorithm\aStar.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>

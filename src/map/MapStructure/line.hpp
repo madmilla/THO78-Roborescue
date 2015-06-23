@@ -10,6 +10,7 @@ public:
     //! Constructor of the line
     //! @param The starting point of the line
     //! @param The ending point of the line
+	line();
     line(point mP1, point mP2);
     ~line();
 
