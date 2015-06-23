@@ -1,0 +1,26 @@
+Rosbee.cpp
+Qik.cpp
+Qik.h
+Mutex.cpp
+Mutex.h
+Channel.h
+Sirc.cpp
+Sirc.h
+ultrasonicsensor.cpp
+ultrasonicsensor.h
+Encoder.cpp
+Encoder.h
+ParallaxPropellerProtocol.h
+Uart.cpp
+Uart.h
+temperaturesensor.cpp
+temperaturesensor.h
+>compiler=C++
+>memtype=lmm main ram
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>-fno-rtti
+>defs::-std=gnu++0x
+>-ltiny
+>BOARD::QUICKSTART
