@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file mapLogicVSLAM.h
+* @file Container.h
 * @date Created: 6/21/2015
 * @version 1.0
 *
@@ -35,63 +35,33 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef MAPLOGICVSLAM_H
-#define MAPLOGICVSLAM_H
+#ifndef CONTAINER_H
+#define CONTAINER_H
 
-#include "../../../map/MapStructure/map.hpp"
-#include "../../Common/Rosbee.h"
-#include "../../Common/lidar.h"
+#include <vector>
+#include <iostream>
+#include "../../common/Route.h""
 
-class mapLogicVSLAM
+class Container
 {
 public:
 	/**
-	* @fn	mapLogicVSLAM(map * Map, Rosbee * rosbee, Lidar * lidar);
+	* @fn	static void setRouteTile(int x, int y){
+		route.setRouteTile(x, y);
+	}
 	*
-	* @brief	Constructor of the class mapLogicVSLAM.
-	*/
-	mapLogicVSLAM(map * Map, Rosbee * rosbee, Lidar * lidar);
-	/**
-	* @fn	~mapLogicVSLAM();
+	* @brief	Function to set the location in the vector of route.
 	*
-	* @brief	Destructor of the class mapLogicVSLAM.
+	* @param	int x	x value of the location.
+	* @param	int y	y value of the location.
 	*/
-	~mapLogicVSLAM();
+	static void setRouteTile(int x, int y){
+		route.setRouteTile(x, y);
+	}
 	/**
-	* @fn	void setTilesInRangeLidar();
-	*
-	* @brief	Function to set the tiles in range of the LIDAR.
+	* @brief route object.
 	*/
-	void setTilesInRangeLidar();
-	/**
-	* @fn	int * getUnscannedTile();
-	*
-	* @brief	Function that returns the x and y of a unscanned tile in the map.
-	*
-	* @return	int * with the x and y of the unscanned tile in the map.
-	*			x = tileLocation[0] and y = tileLocation[1].
-	*/
-	int * getUnscannedTile();
-	/**
-	* @fn	bool isMapFullyScanned();
-	*
-	* @brief	Function that checks if the map is fully scanned and returns the value.
-	*
-	* @return	bool true of false if the map is fully scanned.
-	*/
-	bool isMapFullyScanned();
-	/**
-	* @brief Map object.
-	*/
-	map * Map;
-	/**
-	* @brief rosbee object.
-	*/
-	Rosbee * rosbee;
-	/**
-	* @brief lidar object.
-	*/
-	Lidar * lidar;
+	static Route route;
 };
 
-#endif // MAPLOGICVSLAM_H
+#endif  //CONTAINER_H
