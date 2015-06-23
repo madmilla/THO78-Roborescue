@@ -1,6 +1,0 @@
-In file included from ../../../deps/incl/communication/udp/PracticalSocket.cpp:20:0:
-../../../deps/incl/communication/udp/PracticalSocket.h:29:76: fatal error: sys/socket.h: No such file or directory
- #include <sys/socket.h>      // For socket(), connect(), send(), and recv()
-                                                                            ^
-compilation terminated.
-make: *** [../../../deps/incl/communication/udp/practicalsocket.o] Error 1

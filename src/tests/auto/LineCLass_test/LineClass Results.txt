@@ -1,2 +1,0 @@
-checks the line begin position and end position are correct: succes
-checks the changed line begin position and end position are correct: succes
