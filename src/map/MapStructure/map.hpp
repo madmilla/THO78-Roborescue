@@ -7,7 +7,7 @@
 #include <vector>
 #include "../polygon.h"
 #include "../../strategy/Common/QuadCopter.h"
-#include "../../strategy/Common/Rosbee.h"
+#include "../../strategy/Common/VirutalRosbee.h"
 #include "../../strategy/Common/ATV.h"
 #include "../../strategy/pathfinding/Stop-them-spaces/aStar.h"
 #include "mapImplementation.hpp"

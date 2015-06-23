@@ -40,7 +40,7 @@
 
 #include <iostream>
 #include "../../../map/MapStructure/map.hpp"
-#include "../../Common/Rosbee.h"
+#include "../../Common/VirutalRosbee.h"
 #include "mapLogicVSLAM.h"
 #include "../../Common/route.h"
 #include "../AStar/MapSearchNode.h"

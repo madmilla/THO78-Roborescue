@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include "../../../map/mapstructure/map.hpp"
-#include "../../Common/Rosbee.h"
+#include "../../Common/VirutalRosbee.h"
 #include "../AStar/MapSearchNode.h"
 #include "../../Common/route.h"
 #include "mapLogicVSLAM.h"

@@ -45,9 +45,6 @@
     <ClCompile Include="..\..\strategy\Common\QuadCopter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\strategy\Common\Rosbee.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\strategy\Common\route.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\strategy\Common\VirutalRosbee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -108,9 +108,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\strategy\Common\QuadCopter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\strategy\Common\Rosbee.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\strategy\Common\route.h">
@@ -150,6 +147,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\strategy\Common\VirutalRosbee.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
