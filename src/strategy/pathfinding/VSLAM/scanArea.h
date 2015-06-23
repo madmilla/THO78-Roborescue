@@ -8,12 +8,12 @@
 #define SCANAREA_H
 
 #include <iostream>
-#include <map.hpp>
-#include <Rosbee.h>
-#include <MapSearchNode.h>
-#include <Route.h>
-#include <mapLogicVSLAM.h>
-#include <Lidar.h>
+#include "../../../map/mapstructure/map.hpp"
+#include "../../Common/Rosbee.h"
+#include "../AStar/MapSearchNode.h"
+#include "../../Common/route.h"
+#include "mapLogicVSLAM.h"
+#include "../../Common/Lidar.h"
 
 
 class scanArea
