@@ -40,7 +40,7 @@
 #ifndef __SOCKET__
 #define __SOCKET__
 #include <queue>
-#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "roborescueV1/mavlink.h"
 class UDPServer;
 
 /// author@ Rene Keijzer<rene.keijzer@student.hu.nl>

@@ -1,6 +1,6 @@
-QT_LIB_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/lib
-QT_INCL_DIR 					= D:/Qt/Qt5.4.2/5.4/mingw491_32/include
-QT_BIN_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/bin
+QT_LIB_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/lib
+QT_INCL_DIR 					= C:/Qt/Qt5.4.2/5.4/mingw491_32/include
+QT_BIN_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/bin
 BOOST_LIB_DIR 					= C:/Boost/boost_1_58_0/stage/lib
 BOOST_INCL_DIR 					= C:/Boost/boost_1_58_0
 
@@ -8,7 +8,7 @@ CXX 							= g++
 CXXFLAGS						= -std=c++11
 LDFLAGS							= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
 INCLUDES 						= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR) -IDeps/incl/mavlink
-LDLIBS							= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5OpenGL
+LDLIBS							= -lQt5Core -lQt5Widgets -lQt5Gui -lpthread
 SRC 							= 
 UI 								= 
 UI_HEADERS						=
@@ -68,8 +68,7 @@ ROBORESCUE_MISSION1			   += $(SERIAL_PORT_MODULE)
 ROBORESCUE_MISSION1			   += $(UDP_MODULE)
 ROBORESCUE_MISSION1			   += $(ROSBEE_LOCAL_MODULE)
 ROBORESCUE_MISSION1			   += $(LIDAR_BASESTATION_MODULE)
-ROBORESCUE_MISSION1			   += $(MAP_GUI_MODULE)
-ROBORESCUE_MISSION1			   += $(DONAHOO_LIB)
+#ROBORESCUE_MISSION1			   += $(MAP_GUI_MODULE)
 
 #LOCALISATION MODULES
 ROBORESCUE_LOCALISATION_MODULE  = $(PX4FLOW_MODULE)

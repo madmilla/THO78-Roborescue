@@ -45,7 +45,7 @@
 #include "Socket.h"
 #include "Connection.h"
 #include "UDPServer.h"
-#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "roborescueV1/mavlink.h"
 #include <iostream>
 
 class CPIUDPSocket : public CPISocket

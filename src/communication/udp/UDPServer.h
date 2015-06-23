@@ -51,8 +51,8 @@
 #include "UDPSocket.h"
 #include "RobotManager.h"
 
-#include "udp_mavlink_commands/mavlink.h"
-#include "PracticalSocket.h"
+#include "roborescueV1/mavlink.h"
+//#include "PracticalSocket.h"
 
 //#pragma comment(lib,"ws2_32.lib")
 
@@ -93,7 +93,7 @@ public:
 	void printCon();
 private:
 
-	UDPSocket  * udpsock = nullptr;
+	//UDPSocket  * udpsock = nullptr;
 
 	std::string sourceAddress;             // Address of datagram source
 	unsigned short sourcePort;// Port of datagram source

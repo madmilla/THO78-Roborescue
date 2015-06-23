@@ -20,7 +20,7 @@
 #ifndef __PRACTICALSOCKET_INCLUDED__
 #define __PRACTICALSOCKET_INCLUDED__
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <winsock2.h>        // For socket(), connect(), send(), and recv()
 #include <ws2tcpip.h>
 

@@ -5,7 +5,7 @@
 	#include "SerialPortWindows.h"
 #endif
 #ifdef linux
-	#include "SerialPortLinux.h"
+	//#include "SerialPortLinux.h"
 #endif
 
 SerialPort::SerialPort(int port, std::string& address)
@@ -19,7 +19,7 @@ SerialPort::SerialPort(const char* device)
 	serialDevice = new SerialPortWindows(device);
 #endif
 #ifdef linux
-	serialDevice = new SerialPortLinux(device);
+	//serialDevice = new SerialPortLinux(device);
 #endif
 }
 

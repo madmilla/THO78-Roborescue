@@ -23,7 +23,7 @@
 #include <signal.h>  //added
 using namespace std;
 
-#ifdef WIN32
+#ifdef _WIN32
 static bool initialized = false;
 #endif
 
@@ -205,7 +205,7 @@ vector<SocketAddress> SocketAddress::lookupAddresses(const char *host,
 ///////////////////////////////////////////////////////////////////////////////
 
 Socket::Socket() {
-#ifdef WIN32
+#ifdef _WIN32
   if (!initialized) {
     WORD wVersionRequested;
     WSADATA wsaData;
@@ -229,7 +229,7 @@ Socket::~Socket() {
 }
 
 void Socket::cleanUp() throw(SocketException) {
-#ifdef WIN32
+#ifdef _WIN32
   if (WSACleanup() != 0) {
     throw SocketException("WSACleanup() failed", "Unable to clean up Winsock DLL");
   }
@@ -248,7 +248,7 @@ SocketAddress Socket::getLocalAddress() throw(SocketException) {
 }
 
 void Socket::close() {
-#ifdef WIN32
+#ifdef _WIN32
   ::closesocket(sockDesc);
 #else
   shutdown(sockDesc,SHUT_RD);
@@ -608,7 +608,7 @@ void UDPSocket::disconnect() throw(SocketException) {
 
   // Try to disconnect
   if (::connect(sockDesc, (sockaddr *) &nullAddr, sizeof(nullAddr)) < 0) {
-#ifdef WIN32
+#ifdef _WIN32
     if (errno != WSAEAFNOSUPPORT) {
 #else
     if (errno != EAFNOSUPPORT) {

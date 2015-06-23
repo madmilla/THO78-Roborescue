@@ -51,7 +51,7 @@
 #ifndef _ATV_H
 #define _ATV_H
 
-#include "ardupilotmega/mavlink.h"
+#include "roborescueV1/mavlink.h"
 #include "MAVLinkExchanger.h"
 #include "PrioritisedMAVLinkMessage.h"
 

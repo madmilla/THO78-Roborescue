@@ -12,12 +12,12 @@ UDPServer::UDPServer(RobotManager & manager) : manager(manager){
 	}
 
 void UDPServer::init(){
-	udpsock = new UDPSocket(8888);
+	//udpsock = new UDPSocket(8888);
 	std::cout << "Initialized socket at: \t 8888" << std::endl;
 }
 
 void UDPServer::start(){
-	try {
+	/*try {
 		while (!stopped) {
 			try{
 				std::cout << "Waiting for message..." << std::endl;
@@ -31,9 +31,9 @@ void UDPServer::start(){
 		}
 	}
 	catch (SocketException &e) {
-		cerr << e.what() << endl;
+		std::cerr << e.what() << std::endl;
 		exit(1);
-	}
+	}*/
 
    std::this_thread::yield();
 }
@@ -55,11 +55,11 @@ void UDPServer::broadcast(mavlink_message_t * message){
 }
 
 void UDPServer::send(CPIUDPSocket * socket, mavlink_message_t * message){
-	udpsock->sendTo(message, sizeof(mavlink_message_t), socket->con.sockaddr, socket->con.port);
+	//udpsock->sendTo(message, sizeof(mavlink_message_t), socket->con.sockaddr, socket->con.port);
 }
 
 void UDPServer::receive(mavlink_message_t * message){
-	auto data = udpsock->recvFrom(&msg, sizeof(mavlink_message_t), sourceAddress, sourcePort);
+	//auto data = udpsock->recvFrom(&msg, sizeof(mavlink_message_t), sourceAddress, sourcePort);
 	recv++;
 }
 
@@ -80,7 +80,7 @@ void UDPServer::addConnection(std::string con,unsigned short port, mavlink_messa
 	   }
 	}
    if (!found){
-      mavlink_msg_ralcp_decode(msg, &packet);
+      /*mavlink_msg_ralcp_decode(msg, &packet);
       Connection connect = Connection(ConId, Connection::UNKNOWN, con,port);
       ConId++;
       Connection::Identifier des = Connection::UNKNOWN;
@@ -102,7 +102,7 @@ void UDPServer::addConnection(std::string con,unsigned short port, mavlink_messa
 
       _connections.push_back(sock);
       sock->receive(msg);
-      printCon();
+      printCon();*/
 	}
 }
 
