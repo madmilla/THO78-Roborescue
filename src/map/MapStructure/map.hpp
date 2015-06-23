@@ -9,7 +9,7 @@
 #include "../../strategy/Common/QuadCopter.h"
 #include "../../strategy/Common/Rosbee.h"
 #include "../../strategy/Common/ATV.h"
-#include "../../strategy/pathfinding/Stop-them-spaces/aStar.h"
+//#include "../../strategy/pathfinding/Stop-them-spaces/aStar.h"
 #include "mapImplementation.hpp"
 #include <cmath>
 
@@ -92,13 +92,13 @@ public:
 	//! @param The y coördinate of the starting point
 	//! @param The x coördinate of the destination
 	//! @param The y coördinate of the destination
-	bool isReachable(int x, int y, int x1, int y1);
+	//bool isReachable(int x, int y, int x1, int y1);
 
 	//! Check if a destination is accessible from a location
 	//! If the destination is not reachable it will be set unaccessible in the grid.
 	//! @param The x coördinate of the starting point
 	//! @param The y coördinate of the starting point
-	bool isReachable(point p, point p1);
+	//bool isReachable(point p, point p1);
 
 	//!
 	void setScale(int x);
