@@ -106,7 +106,7 @@ private:
 	bool stopped = false;
 	RobotManager & manager;
 	mavlink_message_t msg;
-	mavlink_ralcp_t packet;
+	//mavlink_ralcp_t packet;
 	
 	std::vector<CPIUDPSocket*> _connections;
 	int ConId = 0;

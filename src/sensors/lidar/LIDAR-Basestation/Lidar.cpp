@@ -2,7 +2,7 @@
 
 Lidar::Lidar(CPIUDPSocket * s) : sock(s){
 
-	encoder = new RALCPEncoder(s, s->getId(), 0, 0, 0);
+	//encoder = new RALCPEncoder(s, s->getId(), 0, 0, 0);
 	outgoing = new MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>>();
 	start();
 }
@@ -14,7 +14,7 @@ void Lidar::run(){
 
 		if (outgoing->size() > 0){
 			auto pair = outgoing->pop();
-			encoder->send(COMMAND_DESTINATION::LIDAR, pair.first, pair.second);
+			//encoder->send(COMMAND_DESTINATION::LIDAR, pair.first, pair.second);
 			std::cout << "Send message!" << std::endl;
 		}
 		if (sock->incomming->size() > 0){

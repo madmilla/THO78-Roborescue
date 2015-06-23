@@ -20,7 +20,7 @@ protected:
 	virtual int getId() = 0;
 	CPIUDPSocket * sock;
 	mavlink_message_t message;
-	mavlink_ralcp_t packet;
+	//mavlink_ralcp_t packet;
 	RALCPEncoder * encoder;
 };
 #endif

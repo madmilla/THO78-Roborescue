@@ -46,7 +46,7 @@
 #include "udp_mavlink_commands/mavlink.h"
 #include "UDPSocket.h"
 #include "MessageQueue.h"
-#include "RALCPEncoder.h"
+//#include "RALCPEncoder.h"
 class CPIUDPSocket;
 class Lidar : public CPIBoundaryObject
 {
@@ -92,7 +92,10 @@ public:
 	void abort();
 	int getId() override;
 
-	~Lidar(){ delete encoder; }
+	~Lidar()
+{ 
+//delete encoder; 
+}
 
 private:
 
@@ -100,8 +103,8 @@ private:
 	friend class RobotManager;
 	CPIUDPSocket * sock;
 	mavlink_message_t message;
-	mavlink_ralcp_t packet;
-	RALCPEncoder * encoder;
+	//mavlink_ralcp_t packet;
+	//RALCPEncoder * encoder;
 
 	bool running = false;
 	MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>> * outgoing;

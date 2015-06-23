@@ -42,7 +42,7 @@
 #define __RALCPENCODER__
 #include "Socket.h"
 #include <iostream>
-#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "udp_mavlink_commands/mavlink.h"
 
 /// \class@ RALCPEncoder
 /// \brief The RALCPencoder functions as T section between the lidar and the rosbee for communication
@@ -61,7 +61,7 @@ public:
 	~RALCPEncoder(){}
 private:
 	mavlink_message_t msg;
-	mavlink_ralcp_t packet;
+	//mavlink_ralcp_t packet;
 	CPISocket * socket;
 	
 	int SYSTEMID;
