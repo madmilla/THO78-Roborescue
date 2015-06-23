@@ -67,13 +67,13 @@ public:
 	QuadcopterController(Quadcopter& quadcopter, LocalisationModule& locMod);
 	/**
 	* setTarget sets a target destination
-	* @param coordinate target 
+	* @param target a target coordinate
 	* @param targetHeight a float used for indicating the target height
 	*/
 	void setTarget(coordinate target, float targetHeight);
 	/**
 	* setPosition sets the latest registered position as position
-	*
+	* gets the position from the localisation-module
 	*/
 	void setPosition();
 	/**
