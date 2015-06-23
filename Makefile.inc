@@ -1,6 +1,6 @@
-QT_LIB_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/lib
-QT_INCL_DIR 					= D:/Qt/Qt5.4.2/5.4/mingw491_32/include
-QT_BIN_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/bin
+QT_LIB_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/lib
+QT_INCL_DIR 					= C:/Qt/Qt5.4.2/5.4/mingw491_32/include
+QT_BIN_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/bin
 ifeq ($(OS),Windows_NT)
 	BOOST_LIB_DIR 					= C:/Boost/boost_1_58_0/stage/lib
 	BOOST_INCL_DIR 					= C:/Boost/boost_1_58_0
