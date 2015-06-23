@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -37,9 +37,9 @@
 
 #include "simulatemapwindow.h"
 #include "ui_simulatemapwindow.h"
-#include <QMouseEvent>
-#include <QFileDialog>
-#include <QTextEdit>
+#include <QtGUI/QMouseEvent>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QTextEdit>
 
 SimulateMapWindow::SimulateMapWindow(Map *map, QWidget *parent) :
     QWidget(parent),

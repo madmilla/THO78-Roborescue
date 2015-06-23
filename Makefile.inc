@@ -20,12 +20,12 @@ ifeq ($(MAKECMDGOALS),mission1)
 		LDFLAGS += -L$(QT_LIB_DIR)
 		MOC	= $(QT_BIN_DIR)/moc.exe
 		UIC	= $(QT_BIN_DIR)/uic.exe
-		include TargetMakefiles/Makefile.basestation
 		INCLUDES 	+= -I$(QT_INCL_DIR)
+		include TargetMakefiles/Makefile.basestation
 	endif
 endif
 ifeq ($(MAKECMDGOALS),localisationmodule)
-	ifneq ($(OS),linux)
+	ifeq ($(OS),Windows_NT)
 		@echo "Localisation-module cannot be compiled on Windows systems"
 		exit 1
 	else
@@ -36,7 +36,7 @@ ifeq ($(MAKECMDGOALS),localisationmodule)
 	endif
 endif
 ifeq ($(MAKECMDGOALS),lidar)
-	ifneq ($(OS),linux)
+	ifeq ($(OS),Windows_NT)
 		@echo "LIDAR cannot be compiled on Windows systems"
 		exit 1
 	else
@@ -46,13 +46,26 @@ ifeq ($(MAKECMDGOALS),lidar)
 	endif
 endif
 ifeq ($(MAKECMDGOALS),rosbee)
-	ifneq ($(OS),linux)
+	ifeq ($(OS),Windows_NT))
 		@echo "Rosbee cannot be compiled on Windows systems"
 		exit 1
 	else
 		LDLIBS +=
 		LDFLAGS += 
 		include TargetMakefiles/Makefile.rosbee
+	endif
+endif
+ifeq ($(MAKECMDGOALS),environmentsimulator)
+	ifneq ($(OS),Windows_NT)
+		@echo "The Environment-simulator is currently not compatible with linux bases systems"
+		exit 1
+	else
+		LDLIBS += -lQt5Core -lQt5Widgets -lQt5Gui
+		LDFLAGS += -L$(QT_LIB_DIR)
+		MOC	= $(QT_BIN_DIR)/moc.exe
+		UIC	= $(QT_BIN_DIR)/uic.exe
+		INCLUDES 	+= -I$(QT_INCL_DIR)
+		include TargetMakefiles/Makefile.environmentsimulator
 	endif
 endif
 ifeq ($(MAKECMDGOALS),clean)

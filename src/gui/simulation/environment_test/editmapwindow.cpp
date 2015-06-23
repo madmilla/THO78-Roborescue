@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -38,8 +38,8 @@
 #include "editmapwindow.h"
 #include "ui_editmapwindow.h"
 #include "values.h"
-#include <QGraphicsRectItem>
-#include <QMouseEvent>
+#include <QtWidgets/QGraphicsRectItem>
+#include <QtGUI/QMouseEvent>
 #include <vector>
 #include <iostream>
 

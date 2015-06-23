@@ -15,6 +15,7 @@ ATV_GUI_MODULE 					= Src/GUI/mission-gui/ATV-gui/
 ROSBEE_GUI_MODULE 				= Src/GUI/mission-gui/rosbee-gui/
 LIDAR_GUI_MODULE 				= Src/GUI/mission-gui/lidar-gui/
 MAP_GUI_MODULE 					= Src/GUI/mission-gui/map-gui/
+ENVIRONMENTSIMULATOR_GUI_MODULE = Src/GUI/simulation/environment_test/
 
 #VEHICLES
 QUADCOPTER_MODULE				= Src/Vehicles/Quadcopter/
@@ -40,3 +41,4 @@ UDP_LINUX_MODULE				= Src/Communication/udp/Linux-UDP/
 #MODULES
 MISSION1_MODULE					= Src/Modules/Mission1/
 LOCALISATION_MODULE_MODULE		= Src/Modules/Localisationmodule/
+ENVIRONMENTSIMULATOR_MODULE		= Src/Modules/Environmentsimulator/

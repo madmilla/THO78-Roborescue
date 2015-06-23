@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -38,9 +38,9 @@
 #ifndef EDITMAPWINDOW_H
 #define EDITMAPWINDOW_H
 
-#include <QDialog>
-#include <QGraphicsView>
-#include <QGraphicsScene>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGraphicsScene>
 #include "map.h"
 #include "values.h"
 

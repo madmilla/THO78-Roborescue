@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -38,11 +38,11 @@
 #ifndef SIMULATEMAPWINDOW_H
 #define SIMULATEMAPWINDOW_H
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include <vector>
 #include <iostream>
-#include <QGraphicsView>
-#include <QGraphicsScene>
+#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGraphicsScene>
 #include "map.h"
 #include "simulatemap.h"
 #include "values.h"

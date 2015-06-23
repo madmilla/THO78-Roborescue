@@ -43,8 +43,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#define _USE_MATH_DEFINES
 #include <math.h>
-#define M_PI 3.14159265358979323846
 class Pointcloud{ //! a struct which will contain a single point
 public:
 	~Pointcloud(){
@@ -168,9 +168,9 @@ public:
 	Pointcloud operator+(Pointcloud &  b);
 	//! a operator to add a Pointcloud to another pointcloud
 	Pointcloud operator+=(Pointcloud & b);
-private:
 	Point offset;
-	std::vector<Point> * pointCloud; //! the vector which contains all the poins of the pointcloud
 	int orientation; //! the orientation of the pointcloud
+private:
+	std::vector<Point> * pointCloud; //! the vector which contains all the poins of the pointcloud
 };
 #endif 
