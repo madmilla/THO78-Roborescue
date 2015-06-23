@@ -69,9 +69,6 @@
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\Rosbee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\strategy\pathfinding\VSLAM\Route.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\strategy\pathfinding\AStar\MapSearchNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -123,9 +120,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\strategy\Common\waypoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\strategy\pathfinding\VSLAM\Route.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\scanArea.h">
