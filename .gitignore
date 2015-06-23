@@ -268,3 +268,4 @@ FakesAssemblies/
 *.stackdump
 
 *.png
+Makefile.local
