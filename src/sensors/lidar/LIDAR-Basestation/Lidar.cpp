@@ -2,8 +2,8 @@
 
 Lidar::Lidar(CPIUDPSocket * s) : sock(s){
 
-	encoder = new RALCPEncoder(s, s->getId(), 0, 0, 0);
-	outgoing = new MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint32_t[5]>>();
+	//encoder = new RALCPEncoder(s, s->getId(), 0, 0, 0);
+	outgoing = new MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>>();
 	start();
 }
 
@@ -14,7 +14,7 @@ void Lidar::run(){
 
 		if (outgoing->size() > 0){
 			auto pair = outgoing->pop();
-			encoder->send(COMMAND_DESTINATION::LIDAR, pair.first, pair.second);
+			//encoder->send(COMMAND_DESTINATION::LIDAR, pair.first, pair.second);
 			std::cout << "Send message!" << std::endl;
 		}
 		if (sock->incomming->size() > 0){
@@ -26,44 +26,35 @@ void Lidar::run(){
 }
 
 void Lidar::init(){
-	message[0] = 0;
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint32_t[5]>(LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT, message));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT, 0));
 }
 
 void Lidar::recieveLine(){
-	message[0] = 0;
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint32_t[5]>(LIDAR_COMMAND_FUNCTIONS::LINEDATA, message));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::LINEDATA, 0));
 }
 
 void Lidar::recieveRpm(){
-	message[0] = 0;
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint32_t[5]>(LIDAR_COMMAND_FUNCTIONS::RPM, message));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::RPM, 0));
 }
 
 void Lidar::Start(){
-	message[0] = 0;
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint32_t[5]>(LIDAR_COMMAND_FUNCTIONS::START, message));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::START, 0));
 }
 
 void Lidar::Stop(){
-	message[0] = 0;
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint32_t[5]>(LIDAR_COMMAND_FUNCTIONS::STOP, message));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::STOP, 0));
 }
 
-void Lidar::sendRosbeePositie(int x, int y){
-	message[0] = x;
-	message[1] = y;
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint32_t[5]>(LIDAR_COMMAND_FUNCTIONS::ROSBEEPOSITION, message));
+void Lidar::sendRosbeePositie(int postion){
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::ROSBEEPOSITION, postion));
 }
 
 void Lidar::sendRosbeeFlank(int degrees){
-	message[0] = degrees;
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint32_t[5]>(LIDAR_COMMAND_FUNCTIONS::ROSBEEFLANK, message));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::ROSBEEFLANK, degrees));
 }
 
 void Lidar::getDevice(uint8_t dev){
-	message[0] = dev;
-	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint32_t[5]>(LIDAR_COMMAND_FUNCTIONS::LIDAR_GETDEVICE, message));
+	outgoing->add(std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>(LIDAR_COMMAND_FUNCTIONS::LIDAR_GETDEVICE, uint64_t(dev << 54)));
 }
 
 int Lidar::getId(){
