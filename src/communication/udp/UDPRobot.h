@@ -2,7 +2,7 @@
 #include "UDPSocket.h"
 #include "RALCPEncoder.h"
 #include "MessageQueue.h"
-#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "roborescueV1/mavlink.h"
 
 #ifndef __UDPROBOT__
 #define __UDPROBOT__

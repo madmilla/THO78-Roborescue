@@ -6,15 +6,16 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file RALCPEncoder
-* @date Created: 27-5-2015
+* @file MainWindow.cpp
+* @date Created: 08-04-2015
+* @version 1.0
 *
-* @author Rene Keijzer
+* @author Danny Horvath, Thomas Fink
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,43 +35,66 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
-
-
-
-#ifndef __RALCPENCODER__
-#define __RALCPENCODER__
-#include "Socket.h"
+#include <QMainWindow>
+#include <QtCore>
+#include <QFileDialog>
+#include <QMessageBox>
 #include <iostream>
-#include "roborescueV1/mavlink.h"
+#include <QInputDialog>
+#include "map.h"
+#include "editmapwindow.h"
+#include "simulatemapwindow.h"
+#include "values.h"
+#include "PointCloud.h"
 
-/// \class@ RALCPEncoder
-/// \brief The RALCPencoder functions as T section between the lidar and the rosbee for communication
+namespace Ui {
+class MainWindow;
+}
 
-class RALCPEncoder{
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
 public:
-	RALCPEncoder(CPISocket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
-   /// \param@ Destination for the message to send to
-	/// \param@ The Rosbee communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	/// \param@ Destination for the message to send to
-	/// \param@ The Lidar communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	~RALCPEncoder(){}
+    /*!
+    *   Default constructor of mainWindow.
+    *   \brief Default constructor of mainWindow.
+    */
+    explicit MainWindow(QWidget *parent = 0);
+    /*!
+    *   Default destructor of mainWindow.
+    *   \brief Default destructor of mainWindow.
+    */
+    ~MainWindow();
+
+private slots:
+    //! Used when the NewMap button gets clicked
+    void on_newMapButton_clicked();
+    //! Used when the editMap button gets clicked
+    void on_editMapButton_clicked();
+    //! Used when the Simulate button gets clicked
+    void on_simulateButton_clicked();
+
 private:
-	mavlink_message_t msg;
-
-	mavlink_rosbee_message_t rosbeePacket;
-	mavlink_lidar_message_t lidarPacket;
-
-	CPISocket * socket;
-	
-	int SYSTEMID;
-	int COMPONENTID;
-	int TARGET_SYSTEMID;
-	int TARGET_COMPONENTID;
+    //! Load the correct window.
+    void load(QString fileName, char type);
+    //! Ui pointer for use with QT.
+    Ui::MainWindow *ui;
+    //! Map pointer containing map information.
+    Map *map = 0;
+    //! Editmapwindow for opening the editMapWindow.
+    EditMapWindow* editMapWindow;
+    //! Int containing the new map begin size.
+    static const int newMapBeignSize = 100;
+    //! Int containing minimal map size.
+    static const int newMapMinSize = 10;
+    //! Int containing maximal map size.
+    static const int newMapMaxSize = 100;
+    //! Int containing the map step size.
+    static const int newMapStepSize = 10;
 };
 
-#endif
+#endif // MAINWINDOW_H

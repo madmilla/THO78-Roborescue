@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file RALCPEncoder
+* @file Socket
 * @date Created: 27-5-2015
 *
 * @author Rene Keijzer
@@ -37,40 +37,32 @@
 
 
 
-
-#ifndef __RALCPENCODER__
-#define __RALCPENCODER__
-#include "Socket.h"
-#include <iostream>
+#ifndef __SOCKET__
+#define __SOCKET__
+#include <queue>
 #include "roborescueV1/mavlink.h"
+class UDPServer;
 
-/// \class@ RALCPEncoder
-/// \brief The RALCPencoder functions as T section between the lidar and the rosbee for communication
-
-class RALCPEncoder{
+/// author@ Rene Keijzer<rene.keijzer@student.hu.nl>
+/// class@ Socket
+/// brief the base class for a socket, this has the virtual function which needs to be overwritten by other sockets like UDPsocket or a RF socket
+class CPISocket{
 public:
-	RALCPEncoder(CPISocket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
-   /// \param@ Destination for the message to send to
-	/// \param@ The Rosbee communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	/// \param@ Destination for the message to send to
-	/// \param@ The Lidar communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	~RALCPEncoder(){}
-private:
-	mavlink_message_t msg;
+   CPISocket(){}
 
-	mavlink_rosbee_message_t rosbeePacket;
-	mavlink_lidar_message_t lidarPacket;
+   /// brief virtual send function which needs to be implemented
+   /// param@ pointer to mavlink message
+   virtual void send(mavlink_message_t * message) {}
 
-	CPISocket * socket;
-	
-	int SYSTEMID;
-	int COMPONENTID;
-	int TARGET_SYSTEMID;
-	int TARGET_COMPONENTID;
+
+   /// \brief virtual receive function which needs to be implemented
+   /// param@ pointer to mavlink message
+   virtual void receive(mavlink_message_t * message){}
+
+
+   /// brief virtual getid function which needs to be implemented, returns 0 on default
+   /// return@ uint8_t id of socket
+   virtual uint8_t getId(){ return 0; }
+   ~CPISocket(){}
 };
-
 #endif

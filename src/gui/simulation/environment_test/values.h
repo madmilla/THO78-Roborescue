@@ -6,15 +6,16 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file RALCPEncoder
-* @date Created: 27-5-2015
+* @file Values.h
+* @date Created: 22-04-2015
+* @version 1.0
 *
-* @author Rene Keijzer
+* @author Danny Horvath, Thomas Fink
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,43 +35,21 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-
-
-
-
-#ifndef __RALCPENCODER__
-#define __RALCPENCODER__
-#include "Socket.h"
-#include <iostream>
-#include "roborescueV1/mavlink.h"
-
-/// \class@ RALCPEncoder
-/// \brief The RALCPencoder functions as T section between the lidar and the rosbee for communication
-
-class RALCPEncoder{
+#ifndef VALUES
+#define VALUES
+class Values
+{
 public:
-	RALCPEncoder(CPISocket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
-   /// \param@ Destination for the message to send to
-	/// \param@ The Rosbee communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	/// \param@ Destination for the message to send to
-	/// \param@ The Lidar communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	~RALCPEncoder(){}
-private:
-	mavlink_message_t msg;
-
-	mavlink_rosbee_message_t rosbeePacket;
-	mavlink_lidar_message_t lidarPacket;
-
-	CPISocket * socket;
-	
-	int SYSTEMID;
-	int COMPONENTID;
-	int TARGET_SYSTEMID;
-	int TARGET_COMPONENTID;
+    const static int LIDAR = 3;
+    const static int CHECKPOINT = 2;
+    const static int OBSTACLE = 1;
+    const static int EMPTY = 0;
+    const static int DRAWWIDTH = 430;
+    const static int DRAWHEIGHT = 460;
+    const static int SCANRADIUS = 10;
+    const static int NOISETHRESHOLD = 35;
+    const static char EDIT = 0;
+    const static char SIMULATE = 1;
 };
+#endif // VALUES
 
-#endif

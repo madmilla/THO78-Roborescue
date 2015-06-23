@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file RALCPEncoder
+* @file MessageQueue
 * @date Created: 27-5-2015
 *
 * @author Rene Keijzer
@@ -37,40 +37,64 @@
 
 
 
+#ifndef __MESSAGEQUEUE__
+#define __MESSAGEQUEUE__
+#include <vector>
+#include <algorithm>
+#include <cassert>
+#include "NonCopyable.h"
 
-#ifndef __RALCPENCODER__
-#define __RALCPENCODER__
-#include "Socket.h"
-#include <iostream>
-#include "roborescueV1/mavlink.h"
-
-/// \class@ RALCPEncoder
-/// \brief The RALCPencoder functions as T section between the lidar and the rosbee for communication
-
-class RALCPEncoder{
+/// \author Rene Keijzer<rene.keijzer@student.hu.nl>
+/// \template MessageQueue
+/// \brief A template class for an simple message queue
+template <typename T>
+class MessageQueue : public NonCopyable{
 public:
-	RALCPEncoder(CPISocket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
-   /// \param@ Destination for the message to send to
-	/// \param@ The Rosbee communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	/// \param@ Destination for the message to send to
-	/// \param@ The Lidar communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	~RALCPEncoder(){}
-private:
-	mavlink_message_t msg;
 
-	mavlink_rosbee_message_t rosbeePacket;
-	mavlink_lidar_message_t lidarPacket;
+	/// \param T item add item to queu
+	void add(T item){
+		container.push_back(item);
+	}
 
-	CPISocket * socket;
+
+	/// \brief asserts if item in queue then returns first item in queue and pops the first record
+	/// \return T item
+	T pop(){
+		assert(!container.empty());
+		T rtnVal = container.front();
+		container.erase(container.begin());
+		return rtnVal;
+	}
+
+	/// \brief checks first message in queue
+	/// \return T item
+	T peek(){
+		assert(!container.empty());
+		return container.front();
+	}
+
+
+	/// \brief Removes all items from queue
+	/// \param T item
+	void remove(T key){
+		container.erase(std::remove(container.begin(), container.end(), key), container.end());
+	}
 	
-	int SYSTEMID;
-	int COMPONENTID;
-	int TARGET_SYSTEMID;
-	int TARGET_COMPONENTID;
+
+	/// \brief names size of queue
+	/// \return size_t size
+	size_t size(){
+		return container.size();
+	}
+
+
+	/// \brief Checks if queue is empty
+	/// \return bool isempty
+	bool isEmpty(){
+		return container.empty();
+	}
+private:
+	std::vector<T> container;
 };
 
 #endif

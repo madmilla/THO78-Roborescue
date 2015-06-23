@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file RALCPEncoder
+* @file RobotManager
 * @date Created: 27-5-2015
 *
 * @author Rene Keijzer
@@ -14,7 +14,7 @@
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -36,41 +36,62 @@
 
 
 
+#ifndef __ROBOTMANAGER__
+#define __ROBOTMANAGER__
+#include <vector>
+#include <exception>
+#include <sstream>
+#include "Rosbee.h"
+#include "Lidar.h"
 
-
-#ifndef __RALCPENCODER__
-#define __RALCPENCODER__
-#include "Socket.h"
-#include <iostream>
-#include "roborescueV1/mavlink.h"
-
-/// \class@ RALCPEncoder
-/// \brief The RALCPencoder functions as T section between the lidar and the rosbee for communication
-
-class RALCPEncoder{
+class CPIUDPSocket;
+class Rosbee;
+class Lidar;
+class RobotManager{
 public:
-	RALCPEncoder(CPISocket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
-   /// \param@ Destination for the message to send to
-	/// \param@ The Rosbee communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	/// \param@ Destination for the message to send to
-	/// \param@ The Lidar communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	~RALCPEncoder(){}
-private:
-	mavlink_message_t msg;
+	RobotManager(){}
 
-	mavlink_rosbee_message_t rosbeePacket;
-	mavlink_lidar_message_t lidarPacket;
+	void createUDPRobot(CPIUDPSocket * s);
 
-	CPISocket * socket;
 	
-	int SYSTEMID;
-	int COMPONENTID;
-	int TARGET_SYSTEMID;
-	int TARGET_COMPONENTID;
-};
+	template<typename T>
+	T * getRobot(int id){
+		for(auto robot: robots){
+			auto r = dynamic_cast<T *>(robot);
+			if(r != nullptr){
+				if(id == r->getId()){
+					return r;
+				}
+			}
+		}
+		return nullptr;
+	}
+	
+template <typename T>
+std::vector<T *> getRobots(){
+	std::vector<T *> list;
 
+	for(auto robot : robots){
+		auto r = dynamic_cast<T *>(robot);
+		if(r != nullptr){
+			list.push_back(r);
+		}
+	}
+	return list;
+}
+	
+	template <typename T>
+	T * createRobot(CPIUDPSocket * s){
+		T * robot= new T(s);
+		robots.push_back(robot);
+		return robot;
+	}
+
+	std::string getDetails();
+
+	int size();
+private:
+	std::vector<CPIBoundaryObject * > robots;
+
+};
 #endif

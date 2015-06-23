@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file RALCPEncoder
+* @file UDPSocket
 * @date Created: 27-5-2015
 *
 * @author Rene Keijzer
@@ -36,41 +36,51 @@
 
 
 
+// Author@ Rene Keijzer
+// class@ UDPSocket
+// This class is used to make a connection with the client and to send and receive data.
 
-
-#ifndef __RALCPENCODER__
-#define __RALCPENCODER__
+#ifndef __UDPSOCKET__
+#define __UDPSOCKET__
 #include "Socket.h"
-#include <iostream>
+#include "Connection.h"
+#include "UDPServer.h"
 #include "roborescueV1/mavlink.h"
+#include <iostream>
 
-/// \class@ RALCPEncoder
-/// \brief The RALCPencoder functions as T section between the lidar and the rosbee for communication
-
-class RALCPEncoder{
+class CPIUDPSocket : public CPISocket
+{
 public:
-	RALCPEncoder(CPISocket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
-   /// \param@ Destination for the message to send to
-	/// \param@ The Rosbee communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	/// \param@ Destination for the message to send to
-	/// \param@ The Lidar communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	~RALCPEncoder(){}
+
+	// Constructor to make a socket
+	// Param@ Connection this is the connection you want to bind to the socket
+	// Param@ UDPServer This is the server where you want to talk with
+	CPIUDPSocket(Connection c, UDPServer * serv) : con(c), server(serv){
+		incomming = new MessageQueue<mavlink_message_t *>();
+	}
+
+	// This function sends a messege
+	//Param: message this is the message that you are sending
+	void send(mavlink_message_t * message) override;
+
+	void receive(mavlink_message_t * message) override;
+	// This function returns the connection id
+	// Return@ The id of the connection
+	uint8_t getId() override { return con.id; }
+
+	void print();
+
+	// Standard destructor
+	~CPIUDPSocket(){
+	}
+	MessageQueue<mavlink_message_t *> * incomming;
+protected:
+
 private:
-	mavlink_message_t msg;
+	friend class UDPServer;
+	friend class RobotManager;
+	UDPServer * server;
+	Connection con;
 
-	mavlink_rosbee_message_t rosbeePacket;
-	mavlink_lidar_message_t lidarPacket;
-
-	CPISocket * socket;
-	
-	int SYSTEMID;
-	int COMPONENTID;
-	int TARGET_SYSTEMID;
-	int TARGET_COMPONENTID;
 };
-
 #endif

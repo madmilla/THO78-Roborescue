@@ -6,15 +6,16 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file RALCPEncoder
-* @date Created: 27-5-2015
+* @file Checkpoint.cpp
+* @date Created: 22-04-2015
+* @version 1.0
 *
-* @author Rene Keijzer
+* @author Danny Horvath, Thomas Fink
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,43 +35,33 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
+#include "checkpoint.h"
 
+checkPoint::checkPoint(int x, int y):
+    checkPointx(x),
+    checkPointy(y)
+{}
 
+void checkPoint::setCoordinates(int x, int y){
+    checkPointx = x;
+    checkPointy = y;
+}
 
+void checkPoint::setX(int x){
+    checkPointx = x;
+}
 
-#ifndef __RALCPENCODER__
-#define __RALCPENCODER__
-#include "Socket.h"
-#include <iostream>
-#include "roborescueV1/mavlink.h"
+void checkPoint::setY(int y){
+    checkPointy = y;
+}
 
-/// \class@ RALCPEncoder
-/// \brief The RALCPencoder functions as T section between the lidar and the rosbee for communication
+int checkPoint::getX(){
+    return checkPointx;
+}
 
-class RALCPEncoder{
-public:
-	RALCPEncoder(CPISocket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
-   /// \param@ Destination for the message to send to
-	/// \param@ The Rosbee communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	/// \param@ Destination for the message to send to
-	/// \param@ The Lidar communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	void send(COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	~RALCPEncoder(){}
-private:
-	mavlink_message_t msg;
+int checkPoint::getY(){
+    return checkPointy;
+}
 
-	mavlink_rosbee_message_t rosbeePacket;
-	mavlink_lidar_message_t lidarPacket;
-
-	CPISocket * socket;
-	
-	int SYSTEMID;
-	int COMPONENTID;
-	int TARGET_SYSTEMID;
-	int TARGET_COMPONENTID;
-};
-
-#endif
+checkPoint::~checkPoint()
+{}
