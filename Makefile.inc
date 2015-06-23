@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-QT_LIB_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/lib
-QT_INCL_DIR 					= C:/Qt/Qt5.4.2/5.4/mingw491_32/include
-QT_BIN_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/bin
 BOOST_LIB_DIR 					= C:/Boost/boost_1_58_0/stage/lib
 BOOST_INCL_DIR 					= C:/Boost/boost_1_58_0
 
@@ -10,10 +6,9 @@ CXXFLAGS						= -std=c++11
 LDFLAGS							= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
 INCLUDES 						= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR) -IDeps/incl/mavlink
 LDLIBS							= -lQt5Core -lQt5Widgets -lQt5Gui -lpthread
-=======
-QT_LIB_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/lib
-QT_INCL_DIR 					= D:/Qt/Qt5.4.2/5.4/mingw491_32/include
-QT_BIN_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/bin
+QT_LIB_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/lib
+QT_INCL_DIR 					= C:/Qt/Qt5.4.2/5.4/mingw491_32/include
+QT_BIN_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/bin
 ifeq ($(OS),Windows_NT)
 	BOOST_LIB_DIR 					= C:/Boost/boost_1_58_0/stage/lib
 	BOOST_INCL_DIR 					= C:/Boost/boost_1_58_0
@@ -36,7 +31,6 @@ else
 	LDLIBS							= -lboost_system -lpthread `pkg-config --libs opencv` -lX11
 endif
 
->>>>>>> origin/Makefile-/-dependencies-fix
 SRC 							= 
 UI 								= 
 UI_HEADERS						=
@@ -181,3 +175,4 @@ moc_%.cpp : %.h
 	
 ui_%.h : %.ui
 	$(UIC) $< -o $@
+	
