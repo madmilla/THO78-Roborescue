@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\src\strategy\pathfinding\AStar Algorithm;..\..\..\src\map\MapStructure;..\..\..\src\strategy\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,17 +65,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\strategy\Common\ATV.cpp" />
+    <ClCompile Include="..\..\strategy\Common\dimension.cpp" />
+    <ClCompile Include="..\..\strategy\Common\QuadCopter.cpp" />
+    <ClCompile Include="..\..\strategy\Common\Rosbee.cpp" />
+    <ClCompile Include="..\..\strategy\Common\route.cpp" />
+    <ClCompile Include="..\..\strategy\Common\waypoint.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\AStar Algorithm\aStar.cpp" />
     <ClCompile Include="line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="point.cpp" />
     <ClCompile Include="polygon.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\strategy\Common\ATV.h" />
+    <ClInclude Include="..\..\strategy\Common\dimension.h" />
+    <ClInclude Include="..\..\strategy\Common\QuadCopter.h" />
+    <ClInclude Include="..\..\strategy\Common\Rosbee.h" />
+    <ClInclude Include="..\..\strategy\Common\route.h" />
+    <ClInclude Include="..\..\strategy\Common\waypoint.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\AStar Algorithm\aStar.h" />
     <ClInclude Include="line.hpp" />
     <ClInclude Include="map.hpp" />
+    <ClInclude Include="mapImplementation.hpp" />
     <ClInclude Include="point.hpp" />
     <ClInclude Include="polygon.h" />
+    <ClInclude Include="Test.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
