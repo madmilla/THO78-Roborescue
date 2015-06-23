@@ -24,15 +24,14 @@ vector<Marker> ARInterface::detectMarkers(Mat inputImage)
 	return theMarkers;
 }
 
-int ARInterface::getIdFromImage(std::string inputImageString)
+int ARInterface::getIdFromImage(Mat* image)
 {
-	Mat image, imageCopy;
+	Mat imageCopy;
 	vector<Marker> theMarkers;
-	image = imread(inputImageString, CV_LOAD_IMAGE_COLOR);
-	markerDetector.detect(image, theMarkers,
+	markerDetector.detect(*image, theMarkers,
 			theCameraParameters, theMarkerSize);
 	
-	image.copyTo(imageCopy);
+	image->copyTo(imageCopy);
 	int detectedId = -1;
 	for (unsigned int i=0;i<theMarkers.size();i++) 
 	{

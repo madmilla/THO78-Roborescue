@@ -121,13 +121,13 @@ bool PX4FlowWrapper::isImageReady(){
 	return imageReady;
 }
 
-cimg_library::CImg<unsigned char>* PX4FlowWrapper::getImage(){
+cv::Mat* PX4FlowWrapper::getImage(){
 	if (!isImageRequested() || !isImageRequested()){
 		return nullptr;
 	}
 	imageReady = false;
 	imageRequested = false;
-	return new cimg_library::CImg<unsigned char>(requestImage<image.template>());
+	return getImage();
 }
 
 void PX4FlowWrapper::imageFull(){

@@ -39,16 +39,16 @@ void handlePX4Flow()
 			exchanger.enqueueMessage(message);
 		}
 		delete msg;
-		cimg_library::CImg<unsigned char>* img = nullptr;
+		cv::Mat* img = nullptr;
 		while (img == nullptr){
 			img = flowWrapper.getImage();
 		}
-		img->save("image.BMP");		
+		//img->save("image.BMP");		
 		std::this_thread::sleep_for (std::chrono::seconds(1));
 
-		if(img->size())
+		if(img != nullptr)
 		{
-			int detectedId = PX4FlowDetector->getIdFromImage("image.BMP");
+			int detectedId = PX4FlowDetector->getIdFromImage(img);
 			if(detectedId == TARGET_MARKER_ID)
 			{				
 				std::string message = 'V' + std::to_string(detectedId);				

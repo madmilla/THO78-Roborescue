@@ -62,7 +62,7 @@ class ARInterface {
 public:	
 	ARInterface(bool hasGui = false, double thres1 = 7, double thres2 = 7);
 	vector<Marker> detectMarkers(Mat inputImage);
-	int getIdFromImage(string inputImageString);
+	int getIdFromImage(Mat* image);
 	Mat getThresholdedImage();
 	
 private:
