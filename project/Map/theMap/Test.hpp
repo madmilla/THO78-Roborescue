@@ -1,7 +1,7 @@
 #ifndef TEST_H
 #define TEST_H
 
-#include <map.hpp>
+#include "../../../src/map/MapStructure/map.hpp"
 #include <vector>
 
 class Test{
