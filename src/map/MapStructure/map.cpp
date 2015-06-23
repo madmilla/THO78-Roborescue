@@ -330,32 +330,32 @@ void map::addLidarInput(int lidarInputArray[]){
 	translateToPoints();
 }
 
-bool map::isReachable(int x, int y, int x1, int y1){
-	aStar aS = aStar();
-	std::vector<std::pair<int, int>> theRoute;
-	theRoute = aS.findPath(x, y, x1, y1, *this);
-
-	if (theRoute.size() <= 0){
-		/*
-		Below can be chosen from three different options:
-		- Set just the point not reachable
-		- Set the closed area not reachable with recursion
-		- Set the closed area not reachable with a queue
-		*/
-
-		//setNotReachable(point(x1, y1));
-		//floodFillLocation(point(x1, y1), 0, 1);
-		floodFillLocationQueue(point(x1, y1), 0, 1);
-
-		return false;
-	}
-
-	return true;
-}
-
-bool map::isReachable(point p, point p1){
-	return isReachable(p.getX(), p.getY(), p1.getX(), p1.getY());
-}
+//bool map::isReachable(int x, int y, int x1, int y1){
+//	aStar aS = aStar();
+//	std::vector<std::pair<int, int>> theRoute;
+//	theRoute = aS.findPath(x, y, x1, y1, *this);
+//
+//	if (theRoute.size() <= 0){
+//		/*
+//		Below can be chosen from three different options:
+//		- Set just the point not reachable
+//		- Set the closed area not reachable with recursion
+//		- Set the closed area not reachable with a queue
+//		*/
+//
+//		//setNotReachable(point(x1, y1));
+//		//floodFillLocation(point(x1, y1), 0, 1);
+//		floodFillLocationQueue(point(x1, y1), 0, 1);
+//
+//		return false;
+//	}
+//
+//	return true;
+//}
+//
+//bool map::isReachable(point p, point p1){
+//	return isReachable(p.getX(), p.getY(), p1.getX(), p1.getY());
+//}
 
 void map::setNotReachable(point p){
 	access.at(p.getX()).at(p.getY()) = 1;
