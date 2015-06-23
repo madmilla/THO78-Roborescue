@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 QT_LIB_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/lib
 QT_INCL_DIR 					= C:/Qt/Qt5.4.2/5.4/mingw491_32/include
 QT_BIN_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/bin
@@ -9,6 +10,33 @@ CXXFLAGS						= -std=c++11
 LDFLAGS							= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
 INCLUDES 						= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR) -IDeps/incl/mavlink
 LDLIBS							= -lQt5Core -lQt5Widgets -lQt5Gui -lpthread
+=======
+QT_LIB_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/lib
+QT_INCL_DIR 					= D:/Qt/Qt5.4.2/5.4/mingw491_32/include
+QT_BIN_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/bin
+ifeq ($(OS),Windows_NT)
+	BOOST_LIB_DIR 					= C:/Boost/boost_1_58_0/stage/lib
+	BOOST_INCL_DIR 					= C:/Boost/boost_1_58_0
+else
+	BOOST_LIB_DIR 					= 
+	BOOST_INCL_DIR 					= 
+endif
+
+ifeq ($(OS),Windows_NT)
+	CXX 							= g++
+	CXXFLAGS						= -std=c++11
+	LDFLAGS							= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
+	INCLUDES 						= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR) -IDeps/incl/mavlink
+	LDLIBS							= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5OpenGL
+else
+	CXX 							= g++-4.9
+	CXXFLAGS						= -std=c++11
+	LDFLAGS							= -L$(QT_LIB_DIR)
+	INCLUDES 						= -I$(QT_INCL_DIR) -IDeps/incl/mavlink `pkg-config --cflags opencv`
+	LDLIBS							= -lboost_system -lpthread `pkg-config --libs opencv` -lX11
+endif
+
+>>>>>>> origin/Makefile-/-dependencies-fix
 SRC 							= 
 UI 								= 
 UI_HEADERS						=
@@ -43,12 +71,14 @@ PROPELLOR_TEMPERATURE_MODULE 	= Src/Sensors/Propellor-TemperatureSensor/
 PROPELLOR_ULTRASONIC_MODULE		= Src/Sensors/Propellor-UltrasonicSensor/
 LIDAR_BASESTATION_MODULE		= Src/Sensors/lidar/LIDAR-Basestation/
 PX4FLOW_MODULE 					= src/sensors/PX4Flow/
+INTERFACES_MODULE 				= src/sensors/Interfaces/
 LOCALISATION_SERVER				= src/sensors/Localisation-Module/Localisation_Server/
 
 #COMMUNICATION
 MAVLINK_EXCHANGER_MODULE		= src/communication/MavlinkExchanger/
 SERIAL_PORT_MODULE				= src/communication/SerialPort/
 UDP_MODULE						= Src/Communication/udp/
+UDP_LINUX_MODULE				= Src/Communication/udp/Linux-UDP/
 
 #MODULES
 MISSION1_MODULE					= Src/Modules/Mission1/
@@ -72,6 +102,7 @@ ROBORESCUE_MISSION1			   += $(LIDAR_BASESTATION_MODULE)
 
 #LOCALISATION MODULES
 ROBORESCUE_LOCALISATION_MODULE  = $(PX4FLOW_MODULE)
+ROBORESCUE_LOCALISATION_MODULE += $(INTERFACES_MODULE)
 ROBORESCUE_LOCALISATION_MODULE += $(LOCALISATION_MODULE_MODULE)
 ROBORESCUE_LOCALISATION_MODULE += $(LOCALISATION_SERVER)
 ROBORESCUE_LOCALISATION_MODULE += $(ARUCO_LIB)
@@ -80,13 +111,25 @@ ROBORESCUE_LOCALISATION_MODULE += $(SERIAL_PORT_MODULE)
 INCLUDES += -I$(MAVLINK_LIB)
 INCLUDES += -I$(CIMG_LIB)
 
+#LIDAR MODULES
+ROBORESCUE_LIDAR				= $(LIDAR_BASESTATION_MODULE)
+ROBORESCUE_LIDAR 				+= $(UDP_MODULE)
+ROBORESCUE_LIDAR 				+= $(ROSBEE_LOCAL_MODULE)
+ROBORESCUE_LIDAR				+= $(SERIAL_PORT_MODULE)
+ROBORESCUE_LIDAR				+= $(UDP_LINUX_MODULE)
+
 #CLEAN MODULES
 CLEAN_MODULES					 = $(MISSION1_MODULE) 
+CLEAN_MODULES			   		+= $(DONAHOO_LIB)
+CLEAN_MODULES			   		+= $(MAVLINK_LIB)
+CLEAN_MODULES			   		+= $(CIMG_LIB)
+CLEAN_MODULES			   		+= $(ARUCO_LIB)
 CLEAN_MODULES			   		+= $(MAIN_GUI_MODULE)
 CLEAN_MODULES			   		+= $(QUADCOPTER_GUI_MODULE)
 CLEAN_MODULES			   		+= $(ATV_GUI_MODULE)
 CLEAN_MODULES			   		+= $(ROSBEE_GUI_MODULE)
 CLEAN_MODULES			   		+= $(LIDAR_GUI_MODULE)
+CLEAN_MODULES			   		+= $(MAP_GUI_MODULE)
 CLEAN_MODULES			   		+= $(QUADCOPTER_MODULE)
 CLEAN_MODULES			  		+= $(ATV_MODULE)
 CLEAN_MODULES			  		+= $(ROSBEE_LOCAL_MODULE)
@@ -95,11 +138,14 @@ CLEAN_MODULES			  		+= $(PROPELLOR_SIRC_MODULE)
 CLEAN_MODULES			  		+= $(PROPELLOR_TEMPERATURE_MODULE)
 CLEAN_MODULES			  		+= $(PROPELLOR_ULTRASONIC_MODULE)
 CLEAN_MODULES			   		+= $(LIDAR_LOCAL_MODULE)
+CLEAN_MODULES			   		+= $(LIDAR_BASESTATION_MODULE)
+CLEAN_MODULES			   		+= $(PX4FLOW_MODULE)
+CLEAN_MODULES			   		+= $(LOCALISATION_SERVER)
 CLEAN_MODULES			   		+= $(MAVLINK_EXCHANGER_MODULE)
 CLEAN_MODULES			   		+= $(SERIAL_PORT_MODULE)
 CLEAN_MODULES					+= $(UDP_MODULE)
 CLEAN_MODULES			   		+= $(MISSION1_MODULE)
-CLEAN_MODULES					+= $(MAIN_GUI_MODULE)
+CLEAN_MODULES					+= $(LOCALISATION_MODULE_MODULE)
 
 
 ROBORESCUE_LIDAR				=

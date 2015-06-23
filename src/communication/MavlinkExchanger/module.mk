@@ -1,2 +1,2 @@
-SRC += src/communication/mavlinkexchanger/MAVLinkExchanger.cpp
-SRC += src/communication/mavlinkexchanger/PrioritisedMAVLinkMessage.cpp
+SRC += src/communication/MavlinkExchanger/MAVLinkExchanger.cpp
+SRC += src/communication/MavlinkExchanger/PrioritisedMAVLinkMessage.cpp

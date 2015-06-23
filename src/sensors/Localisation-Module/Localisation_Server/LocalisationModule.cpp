@@ -1,7 +1,7 @@
 #define linux
 
 #include <iostream>
-#include "ARInterface.h"
+#include "GlobalLocalisation.h"
 #include <thread>
 #include <boost/asio/io_service.hpp>
 #include "TCPServer.h"
@@ -14,13 +14,15 @@
 #include "SerialPort.h"
 #include "CImg.h"
 #include <chrono>
+#include "ARInterface.h"
 
 boost::asio::io_service service;
 TCPServer server{ service, 10033 };
-ARInterface* arRecogniser;
+GlobalLocalisation* globalLocalizer;
 PX4FlowWrapper flowWrapper;
 SerialPort serialPort{"/dev/ttyACM0"};
 MAVLinkExchanger exchanger(serialPort);
+ARInterface* PX4FlowDetector;
 
 const int TARGET_MARKER_ID = 954;
 
@@ -46,7 +48,7 @@ void handlePX4Flow()
 
 		if(img->size())
 		{
-			int detectedId = arRecogniser->detectPX4FlowTag();
+			int detectedId = PX4FlowDetector->getIdFromImage("image.BMP");
 			if(detectedId == TARGET_MARKER_ID)
 			{				
 				std::string message = 'V' + std::to_string(detectedId);				
@@ -59,7 +61,9 @@ void handlePX4Flow()
 		
 		
 		//std::cout << "end of loop, back to start.\n";
-		std::cout << "FlowX: " << flowWrapper.getX() << " \nFlowY: " << flowWrapper.getY() <<std::endl;
+		std::cout 
+			<< "FlowX: " << flowWrapper.getX() 
+			<< " \nFlowY: " << flowWrapper.getY() <<std::endl;
 	}
 }
 
@@ -72,7 +76,9 @@ void handleArguments( int argc, char *argv[])
 	{
 		if(strcmp(argv[1],"gui")==0)
 		{
-			gui = true;
+			gui = true;			
+			cv::namedWindow("PX4",1);
+			cv::namedWindow("PX4T",1);
 		}
 	}
 	if(argc == 4)
@@ -81,58 +87,51 @@ void handleArguments( int argc, char *argv[])
 		tresh2 = atoi(argv[3]);
 	}
 	std::cout << "treshparams: " << tresh1 << ", " <<tresh2 <<std::endl;
-	arRecogniser = new ARInterface(gui, tresh1, tresh2);
+	globalLocalizer = new GlobalLocalisation(gui, tresh1, tresh2);
+	PX4FlowDetector = new ARInterface(gui, tresh1, tresh2);
 }
 
 int main(int argc, char *argv[])
 {
-	std::cout << "Handlearguments\n";
 	handleArguments(argc, argv);
 	
-	std::cout << "ErrorOnInitCheck\n";
-	if(arRecogniser->isErrorOnInit())
+	if(globalLocalizer->isErrorOnInit())
 	{
-		std::cout << arRecogniser->getErrorString() << std::endl;
+		std::cout << globalLocalizer->getErrorString() << std::endl;
 		return 0;
 	}	
-	std::cout << "Creating recog thread\n";
-	std::thread recogniserThread{ &ARInterface::run, arRecogniser};
-
-	std::cout << "Creating mavlink thread\n";
-	std::thread mavLinkThread{ &MAVLinkExchanger::loop, &exchanger};
-	
-	std::cout << "Creating px4flow thread\n";
-	std::thread px4FlowThread{ handlePX4Flow};
-	
-	std::cout << "Creating main thread\n";
+	std::thread recogniserThread{ &GlobalLocalisation::run, globalLocalizer};
+	std::thread mavLinkThread{ &MAVLinkExchanger::loop, &exchanger};	
+	std::thread px4FlowThread{ handlePX4Flow};	
 	std::thread mainThread{[&server, &exchanger]()
 	{
 		std::cout << "Starting mainfred\n";
 		while(1)
 		{
-			//std::cout << "Ik doe niks\n";
-			//std::cout << "Messagequeue size: " <<  exchanger.receiveQueueSize() << std::endl;
 			if (exchanger.receiveQueueSize())
 			{
 				PrioritisedMAVLinkMessage message = exchanger.dequeueMessage();
 				flowWrapper.ReceiveMAVLinkMessage(&message);
 			}
 			
-			if(arRecogniser->isErrorInRun())
+			if(globalLocalizer->isErrorInRun())
 			{
-				std::cout << arRecogniser->getErrorString() << std::endl;
+				std::cout << globalLocalizer->getErrorString() << std::endl;
 				return 0;
 			}
-			if(arRecogniser->isNewCoordinate())
+			if(globalLocalizer->isNewCoordinate())
 			{
-				auto coordinate = arRecogniser->getCoordinate();
-				flowWrapper.setPosition(coordinate.getX(),108-coordinate.getY());
-				std::string message = 'X' + std::to_string(coordinate.getX()) + 'Y' + std::to_string(108-coordinate.getY());
-				std::cout << message <<std::endl;
-				//std::cout << "Broadcasting" << std::endl;
-				server.broadcast(message);
+				auto coordinate = globalLocalizer->getCoordinate();
+				flowWrapper.calibrate(coordinate.getX(),108-coordinate.getY());
 			}
-			char c;
+			
+			std::string message = 
+				'X' + std::to_string(flowWrapper.getX()) +
+				'Y' + std::to_string(flowWrapper.getY());
+			std::cout << message <<std::endl;
+			server.broadcast(message);
+			
+			/*char c;
 			std::cin >> c;
 			if(c == 'v')
 			{
@@ -148,18 +147,13 @@ int main(int argc, char *argv[])
 				std::string message = 'X' + std::to_string(currentCoordinate.getX()) + 'Y' + std::to_string(108-currentCoordinate.getY());		
 				std::cout << message <<std::endl;
 				server.broadcast(message);
-			}
+			}*/
 		}
 	}};
-	std::cout << "Starting mavlinkthread\n";
 	mavLinkThread.detach();
-	std::cout << "Starting recogthread\n";
 	recogniserThread.detach();
-	std::cout << "Starting px4thread\n";
 	px4FlowThread.detach();
-	std::cout << "Starting mainthread\n";
 	mainThread.detach();
-	std::cout << "Running servicethread\n";
 	service.run();	
 	
 	return 0;
