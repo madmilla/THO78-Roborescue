@@ -11,13 +11,11 @@ int main(int argc, char *argv[])
 {
     SerialPort p{ "" };
     MAVLinkExchanger exch{ p };
-    Rosbee r;
-    Lidar l;
     Quadcopter q{ exch };
     ATV a{ exch };
     
     QApplication app(argc, argv);
-    MainWindow w{q, r, l, a};
+    MainWindow w{q, a};
     w.show();
 
     return app.exec();
