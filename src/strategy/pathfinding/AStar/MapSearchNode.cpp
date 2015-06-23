@@ -96,14 +96,14 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
     MapSearchNode NewNode;
 
     // push each possible move except allowing the search to go backwards
-	if ((Map->getScaledLocationValue(x - 1, y) < 9)
+	if ((Map->getScaledHeuristicLocationValue(x - 1, y) < 9)
         && !((parent_x == x-1) && (parent_y == y))
       )
     {
         NewNode = MapSearchNode( x-1, y );
         astarsearch->AddSuccessor( NewNode );
     }
-	if ((Map->getScaledLocationValue(x, y - 1) < 9)
+	if ((Map->getScaledHeuristicLocationValue(x, y - 1) < 9)
         && !((parent_x == x) && (parent_y == y-1))
       )
     {
@@ -111,7 +111,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
         astarsearch->AddSuccessor( NewNode );
     }
 
-	if ((Map->getScaledLocationValue(x + 1, y) < 9)
+	if ((Map->getScaledHeuristicLocationValue(x + 1, y) < 9)
         && !((parent_x == x+1) && (parent_y == y))
       )
     {
@@ -120,7 +120,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
     }
 
 
-	if ((Map->getScaledLocationValue(x, y + 1) < 9)
+	if ((Map->getScaledHeuristicLocationValue(x, y + 1) < 9)
         && !((parent_x == x) && (parent_y == y+1))
         )
     {
@@ -137,7 +137,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
 
 float MapSearchNode::GetCost( MapSearchNode &successor )
 {
-	return (float)Map->getScaledLocationValue(x, y);
+	return (float)Map->getScaledHeuristicLocationValue(x, y);
 
 }
 

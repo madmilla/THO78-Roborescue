@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "../../../map/MapStructure/map.hpp"
+#include "../../../map/MapStructure/mapImplementation.hpp"
 #include <array>
 
 typedef std::pair<int, int> Coordinate;
@@ -13,8 +14,8 @@ public:
 	
 	explicit aStar();
 	~aStar();
-	std::vector<std::pair<int, int>> findPath(int startX, int startY, int endX, int endY, map& theMap);
-	std::array<std::pair<Coordinate, int>, 4> getDistances(Coordinate coordinate, map& theMap);
+	std::vector<std::pair<int, int>> findPath(int startX, int startY, int endX, int endY, mapImplementation& theMap);
+	std::array<std::pair<Coordinate, int>, 4> getDistances(Coordinate coordinate, mapImplementation& theMap);
 	Coordinate getShortestDistance(std::array<std::pair<Coordinate, int>, 4> distances);
 
 private:

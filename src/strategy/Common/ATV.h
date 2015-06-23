@@ -11,9 +11,14 @@ public:
     void goTo(int x, int y);
 
     // Getters
-    Dimension getSize() { return size; }
-    int getX() { return x; }
-    int getY() { return y; }
+	Dimension getSize() { return size; }
+	int getX() { return x; }
+	int getY() { return y; }
+
+	// Setters
+	void setSize(Dimension size) { this->size = size; }
+	void setX(int x) { this->x = x; }
+	void setY(int y) { this->y = y; }
 private:
     Dimension size;
     int x;

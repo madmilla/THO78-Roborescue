@@ -50,7 +50,7 @@ void scanArea::run(){
 		}
 		if (Container::route.getSize() >= 1){
 			newRosbeeLocation = Container::route.getNewTile();
-			if (Map->getScaledLocationValue(newRosbeeLocation[0], newRosbeeLocation[1]) == 9 || 
+			if (Map->getScaledHeuristicLocationValue(newRosbeeLocation[0], newRosbeeLocation[1]) == 9 || 
 				Map->getScaledLocationValue((newRosbeeLocation[0]), (newRosbeeLocation[1] + lidar->getRange())) == 9 ||
 				Map->getScaledLocationValue((newRosbeeLocation[0] + lidar->getRange()), (newRosbeeLocation[1])) == 9){
 				Container::route.clearRoute();

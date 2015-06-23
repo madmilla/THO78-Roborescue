@@ -46,21 +46,6 @@ void map::setLocationValue(int x, int y, int value)
 	}
 
 }
-void map::addCircle(int xCentre, int yCentre, int radius){
-	for (int degrees = 0; degrees < 360; degrees++){
-		float x = radius*cos(degrees) + xCentre;
-		float y = radius*sin(degrees) + yCentre;
-		this->setLocationValue(std::round(x), std::round(y), 1);
-
-
-
-
-
-	}
-}
-
-
-
 void map::setScaledLocationValue(int x, int y, int value)
 {
 	x = x*scale;
@@ -255,6 +240,8 @@ void makeUnseen(){
 
 //translate lines to points in 2d vector
 void map::translateToPoints(){
+	
+
 	int maxX = 0, maxY = 0;
 	for (line & lCmp : mapData){
 		if (lCmp.getPoint(0).getX() > maxX){

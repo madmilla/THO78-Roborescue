@@ -24,8 +24,7 @@ int main(int argc, char *argv[]){
     Route *route = new Route;
     map Map;
     Test test(&Map);  
-    MapSearchNode mapSearchNode(&Map, route);
-	mapLogicVSLAM MapLogicVSLAM(&Map, &rosbee, &lidar);
+
 	scanArea scanarea(&Map, &rosbee, &mapSearchNode, route, &MapLogicVSLAM, &lidar);
 	while(1){
 		scanarea.run();

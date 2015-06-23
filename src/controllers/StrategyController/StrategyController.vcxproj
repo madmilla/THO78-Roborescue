@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\map\line.cpp" />
+    <ClCompile Include="..\..\map\MapStructure\map.cpp" />
+    <ClCompile Include="..\..\map\point.cpp" />
+    <ClCompile Include="..\..\map\polygon.cpp" />
+    <ClCompile Include="..\..\strategy\Common\ATV.cpp" />
+    <ClCompile Include="..\..\strategy\Common\dimension.cpp" />
+    <ClCompile Include="..\..\strategy\Common\Lidar.cpp" />
+    <ClCompile Include="..\..\strategy\Common\QuadCopter.cpp" />
+    <ClCompile Include="..\..\strategy\Common\Rosbee.cpp" />
+    <ClCompile Include="..\..\strategy\Common\route.cpp" />
+    <ClCompile Include="..\..\strategy\Common\waypoint.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\AStar Algorithm\aStar.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\AStar\Container.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\AStar\MapSearchNode.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\VSLAM\Container.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\VSLAM\mapLogicVSLAM.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\VSLAM\Rosbee.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\VSLAM\Route.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\VSLAM\scanArea.cpp" />
+    <ClCompile Include="..\..\strategy\pathfinding\VSLAM\VSLAM.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="StrategyController.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\map\line.hpp" />
+    <ClInclude Include="..\..\map\MapStructure\map.hpp" />
+    <ClInclude Include="..\..\map\MapStructure\mapImplementation.hpp" />
+    <ClInclude Include="..\..\map\point.hpp" />
+    <ClInclude Include="..\..\map\polygon.h" />
+    <ClInclude Include="..\..\strategy\Common\ATV.h" />
+    <ClInclude Include="..\..\strategy\Common\dimension.h" />
+    <ClInclude Include="..\..\strategy\Common\Lidar.h" />
+    <ClInclude Include="..\..\strategy\Common\QuadCopter.h" />
+    <ClInclude Include="..\..\strategy\Common\Rosbee.h" />
+    <ClInclude Include="..\..\strategy\Common\route.h" />
+    <ClInclude Include="..\..\strategy\Common\waypoint.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\AStar Algorithm\aStar.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\AStar\AstarSearch.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\AStar\Container.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\AStar\fsa.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\AStar\MapSearchNode.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\AStar\stlastar.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\VSLAM\Container.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\VSLAM\mapLogicVSLAM.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\VSLAM\Rosbee.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\VSLAM\Route.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\VSLAM\scanArea.h" />
+    <ClInclude Include="..\..\strategy\pathfinding\VSLAM\VSLAM.h" />
+    <ClInclude Include="StrategyController.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{10E8F5B9-644B-4CFB-8709-F523376EAF2B}</ProjectGuid>
+    <RootNamespace>StrategyController</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

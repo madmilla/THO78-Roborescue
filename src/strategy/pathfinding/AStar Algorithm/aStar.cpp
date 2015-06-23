@@ -1,7 +1,7 @@
 #include "aStar.h"
 #include <iostream>
 #include <array>
-#include "waypoint.h"
+#include "../../Common/waypoint.h"
 aStar::aStar()
 {
 }

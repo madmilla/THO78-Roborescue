@@ -35,13 +35,12 @@
 **/
 #ifndef AREACOVERINGALGORITHM_H
 #define AREACOVERINGALGORITHM_H
-#include <waypoint.h>
-#include <point.hpp>
-#include <map.hpp>
-#include <quadCopter.h>
+#include "../../Common/waypoint.h"
+#include  "../../../map/MapStructure/map.hpp"
+#include "../../Common/quadcopter.h"
 #include <vector>
-#include <route.h>
-#include <aStar.h>
+#include "../../Common/route.h"
+#include "../AStar Algorithm/aStar.h"
 class AreaCoveringAlgorithm
 {
 public:
@@ -50,7 +49,7 @@ public:
     void setCopterSquare(QuadCopter copt, map* map);
     int followCovered(QuadCopter *copter, map* mapp, int wallnumber, int coveredNumber);
     void registerLocation(map*,QuadCopter*);
-    AreaCoveringAlgorithm(QuadCopter copter, map *mapp);
+    AreaCoveringAlgorithm(QuadCopter *copter, map *mapp);
     ~AreaCoveringAlgorithm();
     int followWall(QuadCopter *copter, map* mapp, int wallnumber);
     Route result;

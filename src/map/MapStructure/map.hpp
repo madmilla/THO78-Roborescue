@@ -1,11 +1,11 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "point.hpp"
-#include "line.hpp"
+#include "../point.hpp"
+#include "../line.hpp"
 #include <iostream>
 #include <vector>
-#include "polygon.h"
+#include "../polygon.h"
 #include "../../strategy/Common/QuadCopter.h"
 #include "../../strategy/Common/Rosbee.h"
 #include "../../strategy/Common/ATV.h"
@@ -16,6 +16,7 @@
 class map : public mapImplementation
 {
 public:
+	int getScaledHeuristicLocationValue(int x, int y);
 	int getScale();
 	map();
 	map(line & l);

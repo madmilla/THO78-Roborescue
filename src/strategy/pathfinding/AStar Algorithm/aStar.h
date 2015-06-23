@@ -52,8 +52,8 @@
 
 #include <vector>
 #include <array>
-#include <route.h>
-#include <mapImplementation.hpp>
+#include "../../Common/route.h"
+#include "../../../map/MapStructure/mapImplementation.hpp"
 
 //	pair of ints representing a coordinate
 typedef std::pair<int, int> Coordinate;
