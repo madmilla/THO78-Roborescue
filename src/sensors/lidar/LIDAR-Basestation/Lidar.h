@@ -14,7 +14,7 @@
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright ï¿½ 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -43,10 +43,10 @@
 
 #include <chrono>
 #include "CPIBoundaryObject.h"
-#include "udp_mavlink_commands/mavlink.h"
+#include "../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include "UDPSocket.h"
 #include "MessageQueue.h"
-//#include "RALCPEncoder.h"
+#include "RALCPEncoder.h"
 class CPIUDPSocket;
 class Lidar : public CPIBoundaryObject
 {
@@ -78,7 +78,7 @@ public:
 
 	//! \brief sends the last knwon positon of the rosbee
 	//! \param[in] postion a reference to the positon of the rosbee
-	void sendRosbeePositie(int postion);
+	void sendRosbeePositie(int x, int y);
 
 	//! \brief sends the current flank of the rosbee
 	//! \param[in] dagrees a reference to the flank of the rosbee
@@ -92,21 +92,18 @@ public:
 	void abort();
 	int getId() override;
 
-	~Lidar()
-{ 
-//delete encoder; 
-}
+	~Lidar(){ delete encoder; }
 
 private:
 
 
 	friend class RobotManager;
 	CPIUDPSocket * sock;
-	mavlink_message_t message;
-	//mavlink_ralcp_t packet;
-	//RALCPEncoder * encoder;
+	mavlink_lidar_message_t packet;
+	RALCPEncoder * encoder;
+	uint32_t message[5];
 
 	bool running = false;
-	MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
+	MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint32_t[5]>> * outgoing;
 };
 #endif
