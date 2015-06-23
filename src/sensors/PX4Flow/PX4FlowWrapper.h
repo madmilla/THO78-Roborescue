@@ -37,6 +37,7 @@
 #include "common/mavlink.h"
 #include <fstream>
 #include "CImg.h"
+#include "XYProvider.h"
 
 #define SYSTEMID 82
 #define COMPONENTID 1
@@ -46,7 +47,7 @@
 /**
 * PX4FlowWrapper is a class that is used to get useful data from the PX4Flow. The messages sent by the PX4Flow have to be forwarded to this class, which will then interpret it and calculate the position in the room based on those messages. The PX4FlowWrapper on its own can't provide an accurate absolute position. Therefore, the PX4Flow has to be calibrated on the fly, by calling both the setPosition and the setHeading functions. Calibrating it should allow for accurate positioning for the next while, but the more often they get called the more accurate the system will be.
 */
-class PX4FlowWrapper{
+class PX4FlowWrapper: public XYProvider{
 public:
 	PX4FlowWrapper();
 	
@@ -58,16 +59,6 @@ public:
 	void ReceiveMAVLinkMessage(mavlink_message_t* msg);
 	
 	/**
-	* @brief Sets the absolute position.
-	*
-	* This function is used to set the absolute position. The PX4FlowWrapper will use this position to calculate the future positions. This function has to be called regularly to make sure the PX4FlowWrapper values don't drift.
-	*
-	*@param x is the absolute x in the room.
-	*@param y is the absolute y in the room.
-	*/
-	void setPosition(double x, double y);
-	
-	/**
 	* @brief Sets the absolute heading.
 	*
 	* This function is used to set the absolute heading. The PX4FlowWrapper will use this heading to calculate the future positions. This function has to be called regularly to make sure the PX4FlowWrapper values don't drift.
@@ -75,20 +66,6 @@ public:
 	*@param headingInDegrees is the heading the PX4Flow is aiming at.
 	*/
 	void setHeading(double headingInDegrees);
-	
-	/**
-	* Returns the X in the room according to the PX4FlowWrapper.
-	*
-	* @return the X in the room.
-	*/
-	float getX();
-	
-	/**
-	* Returns the Y in the room according to the PX4FlowWrapper.
-	*
-	* @return the Y in the room.
-	*/
-	float getY();
 	
 	/**
 	* Returns the heading of the PX4Flow according to the PX4FlowWrapper.
@@ -128,7 +105,6 @@ private:
 	bool imageRequested = false;
 	bool imageReady = false;
 	
-	float x=0.f,y=0.f;
 	float heading=0;
 	
 	std::fstream imgFile;

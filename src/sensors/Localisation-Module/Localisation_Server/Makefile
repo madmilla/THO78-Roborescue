@@ -5,11 +5,12 @@ MAVLINK_DIR = $(DEPS_INCL_DIR)mavlink/
 MAVLINK_EXCHANGER_DIR = ../../../communication/MavlinkExchanger/
 SERIALPORT_DIR = ../../../communication/SerialPort/
 PX4FLOW_DIR = ../../../sensors/PX4Flow/
+SENSOR_INTERFACES = ../../../sensors/Interfaces/
 CIMG_DIR = $(DEPS_INCL_DIR)CImg/
 
-LFLAGS = -I $(ARUCO_DIR) -I $(MAVLINK_DIR) -I $(PX4FLOW_DIR) -I $(CIMG_DIR) -I $(MAVLINK_EXCHANGER_DIR) -I $(SERIALPORT_DIR)
+LFLAGS = -I $(ARUCO_DIR) -I $(MAVLINK_DIR) -I $(PX4FLOW_DIR) -I $(CIMG_DIR) -I $(MAVLINK_EXCHANGER_DIR) -I $(SERIALPORT_DIR) -I $(SENSOR_INTERFACES)
 
-MODULES = $(PX4FLOW_DIR)PX4FlowWrapper $(MAVLINK_EXCHANGER_DIR)MAVLinkExchanger $(MAVLINK_EXCHANGER_DIR)PrioritisedMAVLinkMessage $(SERIALPORT_DIR)SerialPort TCPServer ARInterface $(SERIALPORT_DIR)SerialPortLinux
+MODULES = $(PX4FLOW_DIR)PX4FlowWrapper $(MAVLINK_EXCHANGER_DIR)MAVLinkExchanger $(MAVLINK_EXCHANGER_DIR)PrioritisedMAVLinkMessage $(SERIALPORT_DIR)SerialPort TCPServer ARInterface GlobalLocalisation $(SERIALPORT_DIR)SerialPortLinux $(SENSOR_INTERFACES)XYProvider
 ARUCO_HEADERS = $(wildcard $(ARUCO_DIR)*.h)
 HEADERS = aruco.h mavlink.h CImg.h
 PROJECT = LocalisationModule

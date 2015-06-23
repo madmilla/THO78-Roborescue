@@ -92,21 +92,8 @@ void PX4FlowWrapper::ReceiveMAVLinkMessage(mavlink_message_t* msg){
 	}
 }
 
-void PX4FlowWrapper::setPosition(double x, double y){
-	this->x = x;
-	this->y = y;
-}
-
 void PX4FlowWrapper::setHeading(double headingInDegrees){
 	this->heading = headingInDegrees;
-}
-
-float PX4FlowWrapper::getX(){
-	return x;
-}
-
-float PX4FlowWrapper::getY(){
-	return y;
 }
 
 double PX4FlowWrapper::getHeadingInDegrees(){

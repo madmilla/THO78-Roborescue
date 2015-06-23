@@ -6,11 +6,10 @@
 * /_/   \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file 			ARInterface.h
+* @file 			GlobalLocalisation.h
 * @date Created:	03/06/2015
 *
 *  @author	- Feiko Wielsma
-*  @author	- Jos Roijakkers
 *
 *  @section LICENSE
 *  License:	newBSD
@@ -50,454 +49,45 @@
 #ifndef AR_INTERFACE_H
 #define AR_INTERFACE_H
 
+#include "aruco.h"
+#include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "aruco.h"
-#include "Coordinate.h"
-#include <opencv2/highgui/highgui.hpp>
-#include <unistd.h>
 
 using namespace cv;
 using namespace aruco;
 
-class ARInterface
-{
+class ARInterface {
+public:	
+	ARInterface(bool hasGui = false, double thres1 = 7, double thres2 = 7);
+	vector<Marker> detectMarkers(Mat inputImage);
+	int getIdFromImage(string inputImageString);
+	Mat getThresholdedImage();
+	
 private:
 	/**
-	* VIDEO_DEVICE_X
-	* a static const int used for indicating the video deviceX
+	* markerDetector
+	* creates a markerDetector
 	*/
-	static const int VIDEO_DEVICE_X = 0;
-	/**
-	* VIDEO_DEVICE_Y
-	* a static const int used for indicating the video deviceY
-	*/
-	static const int VIDEO_DEVICE_Y = 1;
-	/**
-	* currentCoordinate
-	* an interger used to indicate the current coordinates
-	*/
-	Coordinate<int> currentCoordinate {-1, -1};
-	/**
-	* newCoordinate
-	* boolean used to flag new coordinate received
-	*/
-	bool newCoordinate;
-	/**
-	* errorOnInit
-	* boolean used to flag an error on initialization
-	*/
-	bool errorOnInit;
-	/**
-	* errorInRun
-	* boolean used to flag an error in running
-	*/
-	bool errorInRun;
-	/**
-	/**
-	* error
-	* the string that is returned when an error on initialization is encountered
-	*/
-	std::string error;
-	/**
-	* halfWidthCameraX, halfWidthCameraY
-	* intergers to indicate the half width of cameraX and cameraY
-	*/
-	int halfWidthCameraX, halfWidthCameraY;
-	/**
-	* theMarkerSizeX, theMarkerSizeY
-	* floats used to indicate the marker size for video_deviceX and video_deviceY
-	*/
-	float theMarkerSizeX, theMarkerSizeY, theMarkerSizeFlow;
+	MarkerDetector markerDetector;
+	double thresParam1, thresParam2;
+	
+	CameraParameters theCameraParameters;
+	
 	/**
 	* thePyrDownLevel
 	* interger used to indicate the current pyrdownlevel
 	*/
 	int thePyrDownLevel = 0;
 	/**
-	* markerDetectorX
-	* creates markerDetectorX for video_deviceX
+	* theMarkerSizeX, theMarkerSizeY
+	* floats used to indicate the marker size for video_deviceX and video_deviceY
 	*/
-	MarkerDetector markerDetectorX;
-	/**
-	* markerDetectorY
-	* creates markerDetectorY for video_deviceY
-	*/
-	MarkerDetector markerDetectorY;
-	/**
-	* markerDetectorFlow
-	* creates markerDetectorY for the px4Flow
-	*/
-	MarkerDetector markerDetectorFlow;
-	/**
-	* theVideoCapturerX
-	* creates theVideoCapturerX for video_deviceX
-	*/
-	VideoCapture theVideoCapturerX;
-	/**
-	* theVideoCapturerY
-	* creates theVideoCapturerY for video_deviceY
-	*/
-	VideoCapture theVideoCapturerY;
-	/**
-	* theMarkersX
-	* creates a vector to contain all the X markers
-	*/
-	vector<Marker> theMarkersX;
-	/**
-	* theMarkersY
-	* creates a vector to contain all the Y markers
-	*/
-	vector<Marker> theMarkersY;
-	/**
-	* theMarkersFlow
-	* creates a vector to contain all the Flow markers
-	*/
-	vector<Marker> theMarkersFlow;
-	/**
-	* theInputImageX
-	* creates a theImputImageX mat image 
-	*/
-	Mat theInputImageX;
-	/**
-	* theInputImageY
-	* creates a theImputImageY mat image
-	*/
-	Mat theInputImageY;
-	/**
-	* theCameraParametersX
-	* creates theCameraParametersX
-	*/
-	CameraParameters theCameraParametersX;
-	/**
-	* theCameraParametersY
-	* creates theCameraParametersY
-	*/
-	CameraParameters theCameraParametersY;
-	/**
-	* theCameraParametersFlow
-	* creates theCameraParametersFlow
-	*/
-	CameraParameters theCameraParametersFlow;
-	/**
-	* thresParam1,thresParam2
-	* creates the doubles thresParam1 and thresParam2 used for the threshold
-	*/
-	double thresParam1, thresParam2;
-	/**
-	* getClosetId()
-	* getClosetId a function for retreiving the closest id tag (to the center)
-	* in the list of markers
-	*/
-	int getClosestId(vector<Marker> &theMarkers, int halfWidthCamera)
-	{
-		if (theMarkers.size()>0)
-		{
-			int currentClosestId = -1;
-			float currentClosestX = 1000;
-
-			for (unsigned int i = 0; i<theMarkers.size(); i++)
-			{
-				float xValueTotal = 0;
-				//Add all the x values of the 4 points
-				for (int j = 0; j < 4; j++)
-				{
-					xValueTotal += theMarkers[i][j].x;
-				}	
-				//Divide the values by 4 to get the average, and substract
-				//That from the middle point of the image; this way we get
-				//The distance from the middle
-				int distance = abs(halfWidthCameraX - (int)(xValueTotal / 4));
-				
-				//Get the closest distance from all the markers
-				if (distance < currentClosestX)
-				{
-					currentClosestId = theMarkers[i].id;
-					currentClosestX = distance;
-				}
-			}			
-			return currentClosestId;
-		}
-		return -1;
-	}
-	
-	
+	float theMarkerSize;
 	
 	bool hasGui;
-	Mat theInputImageCopyX, theInputImageCopyY;
-public:
-	/**
-	* ARInterface()
-	* the constructor for ARInterface opens the video_devices
-	*/
-	ARInterface(bool hasGui = false, double thres1 = 7, double thres2 = 7) :
-		newCoordinate {false},
-		errorOnInit { false},
-		error {""},
-		theMarkerSizeX { -1},
-		theMarkerSizeY { -1},
-		hasGui {hasGui},
-		thresParam1{thres1},
-		thresParam2{thres2}
-	{
-		if(geteuid() != 0)
-		{			
-			error += "Program requires root (sudo) to reset video drivers with different parameters!";
-			errorOnInit = true;
-			return;
-		}
-		std::cout << "Disabling video driver" << std::endl;
-		std::system("sudo rmmod uvcvideo");
-		std::cout << "Enabling video driver with timeout parameter" << std::endl;
-		std::system("sudo modprobe uvcvideo nodrop=1 timeout=2000");
-		//Open the camera's
-		theVideoCapturerX.open(VIDEO_DEVICE_X);
-		theVideoCapturerX.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
-		theVideoCapturerX.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
-		
-		theVideoCapturerY.open(VIDEO_DEVICE_Y);		
-		theVideoCapturerY.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
-		theVideoCapturerY.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
-		
-
-		//Check video is open
-		if (!theVideoCapturerX.isOpened())
-		{
-			errorOnInit = true;
-			error += " Could not open video device X";
-			return;
-		}
-		if (!theVideoCapturerY.isOpened())
-		{
-			error += " Could not open video device Y";
-			errorOnInit = true;
-			return;
-		}
-		//Read first image to get the dimensions of the image
-		theVideoCapturerX >> theInputImageX;
-		theVideoCapturerY >> theInputImageY;
-
-		//Get the half of the width of the images
-		cv::Size sizeX = theInputImageX.size();
-		halfWidthCameraX = sizeX.width / 2;
-		
-		cv::Size sizeY = theInputImageY.size();
-		halfWidthCameraY = sizeY.width / 2;
-
-		//Configure other parameters
-		if (thePyrDownLevel>0)
-		{
-			markerDetectorX.pyrDown(thePyrDownLevel);
-			markerDetectorY.pyrDown(thePyrDownLevel);
-			markerDetectorFlow.pyrDown(thePyrDownLevel);
-		}
-		
-		markerDetectorX.setThresholdParams(thresParam1, thresParam2);
-		markerDetectorY.setThresholdParams(thresParam1, thresParam2);
-		markerDetectorFlow.setThresholdParams(thresParam1, thresParam2);
-		
-		//markerDetectorX.getThresholdParams(thresParam1, thresParam2);
-		markerDetectorX.setCornerRefinementMethod(MarkerDetector::SUBPIX);
-		//markerDetectorY.getThresholdParams(thresParam1, thresParam2);
-		markerDetectorY.setCornerRefinementMethod(MarkerDetector::SUBPIX);
-		
-		markerDetectorFlow.setCornerRefinementMethod(MarkerDetector::SUBPIX);
-		
-		if(hasGui)
-		{			
-			cv::namedWindow("PX4",1);
-			cv::namedWindow("PX4T",1);
-			cv::namedWindow("X",1);		
-			cv::namedWindow("Y",1);
-			cv::namedWindow("XT",1);		
-			cv::namedWindow("YT",1);
-		}
-			
-		std::cout << "Ending constructor" << std::endl;
-        
-	}
 	
-	/**
-	* run() is the the method that will be called by the user of ARInterface.
-	* It will grab the images from the webcams, and runs the marker detection on
-	* those images.
-	* If a new coordinate is found in a marker, it will also set
-	* the 'newCoordinate' bool on true, which can be accessed through
-	* isNewCoordinate().
-	* run() is usually used in a seperate thread.
-	*/
-	void run()
-	{
-		while (1)
-		{
-			//double t1, t2;
-			
-			//markerDetectorX.getThresholdParams(t1, t2);
-			//std::cout << "t1: " << t1 << " t2: " << t2 << std::endl;
-			//Grabs the X and Y images (otherwise .retrieve() will always 
-			// return the same image)
-			if(!theVideoCapturerX.grab())
-			{
-				error += " Cannot grab image from X camera";
-				errorInRun = true;
-			}
-			//cout << "GX." << ends;
-			//cout.flush();
-			if(!theVideoCapturerY.grab())
-			{
-				error += " Cannot grab image from Y camera";
-				errorInRun = true;
-			}
-			//cout << "GY " << ends;
-			//cout.flush();
-
-			//Retrieves the images and puts them in theInputImages
-			if(!theVideoCapturerX.retrieve(theInputImageX))
-			{
-				error += " Cannot retrieve image from X camera";
-				errorInRun = true;
-			}
-			//cout << "RX." << ends;
-			//cout.flush();
-			if(!theVideoCapturerY.retrieve(theInputImageY))
-			{
-				error += " Cannot retrieve image from Y camera";
-				errorInRun = true;
-			}
-
-			//Detects markers in the images, and puts them in theMarkers
-			markerDetectorX.detect(theInputImageX, theMarkersX,
-				theCameraParametersX, theMarkerSizeX);
-			markerDetectorY.detect(theInputImageY, theMarkersY,
-				theCameraParametersY, theMarkerSizeY);
-			cout << ".";
-			cout.flush();
-
-			//Gets the closest marker to the center of the image
-			//getClosestId can return -1 if it didn't find anything,
-			//so we need to test if it isn't -1, and after that check if 
-			//the new coordinate isn't the same as it already is
-			int closestIdX = getClosestId(theMarkersX, halfWidthCameraX);
-			if (closestIdX != -1)
-			{
-				if (currentCoordinate.getX() != closestIdX)
-				{
-					currentCoordinate.setX(closestIdX);
-					newCoordinate = true;
-				}
-			}
-
-			int closestIdY = getClosestId(theMarkersY, halfWidthCameraY);
-			if (closestIdY != -1)
-			{
-				if (currentCoordinate.getY() != closestIdY)
-				{
-					currentCoordinate.setY(closestIdY);
-					newCoordinate = true;
-				}
-			}
-			//cout << endl << flush;
-			if(hasGui)
-				{
-				theInputImageX.copyTo(theInputImageCopyX);
-				theInputImageY.copyTo(theInputImageCopyY);
-				for (unsigned int i=0;i<theMarkersX.size();i++) 
-				{
-					theMarkersX[i].draw(theInputImageCopyX,Scalar(0,0,255),1);
-				}
-			
-				for (unsigned int i=0;i<theMarkersY.size();i++) 
-				{
-					theMarkersY[i].draw(theInputImageCopyY,Scalar(0,0,255),1);
-				}
-			
-				cv::imshow("X",theInputImageCopyX);
-				cv::imshow("XT",markerDetectorX.getThresholdedImage());
-				
-				cv::imshow("Y",theInputImageCopyY);
-				cv::imshow("YT",markerDetectorY.getThresholdedImage());
-				char key = cv::waitKey(10);
-			}
-		}
-	}
-	
-	int detectPX4FlowTag()
-	{
-		//std::cout<<"Trying to detect flow Tag\n";
-			
-		Mat image, imageCopy;
-		image = imread("image.BMP", CV_LOAD_IMAGE_COLOR);
-		markerDetectorFlow.detect(image, theMarkersFlow,
-				theCameraParametersFlow, theMarkerSizeFlow);
-		
-		image.copyTo(imageCopy);
-		int detectedId = -1;
-		for (unsigned int i=0;i<theMarkersFlow.size();i++) 
-		{
-			std::cout << "PXFLOW ID DETECTED: " << theMarkersFlow[i].id <<std::endl;
-			detectedId = theMarkersFlow[i].id;
-			theMarkersFlow[i].draw(imageCopy,Scalar(0,0,255),1);
-		}	
-		
-		if(hasGui)
-		{
-			cv::imshow("PX4",imageCopy);
-			cv::imshow("PX4T",markerDetectorFlow.getThresholdedImage());			
-			char key = cv::waitKey(10);
-		}
-		
-		return detectedId;
-	}
-
-	/**
-	* getCoordinate returns the current coordinate of the localization system.
-	* It returns an <int> Coordinate, with X and Y attributes for the current
-	* position.
-	*
-	*/
-	Coordinate<int> getCoordinate()
-	{
-		newCoordinate = false;
-		return currentCoordinate;
-	}
-
-	/**
-	* isNewCoordinate is called by the user of ARInterface to determine if there
-	* is a new coordinate available. Iif it is, getCoordinate() is usually
-	* called.
-	* It returns a bool.
-	*
-	*/
-	bool isNewCoordinate()
-	{
-		return newCoordinate;
-	}
-	/**
-	* Returns wether an error in the initialisation (constructor) has occured
-	*
-	*/
-	bool isErrorOnInit()
-	{
-		return errorOnInit;
-	}
-	
-	/**
-	* Returns wether an error in the run (run()) has occured 
-	*
-	*/
-	bool isErrorInRun()
-	{
-		return errorInRun;
-	}
-	
-	/**
-	* Returns the error string 
-	*
-	*/
-	std::string getErrorString()
-	{
-		return error;
-	}
 };
+
 #endif
