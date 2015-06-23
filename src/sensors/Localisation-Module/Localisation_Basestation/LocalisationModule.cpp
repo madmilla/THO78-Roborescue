@@ -42,17 +42,17 @@ TCPClient{ service, host, port}
 {	
 }
 
-Coordinate<int> LocalisationModule::getCoordinate() const
+Coordinate<double> LocalisationModule::getCoordinate() const
 {
 	return coordinate;
 }
 
-int LocalisationModule::getX() const
+double LocalisationModule::getX() const
 {
 	return coordinate.getX();
 }
 
-int LocalisationModule::getY() const
+double LocalisationModule::getY() const
 {
 	return coordinate.getY();
 }
@@ -73,11 +73,11 @@ void LocalisationModule::handleMessage(std::string message)
 				yString = message.substr(yPos + 1, message.length() - yPos);
 				try
 				{
-					auto newX = stoi(xString);
-					auto newY = stoi(yString);
+					auto newX = stod(xString);
+					auto newY = stod(yString);
 					coordinate.setX(newX);
 					coordinate.setY(newY);
-					std::cout << "Coordinate: " << getX() << ',' << getY() << std::endl;
+					std::cout << "Coordinate: " << getX() << ' , ' << getY() << std::endl;
 
 				}
 				catch (std::invalid_argument&)

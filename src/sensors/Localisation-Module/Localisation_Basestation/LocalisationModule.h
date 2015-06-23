@@ -15,7 +15,7 @@ public:
 	*
 	* \return coordinate Most recent coordinate.
 	*/
-	Coordinate<int> getCoordinate() const;
+	Coordinate<double> getCoordinate() const;
 
 	/**
 	* \brief Get X position coordinate.
@@ -24,7 +24,7 @@ public:
 	*
 	* \return x X position from the most recent coordinate.
 	*/
-	int getX() const;
+	double getX() const;
 
 	/**
 	* \brief Get Y position coordinate.
@@ -33,9 +33,9 @@ public:
 	*
 	* \return y Y position from the most recent coordinate.
 	*/
-	int getY() const;
+	double getY() const;
 private:
-	Coordinate<int> coordinate;
+	Coordinate<double> coordinate;
 
 	void handleMessage(std::string message) override;
 };
