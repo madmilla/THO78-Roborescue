@@ -73,11 +73,12 @@ void LocalisationModule::handleMessage(std::string message)
 				yString = message.substr(yPos + 1, message.length() - yPos);
 				try
 				{
-					auto newX = stod(xString);
-					auto newY = stod(yString);
+					double newX = stod(xString);
+					double newY = stod(yString);
 					coordinate.setX(newX);
 					coordinate.setY(newY);
-					std::cout << "Coordinate: " << getX() << ' , ' << getY() << std::endl;
+					std::cout << "Coordinate: \nX: " << getX() << std::endl;
+					std::cout << "Y: " << getY() << std::endl;
 
 				}
 				catch (std::invalid_argument&)
