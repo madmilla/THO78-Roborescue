@@ -7,7 +7,7 @@
 QuadCopterWindow::QuadCopterWindow(Quadcopter& quadcopter, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QuadcopterWindow),
-	quadcopter{ quadcopter }
+	quadcopter( quadcopter )
 {
     quadcopter.registerListener(this);
 

@@ -5,7 +5,7 @@
 #include <cstdint>
 #include "Socket.h"
 #include <iostream>
-#include <thread>
+#include "../../../deps/incl/MingwThread/mingw.thread.h"
 
 
 /**
