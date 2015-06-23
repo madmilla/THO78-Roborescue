@@ -136,6 +136,13 @@ public:
         to X and Y coordinates
     */
     std::vector<scanCoordinate> convertToCoordinates(std::vector<scanDot>);
+	//! Start a scan with the lidar and do shape detectoin
+	/*!
+	Start the lidar which output the lines found. Also stores the found lines in a vector
+	which contains all the data from the scans made.
+	@return std::vector<Line>: vector with the linedata (Line object)
+	*/
+	std::vector<Line> start();
 
 private:
     //! Path to the com port which the lidar is attached to.
