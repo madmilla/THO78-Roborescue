@@ -1,5 +1,5 @@
 include Makefile.local
-include Makefile.modules
+include TargetMakefiles/Makefile.modules
 
 CXX 							= g++
 CXXFLAGS						= -std=c++11
@@ -20,7 +20,7 @@ ifeq ($(MAKECMDGOALS),mission1)
 		LDFLAGS += -L$(QT_LIB_DIR)
 		MOC	= $(QT_BIN_DIR)/moc.exe
 		UIC	= $(QT_BIN_DIR)/uic.exe
-		include Makefile.basestation
+		include TargetMakefiles/Makefile.basestation
 		INCLUDES 	+= -I$(QT_INCL_DIR)
 	endif
 endif
@@ -31,8 +31,8 @@ ifeq ($(MAKECMDGOALS),localisationmodule)
 	else
 		LDLIBS += -lboost_system -lpthread `pkg-config --libs opencv` -lX11
 		LDFLAGS += 
-		include Makefile.localisationmodule
 		INCLUDES 	+= `pkg-config --cflags opencv`
+		include TargetMakefiles/Makefile.localisationmodule
 	endif
 endif
 ifeq ($(MAKECMDGOALS),lidar)
@@ -42,7 +42,7 @@ ifeq ($(MAKECMDGOALS),lidar)
 	else
 		LDLIBS +=
 		LDFLAGS += 
-		include Makefile.lidar
+		include TargetMakefiles/Makefile.lidar
 	endif
 endif
 ifeq ($(MAKECMDGOALS),rosbee)
@@ -52,7 +52,7 @@ ifeq ($(MAKECMDGOALS),rosbee)
 	else
 		LDLIBS +=
 		LDFLAGS += 
-		include Makefile.rosbee
+		include TargetMakefiles/Makefile.rosbee
 	endif
 endif
 ifeq ($(MAKECMDGOALS),clean)
