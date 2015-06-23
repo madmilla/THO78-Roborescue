@@ -1,2 +1,2 @@
-SRC += src/sensors/Interfaces/ImageProvider.cpp
-SRC += src/sensors/Interfaces/XYProvider.cpp
+SRC += Src/Sensors/Interfaces/ImageProvider.cpp
+SRC += Src/Sensors/Interfaces/XYProvider.cpp

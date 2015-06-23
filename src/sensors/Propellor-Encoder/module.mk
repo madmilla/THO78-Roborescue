@@ -1,1 +1,1 @@
-SRC += src/sensors/Propellor-Encoder/Encoder.cpp
+SRC += Src/Sensors/Propellor-Encoder/Encoder.cpp

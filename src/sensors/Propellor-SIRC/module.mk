@@ -1,1 +1,1 @@
-SRC += src/sensors/Propellor-SIRC/Sirc.cpp
+SRC += Src/Sensors/Propellor-SIRC/Sirc.cpp

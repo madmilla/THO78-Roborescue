@@ -1,11 +1,11 @@
 #######LIBRARIES#######
-ARUCO_LIB						= deps/incl/aruco/
-CIMG_LIB						= deps/incl/CImg/
-DONAHOO_LIB						= deps/incl/Donahoo/
-LIBSERIAL_LIB					= deps/incl/libserial/
-MAVLINK_LIB						= deps/incl/mavlink/
-MYSQLCPPCONN_LIB				= deps/incl/mysqlcppconn/
-RPLIDAR_LIB						= deps/incl/rplidar/
+ARUCO_LIB						= Deps/incl/aruco/
+CIMG_LIB						= Deps/incl/CImg/
+DONAHOO_LIB						= Deps/incl/Donahoo/
+LIBSERIAL_LIB					= Deps/incl/libserial/
+MAVLINK_LIB						= Deps/incl/mavlink/
+MYSQLCPPCONN_LIB				= Deps/incl/mysqlcppconn/
+RPLIDAR_LIB						= Deps/incl/rplidar/
 
 ########MODULES########
 #GUI
@@ -27,16 +27,16 @@ PROPELLOR_SIRC_MODULE			= Src/Sensors/Propellor-SIRC/
 PROPELLOR_TEMPERATURE_MODULE 	= Src/Sensors/Propellor-TemperatureSensor/
 PROPELLOR_ULTRASONIC_MODULE		= Src/Sensors/Propellor-UltrasonicSensor/
 LIDAR_BASESTATION_MODULE		= Src/Sensors/lidar/LIDAR-Basestation/
-PX4FLOW_MODULE 					= src/sensors/PX4Flow/
-INTERFACES_MODULE 				= src/sensors/Interfaces/
-LOCALISATION_SERVER				= src/sensors/Localisation-Module/Localisation_Server/
+PX4FLOW_MODULE 					= Src/Sensors/PX4Flow/
+INTERFACES_MODULE 				= Src/Sensors/Interfaces/
+LOCALISATION_SERVER				= Src/Sensors/Localisation-Module/Localisation_Server/
 
 #COMMUNICATION
-MAVLINK_EXCHANGER_MODULE		= src/communication/MavlinkExchanger/
-SERIAL_PORT_MODULE				= src/communication/SerialPort/
+MAVLINK_EXCHANGER_MODULE		= Src/Communication/MavlinkExchanger/
+SERIAL_PORT_MODULE				= Src/Communication/SerialPort/
 UDP_MODULE						= Src/Communication/udp/
 UDP_LINUX_MODULE				= Src/Communication/udp/Linux-UDP/
 
 #MODULES
 MISSION1_MODULE					= Src/Modules/Mission1/
-LOCALISATION_MODULE_MODULE		= src/Modules/Localisationmodule/
+LOCALISATION_MODULE_MODULE		= Src/Modules/Localisationmodule/

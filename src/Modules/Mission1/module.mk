@@ -1,1 +1,1 @@
-SRC += src/Modules/Mission1/mission.cpp
+SRC += Src/Modules/Mission1/mission.cpp

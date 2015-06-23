@@ -1,5 +1,5 @@
-SRC += src/communication/udp/RobotManager.cpp
-SRC += src/communication/udp/UDPRobot.cpp
-SRC += src/communication/udp/UDPServer.cpp
-SRC += src/communication/udp/UDPSocket.cpp
-SRC += src/communication/udp/RALCPEncoder.cpp
+SRC += Src/Communication/UDP/RobotManager.cpp
+SRC += Src/Communication/UDP/UDPRobot.cpp
+SRC += Src/Communication/UDP/UDPServer.cpp
+SRC += Src/Communication/UDP/UDPSocket.cpp
+SRC += Src/Communication/UDP/RALCPEncoder.cpp

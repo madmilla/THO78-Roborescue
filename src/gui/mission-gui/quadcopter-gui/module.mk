@@ -1,3 +1,3 @@
-SRC += src/gui/mission-gui/quadcopter-gui/quadcopterwindow.cpp
-SRC += src/gui/mission-gui/quadcopter-gui/moc_quadcopterwindow.cpp
-UI  += src/gui/mission-gui/quadcopter-gui/ui_quadcopterwindow.ui
+SRC += Src/GUI/mission-gui/quadcopter-gui/quadcopterwindow.cpp
+SRC += Src/GUI/mission-gui/quadcopter-gui/moc_quadcopterwindow.cpp
+UI  += Src/GUI/mission-gui/quadcopter-gui/ui_quadcopterwindow.ui

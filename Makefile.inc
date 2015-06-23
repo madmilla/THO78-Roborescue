@@ -56,7 +56,7 @@ ifeq ($(MAKECMDGOALS),rosbee)
 	endif
 endif
 ifeq ($(MAKECMDGOALS),clean)
-	include Makefile.clean
+	include TargetMakefiles/Makefile.clean
 else
 	INCLUDES 	+= $(patsubst %, -I%, $(MODULES))
 	include $(MODULES:=module.mk)
