@@ -11,7 +11,7 @@
 #include "../../strategy/Common/ATV.h"
 #include "../../strategy/pathfinding/Stop-them-spaces/aStar.h"
 #include "mapImplementation.hpp"
-#include <math.h>
+#include <cmath>
 
 class map : public mapImplementation
 {

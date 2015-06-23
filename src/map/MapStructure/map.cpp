@@ -12,7 +12,7 @@ map::map() {
 		access.at(i).resize(70);
 	
 	}
-
+	
 	line a(point(0,0), point(0, access.size()));
 	line b(point(0,0), point(access.size(),0));
 
