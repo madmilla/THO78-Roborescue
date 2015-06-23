@@ -6,16 +6,15 @@
 
 #ifndef ROSBEE_H
 #define ROSBEE_H
-
 #include <iostream>
 
-class Rosbee
+class VirutalRosbee
 {
 public:
     // Constructor of rosbee.
-    Rosbee();
+	VirutalRosbee();
     // Destructor of rosbee.
-    ~Rosbee();
+	~VirutalRosbee();
     // Function to check if the rosbee location is changed.
     bool isLocationChanged();
     // Function to get the rosbee location x.

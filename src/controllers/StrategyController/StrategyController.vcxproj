@@ -28,7 +28,6 @@
     <ClCompile Include="..\..\strategy\pathfinding\AStar\MapSearchNode.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\Container.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\mapLogicVSLAM.cpp" />
-    <ClCompile Include="..\..\strategy\pathfinding\VSLAM\Rosbee.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\scanArea.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\VSLAM.cpp" />
     <ClCompile Include="main.cpp" />
@@ -56,7 +55,6 @@
     <ClInclude Include="..\..\strategy\pathfinding\AStar\stlastar.h" />
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\Container.h" />
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\mapLogicVSLAM.h" />
-    <ClInclude Include="..\..\strategy\pathfinding\VSLAM\Rosbee.h" />
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\scanArea.h" />
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\VSLAM.h" />
     <ClInclude Include="StrategyController.h" />

@@ -54,7 +54,7 @@ public:
 	*
 	* @brief	Constructor of the class VSLAM.
 	*/
-	VSLAM(map *Map, Rosbee *rosbee,Route *route, Lidar *lidar);
+	VSLAM(map *Map, VirutalRosbee *rosbee, Route *route, Lidar *lidar);
 	/**
 	* @fn	~VSLAM();
 	*
@@ -77,7 +77,7 @@ private:
 	/**
 	* @brief rosbee object.
 	*/
-    Rosbee *rosbee;
+	VirutalRosbee *rosbee;
 	/**
 	* @brief mapSearchNode object.
 	*/
