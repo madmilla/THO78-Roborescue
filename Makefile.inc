@@ -12,7 +12,7 @@ UI_HEADERS						=
 MODULES 						= 
 
 ifeq ($(MAKECMDGOALS),mission1)
-	ifneq ($(OS),Windows_NT)
+	ifeq ($(OS),Windows_NT)
 		@echo "Basestation is currently not compatible with linux based systems"
 		exit 1
 	else
