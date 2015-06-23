@@ -16,12 +16,12 @@ ifeq ($(MAKECMDGOALS),mission1)
 		@echo "Basestation is currently not compatible with linux based systems"
 		exit 1
 	else
-LDLIBS += -lQt5Core -lQt5Widgets -lQt5Gui
-LDFLAGS += -L$(QT_LIB_DIR)
-MOC	= $(QT_BIN_DIR)/moc.exe
-UIC	= $(QT_BIN_DIR)/uic.exe
-include Makefile.basestation
-INCLUDES 	+= -I$(QT_INCL_DIR)
+		LDLIBS += -lQt5Core -lQt5Widgets -lQt5Gui
+		LDFLAGS += -L$(QT_LIB_DIR)
+		MOC	= $(QT_BIN_DIR)/moc.exe
+		UIC	= $(QT_BIN_DIR)/uic.exe
+		include Makefile.basestation
+		INCLUDES 	+= -I$(QT_INCL_DIR)
 	endif
 endif
 ifeq ($(MAKECMDGOALS),localisationmodule)

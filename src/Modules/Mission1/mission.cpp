@@ -6,7 +6,7 @@
 #include "ATV.h"
 #include "MAVLinkExchanger.h"
 #include "SerialPort.h"
-#include "StrategyController.h"
+
 int main(int argc, char *argv[])
 {
     SerialPort p{ "" };
