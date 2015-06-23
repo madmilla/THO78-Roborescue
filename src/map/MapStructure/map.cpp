@@ -298,7 +298,7 @@ int map::getScaledHeight(){
 void map::print(){
 	for (int i = 0; i < getScaledWidth(); i++){
 		for (int ii = 0; ii < getScaledHeight(); ii++){
-			std::cout << this->getScaledLocationValue(i, ii);
+			std::cout << this->getScaledLocationValue(ii, i);
 		}
 		std::cout << "\n";
 	}
