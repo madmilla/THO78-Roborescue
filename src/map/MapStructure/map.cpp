@@ -241,7 +241,8 @@ void map::translateToPoints(){
 	}
 	for (unsigned int x = 0; x < access.size(); x++){
 		for (unsigned int y = 0; y < access.size(); y++){
-			if (getPointLines(point(x,y)).size() != 0){
+			point tmpPoint = point(x, y);
+			if (getPointLines(tmpPoint).size() != 0){
 				access.at(x).at(y) = 1; //not accessible
 				
 			}
@@ -318,7 +319,10 @@ int map::getScaledLocationValue(int x, int y){
 
 void map::addLidarInput(int lidarInputArray[]){
 	if (lidarInputArray[0] == 0){
-		appendLine(line(point(lidarInputArray[1], lidarInputArray[2]), point(lidarInputArray[3], lidarInputArray[4])));
+		point tmpPoint = point(lidarInputArray[1], lidarInputArray[2]);
+		point tmpPoint2 = point(lidarInputArray[3], lidarInputArray[4]);
+		line tmpLine = line(tmpPoint, tmpPoint2);
+		appendLine(tmpLine);
 	}
 	if (lidarInputArray[1] == 1){
 		addCircle(lidarInputArray[1], lidarInputArray[2], lidarInputArray[3]);
