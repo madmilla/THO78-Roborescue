@@ -127,10 +127,11 @@ cimg_library::CImg<unsigned char>* PX4FlowWrapper::getImage(){
 	}
 	imageReady = false;
 	imageRequested = false;
-	return new cimg_library::CImg<unsigned char>(image);
+	return new cimg_library::CImg<unsigned char>(requestImage<ImageClasses[CIMG]>());
 }
 
 void PX4FlowWrapper::imageFull(){
 	imageRequested = false;
 	imageReady = true;
+	provideImage<ImageClasses[CIMG] >(image,CIMG);
 }

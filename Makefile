@@ -5,8 +5,8 @@ include Makefile.inc
 mission1 : $(UI_HEADERS) $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
 	
-localisationmodule : 
-	
+localisationmodule : $(UI_HEADERS) $(OBJ)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
 
 lidar : 
 	

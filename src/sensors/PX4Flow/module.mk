@@ -1,1 +1,1 @@
-SRC += src/sensors/PX4FLow/PX4FlowWrapper.cpp
+SRC += src/sensors/PX4Flow/PX4FlowWrapper.cpp

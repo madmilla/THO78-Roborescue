@@ -38,6 +38,7 @@
 #include <fstream>
 #include "CImg.h"
 #include "XYProvider.h"
+#include "ImageProvider.h"
 
 #define SYSTEMID 82
 #define COMPONENTID 1
@@ -47,7 +48,7 @@
 /**
 * PX4FlowWrapper is a class that is used to get useful data from the PX4Flow. The messages sent by the PX4Flow have to be forwarded to this class, which will then interpret it and calculate the position in the room based on those messages. The PX4FlowWrapper on its own can't provide an accurate absolute position. Therefore, the PX4Flow has to be calibrated on the fly, by calling both the setPosition and the setHeading functions. Calibrating it should allow for accurate positioning for the next while, but the more often they get called the more accurate the system will be.
 */
-class PX4FlowWrapper: public XYProvider{
+class PX4FlowWrapper: public XYProvider, public ImageProvider{
 public:
 	PX4FlowWrapper();
 	

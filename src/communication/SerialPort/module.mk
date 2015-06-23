@@ -1,2 +1,2 @@
-SRC += src/communication/serialport/SerialPort.cpp
-SRC += src/communication/serialport/SerialPortWindows.cpp
+SRC += src/communication/SerialPort/SerialPort.cpp
+SRC += src/communication/SerialPort/SerialPortLinux.cpp
