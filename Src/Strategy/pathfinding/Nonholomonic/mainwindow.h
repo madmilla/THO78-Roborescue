@@ -11,12 +11,25 @@ namespace Ui {
 class MainWindow;
 }
 
+/**
+* @class   MainWindow
+* @author  Wibren Wiersma
+* @date    Juni, 2015
+* @brief   This class is the MainWindow
+*/
 class MainWindow : public QMainWindow
 {
    Q_OBJECT
 
 public:
+   /**
+   *  Construts a MainWindow
+   *  @param parent use this param if this is a sub window of some QWidget
+   */
    explicit MainWindow(QWidget *parent = 0);
+   /**
+    * Deconstructor for MainWindow
+    */
    ~MainWindow();
 
 private:
