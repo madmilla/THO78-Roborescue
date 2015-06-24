@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -38,7 +38,7 @@
 
 #ifndef ROUTE_H
 #define ROUTE_H
-
+#include <stdlib.h> 
 #include <vector>
 #include "waypoint.h"
 #include <sstream>
