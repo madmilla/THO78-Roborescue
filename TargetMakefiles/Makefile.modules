@@ -21,6 +21,7 @@ STRATEGY_COMMON_MODULE			= Src/Strategy/Common/
 STRATEGY_VSLAM_MODULE			= Src/Strategy/pathfinding/VSLAM/
 STRATEGY_AREACOVERAGE_MODULE			= Src/Strategy/pathfinding/AreaCoverage/
 STRATEGY_ASTAR_MODULE			= Src/Strategy/pathfinding/AStar/
+STRATEGY_TINYASTAR_MODULE			= Src/Strategy/pathfinding/Stop-them-spaces/
 
 ENVIRONMENTSIMULATOR_GUI_MODULE = Src/GUI/simulation/environment_test/
 
