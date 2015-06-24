@@ -5,7 +5,7 @@
 class WayPoint
 {
 public:
-	bool WayPoint::operator==(const WayPoint &other) const {
+	bool operator==(const WayPoint &other) const {
 		if (other.x == this->x &&other.y == this->y){ return true; }
 		else return false;
 	}
