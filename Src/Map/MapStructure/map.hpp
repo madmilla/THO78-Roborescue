@@ -1,6 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
-
+#include <math.h> 
 #include "../point.hpp"
 #include "../line.hpp"
 #include <iostream>
