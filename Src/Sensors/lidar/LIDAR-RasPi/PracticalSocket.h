@@ -21,94 +21,142 @@
 #define __PRACTICALSOCKET_INCLUDED__
 
 #ifdef WIN32
-#include <winsock.h>         // For socket(), connect(), send(), and recv()
+#include <winsock2.h>        // For socket(), connect(), send(), and recv()
+#include <ws2tcpip.h>
+
 typedef int socklen_t;
 typedef char raw_type;       // Type used for raw data on this platform
+
+// Types to simplify portability, may not be necessary in the future.
+typedef unsigned int uint32_t;
+typedef unsigned short in_port_t;
 #else
 #include <sys/types.h>       // For data types
 #include <sys/socket.h>      // For socket(), connect(), send(), and recv()
-#include <netdb.h>           // For gethostbyname()
+#include <netdb.h>           // For gethostbyname(), in_port_t
 #include <arpa/inet.h>       // For inet_addr()
 #include <unistd.h>          // For close()
 #include <netinet/in.h>      // For sockaddr_in
 typedef void raw_type;       // Type used for raw data on this platform
 #endif
 
-#include <string>            // For string
-#include <exception>         // For exception class
-
-using namespace std;
+#include <stdio.h>
+#include <iostream>
+#include <cstring>
+#include <stdexcept>
+#include <vector>
 
 /**
  *   Signals a problem with the execution of a socket call.
  */
-class SocketException : public exception {
+class SocketException : public std::runtime_error {
 public:
+  /**
+   *   Construct a SocketException with a user message followed by a
+   *   system detail message.
+   *   @param message explanatory message
+   */
+  SocketException(const std::string &message) throw();
+  
   /**
    *   Construct a SocketException with a explanatory message.
    *   @param message explanatory message
-   *   @param incSysMsg true if system message (from strerror(errno))
-   *   should be postfixed to the user provided message
+   *   @param detail detail message
    */
-  SocketException(const string &message, bool inclSysMsg = false) throw();
-
-  /**
-   *   Provided just to guarantee that no exceptions are thrown.
-   */
-  ~SocketException() throw();
-
-  /**
-   *   Get the exception message
-   *   @return exception message
-   */
-  const char *what() const throw();
-
-private:
-  string userMessage;  // Exception message
+  SocketException(const std::string &message, const std::string &detail) throw();
 };
 
 /**
- *   Base class representing basic communication endpoint
+ *   Signals a time out .
  */
-class Socket {
+class SocketTimedOutException : public SocketException {
 public:
   /**
-   *   Close and deallocate this socket
+   *   Construct a SocketTimedOutException with a user message followed by a
+   *   system detail message.
+   *   @param message explanatory message
    */
-  ~Socket();
+  SocketTimedOutException(const std::string &message) throw();
+  
+
+};
+
+/** 
+    Container aggregating an address and a port for a socket.
+    SocketAddress offers value semantics.
+*/
+class SocketAddress {
+public:
+  /** Type of address being requested. */
+  enum AddressType { TCP_SOCKET, TCP_SERVER, UDP_SOCKET };
+  
+  /** Make a SocketAddress for the given host and service. */
+  SocketAddress(const char *host, const char *service,
+                AddressType atype = TCP_SOCKET) throw(SocketException);
+
+  /** Make a SocketAddress for the given host and port number. */
+  SocketAddress(const char *host, in_port_t port,
+                AddressType atype = TCP_SOCKET) throw(SocketException);
+
+  /** Make a SocketAddress that wraps a copy of the given sockaddr
+      structure of the given addreLenVal legth in bytes.  If used as a
+      default constructur, the SocketAddress is created in an
+      uninitialized state, and none of its get methods should be used
+      until it is initialized. */
+  SocketAddress(sockaddr *addrVal = NULL, socklen_t addrLenVal = 0);
+
+  /** Return a string representation of the address portion of this
+      object. */
+  std::string getAddress() const throw(SocketException);
+
+  /** Return a numeric value for the port portion of this object. */
+  in_port_t getPort() const throw(SocketException);
+
+  /** Return a pointer to the sockaddr structure wrapped by this object. */
+  sockaddr *getSockaddr() const {
+    return (sockaddr *)&addr;
+  }
+
+  /** Return the length of the sockaddr structure wrapped by this object. */
+  socklen_t getSockaddrLen() const {
+    return addrLen;
+  }
+
+  /** Return a list of all matching addresses for the given host and
+      service.  Either, but not both of host and service can be null.
+      The returned list of addresses may be empty. */
+  static std::vector<SocketAddress> 
+    lookupAddresses(const char *host, const char *service,
+                    AddressType atype = TCP_SOCKET) throw(SocketException);
+
+  /** Return a list of all matching addresses for the given host and
+      port.  Either, but not both of host and service can be null (or
+      zero).  The returned list of addresses may be empty. */
+  static std::vector<SocketAddress> 
+    lookupAddresses(const char *host, in_port_t port,
+                    AddressType atype = TCP_SOCKET) throw(SocketException);
+
+private:
+  // Raw address portion of this object.
+  sockaddr_storage addr;
+
+  // Number of bytes used in the addr field.
+  socklen_t addrLen;
+};
+
+class Socket {
+public:
+  virtual ~Socket();
 
   /**
    *   Get the local address
    *   @return local address of socket
    *   @exception SocketException thrown if fetch fails
    */
-  string getLocalAddress() throw(SocketException);
+  SocketAddress getLocalAddress() throw(SocketException);
 
-  /**
-   *   Get the local port
-   *   @return local port of socket
-   *   @exception SocketException thrown if fetch fails
-   */
-  unsigned short getLocalPort() throw(SocketException);
-
-  /**
-   *   Set the local port to the specified port and the local address
-   *   to any interface
-   *   @param localPort local port
-   *   @exception SocketException thrown if setting local port fails
-   */
-  void setLocalPort(unsigned short localPort) throw(SocketException);
-
-  /**
-   *   Set the local port to the specified port and the local address
-   *   to the specified address.  If you omit the port, a random port 
-   *   will be selected.
-   *   @param localAddress local address
-   *   @param localPort local port
-   *   @exception SocketException thrown if setting local port or address fails
-   */
-  void setLocalAddressAndPort(const string &localAddress, 
-    unsigned short localPort = 0) throw(SocketException);
+  /** Close this socket. */
+  void close();
 
   /**
    *   If WinSock, unload the WinSock DLLs; otherwise do nothing.  We ignore
@@ -125,44 +173,33 @@ public:
    */
   static void cleanUp() throw(SocketException);
 
-  /**
-   *   Resolve the specified service for the specified protocol to the
-   *   corresponding port number in host byte order
-   *   @param service service to resolve (e.g., "http")
-   *   @param protocol protocol of service to resolve.  Default is "tcp".
-   */
-  static unsigned short resolveService(const string &service,
-                                       const string &protocol = "tcp");
-
 private:
   // Prevent the user from trying to use value semantics on this object
   Socket(const Socket &sock);
   void operator=(const Socket &sock);
 
 protected:
-  int sockDesc;              // Socket descriptor
-  Socket(int type, int protocol) throw(SocketException);
-  Socket(int sockDesc);
+  /** Socket descriptor, protected so derived classes can read it
+      easily (may want to change this) */
+  int sockDesc;
+
+  /** You can only construct this object via a derived class. */
+  Socket();
+
+  void createSocket(const SocketAddress &address, int type,
+                    int protocol) throw(SocketException);
 };
 
 /**
- *   Socket which is able to connect, send, and receive
+ *   Abstract base class representing a socket that, once connected, has
+ *   a foreign address and can communicate with the socket at that foreign
+ *   address.
  */
 class CommunicatingSocket : public Socket {
 public:
   /**
-   *   Establish a socket connection with the given foreign
-   *   address and port
-   *   @param foreignAddress foreign address (IP address or name)
-   *   @param foreignPort foreign port
-   *   @exception SocketException thrown if unable to establish connection
-   */
-  void connect(const string &foreignAddress, unsigned short foreignPort)
-    throw(SocketException);
-
-  /**
-   *   Write the given buffer to this socket.  Call connect() before
-   *   calling send()
+   *   Write bufferLen bytes from the given buffer to this socket.
+   *   The socket must be connected before send() can be called.
    *   @param buffer buffer to be written
    *   @param bufferLen number of bytes from buffer to be written
    *   @exception SocketException thrown if unable to send data
@@ -171,31 +208,32 @@ public:
 
   /**
    *   Read into the given buffer up to bufferLen bytes data from this
-   *   socket.  Call connect() before calling recv()
+   *   socket.  The socket must be connected before recv can be called.
+   *   @param buffer buffer to receive the data
+   *   @param bufferLen maximum number of bytes to read into buffer
+   *   @return number of bytes read, 0 for EOF.
+   *   @exception SocketException thrown if unable to receive data
+   */
+  size_t recv(void *buffer, int bufferLen) throw(SocketException);
+
+  /**
+   *   Block until bufferLen bytes are read into the given buffer,
+   *   until the socket is closed or an error is encoutered.  The
+   *   socket must be connected before recvFully can be called.
    *   @param buffer buffer to receive the data
    *   @param bufferLen maximum number of bytes to read into buffer
    *   @return number of bytes read, 0 for EOF, and -1 for error
    *   @exception SocketException thrown if unable to receive data
    */
-  int recv(void *buffer, int bufferLen) throw(SocketException);
+  size_t recvFully(void *buffer, int bufferLen) throw(SocketException);
 
   /**
-   *   Get the foreign address.  Call connect() before calling recv()
+   *   Get the address of the peer to which this socket is connected.
+   *   The socket must be connected before this method can be called.
    *   @return foreign address
    *   @exception SocketException thrown if unable to fetch foreign address
    */
-  string getForeignAddress() throw(SocketException);
-
-  /**
-   *   Get the foreign port.  Call connect() before calling recv()
-   *   @return foreign port
-   *   @exception SocketException thrown if unable to fetch foreign port
-   */
-  unsigned short getForeignPort() throw(SocketException);
-
-protected:
-  CommunicatingSocket(int type, int protocol) throw(SocketException);
-  CommunicatingSocket(int newConnSD);
+  SocketAddress getForeignAddress() throw(SocketException);
 };
 
 /**
@@ -204,25 +242,54 @@ protected:
 class TCPSocket : public CommunicatingSocket {
 public:
   /**
-   *   Construct a TCP socket with no connection
-   *   @exception SocketException thrown if unable to create TCP socket
+     Make a socket that is neither bound nor connected.
    */
-  TCPSocket() throw(SocketException);
+  TCPSocket();
+
+  ~TCPSocket();
 
   /**
-   *   Construct a TCP socket with a connection to the given foreign address
-   *   and port
-   *   @param foreignAddress foreign address (IP address or name)
-   *   @param foreignPort foreign port
+   *   Construct a TCP socket with a connection to the given foreign
+   *   address and port.  This is interface is provided as a convience
+   *   for typical applications that don't need to worry about the
+   *   local address and port.  
+   *   @param foreignAddress foreign address (IP address or name) 
+   *   @param foreignPort foreign port 
    *   @exception SocketException thrown if unable to create TCP socket
    */
-  TCPSocket(const string &foreignAddress, unsigned short foreignPort) 
-      throw(SocketException);
+  TCPSocket(const char *foreignAddress, in_port_t foreignPort) 
+    throw(SocketException);
+
+  /**
+     Bind this socket to the given local address.
+   */
+  void bind(const SocketAddress &localAddress) throw(SocketException);
+  
+  /**
+     Connect this socket to the given foreign address.
+   */
+  void connect(const SocketAddress &foreignAddress) throw(SocketException);
+
+  /**
+   *   Return a reference to an I/O stream wrapper around this
+   *   CommunicatingSocket.  The caller can use this object to send
+   *   and receive text-encoded messages over the socket.  The returned
+   *   stream is owned by the socket and is created on the first call
+   *   to getStream.
+   */
+  std::iostream &getStream() throw(SocketException);
 
 private:
   // Access for TCPServerSocket::accept() connection creation
   friend class TCPServerSocket;
-  TCPSocket(int newConnSD);
+  TCPSocket(int sockDesc);
+
+  /** iostream associated with this socket, or NULL if it doesn't have
+      one. */
+  std::iostream *myStream;
+
+  /** Streambuffer managed by myStream. */
+  std::streambuf *myStreambuf;
 };
 
 /**
@@ -230,6 +297,11 @@ private:
  */
 class TCPServerSocket : public Socket {
 public:
+  /**
+     Make an unbound socket.
+   */
+  TCPServerSocket();
+
   /**
    *   Construct a TCP socket for use with a server, accepting connections
    *   on the specified port on any interface
@@ -239,21 +311,14 @@ public:
    *                   connection requests (default 5)
    *   @exception SocketException thrown if unable to create TCP server socket
    */
-  TCPServerSocket(unsigned short localPort, int queueLen = 5) 
+  TCPServerSocket(in_port_t localPort, int queueLen = 5) 
       throw(SocketException);
 
   /**
-   *   Construct a TCP socket for use with a server, accepting connections
-   *   on the specified port on the interface specified by the given address
-   *   @param localAddress local interface (address) of server socket
-   *   @param localPort local port of server socket
-   *   @param queueLen maximum queue length for outstanding 
-   *                   connection requests (default 5)
-   *   @exception SocketException thrown if unable to create TCP server socket
+     Bind this socket to the given local address.
    */
-  TCPServerSocket(const string &localAddress, unsigned short localPort,
-      int queueLen = 5) throw(SocketException);
-
+  void bind(const SocketAddress &localAddress) throw(SocketException);
+  
   /**
    *   Blocks until a new connection is established on this socket or error
    *   @return new connection socket
@@ -268,29 +333,17 @@ private:
 /**
   *   UDP socket class
   */
-class UDPSocket : public CommunicatingSocket {
+class UDPSocket : public Socket {
 public:
   /**
    *   Construct a UDP socket
    *   @exception SocketException thrown if unable to create UDP socket
    */
-  UDPSocket() throw(SocketException);
+  UDPSocket()  throw(SocketException) ;
 
-  /**
-   *   Construct a UDP socket with the given local port
-   *   @param localPort local port
-   *   @exception SocketException thrown if unable to create UDP socket
-   */
-  UDPSocket(unsigned short localPort) throw(SocketException);
+  void bind(const SocketAddress &localAddress) throw(SocketException);
 
-  /**
-   *   Construct a UDP socket with the given local port and address
-   *   @param localAddress local address
-   *   @param localPort local port
-   *   @exception SocketException thrown if unable to create UDP socket
-   */
-  UDPSocket(const string &localAddress, unsigned short localPort) 
-      throw(SocketException);
+  void connect(const SocketAddress &foreignAddress) throw(SocketException);
 
   /**
    *   Unset foreign address and port
@@ -304,13 +357,11 @@ public:
    *   specified address/port
    *   @param buffer buffer to be written
    *   @param bufferLen number of bytes to write
-   *   @param foreignAddress address (IP address or name) to send to
-   *   @param foreignPort port number to send to
-   *   @return true if send is successful
+   *   @param foreignAddress address to send to
    *   @exception SocketException thrown if unable to send datagram
    */
-  void sendTo(const void *buffer, int bufferLen, const string &foreignAddress,
-            unsigned short foreignPort) throw(SocketException);
+  void sendTo(const void *buffer, int bufferLen,
+              const SocketAddress &foreignAddress) throw(SocketException);
 
   /**
    *   Read read up to bufferLen bytes data from this socket.  The given buffer
@@ -321,9 +372,10 @@ public:
    *   @param sourcePort port of data source
    *   @return number of bytes received and -1 for error
    *   @exception SocketException thrown if unable to receive datagram
+   *   @exception SocketTimedOutException thrown after time out period has elapsed
    */
-  int recvFrom(void *buffer, int bufferLen, string &sourceAddress, 
-               unsigned short &sourcePort) throw(SocketException);
+  int recvFrom(void *buffer, int bufferLen, 
+               SocketAddress &sourceAddress) throw(SocketException);
 
   /**
    *   Set the multicast TTL
@@ -337,17 +389,37 @@ public:
    *   @param multicastGroup multicast group address to join
    *   @exception SocketException thrown if unable to join group
    */
-  void joinGroup(const string &multicastGroup) throw(SocketException);
+  void joinGroup(const std::string &multicastGroup) throw(SocketException);
 
   /**
    *   Leave the specified multicast group
    *   @param multicastGroup multicast group address to leave
    *   @exception SocketException thrown if unable to leave group
    */
-  void leaveGroup(const string &multicastGroup) throw(SocketException);
+  void leaveGroup(const std::string &multicastGroup) throw(SocketException);
 
+  /**
+   *   Allow the socket to send broadcast
+   *   @exception SocketException thrown if unable to set broadcast allowance
+   */
+  void setBroadcast()throw(SocketException);
+
+  /**
+   *   Enables  or disables the socket to recieve the multicast packets it sends.
+   * 	@param loop true means enabling, false disabling
+   *   @exception SocketException thrown if unable to set broadcast allowance
+   */  
+  void setMulticastLoop(bool loop) throw(SocketException);
+  
+  /**
+   *   Set time out period, i.e. the maximum amount of time method recvFrom wil wait.
+   * 	@param time recvFrom wil wait in sec.
+   *   @exception SocketException thrown if unable to set time out.
+   */ 
+  void setTimeOut(int sec) throw (SocketException);
+  
 private:
-  void setBroadcast();
+  int timeOutPeriod;
 };
 
 #endif
