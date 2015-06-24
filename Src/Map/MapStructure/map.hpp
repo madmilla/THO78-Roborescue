@@ -1,45 +1,5 @@
-/**
-*                __
-*    _________  / /_  ____  ________  ____________  _____
-*   / ___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
-*  / /  / /_/ / /_/ / /_/ / /  /  __(__  ) /__/ /_/ /  __/
-* /_/   \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
-*
-*
-* @file map.hpp
-* @date Created: 06/24/2015
-* @brief A class that contains the map and has the functions for adding objects to the map
-*
-* @author Jos Bijlenga, Marianne Delmaar, Mathijs Arends, Jasper Stas, Coen Andriessen
-*
-* @version 2.4
-*
-* @section LICENSE
-* License: newBSD
-*
-* Copyright   2015, HU University of Applied Sciences Utrecht.
-* All rights reserved.
-*
-* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-* - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-* - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-* - Neither the name of the HU University of Applied Sciences Utrecht nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED. IN NO EVENT SHALL THE HU UNIVERSITY OF APPLIED SCIENCES UTRECHT
-* BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-* GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
-* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-**/
-
-#ifndef MAP_H
-#define MAP_H
-
+#ifndef Map_H
+#define Map_H
 #include <math.h>
 #include <cmath>
 #include "point.hpp"
@@ -60,14 +20,7 @@
 class Map : public mapImplementation
 {
 public:
-	//! Returns the scaled heuristic location value
-	//! @param The x value
-	//! @param The y value
-	//! @return The the value of the scaled heuristic location
 	int getScaledHeuristicLocationValue(int x, int y);
-
-	//! Returns the scale value
-	//! @return The scale value of the map class
 	int getScale();
 	Map();
 	Map(line & l);
@@ -152,31 +105,22 @@ public:
 	//! @param The y coördinate of the starting point
 	bool isReachable(point p, point p1);
 
-	//! Sets the scale value of the map class 
-	//! @param The x value is the new scale value
+	//!
 	void setScale(int x);
 	
-	//! Check if a scaled destination is accessible from a location
-	//! @param The x index
-	//! @param The y index
-	//! @return The result of the accessible check
+	//! 
 	bool isScaledAccessible(int x, int y);
 
-	//! Adds object to position x,y
-	//! @param A polygon p
+	//add object to position x,y
 	void addObject(polygon p);
 
-	//! Fills object (circle or polygon) so that middle is not accessible
-	//! @param vector with the object (circle or polygon)
+	//fill object (circle or polygon) so that middle is not accessible
 	void fillObjects(std::vector<int> object);
 
-	//! When pathfinding is done, make all cells unseen again.
+	//when pathfinding is done, make all cells unseen again. seen = false;	
 	void makeUnseen();
 
-	//! Sets the value of a location in the map
-	//! @param The x index
-	//! @param The y index
-	//! @param The new value of the position x, y
+	//when pathfinding is done, make all cells unseen again. seen = false;	
 	void setLocationValue(unsigned int x, int y, int value);
 
 	//translate lines to points in 2d vector
@@ -185,82 +129,44 @@ public:
 	//! point data to the return.
 	void translateToPoints();
 
-	//! Returns the value of the location x, y
-	//! @param The x index
-	//! @param The y index
-	//! @return the value of location x, y
 	int getLocationValue(unsigned int x, unsigned int y);
 
-	//! Returns the value of the scaled location x, y
-	//! @param The x index
-	//! @param The y index
-	//! @return the value of scaled location x, y
 	int getScaledLocationValue(int x, int y);
-
-	//! Returns the value of the scaled width
-	//! @return the value of scaled width
 	int getScaledWidth();
-
-	//! Returns the value of the scaled height
-	//! @return the value of scaled height
 	int getScaledHeight();
-
-	//! Returns if the map contains a certain value
-	//! @param The value what will be checked
-	//! @return true if the value is present in the map, false if not
 	int contains(int value);
-
-	//! Sets the value of a scaled location in the map
-	//! @param The x index
-	//! @param The y index
-	//! @param The new value of the scaled position x, y
 	void setScaledLocationValue(int x, int y, int value);
-
-	//! Prints the map in the console output
 	void print();
 
-	//! Adds a circle to the map
-	//! @param The x index
-	//! @param The y index
-	//! @param The radius of the circle
 	void addCircle(int x, int y, int radius);
 
-	// Vehicle Positions Getters
-	//! Returns the position of the rosbee on the map
-	//! @return The rosbee position
+	// Vehicle Positions Getters and Setters
+	//! \returns the virtualrosbee position
 	virtualRosbee* getRosbeePosition() { return rosbeePosition; }
-	//! Returns the position of the ATV on the map
-	//! @return The ATV position
+	//! \returns the atv position
 	ATV* getATVPosition() { return ATVPosition; }
 	//! \returns the quadcopter position
 	//QuadCopter* getQuadCopterPositon() { return quadcopterPosition; }
 
-	// Vehicle Positions Setters
-	//! Sets the rosbee position
-	//! @param The new position of the rosbee 
+	//! Sets the virtualrosbee position
 	void setRosbeePosition(virtualRosbee* newPosition) { this->rosbeePosition = newPosition; }
-	//! Sets the ATV position
-	//! @param The new position of the ATV 
+	//! Sets the atv position
 	void setATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
 	//! Sets the quadcopter position
 	//void setQuadCopterPositon(QuadCopter* newPosition) { this->quadcopterPosition = newPosition; }
-
-	//! Adds the objects from the lidar to the map
-	//! @param The array gotten from the lidar
-	void addLidarInput(int lidarInputArray[]);
+	void addvirtuallidarInput(int virtuallidarInputArray[]);
 	
-	//! Add a line to the grid directly
+	//! add a line to the grid directly
 	//! @param The line to add to the grid
 	void addLineToGrid(line l);
 
-	//! Add a polygon to the collection of lines
+	//! add a polygon to the collection of lines
 	//! @param The polygon to add
 	void addPolygonToMapData(polygon p);
 
-	//! Add a polygon to the grid
+	//! add a polygon to the grid
 	//! @param THe polygon to add
 	void addPolygonToGrid(polygon p);
-	
 	void addValuedCircle(int xCentre, int yCentre, int radius, int value);
 	std::vector<float> addHalfValuedCircle(int xCentre, int yCentre, int radius, int value, std::vector<float> skipInts);
 	
