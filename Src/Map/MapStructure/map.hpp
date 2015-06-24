@@ -163,6 +163,8 @@ public:
 	//! add a polygon to the grid
 	//! @param THe polygon to add
 	void addPolygonToGrid(polygon p);
+	void addValuedCircle(int xCentre, int yCentre, int radius, int value);
+	std::vector<float> addHalfValuedCircle(int xCentre, int yCentre, int radius, int value, std::vector<float> skipInts);
 
 private:
 	int scale=1;
