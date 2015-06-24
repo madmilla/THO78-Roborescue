@@ -107,7 +107,7 @@ public:
 
 	//! Append a line to the map
 	//! @param A line to be appended to the map data
-	void appendLine(line & l);
+	void appendLine(line l);
 
 	//! Append a vector of lines to the map
 	//! @param A vector of lines to be appended to the map data
