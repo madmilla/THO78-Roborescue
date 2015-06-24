@@ -26,7 +26,7 @@ else
 	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/lib/opencv/Linux/x64
 	LINKFLAGS := -L$(DEPS_DIR_LINUX)/lib/rplidar/linux -lrplidar -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))
 	gcc := /usr/bin/g++
-	CFLAGS = -std=c++11 -I$(DEPS_DIR_LINUX)/incl/rplidar -I$(DEPS_DIR_LINUX)/incl/mavlink -lstdc++ -lpthread -lrt -I$(DEPS_DIR_LINUX)/incl/opencv
+	CFLAGS = -std=c++11 -I$(DEPS_DIR_LINUX)/incl/rplidar -I$(DEPS_DIR_LINUX)/incl/mavlink -lstdc++ -lpthread -lrt -I$(DEPS_DIR_LINUX)/incl/opencv -I$(DEPS_DIR_LINUX)/incl/Donahoo
 	rm := rm -f
 	TARGET := $(PROG)
 endif
