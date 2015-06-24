@@ -19,11 +19,11 @@ environmentsimulator : $(UI_HEADERS) $(OBJ)
 	
 clean : 
 	for prefix in $(MODULES); do \
-		rm -f "$$prefix"*.o; \
-		rm -f "$$prefix"*.d; \
-		rm -f "$$prefix"ui_*.h; \
-		rm -f "$$prefix"moc_*.cpp; \
+		del -f "$$prefix"*.o; \
+		del -f "$$prefix"*.d; \
+		del -f "$$prefix"ui_*.h; \
+		del -f "$$prefix"moc_*.cpp; \
 	done
-	rm -f *.exe
+	del -f *.exe
 
 -include $(OBJ:.o=.d)

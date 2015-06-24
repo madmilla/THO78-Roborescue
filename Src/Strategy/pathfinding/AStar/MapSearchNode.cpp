@@ -1,6 +1,6 @@
 #include "MapSearchNode.h"
 
-map * MapSearchNode::Map = &map();
+map * MapSearchNode::Map = new map();
 MapSearchNode::MapSearchNode(){
     x = 0;
     y = 0;

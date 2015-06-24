@@ -62,7 +62,7 @@ void Route::setRouteTile(int x, int y){
 }
 
 /**
-* Function that returns the next destination for the rosbee to reach the unscanned tile.
+* Function that returns the next destination for the virtualrosbee to reach the unscanned tile.
 * tileLocation[0] will contain the x of the tile, tileLocation[1] will contain the y of the tile.
 * Also the quaried tile will be removed from the vector.
 */

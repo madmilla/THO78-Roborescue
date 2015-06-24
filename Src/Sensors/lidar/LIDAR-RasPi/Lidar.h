@@ -39,7 +39,8 @@
 #include "rplidar.h"
 #include <vector>
 #include <string>
-
+#include "Line.h"
+#include "shapedetector.h"
 using namespace rp::standalone::rplidar;
 
 //! Data structure for scan point
