@@ -50,11 +50,11 @@ class VSLAM
 {
 public:
 	/**
-	* @fn	VSLAM(map *Map, virtualRosbee *virtualrosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, virtuallidar *virtuallidar);
+	* @fn	VSLAM(map *Map, Rosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, virtuallidar *virtuallidar);
 	*
 	* @brief	Constructor of the class VSLAM.
 	*/
-	VSLAM(map *Map, virtualRosbee *virtualrosbee, Route *route, virtualLidar *virtuallidar);
+	VSLAM(map *Map, virtualRosbee *rosbee, Route *route, virtualLidar *virtuallidar);
 	/**
 	* @fn	~VSLAM();
 	*
@@ -65,7 +65,7 @@ public:
 	* @fn	void run();
 	*
 	* @brief	Function to start the scanning of the unknown area. The function is not recursive. Each time the funcion is 
-	* called the virtualrosbee wil get a new destination from the function. 
+	* called the rosbee wil get a new destination from the function. 
 	*/
     void run();
 	bool wholeRouteInRangevirtuallidar();
@@ -75,9 +75,9 @@ private:
 	*/
     map *Map;
 	/**
-	* @brief virtualrosbee object.
+	* @brief rosbee object.
 	*/
-	virtualRosbee *virtualrosbee;
+	virtualRosbee *rosbee;
 	/**
 	* @brief mapSearchNode object.
 	*/
@@ -95,7 +95,7 @@ private:
 	*/
 	virtualLidar * virtuallidar;
 	/**
-	* @brief int * newRosbeeLocation variable to store the new location of the virtualrosbee.
+	* @brief int * newRosbeeLocation variable to store the new location of the rosbee.
 	*/
 	int * newRosbeeLocation;
 	/**

@@ -57,44 +57,44 @@ virtualRosbee::~virtualRosbee() {
 }
 
 /**
- * Function to return the virtualrosbee location x.
+ * Function to return the rosbee location x.
  */
 
-int virtualRosbee::getVirtualRosbeeLocationX() {
+int virtualRosbee::getRosbeeLocationX() {
 	return this->rosbeeLocationX;
 }
 
 /**
- * Function to return the virtualrosbee location y.
+ * Function to return the rosbee location y.
  * @return rosbeeLocationY
  */
 
-int virtualRosbee::getVirtualRosbeeLocationY() {
+int virtualRosbee::getRosbeeLocationY() {
     return rosbeeLocationY;
 }
 
 /**
- * Function to set the virtualrosbee location x.
+ * Function to set the rosbee location x.
  */
 
-void virtualRosbee::setVirtualRosbeeLocationX(int x) {
+void virtualRosbee::setRosbeeLocationX(int x) {
     rosbeeLocationX = x + rosbeeLocationX;
 }
 
 /**
- * Function to set the virtualrosbee location y.
+ * Function to set the rosbee location y.
  */
 
-void virtualRosbee::setVirtualRosbeeLocationY(int y) {
+void virtualRosbee::setRosbeeLocationY(int y) {
     rosbeeLocationY = y + rosbeeLocationY;
 }
 
 /**
-* Function to move the virtualrosbee location x and y.
+* Function to move the rosbee location x and y.
 */
 
 void virtualRosbee::moveTo(int x, int y) {
-	std::cout << "virtualrosbee move to: " << x << " , " << y << std::endl;
+	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
 }
 
 

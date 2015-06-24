@@ -1,9 +1,9 @@
 #include "StrategyController.h"
 
 
-StrategyController::StrategyController(map Map, QuadCopter copter, virtualRosbee virtualrosbee, virtualLidar virtuallidar) :
+StrategyController::StrategyController(map Map, QuadCopter copter, virtualRosbee rosbee, virtualLidar virtuallidar) :
 copter{ copter },
-virtualrosbee{ virtualrosbee },
+rosbee{ rosbee },
 Map{ Map },
 virtuallidar{virtuallidar}
 
@@ -19,7 +19,7 @@ StrategyController::~StrategyController()
 void StrategyController::scanArea(){
 	Route * route = new Route();
 	map mapCopy = Map;
-	VSLAM vslam(&mapCopy, &virtualrosbee, route, &virtuallidar);
+	VSLAM vslam(&mapCopy, &rosbee, route, &virtuallidar);
 	mapCopy.setScale(5);
 	mapCopy.setScaledLocationValue(8, 8, 1);
 	mapCopy.setScaledLocationValue(8, 9, 1);

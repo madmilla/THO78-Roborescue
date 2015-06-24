@@ -59,37 +59,37 @@ public:
 	*/
 	~virtualRosbee();
 	/**
-	* @fn	int getVirtualRosbeeLocationX();
+	* @fn	int getRosbeeLocationX();
 	*
 	* @brief	Function that returns the x location of the virtualRosbee.
 	*
 	* @return	int rosbeeLocationX
 	*/
-    int getVirtualRosbeeLocationX();
+    int getRosbeeLocationX();
 	/**
-	* @fn	int getVirtualRosbeeLocationY();
+	* @fn	int getRosbeeLocationY();
 	*
 	* @brief	Function that returns the y location of the virtualRosbee.
 	*
 	* @return	int rosbeeLocationY
 	*/
-    int getVirtualRosbeeLocationY();
+    int getRosbeeLocationY();
 	/**
 	* @fn	void set RosbeeLocationY();
 	*
 	* @brief	Function that set the y location of the virtualRosbee.
 	*/
-    void setVirtualRosbeeLocationY(int y);
+    void setRosbeeLocationY(int y);
 	/**
 	* @fn	void set RosbeeLocationX();
 	*
 	* @brief	Function that set the x location of the virtualRosbee.
 	*/
-    void setVirtualRosbeeLocationX(int x);
+    void setRosbeeLocationX(int x);
 	/**
 	* @fn	void moveTo(int x, int y);
 	*
-	* @brief	Function to move the virtualrosbee to location x and y.
+	* @brief	Function to move the rosbee to location x and y.
 	*
 	* @param	int x
 	* @param	int y
@@ -97,11 +97,11 @@ public:
 	void moveTo(int x, int y);
 private:
 	/**
-	* @brief int rosbeeLocationX variable to save virtualrosbee location x.
+	* @brief int rosbeeLocationX variable to save rosbee location x.
 	*/
     int rosbeeLocationX;
 	/**
-	* @brief int rosbeeLocationY variable to save virtualrosbee location y.
+	* @brief int rosbeeLocationY variable to save rosbee location y.
 	*/
     int rosbeeLocationY;
 };

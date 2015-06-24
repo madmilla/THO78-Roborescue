@@ -46,11 +46,11 @@ class mapLogicVSLAM
 {
 public:
 	/**
-	* @fn	mapLogicVSLAM(map * Map, virtualRosbee * virtualrosbee, virtuallidar * virtuallidar);
+	* @fn	mapLogicVSLAM(map * Map, Rosbee * rosbee, virtuallidar * virtuallidar);
 	*
 	* @brief	Constructor of the class mapLogicVSLAM.
 	*/
-	mapLogicVSLAM(map * Map, virtualRosbee * virtualrosbee, virtualLidar * virtuallidar);
+	mapLogicVSLAM(map * Map, virtualRosbee * rosbee, virtualLidar * virtuallidar);
 	/**
 	* @fn	~mapLogicVSLAM();
 	*
@@ -85,9 +85,9 @@ public:
 	*/
 	map * Map;
 	/**
-	* @brief virtualrosbee object.
+	* @brief rosbee object.
 	*/
-	virtualRosbee * virtualrosbee;
+	virtualRosbee * rosbee;
 	/**
 	* @brief virtuallidar object.
 	*/
