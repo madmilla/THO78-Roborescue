@@ -7,7 +7,6 @@
 class ATV{
 public:
     ATV(Dimension size, int x, int y);
-    ~ATV();
 
     void goTo(int x, int y);
     void goTo(WayPoint* waypoint);

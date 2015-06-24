@@ -35,6 +35,8 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
+#ifndef PAIRWISEMOVE
+#define PAIRWISEMOVE
 
 #include "../../Common/waypoint.h"
 #include "../../Common/QuadCopter.h"
@@ -44,9 +46,6 @@
 #include "../Stop-them-spaces/aStar.h"
 #include <vector>
 
-
-#ifndef PAIRWISEMOVE
-#define PAIRWISEMOVE
 
 class PairWiseMove{
 public:
