@@ -68,8 +68,7 @@ void mapLogicVSLAM::setTilesInRangeLidar(){
 			}
 		}
 	}*/
-	Map->addCircle(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), 1);
-	Map->addCircle(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), 2);
+	Map->addLIDARCircle(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), 2);
 }
 
 /**
