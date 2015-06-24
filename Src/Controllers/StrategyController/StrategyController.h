@@ -5,10 +5,10 @@
 class StrategyController
 {
 public:
-	Lidar lidar;
+	virtualLidar virtuallidar;
 	virtualRosbee rosbee;
 	map Map;
-	StrategyController(map Map, QuadCopter copter, virtualRosbee rosbee, Lidar lidar);
+	StrategyController(map Map, QuadCopter copter, virtualRosbee rosbee, virtualLidar virtuallidar);
 	~StrategyController();
 	void scanArea();
 	void searchArea();

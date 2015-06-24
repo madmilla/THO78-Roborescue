@@ -41,13 +41,13 @@
  * Constructor of VSLAM.
  */
 
-VSLAM::VSLAM(map *Map, virtualRosbee *rosbee, Route* route, Lidar *lidar){
+VSLAM::VSLAM(map *Map, virtualRosbee *rosbee, Route* route, virtualLidar *virtuallidar){
     this->Map = Map;
     this->rosbee = rosbee;
     this->mapSearchNode = new MapSearchNode(Map, route);
     this->route = route;
-	this->MapLogicVSLAM = new mapLogicVSLAM(Map, rosbee, lidar);
-	this->lidar = lidar;
+	this->MapLogicVSLAM = new mapLogicVSLAM(Map, rosbee, virtuallidar);
+	this->virtuallidar = virtuallidar;
 }
 
 /**
@@ -60,7 +60,7 @@ VSLAM::~VSLAM(){
 
 /**
  * Function for scanning a unknown area with VSLAM. First will be checked if the map is fully scanned. When the map is not fully scanned.
- * We need to set the tiles on scanned which are in the range of the LIDAR. When there is no route (Container::route.getSize()) we need to
+ * We need to set the tiles on scanned which are in the range of the virtuallidar. When there is no route (Container::route.getSize()) we need to
  * get a new route for the rosbee. Now we check if there is on the map a tile which is not scanned. When we find a tile and the map is not
  * fully scanned we get the route to the unscanned tile with a a star algorithm. Each move will be stored in a vector.
  * When we have a route we get the first tile location in the vector and we say to the rosbee go to that location. When the tile location 
@@ -71,8 +71,8 @@ void VSLAM::run(){
 	// Check if the map is fully scanned.
 	if (!MapLogicVSLAM->isMapFullyScanned()){
 		//Map->print();
-		// Set the tiles in range of the lidar to scanned with the function below.
-		MapLogicVSLAM->setTilesInRangeLidar();
+		// Set the tiles in range of the virtuallidar to scanned with the function below.
+		MapLogicVSLAM->setTilesInRangevirtuallidar();
 		// Do this when there is no route.
 		if (!Container::route.getSize()){
 			// Get the tile location of a unscanned tile with the function below.
@@ -90,8 +90,8 @@ void VSLAM::run(){
 			newRosbeeLocation = Container::route.getNewTile();
 			// Checks if the new destination for the rosbee is accessible.
 			// When it's not accessible clear the route else send the rosbee to the new location.
-			if (wholeRouteInRangeLidar()){
-				std::cout << "in range lidar" << std::endl;
+			if (wholeRouteInRangevirtuallidar()){
+				std::cout << "in range virtuallidar" << std::endl;
 				Container::route.clearRoute();
 			}
 			if (Map->getScaledHeuristicLocationValue(newRosbeeLocation[0], newRosbeeLocation[1]) == 9){
@@ -108,7 +108,7 @@ void VSLAM::run(){
 	}
 }
 
-bool VSLAM::wholeRouteInRangeLidar(){
+bool VSLAM::wholeRouteInRangevirtuallidar(){
 	for (WayPoint *i : Container::route.wayPoints){
 		if(Map->getScaledLocationValue(i->x, i->y) == 0){
 			return false;
