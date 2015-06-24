@@ -14,7 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
@@ -26,7 +26,7 @@ class Ui_LidarWindow
 public:
     QWidget *centralwidget;
     QPushButton *startLidar;
-    QLineEdit *lineEdit;
+    QLabel *label;
 
     void setupUi(QMainWindow *LidarWindow)
     {
@@ -38,9 +38,9 @@ public:
         startLidar = new QPushButton(centralwidget);
         startLidar->setObjectName(QStringLiteral("startLidar"));
         startLidar->setGeometry(QRect(70, 60, 75, 23));
-        lineEdit = new QLineEdit(centralwidget);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(50, 20, 113, 20));
+        label = new QLabel(centralwidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(60, 20, 101, 16));
         LidarWindow->setCentralWidget(centralwidget);
 
         retranslateUi(LidarWindow);
@@ -52,7 +52,7 @@ public:
     {
         LidarWindow->setWindowTitle(QApplication::translate("LidarWindow", "MainWindow", 0));
         startLidar->setText(QApplication::translate("LidarWindow", "Start Scan", 0));
-        lineEdit->setText(QApplication::translate("LidarWindow", "Manual Lidar Gui", 0));
+        label->setText(QApplication::translate("LidarWindow", "Manual Lidar Window", 0));
     } // retranslateUi
 
 };
