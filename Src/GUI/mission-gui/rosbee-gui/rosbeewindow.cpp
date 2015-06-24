@@ -1,4 +1,5 @@
 #include "ui_rosbeewindow.h"
+#include "rosbeewindow.h"
 
 #include <QtWidgets/QMessageBox>
 
