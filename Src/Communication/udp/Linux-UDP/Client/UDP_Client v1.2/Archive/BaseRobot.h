@@ -10,6 +10,7 @@
 * @date Created: 27-5-2015
 *
 * @author Hamza ait Messaoud
+* @author Pawel Niewolik
 *
 * @section LICENSE
 * License: newBSD
@@ -37,12 +38,13 @@
 #ifndef BASEROBOT_H_
 #define BASEROBOT_H_
 
-#include "mavlink/udp_mavlink_commands/mavlink.h"
-//#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+
+#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
 #include <queue>
 
 
 //! \author@ Hamza ait Messaoud<hamza.aitmessaoud@student.hu.nl>
+//! \author@ Pawel Niewolik<pawel.niewolik@student.hu.nl>
 //! \class@ BaseRobot
 //! \brief the base class for a Robot, this has the virtual function which need to be overwritten by other Robots like Lidar or Rosbee
 class BaseRobot{
