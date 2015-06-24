@@ -68,6 +68,19 @@ ifeq ($(MAKECMDGOALS),environmentsimulator)
 		include TargetMakefiles/Makefile.environmentsimulator
 	endif
 endif
+ifeq ($(MAKECMDGOALS),map)
+	ifneq ($(OS),Windows_NT)
+		@echo "The Map is currently not compatible with linux bases systems"
+		exit 1
+	else
+		LDLIBS += -lQt5Core -lQt5Sql
+		LDFLAGS += -L$(QT_LIB_DIR)
+		MOC	= $(QT_BIN_DIR)/moc.exe
+		UIC	= $(QT_BIN_DIR)/uic.exe
+		INCLUDES 	+= -I$(QT_INCL_DIR)
+		include TargetMakefiles/Makefile.map
+	endif
+endif
 ifeq ($(MAKECMDGOALS),clean)
 	include TargetMakefiles/Makefile.clean
 else
