@@ -1,5 +1,5 @@
 /**
- * @file Rosbee.h
+ * @file virtualRosbee.h
  * @author Coen Andriessen
  * @version 1.1
  */
@@ -9,13 +9,13 @@
 //#include "../../Vehicles/Rosbee/Rosbee.h"
 #include <iostream>
 //#include "../../Vehicles/Rosbee/Rosbee.h"
-class VirutalRosbee
+class virtualRosbee
 {
 public:
     // Constructor of rosbee.
-	VirutalRosbee();
+	virtualRosbee();
     // Destructor of rosbee.
-	~VirutalRosbee();
+	~virtualRosbee();
     // Function to check if the rosbee location is changed.
     bool isLocationChanged();
     // Function to get the rosbee location x.

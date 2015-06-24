@@ -1,7 +1,7 @@
 #include "StrategyController.h"
 
 
-StrategyController::StrategyController(map Map, QuadCopter copter, VirutalRosbee rosbee, Lidar lidar) :
+StrategyController::StrategyController(map Map, QuadCopter copter, virtualRosbee rosbee, Lidar lidar) :
 copter{ copter },
 rosbee{ rosbee },
 Map{ Map },
@@ -24,9 +24,6 @@ void StrategyController::scanArea(){
 	while (mapCopy.contains(0)){ vslam.run(); }
 	mapCopy.print();
 	getchar();
-
-
-
 }
 
 void StrategyController::searchArea(){

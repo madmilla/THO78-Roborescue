@@ -75,7 +75,7 @@
     <ClCompile Include="..\..\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\strategy\Common\VirutalRosbee.cpp">
+    <ClCompile Include="..\..\strategy\Common\virtualRosbee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,7 +149,7 @@
     <ClInclude Include="..\..\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\strategy\Common\VirutalRosbee.h">
+    <ClInclude Include="..\..\Strategy\Common\virtualRosbee.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

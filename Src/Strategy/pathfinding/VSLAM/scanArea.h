@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include "../../../map/mapstructure/map.hpp"
-#include "../../Common/VirutalRosbee.h"
+#include "../../Common/virtualRosbee.h"
 #include "../AStar/MapSearchNode.h"
 #include "../../Common/route.h"
 #include "mapLogicVSLAM.h"
@@ -20,14 +20,14 @@ class scanArea
 {
 public:
     // Constructor of scanArea.
-	scanArea(map *Map, VirutalRosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, Lidar *lidar);
+	scanArea(map *Map, virtualRosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, Lidar *lidar);
     // Destructor of scanArea.
     ~scanArea();
     // Function to start the scan algorithm.
     void run();
 private:
     map *Map;
-	VirutalRosbee *rosbee;
+	virtualRosbee *rosbee;
     MapSearchNode *mapSearchNode;
 	mapLogicVSLAM *MapLogicVSLAM;
     Route * route;

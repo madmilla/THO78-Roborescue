@@ -20,7 +20,7 @@
     <ClCompile Include="..\..\strategy\Common\Lidar.cpp" />
     <ClCompile Include="..\..\strategy\Common\QuadCopter.cpp" />
     <ClCompile Include="..\..\strategy\Common\route.cpp" />
-    <ClCompile Include="..\..\strategy\Common\VirutalRosbee.cpp" />
+    <ClCompile Include="..\..\strategy\Common\virtualRosbee.cpp" />
     <ClCompile Include="..\..\strategy\Common\waypoint.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\AStar Algorithm\aStar.cpp" />
@@ -44,7 +44,7 @@
     <ClInclude Include="..\..\strategy\Common\Lidar.h" />
     <ClInclude Include="..\..\strategy\Common\QuadCopter.h" />
     <ClInclude Include="..\..\strategy\Common\route.h" />
-    <ClInclude Include="..\..\strategy\Common\VirutalRosbee.h" />
+    <ClInclude Include="..\..\Strategy\Common\virtualRosbee.h" />
     <ClInclude Include="..\..\strategy\Common\waypoint.h" />
     <ClInclude Include="..\..\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.h" />
     <ClInclude Include="..\..\strategy\pathfinding\AStar Algorithm\aStar.h" />

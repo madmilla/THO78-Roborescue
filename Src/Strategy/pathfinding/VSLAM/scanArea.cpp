@@ -14,7 +14,7 @@
  * @param rosbee
  */
 
-scanArea::scanArea(map *Map, VirutalRosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, Lidar *lidar){
+scanArea::scanArea(map *Map, virtualRosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, Lidar *lidar){
     // Constructor
     this->Map = Map;
     this->rosbee = rosbee;

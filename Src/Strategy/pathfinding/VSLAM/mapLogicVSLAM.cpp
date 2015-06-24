@@ -37,7 +37,7 @@
 
 #include "mapLogicVSLAM.h"
 
-mapLogicVSLAM::mapLogicVSLAM(map * Map, VirutalRosbee * rosbee, Lidar * lidar){
+mapLogicVSLAM::mapLogicVSLAM(map * Map, virtualRosbee * rosbee, Lidar * lidar){
 	this->Map = Map;
 	this->rosbee = rosbee;
 	this->lidar = lidar;

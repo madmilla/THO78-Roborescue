@@ -41,7 +41,7 @@
  * Constructor of VSLAM.
  */
 
-VSLAM::VSLAM(map *Map, VirutalRosbee *rosbee, Route* route, Lidar *lidar){
+VSLAM::VSLAM(map *Map, virtualRosbee *rosbee, Route* route, Lidar *lidar){
     
     
     this->Map = Map;
@@ -82,7 +82,7 @@ void VSLAM::run(){
 			std::cout << "tile location x " << tileLocation[0] << " tile location y " << tileLocation[1] << std::endl;
 			std::cout << "rosbee location x " << rosbee->getRosbeeLocationX() << " rosbee location y " << rosbee->getRosbeeLocationY() << std::endl;
 			// When the map is still not fully scanned get the path with a star to the unscanned tile.
-			if (!MapLogicVSLAM->isMapFullyScanned()){
+			if (Map->contains(0)){
 				mapSearchNode->Search(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), int(tileLocation[0]), int(tileLocation[1]));
 			}
 		}

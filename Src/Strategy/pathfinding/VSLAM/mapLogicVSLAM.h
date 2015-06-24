@@ -39,7 +39,7 @@
 #define MAPLOGICVSLAM_H
 
 #include "../../../map/MapStructure/map.hpp"
-#include "../../Common/VirutalRosbee.h"
+#include "../../Common/virtualRosbee.h"
 #include "../../Common/lidar.h"
 
 class mapLogicVSLAM
@@ -50,7 +50,7 @@ public:
 	*
 	* @brief	Constructor of the class mapLogicVSLAM.
 	*/
-	mapLogicVSLAM(map * Map, VirutalRosbee * rosbee, Lidar * lidar);
+	mapLogicVSLAM(map * Map, virtualRosbee * rosbee, Lidar * lidar);
 	/**
 	* @fn	~mapLogicVSLAM();
 	*
@@ -87,7 +87,7 @@ public:
 	/**
 	* @brief rosbee object.
 	*/
-	VirutalRosbee * rosbee;
+	virtualRosbee * rosbee;
 	/**
 	* @brief lidar object.
 	*/

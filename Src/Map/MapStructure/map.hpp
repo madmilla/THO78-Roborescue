@@ -7,7 +7,7 @@
 #include <vector>
 #include "../polygon.h"
 #include "../../strategy/Common/QuadCopter.h"
-#include "../../strategy/Common/VirutalRosbee.h"
+#include "../../strategy/Common/virtualRosbee.h"
 #include "../../strategy/Common/ATV.h"
 #include "../../strategy/pathfinding/Stop-them-spaces/aStar.h"
 #include "mapImplementation.hpp"
@@ -138,14 +138,14 @@ public:
 
 	// Vehicle Positions Getters and Setters
 	//! \returns the rosbee position
-	VirutalRosbee* getRosbeePosition() { return rosbeePosition; }
+	virtualRosbee* getRosbeePosition() { return rosbeePosition; }
 	//! \returns the atv position
 	ATV* getATVPosition() { return ATVPosition; }
 	//! \returns the quadcopter position
 	QuadCopter* getQuadCopterPositon() { return quadcopterPosition; }
 
 	//! Sets the rosbee position
-	void setRosbeePosition(VirutalRosbee* newPosition) { this->rosbeePosition = newPosition; }
+	void setRosbeePosition(virtualRosbee* newPosition) { this->rosbeePosition = newPosition; }
 	//! Sets the atv position
 	void setATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
 	//! Sets the quadcopter position
@@ -162,7 +162,7 @@ private:
 	//! @param The point on the grid
 	void setNotReachable(point p);
 
-	VirutalRosbee* rosbeePosition;
+	virtualRosbee* rosbeePosition;
 	ATV* ATVPosition;
 	QuadCopter* quadcopterPosition;
 };

@@ -40,7 +40,7 @@
 
 #include <iostream>
 #include "../../../map/MapStructure/map.hpp"
-#include "../../Common/VirutalRosbee.h"
+#include "../../Common/virtualRosbee.h"
 #include "mapLogicVSLAM.h"
 #include "../../Common/route.h"
 #include "../AStar/MapSearchNode.h"
@@ -54,7 +54,7 @@ public:
 	*
 	* @brief	Constructor of the class VSLAM.
 	*/
-	VSLAM(map *Map, VirutalRosbee *rosbee, Route *route, Lidar *lidar);
+	VSLAM(map *Map, virtualRosbee *rosbee, Route *route, Lidar *lidar);
 	/**
 	* @fn	~VSLAM();
 	*
@@ -77,7 +77,7 @@ private:
 	/**
 	* @brief rosbee object.
 	*/
-	VirutalRosbee *rosbee;
+	virtualRosbee *rosbee;
 	/**
 	* @brief mapSearchNode object.
 	*/

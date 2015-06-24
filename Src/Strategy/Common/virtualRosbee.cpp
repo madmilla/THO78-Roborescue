@@ -34,20 +34,20 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include "VirutalRosbee.h"
+#include "virtualRosbee.h"
 
 
 /**
  * Constructor of Rosbee.
  */
-VirutalRosbee::VirutalRosbee() {
+virtualRosbee::virtualRosbee() {
     // Constructor
 }
 
 /**
  * Destructor of Map.
  */
-VirutalRosbee::~VirutalRosbee() {
+virtualRosbee::~virtualRosbee() {
     // Destructor
 }
 
@@ -55,7 +55,7 @@ VirutalRosbee::~VirutalRosbee() {
  * Function to check if the rosbee location is changed. When it is changed
  * the location will be stored in the old rosbee location.
  */
-bool VirutalRosbee::isLocationChanged() {
+bool virtualRosbee::isLocationChanged() {
     if(rosbeeLocationX == oldRosbeeLocationX && rosbeeLocationY == oldRosbeeLocationY){
         return false;
     }else{
@@ -69,7 +69,7 @@ bool VirutalRosbee::isLocationChanged() {
  * Function to return the rosbee location x.
  * @return rosbeeLocationX
  */
-int VirutalRosbee::getRosbeeLocationX() {
+int virtualRosbee::getRosbeeLocationX() {
 	return this->rosbeeLocationX;
 }
 
@@ -77,7 +77,7 @@ int VirutalRosbee::getRosbeeLocationX() {
  * Function to return the rosbee location y.
  * @return rosbeeLocationY
  */
-int VirutalRosbee::getRosbeeLocationY() {
+int virtualRosbee::getRosbeeLocationY() {
     return rosbeeLocationY;
 }
 
@@ -85,7 +85,7 @@ int VirutalRosbee::getRosbeeLocationY() {
  * Function to return the old rosbee location x.
  * @return oldRosbeeLocationx
  */
-int VirutalRosbee::getOldRosbeeLocationX() {
+int virtualRosbee::getOldRosbeeLocationX() {
     return oldRosbeeLocationX;
 }
 
@@ -93,7 +93,7 @@ int VirutalRosbee::getOldRosbeeLocationX() {
  * Function to return the old rosbee location y.
  * @return oldRosbeeLocationY
  */
-int VirutalRosbee::getOldRosbeeLocationY() {
+int virtualRosbee::getOldRosbeeLocationY() {
     return oldRosbeeLocationY;
 }
 
@@ -102,7 +102,7 @@ int VirutalRosbee::getOldRosbeeLocationY() {
  *
  * @param x
  */
-void VirutalRosbee::setRosbeeLocationX(int x) {
+void virtualRosbee::setRosbeeLocationX(int x) {
     rosbeeLocationX = x + rosbeeLocationX;
 }
 
@@ -112,11 +112,11 @@ void VirutalRosbee::setRosbeeLocationX(int x) {
  * @param y
  */
 // Set value for rosbeeLocationY.
-void VirutalRosbee::setRosbeeLocationY(int y) {
+void virtualRosbee::setRosbeeLocationY(int y) {
     rosbeeLocationY = y + rosbeeLocationY;
 }
 
-void VirutalRosbee::moveTo(int x, int y) {
+void virtualRosbee::moveTo(int x, int y) {
 	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
 }
 
