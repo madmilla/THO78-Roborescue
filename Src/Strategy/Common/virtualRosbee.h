@@ -32,10 +32,10 @@ public:
     void setRosbeeLocationX(int x);
 	void moveTo(int x, int y);
 private:
-    int rosbeeLocationX = 1;
+    int rosbeeLocationX = 5;
     int oldRosbeeLocationX;
     int oldRosbeeLocationY;
-    int rosbeeLocationY = 1;
+    int rosbeeLocationY = 5;
 };
 
 #endif // ROSBEE_H

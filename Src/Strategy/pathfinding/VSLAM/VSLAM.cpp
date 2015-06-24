@@ -42,8 +42,6 @@
  */
 
 VSLAM::VSLAM(map *Map, virtualRosbee *rosbee, Route* route, Lidar *lidar){
-    
-    
     this->Map = Map;
     this->rosbee = rosbee;
     this->mapSearchNode = new MapSearchNode(Map, route);

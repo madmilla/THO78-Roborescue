@@ -21,7 +21,7 @@ void StrategyController::scanArea(){
 	map mapCopy = Map;
 	VSLAM vslam(&mapCopy, &rosbee, route, &lidar);
 	mapCopy.setScale(5);
-	while (mapCopy.contains(0)){ vslam.run(); }
+	while (mapCopy.contains(0)){ vslam.run(); break; }
 	mapCopy.print();
 	getchar();
 }

@@ -38,7 +38,7 @@ map::map() {
 
 void map::setLocationValue(unsigned int x, int y, int value)
 {
-	if (x < access.size()){
+	if (x < access.size()&& y< access.at(x).size()){
 	access.at(x).at(y) = value;
 	}
 
@@ -48,7 +48,7 @@ void map::addCircle(int xCentre, int yCentre, int radius){
 	for (float degrees = 0; degrees < 360; degrees++){
 		float x = radius*cos(degrees) + xCentre;
 		float y = radius*sin(degrees) + yCentre;
-		this->setLocationValue((int)std::round(x), (int)std::round(y), 1);
+		this->setScaledLocationValue((int)std::round(x), (int)std::round(y), 1);
 	}
 }
 
