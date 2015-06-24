@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -42,6 +42,7 @@
 #include "Line.h"
 #include "shapedetector.h"
 using namespace rp::standalone::rplidar;
+
 
 //! Data structure for scan point
 /*!
