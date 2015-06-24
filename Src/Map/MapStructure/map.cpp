@@ -1,13 +1,17 @@
+<<<<<<< HEAD
 #include "Map.hpp"
 
 int Map::getScaledHeuristicLocationValue(int x,int y){
+=======
+#include "map.hpp"
+int map::getScaledHeuristicLocationValue(int x,int y)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	int tmp = this->getScaledLocationValue(x, y);
 	if (tmp == 1){ return 9; }
 	else {
 		return tmp;
 	}
-
-
 }
 
 
@@ -21,7 +25,6 @@ Map::Map() {
 	access.resize(70);
 	for (unsigned int i = 0; i < access.size();i++){
 		access.at(i).resize(70);
-	
 	}
 
 	line a(point(0,0), point(0, access.size()));
@@ -39,8 +42,9 @@ Map::Map() {
 
 void Map::setLocationValue(unsigned int x, int y, int value)
 {
-	if (x < access.size()&& y< access.at(x).size()){
-	access.at(x).at(y) = value;
+	if (x < access.size()&& y< access.at(x).size())
+	{
+		access.at(x).at(y) = value;
 	}
 
 }
@@ -92,17 +96,21 @@ void Map::setScaledLocationValue(int x, int y, int value)
 
 int Map::getLocationValue(unsigned int x, unsigned int y)
 {
-	if (x < access.size() && y < access.size()){
-		return access.at(x).at(y); }
+	if (x < access.size() && y < access.size())
+	{
+		return access.at(x).at(y); 
+	}
 	else return 1;
-
 }
 
 int Map::contains(int value)
 {
-	for (int i = 0; i < getScaledWidth();i++){
-		for (int ii = 0; ii < getScaledHeight(); ii++){
-			if (this->getScaledLocationValue(i, ii) == value){
+	for (int i = 0; i < getScaledWidth();i++)
+	{
+		for (int ii = 0; ii < getScaledHeight(); ii++)
+		{
+			if (this->getScaledLocationValue(i, ii) == value)
+			{
 				return true;
 			}
 		}	
@@ -110,6 +118,7 @@ int Map::contains(int value)
 	return false;
 }
 
+<<<<<<< HEAD
 Map::Map(line & l){
 	MapData.push_back(l);
 }
@@ -120,6 +129,22 @@ Map::Map(std::vector<line> & l){
 
 std::ostream & operator<<(std::ostream & os, const Map & m){
 	for (const line & l : m.MapData){
+=======
+map::map(line & l)
+{
+	mapData.push_back(l);
+}
+
+map::map(std::vector<line> & l)
+{
+	mapData.insert(mapData.begin(), l.begin(), l.end());
+}
+
+std::ostream & operator<<(std::ostream & os, const map & m)
+{
+	for (const line & l : m.mapData)
+	{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 		os << l << "\n";
 	}
 	return os;
@@ -127,9 +152,18 @@ std::ostream & operator<<(std::ostream & os, const Map & m){
 
 Map::~Map(){}
 
+<<<<<<< HEAD
 bool Map::hasLine(line & l){
 	for (const line & lCmp : MapData){
 		if (l.equals(lCmp)){
+=======
+bool map::hasLine(line & l)
+{
+	for (const line & lCmp : mapData)
+	{
+		if (l.equals(lCmp))
+		{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 			return true;
 		}
 	}
@@ -145,7 +179,12 @@ bool Map::hasLine(std::vector<line> & l){
 	return true;
 }
 
+<<<<<<< HEAD
 std::vector<line> Map::getPointLines(point & p){
+=======
+std::vector<line> map::getPointLines(point & p)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	std::vector<line> rtn;
 	for (line & lCmp : MapData)
 	{
@@ -170,6 +209,7 @@ std::vector<line> Map::getPointLines(point & p){
 	return rtn;
 }
 
+<<<<<<< HEAD
 void Map::appendLine(line l){
 	MapData.push_back(l);
 }
@@ -184,6 +224,27 @@ bool Map::removeLine(line & l){
 	while (track != MapData.end()){
 		if (track->equals(l)){
 			MapData.erase(track);
+=======
+void map::appendLine(line l)
+{
+	mapData.push_back(l);
+}
+
+void map::appendLine(std::vector<line> & l)
+{
+	mapData.insert(mapData.begin(), l.begin(), l.end());
+}
+
+bool map::removeLine(line & l)
+{
+	if (mapData.size() <= 0) return true;
+	std::vector<line>::iterator track = mapData.begin();
+	while (track != mapData.end())
+	{
+		if (track->equals(l))
+		{
+			mapData.erase(track);
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 			break;
 		}
 		++track;
@@ -191,43 +252,70 @@ bool Map::removeLine(line & l){
 	return !hasLine(l);
 }
 
+<<<<<<< HEAD
 bool Map::removeLine(std::vector<line> & l){
 	for (line & lCmp : l){
+=======
+bool map::removeLine(std::vector<line> & l)
+{
+	for (line & lCmp : l)
+	{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 		removeLine(lCmp);
 	}
 	return hasLine(l);
 }
 
+<<<<<<< HEAD
 bool Map::equals(const Map & m){
 	if (MapData.size() != m.MapData.size())
+=======
+bool map::equals(const map & m)
+{
+	if (mapData.size() != m.mapData.size())
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 		return false;
 
 	Map a = m;
 	for (line & lCmp : MapData)
 	{
-		if (a.hasLine(lCmp)){
+		if (a.hasLine(lCmp))
+		{
 			a.removeLine(lCmp);
 		}
-		else{
+		else
+		{
 			return false;
 		}
 	}
 
+<<<<<<< HEAD
 	if (a.MapData.size() == 0){
+=======
+	if (a.mapData.size() == 0)
+	{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 		return true;
 	}
 	return false;
 }
 
+<<<<<<< HEAD
 Map Map::getRegion(int x, int y, unsigned int width, unsigned int height){
 	Map rtnMap{};
+=======
+map map::getRegion(int x, int y, unsigned int width, unsigned int height)
+{
+	map rtnMap{};
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	int xEnd = x + width;
 	int yEnd = y + height;
 	for (line & lCmp : MapData)
 	{
 		// Begin point = 0, End point is 1
 		// If begin is in region append line and skip end point check
-		for (int i = 0; i < 2; i++){
+		for (int i = 0; i < 2; i++)
+		{
 			if (
 				(lCmp.getPoint(i).getX() >= x && lCmp.getPoint(i).getX() <= xEnd)
 				&& lCmp.getPoint(i).getY() >= y && lCmp.getPoint(i).getY() <= yEnd
@@ -240,49 +328,89 @@ Map Map::getRegion(int x, int y, unsigned int width, unsigned int height){
 	return rtnMap;
 }
 
+<<<<<<< HEAD
 Map Map::getRegion(point & p, unsigned int width, unsigned int height){
+=======
+map map::getRegion(point & p, unsigned int width, unsigned int height)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	return getRegion(p.getX(), p.getY(), width, height);
 }
 
 //add object to position x,y
+<<<<<<< HEAD
 void Map::addObject(polygon object){
+=======
+void map::addObject(polygon object)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	objects.push_back(object);
 }
 
 //fill object (circle or polygon) so that middle is not accessible
-void fillObjects(std::vector<int> object){
+void fillObjects(std::vector<int> object)
+{
 
 }
 
 //when pathfinding is done, make all cells unseen again. seen = false;	
-void makeUnseen(){
+void makeUnseen()
+{
 
 }
 
 //translate lines to points in 2d vector
+<<<<<<< HEAD
 void Map::translateToPoints(){
 	for(const line & l : MapData)
+=======
+void map::translateToPoints()
+{
+	for(const line & l : mapData)
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 		addLineToGrid(l);
 }
 
 //check if x,y is accessible
+<<<<<<< HEAD
 bool Map::isAccessible(int x, int y){
 	if (access.at(x).at(y) == 0){
+=======
+bool map::isAccessible(int x, int y)
+{
+	if (access.at(x).at(y) == 0)
+	{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 		return true;
 	}
-	else if(access.at(x).at(y) = 1){
+	else if(access.at(x).at(y) = 1)
+	{
 		return false;
 	}
 	
 }
+<<<<<<< HEAD
 void Map::setScale(int x){ scale = x; }
 bool Map::isScaledAccessible(int x, int y ){
+=======
+
+void map::setScale(int x)
+{ 
+	scale = x; 
+}
+
+bool map::isScaledAccessible(int x, int y )
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	x = x*scale;
 	y = y*scale;
 
-	for (int i = 0; i < scale; i++){
-		for (int ii = 0; ii < scale; ii++){
-			if (!this->isAccessible(i+x, ii+y)){
+	for (int i = 0; i < scale; i++)
+	{
+		for (int ii = 0; ii < scale; ii++)
+		{
+			if (!this->isAccessible(i+x, ii+y))
+			{
 				return false;			
 			}
 		}
@@ -290,6 +418,7 @@ bool Map::isScaledAccessible(int x, int y ){
 	return true;
 }
 
+<<<<<<< HEAD
 int Map::getScaledWidth(){
 	return access.size() / scale;
 }
@@ -301,27 +430,58 @@ int Map::getScaledHeight(){
 void Map::print(){
 	for (int i = 0; i < getScaledWidth(); i++){
 		for (int ii = 0; ii < getScaledHeight(); ii++){
+=======
+int map::getScaledWidth()
+{
+	return access.size() / scale;
+}
+
+int map::getScaledHeight()
+{
+	return access.size() / scale;
+}
+
+void map::print()
+{
+	for (int i = 0; i < getScaledWidth(); i++)
+	{
+		for (int ii = 0; ii < getScaledHeight(); ii++)
+		{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 			std::cout << this->getScaledLocationValue(ii, i);
 		}
 		std::cout << "\n";
 	}
 }
 
+<<<<<<< HEAD
 int Map::getScale(){ 
 	return scale; 
 }
 
 int Map::getScaledLocationValue(int x, int y){
+=======
+int map::getScale()
+{ 
+	return scale; 
+}
+
+int map::getScaledLocationValue(int x, int y)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	x = x*scale;
 	y = y*scale;
 	int highestvalue=0;
-	for (int i = 0; i < scale; i++){
-		for (int ii = 0; ii < scale; ii++){
-			if (highestvalue < this->getLocationValue(x + i, y + ii)){
+	for (int i = 0; i < scale; i++)
+	{
+		for (int ii = 0; ii < scale; ii++)
+		{
+			if (highestvalue < this->getLocationValue(x + i, y + ii))
+			{
 				highestvalue = this->getLocationValue(x + i, y + ii);
 			}
-			if (highestvalue==1){
-			//	std::cout << "Returned solid \n";
+			if (highestvalue==1)
+			{
 				return 1;
 			}
 		}
@@ -329,22 +489,36 @@ int Map::getScaledLocationValue(int x, int y){
 	return highestvalue;
 }
 
+<<<<<<< HEAD
 void Map::addvirtuallidarInput(int virtuallidarInputArray[]){
 	if (virtuallidarInputArray[0] == 0){
+=======
+void map::addvirtuallidarInput(int virtuallidarInputArray[])
+{
+	if (virtuallidarInputArray[0] == 0)
+	{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 		appendLine(line(point(virtuallidarInputArray[1], virtuallidarInputArray[2]), point(virtuallidarInputArray[3], virtuallidarInputArray[4])));
 	}
-	if (virtuallidarInputArray[1] == 1){
+	if (virtuallidarInputArray[1] == 1)
+	{
 		addCircle(virtuallidarInputArray[1], virtuallidarInputArray[2], virtuallidarInputArray[3]);
 	}
 	translateToPoints();
 }
 
+<<<<<<< HEAD
 bool Map::isReachable(int x, int y, int x1, int y1){
+=======
+bool map::isReachable(int x, int y, int x1, int y1)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	aStar aS = aStar();
 	std::vector<std::pair<int, int>> theRoute;
 	theRoute = aS.findPath(x, y, x1, y1, *this);
 
-	if (theRoute.size() <= 0){
+	if (theRoute.size() <= 0)
+	{
 		setNotReachable(point(x1, y1));
 		return false;
 	}
@@ -352,6 +526,7 @@ bool Map::isReachable(int x, int y, int x1, int y1){
 	return true;
 }
 
+<<<<<<< HEAD
 bool Map::isReachable(point p, point p1){
 	return isReachable(p.getX(), p.getY(), p1.getX(), p1.getY());
 }
@@ -361,18 +536,34 @@ void Map::setNotReachable(point p){
 }
 
 void Map::addLineToGrid(line l){
+=======
+bool map::isReachable(point p, point p1)
+{
+	return isReachable(p.getX(), p.getY(), p1.getX(), p1.getY());
+}
+
+void map::setNotReachable(point p)
+{
+	access.at(p.getX()).at(p.getY()) = 1;
+}
+
+void map::addLineToGrid(line l)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	// Breseham's line algorithm
 	float aX = l.getPoint(0).getX(), bX = l.getPoint(1).getX();
 	float aY = l.getPoint(0).getY(), bY = l.getPoint(1).getY();
 
 	const bool steep = (fabs(bY - aY) > fabs(bX - aX));
-	if (steep){
+	if (steep)
+	{
 		// swap points for more comfortable calculation
 		std::swap(aX, aY);
 		std::swap(bX, bY);
 	}
 
-	if (aX > bX){
+	if (aX > bX)
+	{
 		// swap points for more comfortable calculation
 		std::swap(aX, bX);
 		std::swap(aY, bY);
@@ -387,26 +578,36 @@ void Map::addLineToGrid(line l){
 
 	const int maxX = (int)bX;
 
-	for (int x = (int)aX; x < maxX; x++){
-		if (steep){
+	for (int x = (int)aX; x < maxX; x++)
+	{
+		if (steep)
+		{
 			access.at(y).at(x) = 1;
 		}
-		else{
+		else
+		{
 			access.at(x).at(y) = 1;
 		}
 
 		error -= dY;
-		if (error < 0){
+		if (error < 0)
+		{
 			y += yStep;
 			error += dX;
 		}
 	}
 }
 
+<<<<<<< HEAD
 void Map::addPolygonToMapData(polygon p){
+=======
+void map::addPolygonToMapData(polygon p)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	std::vector<point> shape = p.getPoints();
 	if (shape.size() < 2) return; // this is not a polygon but a single point
-	for (unsigned int i = 0; i < shape.size() - 1; i++){
+	for (unsigned int i = 0; i < shape.size() - 1; i++)
+	{
 		point p1 = point(shape.at(i));
 		point p2 = point(shape.at(i + 1));
 		line l = line(p1, p2);
@@ -418,10 +619,16 @@ void Map::addPolygonToMapData(polygon p){
 	appendLine(l);
 }
 
+<<<<<<< HEAD
 void Map::addPolygonToGrid(polygon p){
+=======
+void map::addPolygonToGrid(polygon p)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	std::vector<point> shape = p.getPoints();
 	if (shape.size() < 2) return; // this is not a polygon but a single point
-	for (unsigned int i = 0; i < shape.size() - 1; i++){
+	for (unsigned int i = 0; i < shape.size() - 1; i++)
+	{
 		point p1 = point(shape.at(i));
 		point p2 = point(shape.at(i + 1));
 		line l = line(p1, p2);
@@ -433,7 +640,12 @@ void Map::addPolygonToGrid(polygon p){
 	addLineToGrid(l);
 }
 
+<<<<<<< HEAD
 void Map::floodFillLocation(point node, int target, int replacement){
+=======
+void map::floodFillLocation(point node, int target, int replacement)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	if (target == replacement) return;	// Nothing to do here
 	if (access.at(node.getX()).at(node.getY()) != target) return; // Node != target
 	access.at(node.getX()).at(node.getY()) = replacement;
@@ -449,14 +661,21 @@ void Map::floodFillLocation(point node, int target, int replacement){
 	return;
 }
 
+<<<<<<< HEAD
 void Map::floodFillLocationQueue(point node, int target, int replacement){
+=======
+void map::floodFillLocationQueue(point node, int target, int replacement)
+{
+>>>>>>> 968f188fdc02acbcb3b8690b22abc50d9f68acb2
 	if (target == replacement) return;	// Nothing to do here
 	std::vector<std::pair<int, int>> myQueue;
 	myQueue.push_back(std::pair<int, int>(node.getX(), node.getY()));
-	while (myQueue.size() > 0){			// While queue not empy
+	while (myQueue.size() > 0)			// While queue not empy
+	{
 		std::pair<int, int> tmp = myQueue.at(0);
 		myQueue.erase(myQueue.begin());	// Pop first element
-		if (access.at(tmp.first).at(tmp.second) == target){
+		if (access.at(tmp.first).at(tmp.second) == target)
+		{
 			access.at(tmp.first).at(tmp.second) = replacement;
 
 			myQueue.push_back(std::pair<int, int>(tmp.first + 1, tmp.second));
