@@ -51,6 +51,7 @@
 #include "UDPSocket.h"
 #include "RobotManager.h"
 
+#include "PracticalSocket.h"
 #include "roborescueV1/mavlink.h"
 //#include "PracticalSocket.h"
 
@@ -93,7 +94,7 @@ public:
 	void printCon();
 private:
 
-	//UDPSocket  * udpsock = nullptr;
+	UDPSocket  * udpsock = nullptr;
 
 	std::string sourceAddress;             // Address of datagram source
 	unsigned short sourcePort;// Port of datagram source
@@ -107,7 +108,8 @@ private:
 	RobotManager & manager;
 	mavlink_message_t msg;
 	//mavlink_ralcp_t packet;
-	
+	mavlink_lidar_message_t lpacket;
+	mavlink_rosbee_message_t rpacket;
 	std::vector<CPIUDPSocket*> _connections;
 	int ConId = 0;
 	std::thread connectionThread;

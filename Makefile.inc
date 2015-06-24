@@ -2,9 +2,9 @@ include Makefile.local
 include TargetMakefiles/Makefile.modules
 
 CXX 							= g++
-CXXFLAGS						= -std=c++11
+CXXFLAGS						= -std=c++11 -DWIN32
 INCLUDES 						= 
-LDLIBS							=
+LDLIBS							= -lpthread -lws2_32
 LDFLAGS							= 
 SRC 							= 
 UI 								= 

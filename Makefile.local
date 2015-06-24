@@ -3,8 +3,9 @@ ifeq ($(OS),Windows_NT)
 	QT_INCL_DIR 					= C:/Qt/Qt5.4.2/5.4/mingw491_32/include
 	QT_BIN_DIR 						= C:/Qt/Qt5.4.2/5.4/mingw491_32/bin
 	
-	BOOST_LIB_DIR 					= 
-	BOOST_INCL_DIR 					= 
+	BOOST_LIB_DIR 				= 
+	BOOST_INCL_DIR 			= 
+	CXXFLAGS 							+= -DWIN32
 else
 	#Not needed on linux based systems
 endif
