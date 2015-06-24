@@ -7,6 +7,6 @@ int main(){
 	Lidar lidar;
 	StrategyController controller(Map,copter,rosbee,lidar);
 	controller.scanArea();
-	controller.searchArea();
+	//controller.searchArea();
 
 }
