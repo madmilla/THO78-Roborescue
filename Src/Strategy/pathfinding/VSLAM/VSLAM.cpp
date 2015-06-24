@@ -84,6 +84,9 @@ void VSLAM::run(){
 				mapSearchNode->Search(virtualrosbee->getVirtualRosbeeLocationX(), virtualrosbee->getVirtualRosbeeLocationY(), int(tileLocation[0]), int(tileLocation[1]));
 			}
 		}
+		if (mapSearchNode->notFindRoute == true){
+			this->bool_isVSLAMDone = true;
+		}
 		// Do this when there is a route.
 		if (Container::route.getSize() >= 1){
 			// Get the new destination for the virtualrosbee from the vector that contains the route to the unscanned tile.
