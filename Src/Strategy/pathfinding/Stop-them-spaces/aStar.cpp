@@ -1,7 +1,9 @@
 #include "aStar.h"
 #include <iostream>
 #include <array>
+#include "../../Common/waypoint.h"
 #include <algorithm>
+
 aStar::aStar()
 {
 }
@@ -11,7 +13,21 @@ aStar::~aStar()
 {
 }
 
-std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int endX, int endY, map& theMap)
+Route aStar::getRoute(std::vector<std::pair<int, int>> input){
+	std::cout << input.size();
+	Route output;
+	for (Coordinate c : input){
+		output.waypoints.push_back(WayPoint(c.first, c.second));
+
+	}
+	return output;
+
+
+
+}
+
+
+std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int endX, int endY, mapImplementation& theMap)
 {
 	std::vector<Coordinate> path;
 	if (startX < 0 || startY < 0 || startX > width || startY > height || endX < 0 || endY < 0 || endX > width || endY > height)
@@ -29,12 +45,12 @@ std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int end
 		auto currentPoint = path.back();
 		closedCells.push_back(currentPoint);
 		std::array<std::pair<Coordinate, int>, 4> distances = getDistances(currentPoint, theMap);
-        for (std::pair<Coordinate,int>& distance : distances)
-        {
-            if (std::find(openCells.begin(), openCells.end(), distance.first) != openCells.end())
+		for (auto& distance : distances)
+		{
+			if (std::find(openCells.begin(), openCells.end(), distance.first) != openCells.end())
 			{
 				closedCells.erase(std::find(closedCells.begin(), closedCells.end(), currentPoint));
-                std::array<std::pair<Coordinate, int>, 4> openCellDistances = getDistances(distance.first, theMap);
+				std::array<std::pair<Coordinate, int>, 4> openCellDistances = getDistances(distance.first, theMap);
 				int pathDistanceToEnd = 0;
 				int openCellDistanceToEnd = 0;
 				path.pop_back();
@@ -132,10 +148,12 @@ std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int end
 			}
 		}
 	}
+	openCells.clear();
+	closedCells.clear();
 	return path;
 }
 
-std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordinate, map& theMap)
+std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordinate, mapImplementation& theMap)
 {
 	std::array<std::pair<Coordinate, int>, 4> connectedPoints
 	{ {

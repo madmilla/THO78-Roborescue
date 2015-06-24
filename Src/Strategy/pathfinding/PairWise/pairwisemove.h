@@ -8,7 +8,7 @@
 *
 * @file AreaCoverageAlgorithm.h
 * @date Created: 4/28/2015
-* @version 1.0
+* @version 1.5
 *
 * @author Jacob Visser
 *
@@ -36,12 +36,12 @@
 **/
 
 
-#include <waypoint.h>
-#include <QuadCopter.h>
-#include <ATV.h>
-#include <route.h>
-#include <map.hpp>
-#include <aStar.h>
+#include "../../Common/waypoint.h"
+#include "../../Common/QuadCopter.h"
+#include "../../Common/ATV.h"
+#include "../../Common/route.h"
+#include "../../../map/MapStructure/map.hpp"
+#include "../Stop-them-spaces/aStar.h"
 #include <vector>
 
 
@@ -61,7 +61,7 @@ public:
     PairWiseMove();
 
     /**
-     * @fn	std::vector<WayPoint> PairWiseMove::QuadCopterPairRoute(std::vector<WayPoint> atvRoute, 
+     * @fn	std::vector<WayPoint> PairWiseMove::QuadCopterPairRoute(std::vector<WayPoint> atvRoute,
      * 		ATV atv, QuadCopter copter );
      *
      * @brief	Creates a QuadCopter route from an ATV route.
@@ -75,16 +75,29 @@ public:
      * @return	A std::vector with WayPoints for QuadCopter;
      */
 
-    std::pair<Route*, Route*>* QuadCopterPairRoute(Route atvRoute,
-                                                                    ATV atv,
-                                                                    QuadCopter copter,
-                                                                    map map);
+    std::pair<Route*, Route*>* generatePairRoute(Route atvRoute,
+                                                    ATV atv,
+                                                    QuadCopter copter,
+                                                    map map);
 
     void movePairWise(Route atvRoute,
                          ATV atv,
                          QuadCopter copter,
                          map map);
+
+    void initPairWiseMove(Route atvRoute,
+                            ATV atv,
+                            QuadCopter copter,
+                            map map);
+
+    WayPoint* nextATVWaypoint();
+
+    void moveATVToNextWaypoint(ATV atv);
+
+
+private:
+    std::pair<Route*, Route*>* pairWiseRoute = nullptr;
+    int waypointCounter = 0;
 };
 
 #endif // PAIRWISEMOVE
-

@@ -1,4 +1,5 @@
 #include "map.hpp"
+
 int map::getScaledHeuristicLocationValue(int x,int y){
 	int tmp = this->getScaledLocationValue(x, y);
 	if (tmp == 1){ return 9; }
@@ -169,7 +170,7 @@ std::vector<line> map::getPointLines(point & p){
 	return rtn;
 }
 
-void map::appendLine(line & l){
+void map::appendLine(line l){
 	mapData.push_back(l);
 }
 

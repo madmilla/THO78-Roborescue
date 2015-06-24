@@ -1,6 +1,7 @@
 #include "MapSearchNode.h"
 
 map * MapSearchNode::Map = new map();
+
 MapSearchNode::MapSearchNode(){
     x = 0;
     y = 0;
@@ -259,7 +260,6 @@ void MapSearchNode::Search(int nodeStartX, int nodeStartY, int nodeEndX, int nod
             else if( SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_FAILED )
             {
                 cout << "Search terminated. Did not find goal state\n";
-
             }
 
             // Display the number of loops the search went through

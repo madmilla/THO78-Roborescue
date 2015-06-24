@@ -1,9 +1,9 @@
-#include <QuadCopter.h>
-#include <atv.h>
-#include <dimension.h>
-#include <pairwisemove.h>
+#include "../../../Common/QuadCopter.h"
+#include "../../../Common/ATV.h"
+#include "../../../Common/dimension.h"
+#include "../../../pathfinding/PairWise/pairwisemove.h"
 #include <iostream>
-#include <map.hpp>
+#include "../../../Map/MapStructure/map.hpp"
 
 #define TEST
 
@@ -25,11 +25,11 @@ int main()
     //atvRoute.push_back(WayPoint(1, 1));
 
 
-    Route * result = move.QuadCopterPairRoute(atvRoute, atv, copter, mapp )->first;
+    Route * result = move.generatePairRoute(atvRoute, atv, copter, mapp )->first;
 
     bool error = false;
 
-    if(result->getRouteSize() == 1){ //Quad must move te atv
+    if(result->getSize() == 1){ //Quad must move te atv
         if(!(result->getWaypoint(0)->x == 0 && result->getWaypoint(0)->y == 0)){
             error = true;
             std::cout << "Quad must move to atv waypoint ERROR" << std::endl;
@@ -45,10 +45,10 @@ int main()
     atvRoute.clearRoute();
     atvRoute.pushWayPoint( new WayPoint(1, 1));
 
-    result = move.QuadCopterPairRoute(atvRoute, atv, copter, mapp)->first;
+    result = move.generatePairRoute(atvRoute, atv, copter, mapp)->first;
 
 
-    if(!(result->getRouteSize() == 0)){ //Atv is just in range of quadsight
+    if(!(result->getSize() == 0)){ //Atv is just in range of quadsight
             error = true;
             std::cout << "Atv is just in range of quadsight ERROR"<< std::endl;
     }else{
@@ -58,8 +58,8 @@ int main()
     atvRoute.clearRoute();
     atvRoute.pushWayPoint( new WayPoint(2, 2));
 
-    result = move.QuadCopterPairRoute(atvRoute, atv, copter, mapp)->first;
-    if(result->getRouteSize() == 1){ //Atv is just out range of quadsight
+    result = move.generatePairRoute(atvRoute, atv, copter, mapp)->first;
+    if(result->getSize() == 1){ //Atv is just out range of quadsight
         if(!(result->getWaypoint(0)->x == 2 && result->getWaypoint(0)->y == 2)){
             error = true;
             std::cout << "Atv is just out range of quadsight waypoint ERROR"<< std::endl;
@@ -71,8 +71,8 @@ int main()
     }
 
     atvRoute.clearRoute();
-    result = move.QuadCopterPairRoute(atvRoute, atv, copter, mapp)->first;
-    if(!result->getRouteSize() == 0){//Empty atv route returns...
+    result = move.generatePairRoute(atvRoute, atv, copter, mapp)->first;
+    if(!result->getSize() == 0){//Empty atv route returns...
        error = true;
        std::cout << "Empty atv route returns empty pair route ERROR"<< std::endl;
     }else{
@@ -80,8 +80,8 @@ int main()
     }
 
     copter.goTo(1, 4);
-    result = move.QuadCopterPairRoute(atvRoute, atv, copter, mapp)->first;
-    if(!result->getRouteSize() == 1){//Empty atv route returns...
+    result = move.generatePairRoute(atvRoute, atv, copter, mapp)->first;
+    if(!result->getSize() == 1){//Empty atv route returns...
        error = true;
        std::cout << "Empty atv route returns sync waypoint size ERROR"<< std::endl;
     }
@@ -101,8 +101,8 @@ int main()
     atvRoute.pushWayPoint(new WayPoint(4, 2));
     atvRoute.pushWayPoint(new WayPoint(5, 3));
     atvRoute.pushWayPoint(new WayPoint(-1, -1));
-    result = move.QuadCopterPairRoute(atvRoute, atv, copter, mapp)->first;
-    if(result->getRouteSize() == 3){//Longer route
+    result = move.generatePairRoute(atvRoute, atv, copter, mapp)->first;
+    if(result->getSize() == 3){//Longer route
         std::cout << "Long route size: Good, SUCCES" << std::endl;
         if(!(result->getWaypoint(0)->x == 1 && result->getWaypoint(0)->y == 2)){
             error = true;

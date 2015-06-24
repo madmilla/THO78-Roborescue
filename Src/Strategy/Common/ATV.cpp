@@ -11,6 +11,7 @@
 *
 * @author Mathijs Arends
 * @author Jeroen Steendam
+* @author Jacob Visser
 *
 * @section LICENSE
 * License: newBSD
@@ -46,4 +47,9 @@ ATV::ATV(Dimension size, int x, int y):
 void ATV::goTo(int x, int y){
     this->x = x;
     this->y = y;
+}
+
+void ATV::goTo(WayPoint* waypoint){
+    this->x = waypoint->x;
+    this->y = waypoint->y;
 }

@@ -25,7 +25,9 @@
     <ClCompile Include="..\..\strategy\pathfinding\AreaCoverage\areacoveringalgorithm.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\AStar Algorithm\aStar.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\AStar\Container.cpp" />
+    <ClCompile Include="..\..\Strategy\pathfinding\AStar\fsa.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\AStar\MapSearchNode.cpp" />
+    <ClCompile Include="..\..\Strategy\pathfinding\AStar\stlastar.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\Container.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\mapLogicVSLAM.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\VSLAM.cpp" />
@@ -49,9 +51,7 @@
     <ClInclude Include="..\..\strategy\pathfinding\AStar Algorithm\aStar.h" />
     <ClInclude Include="..\..\strategy\pathfinding\AStar\AstarSearch.h" />
     <ClInclude Include="..\..\strategy\pathfinding\AStar\Container.h" />
-    <ClInclude Include="..\..\strategy\pathfinding\AStar\fsa.h" />
     <ClInclude Include="..\..\strategy\pathfinding\AStar\MapSearchNode.h" />
-    <ClInclude Include="..\..\strategy\pathfinding\AStar\stlastar.h" />
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\Container.h" />
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\mapLogicVSLAM.h" />
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\VSLAM.h" />

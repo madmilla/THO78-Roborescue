@@ -69,7 +69,7 @@ VSLAM::~VSLAM(){
 
 void VSLAM::run(){
 	// Check if the map is fully scanned.
-	if (!MapLogicVSLAM->isMapFullyScanned()){
+	if (Map->contains(0)){
 		//Map->print();
 		// Set the tiles in range of the virtuallidar to scanned with the function below.
 		MapLogicVSLAM->setTilesInRangevirtuallidar();
@@ -101,7 +101,7 @@ void VSLAM::run(){
 				virtualrosbee->moveTo((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX()), (newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY()));
 				virtualrosbee->setVirtualRosbeeLocationX((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX()));
 				virtualrosbee->setVirtualRosbeeLocationY((newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY()));
-				std::cout << "Rosbee Location: " << virtualrosbee->getVirtualRosbeeLocationX() << " , " << virtualrosbee->getVirtualRosbeeLocationY() << std::endl;
+				std::cout << "VirtualRosbee Location: " << virtualrosbee->getVirtualRosbeeLocationX() << " , " << virtualrosbee->getVirtualRosbeeLocationY() << std::endl;
 				Map->setScaledLocationValue(virtualrosbee->getVirtualRosbeeLocationX(), virtualrosbee->getVirtualRosbeeLocationY(), 3);
 			}
 		}
@@ -116,4 +116,3 @@ bool VSLAM::wholeRouteInRangevirtuallidar(){
 	}
 	return true;
 }
-
