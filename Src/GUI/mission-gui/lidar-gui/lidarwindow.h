@@ -87,7 +87,6 @@ private slots:
 
 
 private:
-    void lidarMissionRunning(bool isRunning);
     Ui::LidarWindow *ui;
     Lidar & lidar;
 };

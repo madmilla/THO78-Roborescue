@@ -40,17 +40,17 @@
 
 #include "../../../map/MapStructure/map.hpp"
 #include "../../Common/virtualRosbee.h"
-#include "../../Common/lidar.h"
+#include "../../Common/virtualLidar.h"
 
 class mapLogicVSLAM
 {
 public:
 	/**
-	* @fn	mapLogicVSLAM(map * Map, Rosbee * rosbee, Lidar * lidar);
+	* @fn	mapLogicVSLAM(map * Map, virtualRosbee * virtualrosbee, virtuallidar * virtuallidar);
 	*
 	* @brief	Constructor of the class mapLogicVSLAM.
 	*/
-	mapLogicVSLAM(map * Map, virtualRosbee * rosbee, Lidar * lidar);
+	mapLogicVSLAM(map * Map, virtualRosbee * virtualrosbee, virtualLidar * virtuallidar);
 	/**
 	* @fn	~mapLogicVSLAM();
 	*
@@ -58,11 +58,11 @@ public:
 	*/
 	~mapLogicVSLAM();
 	/**
-	* @fn	void setTilesInRangeLidar();
+	* @fn	void setTilesInRangevirtuallidar();
 	*
-	* @brief	Function to set the tiles in range of the LIDAR.
+	* @brief	Function to set the tiles in range of the virtuallidar.
 	*/
-	void setTilesInRangeLidar();
+	void setTilesInRangevirtuallidar();
 	/**
 	* @fn	int * getUnscannedTile();
 	*
@@ -85,13 +85,13 @@ public:
 	*/
 	map * Map;
 	/**
-	* @brief rosbee object.
+	* @brief virtualrosbee object.
 	*/
-	virtualRosbee * rosbee;
+	virtualRosbee * virtualrosbee;
 	/**
-	* @brief lidar object.
+	* @brief virtuallidar object.
 	*/
-	Lidar * lidar;
+	virtualLidar * virtuallidar;
 };
 
 #endif // MAPLOGICVSLAM_H

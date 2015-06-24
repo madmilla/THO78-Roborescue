@@ -15,6 +15,8 @@ ATV_GUI_MODULE 					= Src/GUI/mission-gui/ATV-gui/
 ROSBEE_GUI_MODULE 				= Src/GUI/mission-gui/rosbee-gui/
 LIDAR_GUI_MODULE 				= Src/GUI/mission-gui/lidar-gui/
 MAP_GUI_MODULE 					= Src/GUI/mission-gui/map-gui/
+STRATEGY_CONTROLLER_MODULE			= Src/Controllers/StrategyController/
+STRATEGY_COMMON_MODULE			= Src/Strategy/Common/
 ENVIRONMENTSIMULATOR_GUI_MODULE = Src/GUI/simulation/environment_test/
 
 #VEHICLES

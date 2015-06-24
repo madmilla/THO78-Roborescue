@@ -328,12 +328,12 @@ int map::getScaledLocationValue(int x, int y){
 	return highestvalue;
 }
 
-void map::addLidarInput(int lidarInputArray[]){
-	if (lidarInputArray[0] == 0){
-		appendLine(line(point(lidarInputArray[1], lidarInputArray[2]), point(lidarInputArray[3], lidarInputArray[4])));
+void map::addvirtuallidarInput(int virtuallidarInputArray[]){
+	if (virtuallidarInputArray[0] == 0){
+		appendLine(line(point(virtuallidarInputArray[1], virtuallidarInputArray[2]), point(virtuallidarInputArray[3], virtuallidarInputArray[4])));
 	}
-	if (lidarInputArray[1] == 1){
-		addCircle(lidarInputArray[1], lidarInputArray[2], lidarInputArray[3]);
+	if (virtuallidarInputArray[1] == 1){
+		addCircle(virtuallidarInputArray[1], virtuallidarInputArray[2], virtuallidarInputArray[3]);
 	}
 	translateToPoints();
 }
