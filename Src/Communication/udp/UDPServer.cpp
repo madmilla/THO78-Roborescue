@@ -12,12 +12,12 @@ UDPServer::UDPServer(RobotManager & manager) : manager(manager){
 	}
 
 void UDPServer::init(){
-	//udpsock = new UDPSocket(8888);
+	udpsock = new UDPSocket(8888);
 	std::cout << "Initialized socket at: \t 8888" << std::endl;
 }
 
 void UDPServer::start(){
-	/*try {
+	try {
 		while (!stopped) {
 			try{
 				std::cout << "Waiting for message..." << std::endl;
@@ -33,7 +33,7 @@ void UDPServer::start(){
 	catch (SocketException &e) {
 		std::cerr << e.what() << std::endl;
 		exit(1);
-	}*/
+	}
 
    std::this_thread::yield();
 }

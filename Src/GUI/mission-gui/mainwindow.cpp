@@ -13,7 +13,7 @@ MainWindow::MainWindow(Quadcopter &quadcopter, ATV & atv, QWidget *parent) :
     quad(quadcopter)
 {
     ui->setupUi(this);
-
+    server = new UDPServer(robotManager);
     connect(ui->QuadButton  , SIGNAL(clicked()), this, SLOT(handleButton()));
     connect(ui->ATVButton   , SIGNAL(clicked()), this, SLOT(handleButton()));
     connect(ui->LidarButton , SIGNAL(clicked()), this, SLOT(handleButton()));

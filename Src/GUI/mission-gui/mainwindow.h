@@ -53,6 +53,7 @@
 #include "atv.h"
 #include "quadcopter.h"
 #include "RobotManager.h"
+#include "UDPServer.h"
 
 namespace Ui {
 class MainWindow;
@@ -86,6 +87,7 @@ private:
     ATV & atv;
     Quadcopter & quad;
     RobotManager robotManager;
+    UDPServer * server = nullptr;
     void checkZombies();
 };
 
