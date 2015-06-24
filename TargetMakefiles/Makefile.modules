@@ -47,3 +47,7 @@ UDP_LINUX_MODULE				= Src/Communication/udp/Linux-UDP/
 MISSION1_MODULE					= Src/Modules/Mission1/
 LOCALISATION_MODULE_MODULE		= Src/Modules/Localisationmodule/
 ENVIRONMENTSIMULATOR_MODULE		= Src/Modules/Environmentsimulator/
+
+#MAP
+MAP_STRUCTURE_MODULE			= Src/Map/MapStructure/
+MAP_COMMON_MODULE				= Src/Map/

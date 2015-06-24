@@ -74,7 +74,7 @@ public:
 	/**
 	* @fn	int * getNewTile();
 	*
-	* @brief	Function to get the x and y for the new destination of the rosbee.
+	* @brief	Function to get the x and y for the new destination of the virtualrosbee.
 	*
 	* @return int * tileLocation	value x and y of the tile.
 	*/
@@ -111,7 +111,7 @@ public:
   void clearRoute();
 
   /**
-	* @brief std::vector <WayPoint> newRoute;	vector to store the route for rosbee to the unscanned tile.
+	* @brief std::vector <WayPoint> newRoute;	vector to store the route for virtualrosbee to the unscanned tile.
 	*/
 	std::vector<WayPoint*> wayPoints;
 
