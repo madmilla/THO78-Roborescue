@@ -52,14 +52,30 @@ void map::addCircle(int xCentre, int yCentre, int radius){
 	}
 }
 
-void map::addLIDARCircle(int xCentre, int yCentre, int radius){
+void map::addValuedCircle(int xCentre, int yCentre, int radius,int value){
 	for (float degrees = 0; degrees < 360; degrees++){
 		float x = radius*cos(degrees) + xCentre;
 		float y = radius*sin(degrees) + yCentre;
-		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y) == 0)){
+		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) == 0){
 			this->setScaledLocationValue((int)std::round(x), (int)std::round(y), 2);
 		}	
 	}
+}
+std::vector<float> map::addHalfValuedCircle(int xCentre, int yCentre, int radius, int value, std::vector<float> skipInts){
+	for (float degrees = 0; degrees < 360; degrees++){
+		if (std::find(skipInts.begin(), skipInts.end(), degrees) != skipInts.end()) {
+			continue;
+		}
+		float x = radius*cos(degrees) + xCentre;
+		float y = radius*sin(degrees) + yCentre;
+		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) != float(1)){
+			if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) == float(0)){
+				this->setScaledLocationValue((int)std::round(x), (int)std::round(y), value);
+			}
+		}
+		else{ skipInts.push_back(degrees); }
+	}
+	return skipInts;
 }
 
 void map::setScaledLocationValue(int x, int y, int value)

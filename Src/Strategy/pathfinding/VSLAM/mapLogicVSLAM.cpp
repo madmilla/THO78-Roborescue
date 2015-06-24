@@ -68,7 +68,11 @@ void mapLogicVSLAM::setTilesInRangeLidar(){
 			}
 		}
 	}*/
-	Map->addLIDARCircle(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), 2);
+	std::vector<float> skip = {};
+	for (int i = 1; i < lidar->getRange(); i++){
+		skip = Map->addHalfValuedCircle(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), i, 5, skip);
+	}
+	
 }
 
 /**

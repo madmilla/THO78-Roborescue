@@ -8,5 +8,6 @@ int main(){
 	StrategyController controller(Map,copter,rosbee,lidar);
 	controller.scanArea();
 	//controller.searchArea();
+	while (1);
 
 }
