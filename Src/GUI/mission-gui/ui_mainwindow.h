@@ -14,7 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
@@ -31,16 +31,14 @@ public:
     QPushButton *LidarButton;
     QPushButton *MapButton;
     QPushButton *ExitButton;
-    QListView *Rosbeelist;
-    QListView *listView;
-    QListView *listView_2;
-    QListView *listView_3;
+    QListWidget *Rosbeelist;
+    QListWidget *Lidarlist;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(992, 671);
+        MainWindow->resize(598, 478);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         QuadButton = new QPushButton(centralWidget);
@@ -57,22 +55,16 @@ public:
         LidarButton->setGeometry(QRect(360, 10, 231, 71));
         MapButton = new QPushButton(centralWidget);
         MapButton->setObjectName(QStringLiteral("MapButton"));
-        MapButton->setGeometry(QRect(690, 110, 191, 141));
+        MapButton->setGeometry(QRect(10, 400, 231, 71));
         ExitButton = new QPushButton(centralWidget);
         ExitButton->setObjectName(QStringLiteral("ExitButton"));
-        ExitButton->setGeometry(QRect(690, 420, 191, 141));
-        Rosbeelist = new QListView(centralWidget);
+        ExitButton->setGeometry(QRect(360, 400, 231, 71));
+        Rosbeelist = new QListWidget(centralWidget);
         Rosbeelist->setObjectName(QStringLiteral("Rosbeelist"));
-        Rosbeelist->setGeometry(QRect(10, 90, 231, 192));
-        listView = new QListView(centralWidget);
-        listView->setObjectName(QStringLiteral("listView"));
-        listView->setGeometry(QRect(360, 90, 231, 192));
-        listView_2 = new QListView(centralWidget);
-        listView_2->setObjectName(QStringLiteral("listView_2"));
-        listView_2->setGeometry(QRect(10, 390, 231, 192));
-        listView_3 = new QListView(centralWidget);
-        listView_3->setObjectName(QStringLiteral("listView_3"));
-        listView_3->setGeometry(QRect(360, 390, 231, 192));
+        Rosbeelist->setGeometry(QRect(10, 100, 231, 192));
+        Lidarlist = new QListWidget(centralWidget);
+        Lidarlist->setObjectName(QStringLiteral("Lidarlist"));
+        Lidarlist->setGeometry(QRect(360, 100, 231, 192));
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
@@ -85,8 +77,8 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         QuadButton->setText(QApplication::translate("MainWindow", "Quadcopter", 0));
         ATVButton->setText(QApplication::translate("MainWindow", "ATV", 0));
-        RosbeeButton->setText(QApplication::translate("MainWindow", "Rosbee Gui", 0));
-        LidarButton->setText(QApplication::translate("MainWindow", "Lidar Gui", 0));
+        RosbeeButton->setText(QApplication::translate("MainWindow", "Scan for rosbee's", 0));
+        LidarButton->setText(QApplication::translate("MainWindow", "Scan for lidar's", 0));
         MapButton->setText(QApplication::translate("MainWindow", "Map", 0));
         ExitButton->setText(QApplication::translate("MainWindow", "Exit", 0));
     } // retranslateUi

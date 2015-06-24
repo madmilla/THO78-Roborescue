@@ -1,6 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
-
+#include <math.h> 
 #include "../point.hpp"
 #include "../line.hpp"
 #include <iostream>
@@ -137,26 +137,46 @@ public:
 	void addCircle(int x, int y, int radius);
 
 	// Vehicle Positions Getters and Setters
-	//! \returns the rosbee position
+	//! \returns the virtualrosbee position
 	virtualRosbee* getRosbeePosition() { return rosbeePosition; }
 	//! \returns the atv position
 	ATV* getATVPosition() { return ATVPosition; }
 	//! \returns the quadcopter position
 	QuadCopter* getQuadCopterPositon() { return quadcopterPosition; }
 
-	//! Sets the rosbee position
+	//! Sets the virtualrosbee position
 	void setRosbeePosition(virtualRosbee* newPosition) { this->rosbeePosition = newPosition; }
 	//! Sets the atv position
 	void setATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
 	//! Sets the quadcopter position
 	void setQuadCopterPositon(QuadCopter* newPosition) { this->quadcopterPosition = newPosition; }
-	void addLidarInput(int lidarInputArray[]);
+	void addvirtuallidarInput(int virtuallidarInputArray[]);
 	
 	//! add a line to the grid directly
 	//! @param The line to add to the grid
 	void addLineToGrid(line l);
 
-	void addLIDARCircle(int xCentre, int yCentre, int radius);
+	//! add a polygon to the collection of lines
+	//! @param The polygon to add
+	void addPolygonToMapData(polygon p);
+
+	//! add a polygon to the grid
+	//! @param THe polygon to add
+	void addPolygonToGrid(polygon p);
+	void addValuedCircle(int xCentre, int yCentre, int radius, int value);
+	std::vector<float> addHalfValuedCircle(int xCentre, int yCentre, int radius, int value, std::vector<float> skipInts);
+	
+	//! Recursive flood function to fill the targets with the replacement starting at node
+	//! @param The node to start the flooding from
+	//! @param The target property of the node (point)
+	//! @param The replacement property of the node (point)
+	void floodFillLocation(point node, int target, int replacement);
+
+	//! Flood fill function using a queue to fill the targets with the replacement starting at node
+	//! @param The node to start the flooding from
+	//! @param The target property of the node (point)
+	//! @param The replacement property of the node (point)
+	void floodFillLocationQueue(point node, int target, int replacement);
 
 private:
 	int scale=1;

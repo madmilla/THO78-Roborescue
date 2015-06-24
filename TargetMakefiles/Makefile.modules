@@ -15,6 +15,11 @@ ATV_GUI_MODULE 					= Src/GUI/mission-gui/ATV-gui/
 ROSBEE_GUI_MODULE 				= Src/GUI/mission-gui/rosbee-gui/
 LIDAR_GUI_MODULE 				= Src/GUI/mission-gui/lidar-gui/
 MAP_GUI_MODULE 					= Src/GUI/mission-gui/map-gui/
+STRATEGY_CONTROLLER_MODULE			= Src/Controllers/StrategyController/
+STRATEGY_COMMON_MODULE			= Src/Strategy/Common/
+STRATEGY_VSLAM_MODULE			= Src/Strategy/pathfinding/VSLAM/
+STRATEGY_AREACOVERAGE_MODULE			= Src/Strategy/pathfinding/AreaCoverage/
+STRATEGY_ASTAR_MODULE			= Src/Strategy/pathfinding/AStar/
 ENVIRONMENTSIMULATOR_GUI_MODULE = Src/GUI/simulation/environment_test/
 
 #VEHICLES
@@ -42,3 +47,7 @@ UDP_LINUX_MODULE				= Src/Communication/udp/Linux-UDP/
 MISSION1_MODULE					= Src/Modules/Mission1/
 LOCALISATION_MODULE_MODULE		= Src/Modules/Localisationmodule/
 ENVIRONMENTSIMULATOR_MODULE		= Src/Modules/Environmentsimulator/
+
+#MAP
+MAP_STRUCTURE_MODULE			= Src/Map/MapStructure/
+MAP_COMMON_MODULE				= Src/Map/

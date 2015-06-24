@@ -204,9 +204,9 @@ std::vector<Line> Lidar::start(){
 		std::vector<scanCoordinate> scanCoorde = convertToCoordinates(data);
 
 		for (int pos = 0; pos < (int)scanCoorde.size(); ++pos) {
-			if (scanCoorde[pos].x < 4000 & scanCoorde[pos].x > -4000 && scanCoorde[pos].y < 4000 && scanCoorde[pos]x > -4000){
+//			if (scanCoorde[pos].x < 4000 & scanCoorde[pos].x > -4000 && scanCoorde[pos].y < 4000 && scanCoorde[pos]x > -4000){
 				pCloud.setPoint(scanCoorde[pos].x, scanCoorde[pos].y);
-			}
+//			}
 			fprintf(stderr, "x: %d , y: %d\n", scanCoorde[pos].x, scanCoorde[pos].y);
 		}
 	}

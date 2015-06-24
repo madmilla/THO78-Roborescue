@@ -9,7 +9,6 @@ LidarWindow::LidarWindow(Lidar &lidar, QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->startLidar,SIGNAL(clicked()),this,SLOT(handleButtonLidar()));
-    lidarMissionRunning(false);
 }
 
 
@@ -26,32 +25,14 @@ void LidarWindow::handleButtonLidar(){
     //! startlidar has been pressed
     if(button == ui->startLidar){
         try{
-            //lidar.Start();
-            //lidarMissionRunning(true);
+            lidar.Start();
         }
     //! catch if the lidar already has been started.
         catch(...){
             //QMessageBox::critical(this,"Lidar has already started");
         }
     }
-    /*else if(button == ui->stopLidar){
-        if(!ui->stopLidar->isEnabled()) return;
-        //lidar.stopLidar();
-        lidarMissionRunning(false);
-    }*/
-}
-
-
-void LidarWindow::lidarMissionRunning(bool isRunning){
-    //! als de missie start is running false voor het setten
-    //! en is stop klaar om ingedrukt te worden
-    ui->startLidar->setEnabled(!isRunning);
-    //ui->stopLidar->setEnabled(isRunning);
 
 }
 
 
-/*void LidarWindow::on_startLidar_clicked()
-{
-
-}*/

@@ -53,14 +53,30 @@ void map::addCircle(int xCentre, int yCentre, int radius){
 	}
 }
 
-void map::addLIDARCircle(int xCentre, int yCentre, int radius){
+void map::addValuedCircle(int xCentre, int yCentre, int radius,int value){
 	for (float degrees = 0; degrees < 360; degrees++){
 		float x = radius*cos(degrees) + xCentre;
 		float y = radius*sin(degrees) + yCentre;
-		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y) == 0)){
+		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) == 0){
 			this->setScaledLocationValue((int)std::round(x), (int)std::round(y), 2);
 		}	
 	}
+}
+std::vector<float> map::addHalfValuedCircle(int xCentre, int yCentre, int radius, int value, std::vector<float> skipInts){
+	for (float degrees = 0; degrees < 360; degrees++){
+		if (std::find(skipInts.begin(), skipInts.end(), degrees) != skipInts.end()) {
+			continue;
+		}
+		float x = radius*cos(degrees) + xCentre;
+		float y = radius*sin(degrees) + yCentre;
+		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) != float(1)){
+			if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) == float(0)){
+				this->setScaledLocationValue((int)std::round(x), (int)std::round(y), value);
+			}
+		}
+		else{ skipInts.push_back(degrees); }
+	}
+	return skipInts;
 }
 
 void map::setScaledLocationValue(int x, int y, int value)
@@ -313,12 +329,12 @@ int map::getScaledLocationValue(int x, int y){
 	return highestvalue;
 }
 
-void map::addLidarInput(int lidarInputArray[]){
-	if (lidarInputArray[0] == 0){
-		appendLine(line(point(lidarInputArray[1], lidarInputArray[2]), point(lidarInputArray[3], lidarInputArray[4])));
+void map::addvirtuallidarInput(int virtuallidarInputArray[]){
+	if (virtuallidarInputArray[0] == 0){
+		appendLine(line(point(virtuallidarInputArray[1], virtuallidarInputArray[2]), point(virtuallidarInputArray[3], virtuallidarInputArray[4])));
 	}
-	if (lidarInputArray[1] == 1){
-		addCircle(lidarInputArray[1], lidarInputArray[2], lidarInputArray[3]);
+	if (virtuallidarInputArray[1] == 1){
+		addCircle(virtuallidarInputArray[1], virtuallidarInputArray[2], virtuallidarInputArray[3]);
 	}
 	translateToPoints();
 }
@@ -383,6 +399,70 @@ void map::addLineToGrid(line l){
 		if (error < 0){
 			y += yStep;
 			error += dX;
+		}
+	}
+}
+
+void map::addPolygonToMapData(polygon p){
+	std::vector<point> shape = p.getPoints();
+	if (shape.size() < 2) return; // this is not a polygon but a single point
+	for (unsigned int i = 0; i < shape.size() - 1; i++){
+		point p1 = point(shape.at(i));
+		point p2 = point(shape.at(i + 1));
+		line l = line(p1, p2);
+		appendLine(l);
+	}
+	point p1 = point(shape.at(shape.size()-1));
+	point p2 = point(shape.at(0));
+	line l = line(p1, p2);
+	appendLine(l);
+}
+
+void map::addPolygonToGrid(polygon p){
+	std::vector<point> shape = p.getPoints();
+	if (shape.size() < 2) return; // this is not a polygon but a single point
+	for (unsigned int i = 0; i < shape.size() - 1; i++){
+		point p1 = point(shape.at(i));
+		point p2 = point(shape.at(i + 1));
+		line l = line(p1, p2);
+		addLineToGrid(l);
+	}
+	point p1 = point(shape.at(shape.size()-1));
+	point p2 = point(shape.at(0));
+	line l = line(p1, p2);
+	addLineToGrid(l);
+}
+
+void map::floodFillLocation(point node, int target, int replacement){
+	if (target == replacement) return;	// Nothing to do here
+	if (access.at(node.getX()).at(node.getY()) != target) return; // Node != target
+	access.at(node.getX()).at(node.getY()) = replacement;
+
+	if (isAccessible(node.getX() + 1, node.getY())) // Go right
+		floodFillLocation(point(node.getX() + 1, node.getY()), target, replacement);
+	if (isAccessible(node.getX() - 1, node.getY())) // Go left
+		floodFillLocation(point(node.getX() - 1, node.getY()), target, replacement);
+	if (isAccessible(node.getX(), node.getY() + 1)) // Go up
+		floodFillLocation(point(node.getX(), node.getY() + 1), target, replacement);
+	if (isAccessible(node.getX(), node.getY() - 1)) // Go down
+		floodFillLocation(point(node.getX(), node.getY() - 1), target, replacement);
+	return;
+}
+
+void map::floodFillLocationQueue(point node, int target, int replacement){
+	if (target == replacement) return;	// Nothing to do here
+	std::vector<std::pair<int, int>> myQueue;
+	myQueue.push_back(std::pair<int, int>(node.getX(), node.getY()));
+	while (myQueue.size() > 0){			// While queue not empy
+		std::pair<int, int> tmp = myQueue.at(0);
+		myQueue.erase(myQueue.begin());	// Pop first element
+		if (access.at(tmp.first).at(tmp.second) == target){
+			access.at(tmp.first).at(tmp.second) = replacement;
+
+			myQueue.push_back(std::pair<int, int>(tmp.first + 1, tmp.second));
+			myQueue.push_back(std::pair<int, int>(tmp.first - 1, tmp.second));
+			myQueue.push_back(std::pair<int, int>(tmp.first, tmp.second + 1));
+			myQueue.push_back(std::pair<int, int>(tmp.first, tmp.second - 1));
 		}
 	}
 }

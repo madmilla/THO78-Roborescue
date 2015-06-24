@@ -16,7 +16,6 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
@@ -38,13 +37,12 @@ public:
     QPushButton *abortButton;
     QPushButton *stopButton;
     QPushButton *startButton;
-    QListView *rosbeeList;
 
     void setupUi(QMainWindow *RosbeeWindow)
     {
         if (RosbeeWindow->objectName().isEmpty())
             RosbeeWindow->setObjectName(QStringLiteral("RosbeeWindow"));
-        RosbeeWindow->resize(350, 336);
+        RosbeeWindow->resize(350, 139);
         root = new QWidget(RosbeeWindow);
         root->setObjectName(QStringLiteral("root"));
         statusGroupBox = new QGroupBox(root);
@@ -89,9 +87,6 @@ public:
         startButton = new QPushButton(root);
         startButton->setObjectName(QStringLiteral("startButton"));
         startButton->setGeometry(QRect(10, 100, 111, 31));
-        rosbeeList = new QListView(root);
-        rosbeeList->setObjectName(QStringLiteral("rosbeeList"));
-        rosbeeList->setGeometry(QRect(10, 140, 331, 192));
         RosbeeWindow->setCentralWidget(root);
 
         retranslateUi(RosbeeWindow);

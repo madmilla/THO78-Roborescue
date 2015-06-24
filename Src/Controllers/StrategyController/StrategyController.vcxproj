@@ -17,7 +17,7 @@
     <ClCompile Include="..\..\map\polygon.cpp" />
     <ClCompile Include="..\..\strategy\Common\ATV.cpp" />
     <ClCompile Include="..\..\strategy\Common\dimension.cpp" />
-    <ClCompile Include="..\..\strategy\Common\Lidar.cpp" />
+    <ClCompile Include="..\..\strategy\Common\virtualLidar.cpp" />
     <ClCompile Include="..\..\strategy\Common\QuadCopter.cpp" />
     <ClCompile Include="..\..\strategy\Common\route.cpp" />
     <ClCompile Include="..\..\strategy\Common\virtualRosbee.cpp" />
@@ -28,7 +28,6 @@
     <ClCompile Include="..\..\strategy\pathfinding\AStar\MapSearchNode.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\Container.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\mapLogicVSLAM.cpp" />
-    <ClCompile Include="..\..\strategy\pathfinding\VSLAM\scanArea.cpp" />
     <ClCompile Include="..\..\strategy\pathfinding\VSLAM\VSLAM.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StrategyController.cpp" />
@@ -41,7 +40,7 @@
     <ClInclude Include="..\..\map\polygon.h" />
     <ClInclude Include="..\..\strategy\Common\ATV.h" />
     <ClInclude Include="..\..\strategy\Common\dimension.h" />
-    <ClInclude Include="..\..\strategy\Common\Lidar.h" />
+    <ClInclude Include="..\..\strategy\Common\virtualLidar.h" />
     <ClInclude Include="..\..\strategy\Common\QuadCopter.h" />
     <ClInclude Include="..\..\strategy\Common\route.h" />
     <ClInclude Include="..\..\Strategy\Common\virtualRosbee.h" />
@@ -55,7 +54,6 @@
     <ClInclude Include="..\..\strategy\pathfinding\AStar\stlastar.h" />
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\Container.h" />
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\mapLogicVSLAM.h" />
-    <ClInclude Include="..\..\strategy\pathfinding\VSLAM\scanArea.h" />
     <ClInclude Include="..\..\strategy\pathfinding\VSLAM\VSLAM.h" />
     <ClInclude Include="StrategyController.h" />
   </ItemGroup>

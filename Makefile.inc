@@ -2,9 +2,9 @@ include Makefile.local
 include TargetMakefiles/Makefile.modules
 
 CXX 							= g++
-CXXFLAGS						= -std=c++11
+CXXFLAGS						= -std=c++11 -DWIN32
 INCLUDES 						= 
-LDLIBS							= -lpthread
+LDLIBS							= -lws2_32
 LDFLAGS							= 
 SRC 							= 
 UI 								= 
@@ -66,6 +66,19 @@ ifeq ($(MAKECMDGOALS),environmentsimulator)
 		UIC	= $(QT_BIN_DIR)/uic.exe
 		INCLUDES 	+= -I$(QT_INCL_DIR)
 		include TargetMakefiles/Makefile.environmentsimulator
+	endif
+endif
+ifeq ($(MAKECMDGOALS),map)
+	ifneq ($(OS),Windows_NT)
+		@echo "The Map is currently not compatible with linux bases systems"
+		exit 1
+	else
+		LDLIBS += -lQt5Core -lQt5Sql
+		LDFLAGS += -L$(QT_LIB_DIR)
+		MOC	= $(QT_BIN_DIR)/moc.exe
+		UIC	= $(QT_BIN_DIR)/uic.exe
+		INCLUDES 	+= -I$(QT_INCL_DIR)
+		include TargetMakefiles/Makefile.map
 	endif
 endif
 ifeq ($(MAKECMDGOALS),clean)

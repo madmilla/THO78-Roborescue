@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "UDPClient.h"
 #include "CPIConnector.h"
-#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "roborescueV1/mavlink.h"
 
 #define SLEEP 1
 
