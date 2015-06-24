@@ -170,7 +170,7 @@ std::vector<line> map::getPointLines(point & p){
 	return rtn;
 }
 
-void map::appendLine(line & l){
+void map::appendLine(line l){
 	mapData.push_back(l);
 }
 

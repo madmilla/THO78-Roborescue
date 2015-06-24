@@ -1,6 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
-#include <math.h> 
+#include <math.h>
+#include <cmath>
 #include "../point.hpp"
 #include "../line.hpp"
 #include <iostream>
@@ -11,6 +12,9 @@
 #include "../../strategy/Common/ATV.h"
 #include "../../strategy/pathfinding/Stop-them-spaces/aStar.h"
 #include "mapImplementation.hpp"
+#include <cstdlib>
+#include <climits>
+#include <algorithm>
 
 
 class map : public mapImplementation
@@ -43,7 +47,7 @@ public:
 
 	//! Append a line to the map
 	//! @param A line to be appended to the map data
-	void appendLine(line & l);
+	void appendLine(line l);
 
 	//! Append a vector of lines to the map
 	//! @param A vector of lines to be appended to the map data
