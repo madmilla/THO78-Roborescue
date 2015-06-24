@@ -6,8 +6,6 @@ int map::getScaledHeuristicLocationValue(int x,int y){
 	else {
 		return tmp;
 	}
-
-
 }
 
 
