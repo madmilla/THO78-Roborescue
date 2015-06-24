@@ -17,6 +17,9 @@ LIDAR_GUI_MODULE 				= Src/GUI/mission-gui/lidar-gui/
 MAP_GUI_MODULE 					= Src/GUI/mission-gui/map-gui/
 STRATEGY_CONTROLLER_MODULE			= Src/Controllers/StrategyController/
 STRATEGY_COMMON_MODULE			= Src/Strategy/Common/
+STRATEGY_VSLAM_MODULE			= Src/Strategy/pathfinding/VSLAM/
+STRATEGY_AREACOVERAGE_MODULE			= Src/Strategy/pathfinding/AreaCoverage/
+STRATEGY_ASTAR_MODULE			= Src/Strategy/pathfinding/AStar/
 ENVIRONMENTSIMULATOR_GUI_MODULE = Src/GUI/simulation/environment_test/
 
 #VEHICLES
