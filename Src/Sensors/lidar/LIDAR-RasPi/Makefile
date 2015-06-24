@@ -2,7 +2,7 @@
 
 PROG = main
 # the needed cpp files (withoud .cpp)
-MODULES :=  Circle Line PointCloud shapedetector Lidar LidarController UDPClient CPIConnector main
+MODULES :=  Circle Line PointCloud shapedetector Lidar LidarController PracticalSocket UDPClient CPIConnector main
 
 # the deps directory
 DEPS_DIR_WIN:= ..\..\..\..\Deps
