@@ -14,14 +14,14 @@
  * @param rosbee
  */
 
-scanArea::scanArea(map *Map, virtualRosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, Lidar *lidar){
+scanArea::scanArea(map *Map, virtualRosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, virtualLidar *virtuallidar){
     // Constructor
     this->Map = Map;
     this->rosbee = rosbee;
     this->mapSearchNode = mapSearchNode;
     this->route = route;
 	this->MapLogicVSLAM = MapLogicVSLAM;
-	this->lidar = lidar;
+	this->virtuallidar = virtuallidar;
 }
 
 /**
@@ -39,7 +39,7 @@ scanArea::~scanArea(){
 
 void scanArea::run(){
 	if (!MapLogicVSLAM->isMapFullyScanned()){
-		MapLogicVSLAM->setTilesInRangeLidar();
+		MapLogicVSLAM->setTilesInRangevirtuallidar();
 		if (!Container::route.getSize()){
 			tileLocation = MapLogicVSLAM->getUnscannedTile();
 			std::cout << tileLocation[0] << tileLocation[1] << std::endl;
@@ -51,8 +51,8 @@ void scanArea::run(){
 		if (Container::route.getSize() >= 1){
 			newRosbeeLocation = Container::route.getNewTile();
 			if (Map->getScaledHeuristicLocationValue(newRosbeeLocation[0], newRosbeeLocation[1]) == 9 || 
-				Map->getScaledLocationValue((newRosbeeLocation[0]), (newRosbeeLocation[1] + lidar->getRange())) == 9 ||
-				Map->getScaledLocationValue((newRosbeeLocation[0] + lidar->getRange()), (newRosbeeLocation[1])) == 9){
+				Map->getScaledLocationValue((newRosbeeLocation[0]), (newRosbeeLocation[1] + virtuallidar->getRange())) == 9 ||
+				Map->getScaledLocationValue((newRosbeeLocation[0] + virtuallidar->getRange()), (newRosbeeLocation[1])) == 9){
 				Container::route.clearRoute();
 			}
 			else{

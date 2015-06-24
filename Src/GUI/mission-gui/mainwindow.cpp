@@ -20,6 +20,10 @@ MainWindow::MainWindow(Quadcopter &quadcopter, ATV & atv, QWidget *parent) :
     connect(ui->MapButton   , SIGNAL(clicked()), this, SLOT(handleButton()));
     connect(ui->RosbeeButton, SIGNAL(clicked()), this, SLOT(handleButton()));
     connect(ui->ExitButton  , SIGNAL(clicked()), this, SLOT(handleButton()));
+    quadWindow = nullptr;
+    atvWindow = nullptr;
+    MainWindow::ScanforRosbee();
+    MainWindow::ScanforLidar();
 }
 
 MainWindow::~MainWindow(){
@@ -49,26 +53,44 @@ void MainWindow::handleButton(){
    QMainWindow * newWindow = nullptr;
 
    if(button == ui->QuadButton){
-      newWindow = new QuadCopterWindow(quad, this);
+      if(!quadWindow){
+        quadWindow = new QuadCopterWindow(quad, this);
+      }
+      quadWindow->show();
    }else if(button == ui->ATVButton){
-      newWindow = new ATVWindow(atv, this);
+      if(!atvWindow){
+        atvWindow = new ATVWindow(atv, this);
+      }
+      atvWindow->show();
    }else if(button == ui->LidarButton){
-      newWindow = new LidarWindow(*robotManager.getRobot<Lidar>(lidarId), this);
+      MainWindow::ScanforLidar();
    }else if(button == ui->MapButton){
       //newWindow = new MapWindow(this);
    }else if(button == ui->RosbeeButton){
-      newWindow = new RosbeeWindow(*robotManager.getRobot<Rosbee>(rosbeeId), this);
+      MainWindow::ScanforRosbee();
    }else if(button == ui->ExitButton){
       for(QMainWindow * window : subWindows){
          window->close();
       }
       this->close();
    }
-
    if(newWindow != nullptr){
       newWindow->show();
       subWindows.push_back(newWindow);
    }
-
    checkZombies();
 }
+
+
+void MainWindow::ScanforRosbee(){
+    for(auto * robots : robotManager.getRobots<Rosbee>()){
+        ui->Rosbeelist->addItem(new QListWidgetItem(QString(robots->getId())));
+    }
+}
+
+void MainWindow::ScanforLidar(){
+    for(auto * robots : robotManager.getRobots<Lidar>()){
+        ui->Lidarlist->addItem(new QListWidgetItem(QString(robots->getId())));
+    }
+}
+

@@ -44,17 +44,17 @@
 #include "mapLogicVSLAM.h"
 #include "../../Common/route.h"
 #include "../AStar/MapSearchNode.h"
-#include "../../Common/Lidar.h"
+#include "../../Common/virtualLidar.h"
 
 class VSLAM
 {
 public:
 	/**
-	* @fn	VSLAM(map *Map, Rosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, Lidar *lidar);
+	* @fn	VSLAM(map *Map, Rosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, virtuallidar *virtuallidar);
 	*
 	* @brief	Constructor of the class VSLAM.
 	*/
-	VSLAM(map *Map, virtualRosbee *rosbee, Route *route, Lidar *lidar);
+	VSLAM(map *Map, virtualRosbee *rosbee, Route *route, virtualLidar *virtuallidar);
 	/**
 	* @fn	~VSLAM();
 	*
@@ -68,7 +68,7 @@ public:
 	* called the rosbee wil get a new destination from the function. 
 	*/
     void run();
-	bool wholeRouteInRangeLidar();
+	bool wholeRouteInRangevirtuallidar();
 private:
 	/**
 	* @brief Map object.
@@ -91,9 +91,9 @@ private:
 	*/
     Route * route;
 	/**
-	* @brief lidar object.
+	* @brief virtualvirtuallidar object.
 	*/
-	Lidar * lidar;
+	virtualLidar * virtuallidar;
 	/**
 	* @brief int * newRosbeeLocation variable to store the new location of the rosbee.
 	*/

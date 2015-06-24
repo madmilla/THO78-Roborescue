@@ -10,3 +10,7 @@ points{points}
 polygon::~polygon()
 {
 }
+
+std::vector<point> polygon::getPoints(){
+	return points;
+}
