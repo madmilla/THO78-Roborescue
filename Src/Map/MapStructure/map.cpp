@@ -1,4 +1,5 @@
 #include "map.hpp"
+
 int map::getScaledHeuristicLocationValue(int x,int y){
 	int tmp = this->getScaledLocationValue(x, y);
 	if (tmp == 1){ return 9; }

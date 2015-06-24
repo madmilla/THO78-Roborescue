@@ -7,19 +7,14 @@ CONFIG -= qt
 
 SOURCES += \
     aStar.cpp \
-    line.cpp \
-    Main.cpp \
-    Map.cpp \
-    point.cpp \
-    polygon.cpp
+    ../../Common/waypoint.cpp \
+    ../../Common/route.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
 
 HEADERS += \
     aStar.h \
-    line.hpp \
-    map.hpp \
-    point.hpp \
-    polygon.h
+    ../../Common/waypoint.h \
+    ../../Common/route.h
 
