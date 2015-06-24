@@ -5,8 +5,8 @@ PROG = main
 MODULES :=  Circle Line PointCloud shapedetector Lidar LidarController PracticalSocket UDPClient CPIConnector main
 
 # the deps directory
-DEPS_DIR_WIN:= ..\..\..\..\deps
-DEPS_DIR_LINUX:= ../../../../deps
+DEPS_DIR_WIN:= ..\..\..\..\Deps
+DEPS_DIR_LINUX:= ../../../../Deps
 
 HEADER := $(patsubst %,%.h,$(MODULES))
 
@@ -26,7 +26,7 @@ else
 	CPP_FLAGS_64 := $(DEPS_DIR_LINUX)/lib/opencv/Linux/x64
 	LINKFLAGS := -L$(DEPS_DIR_LINUX)/lib/rplidar/linux -lrplidar -L$(CPP_FLAGS_$(ARCH)) -lopencv_core -lopencv_highgui -lopencv_imgproc -Wl,-rpath=$(CPP_FLAGS_$(ARCH))
 	gcc := /usr/bin/g++
-	CFLAGS = -std=c++11 -I$(DEPS_DIR_LINUX)/incl/rplidar -lstdc++ -lpthread -lrt -I$(DEPS_DIR_LINUX)/incl/opencv
+	CFLAGS = -std=c++11 -I$(DEPS_DIR_LINUX)/incl/rplidar -I$(DEPS_DIR_LINUX)/incl/mavlink -lstdc++ -lpthread -lrt -I$(DEPS_DIR_LINUX)/incl/opencv
 	rm := rm -f
 	TARGET := $(PROG)
 endif

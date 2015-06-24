@@ -1,8 +1,8 @@
 #ifndef MAPSEARCHNODE_H
 #define MAPSEARCHNODE_H
 
-#include "fsa.h"
-#include "stlastar.h"
+#include "fsa.cpp"
+#include "stlastar.cpp"
 #include <iostream>
 #include <stdio.h>
 #include <math.h>
