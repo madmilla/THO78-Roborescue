@@ -5,15 +5,15 @@
  *      Author: pawel
  */
 
+
 #ifndef BASEROBOT_H_
 #define BASEROBOT_H_
-
+ 
 #include "roborescueV1/mavlink.h"
 #include <queue>
 
 class BaseRobot{
 public:
-
 	BaseRobot():systemID{0}{}
 
 	//The function onMessage() will be called by the UDPClient. This function determine what to do with the recieved message.
