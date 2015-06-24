@@ -375,3 +375,33 @@ void map::addLineToGrid(line l){
 		}
 	}
 }
+
+void map::addPolygonToMapData(polygon p){
+	std::vector<point> shape = p.getPoints();
+	if (shape.size() < 2) return; // this is not a polygon but a single point
+	for (unsigned int i = 0; i < shape.size() - 1; i++){
+		point p1 = point(shape.at(i));
+		point p2 = point(shape.at(i + 1));
+		line l = line(p1, p2);
+		appendLine(l);
+	}
+	point p1 = point(shape.at(shape.size()-1));
+	point p2 = point(shape.at(0));
+	line l = line(p1, p2);
+	appendLine(l);
+}
+
+void map::addPolygonToGrid(polygon p){
+	std::vector<point> shape = p.getPoints();
+	if (shape.size() < 2) return; // this is not a polygon but a single point
+	for (unsigned int i = 0; i < shape.size() - 1; i++){
+		point p1 = point(shape.at(i));
+		point p2 = point(shape.at(i + 1));
+		line l = line(p1, p2);
+		addLineToGrid(l);
+	}
+	point p1 = point(shape.at(shape.size()-1));
+	point p2 = point(shape.at(0));
+	line l = line(p1, p2);
+	addLineToGrid(l);
+}

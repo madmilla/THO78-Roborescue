@@ -74,11 +74,31 @@ int main() {
 
 	std::cout << "Running\n";
 	map m = map();
-	m.addCircle(20, 20, 5);
-	std::cout << std::endl;
-	m.print();
-	m.isReachable(1, 1, 21, 21);
-	m.print();
 
+	//m.addCircle(20, 20, 5);
+	//std::cout << std::endl;
+	//m.print();
+	//m.isReachable(1, 1, 21, 21);
+	//m.print();
+
+	point p1 = point(2, 2);
+	point p2 = point(12, 2);
+	point p3 = point(12, 12);
+	point p4 = point(2, 12);
+	//point p5 = point(1, 6);
+	//point p6 = point(1, 3);
+	std::vector<point> pVector;
+	pVector.push_back(p1);
+	pVector.push_back(p2);
+	pVector.push_back(p3);
+	pVector.push_back(p4);
+	//pVector.push_back(p5);
+	//pVector.push_back(p6);
+
+	polygon p = polygon(pVector);
+	m.addPolygonToGrid(p);
+	//m.addPolygonToMapData(p);
+	//m.translateToPoints();
+	m.print();
 	(void)getchar();
 }
