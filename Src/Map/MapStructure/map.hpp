@@ -137,14 +137,14 @@ public:
 	void addCircle(int x, int y, int radius);
 
 	// Vehicle Positions Getters and Setters
-	//! \returns the rosbee position
+	//! \returns the virtualrosbee position
 	virtualRosbee* getRosbeePosition() { return rosbeePosition; }
 	//! \returns the atv position
 	ATV* getATVPosition() { return ATVPosition; }
 	//! \returns the quadcopter position
 	QuadCopter* getQuadCopterPositon() { return quadcopterPosition; }
 
-	//! Sets the rosbee position
+	//! Sets the virtualrosbee position
 	void setRosbeePosition(virtualRosbee* newPosition) { this->rosbeePosition = newPosition; }
 	//! Sets the atv position
 	void setATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
