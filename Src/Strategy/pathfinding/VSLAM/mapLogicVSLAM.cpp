@@ -41,7 +41,6 @@ mapLogicVSLAM::mapLogicVSLAM(map * Map, virtualRosbee * rosbee, Lidar * lidar){
 	this->Map = Map;
 	this->rosbee = rosbee;
 	this->lidar = lidar;
-	
 }
 
 mapLogicVSLAM::~mapLogicVSLAM(){
@@ -57,18 +56,10 @@ mapLogicVSLAM::~mapLogicVSLAM(){
 */
 
 void mapLogicVSLAM::setTilesInRangeLidar(){
-	/*int x = rosbee->getRosbeeLocationX() - lidar->getRange();
-	int y = rosbee->getRosbeeLocationY() - lidar->getRange();
-	for (int i = 0; i < ((lidar->getRange() * 2) + 1); i++){
-		for (int ii = 0; ii < ((lidar->getRange() * 2) + 1); ii++){
-			if ((x + ii) >= 1 && (x + ii) <= (Map->getScaledWidth()-1) && (y + i) >= 1 && (y + i) <= (Map->getScaledHeight()-1)){
-				if (Map->getScaledLocationValue((x + ii), (y + i)) == 0){
-					Map->setScaledLocationValue((x + ii), (y + i), 2);
-				}				
-			}
-		}
-	}*/
-	Map->addLIDARCircle(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), 2);
+	std::vector<float> skip = {};
+	for (int i = 1; i < lidar->getRange(); i++){
+		skip = Map->addHalfValuedCircle(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), i, 5, skip);
+	}
 }
 
 /**

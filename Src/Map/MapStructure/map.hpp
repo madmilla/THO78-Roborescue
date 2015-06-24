@@ -156,7 +156,15 @@ public:
 	//! @param The line to add to the grid
 	void addLineToGrid(line l);
 
-	void addLIDARCircle(int xCentre, int yCentre, int radius);
+	//! add a polygon to the collection of lines
+	//! @param The polygon to add
+	void addPolygonToMapData(polygon p);
+
+	//! add a polygon to the grid
+	//! @param THe polygon to add
+	void addPolygonToGrid(polygon p);
+	void addValuedCircle(int xCentre, int yCentre, int radius, int value);
+	std::vector<float> addHalfValuedCircle(int xCentre, int yCentre, int radius, int value, std::vector<float> skipInts);
 
 private:
 	int scale=1;

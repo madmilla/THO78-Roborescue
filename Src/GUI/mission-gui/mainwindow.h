@@ -61,7 +61,7 @@ class MainWindow;
 
 /**
 * @class   MainWindow
-* @author  Wibren Wiersma
+* @author  Wibren Wiersma & Martijn van der Struijk
 * @date    April, 2015
 * @brief   this class is used to create new windows of object or close the whole gui
 */
@@ -75,8 +75,12 @@ public:
 
 private slots:
     void handleButton();
+    void ScanforRosbee();
+    void ScanforLidar();
 
 private:
+    QMainWindow * quadWindow;
+    QMainWindow * atvWindow;
     Ui::MainWindow *ui;
     std::vector<QMainWindow *> subWindows;
     int rosbeeId;

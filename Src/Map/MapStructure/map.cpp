@@ -52,14 +52,30 @@ void map::addCircle(int xCentre, int yCentre, int radius){
 	}
 }
 
-void map::addLIDARCircle(int xCentre, int yCentre, int radius){
+void map::addValuedCircle(int xCentre, int yCentre, int radius,int value){
 	for (float degrees = 0; degrees < 360; degrees++){
 		float x = radius*cos(degrees) + xCentre;
 		float y = radius*sin(degrees) + yCentre;
-		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y) == 0)){
+		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) == 0){
 			this->setScaledLocationValue((int)std::round(x), (int)std::round(y), 2);
 		}	
 	}
+}
+std::vector<float> map::addHalfValuedCircle(int xCentre, int yCentre, int radius, int value, std::vector<float> skipInts){
+	for (float degrees = 0; degrees < 360; degrees++){
+		if (std::find(skipInts.begin(), skipInts.end(), degrees) != skipInts.end()) {
+			continue;
+		}
+		float x = radius*cos(degrees) + xCentre;
+		float y = radius*sin(degrees) + yCentre;
+		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) != float(1)){
+			if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) == float(0)){
+				this->setScaledLocationValue((int)std::round(x), (int)std::round(y), value);
+			}
+		}
+		else{ skipInts.push_back(degrees); }
+	}
+	return skipInts;
 }
 
 void map::setScaledLocationValue(int x, int y, int value)
@@ -384,4 +400,34 @@ void map::addLineToGrid(line l){
 			error += dX;
 		}
 	}
+}
+
+void map::addPolygonToMapData(polygon p){
+	std::vector<point> shape = p.getPoints();
+	if (shape.size() < 2) return; // this is not a polygon but a single point
+	for (unsigned int i = 0; i < shape.size() - 1; i++){
+		point p1 = point(shape.at(i));
+		point p2 = point(shape.at(i + 1));
+		line l = line(p1, p2);
+		appendLine(l);
+	}
+	point p1 = point(shape.at(shape.size()-1));
+	point p2 = point(shape.at(0));
+	line l = line(p1, p2);
+	appendLine(l);
+}
+
+void map::addPolygonToGrid(polygon p){
+	std::vector<point> shape = p.getPoints();
+	if (shape.size() < 2) return; // this is not a polygon but a single point
+	for (unsigned int i = 0; i < shape.size() - 1; i++){
+		point p1 = point(shape.at(i));
+		point p2 = point(shape.at(i + 1));
+		line l = line(p1, p2);
+		addLineToGrid(l);
+	}
+	point p1 = point(shape.at(shape.size()-1));
+	point p2 = point(shape.at(0));
+	line l = line(p1, p2);
+	addLineToGrid(l);
 }

@@ -4,7 +4,7 @@ include TargetMakefiles/Makefile.modules
 CXX 							= g++
 CXXFLAGS						= -std=c++11
 INCLUDES 						= 
-LDLIBS							= -lpthread
+LDLIBS							=
 LDFLAGS							= 
 SRC 							= 
 UI 								= 

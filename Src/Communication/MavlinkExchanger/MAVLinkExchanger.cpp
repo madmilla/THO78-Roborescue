@@ -3,7 +3,7 @@
 #include <iostream>
 
 MAVLinkExchanger::MAVLinkExchanger(SerialPort& serialPort):
-serialPort{ serialPort }
+serialPort( serialPort )
 {
 }
 
