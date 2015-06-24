@@ -37,10 +37,10 @@
 
 #include "mapLogicVSLAM.h"
 
-mapLogicVSLAM::mapLogicVSLAM(map * Map, virtualRosbee * rosbee, Lidar * lidar){
+mapLogicVSLAM::mapLogicVSLAM(map * Map, virtualRosbee * rosbee, virtualLidar * virtuallidar){
 	this->Map = Map;
 	this->rosbee = rosbee;
-	this->lidar = lidar;
+	this->virtuallidar = virtuallidar;
 }
 
 mapLogicVSLAM::~mapLogicVSLAM(){
@@ -48,16 +48,16 @@ mapLogicVSLAM::~mapLogicVSLAM(){
 }
 
 /**
-* Set the tiles is the LIDAR range on scanned. Get the location where the rosbee is on that moment.
-* When the location is decided pull the range of the LIDAR from the rosbee location.
-* We have now the tile location (0,0) of the tiles in the LIDAR range.
-* Apply now the LIDAR range with 1 by the tile location of (0,0) and we get the location (max,0).
-* When we do this x times(LIDAR range) we get the final the location (max, max) for the tiles in the LIDAR range.
+* Set the tiles is the virtuallidar range on scanned. Get the location where the rosbee is on that moment.
+* When the location is decided pull the range of the virtuallidar from the rosbee location.
+* We have now the tile location (0,0) of the tiles in the virtuallidar range.
+* Apply now the virtuallidar range with 1 by the tile location of (0,0) and we get the location (max,0).
+* When we do this x times(virtuallidar range) we get the final the location (max, max) for the tiles in the virtuallidar range.
 */
 
-void mapLogicVSLAM::setTilesInRangeLidar(){
+void mapLogicVSLAM::setTilesInRangevirtuallidar(){
 	std::vector<float> skip = {};
-	for (int i = 1; i < lidar->getRange(); i++){
+	for (int i = 1; i < virtuallidar->getRange(); i++){
 		skip = Map->addHalfValuedCircle(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), i, 5, skip);
 	}
 }

@@ -13,14 +13,14 @@
 #include "../AStar/MapSearchNode.h"
 #include "../../Common/route.h"
 #include "mapLogicVSLAM.h"
-#include "../../Common/Lidar.h"
+#include "../../Common/virtualLidar.h"
 
 
 class scanArea
 {
 public:
     // Constructor of scanArea.
-	scanArea(map *Map, virtualRosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, Lidar *lidar);
+	scanArea(map *Map, virtualRosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, virtualLidar *virtuallidar);
     // Destructor of scanArea.
     ~scanArea();
     // Function to start the scan algorithm.
@@ -31,7 +31,7 @@ private:
     MapSearchNode *mapSearchNode;
 	mapLogicVSLAM *MapLogicVSLAM;
     Route * route;
-	Lidar * lidar;
+	virtualLidar * virtuallidar;
 	int * newRosbeeLocation;
 	int * tileLocation;
 

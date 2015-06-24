@@ -150,7 +150,7 @@ public:
 	void setATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
 	//! Sets the quadcopter position
 	void setQuadCopterPositon(QuadCopter* newPosition) { this->quadcopterPosition = newPosition; }
-	void addLidarInput(int lidarInputArray[]);
+	void addvirtuallidarInput(int virtuallidarInputArray[]);
 	
 	//! add a line to the grid directly
 	//! @param The line to add to the grid
