@@ -8,10 +8,11 @@ clean:
 	rm *.o $(PROGRAMS) &> /dev/null || true
 	
 UDPServer: PracticalSocket.o UDP_Server.o
-	$(CPP) -o $@ PracticalSocket.o UDP_Server.o -lpthread
+	$(CPP) -o $@ PracticalSocket.o UDP_Server.o -lpthread -I../../../../Deps/incl/mavlink
 
 %.o: %.cpp
 	$(CPP) $(CPPFLAGS) $<
 
-UDP_Server.o: UDP_Server.cpp mavlink/udp_mavlink_commands/mavlink.h
+UDP_Server.o: UDP_Server.cpp ../../../../Deps/incl/mavlink/roborescueV1/mavlink.h
+
 PracticalSocket.o: PracticalSocket.h PracticalSocket.cpp

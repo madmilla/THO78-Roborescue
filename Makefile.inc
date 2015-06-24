@@ -2,9 +2,9 @@ include Makefile.local
 include TargetMakefiles/Makefile.modules
 
 CXX 							= g++
-CXXFLAGS						= -std=c++11 -DWIN32
+CXXFLAGS						= -std=c++11
 INCLUDES 						= 
-LDLIBS							= -lws2_32
+LDLIBS							= -lpthread
 LDFLAGS							= 
 SRC 							= 
 UI 								= 
@@ -16,7 +16,8 @@ ifeq ($(MAKECMDGOALS),mission1)
 		@echo "Basestation is currently not compatible with linux based systems"
 		exit 1
 	else
-		LDLIBS += -lQt5Core -lQt5Widgets -lQt5Gui
+		CXXFLAGS+= -DWIN32
+		LDLIBS += -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32
 		LDFLAGS += -L$(QT_LIB_DIR)
 		MOC	= $(QT_BIN_DIR)/moc.exe
 		UIC	= $(QT_BIN_DIR)/uic.exe
