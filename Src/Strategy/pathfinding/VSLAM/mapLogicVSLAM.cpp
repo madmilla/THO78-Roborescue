@@ -83,20 +83,3 @@ int * mapLogicVSLAM::getUnscannedTile(){
 	tileLocation[1] = -1;
 	return tileLocation;
 }
-
-/**
-* We loops trough the whole map. For each tile check if the value is 0. 0 is the value of a tile which is not scanned.
-* When we see an unscanned tile return false. When we don't find a unscanned tile the map must be fully scanned
-* so we can return true.
-*/
-
-bool mapLogicVSLAM::isMapFullyScanned(){
-	for (int iiy = 0; iiy < Map->getScaledHeight(); iiy++){
-		for (int iix = 0; iix < Map->getScaledWidth(); iix++){
-			if (Map->getScaledLocationValue(iix, iiy) == 0){
-				return false;
-			}
-		}
-	}
-	return true;
-}

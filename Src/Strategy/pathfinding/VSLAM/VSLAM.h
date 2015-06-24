@@ -69,7 +69,10 @@ public:
 	*/
     void run();
 	bool wholeRouteInRangevirtuallidar();
+	bool isVSLAMDone();
+	
 private:
+	bool bool_isVSLAMDone = false;
 	/**
 	* @brief Map object.
 	*/

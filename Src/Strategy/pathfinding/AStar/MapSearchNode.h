@@ -10,12 +10,12 @@
 #include "../../Common/route.h"
 #include "Container.h"
 
-
 class MapSearchNode
 {
 public:
     int x;	 // the (x,y) positions of the node
     int y;
+	bool notFindRoute = false;
 
     MapSearchNode();
     MapSearchNode(map * Map, Route * route);

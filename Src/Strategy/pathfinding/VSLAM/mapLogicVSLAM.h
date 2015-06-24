@@ -72,14 +72,7 @@ public:
 	*			x = tileLocation[0] and y = tileLocation[1].
 	*/
 	int * getUnscannedTile();
-	/**
-	* @fn	bool isMapFullyScanned();
-	*
-	* @brief	Function that checks if the map is fully scanned and returns the value.
-	*
-	* @return	bool true of false if the map is fully scanned.
-	*/
-	bool isMapFullyScanned();
+private:
 	/**
 	* @brief Map object.
 	*/
