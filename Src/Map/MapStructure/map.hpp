@@ -156,6 +156,8 @@ public:
 	//! @param The line to add to the grid
 	void addLineToGrid(line l);
 
+	void addLIDARCircle(int xCentre, int yCentre, int radius);
+
 private:
 	int scale=1;
 	std::vector<line> mapData;

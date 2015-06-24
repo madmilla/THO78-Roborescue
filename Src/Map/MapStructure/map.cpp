@@ -52,6 +52,16 @@ void map::addCircle(int xCentre, int yCentre, int radius){
 	}
 }
 
+void map::addLIDARCircle(int xCentre, int yCentre, int radius){
+	for (float degrees = 0; degrees < 360; degrees++){
+		float x = radius*cos(degrees) + xCentre;
+		float y = radius*sin(degrees) + yCentre;
+		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y) == 0)){
+			this->setScaledLocationValue((int)std::round(x), (int)std::round(y), 2);
+		}	
+	}
+}
+
 void map::setScaledLocationValue(int x, int y, int value)
 {
 	x = x*scale;
