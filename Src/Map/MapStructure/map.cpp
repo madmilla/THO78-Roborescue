@@ -234,32 +234,8 @@ void makeUnseen(){
 
 //translate lines to points in 2d vector
 void map::translateToPoints(){
-	int maxX = 0, maxY = 0;
-	for (line & lCmp : mapData){
-		if (lCmp.getPoint(0).getX() > maxX){
-			maxX = lCmp.getPoint(0).getX();
-		}
-		if (lCmp.getPoint(1).getX() > maxX){
-			maxX = lCmp.getPoint(0).getX();
-		}
-		if (lCmp.getPoint(0).getY() > maxY){
-			maxY = lCmp.getPoint(0).getY();
-		}
-		if (lCmp.getPoint(1).getY() > maxY){
-			maxY = lCmp.getPoint(0).getY();
-		}
-	}
-	for (unsigned int x = 0; x < access.size(); x++){
-		for (unsigned int y = 0; y < access.size(); y++){
-			if (getPointLines(point(x,y)).size() != 0){
-				access.at(x).at(y) = 1; //not accessible
-				
-			}
-			else{
-				access.at(x).at(y) = 0; // accessible
-			}
-		}
-	}
+	for(const line & l : mapData)
+		addLineToGrid(l);
 }
 
 //check if x,y is accessible
@@ -355,4 +331,47 @@ bool map::isReachable(point p, point p1){
 
 void map::setNotReachable(point p){
 	access.at(p.getX()).at(p.getY()) = 1;
+}
+
+void map::addLineToGrid(line l){
+	// Breseham's line algorithm
+	float aX = l.getPoint(0).getX(), bX = l.getPoint(1).getX();
+	float aY = l.getPoint(0).getY(), bY = l.getPoint(1).getY();
+
+	const bool steep = (fabs(bY - aY) > fabs(bX - aX));
+	if (steep){
+		// swap points for more comfortable calculation
+		std::swap(aX, aY);
+		std::swap(bX, bY);
+	}
+
+	if (aX > bX){
+		// swap points for more comfortable calculation
+		std::swap(aX, bX);
+		std::swap(aY, bY);
+	}
+
+	const float dX = bX - aX;		// delta X
+	const float dY = fabs(bY - aY); // delta Y
+
+	float error = dX / 2.0f;
+	const int yStep = (aY < bY) ? 1 : -1;
+	int y = (int)aY;
+
+	const int maxX = (int)bX;
+
+	for (int x = (int)aX; x < maxX; x++){
+		if (steep){
+			access.at(y).at(x) = 1;
+		}
+		else{
+			access.at(x).at(y) = 1;
+		}
+
+		error -= dY;
+		if (error < 0){
+			y += yStep;
+			error += dX;
+		}
+	}
 }
