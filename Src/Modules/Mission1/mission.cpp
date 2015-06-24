@@ -22,6 +22,11 @@ int main(int argc, char *argv[])
     virtualLidar lidar;
     Map map;
     StrategyController controller(map,copter,bee,lidar);
+    controller.scanArea();
+    std::cout << "Scan Area Done";
+    getchar();
+    controller.searchArea();
+    controller.movePairwise();
     QApplication app(argc, argv);
     MainWindow w{q, a};
     w.show();

@@ -43,12 +43,13 @@
 */
 AreaCoveringAlgorithm::AreaCoveringAlgorithm(VirtualQuadCopter *copter,
                                              Map* mapp) {
-	mapp->setScale(1);
+	mapp->setScale(5);
 	globalMap = mapp;
   
   std::cout << "Start";
   followWall(copter, mapp, 1);
   std::cout << "followed wall";
+  getchar();
   followCovered(copter, mapp, 1, 3);
   this->drawWayPoints(mapp);
 }
@@ -56,8 +57,8 @@ AreaCoveringAlgorithm::AreaCoveringAlgorithm(VirtualQuadCopter *copter,
 This is usefull for gui implementations */
 void AreaCoveringAlgorithm::drawWayPoints(Map* map) {
 
-  for (WayPoint point : result.waypoints) {
-    map->setScaledLocationValue(point.x,point.y,7);
+  for (WayPoint *point : result.wayPoints) {
+    map->setScaledLocationValue(point->x,point->y,7);
   }
 }
 
@@ -85,10 +86,12 @@ int AreaCoveringAlgorithm::followWall(VirtualQuadCopter *copter, Map *mapp,
   direction.height = 1;
 	int x=0;
   while(true) {
-	  
+	mapp->print();
+	
+	  getchar();
 	x++;
     this->registerLocation(mapp, copter);
-    if (result.waypoints.size() > 2 && result.waypoints.at(result.waypoints.size() - 1) == result.waypoints.at(0)) {
+    if (result.wayPoints.size() > 2 && *(result.wayPoints.at(result.wayPoints.size() - 1)) == *(result.wayPoints.at(0))) {
       return x;
     }
     if (pointOn(direction.width, direction.height, copter, mapp) ==
@@ -209,6 +212,9 @@ int AreaCoveringAlgorithm::followCovered(VirtualQuadCopter *copter, Map* mapp,
   int sightxinitial = copter->getFov().width - 1;
   //for(int i=0; i<300;i++){
   while (globalMap->contains(0)) {
+  mapp->print();	
+  getchar();
+	
 	  checker++;
 		
 		this->drawWayPoints(mapp);
@@ -221,15 +227,16 @@ int AreaCoveringAlgorithm::followCovered(VirtualQuadCopter *copter, Map* mapp,
       boxed = true;
 	  std::cout << "Boxed in";
       moveBackOnRoute(copter);
-	  std::cout << "Boxed in g";
+	  std::cout << "Boxed in gone back";
+	std::cout << "Copter: " << copter->getX() << " " << copter->getY() << "\n";
 
       continue;
     } else if (boxed) {
-	  //astarto =point(copter->getX(), copter->getY());
-	  //aStar findroute;
-
-	  //Route shortest = findroute.getRoute(findroute.findPath(astarfrom.getX(), astarfrom.getY(), astarto.getX(), astarto.getY(),*globalMap));
-	  //result.addRoutePart(shortest);
+	std::cout <<"Niet meer boxed in";
+	  astarto =point(copter->getX(), copter->getY());
+	  aStar findroute;
+	  Route shortest = findroute.getRoute(findroute.findPath(astarfrom.getX(), astarfrom.getY(), astarto.getX(), astarto.getY(),*globalMap));
+	  result.addRoutePart(shortest);
       moveingBack = false;
       boxed = false;
 	  
@@ -380,7 +387,7 @@ int AreaCoveringAlgorithm::pointOn(int x, int y, VirtualQuadCopter *copter,
  /** This method sets empty the area's around the test copter to covered.  */
 void AreaCoveringAlgorithm::registerLocation(Map* map,
                                              VirtualQuadCopter *copter) {
-  result.waypoints.push_back(WayPoint(copter->getX(), copter->getY()));
+  result.wayPoints.push_back(new WayPoint(copter->getX(), copter->getY()));
   int sightxinitial = copter->getFov().width - 1;
   sightxinitial = sightxinitial / 2;
   // werkt wel voor x en y omdat ie toch vierkant is, zo niet dan moet ik een
@@ -492,13 +499,16 @@ void AreaCoveringAlgorithm::setCopterSquare(VirtualQuadCopter copt, Map* map) {
  /** this function moves the VirtualQuadCopter back on the route and keeps track of howfar it went back */
 void AreaCoveringAlgorithm::moveBackOnRoute(VirtualQuadCopter *copter) {
   if (moveingBack) {
-
-    copter->setX(result.waypoints.at(stuckWaypointIndex + movesBack).x);
-    copter->setY(result.waypoints.at(stuckWaypointIndex + movesBack).y);
-    movesBack = movesBack--;
+	std::cout << "Route print\n";
+	std::cout << result;
+	std::cout << "Moves back:" <<movesBack;
+    copter->setX(result.wayPoints.at(stuckWaypointIndex + movesBack)->x);
+    copter->setY(result.wayPoints.at(stuckWaypointIndex + movesBack)->y);
+    movesBack += -1;
   } else {
+	std::cout << "Dit een keer hoop ik";
     moveingBack = true;
-    stuckWaypointIndex = int(result.waypoints.size() - 1);
+    stuckWaypointIndex = int(result.wayPoints.size() - 1);
     movesBack = 0;
   }
 }

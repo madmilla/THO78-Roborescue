@@ -17,7 +17,7 @@ StrategyController::~StrategyController()
 }
 
 void StrategyController::scanArea(){
-	Route * route = new Route();
+	/*Route * route = new Route();
 	Map MapCopy = map;
 	VSLAM vslam(&MapCopy, &virtualrosbee, route, &virtuallidar);
 	MapCopy.setScale(5);
@@ -30,16 +30,26 @@ void StrategyController::scanArea(){
 	MapCopy.setScaledLocationValue(3, 5, 1);
 	MapCopy.setScaledLocationValue(2, 5, 1);
 	MapCopy.setScaledLocationValue(1, 5, 1);
-	while (!vslam.bool_isVSLAMDone && MapCopy.contains(0)){ vslam.run();
+	while (MapCopy.contains(0)){ vslam.run();
 	getchar();
 	MapCopy.print();
 	}
 	MapCopy.print();
-	getchar();
+        std::cout << "ScanAreaDone";
+	getchar();*/
 }
 
 void StrategyController::searchArea(){
+	map.print();
+        std::cout << "ScanAreaDone";
+	getchar();
 	AreaCoveringAlgorithm(&copter, &map);
 	map.print();
 	getchar();
 }
+void StrategyController::movePairwise(){
+	//AreaCoveringAlgorithm(&copter, &map);
+	map.print();
+	getchar();
+}
+

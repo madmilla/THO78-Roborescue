@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -80,8 +80,8 @@ int * Route::getNewTile(){
 void Route::addRoutePart(Route in) { waypoints.insert(waypoints.end(), in.waypoints.begin(), in.waypoints.end()); }
 std::ostream & operator<<(std::ostream & os, Route & l){
 	std::stringstream output;
-	for (auto i : l.waypoints){
-		output << i.x << " " << i.y << " ";
+	for (auto i : l.wayPoints){
+		output << i->x << " " << i->y << " ";
     }
 	return os << output.str();
 }
