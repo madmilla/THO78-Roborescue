@@ -8,7 +8,7 @@
 *
 * @file polygon.h
 * @date Created: 06/24/2015
-* @brief A class that contains the map and has the functions for adding objects to the map
+* @brief A class that contains the Map and has the functions for adding objects to the Map
 *
 * @author Jos Bijlenga, Mathijs Arends, Jasper Stas
 *

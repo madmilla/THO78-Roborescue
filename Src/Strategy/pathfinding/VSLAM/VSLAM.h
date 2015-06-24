@@ -39,22 +39,22 @@
 #define VSLAM_H
 
 #include <iostream>
-#include "../../../map/MapStructure/map.hpp"
-#include "../../Common/virtualRosbee.h"
-#include "mapLogicVSLAM.h"
-#include "../../Common/route.h"
-#include "../AStar/MapSearchNode.h"
-#include "../../Common/virtualLidar.h"
+#include "Map.hpp"
+#include "virtualRosbee.h"
+#include "MapLogicVSLAM.h"
+#include "route.h"
+#include "MapSearchNode.h"
+#include "virtualLidar.h"
 
 class VSLAM
 {
 public:
 	/**
-	* @fn	VSLAM(map *Map, virtualrosbee *rosbee, MapSearchNode *mapSearchNode, Route *route, mapLogicVSLAM *MapLogicVSLAM, virtuallidar *virtuallidar);
+	* @fn	VSLAM(Map map, virtualrosbee *rosbee, MapSearchNode mapSearchNode, Route *route, MapLogicVSLAM mapLogicVSLAM, virtuallidar *virtuallidar);
 	*
 	* @brief	Constructor of the class VSLAM.
 	*/
-	VSLAM(map *Map, virtualRosbee *rosbee, Route *route, virtualLidar *virtuallidar);
+	VSLAM(Map* map, virtualRosbee *rosbee, Route *route, virtualLidar *virtuallidar);
 	/**
 	* @fn	~VSLAM();
 	*
@@ -74,19 +74,19 @@ private:
 	/**
 	* @brief Map object.
 	*/
-    map *Map;
+    Map* map;
 	/**
 	* @brief virtualrosbee object.
 	*/
 	virtualRosbee *virtualrosbee;
 	/**
-	* @brief mapSearchNode object.
+	* @brief MapSearchNode object.
 	*/
-    MapSearchNode *mapSearchNode;
+    MapSearchNode* mapSearchNode;
 	/**
 	* @brief MapLogicVSLAM object.
 	*/
-	mapLogicVSLAM *MapLogicVSLAM;
+	MapLogicVSLAM* mapLogicVSLAM;
 	/**
 	* @brief route object.
 	*/

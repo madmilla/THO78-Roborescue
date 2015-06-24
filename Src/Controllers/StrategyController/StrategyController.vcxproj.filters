@@ -89,9 +89,6 @@
     <ClInclude Include="..\..\map\MapStructure\map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\map\MapStructure\mapImplementation.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\map\line.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

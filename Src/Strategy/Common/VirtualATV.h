@@ -4,9 +4,9 @@
 #include "dimension.h"
 #include "waypoint.h"
 
-class ATV{
+class VirtualATV{
 public:
-    ATV(Dimension size, int x, int y);
+    VirtualATV(Dimension size, int x, int y);
 
     void goTo(int x, int y);
     void goTo(WayPoint* waypoint);

@@ -1,20 +1,22 @@
-#pragma once
-#include "../../map/MapStructure/map.hpp"
-#include "../../strategy/pathfinding/VSLAM/VSLAM.h"
-#include "../../strategy/pathfinding/AreaCoverage/areacoveringalgorithm.h"
-#include "../../Strategy/pathfinding/VSLAM/mapLogicVSLAM.h"
+#ifndef _STRATEGY_CONTROLLER_H
+#define _STRATEGY_CONTROLLER_H
+#include "Map.hpp"
+#include "VSLAM.h"
+#include "areacoveringalgorithm.h"
+#include "MapLogicVSLAM.h"
 class StrategyController
 {
 public:
 	virtualLidar virtuallidar;
 	virtualRosbee virtualrosbee;
-	map Map;
-	StrategyController(map Map, QuadCopter copter, virtualRosbee rosbee, virtualLidar virtuallidar);
+	Map map;
+	StrategyController(Map map, VirtualQuadCopter copter, virtualRosbee rosbee, virtualLidar virtuallidar);
 	~StrategyController();
 	void scanArea();
 	void searchArea();
 	void movePairwise();
 
-	QuadCopter copter;
+	VirtualQuadCopter copter;
 };
+#endif
 

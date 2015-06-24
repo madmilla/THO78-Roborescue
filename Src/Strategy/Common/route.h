@@ -97,7 +97,7 @@ public:
     friend std::ostream & operator<<(std::ostream & os, Route & l);
     void scaleWaypoints();
 
-    void randomRoute(int mapWidth, int mapHeight);
+    void randomRoute(int MapWidth, int MapHeight);
 
     WayPoint* getWaypoint(int wayPoint);
 

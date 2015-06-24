@@ -35,9 +35,9 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include "ATV.h"
+#include "VirtualATV.h"
 
-ATV::ATV(Dimension size, int x, int y):
+VirtualATV::VirtualATV(Dimension size, int x, int y):
     size{size},
     x{x},
     y{y}{}
@@ -45,12 +45,12 @@ ATV::ATV(Dimension size, int x, int y):
 
 
 
-void ATV::goTo(int x, int y){
+void VirtualATV::goTo(int x, int y){
     this->x = x;
     this->y = y;
 }
 
-void ATV::goTo(WayPoint* waypoint){
+void VirtualATV::goTo(WayPoint* waypoint){
     this->x = waypoint->x;
     this->y = waypoint->y;
 }

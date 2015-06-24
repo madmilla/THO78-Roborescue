@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file mapLogicVSLAM.h
+* @file MapLogicVSLAM.h
 * @date Created: 6/21/2015
 * @version 1.0
 *
@@ -38,25 +38,25 @@
 #ifndef MAPLOGICVSLAM_H
 #define MAPLOGICVSLAM_H
 
-#include "../../../map/MapStructure/map.hpp"
+#include "../../../Map/MapStructure/Map.hpp"
 #include "../../Common/virtualRosbee.h"
 #include "../../Common/virtualLidar.h"
 
-class mapLogicVSLAM
+class MapLogicVSLAM
 {
 public:
 	/**
-	* @fn	mapLogicVSLAM(map * Map, virtualrosbee * virtualrosbee, virtuallidar * virtuallidar);
+	* @fn	MapLogicVSLAM(Map * Map, virtualrosbee * virtualrosbee, virtuallidar * virtuallidar);
 	*
-	* @brief	Constructor of the class mapLogicVSLAM.
+	* @brief	Constructor of the class MapLogicVSLAM.
 	*/
-	mapLogicVSLAM(map * Map, virtualRosbee * virtualrosbee, virtualLidar * virtuallidar);
+	MapLogicVSLAM(Map * map, virtualRosbee * virtualrosbee, virtualLidar * virtuallidar);
 	/**
-	* @fn	~mapLogicVSLAM();
+	* @fn	~MapLogicVSLAM();
 	*
-	* @brief	Destructor of the class mapLogicVSLAM.
+	* @brief	Destructor of the class MapLogicVSLAM.
 	*/
-	~mapLogicVSLAM();
+	~MapLogicVSLAM();
 	/**
 	* @fn	void setTilesInRangevirtuallidar();
 	*
@@ -66,9 +66,9 @@ public:
 	/**
 	* @fn	int * getUnscannedTile();
 	*
-	* @brief	Function that returns the x and y of a unscanned tile in the map.
+	* @brief	Function that returns the x and y of a unscanned tile in the Map.
 	*
-	* @return	int * with the x and y of the unscanned tile in the map.
+	* @return	int * with the x and y of the unscanned tile in the Map.
 	*			x = tileLocation[0] and y = tileLocation[1].
 	*/
 	int * getUnscannedTile();
@@ -76,7 +76,7 @@ private:
 	/**
 	* @brief Map object.
 	*/
-	map * Map;
+	Map * map;
 	/**
 	* @brief virtualrosbee object.
 	*/

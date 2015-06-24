@@ -86,12 +86,12 @@ std::ostream & operator<<(std::ostream & os, Route & l){
 	return os << output.str();
 }
 
-void Route::randomRoute(int mapWidth, int mapHeight){
+void Route::randomRoute(int MapWidth, int MapHeight){
    int waypoints = rand() % 22 + 3;
 
    for(int i = 0; i < waypoints; i++){
-       int randomX = rand() % mapWidth;
-       int randomY = rand() % mapHeight;
+       int randomX = rand() % MapWidth;
+       int randomY = rand() % MapHeight;
 
        WayPoint* wayPoint = new WayPoint(randomX, randomY);
 

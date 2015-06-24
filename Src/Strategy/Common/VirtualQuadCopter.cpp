@@ -34,9 +34,9 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include "QuadCopter.h"
+#include "VirtualQuadCopter.h"
 
-QuadCopter::QuadCopter(Dimension size, Dimension fov, int x, int y):
+VirtualQuadCopter::VirtualQuadCopter(Dimension size, Dimension fov, int x, int y):
     size{size},
     fov{fov},
     x{x},
@@ -45,17 +45,17 @@ QuadCopter::QuadCopter(Dimension size, Dimension fov, int x, int y):
 
 }
 
-QuadCopter::~QuadCopter()
+VirtualQuadCopter::~VirtualQuadCopter()
 {
 
 }
 
-void QuadCopter::goTo(int x, int y){
+void VirtualQuadCopter::goTo(int x, int y){
     this->x = x;
     this->y = y;
 }
 
-bool QuadCopter::inView(int x, int y){
+bool VirtualQuadCopter::inView(int x, int y){
     if(((this->x) -(fov.width/2) <= x) && ((this->x) + (fov.width/2) >= x)){
         if(((this->y) - (fov.height/2) <= y) && ((this->y) + fov.height/2) >= y){
             return true;

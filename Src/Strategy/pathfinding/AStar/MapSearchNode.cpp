@@ -1,14 +1,14 @@
 #include "MapSearchNode.h"
 
-map * MapSearchNode::Map = new map();
+Map * MapSearchNode::map = new Map();
 
 MapSearchNode::MapSearchNode(){
     x = 0;
     y = 0;
 }
 
-MapSearchNode::MapSearchNode(map *Map, Route *route){
-    MapSearchNode::Map = Map;
+MapSearchNode::MapSearchNode(Map *map, Route *route){
+    MapSearchNode::map = map;
     x = 0;
     y = 0;
 }
@@ -97,14 +97,14 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
     MapSearchNode NewNode;
 
     // push each possible move except allowing the search to go backwards
-	if ((Map->getScaledHeuristicLocationValue(x - 1, y) < 9)
+	if ((map->getScaledHeuristicLocationValue(x - 1, y) < 9)
         && !((parent_x == x-1) && (parent_y == y))
       )
     {
         NewNode = MapSearchNode( x-1, y );
         astarsearch->AddSuccessor( NewNode );
     }
-	if ((Map->getScaledHeuristicLocationValue(x, y - 1) < 9)
+	if ((map->getScaledHeuristicLocationValue(x, y - 1) < 9)
         && !((parent_x == x) && (parent_y == y-1))
       )
     {
@@ -112,7 +112,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
         astarsearch->AddSuccessor( NewNode );
     }
 
-	if ((Map->getScaledHeuristicLocationValue(x + 1, y) < 9)
+	if ((map->getScaledHeuristicLocationValue(x + 1, y) < 9)
         && !((parent_x == x+1) && (parent_y == y))
       )
     {
@@ -121,7 +121,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
     }
 
 
-	if ((Map->getScaledHeuristicLocationValue(x, y + 1) < 9)
+	if ((map->getScaledHeuristicLocationValue(x, y + 1) < 9)
         && !((parent_x == x) && (parent_y == y+1))
         )
     {
@@ -133,12 +133,12 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
 }
 
 // given this node, what does it cost to move to successor. In the case
-// of our map the answer is the map terrain value at this node since that is
+// of our Map the answer is the Map terrain value at this node since that is
 // conceptually where we're moving
 
 float MapSearchNode::GetCost( MapSearchNode &successor )
 {
-	return (float)Map->getScaledHeuristicLocationValue(x, y);
+	return (float)map->getScaledHeuristicLocationValue(x, y);
 
 }
 
