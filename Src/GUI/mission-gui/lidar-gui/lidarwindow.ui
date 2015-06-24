@@ -27,17 +27,17 @@
      <string>Start Scan</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>60</x>
       <y>20</y>
-      <width>113</width>
-      <height>20</height>
+      <width>101</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Manual Lidar Gui</string>
+     <string>Manual Lidar Window</string>
     </property>
    </widget>
   </widget>

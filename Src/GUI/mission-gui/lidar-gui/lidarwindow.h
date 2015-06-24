@@ -9,8 +9,8 @@
 *  @file lidarwindow.h
 *  @date Last Edit:	2015-04-13
 *
-*  @author  Wibren Wiersma
-*  @author	Kevin Nijmeijer
+*  @author  Thijs van Tiem
+*
 *
 *  @section LICENSE
 *  License:	newBSD

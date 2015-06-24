@@ -33,8 +33,4 @@ void StrategyController::searchArea(){
 	AreaCoveringAlgorithm(&copter, &Map);
 	Map.print();
 	getchar();
-
-
-
-
 }
