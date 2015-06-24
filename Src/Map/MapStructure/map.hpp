@@ -165,6 +165,18 @@ public:
 	void addPolygonToGrid(polygon p);
 	void addValuedCircle(int xCentre, int yCentre, int radius, int value);
 	std::vector<float> addHalfValuedCircle(int xCentre, int yCentre, int radius, int value, std::vector<float> skipInts);
+	
+	//! Recursive flood function to fill the targets with the replacement starting at node
+	//! @param The node to start the flooding from
+	//! @param The target property of the node (point)
+	//! @param The replacement property of the node (point)
+	void floodFillLocation(point node, int target, int replacement);
+
+	//! Flood fill function using a queue to fill the targets with the replacement starting at node
+	//! @param The node to start the flooding from
+	//! @param The target property of the node (point)
+	//! @param The replacement property of the node (point)
+	void floodFillLocationQueue(point node, int target, int replacement);
 
 private:
 	int scale=1;
