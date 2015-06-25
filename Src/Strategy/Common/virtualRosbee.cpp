@@ -49,6 +49,13 @@ rActual{actual}
 	// Set y location.
 	this->virtualRosbeeLocationY = y;
 }
+virtualRosbee::virtualRosbee(int x, int y)
+{
+	// Set x location.
+	this->virtualRosbeeLocationX = x;
+	// Set y location.
+	this->virtualRosbeeLocationY = y;
+}
 
 /**
  * Destructor of virtualRosbee.
