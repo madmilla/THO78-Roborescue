@@ -195,7 +195,7 @@ std::vector<scanCoordinate> Lidar::convertToCoordinates(std::vector<scanDot> dat
     return tempData;
 }
 
-std::vector<Line> Lidar::start(){
+std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	ShapeDetector sD;
 	Pointcloud pCloud;
 	std::vector<scanDot> data = startSingleLidarScan();
