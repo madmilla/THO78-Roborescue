@@ -6,7 +6,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <math.h>
-#include "../../../map/MapStructure/map.hpp"
+#include "../../../Map/MapStructure/Map.hpp"
 #include "../../Common/route.h"
 #include "Container.h"
 
@@ -18,7 +18,7 @@ public:
 	bool notFindRoute = false;
 
     MapSearchNode();
-    MapSearchNode(map * Map, Route * route);
+    MapSearchNode(Map * map, Route * route);
 	MapSearchNode(Route * route);
     MapSearchNode( int px, int py );
     ~MapSearchNode();
@@ -31,7 +31,7 @@ public:
 
     void PrintNodeInfo();
     void Search(int nodeStartX, int nodeStartY, int nodeEndX, int nodeEndY);
-    static map * Map;
+    static Map * map;
 };
 
 #endif // MAPSEARCHNODE_H

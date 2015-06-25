@@ -53,7 +53,7 @@
 #include <vector>
 #include <array>
 #include "../../Common/route.h"
-#include "../../../map/MapStructure/mapImplementation.hpp"
+#include "../../../Map/MapStructure/MapImplementation.hpp"
 
 //	pair of ints representing a coordinate
 typedef std::pair<int, int> Coordinate;
@@ -64,27 +64,27 @@ public:
 	
 	explicit aStar();
 	~aStar();
-	/** /brief Find the fastest path from the start coordinates to the end coordinates on the given map
+	/** /brief Find the fastest path from the start coordinates to the end coordinates on the given Map
 	*
 	*	/param startX x coordinate of the starting point
 	*	/param startY y coordinate of the starting point
 	*	/param endX x coordinate of the ending point
 	*	/param endY y coordinate of the ending point
-	*	/param theMap the map where the path has to be found on
+	*	/param theMap the Map where the path has to be found on
 	*	/return A vector of the coordinates of the path from start to end. will return an empty vector when
 	*		no path is found.
 	**/
-	std::vector<std::pair<int, int>> findPath(int startX, int startY, int endX, int endY, mapImplementation& theMap);
+	std::vector<std::pair<int, int>> findPath(int startX, int startY, int endX, int endY, MapImplementation& theMap);
 
-	/**	/brief Get the distances to the endpoint around the given coordinate on the given map
+	/**	/brief Get the distances to the endpoint around the given coordinate on the given Map
 	*
-	*	/param coordinate the coordinate on the map you want to test
-	*	/param theMap the map on which the coordinate will be checked
+	*	/param coordinate the coordinate on the Map you want to test
+	*	/param theMap the Map on which the coordinate will be checked
 	*	/return An array of 4 coordinates with their distances to the endpoint. will return a negative
-	*		distance when the coordinate is out of the map bounds, is an obstacle or is a coordinate
+	*		distance when the coordinate is out of the Map bounds, is an obstacle or is a coordinate
 	*		in closedcells.
 	**/
-	std::array<std::pair<Coordinate, int>, 4> getDistances(Coordinate coordinate, mapImplementation& theMap);
+	std::array<std::pair<Coordinate, int>, 4> getDistances(Coordinate coordinate, MapImplementation& theMap);
 
 	/**	/brief Get the shortest distance from 4 coordinates with their distances to the endpoint
 	*
@@ -100,6 +100,6 @@ private:
 	Coordinate startPoint;
 	const int width = 60;
 	const int height = 60;
-	//Map map;
+	//Map Map;
 };
 #endif

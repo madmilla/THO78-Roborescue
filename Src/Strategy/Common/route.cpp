@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -80,18 +80,18 @@ int * Route::getNewTile(){
 void Route::addRoutePart(Route in) { waypoints.insert(waypoints.end(), in.waypoints.begin(), in.waypoints.end()); }
 std::ostream & operator<<(std::ostream & os, Route & l){
 	std::stringstream output;
-	for (auto i : l.waypoints){
-		output << i.x << " " << i.y << " ";
+	for (auto i : l.wayPoints){
+		output << i->x << " " << i->y << " ";
     }
 	return os << output.str();
 }
 
-void Route::randomRoute(int mapWidth, int mapHeight){
+void Route::randomRoute(int MapWidth, int MapHeight){
    int waypoints = rand() % 22 + 3;
 
    for(int i = 0; i < waypoints; i++){
-       int randomX = rand() % mapWidth;
-       int randomY = rand() % mapHeight;
+       int randomX = rand() % MapWidth;
+       int randomY = rand() % MapHeight;
 
        WayPoint* wayPoint = new WayPoint(randomX, randomY);
 

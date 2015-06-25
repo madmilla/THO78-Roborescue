@@ -41,7 +41,9 @@
  * Constructor of virtualRosbee.
  */
 
-virtualRosbee::virtualRosbee(int x, int y) {
+virtualRosbee::virtualRosbee(int x, int y,Rosbee actual):
+rActual{actual}
+{
 	// Set x location.
 	this->virtualRosbeeLocationX = x;
 	// Set y location.

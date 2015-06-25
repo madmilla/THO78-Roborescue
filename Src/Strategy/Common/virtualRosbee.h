@@ -35,11 +35,11 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef ROSBEE_H
-#define ROSBEE_H
+#ifndef VIRTUAL_ROSBEE_H
+#define VIRTUAL_ROSBEE_H
 
 #include <iostream>
-
+#include "Rosbee.h"
 class virtualRosbee
 {
 public:
@@ -51,7 +51,7 @@ public:
 	* @param	int x
 	* @param	int y
 	*/
-	virtualRosbee(int x, int y);
+	virtualRosbee(int x, int y, Rosbee actual);
 	/**
 	* @fn	~virtualRosbee();
 	*
@@ -96,6 +96,7 @@ public:
 	*/
 	void moveTo(int x, int y);
 private:
+	Rosbee rActual;
 	/**
 	* @brief int rosbeeLocationX variable to save virtualrosbee location x.
 	*/

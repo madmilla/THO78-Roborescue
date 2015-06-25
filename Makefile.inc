@@ -11,17 +11,20 @@ UI 								=
 UI_HEADERS						=
 MODULES 						= 
 
+ifeq ($(OS),Windows_NT)
+	CXXFLAGS 	+= -DWIN32
+	LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32
+	LDFLAGS 	+= -L$(QT_LIB_DIR)
+	INCLUDES 	+= -I$(QT_INCL_DIR)
+	MOC			= $(QT_BIN_DIR)/moc.exe
+	UIC			= $(QT_BIN_DIR)/uic.exe
+endif
+
 ifeq ($(MAKECMDGOALS),mission1)
 	ifneq ($(OS),Windows_NT)
 		@echo "Basestation is currently not compatible with linux based systems"
 		exit 1
 	else
-		CXXFLAGS+= -DWIN32
-		LDLIBS += -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql -lws2_32
-		LDFLAGS += -L$(QT_LIB_DIR)
-		MOC	= $(QT_BIN_DIR)/moc.exe
-		UIC	= $(QT_BIN_DIR)/uic.exe
-		INCLUDES 	+= -I$(QT_INCL_DIR)
 		include TargetMakefiles/Makefile.basestation
 	endif
 endif
@@ -30,8 +33,7 @@ ifeq ($(MAKECMDGOALS),localisationmodule)
 		@echo "Localisation-module cannot be compiled on Windows systems"
 		exit 1
 	else
-		LDLIBS += -lboost_system -lpthread `pkg-config --libs opencv` -lX11
-		LDFLAGS += 
+		LDLIBS 		+= -lboost_system -lpthread `pkg-config --libs opencv` -lX11
 		INCLUDES 	+= `pkg-config --cflags opencv`
 		include TargetMakefiles/Makefile.localisationmodule
 	endif
@@ -41,8 +43,6 @@ ifeq ($(MAKECMDGOALS),lidar)
 		@echo "LIDAR cannot be compiled on Windows systems"
 		exit 1
 	else
-		LDLIBS +=
-		LDFLAGS += 
 		include TargetMakefiles/Makefile.lidar
 	endif
 endif
@@ -51,8 +51,6 @@ ifeq ($(MAKECMDGOALS),rosbee)
 		@echo "Rosbee cannot be compiled on Windows systems"
 		exit 1
 	else
-		LDLIBS +=
-		LDFLAGS += 
 		include TargetMakefiles/Makefile.rosbee
 	endif
 endif
@@ -61,11 +59,6 @@ ifeq ($(MAKECMDGOALS),environmentsimulator)
 		@echo "The Environment-simulator is currently not compatible with linux bases systems"
 		exit 1
 	else
-		LDLIBS += -lQt5Core -lQt5Widgets -lQt5Gui
-		LDFLAGS += -L$(QT_LIB_DIR)
-		MOC	= $(QT_BIN_DIR)/moc.exe
-		UIC	= $(QT_BIN_DIR)/uic.exe
-		INCLUDES 	+= -I$(QT_INCL_DIR)
 		include TargetMakefiles/Makefile.environmentsimulator
 	endif
 endif
@@ -74,21 +67,24 @@ ifeq ($(MAKECMDGOALS),map)
 		@echo "The Map is currently not compatible with linux bases systems"
 		exit 1
 	else
-		LDLIBS += -lQt5Core -lQt5Sql
-		LDFLAGS += -L$(QT_LIB_DIR)
-		MOC	= $(QT_BIN_DIR)/moc.exe
-		UIC	= $(QT_BIN_DIR)/uic.exe
-		INCLUDES 	+= -I$(QT_INCL_DIR)
+		LDLIBS 		+= -lQt5Sql
 		include TargetMakefiles/Makefile.map
+	endif
+endif
+ifeq ($(MAKECMDGOALS),test)
+	ifneq ($(TESTNAME),)
+		include Src/Tests/$(TESTNAME)/$(TESTNAME).mk
+	else
+	
 	endif
 endif
 ifeq ($(MAKECMDGOALS),clean)
 	include TargetMakefiles/Makefile.clean
 else
-	INCLUDES 	+= $(patsubst %, -I%, $(MODULES))
+	INCLUDES 		+= $(patsubst %, -I%, $(MODULES))
 	include $(MODULES:=module.mk)
-	UI_HEADERS 	+= $(UI:.ui=.h)
-	OBJ 		+= $(SRC:.cpp=.o)
+	UI_HEADERS 		+= $(UI:.ui=.h)
+	OBJ 			+= $(SRC:.cpp=.o)
 endif
 
 

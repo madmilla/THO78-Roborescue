@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file mapLogicVSLAM.cpp
+* @file MapLogicVSLAM.cpp
 * @date Created: 6/21/2015
 * @version 1.0
 *
@@ -35,15 +35,15 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "mapLogicVSLAM.h"
+#include "MapLogicVSLAM.h"
 
-mapLogicVSLAM::mapLogicVSLAM(map * Map, virtualRosbee * virtualrosbee, virtualLidar * virtuallidar){
-	this->Map = Map;
+MapLogicVSLAM::MapLogicVSLAM(Map * map, virtualRosbee * virtualrosbee, virtualLidar * virtuallidar){
+	this->map = map;
 	this->virtualrosbee = virtualrosbee;
 	this->virtuallidar = virtuallidar;
 }
 
-mapLogicVSLAM::~mapLogicVSLAM(){
+MapLogicVSLAM::~MapLogicVSLAM(){
 	// Destructor
 }
 
@@ -55,23 +55,23 @@ mapLogicVSLAM::~mapLogicVSLAM(){
 * When we do this x times(virtuallidar range) we get the final the location (max, max) for the tiles in the virtuallidar range.
 */
 
-void mapLogicVSLAM::setTilesInRangevirtuallidar(){
+void MapLogicVSLAM::setTilesInRangevirtuallidar(){
 	std::vector<float> skip = {};
 	for (int i = 1; i < virtuallidar->getRange(); i++){
-		skip = Map->addHalfValuedCircle(virtualrosbee->getVirtualRosbeeLocationX(), virtualrosbee->getVirtualRosbeeLocationY(), i, 5, skip);
+		skip = map->addHalfValuedCircle(virtualrosbee->getVirtualRosbeeLocationX(), virtualrosbee->getVirtualRosbeeLocationY(), i, 5, skip);
 	}
 }
 
 /**
-* We loops trough the whole map. For each tile check if the value is 0. 0 is the value of a tile which is not scanned.
+* We loops trough the whole Map. For each tile check if the value is 0. 0 is the value of a tile which is not scanned.
 * When we don't find any unscanned tiles return (-1,-1). When we find a unscanned tile return (x,y) of the tile.
 */
 
-int * mapLogicVSLAM::getUnscannedTile(){
+int * MapLogicVSLAM::getUnscannedTile(){
 	static int tileLocation[1];
-	for (int iiy = 0; iiy < Map->getScaledHeight(); iiy++){
-		for (int iix = 0; iix < Map->getScaledWidth(); iix++){
-			if (Map->getScaledLocationValue(iix, iiy) == 0){
+	for (int iiy = 0; iiy < map->getScaledHeight(); iiy++){
+		for (int iix = 0; iix < map->getScaledWidth(); iix++){
+			if (map->getScaledLocationValue(iix, iiy) == 0){
 				tileLocation[0] = iix;
 				tileLocation[1] = iiy;
 				std::cout << tileLocation[0] << tileLocation[1] << std::endl;

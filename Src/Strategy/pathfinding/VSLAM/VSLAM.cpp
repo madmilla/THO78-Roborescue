@@ -41,12 +41,12 @@
  * Constructor of VSLAM.
  */
 
-VSLAM::VSLAM(map *Map, virtualRosbee *virtualrosbee, Route* route, virtualLidar *virtuallidar){
-    this->Map = Map;
+VSLAM::VSLAM(Map *map, virtualRosbee *virtualrosbee, Route* route, virtualLidar *virtuallidar){
+    this->map = map;
 	this->virtualrosbee = virtualrosbee;
-    this->mapSearchNode = new MapSearchNode(Map, route);
+    this->mapSearchNode = new MapSearchNode(map, route);
     this->route = route;
-	this->MapLogicVSLAM = new mapLogicVSLAM(Map, virtualrosbee, virtuallidar);
+	this->mapLogicVSLAM = new MapLogicVSLAM(map, virtualrosbee, virtuallidar);
 	this->virtuallidar = virtuallidar;
 }
 
@@ -59,28 +59,28 @@ VSLAM::~VSLAM(){
 }
 
 /**
- * Function for scanning a unknown area with VSLAM. First will be checked if the map is fully scanned. When the map is not fully scanned.
+ * Function for scanning a unknown area with VSLAM. First will be checked if the Map is fully scanned. When the Map is not fully scanned.
  * We need to set the tiles on scanned which are in the range of the virtuallidar. When there is no route (Container::route.getSize()) we need to
- * get a new route for the virtualrosbee. Now we check if there is on the map a tile which is not scanned. When we find a tile and the map is not
+ * get a new route for the virtualrosbee. Now we check if there is on the Map a tile which is not scanned. When we find a tile and the Map is not
  * fully scanned we get the route to the unscanned tile with a a star algorithm. Each move will be stored in a vector.
  * When we have a route we get the first tile location in the vector and we say to the virtualrosbee go to that location. When the tile location 
  * is not accessible we clear the vector and get a new route for a new unscanned tile.
  */
 
 void VSLAM::run(){
-	// Check if the map is fully scanned.
-	if (Map->contains(0)){
+	// Check if the Map is fully scanned.
+	if (map->contains(0)){
 		//Map->print();
 		// Set the tiles in range of the virtuallidar to scanned with the function below.
-		MapLogicVSLAM->setTilesInRangevirtuallidar();
+		mapLogicVSLAM->setTilesInRangevirtuallidar();
 		// Do this when there is no route.
 		if (!Container::route.getSize()){
 			// Get the tile location of a unscanned tile with the function below.
-			tileLocation = MapLogicVSLAM->getUnscannedTile();
+			tileLocation = mapLogicVSLAM->getUnscannedTile();
 			std::cout << "tile location x " << tileLocation[0] << " tile location y " << tileLocation[1] << std::endl;
 			std::cout << "virtualrosbee location x " << virtualrosbee->getVirtualRosbeeLocationX() << " virtualrosbee location y " << virtualrosbee->getVirtualRosbeeLocationY() << std::endl;
-			// When the map is still not fully scanned get the path with a star to the unscanned tile.
-			if (Map->contains(0)){
+			// When the Map is still not fully scanned get the path with a star to the unscanned tile.
+			if (map->contains(0)){
 				mapSearchNode->Search(virtualrosbee->getVirtualRosbeeLocationX(), virtualrosbee->getVirtualRosbeeLocationY(), int(tileLocation[0]), int(tileLocation[1]));
 			}
 		}
@@ -97,7 +97,7 @@ void VSLAM::run(){
 				std::cout << "in range virtuallidar" << std::endl;
 				Container::route.clearRoute();
 			}
-			if (Map->getScaledHeuristicLocationValue(newRosbeeLocation[0], newRosbeeLocation[1]) == 9){
+			if (map->getScaledHeuristicLocationValue(newRosbeeLocation[0], newRosbeeLocation[1]) == 9){
 				Container::route.clearRoute();
 			}			
 			else{
@@ -105,7 +105,7 @@ void VSLAM::run(){
 				virtualrosbee->setVirtualRosbeeLocationX((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX()));
 				virtualrosbee->setVirtualRosbeeLocationY((newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY()));
 				std::cout << "VirtualRosbee Location: " << virtualrosbee->getVirtualRosbeeLocationX() << " , " << virtualrosbee->getVirtualRosbeeLocationY() << std::endl;
-				Map->setScaledLocationValue(virtualrosbee->getVirtualRosbeeLocationX(), virtualrosbee->getVirtualRosbeeLocationY(), 3);
+				map->setScaledLocationValue(virtualrosbee->getVirtualRosbeeLocationX(), virtualrosbee->getVirtualRosbeeLocationY(), 3);
 			}
 		}
 	}
@@ -113,7 +113,7 @@ void VSLAM::run(){
 
 bool VSLAM::wholeRouteInRangevirtuallidar(){
 	for (WayPoint *i : Container::route.wayPoints){
-		if(Map->getScaledLocationValue(i->x, i->y) == 0){
+		if(map->getScaledLocationValue(i->x, i->y) == 0){
 			return false;
 		}
 	}
