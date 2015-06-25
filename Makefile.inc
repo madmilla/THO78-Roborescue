@@ -25,6 +25,7 @@ ifeq ($(MAKECMDGOALS),mission1)
 		@echo "Basestation is currently not compatible with linux based systems"
 		exit 1
 	else
+		LDLIBS 		+= -lQt5Sql
 		include TargetMakefiles/Makefile.basestation
 	endif
 endif
