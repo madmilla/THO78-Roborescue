@@ -10,6 +10,7 @@
 #include "VirtualRosbee.h"
 #include "VirtualATV.h"
 #include "VirtualQuadCopter.h"
+#include "UDPServer.h"
 #include "databaseconnector.h"
 #include <iostream>
 
@@ -17,27 +18,30 @@ int main(int argc, char *argv[])
 {
     RobotManager robotmanager;
     SerialPort p{ "" };
-    //Rosbee = robotmanager.getRobot<rosbee>                                  >
+    UDPServer server(robotmanager);
+    Rosbee rosbee = robotmanager.getRobot<rosbee>                                 >
     MAVLinkExchanger exch{ p };
-    //Quadcopter q{ exch };
-    //ATV a{ exch };
+    Quadcopter q{ exch };
+    ATV a{ exch };
+
     VirtualQuadCopter copter(Dimension(1,1),Dimension(3,3),1,1);
-    //virtualRosbee bee(1,1);
+    virtualRosbee bee(1,1,rosbee);
     VirtualATV atv(Dimension(1,1),1,1);
     virtualLidar lidar;
     Map map;
-    //StrategyController controller(map,copter,bee,lidar);
-    //controller.scanArea();
+    StrategyController controller(map,copter,bee,lidar);
+    controller.scanArea();
     std::cout << "Scan Area Done";
     getchar();
-    //controller.searchArea();
-    //controller.movePairwise();
+    controller.searchArea();
+    controller.movePairwise();
     QApplication app(argc, argv);
+    MainWindow w{q, a};
+    w.show();
     //MainWindow w{q, a};
     //w.show();
     databaseConnector dbc("127.0.0.1","root","desktop","robodata");
     std::cout << dbc.getMaps().at(0).name;
-    
     
     return app.exec();
 }

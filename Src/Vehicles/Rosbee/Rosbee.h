@@ -48,6 +48,7 @@
 #include "MessageQueue.h"
 #include "RALCPEncoder.h"
 #include "UDPRobot.h"
+#include <tuple>
 
 
 class Rosbee : public UDPRobot
@@ -72,7 +73,7 @@ public:
 	/// \brief This method sends waypoints to the Rosbee so he can ride to his destination
 	/// \param: uint8_t x this parameter is used to send the x-axis of the new destination for the rosbee
 	/// \param: uint8_t y this parameter is used to send the y-axis of the new destination for the rosbee
-	void sendWaypoint(uint8_t x, uint8_t y);
+	void sendWaypoint(int x, int y);
 
 	/// \brief This method can ask for a request at the CPI ( for now it only asks for new waypoints )
 	void getRequest();
@@ -102,6 +103,7 @@ public:
     /// \brief returns unique identifier
     int getId() override;
 
+    MessageQueue<mavlink_message_t *> * getMessageQueue();
 	
 
 private:
@@ -109,7 +111,7 @@ private:
 
 	friend class RobotManager;
 	bool running = false;
-	MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
-	
+	MessageQueue<std::tuple<int, int, int, int, int, int, int, ROSBEE_COMMAND_FUNCTIONS, COMMAND_DESTINATION, int, int>> * outgoing;
+	int data[4];
 };
 #endif

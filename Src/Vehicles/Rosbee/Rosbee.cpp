@@ -1,7 +1,7 @@
 #include "Rosbee.h"
 
 Rosbee::Rosbee(CPIUDPSocket * s) : UDPRobot(s){
-      outgoing = new MessageQueue<std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>>();
+      outgoing = new MessageQueue<std::tuple<int, int, int, int, int, int, int, ROSBEE_COMMAND_FUNCTIONS, COMMAND_DESTINATION, int, int>>();
 		start();
 	}
 
@@ -11,9 +11,22 @@ void Rosbee::run(){
    while(running){
 	  
       if(outgoing->size() > 0){
-         auto pair = outgoing->pop();
-         encoder->send(COMMAND_DESTINATION::ROSBEE, pair.first, pair.second);
-         std::cout << "Send message!" <<std::endl;
+         auto tuple = outgoing->pop();
+         //encoder->send(COMMAND_DESTINATION::ROSBEE, pair.first, pair.second);
+         encoder->send(
+            std::get<0>(tuple),
+            std::get<1>(tuple),
+            std::get<2>(tuple),
+            std::get<3>(tuple),
+            std::get<4>(tuple),
+            std::get<5>(tuple),
+            std::get<6>(tuple),
+            std::get<7>(tuple),
+            std::get<8>(tuple),
+            std::get<9>(tuple),
+            std::get<10>(tuple)
+            );
+         //std::cout << "Send message!" <<std::endl;
       }
      if(sock->incomming->size() > 0){
 		 //Do stuff with incomming messages
@@ -23,33 +36,42 @@ void Rosbee::run(){
     
 }
 void Rosbee::init(){
-   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ROSBEE_INIT, 0));
+
+   outgoing->add(std::make_tuple(0,0,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::ROSBEE_INIT,COMMAND_DESTINATION::ROSBEE,0,0));
 }
 
 void Rosbee::getRequirementStatus(){
-   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETEQUIPMENTSTATUS, 0));
+  // memset(data, 0, 4 * sizeof(data[0]));
+  // outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::GETEQUIPMENTSTATUS, data));
 
 }
 
 void Rosbee::startMission(){
-   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::STARTMISSION, 0));
+ //  memset(data, 0, 4 * sizeof(data[0]));
+//   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::STARTMISSION, data));
 
 }
 
-void Rosbee::sendWaypoint(uint8_t x, uint8_t y){
-   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, uint64_t((x << 54 ) | (y << 46))));
+void Rosbee::sendWaypoint(int x, int y){
+   //memset(data, 0, 4 * sizeof(data[0]));
+   //data[0] = x;
+   //data[1] = y;
+   //outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, data));
 }
 
 void Rosbee::getRequest(){
-   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ROSBEE_GETREQUEST, 0));
+   //memset(data, 0, 4 * sizeof(data[0]));
+   //outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::ROSBEE_GETREQUEST, data));
 }
 
 void Rosbee::stopMission(){
-   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::STOPMISSION, 0));
+   //memset(data, 0, 4 * sizeof(data[0]));
+   //outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::STOPMISSION, data));
 }
 
 void Rosbee::abortMission(){
- outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ABORTMISSION, 0));
+ //  memset(data, 0, 4 * sizeof(data[0]));
+// outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::ABORTMISSION, data));
 
 }
 
@@ -58,16 +80,19 @@ void Rosbee::sonarInterrupt(){
 }
 
 void Rosbee::sendAck(){
-   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE, 0));
+  // memset(data, 0, 4 * sizeof(data[0]));
+  // outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE, data));
 }
 
 void Rosbee::BatteryStatus(){
-   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::BATTERYSTATUS, 0));
+  // memset(data, 0, 4 * sizeof(data[0]));
+  // outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::BATTERYSTATUS, data));
 }
 
 
 void Rosbee::getDevice(uint8_t dev){
-   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETDEVICE, uint64_t(dev << 54)));
+
+  // outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETDEVICE, uint64_t(dev << 54)));
 }
 
 int Rosbee::getId(){
@@ -76,3 +101,9 @@ int Rosbee::getId(){
 void Rosbee::abort(){
    running = false;
 }
+
+
+    MessageQueue<mavlink_message_t *> * Rosbee::getMessageQueue(){
+      return sock->incomming;
+    }
+    
