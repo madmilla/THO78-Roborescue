@@ -35,31 +35,30 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "propcom.h"
+#include "PropCom.h"
+#include "ParallaxPropellerProtocol.h"
+#include "LibSerial.h"
+#include <string>
+#include <vector>
+#include <mutex>
 #include <iostream>
 
-PropCom::PropCom(std::string port):
-com{new LibSerial()}
-{
-	initiate(port);
-}
+PropCom::PropCom()
+{}
 
-PropCom::~PropCom(){
-	com->close();
-	delete com;
-}
-
-void PropCom::initiate(std::string port){
-	int fd = com->open(port.data(),115200);
-	if(fd != 1){
-		std::cout << "Opening failed, LibSerial error: " << fd << std::endl;
-	}else{
-		std::cout << "Opening succesfull" << std::endl;
+void PropCom::open(const std::string &port){
+	int stats = com.open(port.c_str(),115200);
+	if(stats != 1){
+		std::cout << "Opening failed, LibSerial error: " << stats << std::endl;
+	}
+	else{
+		std::cout << "Opening succesfull." << std::endl;
 	}
 }
 
 void PropCom::setBrakeSpeed(signed char speed, int motorNr){
-	if(-127 <= speed && speed <= 127 &&
+	mutex.lock();
+	if(-127 <= speed &&
 			(motorNr == 1 || motorNr == 0)){
 		char writeBuffer[2];
 		if(motorNr == 1){
@@ -68,16 +67,18 @@ void PropCom::setBrakeSpeed(signed char speed, int motorNr){
 			writeBuffer[0] = PPP::SET_BRAKE_SPEED_M0;
 		}
 		writeBuffer[1] = speed;
-		com->flush();
-		com->writeChar(writeBuffer[0]);
+		com.flush();
+		com.writeChar(writeBuffer[0]);
 		usleep(1000);
-		com->writeChar(writeBuffer[1]);
+		com.writeChar(writeBuffer[1]);
 		usleep(1000);
 	}
+	mutex.unlock();
 }
 
 void PropCom::setMotorSpeed(signed char speed, int motorNr){
-	if(-127 <= speed && speed <= 127 &&
+	mutex.lock();
+	if(-127 <= speed &&
 			(motorNr == 1 || motorNr == 0)){
 		char writeBuffer[2];
 		if(motorNr == 1){
@@ -86,124 +87,141 @@ void PropCom::setMotorSpeed(signed char speed, int motorNr){
 			writeBuffer[0] = PPP::SET_SPEED_M0;
 		}
 		writeBuffer[1] = speed;
-		com->flush();
-		com->writeChar(writeBuffer[0]);
+		com.flush();
+		com.writeChar(writeBuffer[0]);
 		usleep(1000);
-		com->writeChar(writeBuffer[1]);
+		com.writeChar(writeBuffer[1]);
 		usleep(1000);
 	}
+	mutex.unlock();
 }
 
 int PropCom::getFirmwareVersion(){
+	mutex.lock();
 	unsigned char readBuffer;
-	com->flush();
-	com->writeChar(PPP::GET_FIRMWARE_VERSION);
-	while(com->peek() < 1){
+	com.flush();
+	com.writeChar(PPP::GET_FIRMWARE_VERSION);
+	while(com.peek() < 1){
 		usleep(1000);
 	}
-	com->read(&readBuffer,sizeof(readBuffer));
+	com.read(&readBuffer,sizeof(readBuffer));
 	usleep(1000);
+	mutex.unlock();
 	return readBuffer;
 }
 
 int PropCom::getError(){
+	mutex.lock();
 	unsigned char readBuffer;
-	com->flush();
-	com->writeChar(PPP::GET_ERROR);
-	while(com->peek() < 1){
+	com.flush();
+	com.writeChar(PPP::GET_ERROR);
+	while(com.peek() < 1){
 		usleep(1000);
 	}
-	com->read(&readBuffer,sizeof(readBuffer));
+	com.read(&readBuffer,sizeof(readBuffer));
 	usleep(1000);
+	mutex.unlock();
 	return readBuffer;
 }
 
 int PropCom::getPulseCount(int motorNr){
+	mutex.lock();
 	unsigned char readBuffer[4];
-	com->flush();
+	com.flush();
 	if(motorNr == 1){
-		com->writeChar(PPP::GET_PULSE_COUNT_M1);
+		com.writeChar(PPP::GET_PULSE_COUNT_M1);
 	}else if(motorNr == 0){
-		com->writeChar(PPP::GET_PULSE_COUNT_M0);
+		com.writeChar(PPP::GET_PULSE_COUNT_M0);
 	}
-	while(com->peek() < 4){
+	while(com.peek() < 4){
 		usleep(1000);
 	}
-	com->read(readBuffer,sizeof(readBuffer));
+	com.read(readBuffer,sizeof(readBuffer));
 	usleep(1000);
+	mutex.unlock();
 	return *reinterpret_cast<int*>(readBuffer);
 }
 
 int PropCom::getPulseSpeed(int motorNr){
+	mutex.lock();
 	unsigned char readBuffer;
-	com->flush();
+	com.flush();
 	if(motorNr == 1){
-		com->writeChar(PPP::GET_PULSE_SPEED_M1);
+		com.writeChar(PPP::GET_PULSE_SPEED_M1);
 	}else if(motorNr == 0){
-		com->writeChar(PPP::GET_PULSE_SPEED_M0);
+		com.writeChar(PPP::GET_PULSE_SPEED_M0);
 	}
-	while(com->peek() < 1){
+	while(com.peek() < 1){
 		usleep(1000);
 	}
-	com->read(&readBuffer,sizeof(readBuffer));
+	com.read(&readBuffer,sizeof(readBuffer));
 	usleep(1000);
+	mutex.unlock();
 	return readBuffer;
 }
 
 int PropCom::getDistance(int ultraSonicSensorNr){
+	mutex.lock();
 	unsigned char readBuffer[4];
-	com->flush();
+	com.flush();
 	switch(ultraSonicSensorNr){
 	case(0):
-			com->writeChar(PPP::GET_DISTANCE_S0);
+			com.writeChar(PPP::GET_DISTANCE_S0);
 			break;
 	case(1):
-			com->writeChar(PPP::GET_DISTANCE_S1);
+			com.writeChar(PPP::GET_DISTANCE_S1);
 			break;
 	case(2):
-			com->writeChar(PPP::GET_DISTANCE_S2);
+			com.writeChar(PPP::GET_DISTANCE_S2);
 			break;
 	case(3):
-			com->writeChar(PPP::GET_DISTANCE_S3);
+			com.writeChar(PPP::GET_DISTANCE_S3);
 			break;
 	case(4):
-			com->writeChar(PPP::GET_DISTANCE_S4);
+			com.writeChar(PPP::GET_DISTANCE_S4);
 			break;
 	case(5):
-			com->writeChar(PPP::GET_DISTANCE_S5);
+			com.writeChar(PPP::GET_DISTANCE_S5);
 			break;
 	}
-	while(com->peek() < 4){
+	while(com.peek() < 4){
 		usleep(1000);
 	}
-	com->read(readBuffer,sizeof(readBuffer));
+	com.read(readBuffer,sizeof(readBuffer));
 	usleep(1000);
+	mutex.unlock();
 	return *reinterpret_cast<int*>(readBuffer);
 }
 
 
 void PropCom::sendData(unsigned char command, unsigned char value){
+	mutex.lock();
 	unsigned char writeBuffer[2];
 	writeBuffer[0] = command;
 	writeBuffer[1] = value;
-	com->flush();
-	com->write(writeBuffer,sizeof(writeBuffer));
+	com.flush();
+	com.write(writeBuffer,sizeof(writeBuffer));
 	usleep(1000);
+	mutex.unlock();
 }
 
 std::vector<unsigned char> PropCom::readData(unsigned char command, int returnedBytes){
-	unsigned char readBuffer[returnedBytes];
-	com->flush();
-	com->writeChar(command);
-	while(com->peek() < returnedBytes){
+	mutex.lock();
+	unsigned char* readBuffer = new unsigned char[returnedBytes];
+	com.flush();
+	com.writeChar(command);
+	while(com.peek() < returnedBytes){
 		usleep(1000);
 	}
-	com->read(readBuffer, returnedBytes);
+	com.read(readBuffer, returnedBytes);
 	usleep(1000);
 	std::vector<unsigned char> returnBuffer;
 	for(int i = 0; i < returnedBytes; ++i){
 		returnBuffer[i] = readBuffer[i];
 	}
+	delete[] readBuffer;
+	mutex.unlock();
+
 	return returnBuffer;
 }
 

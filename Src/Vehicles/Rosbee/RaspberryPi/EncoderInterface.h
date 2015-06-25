@@ -6,8 +6,8 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file propcom.h
-* @date Created: 12-4-2015
+* @file EncoderInterface.h
+* @date Created: 15-6-2015
 *
 * @author Edwin Koek
 * @version 1.0
@@ -35,37 +35,28 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef PROPCOM_H
-#define PROPCOM_H
 
-#include <string>
-#include <vector>
-#include "LibSerial.h"
-#include <mutex>
+#ifndef ENCODERINTERFACE_H_
+#define ENCODERINTERFACE_H_
 
-class PropCom {
+#include "PropCom.h"
+
+class EncoderInterface {
 public:
+	EncoderInterface(PropCom* PC, int encoderNr);
 
-    PropCom();
+	void startCount();
 
-    void open(const std::string &port);
+	int getCount();
 
-    void sendData(unsigned char command, unsigned char value);
-    std::vector<unsigned char> readData(unsigned char command, int returnedBytes);
-
-    void setBrakeSpeed(signed char speed, int motorNr);
-    void setMotorSpeed(signed char speed, int motorNr);
-
-    int getFirmwareVersion();
-    int getError();
-    int getPulseCount(int motorNr);
-    int getPulseSpeed(int motorNr);
-    int getDistance(int ultraSonicSensorNr);
+	int deltaCount();
 
 private:
-    LibSerial com;
-    std::mutex mutex;
-};
+	PropCom* m_PC;
 
+	int m_encoderNr;
+
+	int encoderCount;
+};
 
 #endif

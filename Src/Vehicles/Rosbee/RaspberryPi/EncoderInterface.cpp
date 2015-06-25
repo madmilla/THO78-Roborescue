@@ -6,8 +6,8 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file propcom.h
-* @date Created: 12-4-2015
+* @file EncoderInterface.cpp
+* @date Created: 15-6-2015
 *
 * @author Edwin Koek
 * @version 1.0
@@ -35,37 +35,29 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef PROPCOM_H
-#define PROPCOM_H
 
-#include <string>
-#include <vector>
-#include "LibSerial.h"
-#include <mutex>
+#include "EncoderInterface.h"
+#include "PropCom.h"
 
-class PropCom {
-public:
+EncoderInterface::EncoderInterface(PropCom* PC,int encoderNr):
+m_PC{PC},
+m_encoderNr{encoderNr},
+encoderCount{0}
+{}
 
-    PropCom();
+void EncoderInterface::startCount(){
+	encoderCount = m_PC->getPulseCount(m_encoderNr);
+}
 
-    void open(const std::string &port);
+int EncoderInterface::getCount(){
+	return m_PC->getPulseCount(m_encoderNr) - encoderCount;
+}
 
-    void sendData(unsigned char command, unsigned char value);
-    std::vector<unsigned char> readData(unsigned char command, int returnedBytes);
-
-    void setBrakeSpeed(signed char speed, int motorNr);
-    void setMotorSpeed(signed char speed, int motorNr);
-
-    int getFirmwareVersion();
-    int getError();
-    int getPulseCount(int motorNr);
-    int getPulseSpeed(int motorNr);
-    int getDistance(int ultraSonicSensorNr);
-
-private:
-    LibSerial com;
-    std::mutex mutex;
-};
+int EncoderInterface::deltaCount(){
+	int oldValue;
+	oldValue = encoderCount;
+	encoderCount = m_PC->getPulseCount(m_encoderNr);
+	return encoderCount - oldValue;
+}
 
 
-#endif

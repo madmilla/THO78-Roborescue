@@ -6,10 +6,10 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file propcom.h
-* @date Created: 12-4-2015
+* @file Keyboard.h
+* @date Created: 17-5-2015
 *
-* @author Edwin Koek
+* @author Nathan Schaaphuizen
 * @version 1.0
 *
 * @section LICENSE
@@ -35,37 +35,48 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef PROPCOM_H
-#define PROPCOM_H
+#ifndef KEYBOARD_H_
+#define KEYBOARD_H_
 
-#include <string>
-#include <vector>
-#include "LibSerial.h"
-#include <mutex>
+#include <thread>
 
-class PropCom {
+
+/// @brief Class for key handling.
+///
+/// This class is used to determine if a key is pressed (or not).
+/// For this it makes use of the standard input (stdin) and can be used without
+/// additional dependencies or drivers.
+/// The input from the input stream on it's own thread, therefore it is
+/// advised to make only one instance of this class.
+class Keyboard {
+	//Amount of key we can handle, 255 should suffice for any type of keyboard.
+	static const int keyAmount = 255;
+	//Array to save keys that are pressed.
+	bool keysDown[keyAmount];
+	//Array to save the time keys are pressed.
+	int timeDown[keyAmount];
+	//Thread
+	std::thread thread;
+	//Input stream
+	static const int STDIN = 0;
+
+	//Helper function, the thread will run this function.
+	void run();
 public:
+	/// @brief Create new Keyboard object.
+	Keyboard();
 
-    PropCom();
+	/// @brief Test if key is held down.
+	///
+	/// @param key The ascii value of the key to be tested.
+	/// @return Returns true if key is down. Returns false if key is not down.
+	bool isKeyDown(int key);
 
-    void open(const std::string &port);
-
-    void sendData(unsigned char command, unsigned char value);
-    std::vector<unsigned char> readData(unsigned char command, int returnedBytes);
-
-    void setBrakeSpeed(signed char speed, int motorNr);
-    void setMotorSpeed(signed char speed, int motorNr);
-
-    int getFirmwareVersion();
-    int getError();
-    int getPulseCount(int motorNr);
-    int getPulseSpeed(int motorNr);
-    int getDistance(int ultraSonicSensorNr);
-
-private:
-    LibSerial com;
-    std::mutex mutex;
+	/// @brief Test if key is not held down.
+	///
+	/// @param key The ascii value of the key to be tested.
+	/// @return Returns true if key is not down. Returns false if key is down.
+	bool isKeyUp(int key);
 };
 
-
-#endif
+#endif /* KEYBOARD_H_ */

@@ -6,11 +6,11 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file propcom.h
-* @date Created: 12-4-2015
+* @file Waypoint.h
+* @date Created: 23-06-2015
 *
-* @author Edwin Koek
-* @version 1.0
+* @author Stefan Dijkman, Nathan Schaaphuizen
+* @version 1.1
 *
 * @section LICENSE
 * License: newBSD
@@ -34,38 +34,40 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
+#ifndef WAYPOINTMOVEMENT_H
+#define WAYPOINTMOVEMENT_H
 
-#ifndef PROPCOM_H
-#define PROPCOM_H
-
-#include <string>
-#include <vector>
-#include "LibSerial.h"
-#include <mutex>
-
-class PropCom {
-public:
-
-    PropCom();
-
-    void open(const std::string &port);
-
-    void sendData(unsigned char command, unsigned char value);
-    std::vector<unsigned char> readData(unsigned char command, int returnedBytes);
-
-    void setBrakeSpeed(signed char speed, int motorNr);
-    void setMotorSpeed(signed char speed, int motorNr);
-
-    int getFirmwareVersion();
-    int getError();
-    int getPulseCount(int motorNr);
-    int getPulseSpeed(int motorNr);
-    int getDistance(int ultraSonicSensorNr);
-
+/// @brief Class to make waypoints from a offset.
+///
+/// The waypoint is relative to the origin. That is to say, it always assumes that the current
+/// position is (0,0).
+class Waypoint{
 private:
-    LibSerial com;
-    std::mutex mutex;
+	double angle;
+	double distance;
+	//Helper function to convert radians to degrees.
+	double toDegrees(double radian);
+
+public:
+	/// @brief Create new Waypoint object.
+	///
+	/// The unit in which the offsets are given is undefined and can be anything as long as
+	/// the're the same for both parameters.
+	/// Note that all the other functions will return in the same unit as given here.
+	/// @param x Offset on the x-axis.
+	/// @param y Offset on the y-axis.
+	Waypoint(double x, double y);
+	
+	/// @brief Get the distance to the waypoint.
+	///
+	/// The distance is the distance between the origin and the waypoint in a strait line.
+	/// @return The distance in the same unit as given in the constructor.
+	double getDistance();
+	
+	/// @brief Get the angle to  the waypoint.
+	///
+	/// The angle that needs to be straight in order to face strait to the waypoint.
+	/// @return The angel in degrees.
+	double getAngle();
 };
-
-
-#endif
+#endif // WAYPOINTMOVEMENT_H

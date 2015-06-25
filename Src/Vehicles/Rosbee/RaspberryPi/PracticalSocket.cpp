@@ -629,6 +629,23 @@ void UDPSocket::sendTo(const void *buffer, int bufferLen,
   }
 }
 
+
+int UDPSocket::recvFrom(void *buffer, int bufferLen,
+                        SocketAddress &sourceAddress)
+  throw(SocketException) {
+  sockaddr_storage clntAddr;
+  socklen_t addrLen = sizeof(clntAddr);
+  int rtn = recvfrom(sockDesc, (raw_type *) buffer, bufferLen, 0,
+                     (sockaddr *) &clntAddr, (socklen_t *) &addrLen);
+  if (rtn < 0) {
+    throw SocketException("Receive failed (recvfrom())");
+  }
+  sourceAddress = SocketAddress((sockaddr *)&clntAddr, addrLen);
+
+  return rtn;
+}
+
+/*
 int UDPSocket::recvFrom(void *buffer, int bufferLen, 
                         SocketAddress &sourceAddress) 
   throw(SocketException) {
@@ -636,19 +653,25 @@ int UDPSocket::recvFrom(void *buffer, int bufferLen,
   socklen_t addrLen = sizeof(clntAddr);
   //added
   alarm(timeOutPeriod);
+
+  struct timeval tv;
+  tv.tv_sec = 1;  // 30 Secs Timeout
+  tv.tv_usec = 0;  // Not init'ing this can cause strange errors
+  setsockopt(sockDesc, SOL_SOCKET, SO_RCVTIMEO, (char *)&tv,sizeof(struct timeval));
+
   int rtn = recvfrom(sockDesc, (raw_type *) buffer, bufferLen, 0,
                      (sockaddr *) &clntAddr, (socklen_t *) &addrLen);
   if (rtn < 0) {
 	  if(errno == EINTR)
 		   throw SocketTimedOutException("socket timed out");
-		else
-			  
-			throw SocketException("Receive failed (recvfrom())");
+		//else
+			//throw SocketException("Receive failed (recvfrom())");
   }
   sourceAddress = SocketAddress((sockaddr *)&clntAddr, addrLen);
 
   return rtn;
 }
+*/
 
 void UDPSocket::setMulticastTTL(unsigned char multicastTTL)
   throw(SocketException) {
@@ -668,7 +691,8 @@ void UDPSocket::setMulticastTTL(unsigned char multicastTTL)
  
  //added
  void CatchAlarm(int sgtype){
-	 //do nothing
+	 int i = sgtype + 30;
+	 i++;
  }
  
  //added

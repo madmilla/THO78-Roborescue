@@ -6,11 +6,11 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file propcom.h
-* @date Created: 12-4-2015
+* @file Waypoint.cpp
+* @date Created: 23-06-2015
 *
-* @author Edwin Koek
-* @version 1.0
+* @author Stefan Dijkman, Nathan Schaaphuizen
+* @version 1.1
 *
 * @section LICENSE
 * License: newBSD
@@ -34,38 +34,42 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
+#include "Waypoint.h"
+#include <cmath>
 
-#ifndef PROPCOM_H
-#define PROPCOM_H
+Waypoint::Waypoint(double x, double y)
+{
+	//Get distance
+	double lengte_x = x*x;
+	double lengte_y = y*y;
+	distance = sqrt( lengte_x + lengte_y );
 
-#include <string>
-#include <vector>
-#include "LibSerial.h"
-#include <mutex>
+	//Get angle
+	if(y >= 0){
+		//Calculate the angle.
+		angle = toDegrees(atan(x/y));
+	}
+	else{
+		//Calculate the relative negative angle.
+		angle = toDegrees(atan(x/y)) + 180;
+	}
 
-class PropCom {
-public:
+}
 
-    PropCom();
+double Waypoint::getDistance(){
+	//Return the distance.
+	return distance;
+}
 
-    void open(const std::string &port);
-
-    void sendData(unsigned char command, unsigned char value);
-    std::vector<unsigned char> readData(unsigned char command, int returnedBytes);
-
-    void setBrakeSpeed(signed char speed, int motorNr);
-    void setMotorSpeed(signed char speed, int motorNr);
-
-    int getFirmwareVersion();
-    int getError();
-    int getPulseCount(int motorNr);
-    int getPulseSpeed(int motorNr);
-    int getDistance(int ultraSonicSensorNr);
-
-private:
-    LibSerial com;
-    std::mutex mutex;
-};
+double Waypoint::toDegrees(double radian){
+	//Convert radian to degree.
+	return radian * (180.0 / M_PI);
+}
 
 
-#endif
+double Waypoint::getAngle(){
+	//Return the angle.
+	return angle;
+}
+	
+
