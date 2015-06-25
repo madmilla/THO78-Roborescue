@@ -65,7 +65,7 @@ bool LPCCom::init(){
 	}
 }
 
-void LPCCom::readData(double& batteryPercentage, double& temperature){
+void LPCCom::readData(double& temperature){
 	gpio->setval_gpio("1");
 	usleep(20 * 1000);
 	gpio->setval_gpio("0");

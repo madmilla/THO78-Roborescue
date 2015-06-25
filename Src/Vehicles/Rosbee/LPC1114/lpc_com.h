@@ -51,7 +51,7 @@ public:
 
 	bool init();
 
-	void readData(double& batteryPercentage, double& temperature);
+	void readData(double& temperature);
 
 private:
 	LibSerial* uart;
@@ -59,7 +59,7 @@ private:
 	const char* portName;
 	int baudRate = 38400;
     char dataBuffer[10];
-	double battery, temperature;
+	double temperature;
 };
 
 
