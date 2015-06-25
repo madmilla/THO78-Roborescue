@@ -14,13 +14,13 @@ int Map::getScaledHeuristicLocationValue(int x,int y){
 Map::Map() {
 	// Initialize Vehicle Positions
 	rosbeePosition = nullptr;
-	ATVPosition = nullptr;
+	//ATVPosition = nullptr;
 	//quadcopterPosition = nullptr;
 
 	std::cout << "NEW Map" <<std::endl;
-	access.resize(70);
+	access.resize(500);
 	for (unsigned int i = 0; i < access.size();i++){
-		access.at(i).resize(70);
+		access.at(i).resize(500);
 	
 	}
 

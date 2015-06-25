@@ -12,6 +12,7 @@ void Rosbee::run(){
 	  
       if(outgoing->size() > 0){
          auto tuple = outgoing->pop();
+
          encoder->send(
             std::get<0>(tuple),
             std::get<1>(tuple),
@@ -29,10 +30,16 @@ void Rosbee::run(){
      if(sock->incomming->size() > 0){
 		    auto msg = sock->incomming->peek();
           mavlink_msg_command_long_decode(msg, &packet);
-          if(packet.command = ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE){
+          if(packet.command = ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE && Ready == false){
             if (packet.param1 == 0){
                Ready = true;
+               sendAck();
             }
+          }else if (packet.command = ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE && Ready == true){
+               waypoint = true;
+               x = packet.param1;
+               y = packet.param2;
+               heading = packet.param3;
           }
        }
       std::this_thread::sleep_for(std::chrono::seconds(2));
@@ -54,7 +61,7 @@ void Rosbee::startMission(){
 }
 
 void Rosbee::sendWaypoint(int x, int y){
-   outgoing->add(std::make_tuple(x,y,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::STARTMISSION,COMMAND_DESTINATION::ROSBEE,0,0));
+   outgoing->add(std::make_tuple(x,y,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT,COMMAND_DESTINATION::ROSBEE,0,0));
 }
 
 void Rosbee::getRequest(){
@@ -93,6 +100,15 @@ void Rosbee::abort(){
    running = false;
 }
 
+bool Rosbee::isReady(){
+  return Ready;
+}
+
+bool Rosbee::needsWaypoint(){
+  bool temp  = waypoint;
+  waypoint = false;
+  return temp;
+}
 
     MessageQueue<mavlink_message_t *> * Rosbee::getMessageQueue(){
       return sock->incomming;

@@ -97,7 +97,8 @@ void virtualRosbee::setVirtualRosbeeLocationY(int y) {
 */
 
 void virtualRosbee::moveTo(int x, int y) {
-	
+	while(!rActual->needsWaypoint()){}
+	//rActual->heading
 	rActual->sendWaypoint(x,y);
 	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
 }

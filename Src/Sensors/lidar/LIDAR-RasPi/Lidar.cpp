@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -52,7 +52,9 @@ Lidar::Lidar(const char *opt_com_path):
     opt_com_path(opt_com_path),
     opt_com_baudrate(115200), 	// Default baudrate of 115200 is recommended
     drv(RPlidarDriver::CreateDriver(RPlidarDriver::DRIVER_TYPE_SERIALPORT))
-{}
+{
+	connectDriversLidar();
+}
 
 void Lidar::connectDriversLidar()
 {
@@ -220,7 +222,9 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	sD.writeLinesToConsole(lines);
 
 	for (auto l : lines){
-		l.setLine(Line::Point((l.getLine().beginPoint.x * SCALE) - pCloud.getMinValues().x, (l.getLine().beginPoint.y * SCALE) - pCloud.getMinValues().y), Line::Point((l.getLine().endPoint.x * SCALE) - pCloud.getMinValues().x, (l.getLine().endPoint.y * SCALE) - pCloud.getMinValues().y));
+		Line::Point begin{(l.getLine().begin_pos.x * SCALE) - pCloud.getMinValues().X, (l.getLine().begin_pos.y * SCALE) - pCloud.getMinValues().Y};
+		Line::Point end{(l.getLine().end_pos.x * SCALE) - pCloud.getMinValues().X, (l.getLine().end_pos.y * SCALE) - pCloud.getMinValues().Y};
+		l.setLine(begin,end);
 	}
 
 	return lines;

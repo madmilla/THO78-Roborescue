@@ -5,6 +5,7 @@
 class virtualLidar
 {
 public:
+	virtualLidar();
 	virtualLidar(Lidar* actualLidar);
 	~virtualLidar();
 	Lidar* actualLidar;

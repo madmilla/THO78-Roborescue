@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -37,7 +37,7 @@
 #ifndef BASEROBOT_H_
 #define BASEROBOT_H_
 
-#include "mavlink.h"
+#include "roborescueV1/mavlink.h"
 #include <queue>
 
 
@@ -69,8 +69,8 @@ protected:
 	//! \param[dest] The destination for the mavlink message
 	//! \param[rlcf] The function id for the mavlink message
 	template<typename T>
-	void sendCommand(mavlink_command_long_t payload, COMMAND_DESTINATION dest, T rlcf){
-		messages.push(encodeCommandLongMessage(payload, dest, rlcf ));
+	void sendCommand(mavlink_command_long_t payload, T rlcf){
+		messages.push(encodeCommandLongMessage(payload, rlcf ));
 	}
 
 	//! \brief The function encodeCommandLongMessage encodes an mavlink_lidar_message_t to an mavlink_message_t
@@ -79,11 +79,11 @@ protected:
 	//! \param[rlcf] The function for the mavlink message
 	//! \Return@ Returns the encoded mavlink_message_t message
 	template<typename T>
-	mavlink_message_t encodeCommandLongMessage(mavlink_command_long_t command, COMMAND_DESTINATION dest, T rlcf){
+	mavlink_message_t encodeCommandLongMessage(mavlink_command_long_t command, T rlcf){
 
 		mavlink_message_t mavlinkMessage;
 		command.command = rlcf;
-		command.target_system = dest;
+		command.target_system = COMMAND_DESTINATION::LIDAR;
 
 		mavlink_msg_command_long_encode(systemID, COMMAND_DESTINATION::LIDAR, &mavlinkMessage, &command);
 

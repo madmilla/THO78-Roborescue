@@ -8,35 +8,31 @@ map{ map },
 virtuallidar{virtuallidar}
 
 {
-
+	Thread = new std::thread(&StrategyController::run, this);
+	Thread->detach();
 }
 
 
 StrategyController::~StrategyController()
 {
+	
 }
 
 void StrategyController::scanArea(){
-	/*Route * route = new Route();
+	Route * route = new Route();
 	Map MapCopy = map;
 	VSLAM vslam(&MapCopy, &virtualrosbee, route, &virtuallidar);
-	MapCopy.setScale(5);
-	MapCopy.setScaledLocationValue(5, 1, 1);
-	MapCopy.setScaledLocationValue(5, 2, 1);
-	MapCopy.setScaledLocationValue(5, 3, 1);
-	MapCopy.setScaledLocationValue(5, 4, 1);
-	MapCopy.setScaledLocationValue(5, 5, 1);
-	MapCopy.setScaledLocationValue(4, 5, 1);
-	MapCopy.setScaledLocationValue(3, 5, 1);
-	MapCopy.setScaledLocationValue(2, 5, 1);
-	MapCopy.setScaledLocationValue(1, 5, 1);
+	MapCopy.setScale(30);
 	while (MapCopy.contains(0)){ vslam.run();
+	std::cout << "get char" << std::endl;
+	
 	getchar();
+	std::cout << "got char" << std::endl;
 	MapCopy.print();
 	}
 	MapCopy.print();
         std::cout << "ScanAreaDone";
-	getchar();*/
+	getchar();
 }
 
 void StrategyController::searchArea(){
@@ -52,4 +48,10 @@ void StrategyController::movePairwise(){
 	map.print();
 	getchar();
 }
+void StrategyController::run(){
+	std::cout << "Strategy running" << std::endl;
+	scanArea();
+	searchArea();
 
+
+}

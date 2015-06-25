@@ -58,9 +58,12 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
 
     std::cout << "screen size: " << '(' << screenSize.width() << ' ' << screenSize.height() << ')' << std::endl;
 
-    setButtonPosition(*ui->saveMapButton, screenSize.width()-(screenSize.width()/10), screenSize.height() - screenSize.height()/10);
     setButtonPosition(*ui->obstacleButton, screenSize.width()-(screenSize.width()/10), screenSize.height()/10);
-    setButtonPosition(*ui->noneButton, screenSize.width()-(screenSize.width()/10), screenSize.height()/8);
+    setButtonPosition(*ui->noneButton, screenSize.width()-(screenSize.width()/10), ui->obstacleButton->y() + 30);
+    setButtonPosition(*ui->lineButton, screenSize.width()-(screenSize.width()/10), ui->noneButton->y() + 30);
+    setButtonPosition(*ui->circleButton, screenSize.width()-(screenSize.width()/10), ui->lineButton->y() + 30);
+    setButtonPosition(*ui->rectangleButton, screenSize.width()-(screenSize.width()/10), ui->circleButton->y() + 30);
+    setButtonPosition(*ui->saveMapButton, screenSize.width()-(screenSize.width()/10), screenSize.height() - screenSize.height()/10);
 
     canvasScreenSize.setWidth(screenSize.width() - (screenSize.width()/8));
     canvasScreenSize.setHeight(screenSize.height());
@@ -110,7 +113,6 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
        if(selected < 0){
            return;
         }
-
         if(selected == Values::LINE || selected == Values::RECTANGLE || selected == Values::CIRCLE){
             lineBeginning.setX((event->pos().x() - (event->pos().x() % objectx)) / objectx);
             lineBeginning.setY((event->pos().y() - (event->pos().y() % objecty)) / objecty);
@@ -234,8 +236,13 @@ bool EditMapWindow::eventFilter(QObject* watched, QEvent* event)
     if (watched == ui->childWidget && event->type() == QEvent::Paint) {
         QPainter painter;
         painter.begin(ui->childWidget);
-        for(Map::Object & object : map->getMapContent()){
 
+        QRect rectX{0, objecty*map->height, objectx*map->width+200, objecty*map->height};
+        QRect rectY{objectx*map->width, 0, objectx*map->width, objecty*map->height};
+        painter.fillRect(rectX, QBrush{Qt::gray});
+        painter.fillRect(rectY, QBrush{Qt::gray});
+
+        for(Map::Object & object : map->getMapContent()){
             painter.fillRect((object.X*objectx),(object.Y*objecty),objectx,objecty,QBrush(getColorById(object.id)));
         }
         std::cout << "paint event" << std::endl;

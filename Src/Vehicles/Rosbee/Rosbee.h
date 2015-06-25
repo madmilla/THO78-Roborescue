@@ -103,14 +103,20 @@ public:
     /// \brief returns unique identifier
     int getId() override;
 
+    bool needsWaypoint();
     MessageQueue<mavlink_message_t *> * getMessageQueue();
 	
     bool isReady();
 private:
+	friend class virtualRosbee;
 	mavlink_command_long_t packet;
 	bool Ready = false;
+	bool waypoint = true;
 	friend class RobotManager;
 	bool running = false;
+
+	int x, y, heading;
+
 	MessageQueue<std::tuple<int, int, int, int, int, int, int, ROSBEE_COMMAND_FUNCTIONS, COMMAND_DESTINATION, int, int>> * outgoing;
 };
 #endif
