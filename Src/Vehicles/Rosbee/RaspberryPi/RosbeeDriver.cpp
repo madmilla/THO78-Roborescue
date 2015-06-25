@@ -42,8 +42,9 @@
 #include "Waypoint.h"
 #include <iostream> //heb misschien niet nodig
 
-RosbeeDriver::RosbeeDriver(PropCom &nPropCom):
+RosbeeDriver::RosbeeDriver(PropCom &nPropCom, PositionController& PC):
 propCom{&nPropCom},
+PC{&PC},
 encoderLeft{&nPropCom,0},
 encoderRight{&nPropCom,1},
 speed{30}
@@ -133,9 +134,13 @@ void RosbeeDriver::rotate(int degrees){
 
 	if(degrees > 0){
 		forward(-10, 10);
+		PC->setMotorDirection(0, -1);
+		PC->setMotorDirection(1, 1);
 	}
 	if(degrees < 0){
 		forward(10, -10);
+		PC->setMotorDirection(0, 1);
+		PC->setMotorDirection(1, -1);
 	}
 
 
@@ -172,7 +177,8 @@ void RosbeeDriver::rotate(int degrees){
 
 	//overshoot = 20 - (rotatingDistance - distanceTraveled);
 	//std::cout << "Overshoot: " << overshoot << std::endl;
-
+	PC->setMotorDirection(0, 1);
+	PC->setMotorDirection(1, 1);
 }
 
 

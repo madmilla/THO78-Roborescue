@@ -39,6 +39,7 @@
 
 #include "PropCom.h"
 #include "EncoderInterface.h"
+#include "PositionController.h"
 
 /**
 * @class RosbeeDriver
@@ -54,7 +55,7 @@ public:
 	* @brief Create a new RosbeeDriver object.
 	* @param nPropCom PropCom object used for communication with the Propeller.
 	**/
-	explicit RosbeeDriver(PropCom &nPropCom);
+	RosbeeDriver(PropCom &nPropCom, PositionController& PC);
 
 	/**
 	* @brief Sends the stop command to stop the Rosbee.
@@ -118,8 +119,10 @@ public:
 
 private:
 	PropCom* propCom;
+	PositionController* PC;
 	EncoderInterface encoderLeft;
 	EncoderInterface encoderRight;
+
 
 
 	//Drive speed of the Rosbee.

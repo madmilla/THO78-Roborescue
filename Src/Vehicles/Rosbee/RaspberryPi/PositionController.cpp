@@ -13,9 +13,11 @@
 #include <iostream>
 
 PositionController::PositionController(PropCom* nPropCom):
-m_angleOdometryEstimate{0},
+m_angleOdometryEstimate{90},
 m_posX{0},
 m_posY{0},
+lMotorDirection{1},
+rMotorDirection{1},
 m_eLeft{nPropCom,0},
 m_eRight{nPropCom,1},
 thread{&PositionController::updatePosition,this}
@@ -26,6 +28,16 @@ thread{&PositionController::updatePosition,this}
 void PositionController::reset(){
 	m_posX = 0;
 	m_posY = 0;
+}
+
+void PositionController::setMotorDirection(int motorNr, int direction){
+	if(direction == -1 || direction == 1){
+		if(motorNr == 1){
+			lMotorDirection = direction;
+		}else if(motorNr == 0){
+			rMotorDirection = direction;
+		}
+	}
 }
 
 float PositionController::getX(){
@@ -51,7 +63,9 @@ void PositionController::updatePosition(){
 }
 
 void PositionController::odometry(int dLeft, int dRight){
-	std::cout << "Sluisjes: " << dLeft << ", " << dRight << ", "<< m_angleOdometryEstimate << std::endl;
+	dLeft *= lMotorDirection;
+	dRight *= rMotorDirection;
+	//std::cout << "Sluisjes: " << dLeft << ", " << dRight << ", "<< m_angleOdometryEstimate << std::endl;
 	if( dLeft < -5 ||  dLeft > 5 || dRight < -5 ||  dRight > 5) return;
 
 
@@ -61,23 +75,25 @@ void PositionController::odometry(int dLeft, int dRight){
     dDistance = ((leDistance + reDistance) / 2);
     dAngle = (reDistance * leDistance)/ 3.43;
     m_angleOdometryEstimate = m_angleOdometryEstimate + dAngle;
-    m_posX = m_posX + (dDistance * cos(m_angleOdometryEstimate));
-    m_posY = m_posY + (dDistance * sin(m_angleOdometryEstimate));
+
+    //version 1
+    //m_posX = m_posX + (dDistance * cos(m_angleOdometryEstimate));
+    //m_posY = m_posY + (dDistance * sin(m_angleOdometryEstimate));
+
+    //version 2
+    //m_posX = m_posX + (dDistance * cos(m_angleOdometryEstimate / 2));
+    //m_posY = m_posY + (dDistance * sin(m_angleOdometryEstimate / 2));
+
+    //version 3
+    m_posX = m_posX + ((dDistance * sin(reDistance - leDistance))/3.43);
+    m_posY = m_posY + ((dDistance * cos(reDistance - leDistance))/3.43);
+
+
 
 
     m_dDistance += dDistance;
 
-    std::cout << "x= " << m_posX << " y=" << m_posY << " dd= " << dDistance << " d=" << m_dDistance << std::endl;
+    //std::cout << "x= " << m_posX << " y=" << m_posY << " dd= " << dDistance << " d=" << m_dDistance << std::endl;
 
 
-//    if(dLeft != dRight){
-//            dEncoder = dLeft - dRight;
-//            dAngle = (dEncoder * 0.0773) / ((3.43 * 2 * M_PI) / 360);
-//            m_posX = m_posX + ((1.715/2) * cos(dAngle));
-//            m_posY = m_posY + ((1.715/2) * sin(dAngle));
-//            m_angle += dAngle;
-//    }else{
-//            m_posX = cos(m_angle) * (dLeft * 0.0773);
-//            m_posY = sin(m_angle) * (dLeft * 0.0773);
-//    }
 }

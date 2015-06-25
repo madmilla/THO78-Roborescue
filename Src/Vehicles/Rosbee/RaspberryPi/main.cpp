@@ -14,18 +14,18 @@
 #include "RosbeeProtocolHandler.h"
 
 
-#include "Parser.h"
-
 int main(){
 
 	PropCom propCom;
 	propCom.open("/dev/ttyUSB0");
-	RosbeeDriver rosbeeDriver{propCom};
-	ManualDriver manualDriver{rosbeeDriver};
+
 
 	PositionController positionController{&propCom};
+	RosbeeDriver rosbeeDriver{propCom, positionController};
+	ManualDriver manualDriver{rosbeeDriver};
 
-	RosbeeClient rosbeeClient{"192.168.1.15", 7777};
+
+	RosbeeClient rosbeeClient{"192.168.1.2", 8888};
 
 	RosbeeProtocolHandler rosbeeProtocolHandler{rosbeeClient,positionController,rosbeeDriver};
 

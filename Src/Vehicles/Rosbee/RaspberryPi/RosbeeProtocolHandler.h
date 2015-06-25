@@ -3,6 +3,7 @@
 #include "PositionController.h"
 #include "RosbeeDriver.h"
 #include <thread>
+#include <roborescueV1/mavlink.h>
 
 class RosbeeProtocolHandler {
 private:
@@ -18,7 +19,7 @@ public:
 	RosbeeProtocolHandler(RosbeeClient &nRosClient, PositionController &nPosContr, RosbeeDriver &nRosDriver);
 
 	void init();
-	void driveToWaypoint(long long payload);
+	void driveToWaypoint(const mavlink_command_long_t &payload);
 
 
 

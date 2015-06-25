@@ -20,6 +20,8 @@ public:
 	float getY();
 	float getAngle();
 
+	void setMotorDirection(int motorNr, int direction);
+
 	void reset();
 
 	void updatePosition();
@@ -29,9 +31,11 @@ private:
     float m_angleOdometryEstimate;
     float m_dDistance;
 
-
 	float m_posX;
 	float m_posY;
+
+    int lMotorDirection;
+    int rMotorDirection;
 
     EncoderInterface m_eLeft;
     EncoderInterface m_eRight;

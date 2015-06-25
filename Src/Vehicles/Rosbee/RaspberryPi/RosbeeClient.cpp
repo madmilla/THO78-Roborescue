@@ -38,7 +38,8 @@
 
 #include "RosbeeClient.h"
 #include <string>
-#include "mavlink_commands/mavlink_commands/mavlink.h"
+#include "roborescueV1/mavlink.h"
+
 
 RosbeeClient::RosbeeClient(const std::string &serverAddress, unsigned short serverPort):
 serverAddr{serverAddress.c_str(),serverPort, SocketAddress::UDP_SOCKET}
@@ -64,7 +65,7 @@ void RosbeeClient::waitReceiveMessage(unsigned char &function, unsigned long lon
 */
 //void RosbeeClient::waitReceiveMessage(unsigned char &function, unsigned long long &payload){
 
-void RosbeeClient::waitReceiveMessage(mavlink_msg_command_long_t &packet){
+void RosbeeClient::waitReceiveMessage(mavlink_command_long_t &packet){
 		mavlink_message_t message;
 		SocketAddress remote_addr;
 		
@@ -74,15 +75,15 @@ void RosbeeClient::waitReceiveMessage(mavlink_msg_command_long_t &packet){
 
 
 void RosbeeClient::sendInit(float x, float y, float angle){
-	sendMessage(x,y,angle,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::INIT, COMMAND_DESTINATION::ROSBEE, 0,0);
+	sendMessage(x,y,angle,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::ROSBEE_INIT, COMMAND_DESTINATION::ROSBEE);
 }
 
 void RosbeeClient::requestWaypoint(float x, float y, float angle, float status){
-	sendMessage(x,y,angle,status,0,0,0,ROSBEE_COMMAND_FUNCTIONS::AWKNOWLEDGE,, COMMAND_DESTINATION::ROSBEE,0,0);
+	sendMessage(x,y,angle,status,0,0,0,ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE, COMMAND_DESTINATION::ROSBEE);
 }
 
 void RosbeeClient::sendMessage(unsigned char function, float data[7]){
-	sendMessage(data[0], data[1], data[2], data[3], data[4], data[5],data[6], function, COMMAND_DESTINATION::ROSBEE,0,0);
+	sendMessage(data[0], data[1], data[2], data[3], data[4], data[5],data[6], function, COMMAND_DESTINATION::ROSBEE);
 }
 
 

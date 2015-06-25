@@ -38,6 +38,7 @@
 #include "ManualDriver.h"
 #include <thread>
 #include "Keyboard.h"
+#include <iostream>
 
 ManualDriver::ManualDriver(RosbeeDriver &driver):
 driver{&driver},

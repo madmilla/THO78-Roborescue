@@ -41,6 +41,8 @@
 
 #include "PracticalSocket.h"
 #include <string>
+#include "roborescueV1/mavlink.h"
+
 
 /// @brief Class for communication.
 ///
@@ -65,13 +67,13 @@ public:
 	/// This function blocks until a message is received.
 	/// @param function Function ID parsed from the Mavelink message.
 	/// @param payload Payload parsed from the Mavelink message.
-	void waitReceiveMessage(unsigned char &function, unsigned long long &payload);
+	//void waitReceiveMessage(unsigned char &function, unsigned long long &payload);
 
 	/// @brief Send message.
 	///
 	/// @param function Function ID that will be included in the Mavlink message.
 	/// @param payload Payload that will be included in the Mavlink message.
-	void sendMessage(unsigned char function, unsigned long long payload);
+	//void sendMessage(unsigned char function, unsigned long long payload);
 
 	void sendInit(float x, float y, float angle);
 
@@ -79,10 +81,37 @@ public:
 	
 	void requestWaypoint(float x, float y, float angle, float status);
 
-	template<typename ... Args>
-	void sendMessage(Args ... args){
+	void waitReceiveMessage(mavlink_command_long_t &packet);
+
+
+
+	void sendMessage(
+			float param1,
+			float param2,
+			float param3,
+			float param4,
+			float param5,
+			float param6,
+			float param7,
+			unsigned short command,
+			unsigned char target_system
+			){
+
 		mavlink_message_t message;
-		packet = mavlink_command_long_t{std::forward<Args>(args) ...};
+		mavlink_command_long_t packet;   // = mavlink_command_long_t{std::forward<Args>(args) ...};
+
+		packet.command = command;
+		packet.confirmation = 0;
+		packet.param1 = param1;
+		packet.param2 = param2;
+		packet.param3 = param3;
+		packet.param4 = param4;
+		packet.param5 = param5;
+		packet.param6 = param6;
+		packet.param7 = param7;
+		packet.target_component = 0;
+		packet.target_system = target_system;
+
 		mavlink_msg_command_long_encode(COMMAND_DESTINATION::ROSBEE, COMMAND_DESTINATION::ROSBEE, &message, &packet);
 		sock.sendTo(&message, sizeof(message), serverAddr);
 	}
