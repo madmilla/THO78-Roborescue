@@ -6,7 +6,7 @@ public:
 	Image(){}
 	
 	void setImage(cimg_library::CImg<unsigned char>* cImg){
-		CImgToMat(cImg);
+		cImgToMat(cImg);
 	}
 	
 	void setImage(cv::Mat* image){
@@ -21,6 +21,6 @@ public:
 		delete image;
 	}
 private:
-	void CImgToMat(cimg_library::CImg<unsigned char>* cImg);
+	void cImgToMat(cimg_library::CImg<unsigned char>* cImg);
 	cv::Mat *image = nullptr;
 };

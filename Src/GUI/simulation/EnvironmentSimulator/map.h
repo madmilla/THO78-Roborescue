@@ -53,6 +53,15 @@ public:
         int X; //! The x value of a single object
         int Y; //! the Y-value of a single object
         int id;//! the id-value of a single object
+        //! a operator to look if an object is equal to an object
+        bool operator==(const Object& rhs) const{
+             return (X == rhs.X && Y == rhs.Y && id == rhs.id);
+        }
+        //! a operator to look if an object is smaller then an object. Sorted by x first then y
+        bool operator<(const Object& rhs) const{
+             if(X != rhs.X) return X < rhs.X;
+             return Y < rhs.Y;
+         }
     };
     /*!
     *   Map constructor with a given file.

@@ -105,10 +105,10 @@ public:
 
     MessageQueue<mavlink_message_t *> * getMessageQueue();
 	
-
+    bool isReady();
 private:
-
-
+	mavlink_command_long_t packet;
+	bool Ready = false;
 	friend class RobotManager;
 	bool running = false;
 	MessageQueue<std::tuple<int, int, int, int, int, int, int, ROSBEE_COMMAND_FUNCTIONS, COMMAND_DESTINATION, int, int>> * outgoing;

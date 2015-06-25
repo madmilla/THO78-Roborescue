@@ -27,7 +27,13 @@ void Rosbee::run(){
          );
       }
      if(sock->incomming->size() > 0){
-		 //Do stuff with incomming messages
+		    auto msg = sock->incomming->peek();
+          mavlink_msg_command_long_decode(msg, &packet);
+          if(packet.command = ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE){
+            if (packet.param1 == 0){
+               Ready = true;
+            }
+          }
        }
       std::this_thread::sleep_for(std::chrono::seconds(2));
    }
@@ -87,6 +93,9 @@ void Rosbee::abort(){
    running = false;
 }
 
+bool Rosbee::isReady(){
+  return Ready;
+}
 
     MessageQueue<mavlink_message_t *> * Rosbee::getMessageQueue(){
       return sock->incomming;
