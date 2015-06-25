@@ -56,5 +56,5 @@ ENVIRONMENTSIMULATOR_MODULE		= Src/Modules/Environmentsimulator/
 MAP_STRUCTURE_MODULE			= Src/Map/MapStructure/
 MAP_COMMON_MODULE				= Src/Map/
 
-DATABASECONNECTOR_MODULE		= Src/Communication/Persistant-Storage/
+#DATABASECONNECTOR_MODULE		= Src/Communication/Persistant-Storage/
 
