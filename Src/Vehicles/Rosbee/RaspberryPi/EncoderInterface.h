@@ -6,11 +6,11 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file virtualRosbee.cpp
-* @date Created: 4/28/2015
+* @file EncoderInterface.h
+* @date Created: 15-6-2015
 *
-* @author Coen Andriessen
-* @author Jeroen Steendam
+* @author Edwin Koek
+* @version 1.0
 *
 * @section LICENSE
 * License: newBSD
@@ -35,73 +35,28 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "virtualRosbee.h"
 
-/**
- * Constructor of virtualRosbee.
- */
+#ifndef ENCODERINTERFACE_H_
+#define ENCODERINTERFACE_H_
 
-virtualRosbee::virtualRosbee(int x, int y,Rosbee* actual):
-rActual{actual}
-{
-	// Set x location.
-	this->virtualRosbeeLocationX = x;
-	// Set y location.
-	this->virtualRosbeeLocationY = y;
-}
+#include "PropCom.h"
 
+class EncoderInterface {
+public:
+	EncoderInterface(PropCom* PC, int encoderNr);
 
-/**
- * Destructor of virtualRosbee.
- */
+	void startCount();
 
-virtualRosbee::~virtualRosbee() {
-    // Destructor
-}
+	int getCount();
 
-/**
- * Function to return the virtualrosbee location x.
- */
+	int deltaCount();
 
-int virtualRosbee::getVirtualRosbeeLocationX() {
-	return this->virtualRosbeeLocationX;
-}
+private:
+	PropCom* m_PC;
 
-/**
- * Function to return the virtualrosbee location y.
- * @return rosbeeLocationY
- */
+	int m_encoderNr;
 
-int virtualRosbee::getVirtualRosbeeLocationY() {
-    return virtualRosbeeLocationY;
-}
+	int encoderCount;
+};
 
-/**
- * Function to set the virtualrosbee location x.
- */
-
-void virtualRosbee::setVirtualRosbeeLocationX(int x) {
-    virtualRosbeeLocationX = x + virtualRosbeeLocationX;
-}
-
-/**
- * Function to set the virtualrosbee location y.
- */
-
-void virtualRosbee::setVirtualRosbeeLocationY(int y) {
-    virtualRosbeeLocationY = y + virtualRosbeeLocationY;
-}
-
-/**
-* Function to move the virtualrosbee location x and y.
-*/
-
-void virtualRosbee::moveTo(int x, int y) {
-	
-	rActual->sendWaypoint(x,y);
-	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
-}
-
-
-
-
+#endif

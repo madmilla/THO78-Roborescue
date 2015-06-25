@@ -6,11 +6,11 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file virtualRosbee.cpp
-* @date Created: 4/28/2015
+* @file EncoderInterface.cpp
+* @date Created: 15-6-2015
 *
-* @author Coen Andriessen
-* @author Jeroen Steendam
+* @author Edwin Koek
+* @version 1.0
 *
 * @section LICENSE
 * License: newBSD
@@ -35,73 +35,29 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "virtualRosbee.h"
 
-/**
- * Constructor of virtualRosbee.
- */
+#include "EncoderInterface.h"
+#include "PropCom.h"
 
-virtualRosbee::virtualRosbee(int x, int y,Rosbee* actual):
-rActual{actual}
-{
-	// Set x location.
-	this->virtualRosbeeLocationX = x;
-	// Set y location.
-	this->virtualRosbeeLocationY = y;
+EncoderInterface::EncoderInterface(PropCom* PC,int encoderNr):
+m_PC{PC},
+m_encoderNr{encoderNr},
+encoderCount{0}
+{}
+
+void EncoderInterface::startCount(){
+	encoderCount = m_PC->getPulseCount(m_encoderNr);
 }
 
-
-/**
- * Destructor of virtualRosbee.
- */
-
-virtualRosbee::~virtualRosbee() {
-    // Destructor
+int EncoderInterface::getCount(){
+	return m_PC->getPulseCount(m_encoderNr) - encoderCount;
 }
 
-/**
- * Function to return the virtualrosbee location x.
- */
-
-int virtualRosbee::getVirtualRosbeeLocationX() {
-	return this->virtualRosbeeLocationX;
+int EncoderInterface::deltaCount(){
+	int oldValue;
+	oldValue = encoderCount;
+	encoderCount = m_PC->getPulseCount(m_encoderNr);
+	return encoderCount - oldValue;
 }
-
-/**
- * Function to return the virtualrosbee location y.
- * @return rosbeeLocationY
- */
-
-int virtualRosbee::getVirtualRosbeeLocationY() {
-    return virtualRosbeeLocationY;
-}
-
-/**
- * Function to set the virtualrosbee location x.
- */
-
-void virtualRosbee::setVirtualRosbeeLocationX(int x) {
-    virtualRosbeeLocationX = x + virtualRosbeeLocationX;
-}
-
-/**
- * Function to set the virtualrosbee location y.
- */
-
-void virtualRosbee::setVirtualRosbeeLocationY(int y) {
-    virtualRosbeeLocationY = y + virtualRosbeeLocationY;
-}
-
-/**
-* Function to move the virtualrosbee location x and y.
-*/
-
-void virtualRosbee::moveTo(int x, int y) {
-	
-	rActual->sendWaypoint(x,y);
-	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
-}
-
-
 
 

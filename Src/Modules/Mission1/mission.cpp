@@ -7,7 +7,7 @@
 #include "MAVLinkExchanger.h"
 #include "SerialPort.h"
 #include "StrategyController.h"
-#include "VirtualRosbee.h"
+#include "virtualRosbee.h"
 #include "VirtualATV.h"
 #include "VirtualQuadCopter.h"
 #include "UDPServer.h"
@@ -22,8 +22,10 @@ int main(int argc, char *argv[])
     MAVLinkExchanger exch{ p };
     Quadcopter q{ exch };
     ATV a{ exch };
+    while(robotmanager.getRobots<Rosbee>().size()==0){}
+    Rosbee* rosbee =robotmanager.getRobot<Rosbee>(1);
     VirtualQuadCopter copter(Dimension(1,1),Dimension(3,3),1,1);
-    virtualRosbee bee(1,1);
+    virtualRosbee bee(1,1,rosbee);
     VirtualATV atv(Dimension(1,1),1,1);
     virtualLidar lidar;
     Map map;

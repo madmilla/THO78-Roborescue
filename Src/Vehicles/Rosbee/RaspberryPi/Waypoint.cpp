@@ -6,11 +6,11 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file virtualRosbee.cpp
-* @date Created: 4/28/2015
+* @file Waypoint.cpp
+* @date Created: 23-06-2015
 *
-* @author Coen Andriessen
-* @author Jeroen Steendam
+* @author Stefan Dijkman, Nathan Schaaphuizen
+* @version 1.1
 *
 * @section LICENSE
 * License: newBSD
@@ -34,74 +34,42 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
+#include "Waypoint.h"
+#include <cmath>
 
-#include "virtualRosbee.h"
-
-/**
- * Constructor of virtualRosbee.
- */
-
-virtualRosbee::virtualRosbee(int x, int y,Rosbee* actual):
-rActual{actual}
+Waypoint::Waypoint(double x, double y)
 {
-	// Set x location.
-	this->virtualRosbeeLocationX = x;
-	// Set y location.
-	this->virtualRosbeeLocationY = y;
+	//Get distance
+	double lengte_x = x*x;
+	double lengte_y = y*y;
+	distance = sqrt( lengte_x + lengte_y );
+
+	//Get angle
+	if(y >= 0){
+		//Calculate the angle.
+		angle = toDegrees(atan(x/y));
+	}
+	else{
+		//Calculate the relative negative angle.
+		angle = toDegrees(atan(x/y)) + 180;
+	}
+
+}
+
+double Waypoint::getDistance(){
+	//Return the distance.
+	return distance;
+}
+
+double Waypoint::toDegrees(double radian){
+	//Convert radian to degree.
+	return radian * (180.0 / M_PI);
 }
 
 
-/**
- * Destructor of virtualRosbee.
- */
-
-virtualRosbee::~virtualRosbee() {
-    // Destructor
+double Waypoint::getAngle(){
+	//Return the angle.
+	return angle;
 }
-
-/**
- * Function to return the virtualrosbee location x.
- */
-
-int virtualRosbee::getVirtualRosbeeLocationX() {
-	return this->virtualRosbeeLocationX;
-}
-
-/**
- * Function to return the virtualrosbee location y.
- * @return rosbeeLocationY
- */
-
-int virtualRosbee::getVirtualRosbeeLocationY() {
-    return virtualRosbeeLocationY;
-}
-
-/**
- * Function to set the virtualrosbee location x.
- */
-
-void virtualRosbee::setVirtualRosbeeLocationX(int x) {
-    virtualRosbeeLocationX = x + virtualRosbeeLocationX;
-}
-
-/**
- * Function to set the virtualrosbee location y.
- */
-
-void virtualRosbee::setVirtualRosbeeLocationY(int y) {
-    virtualRosbeeLocationY = y + virtualRosbeeLocationY;
-}
-
-/**
-* Function to move the virtualrosbee location x and y.
-*/
-
-void virtualRosbee::moveTo(int x, int y) {
 	
-	rActual->sendWaypoint(x,y);
-	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
-}
-
-
-
 

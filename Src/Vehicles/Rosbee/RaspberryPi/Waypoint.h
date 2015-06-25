@@ -6,11 +6,11 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file virtualRosbee.cpp
-* @date Created: 4/28/2015
+* @file Waypoint.h
+* @date Created: 23-06-2015
 *
-* @author Coen Andriessen
-* @author Jeroen Steendam
+* @author Stefan Dijkman, Nathan Schaaphuizen
+* @version 1.1
 *
 * @section LICENSE
 * License: newBSD
@@ -34,74 +34,40 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
+#ifndef WAYPOINTMOVEMENT_H
+#define WAYPOINTMOVEMENT_H
 
-#include "virtualRosbee.h"
+/// @brief Class to make waypoints from a offset.
+///
+/// The waypoint is relative to the origin. That is to say, it always assumes that the current
+/// position is (0,0).
+class Waypoint{
+private:
+	double angle;
+	double distance;
+	//Helper function to convert radians to degrees.
+	double toDegrees(double radian);
 
-/**
- * Constructor of virtualRosbee.
- */
-
-virtualRosbee::virtualRosbee(int x, int y,Rosbee* actual):
-rActual{actual}
-{
-	// Set x location.
-	this->virtualRosbeeLocationX = x;
-	// Set y location.
-	this->virtualRosbeeLocationY = y;
-}
-
-
-/**
- * Destructor of virtualRosbee.
- */
-
-virtualRosbee::~virtualRosbee() {
-    // Destructor
-}
-
-/**
- * Function to return the virtualrosbee location x.
- */
-
-int virtualRosbee::getVirtualRosbeeLocationX() {
-	return this->virtualRosbeeLocationX;
-}
-
-/**
- * Function to return the virtualrosbee location y.
- * @return rosbeeLocationY
- */
-
-int virtualRosbee::getVirtualRosbeeLocationY() {
-    return virtualRosbeeLocationY;
-}
-
-/**
- * Function to set the virtualrosbee location x.
- */
-
-void virtualRosbee::setVirtualRosbeeLocationX(int x) {
-    virtualRosbeeLocationX = x + virtualRosbeeLocationX;
-}
-
-/**
- * Function to set the virtualrosbee location y.
- */
-
-void virtualRosbee::setVirtualRosbeeLocationY(int y) {
-    virtualRosbeeLocationY = y + virtualRosbeeLocationY;
-}
-
-/**
-* Function to move the virtualrosbee location x and y.
-*/
-
-void virtualRosbee::moveTo(int x, int y) {
+public:
+	/// @brief Create new Waypoint object.
+	///
+	/// The unit in which the offsets are given is undefined and can be anything as long as
+	/// the're the same for both parameters.
+	/// Note that all the other functions will return in the same unit as given here.
+	/// @param x Offset on the x-axis.
+	/// @param y Offset on the y-axis.
+	Waypoint(double x, double y);
 	
-	rActual->sendWaypoint(x,y);
-	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
-}
-
-
-
-
+	/// @brief Get the distance to the waypoint.
+	///
+	/// The distance is the distance between the origin and the waypoint in a strait line.
+	/// @return The distance in the same unit as given in the constructor.
+	double getDistance();
+	
+	/// @brief Get the angle to  the waypoint.
+	///
+	/// The angle that needs to be straight in order to face strait to the waypoint.
+	/// @return The angel in degrees.
+	double getAngle();
+};
+#endif // WAYPOINTMOVEMENT_H

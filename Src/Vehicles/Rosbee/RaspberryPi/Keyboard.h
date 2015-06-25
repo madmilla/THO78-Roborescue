@@ -6,11 +6,11 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file virtualRosbee.cpp
-* @date Created: 4/28/2015
+* @file Keyboard.h
+* @date Created: 17-5-2015
 *
-* @author Coen Andriessen
-* @author Jeroen Steendam
+* @author Nathan Schaaphuizen
+* @version 1.0
 *
 * @section LICENSE
 * License: newBSD
@@ -35,73 +35,48 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "virtualRosbee.h"
+#ifndef KEYBOARD_H_
+#define KEYBOARD_H_
 
-/**
- * Constructor of virtualRosbee.
- */
-
-virtualRosbee::virtualRosbee(int x, int y,Rosbee* actual):
-rActual{actual}
-{
-	// Set x location.
-	this->virtualRosbeeLocationX = x;
-	// Set y location.
-	this->virtualRosbeeLocationY = y;
-}
+#include <thread>
 
 
-/**
- * Destructor of virtualRosbee.
- */
+/// @brief Class for key handling.
+///
+/// This class is used to determine if a key is pressed (or not).
+/// For this it makes use of the standard input (stdin) and can be used without
+/// additional dependencies or drivers.
+/// The input from the input stream on it's own thread, therefore it is
+/// advised to make only one instance of this class.
+class Keyboard {
+	//Amount of key we can handle, 255 should suffice for any type of keyboard.
+	static const int keyAmount = 255;
+	//Array to save keys that are pressed.
+	bool keysDown[keyAmount];
+	//Array to save the time keys are pressed.
+	int timeDown[keyAmount];
+	//Thread
+	std::thread thread;
+	//Input stream
+	static const int STDIN = 0;
 
-virtualRosbee::~virtualRosbee() {
-    // Destructor
-}
+	//Helper function, the thread will run this function.
+	void run();
+public:
+	/// @brief Create new Keyboard object.
+	Keyboard();
 
-/**
- * Function to return the virtualrosbee location x.
- */
+	/// @brief Test if key is held down.
+	///
+	/// @param key The ascii value of the key to be tested.
+	/// @return Returns true if key is down. Returns false if key is not down.
+	bool isKeyDown(int key);
 
-int virtualRosbee::getVirtualRosbeeLocationX() {
-	return this->virtualRosbeeLocationX;
-}
+	/// @brief Test if key is not held down.
+	///
+	/// @param key The ascii value of the key to be tested.
+	/// @return Returns true if key is not down. Returns false if key is down.
+	bool isKeyUp(int key);
+};
 
-/**
- * Function to return the virtualrosbee location y.
- * @return rosbeeLocationY
- */
-
-int virtualRosbee::getVirtualRosbeeLocationY() {
-    return virtualRosbeeLocationY;
-}
-
-/**
- * Function to set the virtualrosbee location x.
- */
-
-void virtualRosbee::setVirtualRosbeeLocationX(int x) {
-    virtualRosbeeLocationX = x + virtualRosbeeLocationX;
-}
-
-/**
- * Function to set the virtualrosbee location y.
- */
-
-void virtualRosbee::setVirtualRosbeeLocationY(int y) {
-    virtualRosbeeLocationY = y + virtualRosbeeLocationY;
-}
-
-/**
-* Function to move the virtualrosbee location x and y.
-*/
-
-void virtualRosbee::moveTo(int x, int y) {
-	
-	rActual->sendWaypoint(x,y);
-	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
-}
-
-
-
-
+#endif /* KEYBOARD_H_ */
