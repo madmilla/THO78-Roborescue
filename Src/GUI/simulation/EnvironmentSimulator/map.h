@@ -116,10 +116,15 @@ public:
     */
     int getMapObject(int y, int x);
     /*!
-     * saveMap saves the map to a file.
+     * saveMap saves the map to a .map file.
      * \brief Saves all the content of a map to a .map file.
     */
     void saveMap();
+    /*!
+     * savePcl saves the map to a .pcl file.
+     * \brief Saves all the content of a map to a .pcl file.
+    */
+    void savePcl();
     /*!
     remove a single point from the vector
     @param x: the x value of the point to be removed from the vector

@@ -65,6 +65,8 @@ public:
     static const int newMapMaxSize = 4000;
     //! Int containing the map step size.
     static const int newMapStepSize = 10;
+    //! Int containing the new map begin size.
+    static const int SCALETHRESHHOLD {500};
 };
 #endif // VALUES
 

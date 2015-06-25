@@ -64,6 +64,7 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
     setButtonPosition(*ui->circleButton, screenSize.width()-(screenSize.width()/10), ui->lineButton->y() + 30);
     setButtonPosition(*ui->rectangleButton, screenSize.width()-(screenSize.width()/10), ui->circleButton->y() + 30);
     setButtonPosition(*ui->saveMapButton, screenSize.width()-(screenSize.width()/10), screenSize.height() - screenSize.height()/10);
+    setButtonPosition(*ui->saveMapButton, screenSize.width()-(screenSize.width()/10), screenSize.height() - screenSize.height()/10);
 
     canvasScreenSize.setWidth(screenSize.width() - (screenSize.width()/8));
     canvasScreenSize.setHeight(screenSize.height());
@@ -298,12 +299,12 @@ Qt::GlobalColor EditMapWindow::getColorById(int id){
 
 void EditMapWindow::on_lineButton_clicked()
 {
-        selected = Values::LINE;
+    selected = Values::LINE;
 }
 
 void EditMapWindow::on_rectangleButton_clicked()
 {
-        selected = Values::RECTANGLE;
+    selected = Values::RECTANGLE;
 }
 
 void EditMapWindow::on_circleButton_clicked()
@@ -311,3 +312,8 @@ void EditMapWindow::on_circleButton_clicked()
     selected  = Values::CIRCLE;
 }
 
+
+void EditMapWindow::on_savePointcloudButton_clicked()
+{
+   map->savePcl();
+}

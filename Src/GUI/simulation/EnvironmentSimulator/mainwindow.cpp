@@ -60,10 +60,10 @@ void MainWindow::on_newMapButton_clicked(){
                                          QLineEdit::Normal,"map name", &ok);
     if(!ok) return;
     int height = QInputDialog::getInt(this, "Create map","Map height:",
-                                      newMapBeignSize,newMapMinSize,newMapMaxSize,newMapStepSize, &ok);
+                                      Values::newMapBeignSize,Values::newMapMinSize,Values::newMapMaxSize,Values::newMapStepSize, &ok);
     if(!ok) return;
     int width = QInputDialog::getInt(this, "Create map","Map height:",
-                                     newMapBeignSize,newMapMinSize,newMapMaxSize,newMapStepSize, &ok);
+                                     Values::newMapBeignSize,Values::newMapMinSize,Values::newMapMaxSize,Values::newMapStepSize, &ok);
 
     if (ok && !fileName.isEmpty()){
         map = new Map(fileName.toStdString() + ".map",height,width);
@@ -89,10 +89,10 @@ void MainWindow::load(QString fileName, char type){
             if(type == Values::EDIT){
                 map = new Map(fileName.toStdString());
 
-                if(map->width > SCALETHRESHHOLD || map->height > SCALETHRESHHOLD) {
-                    float devideValue = map->width / SCALETHRESHHOLD;
+                if(map->width > Values::SCALETHRESHHOLD || map->height > Values::SCALETHRESHHOLD) {
+                    float devideValue = map->width / Values::SCALETHRESHHOLD;
                     if(map->height > map->width) {
-                        devideValue = map->height / SCALETHRESHHOLD;
+                        devideValue = map->height / Values::SCALETHRESHHOLD;
                     }
                     map->width /= devideValue;
                     map->height /= devideValue;
@@ -120,10 +120,10 @@ void MainWindow::load(QString fileName, char type){
                 Pointcloud *pcl = new Pointcloud();
                 pcl->loadPointsFromFile(fileName.toStdString());
 
-                if(pcl->getCloudWidth() > SCALETHRESHHOLD || pcl->getCloudHeight() > SCALETHRESHHOLD) {
-                    float devideValue = pcl->getCloudWidth() / SCALETHRESHHOLD;
+                if(pcl->getCloudWidth() > Values::SCALETHRESHHOLD || pcl->getCloudHeight() > Values::SCALETHRESHHOLD) {
+                    float devideValue = pcl->getCloudWidth() / Values::SCALETHRESHHOLD;
                     if(pcl->getCloudHeight() > pcl->getCloudWidth()) {
-                        devideValue = pcl->getCloudHeight() / SCALETHRESHHOLD;
+                        devideValue = pcl->getCloudHeight() / Values::SCALETHRESHHOLD;
                     }
                     for(auto & p : *pcl->getPoints()) {
                         p.X /= devideValue;

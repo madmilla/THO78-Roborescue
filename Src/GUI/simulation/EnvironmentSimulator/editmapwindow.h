@@ -81,6 +81,8 @@ private slots:
 	//! Used when the circle button gets clicked
     void on_circleButton_clicked();
 
+    void on_savePointcloudButton_clicked();
+
 private:
 	//! Draws a line when dragged and dropped
     void drawLine(QPoint begin, QPoint end);

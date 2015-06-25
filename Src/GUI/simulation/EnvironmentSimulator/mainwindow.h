@@ -87,16 +87,6 @@ private:
     Map *map = 0;
     //! Editmapwindow for opening the editMapWindow.
     EditMapWindow* editMapWindow;
-    //! Int containing the new map begin size.
-    static const int newMapBeignSize = 100;
-    //! Int containing minimal map size.
-    static const int newMapMinSize = 10;
-    //! Int containing maximal map size.
-    static const int newMapMaxSize = 8000;
-    //! Int containing the map step size.
-    static const int newMapStepSize = 2;
-    //! Pointcloud scale threshhold
-    const int SCALETHRESHHOLD {500};
 };
 
 #endif // MAINWINDOW_H

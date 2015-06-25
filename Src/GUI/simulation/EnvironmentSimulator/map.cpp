@@ -1,4 +1,4 @@
- /**
+/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -259,6 +259,18 @@ void Map::saveMap(){
         mapFile << obj.X << ':' << obj.Y << ':' << obj.id << '\n';
     }
     mapFile.close();
+}
+
+void Map::savePcl(){
+    std::sort( mapLayout.begin(), mapLayout.end() );
+    mapLayout.erase( std::unique( mapLayout.begin(), mapLayout.end() ), mapLayout.end() );
+
+    Pointcloud pC;
+
+    for(Map::Object obj : mapLayout){
+        pC.setPoint(obj.X, obj.Y);
+    }
+    pC.savePointsToFile(fileName + ".pcl");
 }
 
 void Map::createNewMap(std::string fileName){
