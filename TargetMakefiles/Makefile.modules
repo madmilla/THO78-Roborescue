@@ -16,12 +16,12 @@ ROSBEE_GUI_MODULE 				= Src/GUI/mission-gui/rosbee-gui/
 LIDAR_GUI_MODULE 				= Src/GUI/mission-gui/lidar-gui/
 MAP_GUI_MODULE 					= Src/GUI/mission-gui/map-gui/
 
-#STRATEGY_CONTROLLER_MODULE			= Src/Controllers/StrategyController/
-#STRATEGY_COMMON_MODULE			= Src/Strategy/Common/
-#STRATEGY_VSLAM_MODULE			= Src/Strategy/pathfinding/VSLAM/
-#STRATEGY_AREACOVERAGE_MODULE			= Src/Strategy/pathfinding/AreaCoverage/
-#STRATEGY_ASTAR_MODULE			= Src/Strategy/pathfinding/AStar/
-#STRATEGY_TINYASTAR_MODULE			= Src/Strategy/pathfinding/Stop-them-spaces/
+STRATEGY_CONTROLLER_MODULE			= Src/Controllers/StrategyController/
+STRATEGY_COMMON_MODULE			= Src/Strategy/Common/
+STRATEGY_VSLAM_MODULE			= Src/Strategy/pathfinding/VSLAM/
+STRATEGY_AREACOVERAGE_MODULE			= Src/Strategy/pathfinding/AreaCoverage/
+STRATEGY_ASTAR_MODULE			= Src/Strategy/pathfinding/AStar/
+STRATEGY_TINYASTAR_MODULE			= Src/Strategy/pathfinding/Stop-them-spaces/
 
 ENVIRONMENTSIMULATOR_GUI_MODULE = Src/GUI/simulation/environment_test/
 
@@ -53,8 +53,8 @@ ENVIRONMENTSIMULATOR_MODULE		= Src/Modules/Environmentsimulator/
 
 #MAP
 
-#MAP_STRUCTURE_MODULE			= Src/Map/MapStructure/
-#MAP_COMMON_MODULE				= Src/Map/
+MAP_STRUCTURE_MODULE			= Src/Map/MapStructure/
+MAP_COMMON_MODULE				= Src/Map/
 
 
 #DATABASECONNECTOR

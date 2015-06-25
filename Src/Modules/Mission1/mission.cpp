@@ -29,12 +29,12 @@ int main(int argc, char *argv[])
     VirtualATV atv(Dimension(1,1),1,1);
     virtualLidar lidar;
     Map map;
-    StrategyController controller(map,copter,bee,lidar);
-    controller.scanArea();
+//    StrategyController controller(map,copter,bee,lidar);
+  //  controller.scanArea();
     std::cout << "Scan Area Done";
     getchar();
-    controller.searchArea();
-    controller.movePairwise();
+    //controller.searchArea();
+    //controller.movePairwise();
     QApplication app(argc, argv);
     MainWindow w{q, a};
     w.show();
