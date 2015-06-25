@@ -8,6 +8,23 @@
 
 #include "databaseconnector.h"
 
+//FIX FOR MINGW
+//#ifdef __MINGW32_
+#include <sstream>
+    namespace std
+    {
+        template < typename T > std::string to_string( const T& n )
+        {
+            std::ostringstream stm ;
+            stm << n ;
+            return stm.str() ;
+        }
+
+        int stoi(const std::string a){
+            return atoi(a.c_str());
+        }
+    }
+//#endif
 databaseConnector::databaseConnector( std::string hostname,std::string username, std::string password, std::string schema ) {
     std::cout << "opening database" << std::endl;
     db = QSqlDatabase::addDatabase("QMYSQL","connection");
@@ -17,7 +34,7 @@ databaseConnector::databaseConnector( std::string hostname,std::string username,
     db.setPassword(QString::fromStdString(password));
     db.open();
     if(db.isOpenError()){
-        throw std::exception(db.lastError().text().toStdString().c_str());
+        std::cout << "ERROR opening db/n" << db.lastError().text().toStdString();
     }
 }
 
@@ -277,18 +294,18 @@ point databaseConnector::pointParser( const std::string& pointString ) {
     return point ( x,y );
 }
 
-void databaseConnector::setQRCode(const std::string& value, int x, int y) {
-    QSqlQuery query = QSqlQuery(db);
-    query.exec( QString::fromStdString("INSERT INTO `qr` (`x`, `y`) VALUES (" + std::to_string(x) + ", " + std::to_string(y) + ")" ));
+// void databaseConnector::setQRCode(const std::string& value, int x, int y) {
+//     QSqlQuery query = QSqlQuery(db);
+//     query.exec( QString::fromStdString("INSERT INTO `qr` (`x`, `y`) VALUES (" + std::to_string(x) + ", " + std::to_string(y) + ")" ));
 
-}
+// }
 
-void databaseConnector::setQRCode(QRCode& code) {
-    QSqlQuery query = QSqlQuery(db);
-    query.exec(QString::fromStdString( "INSERT INTO `qr` (`x`, `y`) VALUES (" + std::to_string(code.getX()) + ", " + std::to_string(code.getY()) + ")" ));
+// void databaseConnector::setQRCode(QRCode& code) {
+//     QSqlQuery query = QSqlQuery(db);
+//     query.exec(QString::fromStdString( "INSERT INTO `qr` (`x`, `y`) VALUES (" + std::to_string(code.getX()) + ", " + std::to_string(code.getY()) + ")" ));
 
-}
+// }
 
-QRCode databaseConnector::getQRCode(const std::string& value) {
-    return QRCode();
-}
+// QRCode databaseConnector::getQRCode(const std::string& value) {
+//     return QRCode();
+// }

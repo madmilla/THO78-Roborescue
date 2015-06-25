@@ -6,15 +6,16 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Socket
-* @date Created: 27-5-2015
+* @file MainWindow.cpp
+* @date Created: 08-04-2015
+* @version 1.0
 *
-* @author Hamza ait Messaoud
+* @author Danny Horvath, Thomas Fink
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright � 2015, HU University of Applied Sciences Utrecht.
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,58 +35,68 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef UPDCLIENT_H_
-#define UPDCLIENT_H_
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
-#include <thread>
-#include <stdio.h>
-#include <stdlib.h>
+#include <QMainWindow>
+#include <QtCore>
+#include <QFileDialog>
+#include <QMessageBox>
 #include <iostream>
-#include "PracticalSocket.h"
-#include "mavlink.h"
-#include <queue>
+#include <QInputDialog>
+#include "map.h"
+#include "editmapwindow.h"
+#include "simulatemapwindow.h"
+#include "values.h"
+#include "PointCloud.h"
 
-#include "BaseRobot.h"
+namespace Ui {
+class MainWindow;
+}
 
-//! \author@ Hamza ait Messaoud<hamza.aitmessaoud@student.hu.nl>
-//! \class@ UDPClient
-//! \brief This class is used to make a connection with the server and to sends and receives data.
-class UDPClient
+class MainWindow : public QMainWindow
 {
+    Q_OBJECT
+
 public:
-	//! \brief Default constructor
-	UDPClient();
-	//! \brief Default deconstructor
-	~UDPClient();
+    /*!
+    *   Default constructor of mainWindow.
+    *   \brief Default constructor of mainWindow.
+    */
+    explicit MainWindow(QWidget *parent = 0);
+    /*!
+    *   Default destructor of mainWindow.
+    *   \brief Default destructor of mainWindow.
+    */
+    ~MainWindow();
 
-	//! \brief Send a message to a the server.
-	//! \param[message]
-	int send(mavlink_message_t message);
-	
-	//! \brief recvieve messages from the server
-	void receive();
-
-	//! \brief stops the udpServer thread
-	void stop();
-
-	//! \brief set the BaseRobot for handeling messages
-	void setBaseRobot(BaseRobot * sl){baseRobot = sl;};
+private slots:
+    //! Used when the NewMap button gets clicked
+    void on_newMapButton_clicked();
+    //! Used when the editMap button gets clicked
+    void on_editMapButton_clicked();
+    //! Used when the Simulate button gets clicked
+    void on_simulateButton_clicked();
 
 private:
-	//! \brief Bind the socket
-	void sockbind();
-	//! \brief Start the socket
-	void start();
-	//! \brief Check the connection status
-	void checkConnectionStatus();
-
-	std::thread * connectionThread;
-	bool stopped;
-	UDPSocket sock;
-	SocketAddress remoteadr;
-	BaseRobot * baseRobot;
-	std::queue<mavlink_message_t> * robotMessages;
-
+    //! Load the correct window.
+    void load(QString fileName, char type);
+    //! Ui pointer for use with QT.
+    Ui::MainWindow *ui;
+    //! Map pointer containing map information.
+    Map *map = 0;
+    //! Editmapwindow for opening the editMapWindow.
+    EditMapWindow* editMapWindow;
+    //! Int containing the new map begin size.
+    static const int newMapBeignSize = 100;
+    //! Int containing minimal map size.
+    static const int newMapMinSize = 10;
+    //! Int containing maximal map size.
+    static const int newMapMaxSize = 8000;
+    //! Int containing the map step size.
+    static const int newMapStepSize = 2;
+    //! Pointcloud scale threshhold
+    const int SCALETHRESHHOLD {500};
 };
 
-#endif //UPDCLIENT_H_
+#endif // MAINWINDOW_H

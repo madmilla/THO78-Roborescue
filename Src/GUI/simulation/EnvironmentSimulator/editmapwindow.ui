@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EditMapWindow</class>
+ <widget class="QDialog" name="EditMapWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
+  </property>
+  <widget class="QPushButton" name="saveMapButton">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>520</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save Map</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="obstacleButton">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>40</y>
+     <width>102</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Obstacle</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="noneButton">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>70</y>
+     <width>102</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>None</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="childWidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>451</width>
+     <height>301</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
