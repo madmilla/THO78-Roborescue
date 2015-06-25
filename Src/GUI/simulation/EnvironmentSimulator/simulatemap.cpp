@@ -205,6 +205,7 @@ SimulateMap::~SimulateMap()
     map = NULL;
 }
 
+
 Pointcloud SimulateMap::addNoise(Pointcloud pc){
     Pointcloud pNC;
     for(Pointcloud::Point p : *pc.getPoints()){
@@ -219,19 +220,20 @@ Pointcloud SimulateMap::addNoise(Pointcloud pc){
         int pCy = pNC.getPoints()->at(i).Y;
         int distanceX = (pCx - cPx)^2;
         int distanceY = (pCy - cPy)^2;
-
+        //based on < 1% accuracy of the distance, in mm
         double distance = sqrt(distanceX - distanceY);
+
         if(distance > (Values::NOISETHRESHOLD/10)){
-            //std::cout << "Point distance: " << distance << "\n";
-            int intDistance = static_cast<int>(distance * 10);
-            int randomXValue = (rand()% (intDistance * 2)) - intDistance;
-            int randomYValue = (rand()% (intDistance * 2)) - intDistance;
-            randomXValue = randomXValue / 10;
-            randomYValue = randomYValue / 10;
-            //std::cout << "Random distance: " << randomXValue <<" , " <<  randomYValue <<"\n";
+            //std::cout << "Point distance: " << distance << "\n"
+            int randomXValue = (rand()% 100) - 50;
+            int randomYValue = (rand()% 100) - 50;
+
+            std::cout << "Random distance: " << randomXValue <<" , " <<  randomYValue <<"\n";
+
+
             Pointcloud::Point newPosition =  pNC.getPoints()->at(i);
-            newPosition.X += randomXValue;
-            newPosition.Y += randomYValue;
+            newPosition.X = newPosition.X*(1+(randomXValue/10000));
+            newPosition.Y = newPosition.Y*(1+(randomYValue/10000));
             pNC.getPoints()->at(i) = newPosition;
         }
     }
