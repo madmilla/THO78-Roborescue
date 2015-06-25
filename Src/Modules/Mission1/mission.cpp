@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
     MAVLinkExchanger exch{ p };
     Quadcopter q{ exch };
     ATV a{ exch };
-    while(robotmanager.getRobots<Rosbee>().size()==0){}
+	/*
+	while(robotmanager.getRobots<Rosbee>().size()==0){}
     Rosbee* rosbee =robotmanager.getRobot<Rosbee>(0);
 
     //while(robotmanager.getRobots<Quadcopter>().size()==0){}
@@ -36,15 +37,15 @@ int main(int argc, char *argv[])
     VirtualATV atv(Dimension(1,1),1,1);
     virtualLidar lidar(actualLidar);
     Map map;
-    
+	*/
     
     QApplication app(argc, argv);
-    MainWindow w{server, q, a};
+    MainWindow w{robotmanager, server, q, a};
     w.show();
     //databaseConnector dbc("127.0.0.1","root","desktop","robodata");
   //  std::cout << dbc.getMaps().at(0).name;
 	app.exec();
-
+	/*
 	std::cout << "Nu strategy";
 	getchar();
 	StrategyController controller(map, copter, bee, lidar);
@@ -53,5 +54,5 @@ int main(int argc, char *argv[])
 	getchar();
 	controller.searchArea();
 	controller.movePairwise();
-	return 1;
+	*/return 1;
 }

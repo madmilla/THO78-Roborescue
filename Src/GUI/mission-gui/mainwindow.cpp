@@ -7,12 +7,13 @@
 
 //#include "mapwindow.h"
 
-MainWindow::MainWindow(UDPServer & server,Quadcopter &quadcopter, ATV & atv, QWidget *parent):
+MainWindow::MainWindow(RobotManager & manager, UDPServer & server,Quadcopter &quadcopter, ATV & atv, QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     atv(atv),
     quad(quadcopter),
-	server(server)
+	server(server),
+  robotManager(manager)
 {
     ui->setupUi(this);
     connect(ui->QuadButton  , SIGNAL(clicked()), this, SLOT(handleButton()));

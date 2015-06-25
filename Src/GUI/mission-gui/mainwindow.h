@@ -75,7 +75,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(UDPServer & server, Quadcopter & quadcopter, ATV & atv, QWidget *parent = 0);
+    explicit MainWindow(RobotManager & manager, UDPServer & server, Quadcopter & quadcopter, ATV & atv, QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
@@ -97,7 +97,7 @@ private:
     //lidar & l;
     ATV & atv;
     Quadcopter & quad;
-    RobotManager robotManager;
+    RobotManager & robotManager;
     UDPServer & server;
     void checkZombies();
 };
