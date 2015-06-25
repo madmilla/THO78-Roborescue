@@ -16,12 +16,12 @@ ROSBEE_GUI_MODULE 				= Src/GUI/mission-gui/rosbee-gui/
 LIDAR_GUI_MODULE 				= Src/GUI/mission-gui/lidar-gui/
 MAP_GUI_MODULE 					= Src/GUI/mission-gui/map-gui/
 
-#STRATEGY_CONTROLLER_MODULE			= Src/Controllers/StrategyController/
-#STRATEGY_COMMON_MODULE			= Src/Strategy/Common/
-#STRATEGY_VSLAM_MODULE			= Src/Strategy/pathfinding/VSLAM/
-#STRATEGY_AREACOVERAGE_MODULE			= Src/Strategy/pathfinding/AreaCoverage/
-#STRATEGY_ASTAR_MODULE			= Src/Strategy/pathfinding/AStar/
-#STRATEGY_TINYASTAR_MODULE			= Src/Strategy/pathfinding/Stop-them-spaces/
+STRATEGY_CONTROLLER_MODULE		= Src/Controllers/StrategyController/
+STRATEGY_COMMON_MODULE			= Src/Strategy/Common/
+STRATEGY_VSLAM_MODULE			= Src/Strategy/pathfinding/VSLAM/
+STRATEGY_AREACOVERAGE_MODULE	= Src/Strategy/pathfinding/AreaCoverage/
+STRATEGY_ASTAR_MODULE			= Src/Strategy/pathfinding/AStar/
+STRATEGY_TINYASTAR_MODULE		= Src/Strategy/pathfinding/Stop-them-spaces/
 
 ENVIRONMENTSIMULATOR_GUI_MODULE = Src/GUI/simulation/environment_test/
 
@@ -36,6 +36,7 @@ PROPELLOR_SIRC_MODULE			= Src/Sensors/Propellor-SIRC/
 PROPELLOR_TEMPERATURE_MODULE 	= Src/Sensors/Propellor-TemperatureSensor/
 PROPELLOR_ULTRASONIC_MODULE		= Src/Sensors/Propellor-UltrasonicSensor/
 LIDAR_BASESTATION_MODULE		= Src/Sensors/lidar/LIDAR-Basestation/
+LIDAR_RASPI_MODULE				= Src/Sensors/lidar/LIDAR-RasPi/
 PX4FLOW_MODULE 					= Src/Sensors/PX4Flow/
 INTERFACES_MODULE 				= Src/Sensors/Interfaces/
 LOCALISATION_SERVER				= Src/Sensors/Localisation-Module/Localisation_Server/
@@ -44,19 +45,15 @@ LOCALISATION_SERVER				= Src/Sensors/Localisation-Module/Localisation_Server/
 MAVLINK_EXCHANGER_MODULE		= Src/Communication/MavlinkExchanger/
 SERIAL_PORT_MODULE				= Src/Communication/SerialPort/
 UDP_MODULE						= Src/Communication/udp/
-UDP_LINUX_MODULE				= Src/Communication/udp/Linux-UDP/
+UDP_LINUX_MODULE				= Src/Communication/udp/Linux-UDP/Client/UDP_Clientv1.2/
+DATABASECONNECTOR_MODULE		= Src/Communication/Persistant-Storage/
 
 #MODULES
 MISSION1_MODULE					= Src/Modules/Mission1/
 LOCALISATION_MODULE_MODULE		= Src/Modules/Localisationmodule/
 ENVIRONMENTSIMULATOR_MODULE		= Src/Modules/Environmentsimulator/
+LIDAR_MODULE					= Src/Modules/Lidar/
 
 #MAP
-
-#MAP_STRUCTURE_MODULE			= Src/Map/MapStructure/
-#MAP_COMMON_MODULE				= Src/Map/
-
-
-#DATABASECONNECTOR
-#DATABASECONNECTOR_MODULE		= Src/Communication/Persistant-Storage/
-
+MAP_STRUCTURE_MODULE			= Src/Map/MapStructure/
+MAP_COMMON_MODULE				= Src/Map/

@@ -52,7 +52,9 @@ Lidar::Lidar(const char *opt_com_path):
     opt_com_path(opt_com_path),
     opt_com_baudrate(115200), 	// Default baudrate of 115200 is recommended
     drv(RPlidarDriver::CreateDriver(RPlidarDriver::DRIVER_TYPE_SERIALPORT))
-{}
+{
+	connectDriversLidar();
+}
 
 void Lidar::connectDriversLidar()
 {

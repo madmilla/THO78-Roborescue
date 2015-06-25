@@ -28,27 +28,77 @@ const int TARGET_MARKER_ID = 954;
 
 void handlePX4Flow()
 {
+	unsigned char attempts = 10;
 	while(1)
 	{
-		std::this_thread::sleep_for (std::chrono::seconds(3));
+		attempts --;
+		std::this_thread::sleep_for (std::chrono::milliseconds(500));
+		//std::cout << 1;
+		flowWrapper.setHeading(90);
+		while (attempts <= 0 || (!flowWrapper.isImageRequested() && !flowWrapper.isImageReady())){
+			if (attempts <= 0){
+				std::cout << "rip\n";
+			}
+		std::cout << 2;
+			mavlink_message_t* msg = flowWrapper.requestImage();
+				
+			if (msg != nullptr){
+				std::cout << "Sending message\n";
+				attempts = 10;
+				PrioritisedMAVLinkMessage message(*msg);
+				exchanger.enqueueMessage(message);
+			}
+		}
+		//std::cout << 3;
+		if (flowWrapper.isImageReady()){
+		std::cout << 4;
+			cv::Mat* img = flowWrapper.getImage();
+			if(img != nullptr)
+			{
+				attempts = 10;
+				std::cout << 5;
+				int detectedId = PX4FlowDetector->getIdFromImage(img);
+				if(detectedId == TARGET_MARKER_ID)
+				{				
+					std::string message = 'V' + std::to_string(detectedId);				
+					std::cout << message <<std::endl;
+					server.broadcast(message);
+				}
+			}
+		}
+		//std::cout << 6 << '\n';
+		/*std::cout << "1";
+		std::this_thread::sleep_for (std::chrono::seconds(0));
 		//std::cout << "Request message\n";
 		flowWrapper.setHeading(90);
 		mavlink_message_t* msg = flowWrapper.requestImage();
+		std::cout << "2";
 		if (msg != nullptr){
+			std::cout << "Sending message\n";
 			PrioritisedMAVLinkMessage message(*msg);
 			exchanger.enqueueMessage(message);
 		}
+		std::cout << "3";
 		delete msg;
-		cimg_library::CImg<unsigned char>* img = nullptr;
-		while (img == nullptr){
+		cv::Mat* img = nullptr;
+		unsigned char attempts = 255;
+		std::cout << "4";
+		while (img == nullptr && attempts){
+			attempts --;
+			if (!flowWrapper.isImageRequested()){
+				std::cout << "!flowWrapper.isImageRequested() ; break\n";
+				break;
+			}
 			img = flowWrapper.getImage();
 		}
-		img->save("image.BMP");		
-		std::this_thread::sleep_for (std::chrono::seconds(1));
+		std::cout << "5";
+		//img->save("image.BMP");		
+		std::this_thread::sleep_for (std::chrono::seconds(0));
 
-		if(img->size())
+		std::cout << "6";
+		if(img != nullptr)
 		{
-			int detectedId = PX4FlowDetector->getIdFromImage("image.BMP");
+			int detectedId = PX4FlowDetector->getIdFromImage(img);
 			if(detectedId == TARGET_MARKER_ID)
 			{				
 				std::string message = 'V' + std::to_string(detectedId);				
@@ -56,14 +106,15 @@ void handlePX4Flow()
 				server.broadcast(message);
 			}
 		}
+		std::cout << "7\n";
 		
-		delete img;
+		delete img;*/
 		
 		
 		//std::cout << "end of loop, back to start.\n";
-		std::cout 
+		/*std::cout 
 			<< "FlowX: " << flowWrapper.getX() 
-			<< " \nFlowY: " << flowWrapper.getY() <<std::endl;
+			<< " \nFlowY: " << flowWrapper.getY() <<std::endl;*/
 	}
 }
 
@@ -128,26 +179,8 @@ int main(int argc, char *argv[])
 			std::string message = 
 				'X' + std::to_string(flowWrapper.getX()) +
 				'Y' + std::to_string(flowWrapper.getY());
-			std::cout << message <<std::endl;
-			server.broadcast(message);
-			
-			/*char c;
-			std::cin >> c;
-			if(c == 'v')
-			{
-				int detectedId = 954;
-				std::string message = 'V' + std::to_string(detectedId);				
-				std::cout << message <<std::endl;
-				server.broadcast(message);
-			}
-			else if (c=='l')
-			{
-			
-				Coordinate<int> currentCoordinate = Coordinate<int>{32,75};
-				std::string message = 'X' + std::to_string(currentCoordinate.getX()) + 'Y' + std::to_string(108-currentCoordinate.getY());		
-				std::cout << message <<std::endl;
-				server.broadcast(message);
-			}*/
+			//std::cout << message <<std::endl;
+			//server.broadcast(message);
 		}
 	}};
 	mavLinkThread.detach();

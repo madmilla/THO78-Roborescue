@@ -9,7 +9,7 @@
 #include "polygon.h"
 #include "QuadCopter.h"
 #include "virtualRosbee.h"
-#include "VirtualATV.h"
+#include "virtualATV.h"
 #include "aStar.h"
 #include "MapImplementation.cpp"
 #include <cstdlib>
@@ -144,14 +144,14 @@ public:
 	//! \returns the virtualrosbee position
 	virtualRosbee* getRosbeePosition() { return rosbeePosition; }
 	//! \returns the atv position
-	ATV* getATVPosition() { return ATVPosition; }
+	//virtualATV* getATVPosition() { return ATVPosition; }
 	//! \returns the quadcopter position
 	//QuadCopter* getQuadCopterPositon() { return quadcopterPosition; }
 
 	//! Sets the virtualrosbee position
 	void setRosbeePosition(virtualRosbee* newPosition) { this->rosbeePosition = newPosition; }
 	//! Sets the atv position
-	void setATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
+	//void setATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
 	//! Sets the quadcopter position
 	//void setQuadCopterPositon(QuadCopter* newPosition) { this->quadcopterPosition = newPosition; }
 	void addvirtuallidarInput(int virtuallidarInputArray[]);
@@ -193,7 +193,7 @@ private:
 	void setNotReachable(point p);
 
 	virtualRosbee* rosbeePosition;
-	ATV* ATVPosition;
+	//virtualATV* ATVPosition;
 	//QuadCopter* quadcopterPosition;
 };
 
