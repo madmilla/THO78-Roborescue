@@ -10,7 +10,6 @@
 * @date Created: 27-5-2015
 *
 * @author Hamza ait Messaoud
-* @author Pawel Niewolik
 *
 * @section LICENSE
 * License: newBSD
@@ -38,13 +37,11 @@
 #ifndef BASEROBOT_H_
 #define BASEROBOT_H_
 
-
-#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
+#include "mavlink.h"
 #include <queue>
 
 
 //! \author@ Hamza ait Messaoud<hamza.aitmessaoud@student.hu.nl>
-//! \author@ Pawel Niewolik<pawel.niewolik@student.hu.nl>
 //! \class@ BaseRobot
 //! \brief the base class for a Robot, this has the virtual function which need to be overwritten by other Robots like Lidar or Rosbee
 class BaseRobot{
@@ -66,79 +63,46 @@ public:
 
 protected:
 
-	//! \brief The function sendRosbeeCommand pushes a message in the message Queue.
+	//! \brief The function sendCommand pushes a message in the message Queue.
 	//! This function can be used to send a message to the CPI.
-	//! \param[payload] The payload for a mavlink message
-	//! \param[dest] The destination for a mavlink message
-	//! \param[rcf] The function for a mavlink message
-	void sendRosbeeCommand(uint64_t payload, COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf){
-		messages.push(encodeRosbeeMessage(payload, dest, rcf ));
+	//! \param[payload] The payload for the mavlink message
+	//! \param[dest] The destination for the mavlink message
+	//! \param[rlcf] The function id for the mavlink message
+	template<typename T>
+	void sendCommand(mavlink_command_long_t payload, COMMAND_DESTINATION dest, T rlcf){
+		messages.push(encodeCommandLongMessage(payload, dest, rlcf ));
 	}
 
-	//! \brief The function sendLidarCommand pushes a message in the message Queue.
-	//! This function can be used to send a message to the CPI.
-	//! \param[payload] The payload for a mavlink message
-	//! \param[dest] The destination for a mavlink message
-	//! \param[rcf] The function for a mavlink message
-	void sendLidarCommand(int32_t * payload, COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS lcf){
-		messages.push(encodeLidarMessage(payload, dest, lcf ));
-	}
-
-	//! \brief The function encodeRosbeeMessage encodes an mavlink_rosbee_message_t to an mavlink_message_t
-	//! \param[payload] The payload for a mavlink message
-	//! \param[dest] The destination for a mavlink message
-	//! \param[rcf] The function for a mavlink message
+	//! \brief The function encodeCommandLongMessage encodes an mavlink_lidar_message_t to an mavlink_message_t
+	//! \param[payload] The payload for the mavlink message
+	//! \param[dest] The destination for the mavlink message
+	//! \param[rlcf] The function for the mavlink message
 	//! \Return@ Returns the encoded mavlink_message_t message
-	mavlink_message_t encodeRosbeeMessage(uint64_t payload, COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf){
+	template<typename T>
+	mavlink_message_t encodeCommandLongMessage(mavlink_command_long_t command, COMMAND_DESTINATION dest, T rlcf){
+
 		mavlink_message_t mavlinkMessage;
-		//mavlink_rosbee_message_t mavlinkRALCP{payload, dest, lcf};
-		mavlink_msg_rosbee_message_encode(systemID, COMMAND_DESTINATION::ROSBEE, &mavlinkMessage, &mavlink_rosbee_message_t{payload, dest, rcf});
+		command.command = rlcf;
+		command.target_system = dest;
+
+		mavlink_msg_command_long_encode(systemID, COMMAND_DESTINATION::LIDAR, &mavlinkMessage, &command);
 
 		return mavlinkMessage;
 	}
 
-	//! \brief The function encodeLidarMessage encodes an mavlink_lidar_message_t to an mavlink_message_t
-	//! \param[payload] The payload for a mavlink message
-	//! \param[dest] The destination for a mavlink message
-	//! \param[rcf] The function for a mavlink message
-	//! \Return@ Returns the encoded mavlink_message_t message
-	mavlink_message_t encodeLidarMessage(int32_t * payload, COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS lcf){
-
-		mavlink_message_t mavlinkMessage;
-		mavlink_lidar_message_t mavlinkRALCP;
-		for(int i=0; i< 6; i++){
-			mavlinkRALCP.Payload[i] = payload[i];
-		}
-
-		mavlinkRALCP.Destination = dest;
-		mavlinkRALCP.Function = lcf;
-		mavlink_msg_lidar_message_encode(systemID, COMMAND_DESTINATION::LIDAR, &mavlinkMessage, &mavlinkRALCP);
-
-		return mavlinkMessage;
-	}
-
-	//! \brief The function decodeRosbeeMessage decodes an mavlink_message_t to an mavlink_rosbee_message_t
-	//! param[mavlinkMessage] The message that needs to be decoded
-	//! \Return@ Returns the encoded mavlink_message_t message
-	mavlink_rosbee_message_t decodeRosbeeMessage(mavlink_message_t & mavlinkMessage){
-		mavlink_rosbee_message_t mavlinkRALCP;
-		mavlink_msg_rosbee_message_decode(&mavlinkMessage, &mavlinkRALCP);
-
-		return mavlinkRALCP;
-	}
-
-	//! \brief The function decodeLidarMessage decodes an mavlink_message_t to an mavlink_lidar_message_t
+	//! \brief The function decodeCommandLongMessage decodes an mavlink_message_t to an mavlink_command_long_t
 	//! param[mavlinkMessage] The message that needs to be decoded
 	//! \Return@ Returns the decoded mavlink_lidar_message_t message
-	mavlink_lidar_message_t decodeLidarMessage(mavlink_message_t & mavlinkMessage){
-		mavlink_lidar_message_t mavlinkRALCP;
-		mavlink_msg_lidar_message_decode(&mavlinkMessage, &mavlinkRALCP);
+	mavlink_command_long_t decodeCommandLongMessage(mavlink_message_t & mavlinkMessage){
+		mavlink_command_long_t mavlinkCommandLong;
+		mavlink_msg_command_long_decode(&mavlinkMessage, &mavlinkCommandLong);
 
-		return mavlinkRALCP;
+		return mavlinkCommandLong;
 	}
 
 	std::queue<mavlink_message_t> messages;
 	int systemID;
+	mavlink_command_long_t message;
 };
 
 #endif /* BASEROBOT_H_ */

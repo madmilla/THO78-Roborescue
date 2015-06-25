@@ -41,7 +41,7 @@
  * Constructor of virtualRosbee.
  */
 
-virtualRosbee::virtualRosbee(int x, int y,Rosbee actual):
+virtualRosbee::virtualRosbee(int x, int y,Rosbee* actual):
 rActual{actual}
 {
 	// Set x location.
@@ -49,6 +49,7 @@ rActual{actual}
 	// Set y location.
 	this->virtualRosbeeLocationY = y;
 }
+
 
 /**
  * Destructor of virtualRosbee.
@@ -96,6 +97,8 @@ void virtualRosbee::setVirtualRosbeeLocationY(int y) {
 */
 
 void virtualRosbee::moveTo(int x, int y) {
+	
+	rActual->sendWaypoint(x,y);
 	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
 }
 

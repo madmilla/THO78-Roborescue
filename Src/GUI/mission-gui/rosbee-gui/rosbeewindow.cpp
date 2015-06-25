@@ -16,35 +16,9 @@ RosbeeWindow::RosbeeWindow(Rosbee &rosbee, QWidget *parent) :
    connect(&   timer      , SIGNAL(timeout()), this, SLOT(timerTick()));
 
    timer.start(1000);
-
-   unsigned int result;// = rosbee.init();
-   QLabel * iRL = ui->initResultLabel;
-   if(result == 0){
-      iRL->setText("All OK");
-      QPalette palette = iRL->palette();
-      palette.setColor(iRL->foregroundRole(), Qt::green);
-      iRL->setPalette(palette);
-   }else{
-      QString errorComponents = "";
-      for(int i = 0; i < 32; i++){
-         if((result & (1 << i)) != 0){
-            if(errorComponents != ""){
-               errorComponents += QString(", ") + QString::number(i);
-            }else{
-               errorComponents += QString::number(i);
-            }
-         }
-      }
-
-      iRL->setText(tr("Component ids failed: ") + errorComponents);
-      QPalette palette = iRL->palette();
-      palette.setColor(iRL->foregroundRole(), Qt::red);
-      iRL->setPalette(palette);
-   }
 }
 
-RosbeeWindow::~RosbeeWindow()
-{
+RosbeeWindow::~RosbeeWindow(){
    delete ui;
 }
 
@@ -72,12 +46,15 @@ void RosbeeWindow::handleButton(){
 }
 
 void RosbeeWindow::SetMissionRunning(bool is_mission_running){
-   ui->startButton          ->setEnabled(!is_mission_running);
-   ui->abortButton          ->setEnabled( is_mission_running);
-   ui->stopButton           ->setEnabled( is_mission_running);
+   ui->startButton->setEnabled(!is_mission_running);
+   ui->abortButton->setEnabled( is_mission_running);
+   ui->stopButton ->setEnabled( is_mission_running);
 }
 
 void RosbeeWindow::timerTick(){
-   //ui->batteryBar->setValue(static_cast<int>(rosbee.batteryStatus()));
-   //ui->statusValueLabel->setText(QString::fromStdString(rosbee.getStatus()));
+   if(rosbee.isReady()){
+      ui->statusLabel->setText(tr("Ready"));
+   }else{
+      ui->statusLabel->setText(tr("Not ready"));
+   }
 }

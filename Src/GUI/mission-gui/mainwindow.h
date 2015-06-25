@@ -42,11 +42,13 @@
 *	OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 *	ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
+\
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QListWidgetItem>
 #include <vector>
 #include "Rosbee.h"
 #include "Lidar.h"
@@ -54,6 +56,9 @@
 #include "quadcopter.h"
 #include "RobotManager.h"
 #include "UDPServer.h"
+
+
+
 
 namespace Ui {
 class MainWindow;
@@ -77,6 +82,8 @@ private slots:
     void handleButton();
     void ScanforRosbee();
     void ScanforLidar();
+    void on_Rosbeelist_itemClicked(QListWidgetItem * item);
+    void on_Lidarlist_itemClicked(QListWidgetItem *item);
 
 private:
     QMainWindow * quadWindow;

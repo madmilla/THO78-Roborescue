@@ -195,7 +195,7 @@ std::vector<scanCoordinate> Lidar::convertToCoordinates(std::vector<scanDot> dat
     return tempData;
 }
 
-std::vector<Line> Lidar::start(){
+std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	ShapeDetector sD;
 	Pointcloud pCloud;
 	std::vector<scanDot> data = startSingleLidarScan();
@@ -213,11 +213,15 @@ std::vector<Line> Lidar::start(){
 
 	pCloud.savePointsToFile("pointcuefnef.pcl");
 	std::cout << "image maken";
-	const Mat & image = sD.createImage(pCloud, 10);
+	const Mat & image = sD.createImage(pCloud, SCALE);
 	std::cout << "image gemaakt";
 	std::vector<Line> lines = sD.searchLines(image);
 	std::cout << "lines detected";
 	sD.writeLinesToConsole(lines);
+
+	for (auto l : lines){
+		l.setLine(Line::Point((l.getLine().beginPoint.x * SCALE) - pCloud.getMinValues().x, (l.getLine().beginPoint.y * SCALE) - pCloud.getMinValues().y), Line::Point((l.getLine().endPoint.x * SCALE) - pCloud.getMinValues().x, (l.getLine().endPoint.y * SCALE) - pCloud.getMinValues().y));
+	}
 
 	return lines;
 }

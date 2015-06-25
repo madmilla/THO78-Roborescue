@@ -4,9 +4,10 @@
 #include "atvwindow.h"
 #include "rosbeewindow.h"
 #include "lidarwindow.h"
+
 //#include "mapwindow.h"
 
-MainWindow::MainWindow(Quadcopter &quadcopter, ATV & atv, QWidget *parent) :
+MainWindow::MainWindow(Quadcopter &quadcopter, ATV & atv, QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     atv(atv),
@@ -24,6 +25,7 @@ MainWindow::MainWindow(Quadcopter &quadcopter, ATV & atv, QWidget *parent) :
     atvWindow = nullptr;
     MainWindow::ScanforRosbee();
     MainWindow::ScanforLidar();
+    //ui->Rosbeelist->addItem(new QListWidgetItem(QString("test1")));
 }
 
 MainWindow::~MainWindow(){
@@ -81,16 +83,59 @@ void MainWindow::handleButton(){
    checkZombies();
 }
 
+void MainWindow::on_Rosbeelist_itemClicked(QListWidgetItem * item){
+    for(auto * robots : robotManager.getRobots<Rosbee>()){
+        if(item->text()== "Rosbee "+QString::number(robots->getId())){
+            QMainWindow * rosbeewindow = new RosbeeWindow(*robots,this);
+            rosbeewindow->show();
+            rosbeewindow->setWindowTitle(item->text());
+            break;
+        }
+    }
+}
+
+void MainWindow::on_Lidarlist_itemClicked(QListWidgetItem *item){
+    for(auto * robots : robotManager.getRobots<Lidar>()){
+        if(item->text() == "Lidar "+QString::number(robots->getId())){
+            QMainWindow * lidarwindow = new LidarWindow(*robots,this);
+            lidarwindow->setWindowTitle(item->text());
+            lidarwindow->show();
+            break;
+        }
+    }
+}
 
 void MainWindow::ScanforRosbee(){
+    std::cout<< robotManager.getRobots<Rosbee>().size();
     for(auto * robots : robotManager.getRobots<Rosbee>()){
-        ui->Rosbeelist->addItem(new QListWidgetItem(QString(robots->getId())));
+        bool found = false;
+        for(int row = 0; row <ui->Rosbeelist->count();row++ ){
+            if (ui->Rosbeelist->item(row)->text() == "Rosbee "+QString::number(robots->getId())){
+                found = true;
+                break;
+            }
+        }
+         if(!found){
+            ui->Rosbeelist->addItem(new QListWidgetItem("Rosbee "+QString::number((robots->getId()))));
+        }
     }
 }
 
 void MainWindow::ScanforLidar(){
     for(auto * robots : robotManager.getRobots<Lidar>()){
-        ui->Lidarlist->addItem(new QListWidgetItem(QString(robots->getId())));
+        bool found = false;
+        for(int row = 0; row <ui->Lidarlist->count();row++ ){
+            if (ui->Lidarlist->item(row)->text() == "Lidar "+QString::number(robots->getId())){
+                found = true;
+                break;
+            }
+        }
+         if(!found){
+            ui->Lidarlist->addItem(new QListWidgetItem("Lidar "+QString::number((robots->getId()))));
+        }
     }
 }
+
+
+
 

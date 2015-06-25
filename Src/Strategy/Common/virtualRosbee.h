@@ -51,7 +51,8 @@ public:
 	* @param	int x
 	* @param	int y
 	*/
-	virtualRosbee(int x, int y, Rosbee actual);
+        
+	virtualRosbee(int x, int y, Rosbee* actual);
 	/**
 	* @fn	~virtualRosbee();
 	*
@@ -96,7 +97,7 @@ public:
 	*/
 	void moveTo(int x, int y);
 private:
-	Rosbee rActual;
+	Rosbee *rActual;
 	/**
 	* @brief int rosbeeLocationX variable to save virtualrosbee location x.
 	*/

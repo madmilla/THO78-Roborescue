@@ -101,6 +101,9 @@
       <height>192</height>
      </rect>
     </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+    </property>
    </widget>
    <widget class="QListWidget" name="Lidarlist">
     <property name="geometry">
