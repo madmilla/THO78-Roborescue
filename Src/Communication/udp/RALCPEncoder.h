@@ -52,6 +52,9 @@ class RALCPEncoder{
 public:
 	RALCPEncoder(CPISocket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
 
+
+	//\brief sets up an packet for and sends it to the socket
+	//\param group of messages for an command
 	template <typename ... Args>
 	void send(Args ...args){
 		packet = mavlink_command_long_t{std::forward<Args>(args) ...};
