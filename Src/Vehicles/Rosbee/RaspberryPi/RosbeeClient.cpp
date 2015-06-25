@@ -43,7 +43,7 @@
 RosbeeClient::RosbeeClient(const std::string &serverAddress, unsigned short serverPort):
 serverAddr{serverAddress.c_str(),serverPort, SocketAddress::UDP_SOCKET}
 {}
-
+/*
 void RosbeeClient::waitReceiveMessage(unsigned char &function, unsigned long long &payload){
 	//Raw mavlink message.
 	mavlink_message_t message;
@@ -61,20 +61,44 @@ void RosbeeClient::waitReceiveMessage(unsigned char &function, unsigned long lon
 	//Get the payload from the packet and store it on the address form the parameter.
 	payload = packet.Payload;
 }
+*/
+//void RosbeeClient::waitReceiveMessage(unsigned char &function, unsigned long long &payload){
 
-void RosbeeClient::sendMessage(unsigned char function, unsigned long long payload){
-	//Raw mavlink message.
-	mavlink_message_t message;
-	//Decoded mavlink message.
-	mavlink_ralcp_t packet;
-	//Set the destination, this will always be the same.
-	packet.Destination = COMMAND_DESTINATION::ROSBEE;
-	//Set the function.
-	packet.Function = function;
-	//Set the payload.
-	packet.Payload = payload;
-	//Encode the packet the a raw mavlink message.
-	mavlink_msg_ralcp_encode(COMMAND_DESTINATION::ROSBEE, COMMAND_DESTINATION::ROSBEE, &message, &packet);
-	//Send the message over UDP.
-	sock.sendTo(&message, sizeof(message), serverAddr);
+void RosbeeClient::waitReceiveMessage(mavlink_msg_command_long_t &packet){
+		mavlink_message_t message;
+		SocketAddress remote_addr;
+		
+		sock.recvFrom(&message, sizeof(message), remote_addr);
+		mavlink_msg_command_long_decode(&message, &packet);
 }
+
+
+void RosbeeClient::sendInit(float x, float y, float angle){
+	sendMessage(x,y,angle,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::INIT, COMMAND_DESTINATION::ROSBEE, 0,0);
+}
+
+void RosbeeClient::requestWaypoint(float x, float y, float angle, float status){
+	sendMessage(x,y,angle,status,0,0,0,ROSBEE_COMMAND_FUNCTIONS::AWKNOWLEDGE,, COMMAND_DESTINATION::ROSBEE,0,0);
+}
+
+void RosbeeClient::sendMessage(unsigned char function, float data[7]){
+	sendMessage(data[0], data[1], data[2], data[3], data[4], data[5],data[6], function, COMMAND_DESTINATION::ROSBEE,0,0);
+}
+
+
+// void RosbeeClient::sendMessage(unsigned char function, unsigned long long payload){
+// 	//Raw mavlink message.
+// 	mavlink_message_t message;
+// 	//Decoded mavlink message.
+// 	mavlink_command_long_t packet;
+// 	//Set the destination, this will always be the same.
+// 	packet.Destination = COMMAND_DESTINATION::ROSBEE;
+// 	//Set the function.
+// 	packet.Function = function;
+// 	//Set the payload.
+// 	packet.Payload = payload;
+// 	//Encode the packet the a raw mavlink message.
+// 	mavlink_msg_ralcp_encode(COMMAND_DESTINATION::ROSBEE, COMMAND_DESTINATION::ROSBEE, &message, &packet);
+// 	//Send the message over UDP.
+// 	sock.sendTo(&message, sizeof(message), serverAddr);
+// }

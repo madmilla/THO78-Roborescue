@@ -72,6 +72,20 @@ public:
 	/// @param function Function ID that will be included in the Mavlink message.
 	/// @param payload Payload that will be included in the Mavlink message.
 	void sendMessage(unsigned char function, unsigned long long payload);
+
+	void sendInit(float x, float y, float angle);
+
+	void sendMessage(unsigned char function, float data[7]);
+	
+	void requestWaypoint(float x, float y, float angle, float status);
+
+	template<typename ... Args>
+	void sendMessage(Args ... args){
+		mavlink_message_t message;
+		packet = mavlink_command_long_t{std::forward<Args>(args) ...};
+		mavlink_msg_command_long_encode(COMMAND_DESTINATION::ROSBEE, COMMAND_DESTINATION::ROSBEE, &message, &packet);
+		sock.sendTo(&message, sizeof(message), serverAddr);
+	}
 };
 
 #endif // ROSBEECLIENT_H

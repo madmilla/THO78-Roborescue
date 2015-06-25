@@ -23,13 +23,13 @@ thread{&RosbeeProtocolHandler::run,this}
 void RosbeeProtocolHandler::run(){
 	unsigned char function;
 	unsigned long long payload;
-
+	mavlink_command_long_t packet;
 	init();
 
 	while(true){
-		rosClient->waitReceiveMessage(function,payload);
+		rosClient->waitReceiveMessage(packet);
 
-		switch(function){
+		switch(packet.command){
 		case ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT:
 			driveToWaypoint(payload);
 			break;
@@ -52,7 +52,7 @@ void RosbeeProtocolHandler::init(){
 
 	std::cout << "Starting handshake with server... ";
 	std::cout.flush();
-	rosClient->sendMessage(ROSBEE_COMMAND_FUNCTIONS::INIT, waypoint);
+	rosClient->sendInit(newX, newY, newAngle);
 
 	unsigned char function;
 	unsigned long long payload;
@@ -67,10 +67,10 @@ void RosbeeProtocolHandler::init(){
 }
 
 
-void RosbeeProtocolHandler::driveToWaypoint(long long payload){
+void RosbeeProtocolHandler::driveToWaypoint(const mavlink_command_long_t &payload){
 
-	int x = static_cast<int>((payload & 0xFFFF000000000000) >> 48);
-	int y = static_cast<int>((payload & 0x0000FFFF00000000) >> 32);
+	int x = payload.param1;
+	int y = payload.param2;
 
 	short status = 0;
 	std::cout << "Payload: " << payload << std::endl;
@@ -88,13 +88,13 @@ void RosbeeProtocolHandler::driveToWaypoint(long long payload){
 	std::cout << "Waypoint reached: (" << newX << ", " << newY << ") " << "r = " << newAngle <<std::endl;
 
 	long long waypoint = 0;
+	rosClient->requestWaypoint(newX, newY, newAngle, status);
+//	waypoint |= Parser::bitCast<long long>(newX) << 48;
+//	waypoint |= Parser::bitCast<long long>(newY) << 32;
+///	waypoint |= Parser::bitCast<long long>(newAngle) << 16;
+//	waypoint |= Parser::bitCast<long long>(status) << 0;
 
-	waypoint |= Parser::bitCast<long long>(newX) << 48;
-	waypoint |= Parser::bitCast<long long>(newY) << 32;
-	waypoint |= Parser::bitCast<long long>(newAngle) << 16;
-	waypoint |= Parser::bitCast<long long>(status) << 0;
-
-	rosClient->sendMessage(ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE, waypoint);
+//	rosClient->sendMessage(ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE, waypoint);
 }
 
 
