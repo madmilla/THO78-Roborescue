@@ -14,7 +14,7 @@
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -104,12 +104,13 @@ private:
 	void startTest();
 	void addConnection(std::string con,unsigned short port, mavlink_message_t * msg);
 	void handleMessage(std::string con,unsigned short port, mavlink_message_t * msg);
+
 	bool stopped = false;
 	RobotManager & manager;
+	
 	mavlink_message_t msg;
-	//mavlink_ralcp_t packet;
-	mavlink_lidar_message_t lpacket;
-	mavlink_rosbee_message_t rpacket;
+	mavlink_command_long_t packet; 
+	
 	std::vector<CPIUDPSocket*> _connections;
 	int ConId = 0;
 	std::thread connectionThread;
