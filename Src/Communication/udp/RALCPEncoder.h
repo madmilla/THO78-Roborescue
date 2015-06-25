@@ -51,14 +51,6 @@
 class RALCPEncoder{
 public:
 	RALCPEncoder(CPISocket * sock, int sid, int cid, int tsid, int tcid) : socket(sock), SYSTEMID(sid), COMPONENTID(cid), TARGET_SYSTEMID(tsid), TARGET_COMPONENTID(tcid){}
-   /// \param@ Destination for the message to send to
-	/// \param@ The Rosbee communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	//void send(COMMAND_DESTINATION dest, ROSBEE_COMMAND_FUNCTIONS rcf, uint64_t payload);
-	/// \param@ Destination for the message to send to
-	/// \param@ The Lidar communication function
-	/// \param@ Payload of the message this can contain 8 bytes, all data is shifted to the most left bit for documentation check the RCP wiki
-	//void send(COMMAND_DESTINATION dest, LIDAR_COMMAND_FUNCTIONS rcf, uint64_t payload);
 
 	template <typename ... Args>
 	void send(Args ...args){
@@ -67,14 +59,11 @@ public:
 		socket->send(&msg);
 	}
 
-	
+
 	~RALCPEncoder(){}
 private:
 	mavlink_message_t msg;
-
-
 	mavlink_command_long_t packet;
-
 	CPISocket * socket;
 	
 	int SYSTEMID;

@@ -12,7 +12,6 @@ void Rosbee::run(){
 	  
       if(outgoing->size() > 0){
          auto tuple = outgoing->pop();
-         //encoder->send(COMMAND_DESTINATION::ROSBEE, pair.first, pair.second);
          encoder->send(
             std::get<0>(tuple),
             std::get<1>(tuple),
@@ -25,8 +24,7 @@ void Rosbee::run(){
             std::get<8>(tuple),
             std::get<9>(tuple),
             std::get<10>(tuple)
-            );
-         //std::cout << "Send message!" <<std::endl;
+         );
       }
      if(sock->incomming->size() > 0){
 		 //Do stuff with incomming messages
@@ -41,38 +39,28 @@ void Rosbee::init(){
 }
 
 void Rosbee::getRequirementStatus(){
-  // memset(data, 0, 4 * sizeof(data[0]));
-  // outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::GETEQUIPMENTSTATUS, data));
-
+   outgoing->add(std::make_tuple(0,0,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::GETEQUIPMENTSTATUS,COMMAND_DESTINATION::ROSBEE,0,0));
 }
 
 void Rosbee::startMission(){
- //  memset(data, 0, 4 * sizeof(data[0]));
-//   outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::STARTMISSION, data));
+   outgoing->add(std::make_tuple(0,0,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::STARTMISSION,COMMAND_DESTINATION::ROSBEE,0,0));
 
 }
 
 void Rosbee::sendWaypoint(int x, int y){
-   //memset(data, 0, 4 * sizeof(data[0]));
-   //data[0] = x;
-   //data[1] = y;
-   //outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::SENDWAYPOINT, data));
+   outgoing->add(std::make_tuple(x,y,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::STARTMISSION,COMMAND_DESTINATION::ROSBEE,0,0));
 }
 
 void Rosbee::getRequest(){
-   //memset(data, 0, 4 * sizeof(data[0]));
-   //outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::ROSBEE_GETREQUEST, data));
+    outgoing->add(std::make_tuple(0,0,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::ROSBEE_GETREQUEST,COMMAND_DESTINATION::ROSBEE,0,0));
 }
 
 void Rosbee::stopMission(){
-   //memset(data, 0, 4 * sizeof(data[0]));
-   //outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::STOPMISSION, data));
+    outgoing->add(std::make_tuple(0,0,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::STOPMISSION,COMMAND_DESTINATION::ROSBEE,0,0));
 }
 
 void Rosbee::abortMission(){
- //  memset(data, 0, 4 * sizeof(data[0]));
-// outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::ABORTMISSION, data));
-
+    outgoing->add(std::make_tuple(0,0,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::ABORTMISSION,COMMAND_DESTINATION::ROSBEE,0,0));
 }
 
 void Rosbee::sonarInterrupt(){
@@ -80,19 +68,16 @@ void Rosbee::sonarInterrupt(){
 }
 
 void Rosbee::sendAck(){
-  // memset(data, 0, 4 * sizeof(data[0]));
-  // outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE, data));
+   outgoing->add(std::make_tuple(0,0,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::ACKNOWLEDGE,COMMAND_DESTINATION::ROSBEE,0,0));
 }
 
 void Rosbee::BatteryStatus(){
-  // memset(data, 0, 4 * sizeof(data[0]));
-  // outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, int*>(ROSBEE_COMMAND_FUNCTIONS::BATTERYSTATUS, data));
+    outgoing->add(std::make_tuple(0,0,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::BATTERYSTATUS,COMMAND_DESTINATION::ROSBEE,0,0));
 }
 
 
 void Rosbee::getDevice(uint8_t dev){
-
-  // outgoing->add(std::pair<ROSBEE_COMMAND_FUNCTIONS, uint64_t>(ROSBEE_COMMAND_FUNCTIONS::GETDEVICE, uint64_t(dev << 54)));
+   outgoing->add(std::make_tuple(dev,0,0,0,0,0,0,ROSBEE_COMMAND_FUNCTIONS::GETDEVICE,COMMAND_DESTINATION::ROSBEE,0,0));
 }
 
 int Rosbee::getId(){

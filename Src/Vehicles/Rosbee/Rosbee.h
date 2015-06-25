@@ -112,6 +112,5 @@ private:
 	friend class RobotManager;
 	bool running = false;
 	MessageQueue<std::tuple<int, int, int, int, int, int, int, ROSBEE_COMMAND_FUNCTIONS, COMMAND_DESTINATION, int, int>> * outgoing;
-	int data[4];
 };
 #endif
