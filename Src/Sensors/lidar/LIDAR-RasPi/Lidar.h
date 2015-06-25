@@ -147,7 +147,7 @@ public:
 	@param orientation The orientation of the lidar
 	@return std::vector<Line>: vector with the linedata (Line object)
 	*/
-	std::vector<Line> start(float pX = 0.0, float pY = 0.0 float orientation = 0.0);
+	std::vector<Line> start(float pX = 0.0, float pY = 0.0, float orientation = 0.0);
 
 private:
     //! Path to the com port which the lidar is attached to.
