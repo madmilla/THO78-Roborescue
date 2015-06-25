@@ -74,25 +74,28 @@ private slots:
     void on_saveMapButton_clicked();
     //! Used when the none button gets clicked
     void on_noneButton_clicked();
-
-
+	//! Used when the line button gets clicked
     void on_lineButton_clicked();
-
+	//! Used when the rectangle button gets clicked
     void on_rectangleButton_clicked();
-
+	//! Used when the circle button gets clicked
     void on_circleButton_clicked();
 
 private:
+	//! Draws a line when dragged and dropped
     void drawLine(QPoint begin, QPoint end);
-       void drawRectangle(QPoint begin, QPoint end);
-       void drawCircle(QPoint center, QPoint second);
+	//! Draws a rectangle when dragged and dropped
+    void drawRectangle(QPoint begin, QPoint end);
+	//! Draws a circle when dragged and dropped
+    void drawCircle(QPoint center, QPoint second);
     //! A Uipointer used by QT.
     Ui::EditMapWindow *ui;
     //! Used for determining a color.
     Qt::GlobalColor getColorById(int id); 
-    //! MousePressEvent is used for handling all mouspresses inside the window.
+    //! MousePressEvent is used for handling all mousepresses inside the window.
     void mousePressEvent(QMouseEvent * event);
-     void mouseReleaseEvent(QMouseEvent * event);
+	//! MouseReleaseEvent is used for handling all mousereleases inside the window
+    void mouseReleaseEvent(QMouseEvent * event);
     //! Bool used for checking if a mouse button is clicked.
     bool mousePressed = true;
     //! Pointer to a given map to store the map information in.
@@ -112,7 +115,7 @@ private:
     QSize canvasScreenSize;
     //! eventFilter is used for painting the window with it's contents.
     bool eventFilter(QObject* watched, QEvent* event);
-
+	//! Used to set the start point when and line is dragged
     QPoint lineBeginning;
 };
 
