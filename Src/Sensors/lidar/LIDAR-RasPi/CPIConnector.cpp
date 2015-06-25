@@ -1,111 +1,37 @@
 #include "CPIConnector.h"
 
 //This is an example child class
-CPIConnector::CPIConnector(){
-
-}
-
-CPIConnector::~CPIConnector(){
-	delete lidar;
-}
+CPIConnector::CPIConnector(){}
 
 void CPIConnector::onMessage(mavlink_message_t & msg){
 
-	mavlink_lidar_message_t function = decodeLidarMessage(msg);
-	int32_t temp[5] = { 1, 1, 1, 1, 1 };
+	mavlink_command_long_t function = decodeCommandLongMessage(msg);
 
-	switch (function.Function){
-	case LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT:
+	switch (function.command){
+		case LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT:
 
-		systemID = function.Payload[1];
-		sendLidarCommand(temp, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT);
-		break;
+			systemID = function.param1;
+			sendCommand<LIDAR_COMMAND_FUNCTIONS>(message, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LIDAR_INIT );
+			break;
 
-	case LIDAR_COMMAND_FUNCTIONS::RPM:
+		case LIDAR_COMMAND_FUNCTIONS::LIDAR_GETDEVICE:
 
-		sendLidarCommand(temp, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::RPM);
-		break;
+			sendCommand<LIDAR_COMMAND_FUNCTIONS>(message, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::RPM );
+			break;
 
-	case LIDAR_COMMAND_FUNCTIONS::START:
-		start();
-		sendLidarCommand(temp, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::START);
-		break;
+		case LIDAR_COMMAND_FUNCTIONS::LINEDATA:
 
-	case LIDAR_COMMAND_FUNCTIONS::STOP:
+			sendCommand<LIDAR_COMMAND_FUNCTIONS>(message, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::START );
+			break;
 
-		sendLidarCommand(temp, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::STOP);
-		break;
+		case LIDAR_COMMAND_FUNCTIONS::RPM:
 
-	default:
-		break;
+			sendCommand<LIDAR_COMMAND_FUNCTIONS>(message, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::STOP );
+			break;
+
+		default:
+			function.param1 += 1;
+			sendCommand<LIDAR_COMMAND_FUNCTIONS>(function, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::STOP );
+			break;
 	}
-}
-
-
-void CPIConnector::init(){
-	//ShapeDetector sD;
-	//Pointcloud pCloud;
-	//Lidar lidar("\\\\.\\com3");
-	lidar = new Lidar("/dev/ttyAMA0");
-	lidar->connectDriversLidar();
-}
-
-void CPIConnector::start(){
-	if(lidar == nullptr){
-		init();
-	}
-
-	ShapeDetector sD;
-	Pointcloud pCloud;
-
-	std::vector<scanDot> data = lidar->startSingleLidarScan();
-
-	if (!data.empty()) {
-		std::vector<scanCoordinate> scanCoorde = lidar->convertToCoordinates(data);
-
-		for (int pos = 0; pos < (int)scanCoorde.size(); ++pos) {
-			pCloud.setPoint(scanCoorde[pos].x, scanCoorde[pos].y);
-			fprintf(stderr, "x: %d , y: %d\n", scanCoorde[pos].x, scanCoorde[pos].y);
-		}
-	}
-	
-	pCloud.savePointsToFile("pointcuefnef.pcl");
-	std::cout << "image maken";
-	const Mat & image = sD.createImage(pCloud, 10);
-	std::cout << "image gemaakt";
-	std::vector<Circle> circles = sD.detectCircles(image);
-	std::cout << " circles detected";
-	std::vector<Line> lines = sD.searchLines(image);
-	std::cout <<  "lines detected" ;
-	sD.writeCirclesToConsole(circles);
-	sD.writeLinesToConsole(lines);
-
-	for (Line l : lines){
-		int32_t beginPosX = static_cast<int32_t>(l.getLine().begin_pos.x);
-		int32_t beginPosY = static_cast<int32_t>(l.getLine().begin_pos.y);
-		int32_t endPosX = static_cast<int32_t>(l.getLine().end_pos.x);
-		int32_t endPosY = static_cast<int32_t>(l.getLine().end_pos.y);
-		int32_t data[5] = { 0, beginPosX, beginPosY, endPosX, endPosY };
-		sendLidarCommand(data, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
-	}
-
-	for (Circle c : circles){
-		int32_t originX = static_cast<int32_t>(c.getCircle().originX);
-		int32_t originY = static_cast<int32_t>(c.getCircle().originY);
-		int32_t radius = static_cast<int32_t>(c.getCircle().radius);
-		int32_t data[4] = { 1, originX, originY, radius };
-		sendLidarCommand(data, COMMAND_DESTINATION::CPI, LIDAR_COMMAND_FUNCTIONS::LINEDATA);
-
-	}
-
-
-
-
-	//LidarController lController(lidar, sD, pCloud);
-	//std::thread lthread(&LidarController::run, &lController);
-	//lthread.detach();
-
-	// lController.setNumberOfScans(1);
-	//lController.resume();
-	//std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 }
