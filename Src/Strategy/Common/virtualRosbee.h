@@ -51,6 +51,7 @@ public:
 	* @param	int x
 	* @param	int y
 	*/
+        virtualRosbee(int x, int y);
 	virtualRosbee(int x, int y, Rosbee actual);
 	/**
 	* @fn	~virtualRosbee();
