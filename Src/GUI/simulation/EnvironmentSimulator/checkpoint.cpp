@@ -6,15 +6,16 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Socket
-* @date Created: 27-5-2015
+* @file Checkpoint.cpp
+* @date Created: 22-04-2015
+* @version 1.0
 *
-* @author Hamza ait Messaoud
+* @author Danny Horvath, Thomas Fink
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright � 2015, HU University of Applied Sciences Utrecht.
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,58 +35,33 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef UPDCLIENT_H_
-#define UPDCLIENT_H_
+#include "checkpoint.h"
 
-#include <thread>
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
-#include "PracticalSocket.h"
-#include "mavlink.h"
-#include <queue>
+checkPoint::checkPoint(int x, int y):
+    checkPointx(x),
+    checkPointy(y)
+{}
 
-#include "BaseRobot.h"
+void checkPoint::setCoordinates(int x, int y){
+    checkPointx = x;
+    checkPointy = y;
+}
 
-//! \author@ Hamza ait Messaoud<hamza.aitmessaoud@student.hu.nl>
-//! \class@ UDPClient
-//! \brief This class is used to make a connection with the server and to sends and receives data.
-class UDPClient
-{
-public:
-	//! \brief Default constructor
-	UDPClient();
-	//! \brief Default deconstructor
-	~UDPClient();
+void checkPoint::setX(int x){
+    checkPointx = x;
+}
 
-	//! \brief Send a message to a the server.
-	//! \param[message]
-	int send(mavlink_message_t message);
-	
-	//! \brief recvieve messages from the server
-	void receive();
+void checkPoint::setY(int y){
+    checkPointy = y;
+}
 
-	//! \brief stops the udpServer thread
-	void stop();
+int checkPoint::getX(){
+    return checkPointx;
+}
 
-	//! \brief set the BaseRobot for handeling messages
-	void setBaseRobot(BaseRobot * sl){baseRobot = sl;};
+int checkPoint::getY(){
+    return checkPointy;
+}
 
-private:
-	//! \brief Bind the socket
-	void sockbind();
-	//! \brief Start the socket
-	void start();
-	//! \brief Check the connection status
-	void checkConnectionStatus();
-
-	std::thread * connectionThread;
-	bool stopped;
-	UDPSocket sock;
-	SocketAddress remoteadr;
-	BaseRobot * baseRobot;
-	std::queue<mavlink_message_t> * robotMessages;
-
-};
-
-#endif //UPDCLIENT_H_
+checkPoint::~checkPoint()
+{}
