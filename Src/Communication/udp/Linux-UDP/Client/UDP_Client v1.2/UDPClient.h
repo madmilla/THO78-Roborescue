@@ -42,8 +42,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include "PracticalSocket.h"
-//#include "../../../../deps/incl/mavlink/udp_mavlink_commands/mavlink.h"
-#include "mavlink/udp_mavlink_commands/mavlink.h"
+#include "mavlink.h"
 #include <queue>
 
 #include "BaseRobot.h"
