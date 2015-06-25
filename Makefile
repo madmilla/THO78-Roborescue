@@ -16,6 +16,9 @@ rosbee :
 environmentsimulator : $(UI_HEADERS) $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
 
+map : $(UI_HEADERS) $(OBJ)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)	
+
 	
 clean : 
 	for prefix in $(MODULES); do \

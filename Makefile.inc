@@ -17,7 +17,7 @@ ifeq ($(MAKECMDGOALS),mission1)
 		exit 1
 	else
 		CXXFLAGS+= -DWIN32
-		LDLIBS += -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32
+		LDLIBS += -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql -lws2_32
 		LDFLAGS += -L$(QT_LIB_DIR)
 		MOC	= $(QT_BIN_DIR)/moc.exe
 		UIC	= $(QT_BIN_DIR)/uic.exe
