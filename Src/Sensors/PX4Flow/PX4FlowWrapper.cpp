@@ -54,7 +54,7 @@ void PX4FlowWrapper::ReceiveMAVLinkMessage(mavlink_message_t* msg){
 				imageWidth = mavlink_msg_data_transmission_handshake_get_width(msg);
 				imageHeight = mavlink_msg_data_transmission_handshake_get_height(msg);
 				imageSize = imageWidth*imageHeight;
-				image.assign(imageWidth,imageHeight,1,1);
+				flowImage->assign(imageWidth,imageHeight,1,1);
 			}
 		break;
 		
@@ -71,7 +71,7 @@ void PX4FlowWrapper::ReceiveMAVLinkMessage(mavlink_message_t* msg){
 				unsigned char px = buffer[i];
 				for (unsigned int a = 0; a < 8; a++){
 					if (pixel < imageSize){
-						image(pixel % imageWidth,pixel / imageWidth,0,0) = (px & (1<<7)?255:0);//((buffer[i]>>a)&&1 != 0)*255; //R
+						(*flowImage)(pixel % imageWidth,pixel / imageWidth,0,0) = (px & (1<<7)?255:0);//((buffer[i]>>a)&&1 != 0)*255; //R
 						px <<= 1;
 						pixel++;
 					}
@@ -101,9 +101,6 @@ double PX4FlowWrapper::getHeadingInDegrees(){
 }
 
 mavlink_message_t* PX4FlowWrapper::requestImage(){
-	if (isImageRequested()){
-		return nullptr;
-	}
 	imageRequested = true;
 	imageReady = false;
 	
@@ -122,16 +119,17 @@ bool PX4FlowWrapper::isImageReady(){
 }
 
 cv::Mat* PX4FlowWrapper::getImage(){
-	if (!isImageRequested() || !isImageRequested()){
+	if (!isImageReady()){
 		return nullptr;
 	}
 	imageReady = false;
 	imageRequested = false;
-	return getImage();
+	return Image::getImage();
 }
 
 void PX4FlowWrapper::imageFull(){
 	imageRequested = false;
 	imageReady = true;
-	//provideImage<cimg_library::CImg>(image,ImageType::CIMG);
+	Image::setImage(flowImage);
+	//delete flowImage;
 }

@@ -114,6 +114,6 @@ private:
 	
 	
 	void imageFull();
-	cimg_library::CImg<unsigned char> image;
+	cimg_library::CImg<unsigned char>* flowImage = new cimg_library::CImg<unsigned char>() ;
 	int imageWidth, imageHeight, imageSize;
 };

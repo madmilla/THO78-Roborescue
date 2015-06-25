@@ -8,9 +8,9 @@ mission1 : $(UI_HEADERS) $(OBJ)
 localisationmodule : $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
 	
-lidar : 
+lidar : $(OBJ)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
 	
-
 rosbee : 
 	
 environmentsimulator : $(UI_HEADERS) $(OBJ)
