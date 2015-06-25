@@ -162,6 +162,8 @@ private:
     std::vector<scanDot> scanData;
     //! vector to store x and y coordinates
     std::vector<scanCoordinate> scanCoord;
+	//! Value to scale pointcloud with
+	const static int SCALE = 10;
 };
 
 #endif // LIDAR_H
