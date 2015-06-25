@@ -53,6 +53,14 @@ public:
         int X; //! The x value of a single object
         int Y; //! the Y-value of a single object
         int id;//! the id-value of a single object
+
+        bool operator==(const Object& obj) const{
+             return (X == obj.X && Y == obj.Y && id == obj.id);
+         }
+        bool operator<(const Object& rhs) const{
+             if(X != rhs.X) return X < rhs.X;
+             return Y < rhs.Y;
+         }
     };
     /*!
     *   Map constructor with a given file.

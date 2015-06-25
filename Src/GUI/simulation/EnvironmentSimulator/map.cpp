@@ -186,7 +186,7 @@ void Map::setMapObject(int object,int y, int x){
     }
     if(x < width && y < height){
         if(object >= 0){
-            removePoint(x, y);
+            //removePoint(x, y);
             Object obj;
             obj.X = x;
             obj.Y = y;
@@ -202,7 +202,7 @@ void Map::setMapObject(Map::Object obj){
     }
     if(obj.X < width && obj.Y < height){
         if(obj.id >= 0){
-            removePoint(obj);
+            //removePoint(obj);
             mapLayout.push_back(obj);
         }
     }
@@ -241,6 +241,10 @@ std::vector< Map::Object > Map::getMapContent(){
 }*/
 
 void Map::saveMap(){
+    //std::set<Object> s(mapLayout.begin(), mapLayout.end());
+    //mapLayout.assign(s.begin(), s.end());
+    std::sort( mapLayout.begin(), mapLayout.end() );
+    mapLayout.erase( std::unique( mapLayout.begin(), mapLayout.end() ), mapLayout.end() );
     std::ofstream mapFile;
     mapFile.open(fileName);
     /*for(int y = 0; y < height; ++y){
