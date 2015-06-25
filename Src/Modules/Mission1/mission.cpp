@@ -24,6 +24,13 @@ int main(int argc, char *argv[])
     ATV a{ exch };
     while(robotmanager.getRobots<Rosbee>().size()==0){}
     Rosbee* rosbee =robotmanager.getRobot<Rosbee>(1);
+
+    //while(robotmanager.getRobots<Quadcopter>().size()==0){}
+    //Quadcopter* actualQuad =robotmanager.getRobot<Quadcopter>(1);
+
+    while(robotmanager.getRobots<Lidar>().size()==0){}
+    Lidar* actualLidar =robotmanager.getRobot<Lidar>(1);
+
     VirtualQuadCopter copter(Dimension(1,1),Dimension(3,3),1,1);
     virtualRosbee bee(1,1,rosbee);
     VirtualATV atv(Dimension(1,1),1,1);
