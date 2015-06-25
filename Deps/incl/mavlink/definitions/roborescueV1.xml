@@ -598,14 +598,7 @@
         <field name="terrain_alt_variance" type="float">Terrain Altitude variance</field>
     </message>
 	
-	<message id="194" name="rosbee_message">
-	   <description>struct for sending messages to a rosbee</description>
-	   <field type="uint64_t" name="Payload">Payload</field>
-	   <field type="uint8_t" name="Destination">Device ID</field>
-	   <field type="uint8_t" name="Function">Name of the function</field>
-	</message>
-
-	<message id="195" name="lidar_message">
+	<message id="194" name="RALCP">
 	   <description>struct for sending messages to a lidar</description>
 	   <field type="int32_t[4]" name="Payload">Payload</field>
 	   <field type="uint8_t" name="Destination">Device ID</field>
