@@ -144,7 +144,7 @@ public:
 	//! \returns the virtualrosbee position
 	virtualRosbee* getRosbeePosition() { return rosbeePosition; }
 	//! \returns the atv position
-	ATV* getATVPosition() { return ATVPosition; }
+	virtualATV* getATVPosition() { return ATVPosition; }
 	//! \returns the quadcopter position
 	//QuadCopter* getQuadCopterPositon() { return quadcopterPosition; }
 
