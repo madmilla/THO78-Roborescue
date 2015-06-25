@@ -14,7 +14,7 @@
 #include <vector>
 #include "../../Map/point.hpp"
 #include <QtSql/QtSql>
-
+#include<string>
 /** \class databaseConnector
  * \brief This class handles all the communication with the database
  *

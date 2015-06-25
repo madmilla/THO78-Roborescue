@@ -92,7 +92,9 @@ int Rosbee::getId(){
 void Rosbee::abort(){
    running = false;
 }
-
+bool Rosbee::isReady(){
+  return Ready;
+}
 
     MessageQueue<mavlink_message_t *> * Rosbee::getMessageQueue(){
       return sock->incomming;
