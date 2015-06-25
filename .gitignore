@@ -272,3 +272,4 @@ FakesAssemblies/
 #Makefile.local
 Makefile.local
 Makefile.local
+*.local
