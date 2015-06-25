@@ -8,16 +8,18 @@ map{ map },
 virtuallidar{virtuallidar}
 
 {
-
+	Thread = new std::thread(&StrategyController::run, this);
+	Thread->detach();
 }
 
 
 StrategyController::~StrategyController()
 {
+	
 }
 
 void StrategyController::scanArea(){
-	/*Route * route = new Route();
+	Route * route = new Route();
 	Map MapCopy = map;
 	VSLAM vslam(&MapCopy, &virtualrosbee, route, &virtuallidar);
 	MapCopy.setScale(5);
@@ -36,7 +38,7 @@ void StrategyController::scanArea(){
 	}
 	MapCopy.print();
         std::cout << "ScanAreaDone";
-	getchar();*/
+	getchar();
 }
 
 void StrategyController::searchArea(){
@@ -52,4 +54,9 @@ void StrategyController::movePairwise(){
 	map.print();
 	getchar();
 }
+void StrategyController::run(){
+	scanArea();
+	searchArea();
 
+
+}

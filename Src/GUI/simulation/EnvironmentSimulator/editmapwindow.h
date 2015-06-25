@@ -38,13 +38,13 @@
 #ifndef EDITMAPWINDOW_H
 #define EDITMAPWINDOW_H
 
-#include <QDialog>
-#include <QGraphicsView>
-#include <QGraphicsScene>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGraphicsScene>
 #include "map.h"
 #include "values.h"
-#include <QDesktopWidget>
-#include <QAbstractButton>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QAbstractButton>
 
 namespace Ui {
 class EditMapWindow;
