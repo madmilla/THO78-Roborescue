@@ -193,7 +193,7 @@ private:
 	void setNotReachable(point p);
 
 	virtualRosbee* rosbeePosition;
-	ATV* ATVPosition;
+	virtualATV* ATVPosition;
 	//QuadCopter* quadcopterPosition;
 };
 
