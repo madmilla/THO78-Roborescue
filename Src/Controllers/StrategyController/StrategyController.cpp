@@ -8,12 +8,13 @@ map{ map },
 virtuallidar{virtuallidar}
 
 {
-
+	Thread = std::thread(&StrategyController::run, this);
 }
 
 
 StrategyController::~StrategyController()
 {
+	
 }
 
 void StrategyController::scanArea(){
@@ -52,4 +53,8 @@ void StrategyController::movePairwise(){
 	map.print();
 	getchar();
 }
+void StrategyController::run(){
+	scanArea();
 
+
+}
