@@ -68,6 +68,45 @@
     </rect>
    </property>
   </widget>
+  <widget class="QRadioButton" name="lineButton">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>100</y>
+     <width>82</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Line</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="rectangleButton">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>130</y>
+     <width>82</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Rectangle</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="circleButton">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>160</y>
+     <width>82</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Circle</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

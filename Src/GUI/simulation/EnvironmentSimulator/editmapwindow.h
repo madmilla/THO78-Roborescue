@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -75,13 +75,24 @@ private slots:
     //! Used when the none button gets clicked
     void on_noneButton_clicked();
 
+
+    void on_lineButton_clicked();
+
+    void on_rectangleButton_clicked();
+
+    void on_circleButton_clicked();
+
 private:
+    void drawLine(QPoint begin, QPoint end);
+       void drawRectangle(QPoint begin, QPoint end);
+       void drawCircle(QPoint center, QPoint second);
     //! A Uipointer used by QT.
     Ui::EditMapWindow *ui;
     //! Used for determining a color.
     Qt::GlobalColor getColorById(int id); 
     //! MousePressEvent is used for handling all mouspresses inside the window.
     void mousePressEvent(QMouseEvent * event);
+     void mouseReleaseEvent(QMouseEvent * event);
     //! Bool used for checking if a mouse button is clicked.
     bool mousePressed = true;
     //! Pointer to a given map to store the map information in.
@@ -101,6 +112,8 @@ private:
     QSize canvasScreenSize;
     //! eventFilter is used for painting the window with it's contents.
     bool eventFilter(QObject* watched, QEvent* event);
+
+    QPoint lineBeginning;
 };
 
 #endif // EDITMAPWINDOW_H

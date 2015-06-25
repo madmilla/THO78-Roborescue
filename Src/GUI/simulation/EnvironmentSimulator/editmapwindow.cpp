@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -110,6 +110,12 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
        if(selected < 0){
            return;
         }
+
+        if(selected == Values::LINE || selected == Values::RECTANGLE || selected == Values::CIRCLE){
+            lineBeginning.setX((event->pos().x() - (event->pos().x() % objectx)) / objectx);
+            lineBeginning.setY((event->pos().y() - (event->pos().y() % objecty)) / objecty);
+            return;
+        }
         const int positionx = (event->pos().x() - (event->pos().x() % objectx)) / objectx;
         const int positiony = (event->pos().y() - (event->pos().y() % objecty)) / objecty;
 
@@ -122,7 +128,107 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
         }
     }
 }
+void EditMapWindow::drawLine(QPoint begin, QPoint end){
+    if(begin == end){
+        map->setMapObject(selected, begin.y(), begin.x());
+        return;
+    }
+    end.setX((end.x() - (end.x() % objectx)) / objectx);
+    end.setY( (end.y() - (end.y() % objecty)) / objecty);
+    if(begin.x() > end.x()){
+        QPoint p = begin;
+        begin = end;
+        end = p;
+    }
+    if(begin.x() == end.x()){ // Vertical line
+        if(begin.y() > end.y()){
+            QPoint p = begin;
+            begin = end;
+            end = p;
+        }
+        std::cout << "same X"<< std::endl;
+        int positionx = begin.x();
+        std::cout << "x:" << positionx << std::endl;
+        for(int i = begin.y(); i < end.y()+1; i++){
+            std::cout << begin.y() << " - " << end.y() << " - " <<end.x() << " - " << begin.x() << std::endl;
+            map->setMapObject(selected, i, positionx);
+            update();
+            mousePressed = true;
+        }
+    }
+    else{
+        //Y = Ax + B
+        int deltaX =  (begin.x() - end.x());
+        int deltaY =  (begin.y() - end.y());
+        double a = (double)deltaY/deltaX;
+        double b = (begin.y() - (a * begin.x()));
+        std::cout << "Y = " << a <<"X + " << b<< std::endl;
+        std::cout << begin.y() << " - " << end.y() << " - " << begin.x() << " - " << end.x()<< std::endl;
+        std::cout << deltaX << " + " << deltaY << std::endl;
+        for(int x = begin.x(); x < end.x()+1; x++){
+            int y = (a * x) + b;
+            map->setMapObject(selected, y, x);
+            update();
+            mousePressed = true;
+        }
+        if(begin.y() > end.y()){
+            QPoint p = begin;
+            begin = end;
+            end = p;
+        }
+        for(int y = begin.y(); y < end.y()+1; y++){
+            int x = (y-b)/a;
+            map->setMapObject(selected, y, x);
+            update();
+            mousePressed = true;
+        }
+    }
+}
+void EditMapWindow::drawRectangle(QPoint begin, QPoint end){
+    std::cout << "drawRect " << begin.x() << " - " << begin.y() << " - " << end.x() << " - " << end.y()<< std::endl;
+    if(begin.x() == end.x() || begin.y() == end.y()){
+        drawLine(begin,end);
+    }
+    else{
+        int startX = begin.x();
+        int endX =(end.x() - (end.x() % objectx)) / objectx;
+        int startY = begin.y();
+        int endY = (end.y() - (end.y() % objecty)) / objecty;
+        std::cout << startX << " + " << startY << " + " <<endX << " + " << endY << std::endl;
+        if(startX> endX){
+            int i = startX;
+            startX = endX;
+            endX = i;
+        }
+        if(startY> endY){
+            int i = startY;
+            startY = endY;
+            endY = i;
+        }
+        std::cout << startX << " + " << startY << " + " <<endX << " + " << endY << std::endl;
 
+        for(int y = startY; y < endY; ++y){
+            for(int x = startX; x < endX; ++x){
+                 map->setMapObject(selected, y, x);
+                 update();
+                 mousePressed = true;
+            }
+        }
+    }
+}
+void EditMapWindow::drawCircle(QPoint center, QPoint second){
+
+    int endX =(second.x() - (second.x() % objectx)) / objectx;
+    int endY = (second.y() - (second.y() % objecty)) / objecty;
+
+    double radius = sqrt(pow(center.x() - endX, 2) + pow(center.y() - endY,2));
+    std::cout << radius << std::endl;
+    for (double angle=0; angle<=2*M_PI; angle+=0.001){
+         map->setMapObject(selected, (center.y() + radius *sin( angle )), ( center.x() + radius*cos( angle ) ));
+         update();
+         mousePressed = true;
+    }
+}
 bool EditMapWindow::eventFilter(QObject* watched, QEvent* event)
 {
     if (watched == ui->childWidget && event->type() == QEvent::Paint) {
@@ -139,6 +245,19 @@ bool EditMapWindow::eventFilter(QObject* watched, QEvent* event)
    return false;
 }
 
+void EditMapWindow::mouseReleaseEvent(QMouseEvent * event){
+    std::cout << "release\n"<< std::endl;
+    if(selected == Values::LINE){
+        std::cout << "drawLine" << std::endl;
+        drawLine(lineBeginning, event->pos());
+    }
+    else if(selected ==Values::RECTANGLE){
+        drawRectangle(lineBeginning, event->pos());
+    }
+    else if(selected == Values::CIRCLE){
+        drawCircle(lineBeginning, event->pos());
+    }
+}
 Qt::GlobalColor EditMapWindow::getColorById(int id){
     Qt::GlobalColor bColor;
     switch (id) {
@@ -154,9 +273,34 @@ Qt::GlobalColor EditMapWindow::getColorById(int id){
     case 3:
         bColor = Qt::blue;
     break;
+    case 4:
+        bColor = Qt::red;
+    break;
+    case 5:
+        bColor = Qt::red;
+    break;
+    case 6:
+        bColor = Qt::red;
+    break;
     default:
         bColor = Qt::black;
     break;
     }
     return bColor;
 }
+
+void EditMapWindow::on_lineButton_clicked()
+{
+        selected = Values::LINE;
+}
+
+void EditMapWindow::on_rectangleButton_clicked()
+{
+        selected = Values::RECTANGLE;
+}
+
+void EditMapWindow::on_circleButton_clicked()
+{
+    selected  = Values::CIRCLE;
+}
+
