@@ -6,14 +6,22 @@
 #include "ATV.h"
 #include "MAVLinkExchanger.h"
 #include "SerialPort.h"
+#include "StrategyController.h"
+#include "virtualRosbee.h"
+#include "VirtualATV.h"
+#include "VirtualQuadCopter.h"
+#include "UDPServer.h"
+#include "databaseconnector.h"
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
+    RobotManager robotmanager;
     SerialPort p{ "" };
+    UDPServer server(robotmanager);
     MAVLinkExchanger exch{ p };
     Quadcopter q{ exch };
     ATV a{ exch };
-
     while(robotmanager.getRobots<Rosbee>().size()==0){}
     Rosbee* rosbee =robotmanager.getRobot<Rosbee>(1);
 
@@ -37,6 +45,8 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     MainWindow w{q, a};
     w.show();
-
+    databaseConnector dbc("127.0.0.1","root","desktop","robodata");
+    std::cout << dbc.getMaps().at(0).name;
+    
     return app.exec();
 }
