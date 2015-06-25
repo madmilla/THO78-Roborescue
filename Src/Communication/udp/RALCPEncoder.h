@@ -66,6 +66,8 @@ public:
 		mavlink_msg_command_long_encode(SYSTEMID, COMPONENTID, &msg, &packet);
 		socket->send(&msg);
 	}
+
+	
 	~RALCPEncoder(){}
 private:
 	mavlink_message_t msg;

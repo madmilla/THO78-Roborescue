@@ -87,7 +87,7 @@ void UDPServer::addConnection(std::string con,unsigned short port, mavlink_messa
       ConId++;
       Connection::Identifier des = Connection::UNKNOWN;
 
-      switch((int)packet.param1){
+      switch((int)packet.target_system){
          case COMMAND_DESTINATION::ROSBEE:
             des = Connection::ROSBEE;
             break;
