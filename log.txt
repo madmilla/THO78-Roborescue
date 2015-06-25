@@ -1,80 +1,25 @@
-Src/GUI/mission-gui/lidar-gui/moc_lidarwindow.cpp:13:2: error: #error "The header file 'lidarwindow.h' doesn't include <QObject>."
- #error "The header file 'lidarwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/rosbee-gui/moc_rosbeewindow.cpp:13:2: error: #error "The header file 'rosbeewindow.h' doesn't include <QObject>."
- #error "The header file 'rosbeewindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/ATV-gui/moc_atvwindow.cpp:13:2: error: #error "The header file 'atvwindow.h' doesn't include <QObject>."
- #error "The header file 'atvwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/quadcopter-gui/moc_quadcopterwindow.cpp:13:2: error: #error "The header file 'quadcopterwindow.h' doesn't include <QObject>."
- #error "The header file 'quadcopterwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/moc_mainwindow.cpp:13:2: error: #error "The header file 'mainwindow.h' doesn't include <QObject>."
- #error "The header file 'mainwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/lidar-gui/moc_lidarwindow.cpp:13:2: error: #error "The header file 'lidarwindow.h' doesn't include <QObject>."
- #error "The header file 'lidarwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/rosbee-gui/moc_rosbeewindow.cpp:13:2: error: #error "The header file 'rosbeewindow.h' doesn't include <QObject>."
- #error "The header file 'rosbeewindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/ATV-gui/moc_atvwindow.cpp:13:2: error: #error "The header file 'atvwindow.h' doesn't include <QObject>."
- #error "The header file 'atvwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/quadcopter-gui/moc_quadcopterwindow.cpp:13:2: error: #error "The header file 'quadcopterwindow.h' doesn't include <QObject>."
- #error "The header file 'quadcopterwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/moc_mainwindow.cpp:13:2: error: #error "The header file 'mainwindow.h' doesn't include <QObject>."
- #error "The header file 'mainwindow.h' doesn't include <QObject>."
-  ^
 In file included from Src/Communication/udp/Connection.h:4:0,
                  from Src/Communication/udp/UDPSocket.h:46,
                  from Src/Vehicles/Rosbee/Rosbee.h:47,
-                 from Src/GUI/mission-gui/mainwindow.h:53,
-                 from Src/Modules/Mission1/mission.cpp:1:
+                 from Src/Vehicles/Rosbee/Rosbee.cpp:1:
 c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/i686-w64-mingw32/include/winsock2.h:15:2: warning: #warning Please include winsock2.h before windows.h [-Wcpp]
  #warning Please include winsock2.h before windows.h
   ^
-In file included from Src/Communication/udp/Connection.h:4:0,
-                 from Src/Communication/udp/UDPSocket.h:46,
-                 from Src/Vehicles/Rosbee/Rosbee.h:47,
-                 from Src/GUI/mission-gui/mainwindow.h:53,
-                 from Src/GUI/mission-gui/moc_mainwindow.cpp:9:
-c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/i686-w64-mingw32/include/winsock2.h:15:2: warning: #warning Please include winsock2.h before windows.h [-Wcpp]
- #warning Please include winsock2.h before windows.h
-  ^
-In file included from Src/Communication/udp/Connection.h:4:0,
-                 from Src/Communication/udp/UDPSocket.h:46,
-                 from Src/Vehicles/Rosbee/Rosbee.h:47,
-                 from Src/GUI/mission-gui/rosbee-gui/rosbeewindow.h:51,
-                 from Src/GUI/mission-gui/rosbee-gui/moc_rosbeewindow.cpp:9:
-c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/i686-w64-mingw32/include/winsock2.h:15:2: warning: #warning Please include winsock2.h before windows.h [-Wcpp]
- #warning Please include winsock2.h before windows.h
-  ^
-In file included from Src/Communication/udp/Connection.h:4:0,
-                 from Src/Communication/udp/UDPSocket.h:46,
-                 from Src/Sensors/lidar/LIDAR-Basestation/Lidar.h:47,
-                 from Src/GUI/mission-gui/lidar-gui/lidarwindow.h:54,
-                 from Src/GUI/mission-gui/lidar-gui/moc_lidarwindow.cpp:9:
-c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/i686-w64-mingw32/include/winsock2.h:15:2: warning: #warning Please include winsock2.h before windows.h [-Wcpp]
- #warning Please include winsock2.h before windows.h
-  ^
-In file included from Src/Vehicles/Rosbee/Rosbee.h:50:0,
-                 from Src/Communication/udp/RobotManager.h:44,
-                 from Src/Communication/udp/UDPServer.h:52,
-                 from Src/Communication/udp/UDPSocket.h:47,
-                 from Src/Sensors/lidar/LIDAR-Basestation/Lidar.h:47,
-                 from Src/GUI/mission-gui/lidar-gui/lidarwindow.h:54,
-                 from Src/GUI/mission-gui/lidar-gui/moc_lidarwindow.cpp:9:
-Src/Communication/udp/UDPRobot.h: In destructor 'UDPRobot::~UDPRobot()':
-Src/Communication/udp/UDPRobot.h:16:38: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
-  ~UDPRobot(){ delete encoder; delete sock; }
-                                      ^
-Src/Communication/udp/UDPRobot.h:16:38: warning: invalid use of incomplete type 'class CPIUDPSocket'
-Src/Communication/udp/UDPRobot.h:11:7: warning: forward declaration of 'class CPIUDPSocket'
- class CPIUDPSocket;
-       ^
-Src/Communication/udp/UDPRobot.h:16:38: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
-  ~UDPRobot(){ delete encoder; delete sock; }
-                                      ^
+In file included from Src/Vehicles/Rosbee/Rosbee.h:49:0,
+                 from Src/Vehicles/Rosbee/Rosbee.cpp:1:
+Src/Communication/udp/RALCPEncoder.h: In instantiation of 'void RALCPEncoder::send(Args ...) [with Args = {int, int, int, int, int, int, int, ROSBEE_COMMAND_FUNCTIONS, COMMAND_DESTINATION, int, int}]':
+Src/Vehicles/Rosbee/Rosbee.cpp:28:10:   required from here
+Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#0))' from 'int' to 'float' inside { } [-Wnarrowing]
+   packet = mavlink_command_long_t{std::forward<Args>(args) ...};
+          ^
+Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#1))' from 'int' to 'float' inside { } [-Wnarrowing]
+Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#2))' from 'int' to 'float' inside { } [-Wnarrowing]
+Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#3))' from 'int' to 'float' inside { } [-Wnarrowing]
+Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#4))' from 'int' to 'float' inside { } [-Wnarrowing]
+Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#5))' from 'int' to 'float' inside { } [-Wnarrowing]
+Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#6))' from 'int' to 'float' inside { } [-Wnarrowing]
+Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#9))' from 'int' to 'uint8_t {aka unsigned char}' inside { } [-Wnarrowing]
+Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#10))' from 'int' to 'uint8_t {aka unsigned char}' inside { } [-Wnarrowing]
+c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/bin/../lib/gcc/i686-w64-mingw32/4.9.2/../../../../i686-w64-mingw32/bin/ld.exe: cannot open output file mission1.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+make: *** [mission1] Error 1
