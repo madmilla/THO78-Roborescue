@@ -11,7 +11,7 @@
 #include "VirtualATV.h"
 #include "VirtualQuadCopter.h"
 #include "UDPServer.h"
-#include "databaseconnector.h"
+//#include "databaseconnector.h"
 #include <iostream>
 
 int main(int argc, char *argv[])
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     Quadcopter q{ exch };
     ATV a{ exch };
     while(robotmanager.getRobots<Rosbee>().size()==0){}
-    Rosbee* rosbee =robotmanager.getRobot<Rosbee>(1);
+    Rosbee* rosbee =robotmanager.getRobot<Rosbee>(0);
 
     //while(robotmanager.getRobots<Quadcopter>().size()==0){}
     //Quadcopter* actualQuad =robotmanager.getRobot<Quadcopter>(1);
@@ -36,17 +36,22 @@ int main(int argc, char *argv[])
     VirtualATV atv(Dimension(1,1),1,1);
     virtualLidar lidar(actualLidar);
     Map map;
-    StrategyController controller(map,copter,bee,lidar);
-    controller.scanArea();
-    std::cout << "Scan Area Done";
-    getchar();
-    controller.searchArea();
-    controller.movePairwise();
-    QApplication app(argc, argv);
-    MainWindow w{q, a};
-    w.show();
-    databaseConnector dbc("127.0.0.1","root","desktop","robodata");
-    std::cout << dbc.getMaps().at(0).name;
     
-    return app.exec();
+    
+    QApplication app(argc, argv);
+    MainWindow w{server, q, a};
+    w.show();
+    //databaseConnector dbc("127.0.0.1","root","desktop","robodata");
+  //  std::cout << dbc.getMaps().at(0).name;
+	app.exec();
+
+	std::cout << "Nu strategy";
+	getchar();
+	StrategyController controller(map, copter, bee, lidar);
+	controller.scanArea();
+	std::cout << "Scan Area Done";
+	getchar();
+	controller.searchArea();
+	controller.movePairwise();
+	return 1;
 }
