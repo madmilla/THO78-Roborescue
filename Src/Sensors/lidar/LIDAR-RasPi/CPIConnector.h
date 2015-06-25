@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Lidar.h"
 #include "BaseRobot.h"
-#include "roborescueV1\mavlink.h"
+#include "roborescueV1/mavlink.h"
 
 //This is an example child class
 class CPIConnector : public BaseRobot
