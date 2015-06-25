@@ -26,13 +26,19 @@ vector<Marker> ARInterface::detectMarkers(Mat inputImage)
 
 int ARInterface::getIdFromImage(Mat* image)
 {
+	std::cout << "Trying to detect image\n";
+	imwrite("testimage.BMP", *image);
 	Mat imageCopy;
 	vector<Marker> theMarkers;
 	markerDetector.detect(*image, theMarkers,
 			theCameraParameters, theMarkerSize);
 	
-	image->copyTo(imageCopy);
+	if(hasGui)
+	{
+		image->copyTo(imageCopy);
+	}
 	int detectedId = -1;
+	std::cout << "MSize: " << theMarkers.size() << std::endl;
 	for (unsigned int i=0;i<theMarkers.size();i++) 
 	{
 		std::cout << "ID DETECTED: " << theMarkers[i].id <<std::endl;
@@ -47,9 +53,9 @@ int ARInterface::getIdFromImage(Mat* image)
 	{
 		cv::imshow("PX4",imageCopy);
 		cv::imshow("PX4T",markerDetector.getThresholdedImage());			
-		char key = cv::waitKey(10);
+		char key = cv::waitKey(100);
 	}
-	
+	std::cout << "Done detecting id: " << detectedId << std::endl;
 	return detectedId;
 }
 
