@@ -12,24 +12,26 @@
 #include "VirtualQuadCopter.h"
 int main(int argc, char *argv[])
 {
+    RobotManager robotmanager;
     SerialPort p{ "" };
+    //Rosbee = robotmanager.getRobot<rosbee>                                  >
     MAVLinkExchanger exch{ p };
-    Quadcopter q{ exch };
-    ATV a{ exch };
+    //Quadcopter q{ exch };
+    //ATV a{ exch };
     VirtualQuadCopter copter(Dimension(1,1),Dimension(3,3),1,1);
-    virtualRosbee bee(1,1);
+    //virtualRosbee bee(1,1);
     VirtualATV atv(Dimension(1,1),1,1);
     virtualLidar lidar;
     Map map;
-    StrategyController controller(map,copter,bee,lidar);
-    controller.scanArea();
+    //StrategyController controller(map,copter,bee,lidar);
+    //controller.scanArea();
     std::cout << "Scan Area Done";
     getchar();
-    controller.searchArea();
-    controller.movePairwise();
+    //controller.searchArea();
+    //controller.movePairwise();
     QApplication app(argc, argv);
-    MainWindow w{q, a};
-    w.show();
+    //MainWindow w{q, a};
+    //w.show();
     
     
     return app.exec();
