@@ -1,4 +1,4 @@
-﻿/**
+/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -38,17 +38,17 @@
 #ifndef SIMULATEMAPWINDOW_H
 #define SIMULATEMAPWINDOW_H
 
-#include <QtWidgets/QWidget>
+#include <QWidget>
 #include <vector>
 #include <iostream>
-#include <QtWidgets/QGraphicsView>
-#include <QtWidgets/QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 #include "map.h"
 #include "simulatemap.h"
 #include "values.h"
-#include <QtCore/QSize>
-#include <QtWidgets/QAbstractButton>
-#include <QtWidgets/QDesktopWidget>
+#include <QSize>
+#include <QAbstractButton>
+#include <QDesktopWidget>
 
 namespace Ui {
 class SimulateMapWindow;
