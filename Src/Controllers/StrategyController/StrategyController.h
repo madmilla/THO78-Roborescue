@@ -8,7 +8,7 @@
 class StrategyController
 {
 public:
-	std::thread Thread;
+	std::thread* Thread;
 	virtualLidar virtuallidar;
 	virtualRosbee virtualrosbee;
 	Map map;
