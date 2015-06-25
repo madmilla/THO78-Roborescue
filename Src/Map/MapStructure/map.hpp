@@ -9,7 +9,7 @@
 #include "polygon.h"
 #include "QuadCopter.h"
 #include "virtualRosbee.h"
-#include "ATV.h"
+#include "VirtualATV.h"
 #include "aStar.h"
 #include "MapImplementation.cpp"
 #include <cstdlib>

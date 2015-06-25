@@ -142,9 +142,12 @@ public:
 	/*!
 	Start the lidar which output the lines found. Also stores the found lines in a vector
 	which contains all the data from the scans made.
+	@param pX The x position of the lidar
+	@param pY The y position of the lidar
+	@param orientation The orientation of the lidar
 	@return std::vector<Line>: vector with the linedata (Line object)
 	*/
-	std::vector<Line> start();
+	std::vector<Line> start(float pX = 0.0, float pY = 0.0 float orientation = 0.0);
 
 private:
     //! Path to the com port which the lidar is attached to.

@@ -6,16 +6,16 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file virtualRosbee.h
-* @date Created: 4/28/2015
+* @file Values.h
+* @date Created: 22-04-2015
+* @version 1.0
 *
-* @author Coen Andriessen
-* @author Jeroen Steendam
+* @author Danny Horvath, Thomas Fink
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -35,76 +35,33 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef VIRTUAL_ROSBEE_H
-#define VIRTUAL_ROSBEE_H
-
-#include <iostream>
-#include "Rosbee.h"
-class virtualRosbee
+#ifndef VALUES
+#define VALUES
+class Values
 {
 public:
-	/**
-	* @fn	virtualRosbee(int x, int y);
-	*
-	* @brief	Constructor of the class virtualRosbee.
-	*
-	* @param	int x
-	* @param	int y
-	*/
-	virtualRosbee(int x, int y, Rosbee actual);
-	/**
-	* @fn	~virtualRosbee();
-	*
-	* @brief	Destructor of the class virtualRosbee.
-	*/
-	~virtualRosbee();
-	/**
-	* @fn	int getVirtualRosbeeLocationX();
-	*
-	* @brief	Function that returns the x location of the virtualRosbee.
-	*
-	* @return	int rosbeeLocationX
-	*/
-    int getVirtualRosbeeLocationX();
-	/**
-	* @fn	int getVirtualRosbeeLocationY();
-	*
-	* @brief	Function that returns the y location of the virtualRosbee.
-	*
-	* @return	int rosbeeLocationY
-	*/
-    int getVirtualRosbeeLocationY();
-	/**
-	* @fn	void set RosbeeLocationY();
-	*
-	* @brief	Function that set the y location of the virtualRosbee.
-	*/
-    void setVirtualRosbeeLocationY(int y);
-	/**
-	* @fn	void set RosbeeLocationX();
-	*
-	* @brief	Function that set the x location of the virtualRosbee.
-	*/
-    void setVirtualRosbeeLocationX(int x);
-	/**
-	* @fn	void moveTo(int x, int y);
-	*
-	* @brief	Function to move the virtualrosbee to location x and y.
-	*
-	* @param	int x
-	* @param	int y
-	*/
-	void moveTo(int x, int y);
-private:
-	Rosbee rActual;
-	/**
-	* @brief int rosbeeLocationX variable to save virtualrosbee location x.
-	*/
-    int virtualRosbeeLocationX;
-	/**
-	* @brief int rosbeeLocationY variable to save virtualrosbee location y.
-	*/
-    int virtualRosbeeLocationY;
-};
+    const static int LIDAR = 3;
+    const static int CHECKPOINT = 2;
+    const static int OBSTACLE = 1;
+    const static int EMPTY = 0;
+    const static int DRAWWIDTH = 1920;
+    const static int DRAWHEIGHT = 1080;
+    const static int SCANRADIUS = 10;
+    const static int NOISETHRESHOLD = 35;
+    const static char EDIT = 0;
+    const static char SIMULATE = 1;
 
-#endif // ROSBEE_H
+    const static int FILEEXCEPTION = 1;
+    const static int CONTENTEXCEPTION = 2;
+
+    //! Int containing the new map begin size.
+    static const int newMapBeignSize = 100;
+    //! Int containing minimal map size.
+    static const int newMapMinSize = 10;
+    //! Int containing maximal map size.
+    static const int newMapMaxSize = 4000;
+    //! Int containing the map step size.
+    static const int newMapStepSize = 10;
+};
+#endif // VALUES
+

@@ -6,16 +6,16 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file virtualRosbee.h
-* @date Created: 4/28/2015
+* @file Checkpoint.cpp
+* @date Created: 22-04-2015
+* @version 1.0
 *
-* @author Coen Andriessen
-* @author Jeroen Steendam
+* @author Danny Horvath, Thomas Fink
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -35,76 +35,33 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef VIRTUAL_ROSBEE_H
-#define VIRTUAL_ROSBEE_H
+#include "checkpoint.h"
 
-#include <iostream>
-#include "Rosbee.h"
-class virtualRosbee
-{
-public:
-	/**
-	* @fn	virtualRosbee(int x, int y);
-	*
-	* @brief	Constructor of the class virtualRosbee.
-	*
-	* @param	int x
-	* @param	int y
-	*/
-	virtualRosbee(int x, int y, Rosbee actual);
-	/**
-	* @fn	~virtualRosbee();
-	*
-	* @brief	Destructor of the class virtualRosbee.
-	*/
-	~virtualRosbee();
-	/**
-	* @fn	int getVirtualRosbeeLocationX();
-	*
-	* @brief	Function that returns the x location of the virtualRosbee.
-	*
-	* @return	int rosbeeLocationX
-	*/
-    int getVirtualRosbeeLocationX();
-	/**
-	* @fn	int getVirtualRosbeeLocationY();
-	*
-	* @brief	Function that returns the y location of the virtualRosbee.
-	*
-	* @return	int rosbeeLocationY
-	*/
-    int getVirtualRosbeeLocationY();
-	/**
-	* @fn	void set RosbeeLocationY();
-	*
-	* @brief	Function that set the y location of the virtualRosbee.
-	*/
-    void setVirtualRosbeeLocationY(int y);
-	/**
-	* @fn	void set RosbeeLocationX();
-	*
-	* @brief	Function that set the x location of the virtualRosbee.
-	*/
-    void setVirtualRosbeeLocationX(int x);
-	/**
-	* @fn	void moveTo(int x, int y);
-	*
-	* @brief	Function to move the virtualrosbee to location x and y.
-	*
-	* @param	int x
-	* @param	int y
-	*/
-	void moveTo(int x, int y);
-private:
-	Rosbee rActual;
-	/**
-	* @brief int rosbeeLocationX variable to save virtualrosbee location x.
-	*/
-    int virtualRosbeeLocationX;
-	/**
-	* @brief int rosbeeLocationY variable to save virtualrosbee location y.
-	*/
-    int virtualRosbeeLocationY;
-};
+checkPoint::checkPoint(int x, int y):
+    checkPointx(x),
+    checkPointy(y)
+{}
 
-#endif // ROSBEE_H
+void checkPoint::setCoordinates(int x, int y){
+    checkPointx = x;
+    checkPointy = y;
+}
+
+void checkPoint::setX(int x){
+    checkPointx = x;
+}
+
+void checkPoint::setY(int y){
+    checkPointy = y;
+}
+
+int checkPoint::getX(){
+    return checkPointx;
+}
+
+int checkPoint::getY(){
+    return checkPointy;
+}
+
+checkPoint::~checkPoint()
+{}
