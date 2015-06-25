@@ -1,83 +1,13 @@
-Src/GUI/mission-gui/lidar-gui/moc_lidarwindow.cpp:13:2: error: #error "The header file 'lidarwindow.h' doesn't include <QObject>."
- #error "The header file 'lidarwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/rosbee-gui/moc_rosbeewindow.cpp:13:2: error: #error "The header file 'rosbeewindow.h' doesn't include <QObject>."
- #error "The header file 'rosbeewindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/ATV-gui/moc_atvwindow.cpp:13:2: error: #error "The header file 'atvwindow.h' doesn't include <QObject>."
- #error "The header file 'atvwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/quadcopter-gui/moc_quadcopterwindow.cpp:13:2: error: #error "The header file 'quadcopterwindow.h' doesn't include <QObject>."
- #error "The header file 'quadcopterwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/moc_mainwindow.cpp:13:2: error: #error "The header file 'mainwindow.h' doesn't include <QObject>."
- #error "The header file 'mainwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/lidar-gui/moc_lidarwindow.cpp:13:2: error: #error "The header file 'lidarwindow.h' doesn't include <QObject>."
- #error "The header file 'lidarwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/rosbee-gui/moc_rosbeewindow.cpp:13:2: error: #error "The header file 'rosbeewindow.h' doesn't include <QObject>."
- #error "The header file 'rosbeewindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/ATV-gui/moc_atvwindow.cpp:13:2: error: #error "The header file 'atvwindow.h' doesn't include <QObject>."
- #error "The header file 'atvwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/quadcopter-gui/moc_quadcopterwindow.cpp:13:2: error: #error "The header file 'quadcopterwindow.h' doesn't include <QObject>."
- #error "The header file 'quadcopterwindow.h' doesn't include <QObject>."
-  ^
-Src/GUI/mission-gui/moc_mainwindow.cpp:13:2: error: #error "The header file 'mainwindow.h' doesn't include <QObject>."
- #error "The header file 'mainwindow.h' doesn't include <QObject>."
-  ^
 In file included from Src/Communication/udp/Connection.h:4:0,
                  from Src/Communication/udp/UDPSocket.h:46,
                  from Src/Vehicles/Rosbee/Rosbee.h:47,
-                 from Src/GUI/mission-gui/mainwindow.h:53,
+                 from Src/GUI/mission-gui/mainwindow.h:51,
                  from Src/Modules/Mission1/mission.cpp:1:
 c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/i686-w64-mingw32/include/winsock2.h:15:2: warning: #warning Please include winsock2.h before windows.h [-Wcpp]
  #warning Please include winsock2.h before windows.h
   ^
-In file included from Src/Communication/udp/Connection.h:4:0,
-                 from Src/Communication/udp/UDPSocket.h:46,
-                 from Src/Vehicles/Rosbee/Rosbee.h:47,
-                 from Src/GUI/mission-gui/mainwindow.h:53,
-                 from Src/GUI/mission-gui/moc_mainwindow.cpp:9:
-c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/i686-w64-mingw32/include/winsock2.h:15:2: warning: #warning Please include winsock2.h before windows.h [-Wcpp]
- #warning Please include winsock2.h before windows.h
-  ^
-In file included from Src/Communication/udp/Connection.h:4:0,
-                 from Src/Communication/udp/UDPSocket.h:46,
-                 from Src/Vehicles/Rosbee/Rosbee.h:47,
-                 from Src/GUI/mission-gui/rosbee-gui/rosbeewindow.h:51,
-                 from Src/GUI/mission-gui/rosbee-gui/moc_rosbeewindow.cpp:9:
-c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/i686-w64-mingw32/include/winsock2.h:15:2: warning: #warning Please include winsock2.h before windows.h [-Wcpp]
- #warning Please include winsock2.h before windows.h
-  ^
-In file included from Src/Communication/udp/Connection.h:4:0,
-                 from Src/Communication/udp/UDPSocket.h:46,
-                 from Src/Sensors/lidar/LIDAR-Basestation/Lidar.h:47,
-                 from Src/GUI/mission-gui/lidar-gui/lidarwindow.h:54,
-                 from Src/GUI/mission-gui/lidar-gui/moc_lidarwindow.cpp:9:
-c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/i686-w64-mingw32/include/winsock2.h:15:2: warning: #warning Please include winsock2.h before windows.h [-Wcpp]
- #warning Please include winsock2.h before windows.h
-  ^
-In file included from Src/Vehicles/Rosbee/Rosbee.h:50:0,
-                 from Src/Communication/udp/RobotManager.h:44,
-                 from Src/Communication/udp/UDPServer.h:52,
-                 from Src/Communication/udp/UDPSocket.h:47,
-                 from Src/Sensors/lidar/LIDAR-Basestation/Lidar.h:47,
-                 from Src/GUI/mission-gui/lidar-gui/lidarwindow.h:54,
-                 from Src/GUI/mission-gui/lidar-gui/moc_lidarwindow.cpp:9:
-Src/Communication/udp/UDPRobot.h: In destructor 'UDPRobot::~UDPRobot()':
-Src/Communication/udp/UDPRobot.h:16:38: warning: possible problem detected in invocation of delete operator: [-Wdelete-incomplete]
-  ~UDPRobot(){ delete encoder; delete sock; }
-                                      ^
-Src/Communication/udp/UDPRobot.h:16:38: warning: invalid use of incomplete type 'class CPIUDPSocket'
-Src/Communication/udp/UDPRobot.h:11:7: warning: forward declaration of 'class CPIUDPSocket'
- class CPIUDPSocket;
-       ^
-Src/Communication/udp/UDPRobot.h:16:38: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined
-  ~UDPRobot(){ delete encoder; delete sock; }
-                                      ^
-Src/GUI/mission-gui/rosbee-gui/rosbeewindow.o:rosbeewindow.cpp:(.text+0x487): undefined reference to `Rosbee::isReady()'
-collect2.exe: error: ld returned 1 exit status
-make: *** [mission1] Error 1
+Src/Modules/Mission1/mission.cpp:9:32: fatal error: StrategyController.h: No such file or directory
+ #include "StrategyController.h"
+                                ^
+compilation terminated.
+make: *** [Src/Modules/Mission1/mission.o] Error 1
