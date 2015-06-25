@@ -39,14 +39,13 @@
 #define LPCCOM_H
 
 #include "lpc_com.h"
-#include "LibSerial.h"
+#include "libserial.h"
 #include "GPIOClass.h"
-#include <string>
 
 class LPCCom {
 public:
 
-	LPCCom(std::string uartPort, std::string gpioPort);
+	LPCCom(const char* uartPort, const char* gpioPort);
 
 	~LPCCom();
 
@@ -56,10 +55,11 @@ public:
 
 private:
 	LibSerial* uart;
-	GPIOClass* gpio4;
-	std::string portName;
+	GPIOClass* gpio;
+	const char* portName;
 	int baudRate = 38400;
-	double, battery, double temperature;
+    char dataBuffer[10];
+	double battery, temperature;
 };
 
 

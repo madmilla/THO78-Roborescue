@@ -35,9 +35,9 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include"lpc_com.h"
+#include "lpc_com.h"
 
-LPCCom::LPCCom(std::string uartPort, gpioPort) {
+LPCCom::LPCCom(const char* uartPort, const char* gpioPort) {
 	uart = new LibSerial();
 	gpio = new GPIOClass(gpioPort);
 	portName = uartPort;
@@ -65,11 +65,11 @@ bool LPCCom::init(){
 	}
 }
 
-void readData(double& batteryPercentage, double& temperature){
-	gpio->setval("1");
+void LPCCom::readData(double& batteryPercentage, double& temperature){
+	gpio->setval_gpio("1");
 	usleep(20 * 1000);
-	gpio->setval("0");
+	gpio->setval_gpio("0");
 
-	uart->read();
+	uart->read(dataBuffer, 8);
 	// zet waarden in de pointers
 }
