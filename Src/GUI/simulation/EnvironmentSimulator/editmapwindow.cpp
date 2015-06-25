@@ -38,8 +38,8 @@
 #include "editmapwindow.h"
 #include "ui_editmapwindow.h"
 #include "values.h"
-#include <QGraphicsRectItem>
-#include <QMouseEvent>
+#include <QtWidgets/QGraphicsRectItem>
+#include <QtGui/QMouseEvent>
 #include <vector>
 #include <iostream>
 
