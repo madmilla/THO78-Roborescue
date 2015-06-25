@@ -1,4 +1,4 @@
-/**
+ /**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -186,7 +186,7 @@ void Map::setMapObject(int object,int y, int x){
     }
     if(x < width && y < height){
         if(object >= 0){
-            removePoint(x, y);
+            //removePoint(x, y);
             Object obj;
             obj.X = x;
             obj.Y = y;
@@ -202,7 +202,7 @@ void Map::setMapObject(Map::Object obj){
     }
     if(obj.X < width && obj.Y < height){
         if(obj.id >= 0){
-            removePoint(obj);
+            //removePoint(obj);
             mapLayout.push_back(obj);
         }
     }
@@ -213,12 +213,10 @@ int Map::getMapObject(int y, int x){
         return -1;
     }
     if(x < width && y < height){
-        int i = 0;
         for (Map::Object o : mapLayout){
             if (o.X == x && o.Y == y){
-                return mapLayout[i].id;
+                return o.id;
             }
-            ++i;
         }
     }
     return 0;
@@ -241,6 +239,8 @@ std::vector< Map::Object > Map::getMapContent(){
 }*/
 
 void Map::saveMap(){
+    std::sort( mapLayout.begin(), mapLayout.end() );
+    mapLayout.erase( std::unique( mapLayout.begin(), mapLayout.end() ), mapLayout.end() );
     std::ofstream mapFile;
     mapFile.open(fileName);
     /*for(int y = 0; y < height; ++y){

@@ -154,6 +154,15 @@ Qt::GlobalColor SimulateMapWindow::getColorById(int id){
     case 3:
         bColor = Qt::blue;
     break;
+    case 4:
+        bColor = Qt::red;
+    break;
+    case 5:
+        bColor = Qt::red;
+    break;
+    case 6:
+        bColor = Qt::red;
+    break;
     default:
         bColor = Qt::black;
     break;
