@@ -30,7 +30,7 @@ void Lidar::run(){
          auto msg = sock->incomming->peek();
          mavlink_msg_command_long_decode(msg, &packet);
          if (packet.command = LIDAR_COMMAND_FUNCTIONS::LINEDATA){
-        	 LineDataQueue->add(std::make_tuple(packet.param1, packet.param2, packet.param3, packet.param4});
+        	 LineDataQueue->add(std::make_tuple(packet.param1, packet.param2, packet.param3, packet.param4));
          }
       }
       std::this_thread::sleep_for(std::chrono::seconds(2));

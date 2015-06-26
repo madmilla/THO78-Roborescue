@@ -102,7 +102,7 @@ void virtualRosbee::moveTo(int x, int y) {
 	rActual->sendWaypoint(x,y);
 	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
 }
-
+void virtualRosbee::start(int x, int y,int angle){}
 
 
 

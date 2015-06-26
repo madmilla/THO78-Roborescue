@@ -96,6 +96,7 @@ public:
 	* @param	int y
 	*/
 	void moveTo(int x, int y);
+	void start(int x, int y,int angle);
 private:
 	Rosbee *rActual;
 	/**

@@ -26,7 +26,7 @@ void StrategyController::scanArea(){
 	while (MapCopy.contains(0)){
 	 vslam.run();
 	std::cout << "get char" << std::endl;
-	
+	virtualLidar->start(virtualrosbee->getVirtualRosbeeLocationX(),virtualrosbee->getVirtualRosbeeLocationY(),virtualrosbee->getVirtualRosbeeFlank);
 	getchar();
 	std::cout << "got char" << std::endl;
 	MapCopy.print();
