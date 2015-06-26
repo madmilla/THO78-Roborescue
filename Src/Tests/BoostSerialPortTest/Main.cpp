@@ -20,7 +20,7 @@ int main()
 		{
 			for (auto i = 0; i < readBytes; ++i)
 			{
-				std::cout << buffer[i];
+				std::cout << (char)buffer[i];
 			}
 		}
 	}
