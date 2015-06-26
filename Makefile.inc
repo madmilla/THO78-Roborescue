@@ -19,10 +19,10 @@ endif
 
 ifeq ($(MAKECMDGOALS),mission1)
 	ifneq ($(OS),Windows_NT)
-		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql
+		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql -pthread
 		INCLUDES 	+= -I /usr/include/qt5
 		CXXFLAGS	+= -fPIC -pthread
-		LDFLAGS+= -pthread
+		LDFLAGS+= - pthread
 	else
 		INCLUDES 	+= -I$(QT_INCL_DIR)
 		LDFLAGS 	+= -L$(QT_LIB_DIR)
