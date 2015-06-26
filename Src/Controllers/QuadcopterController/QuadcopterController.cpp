@@ -3,12 +3,12 @@
 
 QuadcopterController::QuadcopterController(
 	Quadcopter& quadcopter, XYLocalisationModule& locMod) :
-registeredQuacopter(quadcopter),
-registeredLocalisationSystem = locMod
+registeredQuadcopter{quadcopter},
+registeredLocationModule{locMod}
 {
 }
 
-void QuadcopterController::setTarget(coordinate target, float targetHeight)
+void QuadcopterController::setTarget(Coordinate<double> target, float targetHeight)
 {
 	targetLocation = target;
 	targetHeight = targetHeight;
@@ -16,7 +16,7 @@ void QuadcopterController::setTarget(coordinate target, float targetHeight)
 
 void QuadcopterController::setPosition()
 {
-	recentPosition = registeredLocalisationSystem.getCoordinate();
+	recentLocation = registeredLocationModule.getCoordinate();
 }
 
 void QuadcopterController::setHeight(float currentHeight)
@@ -26,16 +26,17 @@ void QuadcopterController::setHeight(float currentHeight)
 
 void QuadcopterController::moveTowardsTarget()
 {
-	if (targetLocation = nullptr || targetHeight == -1)
+	/* TODO: Implement operator == on Coordinate template */
+	/*if (targetLocation == Coordinate<double>{-1,-1} || targetHeight == -1)
 	{
 		std::cout << "Set a target first!";
 		return;
-	}
+	}*/
 
 	if (abs(recentHeight - targetHeight) < allowedDeviation && 
-		abs(targetLocation.getX() - recentPosition.getX()) < 
+		abs(targetLocation.getX() - recentLocation.getX()) < 
 		allowedDeviation && abs(targetLocation.getY() - 
-		recentPosition.getY()) < allowedDeviation)
+		recentLocation.getY()) < allowedDeviation)
 	{
 		std::cout << "Destination reached!";
 		return;
@@ -43,7 +44,7 @@ void QuadcopterController::moveTowardsTarget()
 
 	if (recentHeight < targetHeight - allowedDeviation)
 	{
-	std:cout << "increase the quadcopter height by " << 
+		std::cout << "increase the quadcopter height by " << 
 		(targetHeight - recentHeight) * 100 << " cm!";
 		return;
 	}
@@ -51,45 +52,45 @@ void QuadcopterController::moveTowardsTarget()
 	{
 		if (recentHeight > targetHeight + allowedDeviation)
 		{
-		std:cout << "Decrease the quadcopter height by " << 
+		std::cout << "Decrease the quadcopter height by " << 
 			(recentHeight - targetHeight) * 100 << " cm!";
 			return;
 		}
 		else
 		{
-			if (abs(targetLocation.getX() - recentPosition.getX()) >=
-				abs(targetLocation.getY() - recentPosition.getY()))
+			if (abs(targetLocation.getX() - recentLocation.getX()) >=
+				abs(targetLocation.getY() - recentLocation.getY()))
 			{
-				if (recentPosition.getX() < targetLocation.getX() - 
+				if (recentLocation.getX() < targetLocation.getX() - 
 					allowedDeviation)
 				{
-					std:cout << "Move the quadcopter " << 
-					targetLocation.getX() - recentPosition.getX() <<
+					std::cout << "Move the quadcopter " << 
+					targetLocation.getX() - recentLocation.getX() <<
 					" m to the right!";
 					return;
 				}
 				else
 				{
-					std:cout << "Move the quadcopter " << 
-					recentPosition.getX() - targetLocation.getX() << 
+					std::cout << "Move the quadcopter " << 
+					recentLocation.getX() - targetLocation.getX() << 
 					" m to the left!";
 					return;
 				}
 			}
 			else
 			{
-				if (recentPosition.getY() < targetLocation.getY() - 
+				if (recentLocation.getY() < targetLocation.getY() - 
 					allowedDeviation)
 				{
-					std:cout << "Move the quadcopter forward " <<
-					targetLocation.getY() - recentPosition.getY() <<
+					std::cout << "Move the quadcopter forward " <<
+					targetLocation.getY() - recentLocation.getY() <<
 					" m!";
 					return;
 				}
 				else
 				{
-					std:cout << "Move the quadcopter backwards " << 
-					recentPosition.getY() - targetLocation.getY() <<
+					std::cout << "Move the quadcopter backwards " << 
+					recentLocation.getY() - targetLocation.getY() <<
 					" m!";
 					return;
 				}

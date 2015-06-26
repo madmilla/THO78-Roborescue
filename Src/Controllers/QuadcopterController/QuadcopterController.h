@@ -54,7 +54,6 @@
 #include "Coordinate.h"
 
 class XYLocalisationModule;
-class Coordinate;
 
 class QuadcopterController
 {
@@ -70,7 +69,7 @@ public:
 	* @param target a target coordinate
 	* @param targetHeight a float used for indicating the target height
 	*/
-	void setTarget(coordinate target, float targetHeight);
+	void setTarget(Coordinate<double> target, float targetHeight);
 	/**
 	* setPosition sets the latest registered position as position
 	* gets the position from the localisation-module
@@ -95,7 +94,7 @@ private:
 	/**
 	* registeredQuad
 	*/
-	Quadcopter& registeredQuad;
+	Quadcopter& registeredQuadcopter;
 	/**
 	* registeredLocationModule
 	*/
@@ -104,7 +103,7 @@ private:
 	* recentLocation
 	* vector of intergers used for the recent location
 	*/
-	Coordinate<int> recentLocation;
+	Coordinate<double> recentLocation;
 	/**
 	* recentHeight
 	* float used to indicate the recentheight
@@ -114,7 +113,7 @@ private:
 	* targetLocation
 	* vector of intergers used for the target location
 	*/
-	Coordinate<int> targetLocation = nullptr;
+	Coordinate<double> targetLocation = Coordinate<double>{-1,-1};
 	/**
 	* targetHeight
 	* float default set to -1.0f
