@@ -182,6 +182,14 @@ public:
 	//! @param The replacement property of the node (point)
 	void floodFillLocationQueue(point node, int target, int replacement);
 
+	//! Get the grid width
+	//! @return The width of the grid
+	int getGridWidth();
+
+	//! Get the grid height
+	//! @return The height of the grid
+	int getGridHeight();
+
 private:
 	int scale=1;
 	std::vector<line> MapData;
