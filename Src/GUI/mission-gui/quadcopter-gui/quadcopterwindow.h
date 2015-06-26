@@ -63,7 +63,7 @@ class QuadcopterWindow;
 * @date   April, 2015
 * @brief  this class handles ui input from the RosbeeWindow
 */
-class QuadCopterWindow : public QObject, public QMainWindow, public Listener
+class QuadCopterWindow : public QMainWindow, public Listener
 {
     Q_OBJECT
 

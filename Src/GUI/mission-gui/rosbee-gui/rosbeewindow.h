@@ -61,7 +61,7 @@ class RosbeeWindow;
 * @date   April, 2015
 * @brief  this class handles ui input from the RosbeeWindow
 */
-class RosbeeWindow : public QObject, public QMainWindow
+class RosbeeWindow : public QMainWindow
 {
     Q_OBJECT
 

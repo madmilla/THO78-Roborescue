@@ -59,7 +59,7 @@ class MapWindow;
 * @date    ??
 * @brief   ??
 */
-class MapWindow : public QObject, public QMainWindow
+class MapWindow : public QMainWindow
 {
     Q_OBJECT
 

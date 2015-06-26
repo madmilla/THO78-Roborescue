@@ -64,7 +64,7 @@ class LidarWindow;
 * @date   April, 2015
 * @brief  the class that handles the lidarwindow and the buttons on it.
 */
-class LidarWindow : public QObject, public QMainWindow
+class LidarWindow : public QMainWindow
 {
     Q_OBJECT
 
