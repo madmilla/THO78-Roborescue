@@ -101,7 +101,9 @@ void VSLAM::run(){
 				Container::route.clearRoute();
 			}			
 			else{
-				virtualrosbee->moveTo((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX())*map->getScale(), ((newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY())*map->getScale()));
+				moveRosbeeTo((newRosbeeLocation[0] - rosbee->getRosbeeLocationX()), (newRosbeeLocation[1] - rosbee->getRosbeeLocationY()));
+				changeDirection();
+				//virtualrosbee->moveTo((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX())*map->getScale(), ((newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY())*map->getScale()));
 				virtualrosbee->setVirtualRosbeeLocationX((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX()));
 				virtualrosbee->setVirtualRosbeeLocationY((newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY()));
 				std::cout << "VirtualRosbee Location: " << virtualrosbee->getVirtualRosbeeLocationX() << " , " << virtualrosbee->getVirtualRosbeeLocationY() << std::endl;
@@ -119,3 +121,78 @@ bool VSLAM::wholeRouteInRangevirtuallidar(){
 	}
 	return true;
 }
+
+void VSLAM::changeDirection(){
+	if ((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX()) < 0){
+		direction = 'W';
+	}
+	else if ((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX()) > 0){
+		direction = 'E';
+	}
+	else if ((newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY()) > 0){
+		direction = 'S';
+	}
+	else if ((newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY()) < 0){
+		direction = 'N';
+	}
+}
+
+void VSLAM::moveRosbeeTo(int x, int y){
+	if (direction == 'N'){
+		if (x == 0, y == 1){
+			virtualrosbee->moveTo(0, -1);
+		}
+		else if(x == 0, y == -1){
+			virtualrosbee->moveTo(0, 1);
+		}
+		else if (x == 1, y == 0){
+			virtualrosbee->moveTo(1, 0);
+		}
+		else if (x == -1, y == 0){
+			virtualrosbee->moveTo(-1, 0);
+		}
+	}
+	else if (direction == 'S'){
+		if (x == 0, y == 1){
+			virtualrosbee->moveTo(0, -1);
+		}
+		else if (x == 0, y == -1){
+			virtualrosbee->moveTo(0, 1);
+		}
+		else if (x == 1, y == 0){
+			virtualrosbee->moveTo(-1, 0);
+		}
+		else if (x == -1, y == 0){
+			virtualrosbee->moveTo(1, 0);
+		}
+	}
+	else if (direction == 'W'){
+		if (x == 0, y == 1){
+			virtualrosbee->moveTo(-1, 0);
+		}
+		else if (x == 0, y == -1){
+			virtualrosbee->moveTo(1, 0);
+		}
+		else if (x == 1, y == 0){
+			virtualrosbee->moveTo(0, -1);
+		}
+		else if (x == -1, y == 0){
+			virtualrosbee->moveTo(0, 1);
+		}
+	}
+	else if (direction == 'E'){
+		if (x == 0, y == 1){
+			virtualrosbee->moveTo(1, 0);
+		}
+		else if (x == 0, y == -1){
+			virtualrosbee->moveTo(-1, 0);
+		}
+		else if (x == 1, y == 0){
+			virtualrosbee->moveTo(0, 1);
+		}
+		else if (x == -1, y == 0){
+			virtualrosbee->moveTo(0, -1);
+		}
+	}
+}
+
