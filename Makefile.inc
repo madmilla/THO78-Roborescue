@@ -1,7 +1,7 @@
 include Makefile.local
 include TargetMakefiles/Makefile.modules
 
-CXX 							= g++
+CXX 							= g++ -fPIC
 CXXFLAGS						= -std=c++11
 INCLUDES 						= 
 LDLIBS							=
