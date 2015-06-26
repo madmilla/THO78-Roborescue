@@ -107,8 +107,6 @@ private:
 };
 
 /*!
-  \mainpage LibSerial class
-
   \brief
     The class LibSerial offers simple access to the serial port devices for Linux.
     It can be used for any serial device (Built-in serial port, USB to RS232 converter,
