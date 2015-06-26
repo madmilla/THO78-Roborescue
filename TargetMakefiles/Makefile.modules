@@ -27,6 +27,7 @@ STRATEGY_TINYASTAR_MODULE		= Src/Strategy/pathfinding/Stop-them-spaces/
 ENVIRONMENTSIMULATOR_GUI_MODULE = Src/GUI/simulation/EnvironmentSimulator/
 
 #VEHICLES
+QUADCOPTER_CONTROLLER_MODULE	= Src/Controllers/QuadcopterController/
 QUADCOPTER_MODULE				= Src/Vehicles/Quadcopter/
 ATV_MODULE						= Src/Vehicles/ATV/
 ROSBEE_LOCAL_MODULE				= Src/Vehicles/Rosbee/
@@ -42,6 +43,7 @@ DATASTRUCTURES_MODULE			= Src/DataStructures/
 PX4FLOW_MODULE 					= Src/Sensors/PX4Flow/
 INTERFACES_MODULE 				= Src/Sensors/Interfaces/
 LOCALISATION_SERVER				= Src/Sensors/Localisation-Module/Localisation_Server/
+LOCALISATION_BASESTATION		= Src/Sensors/Localisation-Module/Localisation_Basestation/
 
 #COMMUNICATION
 MAVLINK_EXCHANGER_MODULE		= Src/Communication/MavlinkExchanger/

@@ -21,10 +21,10 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LocalisationModule.cpp">
+    <ClCompile Include="VictimLocalisationModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VictimLocalisationModule.cpp">
+    <ClCompile Include="XYLocalisationModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,10 +35,10 @@
     <ClInclude Include="Coordinate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LocalisationModule.h">
+    <ClInclude Include="VictimLocalisationModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VictimLocalisationModule.h">
+    <ClInclude Include="XYLocalisationModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

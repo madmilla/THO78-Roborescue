@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file LocalisationModule.cpp
+* @file XYLocalisationModule.cpp
 * @date Created: 29-5-2015
 *
 * @author Kjeld Perquin
@@ -34,30 +34,30 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "LocalisationModule.h"
+#include "XYLocalisationModule.h"
 #include <iostream>
 
-LocalisationModule::LocalisationModule(io_service& service, std::string host, std::string port):
+XYLocalisationModule::XYLocalisationModule(io_service& service, std::string host, std::string port):
 TCPClient{ service, host, port}
 {	
 }
 
-Coordinate<double> LocalisationModule::getCoordinate() const
+Coordinate<double> XYLocalisationModule::getCoordinate() const
 {
 	return coordinate;
 }
 
-double LocalisationModule::getX() const
+double XYLocalisationModule::getX() const
 {
 	return coordinate.getX();
 }
 
-double LocalisationModule::getY() const
+double XYLocalisationModule::getY() const
 {
 	return coordinate.getY();
 }
 
-void LocalisationModule::handleMessage(std::string message)
+void XYLocalisationModule::handleMessage(std::string message)
 {
 	int xPos;
 	if ((xPos = message.find('X')) != std::string::npos)

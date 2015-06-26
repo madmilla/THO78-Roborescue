@@ -1,2 +1,2 @@
 SRC	+= Src/Vehicles/Quadcopter/Quadcopter.cpp
-#SRC	+= src/vehicles/quadcopter/quadcoptercontroller.cpp
+#SRC	+= Src/Vehicles/Quadcopter/quadcoptercontroller.cpp

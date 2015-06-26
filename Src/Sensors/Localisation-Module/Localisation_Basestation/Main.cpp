@@ -1,5 +1,5 @@
 #include <boost/asio.hpp>
-#include "LocalisationModule.h"
+#include "XYLocalisationModule.h"
 #include "VictimLocalisationModule.h"
 #include <thread>
 #include <iostream>
@@ -11,11 +11,11 @@ io_service service;
 
 int main()
 {
-	LocalisationModule localisationModule
+	XYLocalisationModule xyLocalisationModule
 		{ service, "192.168.137.39", "10033" };
 	VictimLocalisationModule victimLocalisationModule
 		{ service, "192.168.137.39", "10033" };
-	std::thread inputThread{ [&localisationModule, &victimLocalisationModule]()
+	std::thread inputThread{ [&xyLocalisationModule, &victimLocalisationModule]()
 	{
 		std::string message;
 		while (1)

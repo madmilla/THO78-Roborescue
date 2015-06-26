@@ -2,7 +2,7 @@
 #include <iostream>
 
 QuadcopterController::QuadcopterController(
-	Quadcopter& quadcopter, LocalisationModule& locMod) :
+	Quadcopter& quadcopter, XYLocalisationModule& locMod) :
 registeredQuacopter(quadcopter),
 registeredLocalisationSystem = locMod
 {

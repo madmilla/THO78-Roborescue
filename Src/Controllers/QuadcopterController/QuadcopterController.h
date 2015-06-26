@@ -50,10 +50,10 @@
 #ifndef _QUADCOPTERCONTROLLER_H
 #define _QUADCOPTERCONTROLLER_H
 #include "Quadcopter.h"
-#include "LocalisationModule.h"
+#include "XYLocalisationModule.h"
 #include "Coordinate.h"
 
-class LocalisationModule;
+class XYLocalisationModule;
 class Coordinate;
 
 class QuadcopterController
@@ -64,7 +64,7 @@ public:
 	* @param quadcopter a quadcopter reference
 	* @param locMod a localisationModule reference
 	*/
-	QuadcopterController(Quadcopter& quadcopter, LocalisationModule& locMod);
+	QuadcopterController(Quadcopter& quadcopter, XYLocalisationModule& locMod);
 	/**
 	* setTarget sets a target destination
 	* @param target a target coordinate
@@ -99,7 +99,7 @@ private:
 	/**
 	* registeredLocationModule
 	*/
-	LocalisationModule& registeredLocationModule;
+	XYLocalisationModule& registeredLocationModule;
 	/**
 	* recentLocation
 	* vector of intergers used for the recent location
