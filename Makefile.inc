@@ -42,6 +42,10 @@ ifeq ($(MAKECMDGOALS),lidar)
 		@echo "LIDAR cannot be compiled on Windows systems"
 		exit 1
 	else
+		CXXFLAGS 	+= 
+		INCLUDES 	+= -IDeps/incl/rplidar/linux -IDeps/incl/opencv
+		LDFLAGS		+= -LDeps/lib/opencv/Linux/x86 -LDeps/lib/rplidar/linux
+		LDLIBS 		+= -lrplidar -lopencv_core -lopencv_highgui -lopencv_imgproc -lpthread -lrt
 		include TargetMakefiles/Makefile.lidar
 	endif
 endif

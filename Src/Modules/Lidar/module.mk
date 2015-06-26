@@ -1,1 +1,1 @@
-SRC += src/Modules/Lidar/main.cpp
+SRC += Src/Modules/Lidar/main.cpp
