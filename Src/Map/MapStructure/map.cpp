@@ -277,11 +277,11 @@ bool Map::isAccessible(int x, int y){
 	}
 }
 
-int Map::getGridWidth(){
+int Map::getGridHeight(){
 	return access.size(); // columns == grid height
 }
 
-int Map::getGridHeight(){
+int Map::getGridWidth(){
 	return access.at(0).size(); // row size == grid width
 }
 
