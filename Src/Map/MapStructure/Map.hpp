@@ -2,11 +2,11 @@
 #define Map_H
 #include <math.h>
 #include <cmath>
-#include "point.hpp"
-#include "line.hpp"
+#include "Point.hpp"
+#include "Line.hpp"
 #include <iostream>
 #include <vector>
-#include "polygon.h"
+#include "Polygon.h"
 //#include "QuadCopter.h"
 //#include "virtualRosbee.h"
 //#include "virtualATV.h"
