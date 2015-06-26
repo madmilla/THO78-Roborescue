@@ -59,10 +59,31 @@ using namespace cv;
 using namespace aruco;
 
 class ARInterface {
-public:	
+public:	:
+	/**
+	* ARInterface constructor
+	* All optional parameters (if it needs to output to GUI or not)
+	*/
 	ARInterface(bool hasGui = false, double thres1 = 7, double thres2 = 7);
+	
+	/**
+	* detectMarker()
+	* requires an inputImage to detect markers in
+	* returns a vector of markers detected in the inputimage, or an empty vector
+	*/
 	vector<Marker> detectMarkers(Mat inputImage);
+
+	/**
+	* getIdFromImage()
+	* returns the last detected AR tag id in a image. Requires a pointer to an 
+	* image
+	*/
 	int getIdFromImage(Mat* image);
+
+	/**
+	* getThresholdedImage()
+	* returns the treshholded image of the last detected image
+	*/
 	Mat getThresholdedImage();
 	
 private:
@@ -71,6 +92,11 @@ private:
 	* creates a markerDetector
 	*/
 	MarkerDetector markerDetector;
+
+	/**
+	* thresParam1, thresParam2
+	* Stores the threshParameters 
+	*/
 	double thresParam1, thresParam2;
 	
 	CameraParameters theCameraParameters;

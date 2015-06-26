@@ -66,14 +66,23 @@ class GlobalLocalisation
 {
 private:	
 	
-	ARInterface ARDetectorX, ARDetectorY;
 	/**
-	* getClosetId()
-	* getClosetId a function for retreiving the closest id tag (to the center)
+	* ARDetectorX, ARDetectorY
+	* The detector classes for the X and the Y camera's
+	*/
+	ARInterface ARDetectorX, ARDetectorY;
+
+	/**
+	* getClosestId()
+	* getClosestId a function for retreiving the closest id tag (to the center)
 	* in the list of markers
 	*/
 	int getClosestId(vector<Marker> &theMarkers, int halfWidthCamera);	
 
+	/**
+	* initializeDrivers()
+	* Initializes the drivers (basically resets them with other parameters)
+	*/
 	bool initializeDrivers();
 
 	/**
@@ -88,7 +97,8 @@ private:
 	static const int VIDEO_DEVICE_Y = 1;
 	/**
 	* currentCoordinate
-	* an interger used to indicate the current coordinates
+	* an integer used to indicate the current coordinates
+	* starts at -1,-1 which indicates no coordinate has been found yet
 	*/
 	Coordinate<int> currentCoordinate {-1, -1};
 	/**
@@ -146,13 +156,27 @@ private:
 	* creates a theImputImageY mat image
 	*/
 	Mat theInputImageY;
-	
+
+	/**
+	* hasGui
+	* Boolean value that indicates if the class should output a GUI or not.
+	* The GUI can be seen through a screen with HDMI or through X11 forwarding/
+	* VNC
+	*/
 	bool hasGui;
+
+	/**
+	* theInputImageCopyX, theInputImageCopyY
+	* Images for keeping copies of the input images in - used for drawing the 
+	* AR tag outline on in the GUI mode
+	*/	
 	Mat theInputImageCopyX, theInputImageCopyY;
+
 public:
 	/**
 	* GlobalLocalisation()
-	* the constructor for GlobalLocalisation opens the video_devices
+	* the constructor for GlobalLocalisation opens the video_devices and 
+	* optionally creates the GUI
 	*/
 	GlobalLocalisation(bool hasGui = false, double thres1 = 7, double thres2 = 7);
 	

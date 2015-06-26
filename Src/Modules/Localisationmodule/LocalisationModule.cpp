@@ -20,11 +20,15 @@ boost::asio::io_service service;
 TCPServer server{ service, 10033 };
 GlobalLocalisation* globalLocalizer;
 PX4FlowWrapper flowWrapper;
-SerialPort serialPort{"/dev/ttyACM0"};
+SerialPort serialPort{service};
 MAVLinkExchanger exchanger(serialPort);
 ARInterface* PX4FlowDetector;
 
-const int TARGET_MARKER_ID = 954;
+const int 	TARGET_MARKER_ID = 954;
+const int 	DEFAULT_TRESHOLD = 7;
+const char* PX4FLOW_SERIAL_PORT = "/dev/ttyACM0";
+const int 	PX4FLOW_SERIAL_BAUDRATE = 115200;
+const int 	Y_MAX_AR_TAG_VALUE = 108;
 
 void handlePX4Flow()
 {
@@ -33,30 +37,29 @@ void handlePX4Flow()
 	{
 		attempts --;
 		std::this_thread::sleep_for (std::chrono::milliseconds(500));
-		//std::cout << 1;
 		flowWrapper.setHeading(90);
-		while (attempts <= 0 || (!flowWrapper.isImageRequested() && !flowWrapper.isImageReady())){
-			if (attempts <= 0){
+		while (attempts <= 0 || (!flowWrapper.isImageRequested() && !flowWrapper.isImageReady()))
+		{
+			if (attempts <= 0)
+			{
 				std::cout << "rip\n";
 			}
-		std::cout << 2;
 			mavlink_message_t* msg = flowWrapper.requestImage();
 				
-			if (msg != nullptr){
+			if (msg != nullptr)
+			{
 				std::cout << "Sending message\n";
 				attempts = 10;
 				PrioritisedMAVLinkMessage message(*msg);
 				exchanger.enqueueMessage(message);
 			}
 		}
-		//std::cout << 3;
-		if (flowWrapper.isImageReady()){
-		std::cout << 4;
+		if (flowWrapper.isImageReady())
+		{
 			cv::Mat* img = flowWrapper.getImage();
 			if(img != nullptr)
 			{
 				attempts = 10;
-				std::cout << 5;
 				int detectedId = PX4FlowDetector->getIdFromImage(img);
 				if(detectedId == TARGET_MARKER_ID)
 				{				
@@ -66,91 +69,61 @@ void handlePX4Flow()
 				}
 			}
 		}
-		//std::cout << 6 << '\n';
-		/*std::cout << "1";
-		std::this_thread::sleep_for (std::chrono::seconds(0));
-		//std::cout << "Request message\n";
-		flowWrapper.setHeading(90);
-		mavlink_message_t* msg = flowWrapper.requestImage();
-		std::cout << "2";
-		if (msg != nullptr){
-			std::cout << "Sending message\n";
-			PrioritisedMAVLinkMessage message(*msg);
-			exchanger.enqueueMessage(message);
-		}
-		std::cout << "3";
-		delete msg;
-		cv::Mat* img = nullptr;
-		unsigned char attempts = 255;
-		std::cout << "4";
-		while (img == nullptr && attempts){
-			attempts --;
-			if (!flowWrapper.isImageRequested()){
-				std::cout << "!flowWrapper.isImageRequested() ; break\n";
-				break;
-			}
-			img = flowWrapper.getImage();
-		}
-		std::cout << "5";
-		//img->save("image.BMP");		
-		std::this_thread::sleep_for (std::chrono::seconds(0));
-
-		std::cout << "6";
-		if(img != nullptr)
-		{
-			int detectedId = PX4FlowDetector->getIdFromImage(img);
-			if(detectedId == TARGET_MARKER_ID)
-			{				
-				std::string message = 'V' + std::to_string(detectedId);				
-				std::cout << message <<std::endl;
-				server.broadcast(message);
-			}
-		}
-		std::cout << "7\n";
-		
-		delete img;*/
-		
-		
-		//std::cout << "end of loop, back to start.\n";
-		/*std::cout 
-			<< "FlowX: " << flowWrapper.getX() 
-			<< " \nFlowY: " << flowWrapper.getY() <<std::endl;*/
 	}
 }
 
+/**
+* \brief Handles commandline arguments
+*
+* Reads the command line arguments to determine if it needs to run with
+* gui or without. Also has options to manually set treshold levels.
+*
+* At the end of this function the global position localizer and the PX4 AR
+* detector will be created (based on the parameters)
+*/
 void handleArguments( int argc, char *argv[])
-{
-	std::cout << "Number of args: " << argc << std::endl;
+{	
 	bool gui = false;
-	int tresh1 = 7, tresh2 = 7;
+	int tresh1 = DEFAULT_TRESHOLD;
+	int tresh2 = DEFAULT_TRESHOLD;
+	//Test for 1 or more extra arguments (1st argument is the current program)
 	if(argc >= 2)
 	{
-		if(strcmp(argv[1],"gui")==0)
+		if(strcmp(argv[1],"gui")==0) //Compare if the 1st argument is "gui"
 		{
+			//Create the windows and set gui on true
 			gui = true;			
 			cv::namedWindow("PX4",1);
 			cv::namedWindow("PX4T",1);
 		}
 	}
+	//If there are 3 extra arguments (gui, and 2 tresh params), put those in the
+	//treshold variables.
 	if(argc == 4)
 	{
 		tresh1 = atoi(argv[2]);
 		tresh2 = atoi(argv[3]);
 	}
-	std::cout << "treshparams: " << tresh1 << ", " <<tresh2 <<std::endl;
+	
+	//Create the GlobalLocalisation and the PX4FlowDetector
 	globalLocalizer = new GlobalLocalisation(gui, tresh1, tresh2);
 	PX4FlowDetector = new ARInterface(gui, tresh1, tresh2);
 }
 
 int main(int argc, char *argv[])
 {
+	//Open the PX4Flow serialport
+	serialPort.open(PX4FLOW_SERIAL_PORT, PX4FLOW_SERIAL_BAUDRATE);
+	//Handles commandline arguments and creates the AR detection parts
 	handleArguments(argc, argv);
 	
+	//If there was an error in the initialisation, terminate
 	if(globalLocalizer->isErrorOnInit())
 	{
 		std::cout << globalLocalizer->getErrorString() << std::endl;
 		return 0;
 	}	
+	//Create the threads
 	std::thread recogniserThread{ &GlobalLocalisation::run, globalLocalizer};
 	std::thread mavLinkThread{ &MAVLinkExchanger::loop, &exchanger};	
 	std::thread px4FlowThread{ handlePX4Flow};	
@@ -159,28 +132,32 @@ int main(int argc, char *argv[])
 		std::cout << "Starting mainfred\n";
 		while(1)
 		{
+			//If there are mavlink messages, let the flowWrapper handle them.
 			if (exchanger.receiveQueueSize())
 			{
 				PrioritisedMAVLinkMessage message = exchanger.dequeueMessage();
 				flowWrapper.ReceiveMAVLinkMessage(&message);
 			}
 			
+			//If there is an error, display it and terminate
 			if(globalLocalizer->isErrorInRun())
 			{
 				std::cout << globalLocalizer->getErrorString() << std::endl;
 				return 0;
 			}
+			//If the global localizer finds a new position, calibrate the flow
+			//localizer with those coordinates
 			if(globalLocalizer->isNewCoordinate())
 			{
 				auto coordinate = globalLocalizer->getCoordinate();
-				flowWrapper.calibrate(coordinate.getX(),108-coordinate.getY());
+				flowWrapper.calibrate(coordinate.getX(),Y_MAX_AR_TAG_VALUE-coordinate.getY());
 			}
 			
 			std::string message = 
 				'X' + std::to_string(flowWrapper.getX()) +
 				'Y' + std::to_string(flowWrapper.getY());
 			//std::cout << message <<std::endl;
-			//server.broadcast(message);
+			server.broadcast(message);
 		}
 	}};
 	mavLinkThread.detach();
