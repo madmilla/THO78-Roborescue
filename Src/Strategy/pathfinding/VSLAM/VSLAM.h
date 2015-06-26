@@ -70,6 +70,8 @@ public:
     void run();
 	bool wholeRouteInRangevirtuallidar();
 	bool bool_isVSLAMDone = false;
+	void changeDirection();
+	void moveRosbeeTo(int x, int y);
 private:
 	/**
 	* @brief Map object.
@@ -103,6 +105,7 @@ private:
 	* @brief int * tileLocation variable to store a tile location.
 	*/
 	int * tileLocation;
+	char direction = 'N';
 };
 
 #endif // VSLAM_H
