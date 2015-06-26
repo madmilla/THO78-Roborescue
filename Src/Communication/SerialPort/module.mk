@@ -1,3 +1,6 @@
 SRC += src/communication/SerialPort/SerialPort.cpp
-SRC += src/communication/SerialPort/SerialPortWindows.cpp
-SRC += src/communication/SerialPort/SerialPortLinux.cpp
+ifeq ($(OS),Windows_NT)
+	SRC += src/communication/SerialPort/SerialPortWindows.cpp
+else
+	SRC += src/communication/SerialPort/SerialPortLinux.cpp
+endif
