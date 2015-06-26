@@ -14,7 +14,7 @@
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright ï¿½ 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -46,14 +46,17 @@
 #include "roborescueV1/mavlink.h"
 #include "UDPSocket.h"
 #include "MessageQueue.h"
-//#include "RALCPEncoder.h"
-class CPIUDPSocket;
-class Lidar : public CPIBoundaryObject
+#include "RALCPEncoder.h"
+#include "UDPRobot.h"
+#include <tuple>
+#include "map.hpp"
+
+class Lidar : public UDPRobot
 {
 public:
 	// constructor to make a Lidar object (socket)
 	// @param: Socket is used to listen to a specific socket
-	Lidar(CPIUDPSocket * s);
+   Lidar(CPIUDPSocket * s);
 
 	// initialize the Lidar 
 	void init();
@@ -71,7 +74,7 @@ public:
 	void sendRpm(int rpm);
 
 	//! \brief start the lidar to scan
-	void Start();
+	void Start(int x, int y, int degrees);
 
 	//! \brief stops the lidar with scanning
 	void Stop();
@@ -92,21 +95,15 @@ public:
 	void abort();
 	int getId() override;
 
-	~Lidar()
-{ 
-//delete encoder; 
-}
+
+   MessageQueue<mavlink_message_t *> * getMessageQueue();
+   MessageQueue<std::tuple<int, int, int, int>> * getLineDataQueue();
 
 private:
-
-
-	friend class RobotManager;
-	CPIUDPSocket * sock;
-	mavlink_message_t message;
-	//mavlink_ralcp_t packet;
-	//RALCPEncoder * encoder;
-
-	bool running = false;
-	MessageQueue<std::pair<LIDAR_COMMAND_FUNCTIONS, uint64_t>> * outgoing;
+   mavlink_command_long_t packet;
+   friend class RobotManager;
+   bool running = false;
+   MessageQueue<std::tuple<int, int, int, int, int, int, int, LIDAR_COMMAND_FUNCTIONS, COMMAND_DESTINATION, int, int>> * outgoing;
+   MessageQueue<std::tuple<int, int, int, int>> * LineDataQueue;
 };
 #endif
