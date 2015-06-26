@@ -1,4 +1,4 @@
-SRC += Src/Map/line.cpp
-SRC += Src/Map/mapFactory.cpp
-SRC += Src/Map/point.cpp
-SRC += Src/Map/polygon.cpp
+SRC += Src/Map/Line.cpp
+SRC += Src/Map/MapFactory.cpp
+SRC += Src/Map/Point.cpp
+SRC += Src/Map/Polygon.cpp
