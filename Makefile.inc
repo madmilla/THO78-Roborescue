@@ -19,14 +19,13 @@ endif
 
 ifeq ($(MAKECMDGOALS),mission1)
 	ifneq ($(OS),Windows_NT)
-		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql -pthread
+		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql -lpthread
 		INCLUDES 	+= -I /usr/include/qt5
-		CXXFLAGS	+= -fPIC -pthread
-		LDFLAGS+= - pthread
+		CXXFLAGS	+= -fPIC -lpthread
 	else
 		INCLUDES 	+= -I$(QT_INCL_DIR)
 		LDFLAGS 	+= -L$(QT_LIB_DIR)
-		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32 -lQt5Sql -pthread
+		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32 -lQt5Sql -lpthread
 	endif
 	include TargetMakefiles/Makefile.basestation
 endif
