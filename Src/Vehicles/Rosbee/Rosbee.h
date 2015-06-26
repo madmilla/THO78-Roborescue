@@ -102,7 +102,7 @@ public:
 
     /// \brief returns unique identifier
     int getId() override;
-
+    int getFlank(){return heading;}
     bool needsWaypoint();
     MessageQueue<mavlink_message_t *> * getMessageQueue();
 	

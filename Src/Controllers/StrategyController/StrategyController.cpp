@@ -1,7 +1,7 @@
 #include "StrategyController.h"
 
 
-StrategyController::StrategyController(Map map, VirtualQuadCopter copter, virtualRosbee virtualrosbee, virtualLidar virtuallidar) :
+StrategyController::StrategyController(Map *map, VirtualQuadCopter copter, virtualRosbee virtualrosbee, virtualLidar virtuallidar) :
 copter{ copter },
 virtualrosbee{ virtualrosbee },
 map{ map },
@@ -20,13 +20,13 @@ StrategyController::~StrategyController()
 
 void StrategyController::scanArea(){
 	Route * route = new Route();
-	Map MapCopy = map;
-	VSLAM vslam(&MapCopy, &virtualrosbee, route, &virtuallidar);
+	Map MapCopy = *map;
+	VSLAM vslam(&MapCopy, &virtualrosbee,route, &virtuallidar);
 	MapCopy.setScale(30);
 	while (MapCopy.contains(0)){
 	 vslam.run();
 	std::cout << "get char" << std::endl;
-	virtualLidar->start(virtualrosbee->getVirtualRosbeeLocationX(),virtualrosbee->getVirtualRosbeeLocationY(),virtualrosbee->getVirtualRosbeeFlank);
+	virtuallidar.start(virtualrosbee.getVirtualRosbeeLocationX(),virtualrosbee.getVirtualRosbeeLocationY(),virtualrosbee.getVirtualRosbeeFlank());
 	getchar();
 	std::cout << "got char" << std::endl;
 	MapCopy.print();
@@ -37,16 +37,16 @@ void StrategyController::scanArea(){
 }
 
 void StrategyController::searchArea(){
-	map.print();
+	map->print();
         std::cout << "ScanAreaDone";
 	getchar();
-	AreaCoveringAlgorithm(&copter, &map);
-	map.print();
+	AreaCoveringAlgorithm(&copter, map);
+	map->print();
 	getchar();
 }
 void StrategyController::movePairwise(){
-	//AreaCoveringAlgorithm(&copter, &map);
-	map.print();
+	//AreaCoveringAlgorithm(&copter, map);
+	map->print();
 	getchar();
 }
 void StrategyController::run(){
