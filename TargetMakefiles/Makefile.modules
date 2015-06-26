@@ -6,6 +6,7 @@ LIBSERIAL_LIB					= Deps/incl/libserial/
 MAVLINK_LIB						= Deps/incl/mavlink/
 MYSQLCPPCONN_LIB				= Deps/incl/mysqlcppconn/
 RPLIDAR_LIB						= Deps/incl/rplidar/
+OPENCV_LIB						= Deps/incl/opencv/
 
 ########MODULES########
 #GUI
@@ -37,7 +38,6 @@ PROPELLOR_TEMPERATURE_MODULE 	= Src/Sensors/Propellor-TemperatureSensor/
 PROPELLOR_ULTRASONIC_MODULE		= Src/Sensors/Propellor-UltrasonicSensor/
 LIDAR_BASESTATION_MODULE		= Src/Sensors/lidar/LIDAR-Basestation/
 LIDAR_RASPI_MODULE				= Src/Sensors/lidar/LIDAR-RasPi/
-RPLIDAR_MODULE 					= Deps/incl/rplidar/
 DATASTRUCTURES_MODULE			= Src/DataStructures/
 PX4FLOW_MODULE 					= Src/Sensors/PX4Flow/
 INTERFACES_MODULE 				= Src/Sensors/Interfaces/
