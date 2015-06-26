@@ -5,7 +5,13 @@
 #include <cstdint>
 #include "Socket.h"
 #include <iostream>
+#ifdef _WIN32
 #include "../../../Deps/incl/MingwThread/mingw.thread.h"
+#endif
+#ifdef linux
+	#include <thread>
+#endif
+
 
 
 /**
