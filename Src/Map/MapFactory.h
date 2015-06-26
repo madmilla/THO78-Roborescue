@@ -39,9 +39,9 @@
 
 #pragma once
 
-#include "point.hpp"
-#include "line.hpp"
-#include "map.hpp"
+#include "Point.hpp"
+#include "Line.hpp"
+#include "Map.hpp"
 #include <fstream>
 #include <string>
 

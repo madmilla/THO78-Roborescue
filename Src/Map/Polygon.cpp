@@ -1,4 +1,4 @@
-#include "polygon.h"
+#include "Polygon.h"
 
 
 polygon::polygon(std::vector<point> points):

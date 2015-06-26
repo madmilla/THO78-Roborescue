@@ -1,4 +1,4 @@
-#include "mapFactory.h"
+#include "MapFactory.h"
 
 
 mapFactory::mapFactory()

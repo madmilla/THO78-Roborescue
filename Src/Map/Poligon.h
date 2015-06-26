@@ -40,7 +40,7 @@
 #ifndef POLYGON_H
 #define POLYGON_H
 #include<vector>
-#include "point.hpp"
+#include "Point.hpp"
 
 class polygon
 {

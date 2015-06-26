@@ -41,7 +41,7 @@
 #define LINE_H
 
 #include <iostream>
-#include "point.hpp"
+#include "Point.hpp"
 
 class line
 {
