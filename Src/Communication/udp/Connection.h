@@ -1,7 +1,7 @@
 #ifndef __CONNECTION__
 #define __CONNECTION__
 
-#include <winsock2.h>
+//#include <winsock2.h>
 #include <iostream>
 /**
 *               __
