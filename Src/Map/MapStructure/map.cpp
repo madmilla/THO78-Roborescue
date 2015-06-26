@@ -281,7 +281,7 @@ int Map::getGridWidth(){
 	return access.size(); // columns == grid height
 }
 
-int Map::getHeightWidth(){
+int Map::getGridHeight(){
 	return access.at(0).size(); // row size == grid width
 }
 
