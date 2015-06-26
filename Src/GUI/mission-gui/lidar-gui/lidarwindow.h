@@ -51,6 +51,7 @@
 #include <QtWidgets/QMessageBox>
 #include <QtCore/QDebug>
 #include <QtCore/QTimer>
+#include <QObject>
 #include "Lidar.h"
 
 namespace Ui {

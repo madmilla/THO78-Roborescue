@@ -49,7 +49,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QtCore/QTimer>
-#include "atv.h"
+#include "ATV.h"
 #include "Listener.h"
 
 namespace Ui {

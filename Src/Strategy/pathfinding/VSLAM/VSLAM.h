@@ -41,7 +41,7 @@
 #include <iostream>
 #include "Map.hpp"
 #include "virtualRosbee.h"
-#include "MapLogicVSLAM.h"
+#include "mapLogicVSLAM.h"
 #include "route.h"
 #include "MapSearchNode.h"
 #include "virtualLidar.h"

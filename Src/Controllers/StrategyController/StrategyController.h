@@ -1,10 +1,10 @@
 #ifndef _STRATEGY_CONTROLLER_H
 #define _STRATEGY_CONTROLLER_H
 #include "Map.hpp"
-#include "../../deps/incl/MingwThread/mingw.thread.h"
+#include "../../Deps/incl/MingwThread/mingw.thread.h"
 #include "VSLAM.h"
 #include "areacoveringalgorithm.h"
-#include "MapLogicVSLAM.h"
+#include "mapLogicVSLAM.h"
 class StrategyController
 {
 public:
