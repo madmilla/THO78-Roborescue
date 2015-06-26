@@ -1,20 +1,17 @@
-#ifndef _SERIAL_PORT_H
-#define _SERIAL_PORT_H
-#include <memory>
-#include <boost/asio.hpp>
-using namespace boost;
+#ifndef _SERIALPORT_H
+#define _SERIALPORT_H
+#include <string>
+class Serial;
 
 class SerialPort
 {
-	
 public:
-	explicit SerialPort(asio::io_service& service);
+	SerialPort(int port, std::string& address);
+	explicit SerialPort(const char* device);
 	~SerialPort();
-	bool open(std::string portname, int baudRate);
-	size_t readData(unsigned char* buffer, int nrOfBytes);
-	size_t writeData(unsigned char* buffer, int nrOfBytes);
+	bool writeData(unsigned char* data, int nrOfBytes);
+	int readData(unsigned char* buffer, int nrOfBytes);
 private:
-	asio::io_service& service;
-	std::shared_ptr<asio::serial_port> port;
+	Serial* serialDevice;
 };
 #endif

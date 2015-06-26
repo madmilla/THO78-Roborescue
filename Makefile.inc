@@ -13,6 +13,9 @@ MODULES 						=
 
 ifeq ($(OS),Windows_NT)
 	CXXFLAGS 	+= -DWIN32
+	LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32
+	LDFLAGS 	+= -L$(QT_LIB_DIR)
+	INCLUDES 	+= -I$(QT_INCL_DIR)
 	MOC			= $(QT_BIN_DIR)/moc.exe
 	UIC			= $(QT_BIN_DIR)/uic.exe
 endif
@@ -22,9 +25,7 @@ ifeq ($(MAKECMDGOALS),mission1)
 		@echo "Basestation is currently not compatible with linux based systems"
 		exit 1
 	else
-		INCLUDES 	+= -I$(QT_INCL_DIR)
-		LDFLAGS 	+= -L$(QT_LIB_DIR)
-		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32 -lQt5Sql
+		LDLIBS 		+= -lQt5Sql
 		include TargetMakefiles/Makefile.basestation
 	endif
 endif
