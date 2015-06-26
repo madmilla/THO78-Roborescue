@@ -13,7 +13,7 @@ int Map::getScaledHeuristicLocationValue(int x,int y){
 
 Map::Map() {
 	// Initialize Vehicle Positions
-	rosbeePosition = nullptr;
+	//rosbeePosition = nullptr;
 	//ATVPosition = nullptr;
 	//quadcopterPosition = nullptr;
 
