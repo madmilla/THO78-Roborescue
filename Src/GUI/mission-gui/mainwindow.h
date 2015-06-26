@@ -47,7 +47,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtWidgets/QMainWindow>
+#include <QMainWindow>
 #include <QtWidgets/QListWidgetItem>
 #include <vector>
 #include "Rosbee.h"
