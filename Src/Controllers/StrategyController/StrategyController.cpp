@@ -23,7 +23,8 @@ void StrategyController::scanArea(){
 	Map MapCopy = map;
 	VSLAM vslam(&MapCopy, &virtualrosbee, route, &virtuallidar);
 	MapCopy.setScale(30);
-	while (MapCopy.contains(0)){ vslam.run();
+	while (MapCopy.contains(0)){
+	 vslam.run();
 	std::cout << "get char" << std::endl;
 	
 	getchar();

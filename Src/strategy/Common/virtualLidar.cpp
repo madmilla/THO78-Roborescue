@@ -16,3 +16,10 @@ int virtualLidar::getRange(){
 	return range;
 }
 
+void virtualLidar::sendLidarLocationStatus(int rosbeeX, int rosbeeY, int degrees){
+	actualLidar->sendRosbeePositie(rosbeeX);
+	actualLidar->sendRosbeeFlank(degrees);
+	
+
+
+}

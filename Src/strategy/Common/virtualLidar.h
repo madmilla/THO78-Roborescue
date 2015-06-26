@@ -10,6 +10,7 @@ public:
 	~virtualLidar();
 	Lidar* actualLidar;
 	int getRange();
+	void sendLidarLocationStatus(int rosbeeX, int rosbeeY, int degrees);
 private:
 	int range = 7;
 };
