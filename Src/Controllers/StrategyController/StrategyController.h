@@ -1,7 +1,15 @@
 #ifndef _STRATEGY_CONTROLLER_H
 #define _STRATEGY_CONTROLLER_H
 #include "Map.hpp"
-#include "../../Deps/incl/MingwThread/mingw.thread.h"
+#ifdef _WIN32
+#include "../../../Deps/incl/MingwThread/mingw.thread.h"
+#endif
+#ifdef linux
+	#include <thread>
+#endif
+
+
+
 #include "VSLAM.h"
 #include "areacoveringalgorithm.h"
 #include "mapLogicVSLAM.h"
