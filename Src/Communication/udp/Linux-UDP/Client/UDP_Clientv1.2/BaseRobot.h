@@ -47,7 +47,7 @@
 class BaseRobot{
 public:
 	/// brief default constructor
-	BaseRobot():systemID{0}{}
+	BaseRobot() :systemID{ 0 }{}
 
 	//! \brief The function onMessage() will be called by the UDPClient. This function determine what to do with the recieved message.
 	//! The message must first be decoded from the default mavlink_message_t to an mavlink_ralcp_t.
@@ -56,10 +56,10 @@ public:
 
 	//! \brief Get the messageQueue of the baseRobot
 	//! \Return@ The message Queue
-	std::queue<mavlink_message_t> * getMessageQueue(){return &messages;}
+	std::queue<mavlink_message_t> * getMessageQueue(){ return &messages; }
 
 	//! \Returns the ID of the system
-	int getSystemID(){return systemID;}
+	int getSystemID(){ return systemID; }
 
 protected:
 
@@ -69,8 +69,8 @@ protected:
 	//! \param[dest] The destination for the mavlink message
 	//! \param[rlcf] The function id for the mavlink message
 	template<typename T>
-	void sendCommand(mavlink_command_long_t payload, COMMAND_DESTINATION dest, T rlcf){
-		messages.push(encodeCommandLongMessage(payload, dest, rlcf ));
+	void sendCommand(mavlink_command_long_t payload, T rlcf){
+		messages.push(encodeCommandLongMessage(payload, rlcf));
 	}
 
 	//! \brief The function encodeCommandLongMessage encodes an mavlink_lidar_message_t to an mavlink_message_t
@@ -79,11 +79,11 @@ protected:
 	//! \param[rlcf] The function for the mavlink message
 	//! \Return@ Returns the encoded mavlink_message_t message
 	template<typename T>
-	mavlink_message_t encodeCommandLongMessage(mavlink_command_long_t command, COMMAND_DESTINATION dest, T rlcf){
+	mavlink_message_t encodeCommandLongMessage(mavlink_command_long_t command, T rlcf){
 
 		mavlink_message_t mavlinkMessage;
 		command.command = rlcf;
-		command.target_system = dest;
+		command.target_system = COMMAND_DESTINATION::LIDAR;
 
 		mavlink_msg_command_long_encode(systemID, COMMAND_DESTINATION::LIDAR, &mavlinkMessage, &command);
 
