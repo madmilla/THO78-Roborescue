@@ -1,4 +1,5 @@
-﻿/**
+﻿
+/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -38,9 +39,9 @@
 #ifndef MAPLOGICVSLAM_H
 #define MAPLOGICVSLAM_H
 
-#include "../../../Map/MapStructure/Map.hpp"
-#include "../../Common/virtualRosbee.h"
-#include "../../Common/virtualLidar.h"
+#include "Map.hpp"
+#include "virtualRosbee.h"
+#include "virtualLidar.h"
 
 class MapLogicVSLAM
 {
