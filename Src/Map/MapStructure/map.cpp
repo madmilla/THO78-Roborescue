@@ -412,8 +412,8 @@ void Map::addPolygonToMapData(polygon p){
 		line l = line(p1, p2);
 		appendLine(l);
 	}
-	point p1 = point(shape.at(shape.size()-1));
-	point p2 = point(shape.at(0));
+	point p1 = point(shape.at(shape.size()-1));	// connect the last point
+	point p2 = point(shape.at(0));				// to the first point to close the shape
 	line l = line(p1, p2);
 	appendLine(l);
 }
@@ -427,8 +427,8 @@ void Map::addPolygonToGrid(polygon p){
 		line l = line(p1, p2);
 		addLineToGrid(l);
 	}
-	point p1 = point(shape.at(shape.size()-1));
-	point p2 = point(shape.at(0));
+	point p1 = point(shape.at(shape.size()-1));	// connect the last point
+	point p2 = point(shape.at(0));				// to the first point to close the shape
 	line l = line(p1, p2);
 	addLineToGrid(l);
 }
