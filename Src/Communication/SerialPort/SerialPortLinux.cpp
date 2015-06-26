@@ -1,3 +1,4 @@
+#ifdef linux
 #include "SerialPortLinux.h"
 
 SerialPortLinux::SerialPortLinux(const char* deviceName) 
@@ -126,3 +127,4 @@ int SerialPortLinux::readData(unsigned char* buffer, int maxBytes)
 	}
 	return read(filedescriptor, buffer, maxBytes);
 }
+#endif
