@@ -215,8 +215,8 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	Pointcloud::Point point;
 	point.X = pX;
 	point.Y = pY;
-	point.rotate(orientation);
-	pCloud.setOffset();
+	pCloud.rotate(orientation);
+	pCloud.setOffset(point);
 	pCloud.savePointsToFile("pointcuefnef.pcl");
 	std::cout << "image maken";
 	const Mat & image = sD.createImage(pCloud, SCALE);
