@@ -47,7 +47,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QtCore/QObject>
+#include <QtGui/QMainWindow>
 #include <QtWidgets/QListWidgetItem>
 #include <vector>
 #include "Rosbee.h"
@@ -56,7 +57,6 @@
 #include "Quadcopter.h"
 #include "RobotManager.h"
 #include "UDPServer.h"
-#include <QtCore/QObject>
 
 
 
@@ -71,7 +71,7 @@ class MainWindow;
 * @date    April, 2015
 * @brief   this class is used to create new windows of object or close the whole gui
 */
-class MainWindow : public QObject, public QMainWindow
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
