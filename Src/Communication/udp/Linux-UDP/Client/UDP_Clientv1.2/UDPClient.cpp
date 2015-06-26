@@ -27,7 +27,7 @@ void UDPClient::start(){
 
 	while(true){
 		std::cout << "Client" << std::endl;
-		checkConnectionStatus();
+		//checkConnectionStatus();
 		receive();
 		while(!messages->empty()){
 			send(messages->front());
