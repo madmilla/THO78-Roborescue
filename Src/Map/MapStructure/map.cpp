@@ -277,6 +277,14 @@ bool Map::isAccessible(int x, int y){
 	}
 }
 
+int Map::getGridWidth(){
+	return access.size(); // columns == grid height
+}
+
+int Map::getHeightWidth(){
+	return access.at(0).size(); // row size == grid width
+}
+
 void Map::setScale(int x){ scale = x; }
 bool Map::isScaledAccessible(int x, int y ){
 	x = x*scale;
