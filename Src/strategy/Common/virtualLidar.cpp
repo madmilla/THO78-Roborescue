@@ -23,3 +23,4 @@ void virtualLidar::sendLidarLocationStatus(int rosbeeX, int rosbeeY, int degrees
 
 
 }
+void virtualLidar::start(int x, int y,int angle){}

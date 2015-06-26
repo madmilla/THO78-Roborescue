@@ -101,7 +101,7 @@ void VSLAM::run(){
 				Container::route.clearRoute();
 			}			
 			else{
-				moveRosbeeTo((newRosbeeLocation[0] - rosbee->getRosbeeLocationX()), (newRosbeeLocation[1] - rosbee->getRosbeeLocationY()));
+				moveRosbeeTo((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX()), (newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY()));
 				changeDirection();
 				//virtualrosbee->moveTo((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX())*map->getScale(), ((newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY())*map->getScale()));
 				virtualrosbee->setVirtualRosbeeLocationX((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX()));

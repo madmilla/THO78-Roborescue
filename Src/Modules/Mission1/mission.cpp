@@ -35,8 +35,8 @@ int main(int argc, char *argv[])
     VirtualQuadCopter copter(Dimension(1,1),Dimension(3,3),1,1);
     virtualRosbee bee(1,1,rosbee);
     VirtualATV atv(Dimension(1,1),1,1);
-   virtualLidar lidar;
-    Map map;
+    virtualLidar lidar;
+    Map* map= new Map();
 	
     StrategyController controller(map, copter, bee, lidar);
     QApplication app(argc, argv);

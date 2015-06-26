@@ -91,6 +91,9 @@ void virtualRosbee::setVirtualRosbeeLocationX(int x) {
 void virtualRosbee::setVirtualRosbeeLocationY(int y) {
     virtualRosbeeLocationY = y + virtualRosbeeLocationY;
 }
+int virtualRosbee::getVirtualRosbeeFlank() {
+    return rActual->getFlank();
+}
 
 /**
 * Function to move the virtualrosbee location x and y.
@@ -102,7 +105,7 @@ void virtualRosbee::moveTo(int x, int y) {
 	rActual->sendWaypoint(x,y);
 	std::cout << "Rosbee move to: " << x << " , " << y << std::endl;
 }
-void virtualRosbee::start(int x, int y,int angle){}
+
 
 
 

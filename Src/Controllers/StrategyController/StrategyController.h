@@ -11,9 +11,9 @@ public:
 	std::thread* Thread;
 	virtualLidar virtuallidar;
 	virtualRosbee virtualrosbee;
-	Map map;
+	Map* map;
         void run();
-	StrategyController(Map map, VirtualQuadCopter copter, virtualRosbee rosbee, virtualLidar virtuallidar);
+	StrategyController(Map *map, VirtualQuadCopter copter, virtualRosbee rosbee, virtualLidar virtuallidar);
 	~StrategyController();
 	void scanArea();
 	void searchArea();

@@ -7,9 +7,9 @@
 #include <iostream>
 #include <vector>
 #include "polygon.h"
-#include "QuadCopter.h"
-#include "virtualRosbee.h"
-#include "virtualATV.h"
+//#include "QuadCopter.h"
+//#include "virtualRosbee.h"
+//#include "virtualATV.h"
 #include "aStar.h"
 #include "MapImplementation.cpp"
 #include <cstdlib>
@@ -142,14 +142,14 @@ public:
 
 	// Vehicle Positions Getters and Setters
 	//! \returns the virtualrosbee position
-	virtualRosbee* getRosbeePosition() { return rosbeePosition; }
+	//virtualRosbee* getRosbeePosition() { return rosbeePosition; }
 	//! \returns the atv position
 	//virtualATV* getATVPosition() { return ATVPosition; }
 	//! \returns the quadcopter position
 	//QuadCopter* getQuadCopterPositon() { return quadcopterPosition; }
 
 	//! Sets the virtualrosbee position
-	void setRosbeePosition(virtualRosbee* newPosition) { this->rosbeePosition = newPosition; }
+	//void setRosbeePosition(virtualRosbee* newPosition) { this->rosbeePosition = newPosition; }
 	//! Sets the atv position
 	//void setATVPosition(ATV* newPosition) { this->ATVPosition = newPosition; }
 	//! Sets the quadcopter position
@@ -200,7 +200,7 @@ private:
 	//! @param The point on the grid
 	void setNotReachable(point p);
 
-	virtualRosbee* rosbeePosition;
+	//virtualRosbee* rosbeePosition;
 	//virtualATV* ATVPosition;
 	//QuadCopter* quadcopterPosition;
 };

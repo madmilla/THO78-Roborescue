@@ -87,6 +87,7 @@ public:
 	* @brief	Function that set the x location of the virtualRosbee.
 	*/
     void setVirtualRosbeeLocationX(int x);
+    int getVirtualRosbeeFlank();
 	/**
 	* @fn	void moveTo(int x, int y);
 	*
@@ -96,7 +97,7 @@ public:
 	* @param	int y
 	*/
 	void moveTo(int x, int y);
-	void start(int x, int y,int angle);
+	
 private:
 	Rosbee *rActual;
 	/**
