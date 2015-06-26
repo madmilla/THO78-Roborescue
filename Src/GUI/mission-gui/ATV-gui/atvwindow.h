@@ -49,6 +49,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QtCore/QTimer>
+#include <QtCore/QObject>
 #include "ATV.h"
 #include "Listener.h"
 
@@ -63,7 +64,7 @@ class ATVWindow;
 * @date    April, 2015
 * @brief   this class handles ui input from the ATVWindow
 */
-class ATVWindow : public QMainWindow, public Listener
+class ATVWindow : public QObject, public QMainWindow, public Listener
 {
     Q_OBJECT
 

@@ -47,6 +47,7 @@
 #define MAPWINDOW_H
 
 #include <QtWidgets/QMainWindow>
+#include <QtCore/QObject>
 
 namespace Ui {
 class MapWindow;
@@ -58,7 +59,7 @@ class MapWindow;
 * @date    ??
 * @brief   ??
 */
-class MapWindow : public QMainWindow
+class MapWindow : public QObject, public QMainWindow
 {
     Q_OBJECT
 

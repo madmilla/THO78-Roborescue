@@ -47,6 +47,7 @@
 #define ROSBEEWINDOW_H
 
 #include <QtWidgets/QMainWindow>
+#include <QtCore/QObject>
 #include <QtCore/QTimer>
 #include "Rosbee.h"
 
@@ -60,7 +61,7 @@ class RosbeeWindow;
 * @date   April, 2015
 * @brief  this class handles ui input from the RosbeeWindow
 */
-class RosbeeWindow : public QMainWindow
+class RosbeeWindow : public QObject, public QMainWindow
 {
     Q_OBJECT
 
