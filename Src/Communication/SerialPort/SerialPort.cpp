@@ -10,7 +10,7 @@
 
 SerialPort::SerialPort(int port, std::string& address)
 {
-	serialDevice = new SerialUDPSocket(port, address);
+	//serialDevice = new SerialUDPSocket(port, address);
 }
 
 SerialPort::SerialPort(const char* device)
