@@ -6,7 +6,5 @@ ifeq ($(OS),Windows_NT)
 	BOOST_LIB_DIR 					= Deps/lib/boost_1_58_0/Windows
 	BOOST_INCL_DIR 					= Deps/incl/boost_1_58_0/Windows
 else
-	QT_LIB_DIR 						= /usr/lib/x86_64-linux-gnu/lib
-	QT_INCL_DIR 					= /usr/lib/x86_64-linux-gnu/include
-	QT_BIN_DIR 						= /usr/lib/x86_64-linux-gnu/bin
+	#Not needed on linux based systems
 endif
