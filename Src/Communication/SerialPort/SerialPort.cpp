@@ -19,7 +19,7 @@ SerialPort::SerialPort(const char* device)
 	serialDevice = new SerialPortWindows(device);
 #endif
 #ifdef linux
-	serialDevice = new SerialPortLinux(device);
+//	serialDevice = new SerialPortLinux(device);
 #endif
 }
 
