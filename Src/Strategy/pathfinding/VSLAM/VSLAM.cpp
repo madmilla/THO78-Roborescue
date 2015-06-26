@@ -68,129 +68,54 @@ VSLAM::~VSLAM(){
  */
 
 void VSLAM::run(){
-	// Check if the map is fully scanned.
-	if (!MapLogicVSLAM->isMapFullyScanned()){
+	// Check if the Map is fully scanned.
+	if (map->contains(0)){
 		//Map->print();
-		// Set the tiles in range of the lidar to scanned with the function below.
-		MapLogicVSLAM->setTilesInRangeLidar();
+		// Set the tiles in range of the virtuallidar to scanned with the function below.
+		mapLogicVSLAM->setTilesInRangevirtuallidar();
 		// Do this when there is no route.
 		if (!Container::route.getSize()){
 			// Get the tile location of a unscanned tile with the function below.
-			tileLocation = MapLogicVSLAM->getUnscannedTile();
+			tileLocation = mapLogicVSLAM->getUnscannedTile();
 			std::cout << "tile location x " << tileLocation[0] << " tile location y " << tileLocation[1] << std::endl;
-			std::cout << "rosbee location x " << rosbee->getRosbeeLocationX() << " rosbee location y " << rosbee->getRosbeeLocationY() << std::endl;
-			// When the map is still not fully scanned get the path with a star to the unscanned tile.
-			if (!MapLogicVSLAM->isMapFullyScanned()){
-				mapSearchNode->Search(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), int(tileLocation[0]), int(tileLocation[1]));
+			std::cout << "virtualrosbee location x " << virtualrosbee->getVirtualRosbeeLocationX() << " virtualrosbee location y " << virtualrosbee->getVirtualRosbeeLocationY() << std::endl;
+			// When the Map is still not fully scanned get the path with a star to the unscanned tile.
+			if (map->contains(0)){
+				mapSearchNode->Search(virtualrosbee->getVirtualRosbeeLocationX(), virtualrosbee->getVirtualRosbeeLocationY(), int(tileLocation[0]), int(tileLocation[1]));
 			}
+		}
+		if (mapSearchNode->notFindRoute == true){
+			this->bool_isVSLAMDone = true;
 		}
 		// Do this when there is a route.
 		if (Container::route.getSize() >= 1){
-			// Get the new destination for the rosbee from the vector that contains the route to the unscanned tile.
+			// Get the new destination for the virtualrosbee from the vector that contains the route to the unscanned tile.
 			newRosbeeLocation = Container::route.getNewTile();
-			// Checks if the new destination for the rosbee is accessible.
-			// When it's not accessible clear the route else send the rosbee to the new location.
-			if (wholeRouteInRangeLidar()){
-				std::cout << "in range lidar" << std::endl;
+			// Checks if the new destination for the virtualrosbee is accessible.
+			// When it's not accessible clear the route else send the virtualrosbee to the new location.
+			if (wholeRouteInRangevirtuallidar()){
+				std::cout << "in range virtuallidar" << std::endl;
 				Container::route.clearRoute();
 			}
-			if (Map->getScaledLocationValue(newRosbeeLocation[0], newRosbeeLocation[1]) == 9){
+			if (map->getScaledHeuristicLocationValue(newRosbeeLocation[0], newRosbeeLocation[1]) == 9){
 				Container::route.clearRoute();
 			}			
 			else{
-				//rosbee->moveTo((newRosbeeLocation[0] - rosbee->getRosbeeLocationX()), (newRosbeeLocation[1] - rosbee->getRosbeeLocationY()));
-				moveRosbeeTo((newRosbeeLocation[0] - rosbee->getRosbeeLocationX()), (newRosbeeLocation[1] - rosbee->getRosbeeLocationY()));
-				changeDirection();
-				std::cout << "direction: " << direction << std::endl;
-				rosbee->setRosbeeLocationX((newRosbeeLocation[0] - rosbee->getRosbeeLocationX()));
-				rosbee->setRosbeeLocationY((newRosbeeLocation[1] - rosbee->getRosbeeLocationY()));
-				std::cout << "Rosbee Location: " << rosbee->getRosbeeLocationX() << " , " << rosbee->getRosbeeLocationY() << std::endl;
-				Map->setScaledLocationValue(rosbee->getRosbeeLocationX(), rosbee->getRosbeeLocationY(), 3);
-				
+				virtualrosbee->moveTo((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX())*map->getScale(), ((newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY())*map->getScale()));
+				virtualrosbee->setVirtualRosbeeLocationX((newRosbeeLocation[0] - virtualrosbee->getVirtualRosbeeLocationX()));
+				virtualrosbee->setVirtualRosbeeLocationY((newRosbeeLocation[1] - virtualrosbee->getVirtualRosbeeLocationY()));
+				std::cout << "VirtualRosbee Location: " << virtualrosbee->getVirtualRosbeeLocationX() << " , " << virtualrosbee->getVirtualRosbeeLocationY() << std::endl;
+				map->setScaledLocationValue(virtualrosbee->getVirtualRosbeeLocationX(), virtualrosbee->getVirtualRosbeeLocationY(), 3);
 			}
 		}
 	}
 }
 
-bool VSLAM::wholeRouteInRangeLidar(){
-	for (auto &i : Container::route.newRoute){
-		if(Map->getScaledLocationValue(i.first, i.second) == 0){
+bool VSLAM::wholeRouteInRangevirtuallidar(){
+	for (WayPoint *i : Container::route.wayPoints){
+		if(map->getScaledLocationValue(i->x, i->y) == 0){
 			return false;
 		}
 	}
 	return true;
-}
-
-void VSLAM::changeDirection(){
-	if ((newRosbeeLocation[0] - rosbee->getRosbeeLocationX()) < 0){
-		direction = 'W';
-	}
-	else if ((newRosbeeLocation[0] - rosbee->getRosbeeLocationX()) > 0){
-		direction = 'E';
-	}
-	else if ((newRosbeeLocation[1] - rosbee->getRosbeeLocationY()) > 0){
-		direction = 'S';
-	}
-	else if ((newRosbeeLocation[1] - rosbee->getRosbeeLocationY()) < 0){
-		direction = 'N';
-	}
-}
-
-void VSLAM::moveRosbeeTo(int x, int y){
-	if (direction == 'N'){
-		if (x == 0, y == 1){
-			rosbee->moveTo(0, -1);
-		}
-		else if(x == 0, y == -1){
-			rosbee->moveTo(0, 1);
-		}
-		else if (x == 1, y == 0){
-			rosbee->moveTo(1, 0);
-		}
-		else if (x == -1, y == 0){
-			rosbee->moveTo(-1, 0);
-		}
-	}
-	else if (direction == 'S'){
-		if (x == 0, y == 1){
-			rosbee->moveTo(0, -1);
-		}
-		else if (x == 0, y == -1){
-			rosbee->moveTo(0, 1);
-		}
-		else if (x == 1, y == 0){
-			rosbee->moveTo(-1, 0);
-		}
-		else if (x == -1, y == 0){
-			rosbee->moveTo(1, 0);
-		}
-	}
-	else if (direction == 'W'){
-		if (x == 0, y == 1){
-			rosbee->moveTo(-1, 0);
-		}
-		else if (x == 0, y == -1){
-			rosbee->moveTo(1, 0);
-		}
-		else if (x == 1, y == 0){
-			rosbee->moveTo(0, -1);
-		}
-		else if (x == -1, y == 0){
-			rosbee->moveTo(0, 1);
-		}
-	}
-	else if (direction == 'E'){
-		if (x == 0, y == 1){
-			rosbee->moveTo(1, 0);
-		}
-		else if (x == 0, y == -1){
-			rosbee->moveTo(-1, 0);
-		}
-		else if (x == 1, y == 0){
-			rosbee->moveTo(0, 1);
-		}
-		else if (x == -1, y == 0){
-			rosbee->moveTo(0, -1);
-		}
-	}
 }
