@@ -269,5 +269,9 @@ FakesAssemblies/
 
 *.png
 
+# Point clouds and maps
+*.pcl
+*.map
+
 #Makefile.local
 Makefile.local
