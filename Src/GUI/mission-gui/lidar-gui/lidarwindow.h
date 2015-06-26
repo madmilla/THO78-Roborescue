@@ -73,12 +73,12 @@ public:
     *  Creates the lidar object en sets the qwidget parent
     *	 @param lidar * l create the lidar object
     *  @param QWidget * Parent tells if there are parents or not. there are no parents here.
-    **/
+    */
     explicit LidarWindow(Lidar & lider, QWidget *parent = 0);
 
     /**
     *  Deconstructor lidarwindow();
-    **/
+    */
     ~LidarWindow();
 
 private slots:
