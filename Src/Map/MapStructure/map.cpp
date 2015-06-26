@@ -267,14 +267,16 @@ void Map::translateToPoints(){
 
 //check if x,y is accessible
 bool Map::isAccessible(int x, int y){
+	// check for out of bounds
+	if (x >= getGridWidth() && y >= getGridHeight()) return false;
 	if (access.at(x).at(y) == 0){
 		return true;
 	}
 	else if(access.at(x).at(y) = 1){
 		return false;
 	}
-	
 }
+
 void Map::setScale(int x){ scale = x; }
 bool Map::isScaledAccessible(int x, int y ){
 	x = x*scale;
