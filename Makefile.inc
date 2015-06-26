@@ -1,7 +1,7 @@
 include Makefile.local
 include TargetMakefiles/Makefile.modules
 
-CXX 							= g++ -fPIC
+CXX 							= g++
 CXXFLAGS						= -std=c++11
 INCLUDES 						= 
 LDLIBS							=
@@ -21,6 +21,7 @@ ifeq ($(MAKECMDGOALS),mission1)
 	ifneq ($(OS),Windows_NT)
 		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql
 		INCLUDES 	+= -I /usr/include/qt5
+		CXXFLAGS	+= -fPIC
 	else
 		INCLUDES 	+= -I$(QT_INCL_DIR)
 		LDFLAGS 	+= -L$(QT_LIB_DIR)
