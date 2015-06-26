@@ -52,8 +52,8 @@
 #include <vector>
 #include "Rosbee.h"
 #include "Lidar.h"
-#include "atv.h"
-#include "quadcopter.h"
+#include "ATV.h"
+#include "Quadcopter.h"
 #include "RobotManager.h"
 #include "UDPServer.h"
 
