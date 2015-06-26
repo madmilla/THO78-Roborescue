@@ -13,6 +13,6 @@ UDPServer: PracticalSocket.o UDP_Server.o
 %.o: %.cpp
 	$(CPP) $(CPPFLAGS) $<
 
-UDP_Server.o: UD../../../../Deps/incl/mavlink/roborescueV1/mavlink.h
+UDP_Server.o: UDP_Server.cpp ../../../../Deps/incl/mavlink/roborescueV1/mavlink.h
 
 PracticalSocket.o: PracticalSocket.h PracticalSocket.cpp
