@@ -19,14 +19,13 @@ endif
 
 ifeq ($(MAKECMDGOALS),mission1)
 	ifneq ($(OS),Windows_NT)
-		@echo "Basestation is currently not compatible with linux based systems"
-		exit 1
+		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql
 	else
 		INCLUDES 	+= -I$(QT_INCL_DIR)
 		LDFLAGS 	+= -L$(QT_LIB_DIR)
 		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32 -lQt5Sql
-		include TargetMakefiles/Makefile.basestation
 	endif
+	include TargetMakefiles/Makefile.basestation
 endif
 ifeq ($(MAKECMDGOALS),localisationmodule)
 	ifeq ($(OS),Windows_NT)
