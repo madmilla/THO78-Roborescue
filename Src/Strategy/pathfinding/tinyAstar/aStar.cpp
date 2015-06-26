@@ -2,6 +2,8 @@
 #include <iostream>
 #include <array>
 #include "../../Common/waypoint.h"
+#include <algorithm>
+
 aStar::aStar()
 {
 }
@@ -25,7 +27,7 @@ Route aStar::getRoute(std::vector<std::pair<int, int>> input){
 }
 
 
-std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int endX, int endY, MapImplementation& theMap)
+std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int endX, int endY, mapImplementation& theMap)
 {
 	std::vector<Coordinate> path;
 	if (startX < 0 || startY < 0 || startX > width || startY > height || endX < 0 || endY < 0 || endX > width || endY > height)
@@ -151,7 +153,7 @@ std::vector<std::pair<int, int>> aStar::findPath(int startX, int startY, int end
 	return path;
 }
 
-std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordinate, MapImplementation& theMap)
+std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordinate, mapImplementation& theMap)
 {
 	std::array<std::pair<Coordinate, int>, 4> connectedPoints
 	{ {
@@ -171,7 +173,7 @@ std::array<std::pair<Coordinate, int>, 4> aStar::getDistances(Coordinate coordin
 		//
 		//
 		//
-		//change the check for width and height with function when those are made for the Map
+		//change the check for width and height with function when those are made for the map
 		if ((point.first.first < 0 || point.first.second < 0 || point.first.first > width/*theMap.getScaledWidth()*/ || point.first.second > height/*theMap.getScaledHeight()*/)
 			|| std::find(closedCells.begin(), closedCells.end(), point.first) != closedCells.end()
 			|| !theMap.isAccessible(point.first.first, point.first.second))

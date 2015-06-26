@@ -1,0 +1,1 @@
+SRC += Src/Strategy/pathfinding/tinyAstar/aStar.cpp
