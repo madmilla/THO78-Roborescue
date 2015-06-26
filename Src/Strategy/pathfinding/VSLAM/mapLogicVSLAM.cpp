@@ -35,7 +35,7 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "MapLogicVSLAM.h"
+#include "mapLogicVSLAM.h"
 
 MapLogicVSLAM::MapLogicVSLAM(Map * map, virtualRosbee * virtualrosbee, virtualLidar * virtuallidar){
 	this->map = map;
