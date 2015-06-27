@@ -25,7 +25,7 @@ ifeq ($(MAKECMDGOALS),mission1)
 	else
 		INCLUDES 	+= -I$(QT_INCL_DIR)
 		LDFLAGS 	+= -L$(QT_LIB_DIR)
-		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32 -lQt5Sql -lpthread
+		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32 -lQt5Sql
 	endif
 	include TargetMakefiles/Makefile.basestation
 endif
