@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Test.h
+* @file TestSLAM.h
 * @date Created: 6/21/2015
 * @version 1.0
 *
@@ -35,8 +35,8 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef TEST_H
-#define TEST_H
+#ifndef TESTSLAM_H
+#define TESTSLAM_H
 
 #include "map.hpp"
 #include <iostream>
@@ -46,64 +46,65 @@
 #include "mapLogicVSLAM.h"
 #include "Rosbee.h"
 
-class Test
+class TestSLAM
 {
 public:
 	/**
-	* @fn	Test(map * Map, mapLogicVSLAM *MapLogicVSLAM, Rosbee * rosbee);
+	* @fn	TestSLAM(map * Map, mapLogicVSLAM *MapLogicVSLAM, Rosbee * rosbee);
 	*
-	* @brief	Constructor of the class Test.
+	* @brief	Constructor of the class TestSLAM.
 	*
 	* @param	map * Map
 	* @param	mapLogicVSLAM *MapLogicVSLAM
+	* @param	Rosbee * rosbee
 	*/
-	Test(map * Map, mapLogicVSLAM *MapLogicVSLAM, Rosbee * rosbee);
+	TestSLAM(map * Map, mapLogicVSLAM *MapLogicVSLAM, Rosbee * rosbee);
 	/**
 	* @fn	~Test();
 	*
-	* @brief	Constructor of the class Test.
+	* @brief	Destructor of the class TestSLAM.
 	*/
-    ~Test();
+    ~TestSLAM();
 	/**
 	* @fn	void checkFullyScanned();
 	*
-	* @brief	Function to check if the map is succesfull scanned and write the output to the file of testresults.
+	* @brief	Function to check if the map is succesfull scanned and write the output to the file testresults.
 	*/
     void checkFullyScanned();
 	/**
 	* @fn	void writeTimeAndDate();
 	*
-	* @brief	Function to write the time and date to the file of testresults.
+	* @brief	Function to write the time and date to the file testresults.
 	*/
     void writeTimeAndDate();
 	/**
 	* @fn	void writeMap();
 	*
-	* @brief	Function to write the map to the file of testresults.
+	* @brief	Function to write the map to the file testresults.
 	*/
     void writeMap();
 	/**
 	* @fn	 void writeEndLine();
 	*
-	* @brief	Function to write a endline to the file of testresults.
+	* @brief	Function to write a endline to the file testresults.
 	*/
     void writeEndLine();
 	/**
 	* @fn	 void writeExecuteTime();
 	*
-	* @brief	Function to write the execute time to the file of testresults.
+	* @brief	Function to write the execute time to the file testresults.
 	*/
     void writeExecuteTime();
 	/**
 	* @fn	 void startTests();
 	*
-	* @brief	Function to write start the test for the VSLAM algorithm.
+	* @brief	Function to start the test for the SLAM algorithm.
 	*/
 	void startTests();
 	/**
 	* @fn	 void writeNumberOfSteps();
 	*
-	* @brief	Function to write the steps taken by the rosbee to the file of testresults.
+	* @brief	Function to write the steps taken by the rosbee to the file testresults.
 	*/
 	void writeNumberOfSteps();
 	/**
@@ -115,7 +116,7 @@ public:
 	/**
 	* @fn	 void writeAmountObjects();
 	*
-	* @brief	Function to write the amount of objects in the map to the file of testresults.
+	* @brief	Function to write the amount of objects in the map to the file testresults.
 	*/
 	void writeAmountObjects();
 private:
@@ -149,4 +150,4 @@ private:
 	int numberOfObjects = rand() % 80;
 };
 
-#endif // TEST_H
+#endif // TESTSLAM_H
