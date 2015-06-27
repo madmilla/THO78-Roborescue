@@ -64,13 +64,39 @@ public:
 	/**
 	* @fn	void run();
 	*
-	* @brief	Function to start the scanning of the unknown area. The function is not recursive. Each time the funcion is 
-	* called the virtualrosbee wil get a new destination from the function. 
+	* @brief	Function for scanning a unknown area with VSLAM. Each time run is called the rosbee receives a waypoint. 
 	*/
     void run();
+	/**
+	* @fn	wholeRouteInRangevirtuallidar();
+	*
+	* @brief	Function to check if the whole route is in the range of the lidar.
+	* We want to check this to guarantee that we have the most efficient route
+	* to scan the unknown area. The distances to walls and objects is now the lidar range.
+	*
+	* @return bool iswholeRouteInRangeVirtualLidar
+	*/
 	bool wholeRouteInRangevirtuallidar();
+	/**
+	* @brief bool_isVSLAMDone variable
+	*/
 	bool bool_isVSLAMDone = false;
+	/**
+	* @fn	void changeDirection();
+	*
+	* @brief	Function to check if the direction of the rosbee is changed.
+	* When SLAM start make sure that the direction of the rosbee is N.
+	*/
 	void changeDirection();
+	/**
+	* @fn	void run();
+	*
+	* @brief	Function to send the rosbee to the next way point of the route.
+	* We needs to convert the waypoint because the rosbee wants a relative way point.
+	*
+	* @param int x
+	* @param int y
+	*/
 	void moveRosbeeTo(int x, int y);
 private:
 	/**
@@ -105,6 +131,9 @@ private:
 	* @brief int * tileLocation variable to store a tile location.
 	*/
 	int * tileLocation;
+	/**
+	* @brief char direction variable to store direction of rosbee.
+	*/
 	char direction = 'N';
 };
 
