@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file MapLogicVSLAM.cpp
+* @file mapLogicVSLAM.cpp
 * @date Created: 6/21/2015
 * @version 1.0
 *
@@ -37,48 +37,61 @@
 
 #include "mapLogicVSLAM.h"
 
+/**
+* Constructor of mapLogicVSLAM.
+*/
+
 MapLogicVSLAM::MapLogicVSLAM(Map * map, virtualRosbee * virtualrosbee, virtualLidar * virtuallidar){
 	this->map = map;
 	this->virtualrosbee = virtualrosbee;
 	this->virtuallidar = virtuallidar;
 }
 
+/**
+* Destructor of mapLogicVSLAM.
+*/
+
 MapLogicVSLAM::~MapLogicVSLAM(){
 	// Destructor
 }
 
 /**
-* Set the tiles is the virtuallidar range on scanned. Get the location where the virtualrosbee is on that moment.
-* When the location is decided pull the range of the virtuallidar from the virtualrosbee location.
-* We have now the tile location (0,0) of the tiles in the virtuallidar range.
-* Apply now the virtuallidar range with 1 by the tile location of (0,0) and we get the location (max,0).
-* When we do this x times(virtuallidar range) we get the final the location (max, max) for the tiles in the virtuallidar range.
+* Function to set tiles that are in the range of the virtual lidar on scanned.
 */
 
 void MapLogicVSLAM::setTilesInRangevirtuallidar(){
+	// Create temp variable to save degrees that are occupied by objects.
 	std::vector<float> skip = {};
+	// Draw a circle with the radius of the virtualLidar.
 	for (int i = 1; i < virtuallidar->getRange(); i++){
+		// Set tiles that are in the range of the circle on scanned.
 		skip = map->addHalfValuedCircle(virtualrosbee->getVirtualRosbeeLocationX(), virtualrosbee->getVirtualRosbeeLocationY(), i, 5, skip);
 	}
 }
 
 /**
-* We loops trough the whole Map. For each tile check if the value is 0. 0 is the value of a tile which is not scanned.
-* When we don't find any unscanned tiles return (-1,-1). When we find a unscanned tile return (x,y) of the tile.
+* Function to get an unscanned tile in map.
 */
 
 int * MapLogicVSLAM::getUnscannedTile(){
+	// Create temp variable.
 	static int tileLocation[1];
+	// Search through the map for a unscanned tile.
 	for (int iiy = 0; iiy < map->getScaledHeight(); iiy++){
 		for (int iix = 0; iix < map->getScaledWidth(); iix++){
+			// Check if the tile is unscanned (0).
 			if (map->getScaledLocationValue(iix, iiy) == 0){
+				// Set x value in temp variable.
 				tileLocation[0] = iix;
+				// Set y value in temp variable.
 				tileLocation[1] = iiy;
 				std::cout << tileLocation[0] << tileLocation[1] << std::endl;
+				// Return the tile location.
 				return tileLocation;
 			}
 		}
 	}
+	// When there is no tile found return -1 (error message).
 	tileLocation[0] = -1;
 	tileLocation[1] = -1;
 	return tileLocation;

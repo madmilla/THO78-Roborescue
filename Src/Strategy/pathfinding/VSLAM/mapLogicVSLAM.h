@@ -1,5 +1,4 @@
-﻿
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -75,7 +74,7 @@ public:
 	int * getUnscannedTile();
 private:
 	/**
-	* @brief Map object.
+	* @brief map object.
 	*/
 	Map * map;
 	/**
