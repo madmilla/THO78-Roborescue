@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Test.cpp
+* @file TestSLAM.cpp
 * @date Created: 6/21/2015
 * @version 1.0
 *
@@ -35,33 +35,35 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "Test.h"
+#include "TestSLAM.h"
 
 /**
-* Constructor of VSLAM.
+* Constructor of TestSLAM.
 */
 
-Test::Test(map * Map, mapLogicVSLAM *MapLogicVSLAM, Rosbee * rosbee){
+TestSLAM::TestSLAM(map * Map, mapLogicVSLAM *MapLogicVSLAM, Rosbee * rosbee){
+	// Start clock.
 	start = std::clock();
 	this->Map = Map;
 	this->MapLogicVSLAM = MapLogicVSLAM;
 	this->rosbee = rosbee;
+	// Open file.
     myfile.open("C:\\Users\\coen__000\\Documents\\Visual Studio 2013\\Projects\\VSLAM\\VSLAM\\Testresults\\testresults.txt", std::ios::out|std::ios::app);
 }
 
 /**
-* Destructor of VSLAM.
+* Destructor of TestSLAM.
 */
 
-Test::~Test(){
+TestSLAM::~TestSLAM(){
 	// Destructor
 }
 
 /**
- * Function to write start the test for the VSLAM algorithm.
+ * Function to start the test for the SLAM algorithm.
  */
 
-void Test::startTests(){
+void TestSLAM::startTests(){
 	writeTimeAndDate();
 	checkFullyScanned();
 	writeMap();
@@ -72,10 +74,10 @@ void Test::startTests(){
 }
 
 /**
-* Function to write the time and date to the file of testresults.
+* Function to write the time and date to the file testresults.
 */
 
-void Test::writeTimeAndDate(){
+void TestSLAM::writeTimeAndDate(){
 	// Get time now
     time_t t = time(0);
     struct tm * now = localtime( & t );
@@ -86,10 +88,10 @@ void Test::writeTimeAndDate(){
 }
 
 /**
- * Function to check if the map is succesfull scanned and write the output to the file of testresults.
+ * Function to check if the map is succesfull scanned and write the output to the file testresults.
  */
 
-void Test::checkFullyScanned(){
+void TestSLAM::checkFullyScanned(){
 	// Check if the map is succesfull scanned.
 	if (MapLogicVSLAM->isMapFullyScanned()){
 		// Write to the file.
@@ -102,13 +104,13 @@ void Test::checkFullyScanned(){
 }
 
 /**
- * Function to write the map to the file of testresults.
+ * Function to write the map to the file testresults.
  */
 
-void Test::writeMap(){
+void TestSLAM::writeMap(){
 	// Write to the file.
     myfile << "Scanned map:\n";
-	// Loops trough the whole map for each tile write value to the file.
+	// Loops through the map, for each tile write value to the file.
 	for (int i = 0; i < Map->getScaledWidth(); i++){
 		for (int ii = 0; ii < Map->getScaledHeight(); ii++){
 			myfile << Map->getScaledLocationValue(ii, i);
@@ -121,14 +123,14 @@ void Test::writeMap(){
 }
 
 /**
-* Function to write the steps taken by the rosbee to the file of testresults.
+* Function to write the steps taken by the rosbee to the file testresults.
 */
 
-void Test::writeNumberOfSteps(){
+void TestSLAM::writeNumberOfSteps(){
 	// Write to the file.
 	myfile << "Steps taken by rosbee: ";
 	int steps = 0;
-	// Loops trough the whole map for each tile check if the tile is equals to 3.
+	// Loops through the map for each tile check if the tile is equals to 3.
 	// When the tile is equals to 3 amount steps by 1.
 	for (int i = 0; i < Map->getScaledWidth(); i++){
 		for (int ii = 0; ii < Map->getScaledHeight(); ii++){
@@ -142,10 +144,10 @@ void Test::writeNumberOfSteps(){
 }
 
 /**
- * Function to write a endline to the file of testresults.
+ * Function to write a endline to the file testresults.
  */
 
-void Test::writeEndLine(){
+void TestSLAM::writeEndLine(){
     for(int i = 0; i < 150; i++){
         myfile << "=";
     }
@@ -153,10 +155,10 @@ void Test::writeEndLine(){
 }
 
 /**
- * Function to write the execute time to the file of testresults.
+ * Function to write the execute time to the file testresults.
  */
 
-void Test::writeExecuteTime(){
+void TestSLAM::writeExecuteTime(){
 	// Calculate execute time.
 	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 	// Write execute time to the file.
@@ -167,10 +169,14 @@ void Test::writeExecuteTime(){
 * Function to set objects in the map.
 */
 
-void Test::setObjectsInMap(){
+void TestSLAM::setObjectsInMap(){
+	// Loop x times (x == numberOfObjects).
 	for (int i = 0; i < numberOfObjects; i++){
+		// Create random int (0 < Width of the map).
 		int v1 = rand() % Map->getScaledWidth();
+		// Create random int (0 < Height of the map).
 		int v2 = rand() % Map->getScaledHeight();
+		// We don't set a tile on the rosbee. When we do we can't run SLAM.
 		if (rosbee->getRosbeeLocationX() == v1 && rosbee->getRosbeeLocationY() == v2){
 		}
 		else{
@@ -180,10 +186,10 @@ void Test::setObjectsInMap(){
 }
 
 /**
-* Function to write amount of objects in the map to the file of testresults.
+* Function to write amount of objects in the map to the file testresults.
 */
 
-void Test::writeAmountObjects(){
+void TestSLAM::writeAmountObjects(){
 	myfile << "Amount of objects: " << numberOfObjects << "\n\n";
 }
 
