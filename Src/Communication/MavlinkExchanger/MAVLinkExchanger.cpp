@@ -21,9 +21,9 @@ mavlink_message_t MAVLinkExchanger::peek()
 {
 	if (receiveQueue.size())
 	{
-		return receiveQueue.top();
+		return receiveQueue.front();
 	}
-	return mavlink_message_t;
+	return mavlink_message_t{};
 }
 
 int MAVLinkExchanger::sendQueueSize()
@@ -56,8 +56,8 @@ void MAVLinkExchanger::loop()
 
 void MAVLinkExchanger::sendMessage()
 {
-	unsigned char buffer[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.top().len];
-	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.top());
+	unsigned char buffer[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.front().len];
+	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.front());
 	dataPort.writeData(buffer, len);
 	sendQueue.pop();
 }
