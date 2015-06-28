@@ -209,7 +209,6 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 //			if (scanCoorde[pos].x < 4000 & scanCoorde[pos].x > -4000 && scanCoorde[pos].y < 4000 && scanCoorde[pos]x > -4000){
 				pCloud.setPoint(scanCoorde[pos].x, scanCoorde[pos].y);
 //			}
-			fprintf(stderr, "x: %d , y: %d\n", scanCoorde[pos].x, scanCoorde[pos].y);
 		}
 	}
 	Pointcloud::Point point;
@@ -217,13 +216,8 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	point.Y = pY;
 	pCloud.rotate(orientation);
 	pCloud.setOffset(point);
-	pCloud.savePointsToFile("pointcuefnef.pcl");
-	std::cout << "image maken";
 	const Mat & image = sD.createImage(pCloud, SCALE);
-	std::cout << "image gemaakt";
 	std::vector<Line> lines = sD.searchLines(image);
-	std::cout << "lines detected";
-	sD.writeLinesToConsole(lines);
 
 	for (auto l : lines){
 		Line::Point begin{(l.getLine().begin_pos.x * SCALE) - pCloud.getMinValues().X, (l.getLine().begin_pos.y * SCALE) - pCloud.getMinValues().Y};

@@ -67,10 +67,8 @@ void MAVLinkExchanger::receiveMessage(const boost::system::error_code &ec, std::
 	mavlink_status_t status;
 	for(auto i = 0; i < bytes_transferred; ++i)
 	{
-		std::cout << (char)receiveBuffer[i];
 		if(mavlink_parse_char(MAVLINK_COMM_0, receiveBuffer[i], &message, &status))
 		{
-			std::cout << "FULLY RECEIVED MESSAGE" << std::endl;
 			receiveQueue.push(message);
 		}
 	}
