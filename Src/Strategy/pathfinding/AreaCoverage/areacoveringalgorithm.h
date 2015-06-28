@@ -33,6 +33,7 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
+
 #ifndef AREACOVERINGALGORITHM_H
 #define AREACOVERINGALGORITHM_H
 #include "waypoint.h"
@@ -41,6 +42,7 @@
 #include <vector>
 #include "route.h"
 #include "aStar.h"
+
 class AreaCoveringAlgorithm
 {
 public:
