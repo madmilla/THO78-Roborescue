@@ -53,6 +53,13 @@ public:
 	* @brief	Constructor of the class Route.
 	*/
     Route();
+	/**
+	* @fn	Route(std::vector<WayPoint> waypoints);
+	*
+	* @brief	Constructor of the class Route.
+	*
+	* @param	waypoints
+	*/
     Route(std::vector<WayPoint> waypoints);
 	/**
 	* @fn	~Route();
@@ -60,62 +67,97 @@ public:
 	* @brief	Destructor of the class Route.
 	*/
     ~Route();
-
 	/**
 	* @fn	void setRouteTile(int x , int y);
 	*
-	* @brief	Function to set the route to the unscanned tile the vector std::vector <std::pair<int, int>> newRoute;
+	* @brief	Function to set a location x and location y in wayPoints.
 	*
-	* @param int x	the x value of a step.
-	* @param int y	the y value of a step.
+	* @param 	x
+	* @param 	y
 	*/
     void setRouteTile(int x , int y);
-
 	/**
 	* @fn	int * getNewTile();
 	*
-	* @brief	Function to get the x and y for the new destination of the virtualrosbee.
+	* @brief	Function to get the x and y for the new destination of the VirtualRosbee.
 	*
-	* @return int * tileLocation	value x and y of the tile.
+	* @return	tileLocation
 	*/
 	int * getNewTile();
-
 	/**
 	* @fn	int getSize();
 	*
-	* @brief	Function to get the size of the vector std::vector <std::pair<int, int>> newRoute;
+	* @brief	Function to get the size of wayPoints;
 	*
-	* @return int newRoute.size();	size of the vector std::vector <std::pair<int, int>> newRoute;
+	* @return	int wayPoints.size();
 	*/
 	int getSize();
-    
-  void addRoutePart(Route);
-
-    std::vector<WayPoint> waypoints;
-
-    int scale;
+	/**
+	* @fn	void addRoutePart(Route);
+	*
+	* @brief	Function to add a route to the full route
+	*
+	* @param	Route
+	*/
+	void addRoutePart(Route);
+	
+	/**
+	* @fn	friend std::ostream & operator<<(std::ostream & os, Route & l);
+	*
+	* @brief	Operator for Route.
+	*
+	* @param	os
+	* @param	l
+	*/
     friend std::ostream & operator<<(std::ostream & os, Route & l);
+	/**
+	* @fn	void scaleWaypoints();
+	*
+	* @brief	Function to scale the waypoints.
+	*/
     void scaleWaypoints();
-
+	/**
+	* @fn	void randomRoute(int MapWidth, int MapHeight);
+	*
+	* @brief	Function to create a random route.
+	*
+	* @param	MapWidth
+	* @param	MapHeight
+	*/	
     void randomRoute(int MapWidth, int MapHeight);
-
+	/**
+	* @fn	WayPoint* getWaypoint(int wayPoint);
+	*
+	* @brief	Function that returns a waypoint from wayPoints.
+	*
+	* @param	wayPoint
+	*/	
     WayPoint* getWaypoint(int wayPoint);
-
+	/**
+	* @fn	void pushWayPoint(WayPoint* wayPoint);
+	*
+	* @brief	Function to set a waypoint in wayPoints.
+	*
+	* @param	wayPoint
+	*/
     void pushWayPoint(WayPoint* wayPoint);
-
-  /**
+	/**
 	* @fn	void clearRoute();
 	*
 	* @brief	Function to clear the vector std::vector <std::pair<int, int>> newRoute;
 	*/
-  void clearRoute();
-
-  /**
-	* @brief std::vector <WayPoint> newRoute;	vector to store the route for virtualrosbee to the unscanned tile.
+	void clearRoute();
+	/**
+	* @brief std::vector<WayPoint*> wayPoints;
 	*/
 	std::vector<WayPoint*> wayPoints;
-
-private:
-    //std::vector<WayPoint*> wayPoints; //mathijs code not prepared for this
+	/**
+	* @brief std::vector<WayPoint> waypoints;
+	*/
+	std::vector<WayPoint> waypoints;
+	/**
+	* @brief int scale variable.
+	*/
+    int scale;
 };
 #endif // ROUTE_H
