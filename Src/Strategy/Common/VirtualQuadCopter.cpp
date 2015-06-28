@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file QuadCopter.cpp
+* @file VirtualQuadCopter.cpp
 * @date Created: 4/28/2015
 *
 * @author Mathijs Arends
@@ -36,22 +36,35 @@
 **/
 #include "VirtualQuadCopter.h"
 
+/**
+ * Constructor of VirtualQuadCopter.
+ */
+
 VirtualQuadCopter::VirtualQuadCopter(Dimension size, Dimension fov, int x, int y):
     size{size},
     fov{fov},
     x{x},
     y{y}
 {
-
+	// Constructor.
 }
 
-VirtualQuadCopter::~VirtualQuadCopter()
-{
+/**
+ * Destructor of VirtualLidar.
+ */
 
+VirtualQuadCopter::~VirtualQuadCopter(){
+	// Destructor.
 }
+
+/**
+ * Function to move the VirtualQuadCopter to location x and y.
+ */
 
 void VirtualQuadCopter::goTo(int x, int y){
+	// Set x VirtualQuadCopter.
     this->x = x;
+	// Set y VirtualQuadCopter.
     this->y = y;
 }
 
