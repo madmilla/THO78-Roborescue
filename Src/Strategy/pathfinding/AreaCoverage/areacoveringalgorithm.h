@@ -123,13 +123,13 @@ public:
 	*/
     Route result;
 	/**
-	* @fn	void drawWayPoints(Map*);
+	* @fn	void drawWayPoints(Map* map);
 	*
 	* @brief	Write waypoint to the map.
 	*
 	* @param	Map*
 	*/
-    void drawWayPoints(Map*);
+    void drawWayPoints(Map* map);
 	/**
 	* @fn	bool testCoverage();
 	*
