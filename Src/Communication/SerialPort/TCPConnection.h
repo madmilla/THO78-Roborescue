@@ -6,7 +6,7 @@
 
 using boost::asio::ip::tcp;
 
-class TCPConnection : public DataPort
+class TCPConnection : public DataPort, public tcp::socket
 {
 public:
 	TCPConnection(boost::asio::io_service& service);

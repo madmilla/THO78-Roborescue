@@ -7,5 +7,4 @@ MODULES		+= $(MAVLINK_LIB)
 MODULES		+= $(MAVLINK_EXCHANGER_MODULE)
 MODULES		+= $(SERIAL_PORT_MODULE)
 
-
 SRC 		+= Src/Tests/BoostConnectionTests/Main.cpp
