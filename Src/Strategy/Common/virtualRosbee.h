@@ -8,6 +8,7 @@
 *
 * @file VirtualRosbee.h
 * @date Created: 4/28/2015
+* @version 1.0
 *
 * @author Coen Andriessen
 * @author Jeroen Steendam

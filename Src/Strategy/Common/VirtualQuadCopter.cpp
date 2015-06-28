@@ -8,6 +8,7 @@
 *
 * @file VirtualQuadCopter.cpp
 * @date Created: 4/28/2015
+* @version 1.0
 *
 * @author Mathijs Arends
 * @author Jeroen Steendam
