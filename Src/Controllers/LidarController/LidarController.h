@@ -13,6 +13,6 @@ public:
 private:
 	Lidar& lidar;
 	MAVLinkExchanger& exchanger;
-	handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage);
+	handleIncomingMessage(mavlink_message_t incomingMessage);
 };
 #endif
