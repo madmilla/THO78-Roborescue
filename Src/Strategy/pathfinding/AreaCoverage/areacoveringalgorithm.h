@@ -129,7 +129,7 @@ public:
 	*
 	* @param	Map*
 	*/
-    void drawWayPoints(Map);
+    void drawWayPoints(Map*);
 	/**
 	* @fn	bool testCoverage();
 	*
