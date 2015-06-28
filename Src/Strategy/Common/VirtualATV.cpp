@@ -6,8 +6,9 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file ATV.cpp
+* @file VirtualATV.cpp
 * @date Created: 4/28/2015
+* @version 1.0
 *
 * @author Mathijs Arends
 * @author Jeroen Steendam
@@ -35,22 +36,36 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
+
 #include "VirtualATV.h"
+
+/**
+ * Constructor of VirtualLidar.
+ */
 
 VirtualATV::VirtualATV(Dimension size, int x, int y):
     size{size},
     x{x},
     y{y}{}
 
-
-
+/**
+ * Function to move the VirtualATV to position x and y.
+ */
 
 void VirtualATV::goTo(int x, int y){
+	// Set x.
     this->x = x;
+	// Set y.
     this->y = y;
 }
 
+/**
+ * Function to move the VirtualATV to position x and y.
+ */
+
 void VirtualATV::goTo(WayPoint* waypoint){
+	// Set waypoint x.
     this->x = waypoint->x;
+	// Set waypoint y.
     this->y = waypoint->y;
 }

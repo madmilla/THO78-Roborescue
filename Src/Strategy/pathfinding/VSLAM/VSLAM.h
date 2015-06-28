@@ -53,6 +53,9 @@ public:
 	* @fn	VSLAM(Map map, virtualrosbee *rosbee, MapSearchNode mapSearchNode, Route *route, MapLogicVSLAM mapLogicVSLAM, virtuallidar *virtuallidar);
 	*
 	* @brief	Constructor of the class VSLAM.
+	* @param	map
+	* @param	rosbee
+	* @param 	virtualLidar
 	*/
 	VSLAM(Map* map, virtualRosbee *rosbee, Route *route, virtualLidar *virtuallidar);
 	/**
@@ -66,7 +69,7 @@ public:
 	*
 	* @brief	Function for scanning a unknown area with VSLAM. Each time run is called the rosbee receives a waypoint. 
 	*/
-    void run();
+    	void run();
 	/**
 	* @fn	wholeRouteInRangevirtuallidar();
 	*
@@ -102,7 +105,7 @@ private:
 	/**
 	* @brief Map object.
 	*/
-    Map* map;
+    	Map* map;
 	/**
 	* @brief virtualrosbee object.
 	*/
@@ -110,7 +113,7 @@ private:
 	/**
 	* @brief MapSearchNode object.
 	*/
-    MapSearchNode* mapSearchNode;
+    	MapSearchNode* mapSearchNode;
 	/**
 	* @brief MapLogicVSLAM object.
 	*/
@@ -118,7 +121,7 @@ private:
 	/**
 	* @brief route object.
 	*/
-    Route * route;
+    	Route * route;
 	/**
 	* @brief virtualvirtuallidar object.
 	*/
