@@ -2,7 +2,6 @@
 #define _MAVLINKEXCHANGER_H
 #include <queue>
 #include "roborescueV1/mavlink.h"
-#include <boost/system/error_code.hpp>
 #include <boost/asio.hpp>
 
 class TCPConnection;
@@ -12,8 +11,8 @@ class MAVLinkExchanger
 public:
 	explicit MAVLinkExchanger(TCPConnection& dataPort);
 	void enqueueMessage(mavlink_message_t& message);
-	mavlink_message_tdequeueMessage();
-	mavlink_message_tpeek();
+	mavlink_message_t dequeueMessage();
+	mavlink_message_t peek();
 	int sendQueueSize();
 	int receiveQueueSize();
 	void loop();

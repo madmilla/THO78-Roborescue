@@ -10,14 +10,6 @@ int main()
 {
 	TCPConnection c{ service };
 	MAVLinkExchanger exchanger{ c };
-	
-	if(c.connect(8000))
-	{
-		service.run();
-	}
-	else
-	{
-		std::cout << "Could not start-up server" << std::endl;
-	}
+	c.connect(8000)
 	return 0;
 }

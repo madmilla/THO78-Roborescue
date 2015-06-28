@@ -10,22 +10,22 @@ SRC 							=
 UI 								= 
 UI_HEADERS						=
 MODULES 						= 
+BOOST_INCL_DIR 					= Deps/incl/boost_1_58_0/Windows
 
 ifeq ($(OS),Windows_NT)
-	CXXFLAGS 	+= -DWIN32 -fPIC
-	MOC			= $(QT_BIN_DIR)/moc.exe
-	UIC			= $(QT_BIN_DIR)/uic.exe
+	CXXFLAGS 		+= -DWIN32
+	MOC				= $(QT_BIN_DIR)/moc.exe
+	UIC				= $(QT_BIN_DIR)/uic.exe
+	BOOST_LIB_DIR 	= Deps/lib/boost_1_58_0/Windows
 endif
 
 ifeq ($(MAKECMDGOALS),mission1)
+	LDLIBS 	+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql -lpthread -lboost_system
 	ifneq ($(OS),Windows_NT)
-		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql -lpthread
-		INCLUDES 	+= -I /usr/include/qt5
-		CXXFLAGS	+= -lpthread
 	else
-		INCLUDES 	+= -I$(QT_INCL_DIR)
-		LDFLAGS 	+= -L$(QT_LIB_DIR)
-		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lws2_32 -lQt5Sql -lpthread
+		INCLUDES 	+= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR)
+		LDFLAGS 	+= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
+		LDLIBS 		+= -lws2_32
 	endif
 	include TargetMakefiles/Makefile.basestation
 endif

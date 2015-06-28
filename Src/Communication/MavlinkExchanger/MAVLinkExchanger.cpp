@@ -17,7 +17,7 @@ void MAVLinkExchanger::enqueueMessage(mavlink_message_t& message)
 	sendQueue.push(message);
 }
 
-mavlink_message_tMAVLinkExchanger::peek()
+mavlink_message_t MAVLinkExchanger::peek()
 {
 	if (receiveQueue.size())
 	{

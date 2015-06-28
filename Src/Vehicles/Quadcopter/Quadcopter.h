@@ -55,11 +55,11 @@
 
 #ifndef _QUADCOPTER_H
 #define _QUADCOPTER_H
-#include "PrioritisedMAVLinkMessage.h"
 #include "Subject.h"
 #include <iostream>
 #include <map>
 #include <chrono>
+#include "roborescueV1/mavlink.h"
 
 class MAVLinkExchanger;
 
@@ -219,225 +219,46 @@ public:
 	*
 	*/
 	void changeMode(FlightMode);
-	
-	/**
-	* operator<< an overloaded shift operator 
-	*
-	*/
 	friend std::ostream& operator<<(
 		std::ostream& stream, 
 		const FlightMode& mode);
 
-	/**
-	* loop 
-	*
-	*/
 	void loop();
-
-	/**
-	* getYaw 
-	*
-	*/
 	float getYaw() const;
-
-	/**
-	* getRoll 
-	*
-	*/
 	float getRoll() const;
-	
-	/**
-	* getPitch 
-	*
-	*/
 	float getPitch() const;
-
-	/**
-	* getAltitude 
-	*
-	*/
 	float getAltitude() const;
-	
-	/**
-	* getHeading 
-	*
-	*/
 	int getHeading() const;
-
-	/**
-	* isArmed 
-	*
-	*/
 	bool isArmed() const;
-	
-	/**
-	* getMode
-	*
-	*/
 	FlightMode getMode() const;
-	
-	/**
-	* receivedMessageMap
-	*
-	*/
 	std::map<int, int> receivedMessageMap;
-
-	/**
-	* statusTextTest
-	*
-	*/
 	void statusTextTest(int s);
-
-	/**
-	* setAbsoluteHeading
-	*
-	*/
 	void setAbsoluteHeading(int targetHeading);
-	
-	/**
-	* changeAbsoluteHeading
-	*
-	*/
 	void changeAbsoluteHeading(int headingDifference);
-
-	/**
-	* saveQuadcopter
-	*
-	*/
 	void saveQuadcopter();
 
 private:
-	
-	/**
-	* communicator
-	*
-	*/
 	MAVLinkExchanger& communicator;
-	
-	/**
-	* message
-	*
-	*/
-	PrioritisedMAVLinkMessage message;
-	
-	/**
-	* RCOverrideMessage
-	*
-	*/
-	PrioritisedMAVLinkMessage RCOverrideMessage;
-	
-	/**
-	* flightmode
-	*
-	*/
+	mavlink_message_t message;
+	mavlink_message_t RCOverrideMessage;
 	FlightMode flightMode;
-	
-	/**
-	* armed
-	*
-	*/
 	bool armed;
-	
-	/**
-	* yaw
-	*
-	*/
 	float yaw;
-	
-	/**
-	* roll
-	*
-	*/
 	float roll;
-	
-	/**
-	* pitch
-	*
-	*/
 	float pitch;
-	
-	/**
-	* altitude
-	*
-	*/
 	float altitude;
-	
-	/**
-	* heading
-	*
-	*/
 	int heading;
-	
-	/**
-	* RCHeartbeatInterval
-	*
-	*/
 	const std::chrono::seconds RCHeartbeatInterval{ 1 };
-	
-	/**
-	* lastRCsent
-	*
-	*/
 	std::chrono::system_clock::time_point lastRCSent;
-
-	/**
-	* channelThreeLow
-	*
-	*/
 	const int channelThreeLow{ 1077 };
-	
-	/**
-	* channelThreeHigh
-	*
-	*/
 	const int channelThreeHigh{ 1902 };
-	
-	/**
-	* targetAltitude
-	*
-	*/
 	float targetAltitude;
-	
-	/**
-	* ascending
-	*
-	*/
 	bool ascending;
-	
-	/**
-	* descending
-	*
-	*/
 	bool descending;
-	
-	/**
-	* failsafe
-	*
-	*/
 	bool failsafe;
-
-	/**
-	* targetHeading
-	*
-	*/
 	int targetHeading;
-	
-	/**
-	* orient
-	*
-	*/
 	void orient();
-	
-	/**
-	* orienting
-	*
-	*/
 	bool orienting = false;
-	
-	/**
-	* setHeadingStreamSpeed
-	*
-	*/
 	void setHeadingStreamSpeed(int i);
 	
 	/**
@@ -445,65 +266,15 @@ private:
 	* Value of the RC-sticks in neutral position
 	*/
 	const int MEANVALUELEFTRIGHT{ 1487 };
-	
-	/**
-	* SYSTEMID
-	* 
-	*/
 	const int SYSTEMID{ 255 };
-	
-	/**
-	* COMPONENTID
-	*
-	*/
 	const int COMPONENTID{ 0 };
-	
-	/**
-	* TARGET_SYSTEMID
-	*
-	*/
 	const int TARGET_SYSTEMID{ 1 };
-	
-	/**
-	* TARGET_COMPONENTID
-	*
-	*/
 	const int TARGET_COMPONENTID{ 1 };
-
-	/**
-	* MAX_PERCENTAGE
-	*
-	*/
 	const int MAX_PERCENTAGE{ 100 };
-	
-	/**
-	* ASCEND_PERCENTAGE
-	*
-	*/
 	const int ASCEND_PERCENTAGE{ 75 };
-	
-	/**
-	* HOLD_PERCENTAGE
-	*
-	*/
 	const int HOLD_PERCENTAGE{ 50 };
-	
-	/**
-	* DESCEND_PERCENTAGE
-	*
-	*/
 	const int DESCEND_PERCENTAGE{ 25 };
-
-	/**
-	* incomingMessage
-	*
-	*/
-	void handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage);
-	
-	/**
-	* sendRCMessage
-	*
-	*/
+	void handleIncomingMessage(mavlink_message_t incomingMessage);
 	void sendRCMessage
 		(unsigned int channelOne = UINT16_MAX, 
 		unsigned int channelTwo = UINT16_MAX,

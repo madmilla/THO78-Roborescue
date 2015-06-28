@@ -50,10 +50,9 @@
 **/
 #ifndef _ATV_H
 #define _ATV_H
-
 #include "roborescueV1/mavlink.h"
-#include "MAVLinkExchanger.h"
-#include "PrioritisedMAVLinkMessage.h"
+
+class MAVLinkExchanger;
 
 class ATV
 {
@@ -62,7 +61,7 @@ public:
 	* The Constructor for the ATV
 	* @param MAVLinkCommunicator is the mavlinkCommunicator
 	*/
-	ATV(MAVLinkExchanger & mavlinkCommunicator);
+	ATV(MAVLinkExchanger& mavlinkCommunicator);
 	
 	/**
 	* The default deconstructor
@@ -140,13 +139,13 @@ public:
 
 private:
 	MAVLinkExchanger & mavlinkCommunicator;
-	PrioritisedMAVLinkMessage message;
+	mavlink_message_t message;
 	
 	
 	int batteryRemaining = 0;
 	int neutralSteeringValue = 1467;
 	int neutralthrottleValue = 1500;
-	void handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage);
+	void handleIncomingMessage(mavlink_message_t incomingMessage);
 
 	const int MAX_PERCENTAGE{ 100 };
 

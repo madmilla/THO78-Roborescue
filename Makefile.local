@@ -1,10 +1,7 @@
 ifeq ($(OS),Windows_NT)
-	QT_LIB_DIR 						= C:/Qt/5.4/mingw491_32/lib
-	QT_INCL_DIR 					= C:/Qt/5.4/mingw491_32/include
-	QT_BIN_DIR 						= C:/Qt/5.4/mingw491_32/bin
-	
-	BOOST_LIB_DIR 					= Deps/lib/boost_1_58_0/Windows
-	BOOST_INCL_DIR 					= Deps/incl/boost_1_58_0/Windows
+	QT_LIB_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/lib
+	QT_INCL_DIR 					= D:/Qt/Qt5.4.2/5.4/mingw491_32/include
+	QT_BIN_DIR 						= D:/Qt/Qt5.4.2/5.4/mingw491_32/bin
 else
 	#Not needed on linux based systems
 endif

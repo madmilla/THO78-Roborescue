@@ -264,7 +264,7 @@ void Quadcopter::setHeadingStreamSpeed(int i){
 }
 
 void Quadcopter::handleIncomingMessage(
-	PrioritisedMAVLinkMessage incomingMessage)
+	mavlink_message_t incomingMessage)
 {
 	receivedMessageMap[incomingMessage.msgid]++;
 
