@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file virtualRosbee.cpp
+* @file VirtualRosbee.cpp
 * @date Created: 4/28/2015
 *
 * @author Coen Andriessen
@@ -38,7 +38,7 @@
 #include "virtualRosbee.h"
 
 /**
- * Constructor of virtualRosbee.
+ * Constructor of VirtualRosbee.
  */
 
 virtualRosbee::virtualRosbee(int x, int y,Rosbee* actual):
@@ -52,7 +52,7 @@ rActual{actual}
 
 
 /**
- * Destructor of virtualRosbee.
+ * Destructor of VirtualRosbee.
  */
 
 virtualRosbee::~virtualRosbee() {
@@ -60,11 +60,11 @@ virtualRosbee::~virtualRosbee() {
 }
 
 /**
- * Function to return the virtualrosbee location x.
+ * Function to return the VirtualRosbee location x.
  */
 
 int virtualRosbee::getVirtualRosbeeLocationX() {
-	return this->virtualRosbeeLocationX;
+	return virtualRosbeeLocationX;
 }
 
 /**
@@ -85,18 +85,23 @@ void virtualRosbee::setVirtualRosbeeLocationX(int x) {
 }
 
 /**
- * Function to set the virtualrosbee location y.
+ * Function to set the VirtualRosbee location y.
  */
 
 void virtualRosbee::setVirtualRosbeeLocationY(int y) {
     virtualRosbeeLocationY = y + virtualRosbeeLocationY;
 }
+
+/**
+* Function to get flank of the actual Rosbee.
+*/
+
 int virtualRosbee::getVirtualRosbeeFlank() {
     return rActual->getFlank();
 }
 
 /**
-* Function to move the virtualrosbee location x and y.
+* Function to move the VirtualRosbee to location x - y.
 */
 
 void virtualRosbee::moveTo(int x, int y) {

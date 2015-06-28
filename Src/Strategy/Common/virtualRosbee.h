@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file virtualRosbee.h
+* @file VirtualRosbee.h
 * @date Created: 4/28/2015
 *
 * @author Coen Andriessen
@@ -35,34 +35,34 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef VIRTUAL_ROSBEE_H
-#define VIRTUAL_ROSBEE_H
+#ifndef VIRTUALROSBEE_H
+#define VIRTUALROSBEE_H
 
 #include <iostream>
 #include "Rosbee.h"
+
 class virtualRosbee
 {
 public:
 	/**
-	* @fn	virtualRosbee(int x, int y);
+	* @fn	VirtualRosbee(int x, int y);
 	*
-	* @brief	Constructor of the class virtualRosbee.
+	* @brief	Constructor of the class VirtualRosbee.
 	*
 	* @param	int x
 	* @param	int y
 	*/
-        
 	virtualRosbee(int x, int y, Rosbee* actual);
 	/**
-	* @fn	~virtualRosbee();
+	* @fn	~VirtualRosbee();
 	*
-	* @brief	Destructor of the class virtualRosbee.
+	* @brief	Destructor of the class VirtualRosbee.
 	*/
 	~virtualRosbee();
 	/**
 	* @fn	int getVirtualRosbeeLocationX();
 	*
-	* @brief	Function that returns the x location of the virtualRosbee.
+	* @brief	Function that returns the x location of the VirtualRosbee.
 	*
 	* @return	int rosbeeLocationX
 	*/
@@ -70,7 +70,7 @@ public:
 	/**
 	* @fn	int getVirtualRosbeeLocationY();
 	*
-	* @brief	Function that returns the y location of the virtualRosbee.
+	* @brief	Function that returns the y location of the VirtualRosbee.
 	*
 	* @return	int rosbeeLocationY
 	*/
@@ -78,15 +78,26 @@ public:
 	/**
 	* @fn	void set RosbeeLocationY();
 	*
-	* @brief	Function that set the y location of the virtualRosbee.
+	* @brief	Function that set the y location of the VirtualRosbee.
+	*
+	* @param	y
 	*/
     void setVirtualRosbeeLocationY(int y);
 	/**
 	* @fn	void set RosbeeLocationX();
 	*
-	* @brief	Function that set the x location of the virtualRosbee.
+	* @brief	Function that set the x location of the VirtualRosbee.
+	*
+	* @param	x
 	*/
     void setVirtualRosbeeLocationX(int x);
+	/**
+	* @fn	int getVirtualRosbeeFlank();
+	*
+	* @brief	Function to get flank of the actual Rosbee.
+	*
+	* @return	flank
+	*/
     int getVirtualRosbeeFlank();
 	/**
 	* @fn	void moveTo(int x, int y);
@@ -97,8 +108,10 @@ public:
 	* @param	int y
 	*/
 	void moveTo(int x, int y);
-	
 private:
+	/**
+	* @brief Rosbee *rActual. Object for the actual Rosbee.
+	*/
 	Rosbee *rActual;
 	/**
 	* @brief int rosbeeLocationX variable to save virtualrosbee location x.
@@ -110,4 +123,4 @@ private:
     int virtualRosbeeLocationY;
 };
 
-#endif // ROSBEE_H
+#endif // VIRTUALROSBEE_H
