@@ -47,11 +47,11 @@ LOCALISATION_BASESTATION		= Src/Sensors/Localisation-Module/Localisation_Basesta
 
 #COMMUNICATION
 MAVLINK_EXCHANGER_MODULE		= Src/Communication/MavlinkExchanger/
-SERIAL_PORT_MODULE				= Src/Communication/SerialPort/
+SERIAL_PORT_MODULE				= Src/Communication/SerialPort/SerialPortBoost/
 UDP_MODULE						= Src/Communication/udp/
 UDP_LINUX_MODULE				= Src/Communication/udp/Linux-UDP/Client/UDP_Clientv1.2/
 DATABASECONNECTOR_MODULE		= Src/Communication/Persistant-Storage/
-UDP_RASPI				= Src/Communication/udp/Linux-UDP/
+UDP_RASPI						= Src/Communication/udp/Linux-UDP/
 
 #MODULES
 MISSION1_MODULE					= Src/Modules/Mission1/

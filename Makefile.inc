@@ -21,7 +21,7 @@ ifeq ($(MAKECMDGOALS),mission1)
 	ifneq ($(OS),Windows_NT)
 		LDLIBS 		+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql -lpthread
 		INCLUDES 	+= -I /usr/include/qt5
-		CXXFLAGS	+= -fPIC -lpthread -fsyntax-only
+		CXXFLAGS	+= -lpthread
 	else
 		INCLUDES 	+= -I$(QT_INCL_DIR)
 		LDFLAGS 	+= -L$(QT_LIB_DIR)

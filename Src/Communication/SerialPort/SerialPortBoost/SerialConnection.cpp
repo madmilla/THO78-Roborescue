@@ -1,12 +1,12 @@
-#include "SerialPort.h"
+#include "SerialConnection.h"
 #include <iostream>
 
-SerialPort::SerialPort(asio::io_service& service):
+SerialConnection::SerialConnection(asio::io_service& service):
 service{ service }
 {
 }
 
-SerialPort::~SerialPort()
+SerialConnection::~SerialConnection()
 {
 	if (port != nullptr)
 	{
@@ -15,7 +15,7 @@ SerialPort::~SerialPort()
 	}
 }
 
-bool SerialPort::open(std::string portname, int baudRate)
+bool SerialConnection::open(std::string portname, int baudRate)
 {
 	if (port != nullptr)
 	{
@@ -38,12 +38,12 @@ bool SerialPort::open(std::string portname, int baudRate)
 	return true;
 }
 
-size_t SerialPort::readData(unsigned char* buffer, int nrOfBytes)
+size_t SerialConnection::readData(unsigned char* buffer, int nrOfBytes)
 {
 	return asio::read(*port, asio::buffer(buffer, nrOfBytes));
 }
 
-size_t SerialPort::writeData(unsigned char* buffer, int nrOfBytes)
+size_t SerialConnection::writeData(const unsigned char* buffer, int nrOfBytes)
 {
 	return asio::write(*port, asio::buffer(buffer, nrOfBytes));
 }

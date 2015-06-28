@@ -3,12 +3,12 @@
 #include <queue>
 #include "PrioritisedMAVLinkMessage.h"
 
-class SerialPort;
+class DataPort;
 
 class MAVLinkExchanger
 {
 public:
-	explicit MAVLinkExchanger(SerialPort& serialPort);
+	explicit MAVLinkExchanger(DataPort& dataPort);
 	void enqueueMessage(PrioritisedMAVLinkMessage& message);
 	PrioritisedMAVLinkMessage dequeueMessage();
 	PrioritisedMAVLinkMessage peek();
@@ -16,7 +16,7 @@ public:
 	int receiveQueueSize();
 	void loop();
 private:
-	SerialPort& serialPort;
+	DataPort& dataPort;
 	std::priority_queue<PrioritisedMAVLinkMessage> sendQueue;
 	std::priority_queue<PrioritisedMAVLinkMessage> receiveQueue;
 	PrioritisedMAVLinkMessage message;
