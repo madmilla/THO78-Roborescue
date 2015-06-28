@@ -8,6 +8,7 @@
 *
 * @file AreaCoverageAlgorithm.h
 * @date Created: 4/28/2015
+* @version 1.0
 *
 * @author Mathijs Arends
 *
@@ -36,6 +37,7 @@
 
 #ifndef AREACOVERINGALGORITHM_H
 #define AREACOVERINGALGORITHM_H
+
 #include "waypoint.h"
 #include "Map.hpp"
 #include "VirtualQuadCopter.h"
@@ -46,29 +48,168 @@
 class AreaCoveringAlgorithm
 {
 public:
-	point astarfrom=point(0,0);
-	point astarto=point(0,0);
+	/**
+	* @brief	point astarfrom
+	*/
+	point astarfrom = point(0,0);
+	/**
+	* @brief	point astarto
+	*/
+	point astarto = point(0,0);
+	/**
+	* @fn	void setCopterSquare(VirtualQuadCopter copt, Map* Map);
+	*
+	* @brief	Set VirtualQuadCopter location on the map.
+	*
+	* @param	copt
+	* @param	map
+	*/	
 	void setCopterSquare(VirtualQuadCopter copt, Map* Map);
+	/**
+	* @fn	int followCovered(VirtualQuadCopter *copter, Map* map, int wallnumber, int coveredNumber);
+	*
+	* @brief	this function makes the area coverage function foollow his own covered
+	* 			area effectifly covering all the area's of the Map.
+	*
+	* @param	copter
+	* @param	map
+	* @param	wallnumber
+	* @param	coveredNumber
+	*
+	* @return	0
+	*/	
 	int followCovered(VirtualQuadCopter *copter, Map* map, int wallnumber, int coveredNumber);
+	/**
+	* @fn	void registerLocation(Map*, VirtualQuadCopter*);
+	*
+	* @brief	This method sets empty the area's around the test copter to covered.
+	*
+	* @param	Map*
+	* @param	VirtualQuadCopter*
+	*/
 	void registerLocation(Map*, VirtualQuadCopter*);
+	/**
+	* @fn	AreaCoveringAlgorithm(VirtualQuadCopter *copter, Map* mapp);
+	*
+	* @brief	Constructor of the class AreaCoverageAlgorithm.
+	*
+	* @param	copter
+	* @param	mapp
+	*/
 	AreaCoveringAlgorithm(VirtualQuadCopter *copter, Map* mapp);
+	/**
+	* @fn	~AreaCoveringAlgorithm();
+	*
+	* @brief	Destructor of the class AreaCoverageAlgorithm.
+	*
+	* @param	copter
+	* @param	mapp
+	*/
     ~AreaCoveringAlgorithm();
+	/**
+	* @fn	int followWall(VirtualQuadCopter *copter, Map* map, int wallnumber);
+	*
+	* @brief	This function makes the area coverage algorithm follow the wall
+	*
+	* @param	copter
+	* @param	map
+	* @param	wallnumber
+	*
+	* @return	0
+	*/
 	int followWall(VirtualQuadCopter *copter, Map* map, int wallnumber);
+	/**
+	* @brief	Route results. Store results.
+	*/
     Route result;
-    void drawWayPoints(Map*);
+	/**
+	* @fn	void drawWayPoints(Map*);
+	*
+	* @brief	Write waypoint to the map.
+	*
+	* @param	Map*
+	*/
+    void drawWayPoints(Map
+	/**
+	* @fn	bool testCoverage();
+	*
+	* @brief	Checks if the route coverage the whole area.
+	*
+	* @return	bool
+	*/
     bool testCoverage();
+	/**
+	* @fn	Route getRoute();
+	*
+	* @brief	Get route generate by AreaCoverageAlgorithm.
+	*
+	* @return	route
+	*/
 	Route getRoute();
 private:
-	// isCoveredInDirecten true or fales TI rules
+	/**
+	* @fn	bool isCoveredInDirection(Dimension d, VirtualQuadCopter* t);
+	*
+	* @brief	This function checks if the VirtualQuadCopter is covered in the given direction it
+	*			not only checks directly in front of it but in front of the entire sight range of the copter.
+	*
+	* @param	d
+	* @param	t
+	*
+	* @return	uncovered
+	*/
 	bool isCoveredInDirection(Dimension d, VirtualQuadCopter* t);
+	/**
+	* @fn	bool isBoxedIn(VirtualQuadCopter*, Map* map);
+	*
+	* @brief	this method checks if there are uncovered areas around the copter.
+	*			if there are empty areas it will return false else true.
+	*
+	* @param	VirtualQuadCopter*
+	* @param	map
+	*
+	* @return	isBoxedIn
+	*/
 	bool isBoxedIn(VirtualQuadCopter*, Map* map);
+	/**
+	* @fn	void moveBackOnRoute(VirtualQuadCopter* copter);
+	*
+	* @brief	this function moves the VirtualQuadCopter back on the
+	*			route and keeps track of howfar it went back.
+	*
+	* @param	copter*
+	*/
 	void moveBackOnRoute(VirtualQuadCopter* copter);
-    Map* globalMap;
+	/**
+	* @fn	int pointOn(int x, int y, VirtualQuadCopter *copter, Map* Map);
+	*
+	* @brief	this function returns the value on the point of the given Map.
+	*
+	* @param	x
+	* @param	y
+	* @param	copter
+	* @param	map
+	*
+	* @return	value
+	*/
+    int pointOn(int x, int y, VirtualQuadCopter *copter, Map* Map);
     void goForward();
+	/**
+	* @brief	bool moveingBack. Is the VirtualQuadCopter moveingback?
+	*/
     bool moveingBack;
-    int movesBack=0;
+	/**
+	* @brief	int movesBack. Store movesBack.
+	*/
+    int movesBack = 0;
+	/**
+	* @brief	int stuckWaypointIndex. Variable to save waypoint when stuck.
+	*/
     int stuckWaypointIndex;
-	int pointOn(int x, int y, VirtualQuadCopter *copter, Map* Map);
+	/**
+	* @brief	Map* globalMap
+	*/
+	Map* globalMap;
 };
 
 #endif // AREACOVERINGALGORITHM_H

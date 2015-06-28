@@ -55,7 +55,7 @@ AreaCoveringAlgorithm::AreaCoveringAlgorithm(VirtualQuadCopter *copter, Map* map
 }
 
 /** This method gives the waypoints in the result section the value of 7 on the array Map
-This is usefull for gui implementations */
+This is usefull for gui implementations*/
 
 void AreaCoveringAlgorithm::drawWayPoints(Map* map) {
 	for (WayPoint *point : result.wayPoints) {
