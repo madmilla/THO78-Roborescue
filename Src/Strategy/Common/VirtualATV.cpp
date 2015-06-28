@@ -40,7 +40,7 @@
 #include "VirtualATV.h"
 
 /**
- * Constructor of VirtualLidar.
+ * Constructor of VirtualATV.
  */
 
 VirtualATV::VirtualATV(Dimension size, int x, int y):
