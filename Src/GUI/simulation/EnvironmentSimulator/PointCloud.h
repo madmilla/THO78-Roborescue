@@ -43,17 +43,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <math.h>
+#include <math.h> 
 #define M_PI 3.14159265358979323846
-
 class Pointcloud{ //! a struct which will contain a single point
 public:
-	~Pointcloud(){
-		std::cout << "POINTCLOUD ESTROYED\n\n";
-	}
 	//!The Contructor for the pointcloud
-    Pointcloud();
-
+	Pointcloud();
 	//! A object which will contain a single point
 	struct Point{
 		int X; //! The x value of a single point
@@ -154,8 +149,9 @@ public:
 
     //! print all points in given cloud    
 	void printPoints();
-
 	
+	
+
 	/*! Rotate a point could 
 	 * @param angle the rotation angle in Degrees
 	 */ 
@@ -170,7 +166,7 @@ public:
 	//! a operator to add a Pointcloud to another pointcloud
 	Pointcloud operator+=(Pointcloud & b);
 private:
-	Point offset;
+	Point offset; //! the offset of the pointlcoud
 	std::vector<Point> * pointCloud; //! the vector which contains all the poins of the pointcloud
 	int orientation; //! the orientation of the pointcloud
 };

@@ -37,11 +37,7 @@
 
 #include "editmapwindow.h"
 #include "ui_editmapwindow.h"
-#include "values.h"
-#include <QGraphicsRectItem>
-#include <QMouseEvent>
-#include <vector>
-#include <iostream>
+
 
 EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
     QDialog(parent),
@@ -54,7 +50,7 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
 
     screenSize.setWidth(QApplication::desktop()->screenGeometry().width());
     screenSize.setHeight(QApplication::desktop()->screenGeometry().height());
-    this->setFixedSize(screenSize.width(), screenSize.height());
+    this->setFixedSize(screenSize.width() - screenSize.width() / 10, screenSize.height() - screenSize.height() / 10);
 
     std::cout << "screen size: " << '(' << screenSize.width() << ' ' << screenSize.height() << ')' << std::endl;
 
@@ -64,7 +60,7 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
     setButtonPosition(*ui->circleButton, screenSize.width()-(screenSize.width()/10), ui->lineButton->y() + 30);
     setButtonPosition(*ui->rectangleButton, screenSize.width()-(screenSize.width()/10), ui->circleButton->y() + 30);
     setButtonPosition(*ui->saveMapButton, screenSize.width()-(screenSize.width()/10), screenSize.height() - screenSize.height()/10);
-    setButtonPosition(*ui->saveMapButton, screenSize.width()-(screenSize.width()/10), screenSize.height() - screenSize.height()/10);
+    setButtonPosition(*ui->savePointcloudButton, screenSize.width()-(screenSize.width()/10), screenSize.height() - screenSize.height()/10 + 30);
 
     canvasScreenSize.setWidth(screenSize.width() - (screenSize.width()/8));
     canvasScreenSize.setHeight(screenSize.height());
@@ -297,23 +293,24 @@ Qt::GlobalColor EditMapWindow::getColorById(int id){
     return bColor;
 }
 
-void EditMapWindow::on_lineButton_clicked()
-{
+void EditMapWindow::on_lineButton_clicked(){
     selected = Values::LINE;
 }
 
-void EditMapWindow::on_rectangleButton_clicked()
-{
+void EditMapWindow::on_rectangleButton_clicked(){
     selected = Values::RECTANGLE;
 }
 
-void EditMapWindow::on_circleButton_clicked()
-{
+void EditMapWindow::on_circleButton_clicked(){
     selected  = Values::CIRCLE;
 }
 
 
-void EditMapWindow::on_savePointcloudButton_clicked()
-{
-   map->savePcl();
+void EditMapWindow::on_savePointcloudButton_clicked(){
+    QString fileName = QFileDialog::getSaveFileName(this, "Save File", QString());
+
+    if (!fileName.isEmpty()) {
+        std::string file = fileName.toStdString();
+        map->savePcl(file);
+    }
 }

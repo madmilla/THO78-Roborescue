@@ -124,7 +124,7 @@ public:
      * savePcl saves the map to a .pcl file.
      * \brief Saves all the content of a map to a .pcl file.
     */
-    void savePcl();
+    void savePcl(std::string filename);
     /*!
     remove a single point from the vector
     @param x: the x value of the point to be removed from the vector

@@ -35,7 +35,6 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "PointCloud.h"
-
 void Pointcloud::setPoint(Point point){
 	removePoint(point.X, point.Y);
 	pointCloud->push_back(point);
@@ -53,7 +52,8 @@ void Pointcloud::setOffset(Pointcloud::Point newOffset){
 	int xOffset = offset.X;
 	int yOffset = offset.Y;
 	int newX, newY;
-	for (Pointcloud::Point p : *this->getPoints()) {
+	std::vector<Point> pc = *this->getPoints();
+	for (Pointcloud::Point p : pc) {
 		int oldX = p.X;
 		int oldY = p.Y;
 		newX = oldX + xOffset;
@@ -141,7 +141,7 @@ int Pointcloud::getOrientation(){
 
 void Pointcloud::savePointsToFile(std::string filename){
     std::ofstream pCFile;
-    pCFile.open(filename);
+    pCFile.open(filename + ".pcl");
     if(!pCFile.is_open()) return;
     pCFile << orientation <<'\n' << offset.X << " " << offset.Y << "\n";
     for(Pointcloud::Point point : *pointCloud){
@@ -152,10 +152,10 @@ void Pointcloud::savePointsToFile(std::string filename){
 void Pointcloud::loadPointsFromFile(std::string filename){
     std::ifstream pCFile;
     pCFile.open(filename);
-    if(!pCFile.is_open()){
-        std::cout << "cant open" << filename << std::endl;
-        return;
-    }
+	if (!pCFile.is_open()){
+		std::cout << "could not load pointcloud";
+		exit(-1);
+	}
     if(!pointCloud->empty()){
         std::cout << "Load on a not empty pointcloud?" << std::endl;
         return;
@@ -176,7 +176,7 @@ void Pointcloud::loadPointsFromFile(std::string filename){
         std::stringstream convertY(item);
         if ( !(convertY >> result) )result = 0;
         point.Y = result;
-        setPoint(point);
+		setPoint(point);
     }
     pCFile.close();
 }
@@ -191,8 +191,8 @@ Pointcloud* Pointcloud::rotate(float angle){
 	const int halfCircle = 180;
 	float sn = sin(angle*M_PI/halfCircle);
 	float cs = cos(angle*M_PI/halfCircle); 
-
-	for (Pointcloud::Point p : *this->getPoints()) {    	
+	std::vector<Point> pc = *this->getPoints();
+	for (Pointcloud::Point p : pc) {
 		int x = p.X;
 		int y = p.Y;
 		int nx = x * cs - y * sn; 
@@ -201,8 +201,7 @@ Pointcloud* Pointcloud::rotate(float angle){
 		this->setPoint(nx,ny);
 		nx = 0;
 		ny = 0;
-	}
-	
+	}	
 	return this;
 }
 
