@@ -1,9 +1,9 @@
 Enviroment Simulator test begin
+Enviroment Simulator test Map not from file
+Enviroment Simulator test Save file
 Enviroment Simulator test Map from file
 Enviroment Simulator test Map from corrupt file
 Map from corrupt file: Lets see
-Enviroment Simulator test Map not from file
-Enviroment Simulator test Save file
 Enviroment Simulator test Simulate
 addCheckPoint 21 21
 addCheckPoint -1 -1

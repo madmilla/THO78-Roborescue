@@ -101,7 +101,12 @@ void EditMapWindow::on_noneButton_clicked()
 }
 
 void EditMapWindow::on_saveMapButton_clicked(){
-    map->saveMap();
+    QString fileName = QFileDialog::getSaveFileName(this, "Save File", QString());
+
+    if (!fileName.isEmpty()) {
+        std::string file = fileName.toStdString();
+        map->saveMap(file);
+    }
 }
 
 
@@ -121,7 +126,7 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
         std::cout << "coordinates: " << '(' << positionx << " " << positiony << ')' << std::endl;
 
         if(positionx < map->width  &&  positiony < map->height){
-            map->setMapObject(selected, positiony, positionx);
+            map->setMapObject(Values::OBSTACLE, positiony, positionx);
             update();
             mousePressed = true;
         }
@@ -150,7 +155,7 @@ void EditMapWindow::drawLine(QPoint begin, QPoint end){
         std::cout << "x:" << positionx << std::endl;
         for(int i = begin.y(); i < end.y()+1; i++){
             std::cout << begin.y() << " - " << end.y() << " - " <<end.x() << " - " << begin.x() << std::endl;
-            map->setMapObject(selected, i, positionx);
+            map->setMapObject(Values::OBSTACLE, i, positionx);
         }
         update();
         mousePressed = true;
@@ -166,7 +171,7 @@ void EditMapWindow::drawLine(QPoint begin, QPoint end){
         std::cout << deltaX << " + " << deltaY << std::endl;
         for(int x = begin.x(); x < end.x()+1; x++){
             int y = (a * x) + b;
-            map->setMapObject(selected, y, x);
+            map->setMapObject(Values::OBSTACLE, y, x);
             update();
             mousePressed = true;
         }
@@ -177,7 +182,7 @@ void EditMapWindow::drawLine(QPoint begin, QPoint end){
         }
         for(int y = begin.y(); y < end.y()+1; y++){
             int x = (y-b)/a;
-            map->setMapObject(selected, y, x);
+            map->setMapObject(Values::OBSTACLE, y, x);
         }
         update();
         mousePressed = true;
@@ -208,7 +213,7 @@ void EditMapWindow::drawRectangle(QPoint begin, QPoint end){
 
         for(int y = startY; y < endY; ++y){
             for(int x = startX; x < endX; ++x){
-                 map->setMapObject(selected, y, x);
+                 map->setMapObject(Values::OBSTACLE, y, x);
             }
         }
         update();
@@ -223,7 +228,7 @@ void EditMapWindow::drawCircle(QPoint center, QPoint second){
     double radius = sqrt(pow(center.x() - endX, 2) + pow(center.y() - endY,2));
     std::cout << radius << std::endl;
     for (double angle=0; angle<=2*M_PI; angle+=0.001){
-         map->setMapObject(selected, (center.y() + radius *sin( angle )), ( center.x() + radius*cos( angle ) ));
+         map->setMapObject(Values::OBSTACLE, (center.y() + radius *sin( angle )), ( center.x() + radius*cos( angle ) ));
     }
     update();
     mousePressed = true;

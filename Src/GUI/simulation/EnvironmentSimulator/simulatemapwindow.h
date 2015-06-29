@@ -57,7 +57,7 @@ namespace Ui {
 class SimulateMapWindow;
 }
 
-class SimulateMapWindow : public QWidget
+class SimulateMapWindow : public QDialog
 {
     Q_OBJECT
 
