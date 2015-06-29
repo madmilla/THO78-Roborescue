@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Waypoint.h
+* @file WayPoint.h
 * @date Created: 23-06-2015
 *
 * @author Stefan Dijkman, Nathan Schaaphuizen
