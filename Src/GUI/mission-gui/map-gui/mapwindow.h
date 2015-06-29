@@ -43,9 +43,15 @@
 *	OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 *	ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include <QObject>
+#include <qobjectdefs>
 #include <QtWidgets/QMainWindow>
 
+#if !defined(QOBJECT_H)
+#QOBJECT_H not defined
+#endif
+#if defined(QT_NO_QOBJECT)
+#QT_NO_QOBJECT not defined
+#endif
 #if !defined(QOBJECTDEFS_H)
 #QOBJECTDEFS_H not defined
 #endif
