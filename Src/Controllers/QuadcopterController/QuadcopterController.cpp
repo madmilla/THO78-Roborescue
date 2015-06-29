@@ -8,15 +8,20 @@ registeredLocationModule{locMod}
 {
 }
 
-void QuadcopterController::setTarget(Coordinate<double> target, float targetHeight)
+void QuadcopterController::setTarget(Coordinate<double> target, float tgtHeight)
 {
 	targetLocation = target;
-	targetHeight = targetHeight;
+	targetHeight = tgtHeight;
 }
 
 void QuadcopterController::setPosition()
 {
 	recentLocation = registeredLocationModule.getCoordinate();
+}
+
+Coordinate<double> QuadcopterController::getPosition()
+{
+	return recentLocation;
 }
 
 void QuadcopterController::setHeight(float currentHeight)
