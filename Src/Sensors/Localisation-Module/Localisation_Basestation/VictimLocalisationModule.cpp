@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file LocalisationModule.cpp
+* @file VictimLocalisationModule.cpp
 * @date Created: 22-6-2015
 *
 * @author Feiko Wielsma
@@ -60,12 +60,14 @@ void VictimLocalisationModule::handleMessage(std::string message)
 	if ((vPos = message.find("VICTIMFOUND")) != std::string::npos)
 	{
 		std::string idString;
-		idString = message.substr(vPos + 1, message.length());
+		idString = message.substr(vPos + 11, message.length());
 		//std::cout << idString;
 		try
 		{
 			int intId = stoi(idString);
-			std::cout << "Found target: " << intId << std::endl;
+			//std::cout << "Found target: " << intId << std::endl;
+			victimFound = true;
+			victimId = intId;
 			
 			//std::cout << "Found target!\n";
 
