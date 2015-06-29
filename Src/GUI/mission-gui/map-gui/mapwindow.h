@@ -43,7 +43,7 @@
 *	OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 *	ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include <qobjectdefs>
+#include <QObject>
 #include <QtWidgets/QMainWindow>
 
 #if !defined(QOBJECT_H)
