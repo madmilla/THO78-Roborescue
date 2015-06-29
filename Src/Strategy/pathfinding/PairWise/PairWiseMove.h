@@ -65,11 +65,12 @@ public:
      *
      * @brief	Creates a QuadCopter route from an ATV route.
      * 			As long as the ATV is in sight of QuadCopter, QuadCopter does not move.
-     * 			Else the QuadCopter moves to next ATV position.
+     * 			Else the QuadCopter moves to next ATV position, with the route calculated by AStar.
      *
-     * @param	atvRoute	The atv route.
+     * @param	atvRoute	an atv route.
      * @param	atv			The atv.
      * @param	copter  	The copter.
+     * @param	map			a map.
      *
      * @return	A std::vector with WayPoints for QuadCopter;
      */
@@ -78,23 +79,68 @@ public:
                                                     VirtualATV atv,
                                                     VirtualQuadCopter copter,
                                                     Map map);
-
+	/**
+	* @fn	 void PairWiseMove::movePairWise(Route atvRoute, VirtualATV atv, VirtualQuadCopter copter, 
+	* 		 Map map);
+	*
+	* @brief	Runs generatePairRoute, and moves atv and quadcopter to end position.
+	* 			Returns when both vehicles are finished.
+	*
+	* @param	atvRoute	an atv route.
+	* @param	atv			The atv.
+	* @param	copter  	The copter.
+	* @param    map			a map
+	* 
+	*/
     void movePairWise(Route atvRoute,
                       VirtualATV atv,
                       VirtualQuadCopter copter,
                       Map map);
-
+	/**
+	* @fn	void PairWiseMove::initPairWiseMove(Route atvRoute, VirtualATV atv, VirtualQuadCopter copter,
+            Map map);
+	*
+	* @brief	Sets local variable pairWiseRoute with route calculated by generatePairRoute.
+	* 			Sets both counters to 0.
+	* 			This so you can use the functions to move vehicles step by step.
+	*
+	* @param	atvRoute	an atv route.
+	* @param	atv			The atv.
+	* @param	copter  	The copter.
+	* @param    map			a map
+	*
+	*/
     void initPairWiseMove(Route atvRoute,
                           VirtualATV atv,
                           VirtualQuadCopter copter,
                           Map map);
-
-    WayPoint* nextATVWaypoint();
-
+	/**
+	* @fn	WayPoint* PairWiseMove::nextATVWaypoint();
+	*
+	* @brief	Returns the next waypoint for the ATV.
+	* 			
+	*/
+	WayPoint* nextATVWaypoint();
+	/**
+	* @fn	void PairWiseMove::nextATVWaypoint();
+	*
+	* @brief	Moves the ATV to the next waypoint.
+	*
+	*/
     void moveATVToNextWaypoint(VirtualATV atv);
-
+	/**
+	* @fn	WayPoint* PairWiseMove::nextQuadCopterWaypoint();
+	*
+	* @brief	Returns the next waypoint for the quadcopter.
+	*
+	*/
     WayPoint* nextQuadCopterWaypoint();
-
+	/**
+	* @fn	void PairWiseMove::nextATVWaypoint();
+	*
+	* @brief	Moves the quadcopter to the next waypoint.
+	*
+	*/
     void moveQuadCopterToNextWaypoint(VirtualQuadCopter copter);
 
 

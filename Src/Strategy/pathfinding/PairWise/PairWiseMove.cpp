@@ -99,23 +99,23 @@ std::pair<Route*, Route*>* PairWiseMove::generatePairRoute(Route atvRoute,
 void PairWiseMove::initPairWiseMove(Route atvRoute,
                                     VirtualATV atv,
                                     VirtualQuadCopter copter, Map map){
-    pairWiseRoute = generatePairRoute(atvRoute, atv, copter, map);
-    quadCopterWaypointCounter = 0;
+    pairWiseRoute = generatePairRoute(atvRoute, atv, copter, map);	//Generate route
+    quadCopterWaypointCounter = 0;									//Reset counters
     ATVWaypointCounter = 0;
 
 }
 
 WayPoint* PairWiseMove::nextATVWaypoint(){
-    if(pairWiseRoute != nullptr && ATVWaypointCounter< pairWiseRoute->second->getSize()){
+    if(pairWiseRoute != nullptr && ATVWaypointCounter< pairWiseRoute->second->getSize()){ //If next waypoint available
         auto tmp = pairWiseRoute->second->getWaypoint(ATVWaypointCounter);
         ATVWaypointCounter++;
         return tmp;
     }
-    else if(ATVWaypointCounter >= pairWiseRoute->second->getSize()){
-        return new WayPoint(NULL, NULL);
+    else if(ATVWaypointCounter >= pairWiseRoute->second->getSize()){	//If next not available due out of range
+        return new WayPoint(NULL, NULL);								//Return error value waypoint
     }
-    else{
-        return nullptr;
+    else{																//If next not available due empty route
+        return nullptr;													//return nothing
     }
 
 }
@@ -125,16 +125,16 @@ void PairWiseMove::moveATVToNextWaypoint(VirtualATV atv){
 }
 
 WayPoint* PairWiseMove::nextQuadCopterWaypoint(){
-    if(pairWiseRoute != nullptr && quadCopterWaypointCounter < pairWiseRoute->first->getSize()){
+    if(pairWiseRoute != nullptr && quadCopterWaypointCounter < pairWiseRoute->first->getSize()){	//If next waypoint available
         auto tmp = pairWiseRoute->first->getWaypoint(quadCopterWaypointCounter);
         quadCopterWaypointCounter++;
         return tmp;
     }
-    else if(quadCopterWaypointCounter >= pairWiseRoute->first->getSize()){
-        return new WayPoint(NULL, NULL);
+    else if(quadCopterWaypointCounter >= pairWiseRoute->first->getSize()){	//If next not available due out of range
+        return new WayPoint(NULL, NULL);									//Return error value waypoint
     }
-    else{
-        return nullptr;
+    else{																	//If next not available due empty route
+        return nullptr;														//return nothing
     }
 
 }
