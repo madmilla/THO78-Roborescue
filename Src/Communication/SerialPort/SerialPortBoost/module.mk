@@ -1,1 +1,0 @@
-SRC += Src/Communication/SerialPort/SerialPortBoost/SerialPort.cpp

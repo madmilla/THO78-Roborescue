@@ -1,24 +1,29 @@
 #include "MAVLinkExchanger.h"
-#include "SerialPort.h"
+#include "TCPConnection.h"
 #include <iostream>
 
-MAVLinkExchanger::MAVLinkExchanger(SerialPort& serialPort):
-serialPort( serialPort )
+MAVLinkExchanger::MAVLinkExchanger(TCPConnection& dataPort):
+dataPort( dataPort )
 {
+	dataPort.async_read_some(boost::asio::buffer(receiveBuffer), 
+	std::bind(&MAVLinkExchanger::receiveMessage, 
+	this, 
+	std::placeholders::_1,
+	std::placeholders::_2));
 }
 
-void MAVLinkExchanger::enqueueMessage(PrioritisedMAVLinkMessage& message)
+void MAVLinkExchanger::enqueueMessage(mavlink_message_t& message)
 {
 	sendQueue.push(message);
 }
 
-PrioritisedMAVLinkMessage MAVLinkExchanger::peek()
+mavlink_message_t MAVLinkExchanger::peek()
 {
 	if (receiveQueue.size())
 	{
-		return receiveQueue.top();
+		return receiveQueue.front();
 	}
-	return PrioritisedMAVLinkMessage{};
+	return mavlink_message_t{};
 }
 
 int MAVLinkExchanger::sendQueueSize()
@@ -31,7 +36,7 @@ int MAVLinkExchanger::receiveQueueSize()
 	return receiveQueue.size();
 }
 
-PrioritisedMAVLinkMessage MAVLinkExchanger::dequeueMessage()
+mavlink_message_t MAVLinkExchanger::dequeueMessage()
 {
 	auto message = peek();
 	receiveQueue.pop();
@@ -42,7 +47,6 @@ void MAVLinkExchanger::loop()
 {
 	while (1)
 	{
-		receiveMessage();
 		if (sendQueue.size())
 		{
 			sendMessage();
@@ -52,20 +56,26 @@ void MAVLinkExchanger::loop()
 
 void MAVLinkExchanger::sendMessage()
 {
-	unsigned char buffer[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.top().len];
-	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.top());
-	serialPort.writeData(buffer, len);
+	unsigned char buffer[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.front().len];
+	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.front());
+	dataPort.writeData(buffer, len);
 	sendQueue.pop();
 }
 
-void MAVLinkExchanger::receiveMessage()
+void MAVLinkExchanger::receiveMessage(const boost::system::error_code &ec, std::size_t bytes_transferred)
 {
 	mavlink_status_t status;
-	unsigned char c;
-	do
+	for(auto i = 0; i < bytes_transferred; ++i)
 	{
-		serialPort.readData(&c, 1);
+		if(mavlink_parse_char(MAVLINK_COMM_0, receiveBuffer[i], &message, &status))
+		{
+			receiveQueue.push(message);
+		}
 	}
-	while (mavlink_parse_char(MAVLINK_COMM_0, c, &message, &status) == 0);
-	receiveQueue.push(message);
+	
+	dataPort.async_read_some(boost::asio::buffer(receiveBuffer), 
+	std::bind(&MAVLinkExchanger::receiveMessage, 
+	this, 
+	std::placeholders::_1,
+	std::placeholders::_2));
 }

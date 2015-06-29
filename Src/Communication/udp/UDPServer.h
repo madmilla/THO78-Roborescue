@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -40,7 +40,7 @@
 #define __UDPSERVER__
  
 #include <stdio.h>
-#include <winsock2.h>
+//#include <winsock2.h>
 #include <vector>
 #include <iostream>
 #include <string>

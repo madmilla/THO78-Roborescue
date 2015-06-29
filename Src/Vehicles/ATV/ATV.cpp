@@ -1,5 +1,6 @@
 #include "ATV.h"
 #include <iostream>
+#include "MAVLinkExchanger.h"
 
 
 ATV::ATV(MAVLinkExchanger & mavlinkCommunicator) :
@@ -140,7 +141,7 @@ void ATV::loop()
 	}
 }
 
-void ATV::handleIncomingMessage(PrioritisedMAVLinkMessage incomingMessage)
+void ATV::handleIncomingMessage(mavlink_message_t incomingMessage)
 {
 	switch (incomingMessage.msgid)
 	{

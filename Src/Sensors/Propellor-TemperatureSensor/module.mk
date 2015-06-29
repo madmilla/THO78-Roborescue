@@ -1,1 +1,1 @@
-SRC += Src/Sensors/Propellor-TemperatureSensor/temperaturesensor.cpp
+SRC += Src/Sensors/Propellor-TemperatureSensor/TemperatureSensor.cpp

@@ -1,1 +1,1 @@
-SRC += Src/Sensors/Propellor-UltrasonicSensor/ultrasonicsensor.cpp
+SRC += Src/Sensors/Propellor-UltrasonicSensor/UltrasonicSensor.cpp

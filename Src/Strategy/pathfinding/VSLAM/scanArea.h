@@ -40,11 +40,11 @@
 
 #include <iostream>
 #include "../../../map/mapstructure/map.hpp"
-#include "../../Common/virtualRosbee.h"
+#include "../../Common/VirtualRosbee.h"
 #include "../AStar/MapSearchNode.h"
-#include "../../Common/route.h"
+#include "../../Common/Route.h"
 #include "mapLogicVSLAM.h"
-#include "../../Common/virtualLidar.h"
+#include "../../Common/VirtualLidar.h"
 
 
 class scanArea
