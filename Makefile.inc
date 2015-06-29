@@ -70,15 +70,6 @@ ifeq ($(MAKECMDGOALS),environmentsimulator)
 		include TargetMakefiles/Makefile.environmentsimulator
 	endif
 endif
-ifeq ($(MAKECMDGOALS),map)
-	ifneq ($(OS),Windows_NT)
-		@echo "The Map is currently not compatible with linux bases systems"
-		exit 1
-	else
-		LDLIBS 		+= -lQt5Sql
-		include TargetMakefiles/Makefile.map
-	endif
-endif
 ifeq ($(MAKECMDGOALS),test)
 	ifneq ($(TESTNAME),)
 		include Src/Tests/$(TESTNAME)/$(TESTNAME).mk
