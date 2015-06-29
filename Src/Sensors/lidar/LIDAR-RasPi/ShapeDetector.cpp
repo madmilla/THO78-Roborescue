@@ -13,6 +13,7 @@ void ShapeDetector::writeCirclesToConsole(const vector<Circle> circles){
 	std::cout << "found circles: " << (circles.size()) << std::endl << std::endl;
 	for (Circle c : circles){ // walk through the circles
 		std::cout << "(" << c.getCircle().originX << "," << c.getCircle().originY << ")    \t" << c.getCircle().radius << "\n\n";
+	}
 }
 void ShapeDetector::drawCircles(const std::vector<Circle> circles, Mat & image){
 	for (Circle c : circles){ //Walk through all the circles
@@ -68,7 +69,7 @@ Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	int minY = source.getMinValues().Y;
 	size_t imageHeight = source.getCloudHeight() +DEVIDEIMAGESIZE;
 	size_t imageWidth = source.getCloudWidth() + DEVIDEIMAGESIZE;		
-	Mat mat((int)(imageHeight / DEVIDEIMAGESIZE), (int)(imageWidth / DEVIDEIMAGESIZE), CV_8U); //Create a Mat object which will represent the image with all the pixels
+	Mat mat((int)(imageHeight / DEVIDEIMAGESIZE), (int)(imageWidth / DEVIDEIMAGESIZE),CV_8U, DEFAULT_IMAGE_COLOR); //Create a Mat object which will represent the image with all the pixels
 	for (Pointcloud::Point p : *source.getPoints()){
 		mat.at<uchar>(Point( (int) ((p.X + abs(minX)) / DEVIDEIMAGESIZE), (int)( ((p.Y + abs(minY) )) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
 	}

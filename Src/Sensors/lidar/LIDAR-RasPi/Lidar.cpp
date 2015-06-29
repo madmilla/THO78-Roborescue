@@ -191,7 +191,7 @@ std::vector<scanCoordinate> Lidar::convertToCoordinates(std::vector<scanDot> dat
         tempCoord.y = (cos((data[i].angle * M_PI)/180)) * data[i].dist; // Devide by 180 to Convert Degrees to Radians
         tempCoord.x = (sin((data[i].angle * M_PI)/180)) * data[i].dist; // Devide by 180 to Convert Degrees to Radians
 
-        scanCoord.push_back(tempCoord);
+			scanCoord.push_back(tempCoord);
         tempData.push_back(tempCoord);
     }
     return tempData;
@@ -216,12 +216,13 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	point.Y = pY;
 	pCloud.rotate(orientation);
 	pCloud.setOffset(point);
-	Mat & image = sD.createImage(pCloud, SCALE);
+	Mat image = sD.createImage(pCloud, SCALE);
 	std::vector<Line> lines = sD.searchLines(image);
 	std::vector<Circle> circles;
 	sD.showObjects(lines, circles, image, image, Line::Point{ pCloud.getMinValues().X, pCloud.getMinValues().Y });
-
-	for (auto l : lines){
+	sD.writeLinesToConsole(lines);
+	std:cout << "\nCONVERT LINES\n" ;
+	for (auto & l : lines){
 		Line::Point begin{(l.getLine().begin_pos.x * SCALE) - pCloud.getMinValues().X, (l.getLine().begin_pos.y * SCALE) - pCloud.getMinValues().Y};
 		Line::Point end{(l.getLine().end_pos.x * SCALE) - pCloud.getMinValues().X, (l.getLine().end_pos.y * SCALE) - pCloud.getMinValues().Y};
 		l.setLine(begin,end);

@@ -23,10 +23,11 @@
 
 using namespace std;
 using namespace cv;
-class ShapeDetector
-{
+class ShapeDetector{
+
 private:
     const CvScalar CIRCLE_CENTER_COLOR = CV_RGB(255,0,0); //! The color for the center of the circle
+    const CvScalar DEFAULT_IMAGE_COLOR = CV_RGB(0,0,0);   //! The default color of the image
     const CvScalar CIRCUMFERENCE_COLOR = CV_RGB(0,0,255); //! The color for the circumference of the circle
 	const CvScalar LINECOLOR = CV_RGB(0, 255, 0); //! the line color
 	const CvScalar LINE_BEGINPOINT_COLOR = CV_RGB(0, 0, 255); //!The color of the beginMark of a line
