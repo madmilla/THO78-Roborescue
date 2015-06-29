@@ -11,11 +11,17 @@
 #include "VirtualATV.h"
 #include "VirtualQuadCopter.h"
 #include "UDPServer.h"
-//#include "databaseconnector.h"
+#include "DatabaseConnector.h"
+#include "MapFactory.h"
 #include <iostream>
 
 int main(int argc, char *argv[])
 {
+    databaseConnector dbc("127.0.0.1","root","desktop","robodata");
+    dbc.setMap(1);
+    mapFactory mf{};
+    std::cout << mf.loadMapFromDatabase(dbc);
+    
     RobotManager robotmanager;
     SerialPort p{ "" };
     UDPServer server(robotmanager);
@@ -37,13 +43,11 @@ int main(int argc, char *argv[])
     VirtualATV atv(Dimension(1,1),1,1);
     virtualLidar lidar;
     Map* map= new Map();
-	
+
     StrategyController controller(map, copter, bee, lidar);
     QApplication app(argc, argv);
     MainWindow w{robotmanager, server, q, a};
     w.show();
-    //databaseConnector dbc("127.0.0.1","root","desktop","robodata");
-  //  std::cout << dbc.getMaps().at(0).name;
 	app.exec();
 	/*
 	std::cout << "Nu strategy";
