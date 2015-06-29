@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     databaseConnector dbc("127.0.0.1","root","desktop","robodata");
     dbc.setMap(1);
     mapFactory mf{};
-    std::cout << mf.loadMapFromDatabase(dbc);
+    std::cout << mf.loadMapFromDatabase(dbc).at(0);
     
     RobotManager robotmanager;
     SerialPort p{ "" };
