@@ -43,15 +43,24 @@
 #include "GPIOClass.h"
 #include <math.h>
 
+/*! \class LPCCom
+    \brief    This class reads ADC values provided through a UART..
+              The class allows basic operations (opening the connection, reading and closing the connection).
+ */
+
 class LPCCom {
 public:
 
+	 // Constructor of the class
 	LPCCom(const char* uartPort, const char* gpioPort);
-
+	
+	// Destructor of the class
 	~LPCCom();
-
+	
+	// Configuration and initialization
 	bool init();
 
+	// Read data from the UART
 	double readData();
 
 private:
@@ -61,5 +70,13 @@ private:
 	int baudRate = 38400;
 };
 
+/*!
+  \mainpage LPCCom class
+
+  \brief
+    The class LibSerial offers a simple way to use the LPC Board created for ADC on the Rosbee.
+	Use constructor to setup a object, initialize it to open the ports and then use the readData function as much as needed to get the ADC value's.
+	Do not forget to turn off the login shell on the RPI, otherwise this software will not function properly!
+*/
 
 #endif
