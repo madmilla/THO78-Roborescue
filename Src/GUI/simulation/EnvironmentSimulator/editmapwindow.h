@@ -38,17 +38,17 @@
 #ifndef EDITMAPWINDOW_H
 #define EDITMAPWINDOW_H
 
-#include <QDialog>
-#include <QGraphicsView>
-#include <QGraphicsScene>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGraphicsScene>
 #include "map.h"
 #include "values.h"
-#include <QDesktopWidget>
-#include <QAbstractButton>
-#include <QFileDialog>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QAbstractButton>
+#include <QtWidgets/QFileDialog>
 #include "values.h"
-#include <QGraphicsRectItem>
-#include <QMouseEvent>
+#include <QtWidgets/QGraphicsRectItem>
+#include <QtGui/QMouseEvent>
 #include <vector>
 #include <iostream>
 

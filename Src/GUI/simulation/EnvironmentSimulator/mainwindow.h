@@ -38,12 +38,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QtCore>
-#include <QFileDialog>
-#include <QMessageBox>
+#include <QtWidgets/QMainWindow>
+#include <Qtcore/QtCore>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMessageBox>
 #include <iostream>
-#include <QInputDialog>
+#include <QtWidgets/QInputDialog>
 #include "map.h"
 #include "editmapwindow.h"
 #include "simulatemapwindow.h"
