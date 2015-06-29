@@ -107,7 +107,7 @@ void MainWindow::on_Lidarlist_itemClicked(QListWidgetItem *item){
 }
 
 void MainWindow::ScanforRosbee(){
-    std::cout<< robotManager.getRobots<Rosbee>().size();
+    /*std::cout<< robotManager.getRobots<Rosbee>().size();
     for(auto * robots : robotManager.getRobots<Rosbee>()){
         bool found = false;
         for(int row = 0; row <ui->Rosbeelist->count();row++ ){
@@ -119,11 +119,11 @@ void MainWindow::ScanforRosbee(){
          if(!found){
             ui->Rosbeelist->addItem(new QListWidgetItem("Rosbee "+QString::number((robots->getId()))));
         }
-    }
+    }*/
 }
 
 void MainWindow::ScanforLidar(){
-    for(auto * robots : robotManager.getRobots<Lidar>()){
+    /*for(auto * robots : robotManager.getRobots<Lidar>()){
         bool found = false;
         for(int row = 0; row <ui->Lidarlist->count();row++ ){
             if (ui->Lidarlist->item(row)->text() == "Lidar "+QString::number(robots->getId())){
@@ -134,7 +134,7 @@ void MainWindow::ScanforLidar(){
          if(!found){
             ui->Lidarlist->addItem(new QListWidgetItem("Lidar "+QString::number((robots->getId()))));
         }
-    }
+    }*/
 }
 
 
