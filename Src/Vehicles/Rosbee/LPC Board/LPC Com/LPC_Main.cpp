@@ -6,13 +6,13 @@
 using namespace std;
  
 int main (void) {
-	double battery = 0, temperature = 0;
+	double temperature = 0;
 	
 	LPCCom port("/dev/ttyAMA0", "4");
 	port.init();
-	port.readData(battery, temperature);
+	temperature = port.readData();
 
-	cout << "Battery: " << battery << " Temperature: " << temperature << endl;
+	cout << "Temperature: " << temperature << endl;
 
     cout << "Exiting....." << endl;
     return 0;

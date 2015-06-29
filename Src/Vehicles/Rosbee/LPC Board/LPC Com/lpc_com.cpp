@@ -64,14 +64,11 @@ bool LPCCom::init(){
 		return true;
 	}
 }
-
-void LPCCom::readData(double& temperature){
+double LPCCom::readData(){
 	gpio->setval_gpio("1");
 	usleep(20 * 1000);
 	gpio->setval_gpio("0");
-
-	uart->read(dataBuffer, 4);
-	temperature = dataBuffer;
-
-	// zet waarden in de pointers
+    char* data;
+	uart->read(data, 4);
+    return atof(data);
 }
