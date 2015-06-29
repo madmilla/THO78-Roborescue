@@ -2,7 +2,7 @@
 #define ROUTE_H
 
 #include <vector>
-#include "waypoint.h"
+#include "WayPoint.h"
 #include <sstream>
 #include <iostream>
 

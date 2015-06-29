@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -38,10 +38,10 @@
 #ifndef PAIRWISEMOVE
 #define PAIRWISEMOVE
 
-#include "../../Common/waypoint.h"
+#include "../../Common/WayPoint.h"
 #include "../../Common/QuadCopter.h"
 #include "../../Common/ATV.h"
-#include "../../Common/route.h"
+#include "../../Common/Route.h"
 #include "../../../map/MapStructure/map.hpp"
 #include "../Stop-them-spaces/aStar.h"
 #include <vector>
