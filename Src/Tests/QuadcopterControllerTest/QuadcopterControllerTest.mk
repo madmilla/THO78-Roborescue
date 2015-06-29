@@ -1,7 +1,7 @@
 CXX 		+= 
 CXXFLAGS	+= 
 INCLUDES 	+= -I$(BOOST_INCL_DIR)
-LDLIBS		+= -lboost_system-mgw49-mt-d-1_58 -lws2_32
+LDLIBS		+= -lboost_system -lws2_32
 LDFLAGS		+= -L$(BOOST_LIB_DIR)
 MODULES		+= $(QUADCOPTER_MODULE) 
 MODULES		+= $(MAVLINK_EXCHANGER_MODULE)
