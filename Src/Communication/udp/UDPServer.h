@@ -45,6 +45,7 @@
 #include <iostream>
 #include <string>
 #include <exception>
+#include <thread>
 
 #include "MessageQueue.h"
 #include "Connection.h"
@@ -53,9 +54,6 @@
 
 #include "PracticalSocket.h"
 #include "roborescueV1/mavlink.h"
-//#include "PracticalSocket.h"
-
-//#pragma comment(lib,"ws2_32.lib")
 
 const int bufferlen = 512;
 const int port = 8888;

@@ -11,10 +11,10 @@ class LidarController
 {
 public:
 	LidarController(Lidar& lidar, MAVLinkExchanger& exchanger);
+	std::vector<Line> scanLines();
 	void loop();
 private:
 	Lidar& lidar;
 	MAVLinkExchanger& exchanger;
-	void handleIncomingMessage(mavlink_message_t incomingMessage);
 };
 #endif

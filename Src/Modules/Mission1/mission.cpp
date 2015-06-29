@@ -8,9 +8,9 @@
 int main(int argc, char *argv[])
 {
 	boost::asio::io_service service;
-    TCPConnection p{ service };
-    MAVLinkExchanger exch{ p };
-    Quadcopter q{ exch };
+	TCPConnection p{ service };
+    MAVLinkExchanger exch{ &p };
+   	Quadcopter q{ exch };
     ATV a{ exch };
 	return 1;
 }

@@ -1,12 +1,7 @@
 #ifndef _STRATEGY_CONTROLLER_H
 #define _STRATEGY_CONTROLLER_H
 #include "Map.hpp"
-#ifdef _WIN32
-#include "../../../Deps/incl/MingwThread/mingw.thread.h"
-#endif
-#ifdef linux
-	#include <thread>
-#endif
+#include <thread>
 
 
 
