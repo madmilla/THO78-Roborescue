@@ -46,6 +46,7 @@
 #include <QObject>
 #include <QtWidgets/QMainWindow>
 
+/*
 #if !defined(QOBJECT_H)
 #QOBJECT_H not defined
 #endif
@@ -62,7 +63,7 @@ Q_MOC_OUTPUT_REVISION
 #Q_MOC_OUTPUT_REVISION not defined
 #endif
 
-
+/
 
 #ifndef MAPWINDOW_H
 #define MAPWINDOW_H
