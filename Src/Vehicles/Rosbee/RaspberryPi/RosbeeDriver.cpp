@@ -40,156 +40,166 @@
 #include <cmath>
 #include "encoderinterface.h"
 #include "Waypoint.h"
-#include <iostream> //heb misschien niet nodig
 
 RosbeeDriver::RosbeeDriver(PropCom &nPropCom, PositionController& PC):
 propCom{&nPropCom},
 PC{&PC},
 encoderLeft{&nPropCom,0},
 encoderRight{&nPropCom,1},
-speed{30}
+speed{30},
+turnSpeed{10}	
 {}	
 
 void RosbeeDriver::stop(){
+	//Set the motor speed for the left motor to zero.
+	//This will make the  motor  stop.
 	propCom->setMotorSpeed(0, 0);
+	//Set the motor speed for the right motor to zero.
+	//This will make the  motor  stop.
 	propCom->setMotorSpeed(0, 1);
 }
 
 void RosbeeDriver::forward(signed char motorSpeed){
+	//Set the motor speed for the left motor to motorSpeed.
 	propCom->setMotorSpeed(motorSpeed, 0);
+	//Set the motor speed for right left motor to motorSpeed.
 	propCom->setMotorSpeed(motorSpeed, 1);
 }
 
 void RosbeeDriver::forward(signed char motor0Speed, signed char motor1Speed){
+	//Set the motor speed for the left motor to motor0Speed.
 	propCom->setMotorSpeed(motor0Speed, 0);
+	//Set the motor speed for right left motor to motor1Speed.
 	propCom->setMotorSpeed(motor1Speed, 1);
 }
 
 bool RosbeeDriver::drive(int distance){
-
+	PC->resetDDistance();
+	PC->forward();
 	int distanceTraveled = 0;
 	int deltaLeft = 0;
 	int deltaRight = 0;
 	int delta;
-
+	//Left motor speed.
 	int lspeed = 0;
+	//Right motor speed.
 	int rspeed = 0;
-
-	for(int i = 0; i < speed*2; i++){
+	//Setting two monitors to equivalent speed takes time. This means that one motor
+	//will spin up first while the seconds follows. This will cause the Rosbee to turn.
+	//To negate the problem the two motors take little steps each other turn.
+	for(int i = 0; i < (speed*2); i++){
+		//Check if it is the left turn.
 		if(i %2 == 0){
+			//Up the left motor speed.
 			lspeed++;
 		}
+		//If not  it is the right turn.
 		else{
+			//Up the right motor speed.
 			rspeed++;
 		}
+		//Send the new motor speed to the Rosbee.
 		forward(lspeed,rspeed);
 	}
-
+	//Start new encoder counters.
 	encoderLeft.startCount();
 	encoderRight.startCount();
-
+	//Start the forward loop:
 	while(true){
+		//Get the new delta values.
 		deltaLeft += encoderLeft.deltaCount();
 		deltaRight += encoderRight.deltaCount();
 		delta = deltaLeft - deltaRight;
-
+		//Filter large values.
+		//These are errors.
 		if(delta > 10 || delta < -10) continue;
-
+		//Get the new speed for the left weel;
 		int nSpeed = speed - int(1.5*delta);
-
-		std::cout << "Delta: " << delta << std::endl;
-		std::cout << "Speed: " << nSpeed << std::endl;
-
-		distanceTraveled = ((deltaLeft + deltaRight) / 2);
-		if(distanceTraveled * 0.00773 >= distance/1000.0f){
+		//Get the distance traveled.
+		distanceTraveled = PC->getDDistance();
+		if(distanceTraveled >= distance){
 			stop();
 			break;
 		}
-
+		//Normalize speed so it fits in range from 0 to 127;
 		if(nSpeed < 0) nSpeed = 0;
 		if(nSpeed > 127) nSpeed = 127;
+		//Update speed.
 		forward(nSpeed, speed);
-
-
+		//Get the the distance returned from the sensor upfront the Rosbee.
 		int distance = propCom->getDistance(1);
-		std::cout << "Distance: " << distance << std::endl;
-
-		if(distance < 40 && distance >= 0 ){
+		//Check if there is a object 50 cm or closer the the Rosbee.
+		if(distance < 50 && distance >= 0 ){
 			stop();
 			return false;
 		}
-
+		//Sleep for 1 second.
 		sleep(1);
 
 	}
 	return true;
 }
 
-
-
 void RosbeeDriver::rotate(int degrees){
-
-	double totalDistance = 343 * M_PI; // mm
-	double rotatingDistance = totalDistance * (std::abs(degrees)/360.0);
-
+	//Check it degrees is positive
+	//This means we will turn clockwise.
 	if(degrees > 0){
-		forward(-10, 10);
-		PC->setMotorDirection(0, -1);
-		PC->setMotorDirection(1, 1);
+		//Start turing cw.
+		forward(turnSpeed, -turnSpeed);
+		//Tell the position controller we are rotating cw.
+		PC->rotating(true);
 	}
+	//Check it degrees is negative.
+	//This means we will turn counter clockwise.
 	if(degrees < 0){
-		forward(10, -10);
-		PC->setMotorDirection(0, 1);
-		PC->setMotorDirection(1, -1);
+		//Start turing ccw.
+		forward(-turnSpeed, turnSpeed);
+		//Tell the position controller we are rotating ccw.
+		PC->rotating(false);
 	}
-
-
-	//std::cout << "Pi: " << pi << std::endl;
-	//std::cout << "Rotating Distance: " <<  rotatingDistance << std::endl;
-	//std::cout << "Pulses 0: " <<  numberOfPulsesWheel0 << std::endl;
-	//std::cout << "Pulses 1: " <<  numberOfPulsesWheel1 << std::endl;
-
-	encoderLeft.startCount();
-	encoderRight.startCount();
-
-	//double overshoot = 0;
-	double distanceTraveled = 0;
+	//Set the last angle.
+	//This is needed to calc the new delta ange.
+	float lastAngle = PC->getTotalAngle();
+	//Total angel we turned so far.
+	float angle = 0;
+	//Ange we turned since last check.
+	float dAngle;
+	//Make the the degrees positive (incase it was negative).
+	//This is needed so we can compare it  the  the angel later on.
+	degrees = std::abs(degrees);
+        //Start the turning loop:
 	while(true){
-
-		double deltaTraveld = (encoderLeft.deltaCount() + encoderRight.deltaCount()) / 2.0;
-
-		if(deltaTraveld > 100 || deltaTraveld < 0) continue;
-
-		distanceTraveled += (deltaTraveld * pulseToMilliMeter);
-		//std::cout << "Distance Traveled: " <<  distanceTraveled << std::endl;
-
-
-		if( distanceTraveled >= rotatingDistance - rotateAngleAdjustment){
+                //Get the new angle.
+		float newTotalAngle = PC->getTotalAngle() ;
+		//Get the delta angle since last iteration.
+		dAngle = std::abs(newTotalAngle - lastAngle);
+		//Add the new delata to the total.
+		angle += dAngle;
+		//Set the last angle to the new angel.
+		//Needed to create a new correct delta on the following iteration.
+		lastAngle = newTotalAngle;
+		//Check if we turned far enough.
+		if(angle >= degrees){
+			//Stop moving.
 			stop();
+			//End the loop.
 			break;
 		}
-
-		usleep(100*1000);
+		//Sleep for 50 ms.
+		usleep(50*1000);
 	}
-
-	double deltaTraveld = (encoderLeft.deltaCount() + encoderRight.deltaCount()) / 2.0;
-	distanceTraveled += (deltaTraveld * pulseToMilliMeter);
-
-	//overshoot = 20 - (rotatingDistance - distanceTraveled);
-	//std::cout << "Overshoot: " << overshoot << std::endl;
-	PC->setMotorDirection(0, 1);
-	PC->setMotorDirection(1, 1);
 }
 
 
 bool RosbeeDriver::driveToWaypoint(double x, double y){
+	//Create a new waypoint object to do some calculations for us.
 	Waypoint waypoint{x,y};
+	//Get the distance the Rosbee needs to drive and make a nice round number.
 	int distance = round(waypoint.getDistance());
-	int angle = -round(waypoint.getAngle());
-
-	std::cout << "Angle: " << angle << std::endl;
-	std::cout << "Distance: " << distance << std::endl;
-
+	//Get the angle the Rosbee needs to turn round number.
+	int angle = round(waypoint.getAngle());
+	//Start rotating.
 	rotate(angle);
+	//Start driving and return the results.
 	return drive(distance);
 }

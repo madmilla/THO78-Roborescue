@@ -15,7 +15,7 @@
 * @section LICENSE
 * License: newBSD
 *
-* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided$
@@ -64,57 +64,52 @@ public:
 
 	/// @brief Wait for a message.
 	///
+	/// Wait for a incoming messages and decodes it into een Mavlink packet.
 	/// This function blocks until a message is received.
-	/// @param function Function ID parsed from the Mavelink message.
-	/// @param payload Payload parsed from the Mavelink message.
-	//void waitReceiveMessage(unsigned char &function, unsigned long long &payload);
+	/// @param packet Payload parsed from the Mavelink message.
+	void waitReceiveMessage(mavlink_command_long_t &packet);
 
 	/// @brief Send message.
 	///
-	/// @param function Function ID that will be included in the Mavlink message.
-	/// @param payload Payload that will be included in the Mavlink message.
-	//void sendMessage(unsigned char function, unsigned long long payload);
-
-	void sendInit(float x, float y, float angle);
-
-	void sendMessage(unsigned char function, float data[7]);
+	/// Create a Mavlink message from the parameters and send it over the UDP socket.
+	/// @param command Command ID that will be included in the Mavlink message.
+	/// @param param1 First parameter.
+	/// @param param2 Second parameter.
+	/// @param param3 Third parameter.
+	/// @param param4 Fourth parameter.
+	/// @param param5 Fifth parameter.
+	/// @param param6 Sixth parameter.
+	/// @param param7 Seventh parameter.
+	void sendMessage(
+		unsigned short command,
+		float param1 = 0,
+		float param2 = 0,
+		float param3 = 0,
+		float param4 = 0,
+		float param5 = 0,
+		float param6 = 0,
+		float param7 = 0
+	);
 	
+	/// @brief Send a initialization messages.
+	///
+	/// Sort hand function to create a initialization messages.
+	/// @param x The position on the x-axis of the Rosbee.
+	/// @param y The position of the y-axis of the Rosbee.
+	/// @param angle The heading in degrees of the Rosbee.
+	void sendInit(float x, float y, float angle);
+	
+	/// @brief Send a request for a new waypoint.
+	///
+	/// Sort hand function to create request a new waypoint messages.
+	/// The messages need to be filled with most recent values in order for CPI/MAP
+	/// the create a accurate new one.
+	/// @param x The position on the x-axis of the Rosbee.
+	/// @param y The position of the y-axis of the Rosbee.
+	/// @param angle The heading in degrees of the Rosbee.
+	/// @param status Current status of the Rosbee.
 	void requestWaypoint(float x, float y, float angle, float status);
 
-	void waitReceiveMessage(mavlink_command_long_t &packet);
-
-
-
-	void sendMessage(
-			float param1,
-			float param2,
-			float param3,
-			float param4,
-			float param5,
-			float param6,
-			float param7,
-			unsigned short command,
-			unsigned char target_system
-			){
-
-		mavlink_message_t message;
-		mavlink_command_long_t packet;   // = mavlink_command_long_t{std::forward<Args>(args) ...};
-
-		packet.command = command;
-		packet.confirmation = 0;
-		packet.param1 = param1;
-		packet.param2 = param2;
-		packet.param3 = param3;
-		packet.param4 = param4;
-		packet.param5 = param5;
-		packet.param6 = param6;
-		packet.param7 = param7;
-		packet.target_component = 0;
-		packet.target_system = target_system;
-
-		mavlink_msg_command_long_encode(COMMAND_DESTINATION::ROSBEE, COMMAND_DESTINATION::ROSBEE, &message, &packet);
-		sock.sendTo(&message, sizeof(message), serverAddr);
-	}
 };
 
 #endif // ROSBEECLIENT_H

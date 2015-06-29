@@ -6,11 +6,12 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file PositionController.h
-* @date Created: 26-6-2015
+* @file DataRetriever.h
+* @date Created: 22-6-2015
 *
-* @author Edwin Koek
-* @version 1.0
+* @author Kjeld Perquin
+* @author Edwin Koek - Added Compass and IMU
+* @version 2.0
 *
 * @section LICENSE
 * License: newBSD
@@ -34,53 +35,81 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#ifndef POSITIONCONTROLLER_H_
-#define POSITIONCONTROLLER_H_
 
-#include "encoderinterface.h"
-#include "propcom.h"
-#include <thread>
-
-class PositionController {
+#ifndef _DATARETRIEVER_H
+#define _DATARETRIEVER_H
+#include "SerialLinux.h"
+#include "roborescueV1/mavlink.h"
+#include "Compass.h"
+#include "IMU.h"
+/**
+ * @brief The DataRetriever class
+ */
+class DataRetriever{
 public:
-    explicit PositionController(PropCom* nPropCom);
-
-    float getX();
-    float getY();
-
-    float getTotalAngle();
-    float getAbsAngle();
-
-    float getDDistance();
-    void resetDDistance();
-
-    void reset();
-
-    void updatePosition();
-    void odometry(int dLeft, int dRight);
-
-    void forward();
-    void rotating(bool isClockwise);
-
+    /**
+     * @brief DataRetriever
+     * @param deviceName
+     * @param baudrate
+     * @param compass
+     * @param imu
+     */
+    DataRetriever(const char* deviceName, unsigned int baudrate, Compass& compass, IMU& imu);
+    /**
+     * @brief operator ()
+     */
+    void operator()();
+    /**
+     * @brief getIMUValues
+     * @return
+     */
+    __mavlink_scaled_imu2_t getIMUValues();
+    /**
+     * @brief getAttitudeValues
+     * @return
+     */
+    __mavlink_attitude_t getAttitudeValues();
+    /**
+     * @brief getCompassValues
+     * @return
+     */
+    __mavlink_global_position_int_t getCompassValues();
+    /**
+     * @brief newIMUAvailable
+     * @return
+     */
+    bool newIMUAvailable();
+    /**
+     * @brief newAttitudeAvailable
+     * @return
+     */
+    bool newAttitudeAvailable();
+    /**
+     * @brief newCompassAvailable
+     * @return
+     */
+    bool newCompassAvailable();
 
 private:
-    float m_angleOdometryEstimate;
-    float m_totalAngle;
+    SerialLinux serialPort;
+    //! Mavlink packets
+    __mavlink_scaled_imu2_t IMU2Values;
+    __mavlink_attitude_t attitude;
+    __mavlink_global_position_int_t compassValues;
+    //! Compass and IMU classes that contain the measurement data
+    Compass& compass;
+    IMU& imu;
+    //! Unpacked mavlink
+    bool newCompass;
+    bool newAttitude;
+    bool newIMU;
 
-    float m_dDistance;
+    /**
+     * @brief readMAVLinkMessage
+     * @param message
+     * @return
+     */
+    bool readMAVLinkMessage(mavlink_message_t& message);
 
-    float m_posX;
-    float m_posY;
-
-    int dir;
-
-    bool isRotating;
-    bool isForward;
-
-    EncoderInterface m_eLeft;
-    EncoderInterface m_eRight;
-
-    std::thread thread;
 };
-
-#endif /* POSITIONCONTROLLER_H_ */
+#endif
