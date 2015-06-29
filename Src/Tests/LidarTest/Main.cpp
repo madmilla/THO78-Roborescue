@@ -18,7 +18,9 @@ int main()
 		Lidar lidar{ "/dev/ttyAMA0" };
 		LidarController controller{ lidar, exchanger };
 		std::thread controllerThread{ &LidarController::loop, std::ref(controller) };
+		std::thread exchangerThread{ &MAVLinkExchanger::loop, std::ref(exchanger) };
 		controllerThread.detach();
+		exchangerThread.detach();
 		service.run();
 	}
 	return 0;

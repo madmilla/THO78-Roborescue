@@ -14,5 +14,7 @@ private:
 	Lidar& lidar;
 	MAVLinkExchanger& exchanger;
 	handleIncomingMessage(mavlink_message_t incomingMessage);
+	
+	void sendLines(std::vector<Line>& lines);
 };
 #endif
