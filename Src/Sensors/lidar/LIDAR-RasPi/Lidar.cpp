@@ -219,7 +219,7 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	Mat & image = sD.createImage(pCloud, SCALE);
 	std::vector<Line> lines = sD.searchLines(image);
 	std::vector<Circle> circles;
-	sD.showObjects(lines, circles, image, image, Line::Point{ pCloud.getMinValues().X, pCloud.getMinValues().Y })
+	sD.showObjects(lines, circles, image, image, Line::Point{ pCloud.getMinValues().X, pCloud.getMinValues().Y });
 
 	for (auto l : lines){
 		Line::Point begin{(l.getLine().begin_pos.x * SCALE) - pCloud.getMinValues().X, (l.getLine().begin_pos.y * SCALE) - pCloud.getMinValues().Y};
