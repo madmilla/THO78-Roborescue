@@ -126,7 +126,7 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
         std::cout << "coordinates: " << '(' << positionx << " " << positiony << ')' << std::endl;
 
         if(positionx < map->width  &&  positiony < map->height){
-            map->setMapObject(Values::OBSTACLE, positiony, positionx);
+            map->setMapObject(selected, positiony, positionx);
             update();
             mousePressed = true;
         }
