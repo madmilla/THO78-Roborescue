@@ -76,6 +76,11 @@ public:
 	*/
 	void setPosition();
 	/**
+	* getPosition gets the latest registered position
+	* gets the position from the localisation-module
+	*/
+	Coordinate<double> getPosition();
+	/**
 	* setHeight sets the current height 
 	* @param currentHeight a float used for indicating the current height
 	*/

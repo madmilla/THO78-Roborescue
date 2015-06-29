@@ -56,15 +56,18 @@ bool VictimLocalisationModule::isVictimFound() const
 void VictimLocalisationModule::handleMessage(std::string message)
 {	
 	int vPos;
-	if ((vPos = message.find('V')) != std::string::npos)
+	//std::cout << message << std::endl;
+	if ((vPos = message.find("VICTIMFOUND")) != std::string::npos)
 	{
 		std::string idString;
 		idString = message.substr(vPos + 1, message.length());
-		std::cout << idString;
+		//std::cout << idString;
 		try
 		{
-			auto intId = stoi(idString);
+			int intId = stoi(idString);
 			std::cout << "Found target: " << intId << std::endl;
+			
+			//std::cout << "Found target!\n";
 
 		}
 		catch (std::invalid_argument&)

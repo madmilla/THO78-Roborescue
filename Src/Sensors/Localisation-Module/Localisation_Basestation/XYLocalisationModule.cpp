@@ -77,8 +77,8 @@ void XYLocalisationModule::handleMessage(std::string message)
 					double newY = stod(yString);
 					coordinate.setX(newX);
 					coordinate.setY(newY);
-					std::cout << "Coordinate: \nX: " << getX() << std::endl;
-					std::cout << "Y: " << getY() << std::endl;
+					//std::cout << "Coordinate: \nX: " << getX() << std::endl;
+					//std::cout << "Y: " << getY() << std::endl;
 
 				}
 				catch (std::invalid_argument&)
