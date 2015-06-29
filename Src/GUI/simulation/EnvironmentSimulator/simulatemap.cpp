@@ -56,6 +56,7 @@ SimulateMap::~SimulateMap()
 std::string SimulateMap::simulate(){
     std::ostringstream oss;
     std::string s = "";
+    int scanRadius = (map->width/10);
 
     if(checkpoints.size() > 0){
         for(unsigned int i = 0; (i < checkpoints.size()); ++i){
@@ -67,7 +68,7 @@ std::string SimulateMap::simulate(){
                     bool obstacleFound = false;
                     int objectX = (x-lidarX);
                     int objectY = (y-lidarY);// * -1;
-                    if(objectY > -Values::SCANRADIUS && objectY < Values::SCANRADIUS && objectX > -Values::SCANRADIUS && objectX < Values::SCANRADIUS){
+                    if(objectY > -scanRadius && objectY < scanRadius && objectX > -scanRadius && objectX < scanRadius){
 
                         // CHECK IF LIDAR Y IS SAME as object Y --> scan left or right
                         // ELSE scan top or bottom
