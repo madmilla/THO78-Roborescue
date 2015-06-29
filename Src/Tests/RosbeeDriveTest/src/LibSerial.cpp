@@ -34,7 +34,7 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "../../LibSerial.h"
+#include "LibSerial.h"
 
 /*! \brief Constructor of class LibSerial
  */

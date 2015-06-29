@@ -35,9 +35,9 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "../../PropCom.h"
-#include "../../ParallaxPropellerProtocol.h"
-#include "../../LibSerial.h"
+#include "PropCom.h"
+#include "ParallaxPropellerProtocol.h"
+#include "LibSerial.h"
 #include <string>
 #include <vector>
 #include <mutex>

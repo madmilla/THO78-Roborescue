@@ -36,8 +36,8 @@
 **/
 
 
-#include "../../EncoderInterface.h"
-#include "../../PropCom.h"
+#include "EncoderInterface.h"
+#include "PropCom.h"
 
 EncoderInterface::EncoderInterface(PropCom* PC,int encoderNr):
 m_PC{PC},
