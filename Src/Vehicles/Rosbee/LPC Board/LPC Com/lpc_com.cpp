@@ -70,7 +70,7 @@ double LPCCom::readData(){
 	gpio->setval_gpio("1");
 	usleep(20 * 1000);
 	gpio->setval_gpio("0");
-    cout << "GPIO pin function done, going to read UART" << endls;
+    cout << "GPIO pin function done, going to read UART" << endl;
     char data[4];
 	uart->read(data, 4);
     cout << "read from port: " << data << endl;
