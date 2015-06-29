@@ -1,0 +1,232 @@
+	.cpu cortex-m0
+	.fpu softvfp
+	.eabi_attribute 20, 1
+	.eabi_attribute 21, 1
+	.eabi_attribute 23, 3
+	.eabi_attribute 24, 1
+	.eabi_attribute 25, 1
+	.eabi_attribute 26, 1
+	.eabi_attribute 30, 4
+	.eabi_attribute 34, 0
+	.eabi_attribute 18, 4
+	.code	16
+	.file	"sw-uart.c"
+	.section	.text.txd_low,"ax",%progbits
+	.align	1
+	.global	txd_low
+	.code	16
+	.thumb_func
+	.type	txd_low, %function
+txd_low:
+	ldr	r2, .L2
+	ldr	r3, .L2+4
+	mov	r0, #128
+	ldr	r1, [r2, r3]
+	@ sp needed
+	bic	r1, r0
+	str	r1, [r2, r3]
+	bx	lr
+.L3:
+	.align	2
+.L2:
+	.word	1342242816
+	.word	16380
+	.size	txd_low, .-txd_low
+	.section	.text.txd_high,"ax",%progbits
+	.align	1
+	.global	txd_high
+	.code	16
+	.thumb_func
+	.type	txd_high, %function
+txd_high:
+	ldr	r2, .L5
+	ldr	r3, .L5+4
+	mov	r0, #128
+	ldr	r1, [r2, r3]
+	@ sp needed
+	orr	r1, r0
+	str	r1, [r2, r3]
+	bx	lr
+.L6:
+	.align	2
+.L5:
+	.word	1342242816
+	.word	16380
+	.size	txd_high, .-txd_high
+	.section	.text.uart_init,"ax",%progbits
+	.align	1
+	.global	uart_init
+	.code	16
+	.thumb_func
+	.type	uart_init, %function
+uart_init:
+	push	{r3, lr}
+	ldr	r2, .L8
+	mov	r3, #128
+	lsl	r3, r3, #8
+	ldr	r1, [r2, r3]
+	mov	r0, #128
+	orr	r1, r0
+	str	r1, [r2, r3]
+	bl	txd_high
+	@ sp needed
+	pop	{r3, pc}
+.L9:
+	.align	2
+.L8:
+	.word	1342242816
+	.size	uart_init, .-uart_init
+	.section	.text.uart_put_char,"ax",%progbits
+	.align	1
+	.global	uart_put_char
+	.code	16
+	.thumb_func
+	.type	uart_put_char, %function
+uart_put_char:
+	push	{r3, r4, r5, r6, r7, lr}
+	mov	r6, r0
+	bl	now
+	mov	r5, r0
+	mov	r4, r5
+	add	r4, r4, #26
+	bl	txd_low
+	mov	r0, r4
+	bl	await
+	mov	r7, r5
+	add	r7, r7, #234
+.L14:
+	lsl	r3, r6, #31
+	bmi	.L11
+	bl	txd_low
+	b	.L12
+.L11:
+	bl	txd_high
+.L12:
+	add	r4, r4, #26
+	mov	r0, r4
+	lsr	r6, r6, #1
+	bl	await
+	cmp	r4, r7
+	bne	.L14
+	bl	txd_high
+	mov	r3, #143
+	lsl	r3, r3, #1
+	add	r0, r5, r3
+	bl	await
+	@ sp needed
+	pop	{r3, r4, r5, r6, r7, pc}
+	.size	uart_put_char, .-uart_put_char
+	.section	.text.uart_put_string,"ax",%progbits
+	.align	1
+	.global	uart_put_string
+	.code	16
+	.thumb_func
+	.type	uart_put_string, %function
+uart_put_string:
+	push	{r4, lr}
+	mov	r4, r0
+.L17:
+	ldrb	r0, [r4]
+	cmp	r0, #0
+	beq	.L19
+	bl	uart_put_char
+	add	r4, r4, #1
+	b	.L17
+.L19:
+	@ sp needed
+	pop	{r4, pc}
+	.size	uart_put_string, .-uart_put_string
+	.global	__aeabi_idiv
+	.global	__aeabi_idivmod
+	.section	.text.uart_put_int_negative,"ax",%progbits
+	.align	1
+	.global	uart_put_int_negative
+	.code	16
+	.thumb_func
+	.type	uart_put_int_negative, %function
+uart_put_int_negative:
+	push	{r4, lr}
+	mov	r1, #10
+	mov	r4, r0
+	bl	__aeabi_idiv
+	cmp	r0, #0
+	beq	.L21
+	bl	uart_put_int_negative
+.L21:
+	mov	r0, r4
+	mov	r1, #10
+	bl	__aeabi_idivmod
+	mov	r0, #48
+	sub	r0, r0, r1
+	uxtb	r0, r0
+	bl	uart_put_char
+	@ sp needed
+	pop	{r4, pc}
+	.size	uart_put_int_negative, .-uart_put_int_negative
+	.section	.text.uart_put_int_decimal,"ax",%progbits
+	.align	1
+	.global	uart_put_int_decimal
+	.code	16
+	.thumb_func
+	.type	uart_put_int_decimal, %function
+uart_put_int_decimal:
+	push	{r4, lr}
+	sub	r4, r0, #0
+	bge	.L26
+	mov	r0, #45
+	bl	uart_put_char
+	b	.L27
+.L26:
+	neg	r4, r0
+.L27:
+	mov	r0, r4
+	bl	uart_put_int_negative
+	@ sp needed
+	pop	{r4, pc}
+	.size	uart_put_int_decimal, .-uart_put_int_decimal
+	.section	.text.uart_put_int_hexadecimal_digit,"ax",%progbits
+	.align	1
+	.global	uart_put_int_hexadecimal_digit
+	.code	16
+	.thumb_func
+	.type	uart_put_int_hexadecimal_digit, %function
+uart_put_int_hexadecimal_digit:
+	push	{r3, lr}
+	mov	r3, #15
+	and	r0, r3
+	cmp	r0, #9
+	bgt	.L29
+	add	r0, r0, #48
+	b	.L31
+.L29:
+	add	r0, r0, #55
+.L31:
+	bl	uart_put_char
+	@ sp needed
+	pop	{r3, pc}
+	.size	uart_put_int_hexadecimal_digit, .-uart_put_int_hexadecimal_digit
+	.section	.text.uart_put_int_hexadecimal,"ax",%progbits
+	.align	1
+	.global	uart_put_int_hexadecimal
+	.code	16
+	.thumb_func
+	.type	uart_put_int_hexadecimal, %function
+uart_put_int_hexadecimal:
+	push	{r4, r5, r6, lr}
+	mov	r6, r0
+	mov	r4, r1
+	lsl	r5, r1, #2
+.L33:
+	sub	r5, r5, #4
+	cmp	r4, #0
+	ble	.L35
+	mov	r0, r6
+	lsr	r0, r0, r5
+	sub	r4, r4, #1
+	bl	uart_put_int_hexadecimal_digit
+	b	.L33
+.L35:
+	@ sp needed
+	pop	{r4, r5, r6, pc}
+	.size	uart_put_int_hexadecimal, .-uart_put_int_hexadecimal
+	.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.3 20140228 (release) [ARM/embedded-4_8-branch revision 208322]"

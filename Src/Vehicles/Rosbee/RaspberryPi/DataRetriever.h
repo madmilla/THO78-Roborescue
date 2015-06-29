@@ -10,7 +10,7 @@
 * @date Created: 22-6-2015
 *
 * @author Kjeld Perquin
-* @author Edwin Koek - Added Compass and IMU
+* @author Edwin Koek - Added Compass, IMU and doxygen
 * @version 2.0
 *
 * @section LICENSE
@@ -48,11 +48,14 @@
 class DataRetriever{
 public:
     /**
-     * @brief DataRetriever
-     * @param deviceName
-     * @param baudrate
-     * @param compass
-     * @param imu
+     * @brief DataRetriever Constructor
+     *
+     * Initialises all values. al newValue attributes are set to false so that it doesnt
+     * store non existent data.
+     * @param deviceName Name of the Device
+     * @param baudrate Bits per second
+     * @param compass Class that is used to store compass data
+     * @param imu Class that is used to store IMU data
      */
     DataRetriever(const char* deviceName, unsigned int baudrate, Compass& compass, IMU& imu);
     /**
@@ -60,54 +63,55 @@ public:
      */
     void operator()();
     /**
-     * @brief getIMUValues
-     * @return
+     * @brief Returns packed IMU values
+     * @return Returns the packed IMU values.
      */
     __mavlink_scaled_imu2_t getIMUValues();
     /**
-     * @brief getAttitudeValues
-     * @return
+     * @brief Returns packed attitude values
+     * @return Returns the packed attitude values.
      */
     __mavlink_attitude_t getAttitudeValues();
     /**
-     * @brief getCompassValues
-     * @return
+     * @brief Returns packed compass values
+     * @return returns the packed compass values
      */
     __mavlink_global_position_int_t getCompassValues();
     /**
-     * @brief newIMUAvailable
-     * @return
+     * @brief Check if new IMU is availible
+     * @return If new readings are made that haven't been processed this returns true.
      */
     bool newIMUAvailable();
     /**
-     * @brief newAttitudeAvailable
-     * @return
+     * @brief Check if new attitude is availible
+     * @return If new readings are made that haven't been processed this returns true.
      */
     bool newAttitudeAvailable();
     /**
-     * @brief newCompassAvailable
-     * @return
+     * @brief Check if new compass is availible
+     * @return If new readings are made that haven't been processed this returns true.
      */
     bool newCompassAvailable();
 
 private:
     SerialLinux serialPort;
-    //! Mavlink packets
+    //Mavlink packets
     __mavlink_scaled_imu2_t IMU2Values;
     __mavlink_attitude_t attitude;
     __mavlink_global_position_int_t compassValues;
-    //! Compass and IMU classes that contain the measurement data
+    // Compass and IMU classes that contain the measurement data
     Compass& compass;
     IMU& imu;
-    //! Unpacked mavlink
+    // Unpacked mavlink
     bool newCompass;
     bool newAttitude;
     bool newIMU;
 
     /**
      * @brief readMAVLinkMessage
-     * @param message
-     * @return
+     * reads a mavlink message and packs it into message.
+     * @param message Packed mavlink massage
+     * @return returns wether the read was succesfull or not.
      */
     bool readMAVLinkMessage(mavlink_message_t& message);
 

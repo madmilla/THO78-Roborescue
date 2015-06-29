@@ -1,4 +1,5 @@
-﻿/**
+﻿#include <QObject>
+/**
 *                __
 *    _________  / /_  ____  ________  ____________  _____
 *   / ___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -42,11 +43,31 @@
 *	OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 *	ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
+#include <QObject>
+#include <QtWidgets/QMainWindow>
+
+/*
+#if !defined(QOBJECT_H)
+#QOBJECT_H not defined
+#endif
+#if defined(QT_NO_QOBJECT)
+#QT_NO_QOBJECT not defined
+#endif
+#if !defined(QOBJECTDEFS_H)
+#QOBJECTDEFS_H not defined
+#endif
+#ifdef Q_MOC_OUTPUT_REVISION
+#Q_MOC_OUTPUT_REVISION defined
+Q_MOC_OUTPUT_REVISION
+#else
+#Q_MOC_OUTPUT_REVISION not defined
+#endif
+
+/
 
 #ifndef MAPWINDOW_H
 #define MAPWINDOW_H
 
-#include <QtWidgets/QMainWindow>
 
 namespace Ui {
 class MapWindow;

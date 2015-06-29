@@ -43,20 +43,18 @@
 class Compass{
 public:
     /**
-     * @brief Compass
-     * Compass Constructor
+     * @brief Compass constructor
      */
     Compass();
     /**
-     * @brief newReading
-     * Updates the compass values with new values
-     * @param newAngle a new angle that overwrites the last angle
+     * @brief Updates the compass values with new values
+     *
+     * @param newAngle A new angle that overwrites the last angle
      */
     void newReading(float newAngle);
     /**
-     * @brief getAngle
-     * Returns the last measured angle
-     * @return Current angle
+     * @brief Returns the last measured angle
+     * @return The last measured angle
      */
     float getAngle();
 private:

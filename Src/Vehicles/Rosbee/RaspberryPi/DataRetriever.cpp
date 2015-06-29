@@ -133,9 +133,3 @@ bool DataRetriever::readMAVLinkMessage(mavlink_message_t& message)
     return false;
 }
 
-//void DataRetriever::sendMessage(mavlink_message_t& message){
-//unsigned char buffer[MAVLINK_NUM_NON_PAYLOAD_BYTES + message.len];
-// int len = mavlink_msg_to_send_buffer(buffer, &message);
-// serialPort.write(buffer,len);
-
-//}

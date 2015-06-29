@@ -1,5 +1,6 @@
 #include "SerialLinux.h"
 #include "iostream"
+/// @cond
 
 SerialLinux::SerialLinux(const char* deviceName, unsigned int baudrate) 
 { 
@@ -216,3 +217,5 @@ int SerialLinux::peek()
 	ioctl(filedescriptor, FIONREAD, &nbBytes);
 	return nbBytes;
 }
+
+/// @endcond

@@ -40,15 +40,33 @@
 #define ENCODERINTERFACE_H_
 
 #include "PropCom.h"
-
+/**
+ *@brief EncoderInterface Class
+ *
+ * This class manages the encoders. It provides functions that 
+ * allow easy usage and management of encoder data.
+ */
 class EncoderInterface {
 public:
+/**
+ *@brief EncoderInterface constructor
+ *@param PC is the propeller communicator
+ *@param encoderNr defines wether your are reading the left or right encoder. 1 is left, 0 is right.
+ */
 	EncoderInterface(PropCom* PC, int encoderNr);
-
+/**
+ *@brief Starts the encoder count.
+ */
 	void startCount();
-
+/**
+ *@brief Returns the accumulated encoder count
+ *@returns The total encoder count since startCount was called.
+ */
 	int getCount();
-
+/**
+ *@brief Returns the delta count
+ *@returns Returns the change in encoder count since last call of this function
+ */
 	int deltaCount();
 
 private:

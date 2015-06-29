@@ -1,0 +1,1 @@
+lpc21-97hr -termonly COM4 38400 12000
