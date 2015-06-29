@@ -11,7 +11,7 @@
 #include "CImg.h"
 #include "PX4FlowWrapper.h"
 #include "MAVLinkExchanger.h"
-#include "SerialConnection.h"
+#include "SerialPort.h"
 #include "CImg.h"
 #include <chrono>
 #include "ARInterface.h"
@@ -20,8 +20,8 @@ boost::asio::io_service service;
 TCPServer server{ service, 10033 };
 GlobalLocalisation* globalLocalizer;
 PX4FlowWrapper flowWrapper;
-SerialConnection serialPort{service};
-MAVLinkExchanger exchanger(&serialPort);
+SerialPort serialPort{service};
+MAVLinkExchanger exchanger(serialPort);
 ARInterface* PX4FlowDetector;
 
 const int 	TARGET_MARKER_ID = 954;
@@ -48,9 +48,9 @@ void handlePX4Flow()
 				
 			if (msg != nullptr)
 			{
-				std::cout << "Sending message\n";
+				//std::cout << "Sending message\n";
 				attempts = 10;
-				mavlink_message_t message(*msg);
+				PrioritisedMAVLinkMessage message(*msg);
 				exchanger.enqueueMessage(message);
 			}
 		}
@@ -63,7 +63,7 @@ void handlePX4Flow()
 				int detectedId = PX4FlowDetector->getIdFromImage(img);
 				if(detectedId == TARGET_MARKER_ID)
 				{				
-					std::string message = 'V' + std::to_string(detectedId);				
+					std::string message = "VICTIMFOUND" + std::to_string(detectedId);				
 					std::cout << message <<std::endl;
 					server.broadcast(message);
 				}
@@ -83,7 +83,6 @@ void handlePX4Flow()
 */
 void handleArguments( int argc, char *argv[])
 {	
-	serialPort.open(PX4FLOW_SERIAL_PORT, PX4FLOW_SERIAL_BAUDRATE);
 	bool gui = false;
 	int tresh1 = DEFAULT_TRESHOLD;
 	int tresh2 = DEFAULT_TRESHOLD;
@@ -126,8 +125,8 @@ int main(int argc, char *argv[])
 	}	
 	//Create the threads
 	std::thread recogniserThread{ &GlobalLocalisation::run, globalLocalizer};
-	std::thread mavLinkThread{ &MAVLinkExchanger::loop, std::ref(exchanger)};	
-	//std::thread px4FlowThread{ handlePX4Flow};	
+	std::thread mavLinkThread{ &MAVLinkExchanger::loop, &exchanger};	
+	std::thread px4FlowThread{ handlePX4Flow};	
 	std::thread mainThread{[&server, &exchanger]()
 	{
 		std::cout << "Starting mainfred\n";
@@ -136,7 +135,7 @@ int main(int argc, char *argv[])
 			//If there are mavlink messages, let the flowWrapper handle them.
 			if (exchanger.receiveQueueSize())
 			{
-				mavlink_message_t message = exchanger.dequeueMessage();
+				PrioritisedMAVLinkMessage message = exchanger.dequeueMessage();
 				flowWrapper.ReceiveMAVLinkMessage(&message);
 			}
 			
@@ -151,19 +150,20 @@ int main(int argc, char *argv[])
 			if(globalLocalizer->isNewCoordinate())
 			{
 				auto coordinate = globalLocalizer->getCoordinate();
-				flowWrapper.calibrate(coordinate.getX(),Y_MAX_AR_TAG_VALUE-coordinate.getY());
+				//flowWrapper.calibrate(Y_MAX_AR_TAG_VALUE-coordinate.getX(),coordinate.getY());
 			}
-			
+			auto coordinate = globalLocalizer->getCoordinate();
 			std::string message = 
-				'X' + std::to_string(flowWrapper.getX()) +
-				'Y' + std::to_string(flowWrapper.getY());
+				'X' + std::to_string(Y_MAX_AR_TAG_VALUE-coordinate.getX()) +
+				'Y' + std::to_string(coordinate.getY());
 			//std::cout << message <<std::endl;
 			server.broadcast(message);
+		}		
 		}
-	}};
+	};
 	mavLinkThread.detach();
 	recogniserThread.detach();
-	//px4FlowThread.detach();
+	px4FlowThread.detach();
 	mainThread.detach();
 	service.run();	
 	

@@ -55,6 +55,10 @@ UDP_LINUX_MODULE					= Src/Communication/udp/Linux-UDP/Client/UDP_Clientv1.2/
 DATABASECONNECTOR_MODULE			= Src/Communication/Persistant-Storage/
 UDP_RASPI							= Src/Communication/udp/Linux-UDP/
 
+#LOCALISATION SPECIFIC COMMUNICATION
+MAVLINK_EXCHANGER_LOCALISATION_MODULE 	= Src/Communication/LocalisationCommunication/MavlinkExchanger/
+SERIAL_PORT_LOCALISATION_MODULE		= Src/Communication/LocalisationCommunication/SerialPortBoost/
+
 #MODULES
 MISSION1_MODULE						= Src/Modules/Mission1/
 LOCALISATION_MODULE_MODULE			= Src/Modules/Localisationmodule/

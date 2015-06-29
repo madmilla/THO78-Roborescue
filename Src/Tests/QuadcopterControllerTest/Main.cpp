@@ -24,50 +24,53 @@ QuadcopterController quadcopterController {quadcopter, xyLocalisationModule};
 
 int main()
 {
-	std::thread inputThread{ [&xyLocalisationModule]()
+	std::cout << "Setting new target:\nInput X coord:\n";
+	int x, y;
+	std::cin >> x;
+	std::cout << "Input Y coord:\n";
+	std::cin >> y;
+	
+	std::cout << "Setting target (" << x << "," << y << "), height: 1.\n";
+	quadcopterController.setTarget(Coordinate<double>{
+		(double)x,(double)y}, 1);					
+					
+	std::cout << "Setting current height on 1.\n";
+	quadcopterController.setHeight(1);
+	
+	
+	std::thread xyThread{ [&xyLocalisationModule]()
 	{
 		std::string message;
 		while (1)
 		{
-			char c;
-			std::cin >> c;
-			if(c == 's')
-			{
-				std::cout << "Getting position from quad and setting it in controller.\n";
-				quadcopterController.setPosition();
-				auto coord = quadcopterController.getPosition();
-				std::cout << "Current position: " << coord.getX() << ", " << coord.getY() << "\n";
-			}
-
-			if(c == 'h')
-			{
-				std::cout << "Setting height on 1.\n";
-				quadcopterController.setHeight(1);
-			}
-			if(c == 't')
-			{
-				std::cout << "Setting new target:\nInput X coord:\n";
-				int x, y;
-				std::cin >> x;
-				std::cout << "Input Y coord:\n";
-				std::cin >> y;
-				
-				std::cout << "Setting target (" << x << "," << y << "), 1.\n";
-				quadcopterController.setTarget(Coordinate<double>{
-					(double)x,(double)y}, 1);
-			}
-			if(c == 'm')
-			{
-				std::cout << "Move towards target.\n";
-				quadcopterController.moveTowardsTarget();
-			}
-			//std::cin >> message;
-			//if (!message.empty())
-			//{
-			//}
+			std::this_thread::sleep_for (std::chrono::seconds(1));
+			
+			quadcopterController.setPosition();
+			
+			auto coord = quadcopterController.getPosition();
+			std::cout << "Current position: " << coord.getX() << ", " << coord.getY() << "\n";
+			
+			quadcopterController.moveTowardsTarget();
+			std::cout << std::endl << std::endl;
 		}
 	} };
-	inputThread.detach();
+	std::thread victimThread{ [&victimLocalisationModule]()
+	{	
+		bool victimFound = false;
+
+		while(1)
+		{
+			if(victimLocalisationModule.isVictimFound() && !victimFound)
+			{
+				std::cout <<"Victim found!" << std::endl; 
+				std::cout << "Victim id is " << 
+					victimLocalisationModule.getVictimId() << std::endl;
+				victimFound = true;
+			}	
+		}
+	}};
+	victimThread.detach();
+	xyThread.detach();
 	
 	service.run();
 	return 0;
