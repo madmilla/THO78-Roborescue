@@ -57,9 +57,7 @@ void LidarController::run()
 
         if(scanCount >= numberOfScans && numberOfScans != -1) {
 			const Mat & image = sD.createImage(pCloud);
-			std::vector<Circle> circles = sD.detectCircles(image);
 			std::vector<Line> lines = sD.searchLines(image);
-			sD.writeCirclesToConsole(circles);
 			sD.writeLinesToConsole(lines);
             pause();
         }
