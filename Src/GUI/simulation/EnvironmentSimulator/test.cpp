@@ -355,10 +355,19 @@ int Test::run(){
     //load pc from file
     loadpC.loadPointsFromFile("testpC.pcl");
     //make map from loaded pc
-    Map pCloadMap("testpC.map", &loadpC);
-    //check point
-    if(pCloadMap.getMapObject(0,3) != 1){
-        testResultsFile << "PointCloud: " << "Load from file failed" << std::endl;
+    try{
+        Map pCloadMap("testpC.map", &loadpC);
+        //check point
+        if(pCloadMap.getMapObject(0,3) != 1){
+            testResultsFile << "PointCloud: " << "Load from file failed" << std::endl;
+        }
+    }
+    catch(int e){
+        if(e != 2){
+            testResultsFile << "Error: ";
+            testResultsFile << "PointCloud: " << "Excpention error." << std::endl;
+            ++error;
+        }
     }
 
     //Done
