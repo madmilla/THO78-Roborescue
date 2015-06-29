@@ -49,6 +49,9 @@
 #include <QSize>
 #include <QAbstractButton>
 #include <QDesktopWidget>
+#include <QMouseEvent>
+#include <QFileDialog>
+#include <QTextEdit>
 
 namespace Ui {
 class SimulateMapWindow;

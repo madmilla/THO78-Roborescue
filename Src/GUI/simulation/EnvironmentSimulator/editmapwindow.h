@@ -45,6 +45,12 @@
 #include "values.h"
 #include <QDesktopWidget>
 #include <QAbstractButton>
+#include <QFileDialog>
+#include "values.h"
+#include <QGraphicsRectItem>
+#include <QMouseEvent>
+#include <vector>
+#include <iostream>
 
 namespace Ui {
 class EditMapWindow;
@@ -80,7 +86,7 @@ private slots:
     void on_rectangleButton_clicked();
 	//! Used when the circle button gets clicked
     void on_circleButton_clicked();
-
+    //! Used when the save pointcloud button gets clicked
     void on_savePointcloudButton_clicked();
 
 private:

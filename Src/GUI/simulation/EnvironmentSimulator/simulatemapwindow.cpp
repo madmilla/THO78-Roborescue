@@ -37,9 +37,6 @@
 
 #include "simulatemapwindow.h"
 #include "ui_simulatemapwindow.h"
-#include <QMouseEvent>
-#include <QFileDialog>
-#include <QTextEdit>
 
 SimulateMapWindow::SimulateMapWindow(Map *map, QWidget *parent) :
     QWidget(parent),
