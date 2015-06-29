@@ -47,7 +47,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtCore/QObject>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QListWidgetItem>
 #include <vector>
