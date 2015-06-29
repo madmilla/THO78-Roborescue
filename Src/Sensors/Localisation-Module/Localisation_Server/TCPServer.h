@@ -25,12 +25,33 @@ private:
 	std::string sendData;
 
 	/**
-	* \brief 
+	* \brief Checks for new connections
 	*
+	* Checks for new incomming connections. There's no need to first check for any connections.
+	* The method automaticly checks any incomming connection and won't do anything if there aren't.
 	* 
 	*/
 	void acceptConnections();
+	
+	
+	/**
+	* \brief Is being called after a connection is accepted.
+	*
+	* This method is being called after a connection has been accepted. If any errors occour they will be included in the ec parameter.
+	* 
+	* @param ec An errorcode in case an error occoured. Will be 0 if ok.
+	* 
+	*/
 	void connectionAcceptedHandler(const boost::system::error_code &ec);
+	
+	/**
+	* \brief Is being called after the server has writting a message.
+	*
+	* This method is being called after a message has been written. If any errors occour they will be included in the ec parameter.
+	* 
+	* @param ec An errorcode in case an error occoured. Will be 0 if ok.
+	* 
+	*/
 	void dataWrittenHandler(const boost::system::error_code &ec);
 };
 #endif
