@@ -27,10 +27,20 @@ bool SerialConnection::open(std::string portname, int baudRate)
 
 size_t SerialConnection::readData(unsigned char* buffer, int nrOfBytes)
 {
-	return asio::read(*this, asio::buffer(buffer, nrOfBytes));
+	if(socket)
+	{
+		boost::system::error_code error;
+		return read_some(boost::asio::buffer(buffer, nrOfBytes), error);
+	}
+	return -1;
 }
 
 size_t SerialConnection::writeData(const unsigned char* buffer, int nrOfBytes)
 {
-	return asio::write(*this, asio::buffer(buffer, nrOfBytes));
+	if(socket)
+	{
+		boost::system::error_code error;
+		return write_some(boost::asio::buffer(buffer, nrOfBytes), error);
+	}
+	return -1;
 }

@@ -17,6 +17,9 @@ ifeq ($(OS),Windows_NT)
 	MOC				= $(QT_BIN_DIR)/moc.exe
 	UIC				= $(QT_BIN_DIR)/uic.exe
 	BOOST_LIB_DIR 	= Deps/lib/boost_1_58_0/Windows
+else
+	MOC = moc
+	UIC = uic
 endif
 
 ifeq ($(MAKECMDGOALS),mission1)
@@ -91,7 +94,9 @@ else
 	UI_HEADERS 		+= $(UI:.ui=.h)
 	OBJ 			+= $(SRC:.cpp=.o)
 endif
-
+	
+ui_%.h : %.ui
+	$(UIC) $< -o $@
 
 %.d : %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -MM -MT"$@" $< -MF $@
@@ -101,6 +106,4 @@ endif
 	
 moc_%.cpp : %.h
 	$(MOC) $< -o $@
-	
-ui_%.h : %.ui
-	$(UIC) $< -o $@
+

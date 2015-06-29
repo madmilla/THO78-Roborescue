@@ -81,11 +81,11 @@ typedef struct param_union {
 */
 MAVPACKED(
 typedef struct param_union_extended {
-    union {
-    struct {
+    union u {
+    struct s {
         uint8_t is_double:1;
         uint8_t mavlink_type:7;
-        union {
+        union{
             char c;
             uint8_t uint8;
             int8_t int8;

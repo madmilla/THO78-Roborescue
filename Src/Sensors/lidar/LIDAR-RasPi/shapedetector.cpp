@@ -72,7 +72,6 @@ Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	size_t imageWidth = source.getCloudWidth() + DEVIDEIMAGESIZE;		
 	Mat mat((int)(imageHeight / DEVIDEIMAGESIZE), (int)(imageWidth / DEVIDEIMAGESIZE), CV_8U); //Create a Mat object which will represent the image with all the pixels
 	for (Pointcloud::Point p : *source.getPoints()){
-		std::cout << p << " ++++ " << (p.X + abs(minX))/10 << ","<< (p.Y + abs(minY) )/10<< std::endl ;
 		mat.at<uchar>(Point( (int) ((p.X + abs(minX)) / DEVIDEIMAGESIZE), (int)( ((p.Y + abs(minY) )) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
 	}
 	imwrite("ScanImage.jpg", mat); // save the created image

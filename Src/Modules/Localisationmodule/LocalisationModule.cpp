@@ -21,7 +21,7 @@ TCPServer server{ service, 10033 };
 GlobalLocalisation* globalLocalizer;
 PX4FlowWrapper flowWrapper;
 SerialConnection serialPort{service};
-MAVLinkExchanger exchanger(serialPort);
+MAVLinkExchanger exchanger(&serialPort);
 ARInterface* PX4FlowDetector;
 
 const int 	TARGET_MARKER_ID = 954;
@@ -50,7 +50,7 @@ void handlePX4Flow()
 			{
 				std::cout << "Sending message\n";
 				attempts = 10;
-				PrioritisedMAVLinkMessage message(*msg);
+				mavlink_message_t message(*msg);
 				exchanger.enqueueMessage(message);
 			}
 		}
@@ -83,6 +83,7 @@ void handlePX4Flow()
 */
 void handleArguments( int argc, char *argv[])
 {	
+	serialPort.open(PX4FLOW_SERIAL_PORT, PX4FLOW_SERIAL_BAUDRATE);
 	bool gui = false;
 	int tresh1 = DEFAULT_TRESHOLD;
 	int tresh2 = DEFAULT_TRESHOLD;
@@ -125,8 +126,8 @@ int main(int argc, char *argv[])
 	}	
 	//Create the threads
 	std::thread recogniserThread{ &GlobalLocalisation::run, globalLocalizer};
-	std::thread mavLinkThread{ &MAVLinkExchanger::loop, &exchanger};	
-	std::thread px4FlowThread{ handlePX4Flow};	
+	std::thread mavLinkThread{ &MAVLinkExchanger::loop, std::ref(exchanger)};	
+	//std::thread px4FlowThread{ handlePX4Flow};	
 	std::thread mainThread{[&server, &exchanger]()
 	{
 		std::cout << "Starting mainfred\n";
@@ -135,7 +136,7 @@ int main(int argc, char *argv[])
 			//If there are mavlink messages, let the flowWrapper handle them.
 			if (exchanger.receiveQueueSize())
 			{
-				PrioritisedMAVLinkMessage message = exchanger.dequeueMessage();
+				mavlink_message_t message = exchanger.dequeueMessage();
 				flowWrapper.ReceiveMAVLinkMessage(&message);
 			}
 			
@@ -162,7 +163,7 @@ int main(int argc, char *argv[])
 	}};
 	mavLinkThread.detach();
 	recogniserThread.detach();
-	px4FlowThread.detach();
+	//px4FlowThread.detach();
 	mainThread.detach();
 	service.run();	
 	
