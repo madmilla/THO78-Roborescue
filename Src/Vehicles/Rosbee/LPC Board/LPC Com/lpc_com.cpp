@@ -39,12 +39,18 @@
 
 using namespace std;
 
+/*! \brief Constructor of class LPCCom
+	 \param uartPort : Port name /dev/ttyS0, /dev/ttyAMA0
+	 \param gpioPort : GPIO port of the RPI
+ */
 LPCCom::LPCCom(const char* uartPort, const char* gpioPort) {
 	uart = new LibSerial();
 	gpio = new GPIOClass(gpioPort);
 	portName = uartPort;
 }
 
+/*! \brief Destructor of class LPCCom. It closes the connection and unsets the GPIO pin
+ */
 LPCCom::~LPCCom(){
 	uart->close();
 	delete uart;
@@ -52,6 +58,13 @@ LPCCom::~LPCCom(){
 	delete gpio;
 }
 
+/*!  \brief Open the serial port
+
+      \n The device is configured 8N1: 8 bits, no parity, 1 stop bit
+
+     \return true success
+     \return false error while opening the device
+*/
 bool LPCCom::init(){
 	gpio->export_gpio(); // export GPIO
 	gpio->setdir_gpio("out"); // GPIO set to output
@@ -66,6 +79,11 @@ bool LPCCom::init(){
 		return true;
 	}
 }
+
+/*!  \brief Sets a GPIO pin and reads the data from the UART
+
+     \return temperature
+*/
 double LPCCom::readData(){
 	gpio->setval_gpio("1");
 	usleep(600 * 1000);
