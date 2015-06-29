@@ -206,7 +206,7 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 		std::vector<scanCoordinate> scanCoorde = convertToCoordinates(data);
 
 		for (int pos = 0; pos < (int)scanCoorde.size(); ++pos) {
-			if (scanCoorde[pos].x < 4000 && scanCoorde[pos].x > -4000 && scanCoorde[pos].y < 4000 && scanCoorde[pos]x > -4000){
+			if (scanCoorde[pos].x < 4000 && scanCoorde[pos].x > -4000 && scanCoorde[pos].y < 4000 && scanCoorde[pos].x > -4000){
 				pCloud.setPoint(scanCoorde[pos].x, scanCoorde[pos].y);
 			}
 		}
@@ -216,10 +216,10 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	point.Y = pY;
 	pCloud.rotate(orientation);
 	pCloud.setOffset(point);
-	const Mat & image = sD.createImage(pCloud, SCALE);
+	Mat & image = sD.createImage(pCloud, SCALE);
 	std::vector<Line> lines = sD.searchLines(image);
 	std::vector<Circle> circles;
-	sD.showObjects(lines, circles, image, image, Line::Point{ pCloud.getMinValues().X, pCloud.getMinValues().Y })
+	sD.showObjects(lines, circles, image, image, Line::Point{ pCloud.getMinValues().X, pCloud.getMinValues().Y });
 
 	for (auto l : lines){
 		Line::Point begin{(l.getLine().begin_pos.x * SCALE) - pCloud.getMinValues().X, (l.getLine().begin_pos.y * SCALE) - pCloud.getMinValues().Y};
