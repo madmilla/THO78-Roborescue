@@ -1,1 +1,0 @@
-SRC += Src/Strategy/pathfinding/Stop-them-spaces/aStar.cpp
