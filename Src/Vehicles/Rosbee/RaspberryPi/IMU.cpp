@@ -6,16 +6,16 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Waypoint.cpp
-* @date Created: 23-06-2015
+* @file IMU.cpp
+* @date Created: 26-6-2015
 *
-* @author Stefan Dijkman, Nathan Schaaphuizen
-* @version 1.1
+* @author Edwin Koek
+* @version 1.0
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright ï¿½ 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,42 +34,57 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include "Waypoint.h"
+#include "IMU.h"
+
+#define USE_MATH_DEFINES
 #include <cmath>
 
-Waypoint::Waypoint(double x, double y)
-{
-	//Get distance
-	double lengte_x = x*x;
-	double lengte_y = y*y;
-	distance = sqrt( lengte_x + lengte_y );
+IMU::IMU():
+    xgyro{0},
+    ygyro{0},
+    zgyro{0},
+    xacc{0},
+    yacc{0},
+    zacc{0},
+    roll{0},
+    pitch{0},
+    yaw{0}
+{}
 
-	//Get angle
-	if(y >= 0){
-		//Calculate the angle.
-		angle = toDegrees(atan(x/y));
-	}
-	else{
-		//Calculate the relative negative angle.
-		angle = toDegrees(atan(x/y)) + 180;
-	}
+void IMU::newReading(float newxgyro,
+                     float newygyro,
+                     float newzgyro,
+                     float newxacc,
+                     float newyacc,
+                     float newzacc,
+                     double dTime){
+    xgyro = newxgyro;
+    ygyro = newygyro;
+    zgyro = newzgyro;
+    xacc = newxacc;
+    yacc = newyacc;
+    zacc = newzacc;
+
+    complementaryFilter(dTime);
+    yaw += (zgyro/1000) * dTime;
+}
+
+void IMU::complementaryFilter(double dTime){
+    float accRoll = atan(xacc /sqrt((yacc * yacc) + (zacc * zacc)));
+    float accPitch = atan(yacc/sqrt((xacc * xacc) + (zacc * zacc)));
+    roll = (0.98 * (roll + ((xgyro/1000) * dTime))) + (0.02 * accRoll);
+    pitch = (0.98 * (roll + ((ygyro/1000) * dTime))) + (0.02 * accPitch);
 
 }
 
-double Waypoint::getDistance(){
-	//Return the distance.
-	return distance;
+float IMU::getRoll(){
+    return (roll * (180/M_PI));
 }
 
-double Waypoint::toDegrees(double radian){
-	//Convert radian to degree.
-	return radian * (180.0 / M_PI);
+float IMU::getPitch(){
+    return (pitch * (180/M_PI));
 }
 
-
-double Waypoint::getAngle(){
-	//Return the angle.
-	return angle;
+float IMU::getYaw(){
+    return (yaw * (180/M_PI));
 }
-	
-

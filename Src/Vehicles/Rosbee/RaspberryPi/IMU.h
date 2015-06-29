@@ -6,16 +6,16 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Waypoint.cpp
-* @date Created: 23-06-2015
+* @file IMU.h
+* @date Created: 26-6-2015
 *
-* @author Stefan Dijkman, Nathan Schaaphuizen
-* @version 1.1
+* @author Edwin Koek
+* @version 1.0
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright ï¿½ 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,42 +34,36 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include "Waypoint.h"
-#include <cmath>
 
-Waypoint::Waypoint(double x, double y)
-{
-	//Get distance
-	double lengte_x = x*x;
-	double lengte_y = y*y;
-	distance = sqrt( lengte_x + lengte_y );
+#ifndef IMU_H
+#define IMU_H
 
-	//Get angle
-	if(y >= 0){
-		//Calculate the angle.
-		angle = toDegrees(atan(x/y));
-	}
-	else{
-		//Calculate the relative negative angle.
-		angle = toDegrees(atan(x/y)) + 180;
-	}
+class IMU{
+public:
+    IMU();
 
-}
+    void newReading(float newxgyro ,
+                    float newygyro,
+                    float newzgyro,
+                    float newxacc,
+                    float newyacc ,
+                    float newzacc,
+                    double dTime);
 
-double Waypoint::getDistance(){
-	//Return the distance.
-	return distance;
-}
+    void complementaryFilter(double dTime);
 
-double Waypoint::toDegrees(double radian){
-	//Convert radian to degree.
-	return radian * (180.0 / M_PI);
-}
+    float getRoll();
+
+    float getPitch();
+
+    float getYaw();
 
 
-double Waypoint::getAngle(){
-	//Return the angle.
-	return angle;
-}
-	
+private:
+    float xgyro ,ygyro,zgyro;
+    float xacc, yacc ,zacc;
+    float roll, pitch, yaw;
+};
 
+
+#endif // IMU_H

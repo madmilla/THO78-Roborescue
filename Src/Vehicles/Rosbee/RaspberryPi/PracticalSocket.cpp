@@ -17,6 +17,8 @@
  *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+/// @cond
+
 #include "PracticalSocket.h"
 
 #include <errno.h>           // For errno
@@ -729,3 +731,5 @@ void UDPSocket::setMulticastTTL(unsigned char multicastTTL)
      throw SocketException("Multicast group leave failed (setsockopt())");
    }
  }
+
+ /// @endcond

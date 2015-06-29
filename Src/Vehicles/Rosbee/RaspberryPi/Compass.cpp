@@ -6,16 +6,16 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file Waypoint.cpp
-* @date Created: 23-06-2015
+* @file Compass.cpp
+* @date Created: 26-6-2015
 *
-* @author Stefan Dijkman, Nathan Schaaphuizen
-* @version 1.1
+* @author Edwin Koek
+* @version 1.0
 *
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright ï¿½ 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,42 +34,16 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-#include "Waypoint.h"
-#include <cmath>
+#include "Compass.h"
 
-Waypoint::Waypoint(double x, double y)
-{
-	//Get distance
-	double lengte_x = x*x;
-	double lengte_y = y*y;
-	distance = sqrt( lengte_x + lengte_y );
+Compass::Compass():
+    m_compassAngle{0}
+{}
 
-	//Get angle
-	if(y >= 0){
-		//Calculate the angle.
-		angle = toDegrees(atan(x/y));
-	}
-	else{
-		//Calculate the relative negative angle.
-		angle = toDegrees(atan(x/y)) + 180;
-	}
-
+void Compass::newReading(float newAngle){
+    m_compassAngle = newAngle;
 }
 
-double Waypoint::getDistance(){
-	//Return the distance.
-	return distance;
+float Compass::getAngle(){
+    return m_compassAngle;
 }
-
-double Waypoint::toDegrees(double radian){
-	//Convert radian to degree.
-	return radian * (180.0 / M_PI);
-}
-
-
-double Waypoint::getAngle(){
-	//Return the angle.
-	return angle;
-}
-	
-

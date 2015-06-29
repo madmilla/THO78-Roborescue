@@ -44,6 +44,8 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 
+/// @cond
+
 /*! \class LibSerial
     \brief    This class can manage a serial port.
               The class allows basic operations (opening the connection, reading, writing data and closing the connection).
@@ -107,6 +109,8 @@ private:
 };
 
 /*!
+  \mainpage LibSerial class
+
   \brief
     The class LibSerial offers simple access to the serial port devices for Linux.
     It can be used for any serial device (Built-in serial port, USB to RS232 converter,
@@ -119,3 +123,5 @@ private:
 */
 
 #endif // _LIB_SERIAL_H
+
+/// @endcond
