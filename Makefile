@@ -21,13 +21,6 @@ environmentsimulator : $(UI_HEADERS) $(OBJ)
 
 test : $(UI_HEADERS) $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
-
-
-testuic:
-moc_%.cpp : %.h
-	$(MOC) $< -o $@
-
-
 	
 clean : 
 	for prefix in $(MODULES); do \
