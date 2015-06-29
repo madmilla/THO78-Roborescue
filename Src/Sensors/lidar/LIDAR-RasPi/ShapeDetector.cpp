@@ -13,9 +13,7 @@ void ShapeDetector::writeCirclesToConsole(const vector<Circle> circles){
 	std::cout << "found circles: " << (circles.size()) << std::endl << std::endl;
 	for (Circle c : circles){ // walk through the circles
 		std::cout << "(" << c.getCircle().originX << "," << c.getCircle().originY << ")    \t" << c.getCircle().radius << "\n\n";
-	}
 }
-
 void ShapeDetector::drawCircles(const std::vector<Circle> circles, Mat & image){
 	for (Circle c : circles){ //Walk through all the circles
 		// round the floats to an int
@@ -197,7 +195,7 @@ void ShapeDetector::writeObjectsToConsole(const std::vector<Line> & lines, const
 void ShapeDetector::showObjects(const vector<Line> & lines, const std::vector<Circle> circles, const Mat & orginal_image, Mat & custom_image, Line::Point lidarPoint){
 	drawLines(lines, custom_image, lidarPoint);
 	imwrite("newImage.png",custom_image);
-	drawCircles(circles, custom_image);
-	imshow("orginal image", orginal_image);
-	imshow("detected lines & circles", custom_image);
+	//drawCircles(circles, custom_image);
+	//imshow("orginal image", orginal_image);
+	//imshow("detected lines & circles", custom_image);
 }
