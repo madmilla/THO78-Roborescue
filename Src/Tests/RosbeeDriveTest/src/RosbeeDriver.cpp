@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -39,7 +39,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include "../../EncoderInterface.h"
-#include "../../Waypoint.h"
+#include "../../WayPoint.h"
 #include <iostream> //heb misschien niet nodig
 
 RosbeeDriver::RosbeeDriver(PropCom &nPropCom):
