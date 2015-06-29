@@ -87,6 +87,8 @@ private:
     Map *map = 0;
     //! Editmapwindow for opening the editMapWindow.
     EditMapWindow* editMapWindow;
+    //! Load the correct window.
+    void msgBox(QString msg);
 };
 
 #endif // MAINWINDOW_H

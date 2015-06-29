@@ -66,7 +66,19 @@ void MainWindow::on_newMapButton_clicked(){
                                      Values::newMapBeignSize,Values::newMapMinSize,Values::newMapMaxSize,Values::newMapStepSize, &ok);
 
     if (ok && !fileName.isEmpty()){
-        map = new Map(fileName.toStdString() + ".map",height,width);
+        //map = new Map(fileName.toStdString() + ".map",height,width);
+        try{
+            map = new Map(fileName.toStdString() + ".map",height,width);
+        }
+        catch(int e){
+            if(e == 1){
+                msgBox("File error");
+            }
+            if(e == 2){
+                msgBox("Content error");
+            }
+            exit(EXIT_FAILURE);
+        }
     }
 }
 
@@ -87,7 +99,19 @@ void MainWindow::load(QString fileName, char type){
 
         if(fileType == "map"){
             if(type == Values::EDIT){
-                map = new Map(fileName.toStdString());
+                //map = new Map(fileName.toStdString());
+                try{
+                    map = new Map(fileName.toStdString());
+                }
+                catch(int e){
+                    if(e == 1){
+                        msgBox("File error");
+                    }
+                    if(e == 2){
+                        msgBox("Content error");
+                    }
+                    exit(EXIT_FAILURE);
+                }
 
                 if(map->width > Values::SCALETHRESHHOLD || map->height > Values::SCALETHRESHHOLD) {
                     float devideValue = map->width / Values::SCALETHRESHHOLD;
@@ -110,7 +134,19 @@ void MainWindow::load(QString fileName, char type){
                 editMapWindow->show();
             }
             else if(type == Values::SIMULATE){
-                map = new Map(fileName.toStdString());
+                //map = new Map(fileName.toStdString());
+                try{
+                    map = new Map(fileName.toStdString());
+                }
+                catch(int e){
+                    if(e == 1){
+                        msgBox("File error");
+                    }
+                    if(e == 2){
+                        msgBox("Content error");
+                    }
+                    exit(EXIT_FAILURE);
+                }
                 SimulateMapWindow *simulateMapWindow = new SimulateMapWindow(map);
                 simulateMapWindow->show();
             }
@@ -131,7 +167,19 @@ void MainWindow::load(QString fileName, char type){
                     }
                 }
 
-                map = new Map(fileName.toStdString(),pcl);
+                //map = new Map(fileName.toStdString(),pcl);
+                try{
+                    map = new Map(fileName.toStdString(),pcl);
+                }
+                catch(int e){
+                    if(e == 1){
+                        msgBox("File error");
+                    }
+                    if(e == 2){
+                        msgBox("Content error");
+                    }
+                    exit(EXIT_FAILURE);
+                }
                 delete pcl;
 
                 editMapWindow = new EditMapWindow(map);
@@ -141,6 +189,17 @@ void MainWindow::load(QString fileName, char type){
 
 
                 map = new Map(fileName.toStdString());
+                try{
+                    map = new Map(fileName.toStdString());
+                }
+                catch(int e){
+                    if(e == 1){
+                        msgBox("File error");
+                    }
+                    if(e == 2){
+                        msgBox("Content error");
+                    }
+                }
 
 
                 SimulateMapWindow *simulateMapWindow = new SimulateMapWindow(map);
@@ -148,9 +207,13 @@ void MainWindow::load(QString fileName, char type){
             }
         }
         else{
-            QMessageBox msgBox;
-            msgBox.setText("Unkown filetype");
-            msgBox.exec();
+            msgBox("Unkown Filetype");
         }
     }
+}
+
+void MainWindow::msgBox(QString msg){
+    QMessageBox msgBox;
+    msgBox.setText(msg);
+    msgBox.exec();
 }
