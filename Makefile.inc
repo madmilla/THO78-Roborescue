@@ -25,6 +25,7 @@ endif
 ifeq ($(MAKECMDGOALS),mission1)
 	LDLIBS 	+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql -lpthread -lboost_system
 	ifneq ($(OS),Windows_NT)
+		CXXFLAGS 	+= -fPIC
 		INCLUDES 	+= -I/usr/include/qt5/
 	else
 		INCLUDES 	+= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR)
