@@ -42,7 +42,7 @@
 #include "VirtualQuadCopter.h"
 #include "VirtualATV.h"
 #include "Route.h"
-#include "map.hpp"
+#include "Map.hpp"
 #include "aStar.h"
 #include <vector>
 
