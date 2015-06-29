@@ -151,7 +151,7 @@ void Pointcloud::savePointsToFile(std::string filename){
 }
 void Pointcloud::loadPointsFromFile(std::string filename){
     std::ifstream pCFile;
-    pCFile.open(filename + ".pcl");
+    pCFile.open(filename);
 	if (!pCFile.is_open()){
 		std::cout << "could not load pointcloud";
 		exit(-1);
