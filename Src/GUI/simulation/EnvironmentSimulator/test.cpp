@@ -128,6 +128,17 @@ int Test::run(){
 
     Map testFileMap("testFileMap.map");
 
+    try{
+        Map testFileMap("testFileMap.map");
+    }
+    catch(int e){
+        if(e != 2){
+            testResultsFile << "Error: ";
+            testResultsFile << "Map from corrupt file: " << "Excpention error." << std::endl;
+            ++error;
+        }
+    }
+
     if(testFileMap.width != size || testFileMap.height != size){
         testResultsFile << "Error: ";
         testResultsFile << "Map from file: " << "Map y size incorret" << std::endl;
@@ -168,9 +179,16 @@ int Test::run(){
 
     //Map from corrupt file
     testResultsFile << "Enviroment Simulator test Map from corrupt file" << std::endl;
-    //Map corruptMap("testFileMapCorrupt.map");
-    testResultsFile << "Map from corrupt file: " << "Lets see" << std::endl;
-
+    try{
+        Map corruptMap("testFileMapCorrupt.map");
+        ++error;
+    }
+    catch(int e){
+        if(e != 2){
+            testResultsFile << "Error: ";
+            testResultsFile << "Map from corrupt file: " << "Excpention error." << std::endl;
+        }
+    }
 
     for(int y = 0; y < testMap.height; y++){
         for(int x = 0; x < testMap.width; x++){
