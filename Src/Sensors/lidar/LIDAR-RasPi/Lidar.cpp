@@ -206,7 +206,7 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 		std::vector<scanCoordinate> scanCoorde = convertToCoordinates(data);
 
 		for (int pos = 0; pos < (int)scanCoorde.size(); ++pos) {
-			if (scanCoorde[pos].x < 4000 && scanCoorde[pos].x > -4000 && scanCoorde[pos].y < 4000 && scanCoorde[pos]x > -4000){
+			if (scanCoorde[pos].x < 4000 && scanCoorde[pos].x > -4000 && scanCoorde[pos].y < 4000 && scanCoorde[pos].x > -4000){
 				pCloud.setPoint(scanCoorde[pos].x, scanCoorde[pos].y);
 			}
 		}
