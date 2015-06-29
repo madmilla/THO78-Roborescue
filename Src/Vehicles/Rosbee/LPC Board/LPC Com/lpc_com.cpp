@@ -70,6 +70,8 @@ void LPCCom::readData(double& temperature){
 	usleep(20 * 1000);
 	gpio->setval_gpio("0");
 
-	uart->read(dataBuffer, 8);
+	uart->read(dataBuffer, 4);
+	temperature = dataBuffer;
+
 	// zet waarden in de pointers
 }
