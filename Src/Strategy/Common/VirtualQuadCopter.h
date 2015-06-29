@@ -40,6 +40,7 @@
 #define VIRTUALQUADCOPTER_H
 
 #include "Dimension.h"
+#include "WayPoint.h"
 
 class VirtualQuadCopter
 {
@@ -71,6 +72,22 @@ public:
 	* @param	y
 	*/
     void goTo(int x, int y);
+    /**
+    * @fn	void goTo(WayPoint* waypoint);
+    *
+    * @brief	Function to move the VirtualQuadCopter to a waypoint.
+    *
+    * @param	waypoint
+    */
+    void goTo(WayPoint* waypoint);
+    /**
+    * @fn       bool inView(int x, int y);
+    *
+    * @brief	Returns true if position x, y is in view of the quadcopter.
+    *
+    * @param	x
+    * @param    y
+    */
     bool inView(int x, int y);
     /**
 	* @fn	Dimension getSize();

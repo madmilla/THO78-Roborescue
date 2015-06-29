@@ -35,7 +35,7 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "Dimension.h".
+#include "Dimension.h"
 
 /**
  * Constructor of Dimension.

@@ -68,9 +68,18 @@ void VirtualQuadCopter::goTo(int x, int y){
 	// Set y VirtualQuadCopter.
     this->y = y;
 }
+/**
+ * Function to move the VirtualQuadCopter to a waypoint.
+ */
+void VirtualQuadCopter::goTo(WayPoint* waypoint){
+    this->x = waypoint->x;
+    this->y = waypoint->x;
+}
 
 bool VirtualQuadCopter::inView(int x, int y){
+    //param x in range of view
     if(((this->x) -(fov.width/2) <= x) && ((this->x) + (fov.width/2) >= x)){
+        //param y in range of view
         if(((this->y) - (fov.height/2) <= y) && ((this->y) + fov.height/2) >= y){
             return true;
         }

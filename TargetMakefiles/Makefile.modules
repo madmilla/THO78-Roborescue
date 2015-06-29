@@ -23,6 +23,7 @@ STRATEGY_VSLAM_MODULE				= Src/Strategy/pathfinding/VSLAM/
 STRATEGY_AREACOVERAGE_MODULE		= Src/Strategy/pathfinding/AreaCoverage/
 STRATEGY_ASTAR_MODULE				= Src/Strategy/pathfinding/AStar/
 STRATEGY_TINYASTAR_MODULE			= Src/Strategy/pathfinding/tinyAstar/
+STRATEGY_PAIRWISE_MODULE			= Src/Strategy/pathfinding/PairWise/
 
 ENVIRONMENTSIMULATOR_GUI_MODULE	 	= Src/GUI/simulation/EnvironmentSimulator/
 

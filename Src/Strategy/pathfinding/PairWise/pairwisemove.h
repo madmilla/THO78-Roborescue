@@ -38,12 +38,12 @@
 #ifndef PAIRWISEMOVE
 #define PAIRWISEMOVE
 
-#include "../../Common/WayPoint.h"
-#include "../../Common/QuadCopter.h"
-#include "../../Common/ATV.h"
-#include "../../Common/Route.h"
-#include "../../../map/MapStructure/map.hpp"
-#include "../Stop-them-spaces/aStar.h"
+#include "WayPoint.h"
+#include "VirtualQuadCopter.h"
+#include "VirtualATV.h"
+#include "Route.h"
+#include "map.hpp"
+#include "aStar.h"
 #include <vector>
 
 
@@ -75,28 +75,33 @@ public:
      */
 
     std::pair<Route*, Route*>* generatePairRoute(Route atvRoute,
-                                                    ATV atv,
-                                                    QuadCopter copter,
-                                                    map map);
+                                                    VirtualATV atv,
+                                                    VirtualQuadCopter copter,
+                                                    Map map);
 
     void movePairWise(Route atvRoute,
-                         ATV atv,
-                         QuadCopter copter,
-                         map map);
+                      VirtualATV atv,
+                      VirtualQuadCopter copter,
+                      Map map);
 
     void initPairWiseMove(Route atvRoute,
-                            ATV atv,
-                            QuadCopter copter,
-                            map map);
+                          VirtualATV atv,
+                          VirtualQuadCopter copter,
+                          Map map);
 
     WayPoint* nextATVWaypoint();
 
-    void moveATVToNextWaypoint(ATV atv);
+    void moveATVToNextWaypoint(VirtualATV atv);
+
+    WayPoint* nextQuadCopterWaypoint();
+
+    void moveQuadCopterToNextWaypoint(VirtualQuadCopter copter);
 
 
 private:
     std::pair<Route*, Route*>* pairWiseRoute = nullptr;
-    int waypointCounter = 0;
+    int quadCopterWaypointCounter = 0;
+    int ATVWaypointCounter = 0;
 };
 
 #endif // PAIRWISEMOVE
