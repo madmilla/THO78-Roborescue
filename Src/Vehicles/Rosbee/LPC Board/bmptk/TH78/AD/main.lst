@@ -1,0 +1,64 @@
+	.cpu cortex-m0
+	.fpu softvfp
+	.eabi_attribute 20, 1
+	.eabi_attribute 21, 1
+	.eabi_attribute 23, 3
+	.eabi_attribute 24, 1
+	.eabi_attribute 25, 1
+	.eabi_attribute 26, 1
+	.eabi_attribute 30, 4
+	.eabi_attribute 34, 0
+	.eabi_attribute 18, 4
+	.code	16
+	.file	"main.c"
+	.global	__aeabi_ui2d
+	.global	__aeabi_dmul
+	.global	__aeabi_d2iz
+	.section	.text.startup.main,"ax",%progbits
+	.align	1
+	.global	main
+	.code	16
+	.thumb_func
+	.type	main, %function
+main:
+	push	{r3, lr}
+	bl	timer_init
+	bl	uart_init
+	bl	conversion_init
+	mov	r0, #0
+	mov	r1, #6
+	bl	pin_configure_as_input
+.L3:
+	mov	r0, #0
+	mov	r1, #6
+	bl	pin_get
+	cmp	r0, #0
+	beq	.L3
+	ldr	r0, .L6+24
+	bl	delay
+	bl	conversion_value
+	bl	__aeabi_ui2d
+	ldr	r3, .L6+4
+	ldr	r2, .L6
+	bl	__aeabi_dmul
+	ldr	r2, .L6+8
+	ldr	r3, .L6+12
+	bl	__aeabi_dmul
+	ldr	r2, .L6+16
+	ldr	r3, .L6+20
+	bl	__aeabi_dmul
+	bl	__aeabi_d2iz
+	bl	uart_put_int_decimal
+	b	.L3
+.L7:
+	.align	3
+.L6:
+	.word	171798692
+	.word	1074439127
+	.word	0
+	.word	1079574528
+	.word	0
+	.word	1062207488
+	.word	500000
+	.size	main, .-main
+	.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.3 20140228 (release) [ARM/embedded-4_8-branch revision 208322]"

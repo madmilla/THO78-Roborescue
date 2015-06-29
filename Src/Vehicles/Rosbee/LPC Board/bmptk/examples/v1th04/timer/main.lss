@@ -1,0 +1,118 @@
+
+main.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__text_start>:
+   0:	10000400 	.word	0x10000400
+   4:	000000b5 	.word	0x000000b5
+	...
+
+00000020 <timer_init>:
+  20:	4b07      	ldr	r3, [pc, #28]	; (40 <timer_init+0x20>)
+  22:	2280      	movs	r2, #128	; 0x80
+  24:	6fd9      	ldr	r1, [r3, #124]	; 0x7c
+  26:	0092      	lsls	r2, r2, #2
+  28:	430a      	orrs	r2, r1
+  2a:	67da      	str	r2, [r3, #124]	; 0x7c
+  2c:	4b05      	ldr	r3, [pc, #20]	; (44 <timer_init+0x24>)
+  2e:	2200      	movs	r2, #0
+  30:	210b      	movs	r1, #11
+  32:	671a      	str	r2, [r3, #112]	; 0x70
+  34:	60d9      	str	r1, [r3, #12]
+  36:	609a      	str	r2, [r3, #8]
+  38:	2201      	movs	r2, #1
+  3a:	605a      	str	r2, [r3, #4]
+  3c:	4770      	bx	lr
+  3e:	46c0      	nop			; (mov r8, r8)
+  40:	40048004 	.word	0x40048004
+  44:	40014000 	.word	0x40014000
+
+00000048 <now>:
+  48:	4b01      	ldr	r3, [pc, #4]	; (50 <now+0x8>)
+  4a:	6898      	ldr	r0, [r3, #8]
+  4c:	4770      	bx	lr
+  4e:	46c0      	nop			; (mov r8, r8)
+  50:	40014000 	.word	0x40014000
+
+00000054 <main>:
+  54:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+  56:	4e14      	ldr	r6, [pc, #80]	; (a8 <main+0x54>)
+  58:	2380      	movs	r3, #128	; 0x80
+  5a:	021b      	lsls	r3, r3, #8
+  5c:	58f2      	ldr	r2, [r6, r3]
+  5e:	2120      	movs	r1, #32
+  60:	430a      	orrs	r2, r1
+  62:	50f2      	str	r2, [r6, r3]
+  64:	f7ff ffdc 	bl	20 <timer_init>
+  68:	f7ff ffee 	bl	48 <now>
+  6c:	4b0f      	ldr	r3, [pc, #60]	; (ac <main+0x58>)
+  6e:	1c04      	adds	r4, r0, #0
+  70:	18c7      	adds	r7, r0, r3
+  72:	238e      	movs	r3, #142	; 0x8e
+  74:	00db      	lsls	r3, r3, #3
+  76:	18e5      	adds	r5, r4, r3
+  78:	f7ff ffe6 	bl	48 <now>
+  7c:	42a8      	cmp	r0, r5
+  7e:	d3fb      	bcc.n	78 <main+0x24>
+  80:	4d0b      	ldr	r5, [pc, #44]	; (b0 <main+0x5c>)
+  82:	2220      	movs	r2, #32
+  84:	5973      	ldr	r3, [r6, r5]
+  86:	4313      	orrs	r3, r2
+  88:	5173      	str	r3, [r6, r5]
+  8a:	238e      	movs	r3, #142	; 0x8e
+  8c:	011b      	lsls	r3, r3, #4
+  8e:	18e4      	adds	r4, r4, r3
+  90:	f7ff ffda 	bl	48 <now>
+  94:	42a0      	cmp	r0, r4
+  96:	d3fb      	bcc.n	90 <main+0x3c>
+  98:	5973      	ldr	r3, [r6, r5]
+  9a:	2220      	movs	r2, #32
+  9c:	4393      	bics	r3, r2
+  9e:	5173      	str	r3, [r6, r5]
+  a0:	42bc      	cmp	r4, r7
+  a2:	d1e6      	bne.n	72 <main+0x1e>
+  a4:	2000      	movs	r0, #0
+  a6:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+  a8:	50010000 	.word	0x50010000
+  ac:	000f4100 	.word	0x000f4100
+  b0:	00003ffc 	.word	0x00003ffc
+
+000000b4 <__startup>:
+  b4:	b510      	push	{r4, lr}
+  b6:	4b0f      	ldr	r3, [pc, #60]	; (f4 <__startup+0x40>)
+  b8:	4a0f      	ldr	r2, [pc, #60]	; (f8 <__startup+0x44>)
+  ba:	1d19      	adds	r1, r3, #4
+  bc:	3b04      	subs	r3, #4
+  be:	4293      	cmp	r3, r2
+  c0:	d003      	beq.n	ca <__startup+0x16>
+  c2:	2200      	movs	r2, #0
+  c4:	601a      	str	r2, [r3, #0]
+  c6:	1c0b      	adds	r3, r1, #0
+  c8:	e7f6      	b.n	b8 <__startup+0x4>
+  ca:	4a0c      	ldr	r2, [pc, #48]	; (fc <__startup+0x48>)
+  cc:	490c      	ldr	r1, [pc, #48]	; (100 <__startup+0x4c>)
+  ce:	2300      	movs	r3, #0
+  d0:	1a89      	subs	r1, r1, r2
+  d2:	0889      	lsrs	r1, r1, #2
+  d4:	3101      	adds	r1, #1
+  d6:	0089      	lsls	r1, r1, #2
+  d8:	3304      	adds	r3, #4
+  da:	428b      	cmp	r3, r1
+  dc:	d007      	beq.n	ee <__startup+0x3a>
+  de:	4c09      	ldr	r4, [pc, #36]	; (104 <__startup+0x50>)
+  e0:	18d0      	adds	r0, r2, r3
+  e2:	191c      	adds	r4, r3, r4
+  e4:	3c04      	subs	r4, #4
+  e6:	6824      	ldr	r4, [r4, #0]
+  e8:	3804      	subs	r0, #4
+  ea:	6004      	str	r4, [r0, #0]
+  ec:	e7f4      	b.n	d8 <__startup+0x24>
+  ee:	f7ff ffb1 	bl	54 <main>
+  f2:	e7fe      	b.n	f2 <__startup+0x3e>
+  f4:	10000004 	.word	0x10000004
+  f8:	10000000 	.word	0x10000000
+  fc:	10000000 	.word	0x10000000
+ 100:	10000000 	.word	0x10000000
+ 104:	00000108 	.word	0x00000108

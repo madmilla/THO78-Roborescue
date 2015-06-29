@@ -1,0 +1,31 @@
+[Config]
+Compilator.FileName=build.bat
+Compilator.SaveAll=1
+Compilator.Capture=1
+Compilator.ParsLog=%F:%L:*
+Compilator.HideOutput=1
+Compilator.LogType=0
+Prog1=Clean,cmd /C "make clean "
+Prog2=Run,cmd /C "make run "
+DefaultCPIndex=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+[Project tree]
+Project
+	+Files
+		-includes
+		+compile
+			main.c
+		+others
+			Makefile
+[Open project files]
+0=main.c
+[Selected Project Files]
+Main=main.c
+Selected=main.c
+[main.c]
+TopLine=9
+Caret=43,23

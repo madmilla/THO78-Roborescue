@@ -1,0 +1,56 @@
+	.cpu cortex-m0
+	.fpu softvfp
+	.eabi_attribute 20, 1
+	.eabi_attribute 21, 1
+	.eabi_attribute 23, 3
+	.eabi_attribute 24, 1
+	.eabi_attribute 25, 1
+	.eabi_attribute 26, 1
+	.eabi_attribute 30, 4
+	.eabi_attribute 34, 0
+	.eabi_attribute 18, 4
+	.code	16
+	.file	"main.c"
+	.section	.text.startup.main,"ax",%progbits
+	.align	1
+	.global	main
+	.code	16
+	.thumb_func
+	.type	main, %function
+main:
+	push	{r4, lr}
+	bl	timer_init
+	bl	uart_init
+	ldr	r0, .L2
+	bl	uart_put_string
+	mov	r0, #42
+	bl	uart_put_int_decimal
+	ldr	r4, .L2+4
+	@ sp needed
+	mov	r0, r4
+	bl	uart_put_string
+	ldr	r0, .L2+8
+	bl	uart_put_string
+	mov	r1, #8
+	ldr	r0, .L2+12
+	bl	uart_put_int_hexadecimal
+	mov	r0, r4
+	bl	uart_put_string
+	mov	r0, #0
+	pop	{r4, pc}
+.L3:
+	.align	2
+.L2:
+	.word	.LC0
+	.word	.LC2
+	.word	.LC4
+	.word	-559038737
+	.size	main, .-main
+	.section	.rodata.str1.1,"aMS",%progbits,1
+.LC0:
+	.ascii	"Hello world, the answer is \000"
+.LC2:
+	.ascii	".\012\000"
+.LC4:
+	.ascii	"You are \000"
+	.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.3 20140228 (release) [ARM/embedded-4_8-branch revision 208322]"

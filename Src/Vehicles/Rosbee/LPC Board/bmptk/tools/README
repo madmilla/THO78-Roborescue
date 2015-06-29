@@ -1,0 +1,17 @@
+file: bmptk/tools/README
+
+Bare Metal Programming Tool Kit tools directory
+
+This directory contains various support tools for bmptk.
+
+directories
+   image_sizes    : tool to show sizes of various sections in an executable
+
+files
+   lpc21.exe      : serial bootloader for philips LPC chips, slightly adapted
+   README         : this file
+
+   
+   
+
+
