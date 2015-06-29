@@ -39,8 +39,8 @@
 #define MAPLOGICVSLAM_H
 
 #include "Map.hpp"
-#include "virtualRosbee.h"
-#include "virtualLidar.h"
+#include "VirtualRosbee.h"
+#include "VirtualLidar.h"
 
 class MapLogicVSLAM
 {
