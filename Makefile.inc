@@ -7,8 +7,8 @@ INCLUDES 						=
 LDLIBS							=
 LDFLAGS							= 
 SRC 							= 
-UI 								= 
-UI_HEADERS						=
+UI 								+= 
+UI_HEADERS						+=
 MODULES 						= 
 BOOST_INCL_DIR 					= Deps/incl/boost_1_58_0/Windows
 
