@@ -223,8 +223,8 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	sD.writeLinesToConsole(lines);
 	std:cout << "\nCONVERT LINES\n" ;
 	for (auto & l : lines){
-		Line::Point begin{(l.getLine().begin_pos.x * SCALE) - pCloud.getMinValues().X, (l.getLine().begin_pos.y * SCALE) - pCloud.getMinValues().Y};
-		Line::Point end{(l.getLine().end_pos.x * SCALE) - pCloud.getMinValues().X, (l.getLine().end_pos.y * SCALE) - pCloud.getMinValues().Y};
+		Line::Point begin{ (l.getLine().begin_pos.x * SCALE) - abs(pCloud.getMinValues().X), (l.getLine().begin_pos.y * SCALE) - abs(pCloud.getMinValues().Y) };
+		Line::Point end{ (l.getLine().end_pos.x * SCALE) - abs(pCloud.getMinValues().X), (l.getLine().end_pos.y * SCALE) - abs(pCloud.getMinValues().Y) };
 		l.setLine(begin,end);
 	}
 	sD.writeLinesToConsole(lines);
