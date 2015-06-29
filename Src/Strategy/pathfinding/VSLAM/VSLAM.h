@@ -40,11 +40,11 @@
 
 #include <iostream>
 #include "Map.hpp"
-#include "virtualRosbee.h"
+#include "VirtualRosbee.h"
 #include "mapLogicVSLAM.h"
-#include "route.h"
+#include "Route.h"
 #include "MapSearchNode.h"
-#include "virtualLidar.h"
+#include "VirtualLidar.h"
 
 class VSLAM
 {

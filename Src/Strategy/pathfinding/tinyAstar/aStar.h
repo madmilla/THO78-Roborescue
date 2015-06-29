@@ -52,7 +52,7 @@
 
 #include <vector>
 #include <array>
-#include "route.h"
+#include "Route.h"
 #include "mapImplementation.hpp"
 
 //	pair of ints representing a coordinate

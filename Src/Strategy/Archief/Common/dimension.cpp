@@ -1,4 +1,4 @@
-#include "dimension.h"
+#include "Dimension.h"
 
 Dimension::Dimension(int width, int height):
     width{width},

@@ -1,4 +1,4 @@
-#include "waypoint.h"
+#include "WayPoint.h"
 
 WayPoint::WayPoint(int x, int y):
     x{x},

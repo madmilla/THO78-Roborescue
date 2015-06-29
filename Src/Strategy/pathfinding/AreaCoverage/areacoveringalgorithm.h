@@ -38,11 +38,11 @@
 #ifndef AREACOVERINGALGORITHM_H
 #define AREACOVERINGALGORITHM_H
 
-#include "waypoint.h"
+#include "WayPoint.h"
 #include "Map.hpp"
 #include "VirtualQuadCopter.h"
 #include <vector>
-#include "route.h"
+#include "Route.h"
 #include "aStar.h"
 
 class AreaCoveringAlgorithm
