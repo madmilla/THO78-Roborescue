@@ -1,9 +1,9 @@
 #include "VirtualQuadCopter.h"
 #include "VirtualATV.h"
-#include "dimension.h"
-#include "pairwisemove.h"
+#include "Dimension.h"
+#include "PairWiseMove.h"
 #include <iostream>
-#include "map.hpp"
+#include "Map.hpp"
 
 #define TEST
 
