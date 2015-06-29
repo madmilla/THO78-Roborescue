@@ -1,4 +1,4 @@
-#include "shapedetector.h"
+#include "ShapeDetector.h"
 
 ShapeDetector::ShapeDetector()
 {

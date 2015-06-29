@@ -40,7 +40,7 @@
 #include <vector>
 #include <string>
 #include "Line.h"
-#include "shapedetector.h"
+#include "ShapeDetector.h"
 using namespace rp::standalone::rplidar;
 
 
