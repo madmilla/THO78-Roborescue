@@ -63,3 +63,4 @@ LIDAR_MODULE					= Src/Modules/Lidar/
 MAP_STRUCTURE_MODULE			= Src/Map/MapStructure/
 MAP_COMMON_MODULE				= Src/Map/
 
+LIDAR_CONTROLLER_MODULE			= Src/Controllers/LidarController/
