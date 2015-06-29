@@ -17,6 +17,9 @@ ifeq ($(OS),Windows_NT)
 	MOC				= $(QT_BIN_DIR)/moc.exe
 	UIC				= $(QT_BIN_DIR)/uic.exe
 	BOOST_LIB_DIR 	= Deps/lib/boost_1_58_0/Windows
+else
+	MOC = moc
+	UIC = uic
 endif
 
 ifeq ($(MAKECMDGOALS),mission1)
