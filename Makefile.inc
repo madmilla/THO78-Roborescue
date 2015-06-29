@@ -91,7 +91,9 @@ ifeq ($(MAKECMDGOALS),clean)
 else
 	INCLUDES 		+= $(patsubst %, -I%, $(MODULES))
 	include $(MODULES:=module.mk)
+	@echo UI is: $(UI)
 	UI_HEADERS 		+= $(UI:.ui=.h)
+	@echo UI headers are: $(UI_HEADERS)
 	OBJ 			+= $(SRC:.cpp=.o)
 endif
 	
