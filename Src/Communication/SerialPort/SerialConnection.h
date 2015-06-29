@@ -5,7 +5,7 @@
 #include <boost/asio.hpp>
 using namespace boost;
 
-class SerialConnection : public DataPort
+class SerialConnection : public DataPort, public asio::serial_port
 {
 	
 public:
@@ -16,6 +16,5 @@ public:
 	size_t writeData(const unsigned char* buffer, int nrOfBytes) override;
 private:
 	asio::io_service& service;
-	std::shared_ptr<asio::serial_port> port;
 };
 #endif

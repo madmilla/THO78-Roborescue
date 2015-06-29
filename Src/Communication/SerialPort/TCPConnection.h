@@ -20,6 +20,5 @@ public:
 private:
 	boost::asio::io_service& service;
 	boost::system::error_code error;
-	tcp::socket* tcpSocket;
 };
 #endif
