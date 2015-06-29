@@ -49,45 +49,22 @@ Map::Map(std::string fileName, int height, int width):
 }
 
 Map::Map(std::string fileName):
-    fileName(fileName)
-{
-    /*height = 0;
-    width = 0;
-    if(!fileName.empty()){
-        std::ifstream mapFile;
-        mapFile.open(fileName);
-        if(!mapFile.is_open()){
-            throw Values::FILEEXCEPTION;
-        }
-        if(height == 0 && width == 0){
-            std::string line;
-            int i;
-            for (i = 0; getline(mapFile, line); ++i);
-            line.erase(std::remove_if(line.begin(), line.end(), (int(*)(int))isspace), line.end());
-            height = i;
-            width = static_cast<int>(line.length());
-            mapFile.close();
-            loadMap(fileName);
-        }
-    }*/
+    fileName(fileName){
     loadMap(fileName);
 }
 
 Map::Map(std::string fileName, Pointcloud *pcl):
-fileName(fileName)
-{
-    //int y = 0;
+fileName(fileName){
     height = pcl->getCloudHeight()+1;
     width = pcl->getCloudWidth()+1;
     std::vector<Pointcloud::Point> *points = pcl->getPoints();
     if(points->size() == 0){
-        std::cout << "Size = 0" << std::endl;
         throw Values::CONTENTEXCEPTION;
     }
     int minX = 0;
     int minY = 0;
 
-    for(Pointcloud::Point point : *points){
+    for(Pointcloud::Point & point : *points){
         if(point.X < minX){
             minX = point.X;
         }
@@ -102,21 +79,8 @@ fileName(fileName)
     if(minY < 0){
         minY = minY * -1;
     }
-
-    /*std::cout << "height: " << height << std::endl;
-    std::cout << "width: " << width << std::endl;
-    std::cout << "minX: " << minX << std::endl;
-    std::cout << "minY: " << minY << std::endl;
-
-    mapLayout.resize(height);
-    while(y < height){
-      mapLayout[y].resize(width);
-      std::cout << y << std::endl;
-      y++;
-    }*/
-    for(Pointcloud::Point point : *points){
+    for(Pointcloud::Point & point : *points){
         setMapObject(1,point.Y + minY,point.X + minX);
-        std::cout << "X: " << (point.X + minX) << std::endl << "Y: " << (point.Y + minY) << std::endl;
     }
 
 }
@@ -130,29 +94,6 @@ void Map::loadMap(std::string fileName){
     if(!mapFile.is_open()){
         throw Values::FILEEXCEPTION;
     }
-    /*int x = 0,y = 0;
-    int content = -1;
-
-    mapLayout.resize(height);
-    mapLayout[y].resize(width);
-    while(y < height){
-        mapFile >> content;
-
-        if(content < 0){
-            throw Values::CONTENTEXCEPTION;
-        }
-
-        mapLayout[y][x] = content;
-        ++x;
-        if(x > (width-1)){
-            x = 0;
-            ++y;
-           if(y!=height){
-               mapLayout[y].resize(width);
-           }
-        }
-        content = -1;
-    }*/
     std::string line;
     std::string item;
     int result;
@@ -176,7 +117,6 @@ void Map::loadMap(std::string fileName){
         object.id = result;
         setMapObject(object);
     }
-
     mapFile.close();
 }
 
@@ -231,36 +171,13 @@ std::vector< Map::Object > Map::getMapContent(){
     return mapLayout;
 }
 
-/*void Map::setMapContent(std::vector<std::vector< int > > newMapLayout){
-    if(static_cast<int>(newMapLayout.size()) < height || static_cast<int>(newMapLayout.size()) > height){
-        return;
-    }
-    for(int i = 0; i < height; ++i){
-        if(static_cast<int>(newMapLayout[i].size()) < width || static_cast<int>(newMapLayout[i].size()) > width){
-            return;
-        }
-    }
-    mapLayout = newMapLayout;
-}*/
-
 void Map::saveMap(std::string filename){
     std::sort( mapLayout.begin(), mapLayout.end() );
     mapLayout.erase( std::unique( mapLayout.begin(), mapLayout.end() ), mapLayout.end() );
     std::ofstream mapFile;
     mapFile.open(filename);
-    /*for(int y = 0; y < height; ++y){
-        for(int x = 0; x < width; ++x){
-            mapFile << mapLayout[y][x];
-            if(x != (width-1)){
-                mapFile << ' ';
-            }
-        }
-        if(y != (height-1)){
-            mapFile << '\n';
-        }
-    }*/
     mapFile << height << ' ' << width << "\n";
-    for(Map::Object obj : mapLayout){
+    for(Map::Object & obj : mapLayout){
         mapFile << obj.X << ':' << obj.Y << ':' << obj.id << '\n';
     }
     mapFile.close();
@@ -270,7 +187,7 @@ void Map::savePcl(std::string filename){
 
     Pointcloud pC;
 
-    for(Map::Object obj : mapLayout){
+    for(Map::Object & obj : mapLayout){
         pC.setPoint(obj.X, obj.Y);
     }
     pC.savePointsToFile(filename + ".pcl");
@@ -279,17 +196,6 @@ void Map::savePcl(std::string filename){
 void Map::createNewMap(std::string fileName){
     std::ofstream mapFile;
     mapFile.open(fileName);
-    /*for(int y = 0; y < height; ++y){
-        for(int x = 0; x < width; ++x){
-            mapFile << '0';
-            if(x != (width-1)){
-                mapFile << ' ';
-            }
-        }
-        if(y != (height-1)){
-            mapFile << '\n';
-        }
-    }*/
     mapFile << height << ' ' << width << '\n';
     mapFile.close();
 }
@@ -298,7 +204,7 @@ void Map::removePoint(int x, int y){
     std::sort( mapLayout.begin(), mapLayout.end() );
     mapLayout.erase( std::unique( mapLayout.begin(), mapLayout.end() ), mapLayout.end() );
     int i = 0;
-    for (Map::Object o : mapLayout){
+    for (Map::Object & o : mapLayout){
         if (o.X == x && o.Y == y){
             mapLayout.erase(mapLayout.begin() + i);
             break;
@@ -311,7 +217,7 @@ void Map::removePoint(Map::Object obj){
     std::sort( mapLayout.begin(), mapLayout.end() );
     mapLayout.erase( std::unique( mapLayout.begin(), mapLayout.end() ), mapLayout.end() );
     int i = 0;
-    for (Map::Object o : mapLayout){
+    for (Map::Object & o : mapLayout){
         if (o.X == obj.X && o.Y == obj.Y){
             mapLayout.erase(mapLayout.begin() + i);
             break;

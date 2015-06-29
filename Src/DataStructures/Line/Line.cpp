@@ -83,7 +83,6 @@ Line::Point  Line::getFormula() {
 }
 
 bool Line::pointOnLine(Line::Point &p, Line::Point & lineFormula, Line::LineData & data) {
-	const int MAX_POINT_ON_LINE_DISTANCE{11 };
 	Point C; //Point p projected on the line. Het snijpunt tussen del lijn van punt p tot de lijn.
 	float A1 = lineFormula.x;
 	float B1 = lineFormula.y; //Y1 = A1x + B1 -> invert naar Y2 = (1/a1) x2 + B2

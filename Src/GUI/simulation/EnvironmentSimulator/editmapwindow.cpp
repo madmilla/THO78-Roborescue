@@ -46,25 +46,21 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    std::cout << "map size: " << '(' << map->width << ' ' << map->height << ')' << std::endl;
-
     screenSize.setWidth(QApplication::desktop()->screenGeometry().width());
     screenSize.setHeight(QApplication::desktop()->screenGeometry().height());
-    this->setFixedSize(screenSize.width() - screenSize.width() / 10, screenSize.height() - screenSize.height() / 10);
+	this->setFixedSize(screenSize.width() - screenSize.width() / DEVIDE_FACTOR, screenSize.height() - screenSize.height() / DEVIDE_FACTOR);
 
-    std::cout << "screen size: " << '(' << screenSize.width() << ' ' << screenSize.height() << ')' << std::endl;
 
-    setButtonPosition(*ui->obstacleButton, screenSize.width()-(screenSize.width()/10), screenSize.height()/10);
-    setButtonPosition(*ui->noneButton, screenSize.width()-(screenSize.width()/10), ui->obstacleButton->y() + 30);
-    setButtonPosition(*ui->lineButton, screenSize.width()-(screenSize.width()/10), ui->noneButton->y() + 30);
-    setButtonPosition(*ui->circleButton, screenSize.width()-(screenSize.width()/10), ui->lineButton->y() + 30);
-    setButtonPosition(*ui->rectangleButton, screenSize.width()-(screenSize.width()/10), ui->circleButton->y() + 30);
-    setButtonPosition(*ui->saveMapButton, screenSize.width()-(screenSize.width()/10), screenSize.height() - screenSize.height()/10);
-    setButtonPosition(*ui->savePointcloudButton, screenSize.width()-(screenSize.width()/10), screenSize.height() - screenSize.height()/10 + 30);
+	setButtonPosition(*ui->obstacleButton, screenSize.width() - (screenSize.width() / DEVIDE_FACTOR), screenSize.height() / DEVIDE_FACTOR);
+	setButtonPosition(*ui->noneButton, screenSize.width() - (screenSize.width() / DEVIDE_FACTOR), ui->obstacleButton->y() + BUTTON_Y_DISTANCE);
+	setButtonPosition(*ui->lineButton, screenSize.width() - (screenSize.width() / DEVIDE_FACTOR), ui->noneButton->y() + BUTTON_Y_DISTANCE);
+	setButtonPosition(*ui->circleButton, screenSize.width() - (screenSize.width() / DEVIDE_FACTOR), ui->lineButton->y() + BUTTON_Y_DISTANCE);
+	setButtonPosition(*ui->rectangleButton, screenSize.width() - (screenSize.width() / DEVIDE_FACTOR), ui->circleButton->y() + BUTTON_Y_DISTANCE);
+	setButtonPosition(*ui->saveMapButton, screenSize.width() - (screenSize.width() / DEVIDE_FACTOR), screenSize.height() - screenSize.height() / DEVIDE_FACTOR);
+	setButtonPosition(*ui->savePointcloudButton, screenSize.width() - (screenSize.width() / DEVIDE_FACTOR), screenSize.height() - screenSize.height() / DEVIDE_FACTOR + BUTTON_Y_DISTANCE);
 
-    canvasScreenSize.setWidth(screenSize.width() - (screenSize.width()/8));
+	canvasScreenSize.setWidth(screenSize.width() - (screenSize.width() / CANVAS_DEVIDE_FACTOR));
     canvasScreenSize.setHeight(screenSize.height());
-    std::cout << "canvas size: " << '(' << canvasScreenSize.width() << ' ' << canvasScreenSize.height() << ')' << std::endl;
 
     ui->childWidget->installEventFilter(this);
     ui->childWidget->setFixedWidth(canvasScreenSize.width());
@@ -73,8 +69,6 @@ EditMapWindow::EditMapWindow(Map* map, QWidget *parent) :
 
     objectx = (canvasScreenSize.width() / map->width);
     objecty = (canvasScreenSize.height() / map->height);
-
-    std::cout << "objectx y " << objectx << ' ' << objecty << std::endl;
 
     this->showFullScreen();
 }
@@ -122,9 +116,6 @@ void EditMapWindow::mousePressEvent(QMouseEvent * event){
         }
         const int positionx = (event->pos().x() - (event->pos().x() % objectx)) / objectx;
         const int positiony = (event->pos().y() - (event->pos().y() % objecty)) / objecty;
-
-        std::cout << "coordinates: " << '(' << positionx << " " << positiony << ')' << std::endl;
-
         if(positionx < map->width  &&  positiony < map->height){
             map->setMapObject(selected, positiony, positionx);
             update();
@@ -150,11 +141,8 @@ void EditMapWindow::drawLine(QPoint begin, QPoint end){
             begin = end;
             end = p;
         }
-        std::cout << "same X"<< std::endl;
         int positionx = begin.x();
-        std::cout << "x:" << positionx << std::endl;
         for(int i = begin.y(); i < end.y()+1; i++){
-            std::cout << begin.y() << " - " << end.y() << " - " <<end.x() << " - " << begin.x() << std::endl;
             map->setMapObject(Values::OBSTACLE, i, positionx);
         }
         update();
@@ -166,9 +154,7 @@ void EditMapWindow::drawLine(QPoint begin, QPoint end){
         int deltaY =  (begin.y() - end.y());
         double a = (double)deltaY/deltaX;
         double b = (begin.y() - (a * begin.x()));
-        std::cout << "Y = " << a <<"X + " << b<< std::endl;
-        std::cout << begin.y() << " - " << end.y() << " - " << begin.x() << " - " << end.x()<< std::endl;
-        std::cout << deltaX << " + " << deltaY << std::endl;
+
         for(int x = begin.x(); x < end.x()+1; x++){
             int y = (a * x) + b;
             map->setMapObject(Values::OBSTACLE, y, x);
@@ -189,7 +175,6 @@ void EditMapWindow::drawLine(QPoint begin, QPoint end){
     }
 }
 void EditMapWindow::drawRectangle(QPoint begin, QPoint end){
-    std::cout << "drawRect " << begin.x() << " - " << begin.y() << " - " << end.x() << " - " << end.y()<< std::endl;
     if(begin.x() == end.x() || begin.y() == end.y()){
         drawLine(begin,end);
     }
@@ -198,7 +183,6 @@ void EditMapWindow::drawRectangle(QPoint begin, QPoint end){
         int endX =(end.x() - (end.x() % objectx)) / objectx;
         int startY = begin.y();
         int endY = (end.y() - (end.y() % objecty)) / objecty;
-        std::cout << startX << " + " << startY << " + " <<endX << " + " << endY << std::endl;
         if(startX> endX){
             int i = startX;
             startX = endX;
@@ -209,7 +193,6 @@ void EditMapWindow::drawRectangle(QPoint begin, QPoint end){
             startY = endY;
             endY = i;
         }
-        std::cout << startX << " + " << startY << " + " <<endX << " + " << endY << std::endl;
 
         for(int y = startY; y < endY; ++y){
             for(int x = startX; x < endX; ++x){
@@ -226,7 +209,6 @@ void EditMapWindow::drawCircle(QPoint center, QPoint second){
     int endY = (second.y() - (second.y() % objecty)) / objecty;
 
     double radius = sqrt(pow(center.x() - endX, 2) + pow(center.y() - endY,2));
-    std::cout << radius << std::endl;
     for (double angle=0; angle<=2*M_PI; angle+=0.001){
          map->setMapObject(Values::OBSTACLE, (center.y() + radius *sin( angle )), ( center.x() + radius*cos( angle ) ));
     }
@@ -247,7 +229,6 @@ bool EditMapWindow::eventFilter(QObject* watched, QEvent* event)
         for(Map::Object & object : map->getMapContent()){
             painter.fillRect((object.X*objectx),(object.Y*objecty),objectx,objecty,QBrush(getColorById(object.id)));
         }
-        std::cout << "paint event" << std::endl;
         painter.end();
         return true; // return true if you do not want to have the child widget paint on its own afterwards, otherwise, return false.
     }
@@ -255,9 +236,7 @@ bool EditMapWindow::eventFilter(QObject* watched, QEvent* event)
 }
 
 void EditMapWindow::mouseReleaseEvent(QMouseEvent * event){
-    std::cout << "release\n"<< std::endl;
     if(selected == Values::LINE){
-        std::cout << "drawLine" << std::endl;
         drawLine(lineBeginning, event->pos());
     }
     else if(selected ==Values::RECTANGLE){

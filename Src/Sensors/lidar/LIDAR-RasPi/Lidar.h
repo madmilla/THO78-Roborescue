@@ -41,6 +41,11 @@
 #include <string>
 #include "Line.h"
 #include "ShapeDetector.h"
+#include <math.h>
+#include "Lidar.h"
+#include <stdio.h>
+#include <stdlib.h>
+#define _USE_MATH_DEFINES
 using namespace rp::standalone::rplidar;
 
 
@@ -164,6 +169,8 @@ private:
     std::vector<scanCoordinate> scanCoord;
 	//! Value to scale pointcloud with
 	const static int SCALE = 10;
+	//! Max scan distance
+	const static int MAX_RANGE = 4000;
 };
 
 #endif // LIDAR_H

@@ -350,7 +350,7 @@ int Test::run(){
     }
 
     //save pc
-    pC.savePointsToFile("testpC");
+    pC.savePointsToFile("testpC.pcl");
     Pointcloud loadpC;
     //load pc from file
     loadpC.loadPointsFromFile("testpC.pcl");

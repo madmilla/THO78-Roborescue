@@ -44,10 +44,9 @@ std::vector<Circle> ShapeDetector::detectCircles(const Mat & image){
 	cvCanny(gray, canny, EDGE_TRESHHOLD, EDGE_TRESHHOLD); // Detect edges int he image
 	CvSeq* circles = cvHoughCircles(gray, storage, CV_HOUGH_GRADIENT, RESOLUTION_INVERSERATIO, gray->height / MIN_DISTANCE_CIRCLES, EDGE_TRESHHOLD * 3, CIRCLE_CENTER_TRESHHOLD); // Detect circles in the gray image
 	std::vector<Circle> newCircles;
-	for (int i = 0; i < circles->total; i++) // walk through the circles
-	{
+	for (int i = 0; i < circles->total; i++){ // walk through the circles
 		// round the floats to an int
-		float* p = (float*)cvGetSeqElem(circles, i);
+		float* p = static_cast<float*>(cvGetSeqElem(circles, i));
 		Circle c(cvRound(p[0]), cvRound(p[1]), cvRound(p[2]));
 		newCircles.push_back(c);
 	}
@@ -69,9 +68,9 @@ Mat ShapeDetector::createImage(Pointcloud & source, int DEVIDEIMAGESIZE){
 	int minY = source.getMinValues().Y;
 	size_t imageHeight = source.getCloudHeight() +DEVIDEIMAGESIZE;
 	size_t imageWidth = source.getCloudWidth() + DEVIDEIMAGESIZE;		
-	Mat mat((int)(imageHeight / DEVIDEIMAGESIZE), (int)(imageWidth / DEVIDEIMAGESIZE),CV_8U, DEFAULT_IMAGE_COLOR); //Create a Mat object which will represent the image with all the pixels
+	Mat mat(static_cast<int>((imageHeight / DEVIDEIMAGESIZE)), static_cast<int>(imageWidth / DEVIDEIMAGESIZE), CV_8U, DEFAULT_IMAGE_COLOR); //Create a Mat object which will represent the image with all the pixels
 	for (Pointcloud::Point p : *source.getPoints()){
-		mat.at<uchar>(Point( (int) ((p.X + abs(minX)) / DEVIDEIMAGESIZE), (int)( ((p.Y + abs(minY) )) / DEVIDEIMAGESIZE))) = WHITE_PIXEL;
+		mat.at<uchar>(Point(static_cast<int>(((p.X + abs(minX)) / DEVIDEIMAGESIZE)), static_cast<int>((((p.Y + abs(minY))) / DEVIDEIMAGESIZE)))) = WHITE_PIXEL;
 	}
 	imwrite("ScanImage.jpg", mat); // save the created image
 	Mat image(imread("ScanImage.jpg")); //read and return the image
@@ -83,9 +82,6 @@ void ShapeDetector::removeLines(std::vector<Line> & lines){
 		for (auto it = lines.begin(); it != lines.end();){
 			++vectorPosition;
 			int value = lines[i].intersect(*it);
-			if ((value != 0 && value != 100)){
-				//std::cout << value << 
-			}
 			if(value > 95){
 				if (lines[i].getLength() >= (*it).getLength()){
 					if (!(lines[i].getLine().begin_pos == it->getLine().begin_pos && lines[i].getLine().end_pos == it->getLine().end_pos)){
@@ -129,7 +125,6 @@ void ShapeDetector::checkLines(std::vector<Line> & lines) {
 	removeLines(lines);
 	combineLines(lines);
 	removeLines(lines);
-	
 }
 
 vector<Line> ShapeDetector::searchLines(const Mat & image) {
@@ -139,22 +134,17 @@ vector<Line> ShapeDetector::searchLines(const Mat & image) {
 	}
 	Mat newImage = image.clone();
 	Mat frame;
-
-	
-	blur(newImage, frame, Size(5, 5), Point(-1, -1));
-	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);            								
-	Mat dest;
-	Canny(newImage, dest, CANNY_THRESHHOLD1, CANNY_THRESHHOLD2); //extracts the egdes of an image
+	blur(newImage, frame, Size(5, 5), Point(-1, -1)); // 5,5 is the size of the blur kernel
+	cv::addWeighted(frame, 10, newImage, -10, 0, newImage);   // 10 and -10 is the size of the kernel to sharp the image         								
 	vector<Vec4i> lines;  // container to save the lines
 	cvtColor(newImage, newImage, CV_RGB2GRAY);
 	HoughLinesP(newImage, lines, HOUGHLINES_RHO, HOUGHLINES_THETA, HOUGHLINES_THRESHHOLD,			
 		HOUGHLINES_MINLINELENGTH, HOUGHLINES_MAXLINEGAP);  //search the lines
 
-	
 	vector<Line> newLines;
 	for (Vec4i line : lines){
-		Line::Point begin{ (float)line[0],  (float)line[1] };
-		Line::Point end{ (float)line[2], (float)line[3] };
+		Line::Point begin{ static_cast<float>(line[0]), static_cast<float>(line[1]) };
+		Line::Point end{ static_cast<float>(line[2]), static_cast<float>(line[3]) };
 		Line newLine(begin,end);
 		newLines.push_back(newLine);
 	}
@@ -176,7 +166,6 @@ void ShapeDetector::writeLinesToConsole(const vector<Line> & lines){
 }
 
 void ShapeDetector::drawLines(const std::vector<Line> lines, Mat & final_dest, Line::Point lidarPoint) {
-	std::cout << lidarPoint << "\t LIDARPOINT\n";
 	if (lidarPoint.x != 0){
 		line(final_dest, Point(lidarPoint.x - 10, lidarPoint.y), Point(lidarPoint.x + 10, lidarPoint.y), LIDAR_MARK_COLOR, LINE_THICKNESS, CV_AA); //Draw lidarPoint position
 		line(final_dest, Point(lidarPoint.x, lidarPoint.y - 10), Point(lidarPoint.x, lidarPoint.y + 10), LIDAR_MARK_COLOR, LINE_THICKNESS, CV_AA);//Draw lidarPoint position
@@ -196,7 +185,7 @@ void ShapeDetector::writeObjectsToConsole(const std::vector<Line> & lines, const
 void ShapeDetector::showObjects(const vector<Line> & lines, const std::vector<Circle> circles, const Mat & orginal_image, Mat & custom_image, Line::Point lidarPoint){
 	drawLines(lines, custom_image, lidarPoint);
 	imwrite("newImage.png",custom_image);
-	//drawCircles(circles, custom_image);
-	//imshow("orginal image", orginal_image);
-	//imshow("detected lines & circles", custom_image);
+	drawCircles(circles, custom_image);
+	imshow("orginal image", orginal_image);
+	imshow("detected lines & circles", custom_image);
 }

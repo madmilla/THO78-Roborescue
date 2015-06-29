@@ -81,9 +81,9 @@ private slots:
     void on_noneButton_clicked();
     //! Used when the checkpointButton is clicked.
     void on_checkpointButton_clicked();
-
+	//! Used when the savebutton is pressed
     void on_savePcButton_clicked();
-
+	//! Used when the saved_as_pointcloud_button is pressed
     void on_savePcWNButton_clicked();
 
 private:
@@ -113,8 +113,11 @@ private:
     bool mousePressed = true;
     //! eventFilter is used for painting the window with it's contents.
     bool eventFilter(QObject* watched, QEvent* event);
+	//! the size of the screen
     QSize screenSize;
+	//! the size of the canvas to draw the map
     QSize canvasScreenSize;
+	//! set the position of a button
     void setButtonPosition(QAbstractButton & button, int x, int y);
 };
 

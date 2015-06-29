@@ -83,6 +83,8 @@ public:
 		@param radius: Set the radius of the circle
 	*/
 	Circle(int originX, int originY, int radius);
+
+	//!The default destructor for Circle
 	~Circle();
 
 	//! Setter for the circle object

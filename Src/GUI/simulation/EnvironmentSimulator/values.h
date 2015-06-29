@@ -53,7 +53,6 @@ public:
     const static int NOISETHRESHOLD = 35;
     const static char EDIT = 0;
     const static char SIMULATE = 1;
-
     const static int FILEEXCEPTION = 1;
     const static int CONTENTEXCEPTION = 2;
 

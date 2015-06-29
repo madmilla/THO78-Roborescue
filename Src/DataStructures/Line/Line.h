@@ -62,6 +62,7 @@ private:
 		Point end_pos;
 	};
 	LineData lineData;
+	static const int MAX_POINT_ON_LINE_DISTANCE = 11; //!The max distance to check if line is on a point
 
 public:
 	//! The Contructor for the Lidar

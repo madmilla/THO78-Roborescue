@@ -90,6 +90,12 @@ private slots:
     void on_savePointcloudButton_clicked();
 
 private:
+	//! the value to move the buttons on the Y-as;
+	const static int BUTTON_Y_DISTANCE = 30; 
+	//! scale the canvas with this devide factor;
+	const static int CANVAS_DEVIDE_FACTOR = 8;
+	//! Scale large pointclouds with this scale factor
+    const static int DEVIDE_FACTOR = 10;
 	//! Draws a line when dragged and dropped
     void drawLine(QPoint begin, QPoint end);
 	//! Draws a rectangle when dragged and dropped

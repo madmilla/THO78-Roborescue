@@ -34,7 +34,6 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 #ifndef POINTCLOUD_H
 #define POINTCLOUD_H
 #include <vector>
@@ -49,6 +48,8 @@ class Pointcloud{ //! a struct which will contain a single point
 public:
 	//!The Contructor for the pointcloud
 	Pointcloud();
+	//!The default destructor for pointcloud
+	~Pointcloud();
 	//! A object which will contain a single point
 	struct Point{
 		int X; //! The x value of a single point
@@ -59,7 +60,7 @@ public:
 	Add a single point to the pointcloud
 	@param point: the point object which will be added to the pointcloud
 	*/
-	void setPoint(Point point);
+	void setPoint(Point & point);
 	//! Set a point in the pointcloud
 	/*!
 	Add a single point to the pointcloud
@@ -80,7 +81,7 @@ public:
 	@param x: the x value of the point to be removed from the pointcloud
 	@param y: the y value of the point to be removed from the pointcloud
 	*/
-	void removePoint(Point p);
+	void removePoint(Point & p);
 	//! remove a point from the pointcloud
 	/*!
 	remove a single point from the pointcloud
@@ -146,19 +147,14 @@ public:
 	@param filename: the filename of the file with the points.
 	*/
     void loadPointsFromFile(std::string filename);
-
     //! print all points in given cloud    
 	void printPoints();
-	
-	
-
 	/*! Rotate a point could 
 	 * @param angle the rotation angle in Degrees
 	 */ 
 	Pointcloud* rotate(float angle);
 	
 	//OPERATORS
-
 	//! a operator to write a point struct to a ostream
 	friend std::ostream & operator<<(std::ostream & output, const Pointcloud::Point & s);
 	//! a operator to add a Pointcloud to another pointcloud
@@ -166,6 +162,7 @@ public:
 	//! a operator to add a Pointcloud to another pointcloud
 	Pointcloud operator+=(Pointcloud & b);
 private:
+	const int HALF_CIRCLE = 180; //half circle size
 	Point offset; //! the offset of the pointlcoud
 	std::vector<Point> * pointCloud; //! the vector which contains all the poins of the pointcloud
 	int orientation; //! the orientation of the pointcloud

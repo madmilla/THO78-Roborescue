@@ -34,13 +34,7 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef M_PI
-#define M_PI           3.14159265358979323846
-#endif
-#include <math.h>
-#include "Lidar.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 
 #ifndef _countof
 #define _countof(_Array) (int)(sizeof(_Array) / sizeof(_Array[0]))
@@ -71,8 +65,7 @@ void Lidar::connectDriversLidar()
     }
 }
 
-std::vector<scanDot> Lidar::startSingleLidarScan()
-{
+std::vector<scanDot> Lidar::startSingleLidarScan(){
     std::vector<scanDot> tempData;
 
     // check health...
@@ -81,7 +74,6 @@ std::vector<scanDot> Lidar::startSingleLidarScan()
         disposeLidarDriver();
     }
     else {
-
         // start scan...
         drv->startScan();
 
@@ -114,18 +106,15 @@ std::vector<scanDot> Lidar::startSingleLidarScan()
     return tempData;
 }
 
-void Lidar::stopLidarScan()
-{
+void Lidar::stopLidarScan(){
     drv->stop();
 }
 
-void Lidar::disposeLidarDriver()
-{
+void Lidar::disposeLidarDriver(){
     drv->DisposeDriver(drv);
 }
 
-bool Lidar::checkRPLIDARHealth()
-{
+bool Lidar::checkRPLIDARHealth(){
     u_result op_result;
     rplidar_response_device_health_t healthinfo;
 
@@ -148,50 +137,44 @@ bool Lidar::checkRPLIDARHealth()
     }
 }
 
-void Lidar::writeScanDataToFile(std::string fname)
-{
+void Lidar::writeScanDataToFile(std::string fname){
     FILE *outputfile = fopen(fname.c_str(), "w");
     fprintf(outputfile, "#RPLIDAR SCAN DATA\n#COUNT=%d\n#Angule\tDistance\tQuality\n",scanData.size());
-    for (int pos = 0; pos < (int)scanData.size(); ++pos) {
+	for (int pos = 0; pos < static_cast<int>(scanData.size()); ++pos) {
         fprintf(outputfile, "%.4f %.1f %d\n", scanData[pos].angle, scanData[pos].dist, scanData[pos].quality);
     }
     fclose(outputfile);
 }
 
-void Lidar::writeScanCoordsToFile(std::string fname)
-{
+void Lidar::writeScanCoordsToFile(std::string fname){
     convertToCoordinates(scanData);
 
     FILE *outputfile = fopen(fname.c_str(), "w");
     fprintf(outputfile, "#RPLIDAR SCAN COORD\n#COUNT=%d\n#Xcoord\tYcoord\n",scanCoord.size());
-    for (int pos = 0; pos < (int)scanCoord.size(); ++pos) {
+	for (int pos = 0; pos < static_cast<int>(scanCoord.size()); ++pos) {
         fprintf(outputfile, "%d %d\n", scanCoord[pos].x, scanCoord[pos].y);
     }
     fclose(outputfile);
 }
 
-std::vector<scanDot> Lidar::getScanData()
-{
+std::vector<scanDot> Lidar::getScanData(){
     return scanData;
 }
 
-void Lidar::printScanData()
-{
-    for (int pos = 0; pos < (int)scanData.size(); ++pos) {
+void Lidar::printScanData(){
+	for (int pos = 0; pos < static_cast<int>(scanData.size()); ++pos) {
         fprintf(stderr, "%.4f %.1f %d\n", scanData[pos].angle, scanData[pos].dist, scanData[pos].quality);
     }
 }
 
-std::vector<scanCoordinate> Lidar::convertToCoordinates(std::vector<scanDot> data)
-{
+std::vector<scanCoordinate> Lidar::convertToCoordinates(std::vector<scanDot> data){
     std::vector<scanCoordinate> tempData;
 
-    for(int i = 0; i < (int)data.size(); ++i) {
+	for (int i = 0; i < static_cast<int>(data.size()); ++i) {
         scanCoordinate tempCoord;
         tempCoord.y = (cos((data[i].angle * M_PI)/180)) * data[i].dist; // Devide by 180 to Convert Degrees to Radians
         tempCoord.x = (sin((data[i].angle * M_PI)/180)) * data[i].dist; // Devide by 180 to Convert Degrees to Radians
-
-			scanCoord.push_back(tempCoord);
+		scanCoord.push_back(tempCoord);
         tempData.push_back(tempCoord);
     }
     return tempData;
@@ -205,8 +188,8 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	if (!data.empty()) {
 		std::vector<scanCoordinate> scanCoorde = convertToCoordinates(data);
 
-		for (int pos = 0; pos < (int)scanCoorde.size(); ++pos) {
-			if (scanCoorde[pos].x < 4000 && scanCoorde[pos].x > -4000 && scanCoorde[pos].y < 4000 && scanCoorde[pos].x > -4000){
+		for (int pos = 0; pos < static_cast<int>(scanCoorde.size()); ++pos) {
+			if (scanCoorde[pos].x < MAX_RANGE && scanCoorde[pos].x > -MAX_RANGE && scanCoorde[pos].y < MAX_RANGE && scanCoorde[pos].x > -MAX_RANGE){
 				pCloud.setPoint(scanCoorde[pos].x, scanCoorde[pos].y);
 			}
 		}
@@ -219,15 +202,12 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	Mat image = sD.createImage(pCloud, SCALE);
 	std::vector<Line> lines = sD.searchLines(image);
 	std::vector<Circle> circles;
-	sD.showObjects(lines, circles, image, image, Line::Point{ (float)pCloud.getMinValues().X, (float)pCloud.getMinValues().Y });
-	sD.writeLinesToConsole(lines);
-	std:cout << "\nCONVERT LINES\n" ;
+	//sD.showObjects(lines, circles, image, image, Line::Point{ (float)pCloud.getMinValues().X, (float)pCloud.getMinValues().Y });
 	for (auto & l : lines){
 		Line::Point begin{ (l.getLine().begin_pos.x * SCALE) - abs(pCloud.getMinValues().X), (l.getLine().begin_pos.y * SCALE) - abs(pCloud.getMinValues().Y) };
 		Line::Point end{ (l.getLine().end_pos.x * SCALE) - abs(pCloud.getMinValues().X), (l.getLine().end_pos.y * SCALE) - abs(pCloud.getMinValues().Y) };
 		l.setLine(begin,end);
 	}
 	sD.writeLinesToConsole(lines);
-
 	return lines;
 }
