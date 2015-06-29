@@ -21,7 +21,7 @@ TCPServer server{ service, 10033 };
 GlobalLocalisation* globalLocalizer;
 PX4FlowWrapper flowWrapper;
 SerialConnection serialPort{service};
-MAVLinkExchanger exchanger(serialPort);
+MAVLinkExchanger exchanger(*serialPort);
 ARInterface* PX4FlowDetector;
 
 const int 	TARGET_MARKER_ID = 954;
