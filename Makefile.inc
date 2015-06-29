@@ -104,3 +104,4 @@ moc_%.cpp : %.h
 	
 ui_%.h : %.ui
 	$(UIC) $< -o $@
+@echo UI_HEADERS 
