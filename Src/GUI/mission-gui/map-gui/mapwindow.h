@@ -1,4 +1,6 @@
-﻿/**
+﻿
+#include <QObject>
+/**
 *                __
 *    _________  / /_  ____  ________  ____________  _____
 *   / ___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -47,7 +49,6 @@
 #define MAPWINDOW_H
 
 #include <QtWidgets/QMainWindow>
-#include <QObject>
 
 namespace Ui {
 class MapWindow;
