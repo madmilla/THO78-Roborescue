@@ -47,7 +47,7 @@
 #define MAPWINDOW_H
 
 #include <QtWidgets/QMainWindow>
-#include <QtCore/QObject>
+#include <QObject>
 
 namespace Ui {
 class MapWindow;
