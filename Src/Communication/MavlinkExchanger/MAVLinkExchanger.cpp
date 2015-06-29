@@ -69,7 +69,7 @@ void MAVLinkExchanger::sendMessage()
 {
 	unsigned char buffer[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.front().len];
 	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.front());
-	if(tcpPort)
+	if(tcpPort != nullptr)
 	{
 		tcpPort->writeData(buffer, len);
 	}
@@ -90,7 +90,7 @@ void MAVLinkExchanger::receiveMessage(const boost::system::error_code &ec, std::
 			receiveQueue.push(message);
 		}
 	}
-	if(tcpPort)
+	if(tcpPort != nullptr)
 	{
 		tcpPort->async_read_some(boost::asio::buffer(receiveBuffer), 
 		std::bind(&MAVLinkExchanger::receiveMessage, 
