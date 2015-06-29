@@ -8,6 +8,22 @@ mapFactory::mapFactory()
 mapFactory::~mapFactory()
 {}
 
+std::vector<line> mapFactory::loadMapFromDatabase(databaseConnector& theDatabase){
+	std::vector<std::vector<point>> polygonsFromDatabase = theDatabase.getPolygons();
+	std::vector<line> returnMap;
+	for(std::vector<point> thePolygon : polygonsFromDatabase){
+		for(int i = 0; i < thePolygon.size()-1;i++){
+			returnMap.push_back(line(thePolygon.at(i),thePolygon.at(i+1)));
+		}
+	}
+	return returnMap;
+}
+void mapFactory::saveMapToDatabase(std::vector<line> theLines, databaseConnector &theDatabase){
+	for(line theLine : theLines){
+		theDatabase.addPolygon(std::vector<point>{theLine.getPoint(0),theLine.getPoint(1)});
+	}
+}
+
 std::vector<line> mapFactory::loadMapFromFile(std::string fileAddress){
 	std::vector<line> rtn;					// The vector to return
 	std::ifstream readFile(fileAddress);	// The file stream
