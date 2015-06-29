@@ -40,7 +40,7 @@
 #define VIRTUALROSBEE_H
 
 #include <iostream>
-//#include "Rosbee.h"
+#include "Rosbee.h"
 
 class virtualRosbee
 {
