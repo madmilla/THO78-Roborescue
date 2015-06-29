@@ -37,11 +37,25 @@
 
 #ifndef IMU_H
 #define IMU_H
-
+/**
+*@brief IMU class
+*/
 class IMU{
 public:
+	/**
+	*@brief IMU constructor
+	*/
     IMU();
-
+	/**
+	*@brief Sets the IMU values according to the lastest reading.
+	*@param newxgyro The new x axis angle of the gyroscope.
+	*@param newygyro The new y axis angle of the gyroscope.
+	*@param newzgyro The new z axis angle of the gyroscope.
+	*@param newxacc The new x axis reading of the accelerometer.
+	*@param newyacc The new y axis reading of the accelerometer.
+	*@param newzacc The new z axis reading of the accelerometer.
+	*@param dTime The time between last reading and current reading.
+	*/
     void newReading(float newxgyro ,
                     float newygyro,
                     float newzgyro,
@@ -49,13 +63,27 @@ public:
                     float newyacc ,
                     float newzacc,
                     double dTime);
-
+	/**
+	*@brief Calculates roll and pitch
+	*
+	* This function calculates the roll and pitch by combining gyroscope and accelerometer readings.
+	*@param dTime The since last sensor measurement.
+	*/
     void complementaryFilter(double dTime);
-
+	/**
+	*@brief returns the roll angle of the Rosbee
+	*@return The roll angle of the Rosbee.
+	*/
     float getRoll();
-
+	/**
+	*@brief returns the pitch angle of the Rosbee
+	*@return the pitch angle of the Rosbee.
+	*/
     float getPitch();
-
+	/**
+	*@brief returns the yaw angle of Rosbee
+	*@return The yaw angle of the Rosbee
+	*/
     float getYaw();
 
 

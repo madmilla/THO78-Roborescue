@@ -15,7 +15,7 @@
 * @section LICENSE
 * License: newBSD
 *
-* Copyright ï¿½ 2015, HU University of Applied Sciences Utrecht.
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -102,9 +102,11 @@ void PositionController::odometry(int dLeft, int dRight){
 
     if(isForward ){
         double dDistance,reDistance, leDistance, dAngle;
+        // 7.73 is the amount of distance traveled for each encoder count in millimeters
         reDistance = dRight * 7.73;
         leDistance = dLeft * 7.73;
         dDistance = ((leDistance + reDistance) / 2);
+        // 343 is the track of the Rosbee in millimeters
         dAngle = (reDistance - leDistance)/ 343;
         //m_totalAngle += std::abs(dAngle);
 

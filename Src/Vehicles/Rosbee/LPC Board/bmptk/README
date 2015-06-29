@@ -1,0 +1,29 @@
+file: bmptk/README
+
+Bare Metal Programming Tool Kit main directory
+
+more information:
+   - http://www.voti.nl/bmptk
+   - ./index.html (might require running 'make doc', which requires Doxygen)
+
+This directory contains :
+
+   files
+      - bmptk.h            : top-level header file for bmptk
+      - license.txt        : license (== MIT 'expat' license)
+	   - Makefile           : makes documentation, examples, etc.
+      - Makefile.local     : locations of the external tools (edit as needed)
+      - Makefile.template  : template for a bmptk project(s) makefile
+      - Makefile.inc       : included by the project makefile
+      - README             : this file
+
+   subdirectories
+      - docsrc             : input for Doxygen documentation generation
+      - examples           : example directories
+      - targets            : basic chip and board specific stuff
+      - tools              : tools (executables, scripts)
+      
+   generated      
+      - doc                : documentation (run 'make doc', requires Doxygen)
+      - index.html         : forwards to the html documentation in doc
+      
