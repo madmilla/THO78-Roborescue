@@ -15,7 +15,7 @@
 * @section LICENSE
 * License: newBSD
 *
-* Copyright © 2015, HU University of Applied Sciences Utrecht.
+* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -108,20 +108,6 @@ void PositionController::odometry(int dLeft, int dRight){
         dDistance = ((leDistance + reDistance) / 2);
         // 343 is the track of the Rosbee in millimeters
         dAngle = (reDistance - leDistance)/ 343;
-        //m_totalAngle += std::abs(dAngle);
-
-
-        //version 1
-        //m_posX = m_posX + (dDistance * cos(m_angleOdometryEstimate));
-        //m_posY = m_posY + (dDistance * sin(m_angleOdometryEstimate));
-
-        //version 2
-        //m_posX = m_posX + (dDistance * cos(m_angleOdometryEstimate / 2));
-        //m_posY = m_posY + (dDistance * sin(m_angleOdometryEstimate / 2));
-
-        //version 3
-        // m_posX = m_posX + ((dDistance * sin(reDistance - leDistance))/343);
-        // m_posY = m_posY + ((dDistance * cos(reDistance - leDistance))/343);
 
         //version 4
         m_posX = m_posX + (dDistance * sin((m_angleOdometryEstimate / (180/M_PI))+ (dAngle/2)));
@@ -136,7 +122,6 @@ void PositionController::odometry(int dLeft, int dRight){
         }
 
         m_dDistance += dDistance;
-        //std::cout << "x= " << m_posX << " y=" << m_posY << " dd= " << dDistance << " d=" << m_dDistance << " r= " << m_angleOdometryEstimate << std::endl;
     }
 
     if(isRotating){
