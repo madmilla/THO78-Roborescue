@@ -11,7 +11,7 @@
 #include "CImg.h"
 #include "PX4FlowWrapper.h"
 #include "MAVLinkExchanger.h"
-#include "SerialPort.h"
+#include "SerialConnection.h"
 #include "CImg.h"
 #include <chrono>
 #include "ARInterface.h"
@@ -20,7 +20,7 @@ boost::asio::io_service service;
 TCPServer server{ service, 10033 };
 GlobalLocalisation* globalLocalizer;
 PX4FlowWrapper flowWrapper;
-SerialPort serialPort{service};
+SerialConnection serialPort{service};
 MAVLinkExchanger exchanger(serialPort);
 ARInterface* PX4FlowDetector;
 

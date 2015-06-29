@@ -5,8 +5,8 @@
  *      Author: Edwin
  */
 
-#include "../../PositionController.h"
-#include "../../EncoderInterface.h"
+#include "PositionController.h"
+#include "EncoderInterface.h"
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <thread>

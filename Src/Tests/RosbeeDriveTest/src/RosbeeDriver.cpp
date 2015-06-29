@@ -34,12 +34,17 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "../../RosbeeDriver.h"
+#include "RosbeeDriver.h"
 //Needs to be defined in order to use math variables like PI, E, LOG, etc.
 #define _USE_MATH_DEFINES
 #include <cmath>
+<<<<<<< HEAD
+#include "EncoderInterface.h"
+#include "Waypoint.h"
+=======
 #include "../../EncoderInterface.h"
 #include "../../WayPoint.h"
+>>>>>>> origin/master
 #include <iostream> //heb misschien niet nodig
 
 RosbeeDriver::RosbeeDriver(PropCom &nPropCom):

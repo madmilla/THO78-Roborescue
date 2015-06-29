@@ -5,11 +5,13 @@
 #include <boost/asio.hpp>
 
 class TCPConnection;
+class SerialConnection;
 
 class MAVLinkExchanger
 {
 public:
-	explicit MAVLinkExchanger(TCPConnection& dataPort);
+	explicit MAVLinkExchanger(TCPConnection* dataPort);
+	explicit MAVLinkExchanger(SerialConnection* dataPort);
 	void enqueueMessage(mavlink_message_t& message);
 	mavlink_message_t dequeueMessage();
 	mavlink_message_t peek();
@@ -17,7 +19,8 @@ public:
 	int receiveQueueSize();
 	void loop();
 private:
-	TCPConnection& dataPort;
+	TCPConnection* tcpPort;
+	SerialConnection* serialPort;
 	std::queue<mavlink_message_t> sendQueue;
 	std::queue<mavlink_message_t> receiveQueue;
 	mavlink_message_t message;

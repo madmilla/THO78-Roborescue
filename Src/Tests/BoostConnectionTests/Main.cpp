@@ -9,7 +9,7 @@ boost::asio::io_service service;
 int main()
 {
 	TCPConnection c{ service };
-	MAVLinkExchanger exchanger{ c };
+	MAVLinkExchanger exchanger{ &c };
 	c.connect(8000);
 	std::thread exchangerThread{ &MAVLinkExchanger::loop, std::ref(exchanger) };
 	exchangerThread.detach();

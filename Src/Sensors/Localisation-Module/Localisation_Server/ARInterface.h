@@ -59,7 +59,7 @@ using namespace cv;
 using namespace aruco;
 
 class ARInterface {
-public:	:
+public:
 	/**
 	* ARInterface constructor
 	* All optional parameters (if it needs to output to GUI or not)

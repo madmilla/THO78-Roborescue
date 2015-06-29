@@ -6,17 +6,10 @@ int Map::getScaledHeuristicLocationValue(int x,int y){
 	else {
 		return tmp;
 	}
-
-
 }
 
 
 Map::Map() {
-	// Initialize Vehicle Positions
-	//rosbeePosition = nullptr;
-	//ATVPosition = nullptr;
-	//quadcopterPosition = nullptr;
-
 	std::cout << "NEW Map" <<std::endl;
 	access.resize(500);
 	for (unsigned int i = 0; i < access.size();i++){
@@ -45,16 +38,20 @@ void Map::setLocationValue(unsigned int x, int y, int value)
 
 }
 
-void Map::addCircle(int xCentre, int yCentre, int radius){
-	for (float degrees = 0; degrees < 360; degrees++){
+void Map::addCircle(int xCentre, int yCentre, int radius)
+{
+	for (float degrees = 0; degrees < 360; degrees++)
+	{
 		float x = radius*cos(degrees) + xCentre;
 		float y = radius*sin(degrees) + yCentre;
 		this->setScaledLocationValue((int)std::round(x), (int)std::round(y), 1);
 	}
 }
 
-void Map::addValuedCircle(int xCentre, int yCentre, int radius,int value){
-	for (float degrees = 0; degrees < 360; degrees++){
+void Map::addValuedCircle(int xCentre, int yCentre, int radius,int value)
+{
+	for (float degrees = 0; degrees < 360; degrees++)
+	{
 		float x = radius*cos(degrees) + xCentre;
 		float y = radius*sin(degrees) + yCentre;
 		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) == 0){
@@ -62,19 +59,27 @@ void Map::addValuedCircle(int xCentre, int yCentre, int radius,int value){
 		}	
 	}
 }
-std::vector<float> Map::addHalfValuedCircle(int xCentre, int yCentre, int radius, int value, std::vector<float> skipInts){
-	for (float degrees = 0; degrees < 360; degrees++){
-		if (std::find(skipInts.begin(), skipInts.end(), degrees) != skipInts.end()) {
+std::vector<float> Map::addHalfValuedCircle(int xCentre, int yCentre, int radius, int value, std::vector<float> skipInts)
+{
+	for (float degrees = 0; degrees < 360; degrees++)
+	{
+		if (std::find(skipInts.begin(), skipInts.end(), degrees) != skipInts.end()) 
+		{
 			continue;
 		}
 		float x = radius*cos(degrees) + xCentre;
 		float y = radius*sin(degrees) + yCentre;
-		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) != float(1)){
-			if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) == float(0)){
+		if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) != float(1))
+		{
+			if (this->getScaledLocationValue((int)std::round(x), (int)std::round(y)) == float(0))
+			{
 				this->setScaledLocationValue((int)std::round(x), (int)std::round(y), value);
 			}
 		}
-		else{ skipInts.push_back(degrees); }
+		else
+		{ 
+			skipInts.push_back(degrees); 
+		}
 	}
 	return skipInts;
 }
@@ -83,8 +88,10 @@ void Map::setScaledLocationValue(int x, int y, int value)
 {
 	x = x*scale;
 	y = y*scale;
-	for (int i = 0; i < scale; i++){
-		for (int ii = 0; ii < scale; ii++){
+	for (int i = 0; i < scale; i++)
+	{
+		for (int ii = 0; ii < scale; ii++)
+		{
 			this->setLocationValue(x + ii, y + i,value);			
 		}
 	}
@@ -92,17 +99,22 @@ void Map::setScaledLocationValue(int x, int y, int value)
 
 int Map::getLocationValue(unsigned int x, unsigned int y)
 {
-	if (x < access.size() && y < access.size()){
-		return access.at(x).at(y); }
+	if (x < access.size() && y < access.size())
+	{
+		return access.at(x).at(y); 
+	}
 	else return 1;
 
 }
 
 int Map::contains(int value)
 {
-	for (int i = 0; i < getScaledWidth();i++){
-		for (int ii = 0; ii < getScaledHeight(); ii++){
-			if (this->getScaledLocationValue(i, ii) == value){
+	for (int i = 0; i < getScaledWidth();i++)
+	{
+		for (int ii = 0; ii < getScaledHeight(); ii++)
+		{
+			if (this->getScaledLocationValue(i, ii) == value)
+			{
 				return true;
 			}
 		}	
@@ -110,42 +122,56 @@ int Map::contains(int value)
 	return false;
 }
 
-Map::Map(line & l){
+Map::Map(line & l)
+{
 	MapData.push_back(l);
 }
 
-Map::Map(std::vector<line> & l){
+Map::Map(std::vector<line> & l)
+{
 	MapData.insert(MapData.begin(), l.begin(), l.end());
 }
 
-std::ostream & operator<<(std::ostream & os, const Map & m){
-	for (const line & l : m.MapData){
+std::ostream & operator<<(std::ostream & os, const Map & m)
+{
+	for (const line & l : m.MapData)
+	{
 		os << l << "\n";
 	}
 	return os;
 }
 
-Map::~Map(){}
+Map::~Map()
+{
+	
+}
 
-bool Map::hasLine(line & l){
-	for (const line & lCmp : MapData){
-		if (l.equals(lCmp)){
+bool Map::hasLine(line & l)
+{
+	for (const line & lCmp : MapData)
+	{
+		if (l.equals(lCmp))
+		{
 			return true;
 		}
 	}
 	return false;
 }
 
-bool Map::hasLine(std::vector<line> & l){
-	for (line & lCmp : l){
-		if (!hasLine(lCmp)){
+bool Map::hasLine(std::vector<line> & l)
+{
+	for (line & lCmp : l)
+	{
+		if (!hasLine(lCmp))
+		{
 			return false;
 		}
 	}
 	return true;
 }
 
-std::vector<line> Map::getPointLines(point & p){
+std::vector<line> Map::getPointLines(point & p)
+{
 	std::vector<line> rtn;
 	for (line & lCmp : MapData)
 	{
@@ -170,18 +196,22 @@ std::vector<line> Map::getPointLines(point & p){
 	return rtn;
 }
 
-void Map::appendLine(line l){
+void Map::appendLine(line l)
+{
 	MapData.push_back(l);
 }
 
-void Map::appendLine(std::vector<line> & l){
+void Map::appendLine(std::vector<line> & l)
+{
 	MapData.insert(MapData.begin(), l.begin(), l.end());
 }
 
-bool Map::removeLine(line & l){
+bool Map::removeLine(line & l)
+{
 	if (MapData.size() <= 0) return true;
 	std::vector<line>::iterator track = MapData.begin();
-	while (track != MapData.end()){
+	while (track != MapData.end())
+	{
 		if (track->equals(l)){
 			MapData.erase(track);
 			break;
@@ -192,28 +222,33 @@ bool Map::removeLine(line & l){
 }
 
 bool Map::removeLine(std::vector<line> & l){
-	for (line & lCmp : l){
+	for (line & lCmp : l)
+	{
 		removeLine(lCmp);
 	}
 	return hasLine(l);
 }
 
-bool Map::equals(const Map & m){
+bool Map::equals(const Map & m)
+{
 	if (MapData.size() != m.MapData.size())
 		return false;
 
 	Map a = m;
 	for (line & lCmp : MapData)
 	{
-		if (a.hasLine(lCmp)){
+		if (a.hasLine(lCmp))
+		{
 			a.removeLine(lCmp);
 		}
-		else{
+		else
+		{
 			return false;
 		}
 	}
 
-	if (a.MapData.size() == 0){
+	if (a.MapData.size() == 0)
+	{
 		return true;
 	}
 	return false;
@@ -227,11 +262,13 @@ Map Map::getRegion(int x, int y, unsigned int width, unsigned int height){
 	{
 		// Begin point = 0, End point is 1
 		// If begin is in region append line and skip end point check
-		for (int i = 0; i < 2; i++){
+		for (int i = 0; i < 2; i++)
+		{
 			if (
 				(lCmp.getPoint(i).getX() >= x && lCmp.getPoint(i).getX() <= xEnd)
 				&& lCmp.getPoint(i).getY() >= y && lCmp.getPoint(i).getY() <= yEnd
-				){
+				)
+			{
 				rtnMap.appendLine(lCmp);
 				break;
 			}
@@ -240,59 +277,77 @@ Map Map::getRegion(int x, int y, unsigned int width, unsigned int height){
 	return rtnMap;
 }
 
-Map Map::getRegion(point & p, unsigned int width, unsigned int height){
+Map Map::getRegion(point & p, unsigned int width, unsigned int height)
+{
 	return getRegion(p.getX(), p.getY(), width, height);
 }
 
 //add object to position x,y
-void Map::addObject(polygon object){
+void Map::addObject(polygon object)
+{
 	objects.push_back(object);
 }
 
 //fill object (circle or polygon) so that middle is not accessible
-void fillObjects(std::vector<int> object){
+void fillObjects(std::vector<int> object)
+{
 
 }
 
 //when pathfinding is done, make all cells unseen again. seen = false;	
-void makeUnseen(){
+void makeUnseen()
+{
 
 }
 
 //translate lines to points in 2d vector
-void Map::translateToPoints(){
+void Map::translateToPoints()
+{
 	for(const line & l : MapData)
 		addLineToGrid(l);
 }
 
 //check if x,y is accessible
-bool Map::isAccessible(int x, int y){
+bool Map::isAccessible(int x, int y)
+{
 	// check for out of bounds
-	if (x >= getGridWidth() && y >= getGridHeight()) return false;
-	if (access.at(x).at(y) == 0){
+	if (x >= getGridWidth() || y >= getGridHeight()) return false;
+	if (access.at(x).at(y) == 0)
+	{
 		return true;
 	}
-	else if(access.at(x).at(y) = 1){
+	else if(access.at(x).at(y) = 1)
+	{
 		return false;
 	}
 }
 
-int Map::getGridHeight(){
+int Map::getGridHeight()
+{
 	return access.size(); // columns == grid height
 }
 
-int Map::getGridWidth(){
+int Map::getGridWidth()
+{
 	return access.at(0).size(); // row size == grid width
 }
 
-void Map::setScale(int x){ scale = x; }
-bool Map::isScaledAccessible(int x, int y ){
+void Map::setScale(int x)
+{
+	scale = x; 
+}
+
+bool Map::isScaledAccessible(int x, int y )
+{
 	x = x*scale;
 	y = y*scale;
 
-	for (int i = 0; i < scale; i++){
-		for (int ii = 0; ii < scale; ii++){
-			if (!this->isAccessible(i+x, ii+y)){
+	for (int i = 0; i < scale; i++)
+	{
+		for (int ii = 0; ii < scale; ii++)
+		{
+			if (!this->isAccessible(i+x, ii+y))
+			{
 				return false;			
 			}
 		}
@@ -300,38 +355,49 @@ bool Map::isScaledAccessible(int x, int y ){
 	return true;
 }
 
-int Map::getScaledWidth(){
+int Map::getScaledWidth()
+{
 	return access.size() / scale;
 }
 
-int Map::getScaledHeight(){
+int Map::getScaledHeight()
+{
 	return access.size() / scale;
 }
 
-void Map::print(){
-	for (int i = 0; i < getScaledWidth(); i++){
-		for (int ii = 0; ii < getScaledHeight(); ii++){
+void Map::print()
+{
+	for (int i = 0; i < getScaledWidth(); i++)
+	{
+		for (int ii = 0; ii < getScaledHeight(); ii++)
+		{
 			std::cout << this->getScaledLocationValue(ii, i);
 		}
 		std::cout << "\n";
 	}
 }
 
-int Map::getScale(){ 
+int Map::getScale()
+{ 
 	return scale; 
 }
 
-int Map::getScaledLocationValue(int x, int y){
+int Map::getScaledLocationValue(int x, int y)
+{
 	x = x*scale;
 	y = y*scale;
 	int highestvalue=0;
-	for (int i = 0; i < scale; i++){
-		for (int ii = 0; ii < scale; ii++){
-			if (highestvalue < this->getLocationValue(x + i, y + ii)){
+	for (int i = 0; i < scale; i++)
+	{
+		for (int ii = 0; ii < scale; ii++)
+		{
+			if (highestvalue < this->getLocationValue(x + i, y + ii))
+			{
 				highestvalue = this->getLocationValue(x + i, y + ii);
 			}
-			if (highestvalue==1){
-			//	std::cout << "Returned solid \n";
+			if (highestvalue==1)
+			{
+				//std::cout << "Returned solid \n";
 				return 1;
 			}
 		}
@@ -339,22 +405,27 @@ int Map::getScaledLocationValue(int x, int y){
 	return highestvalue;
 }
 
-void Map::addvirtuallidarInput(int virtuallidarInputArray[]){
-	if (virtuallidarInputArray[0] == 0){
+void Map::addvirtuallidarInput(int virtuallidarInputArray[])
+{
+	if (virtuallidarInputArray[0] == 0)
+	{
 		appendLine(line(point(virtuallidarInputArray[1], virtuallidarInputArray[2]), point(virtuallidarInputArray[3], virtuallidarInputArray[4])));
 	}
-	if (virtuallidarInputArray[1] == 1){
+	if (virtuallidarInputArray[1] == 1)
+	{
 		addCircle(virtuallidarInputArray[1], virtuallidarInputArray[2], virtuallidarInputArray[3]);
 	}
 	translateToPoints();
 }
 
-bool Map::isReachable(int x, int y, int x1, int y1){
+bool Map::isReachable(int x, int y, int x1, int y1)
+{
 	aStar aS = aStar();
 	std::vector<std::pair<int, int>> theRoute;
 	theRoute = aS.findPath(x, y, x1, y1, *this);
 
-	if (theRoute.size() <= 0){
+	if (theRoute.size() <= 0)
+	{
 		setNotReachable(point(x1, y1));
 		return false;
 	}
@@ -362,27 +433,32 @@ bool Map::isReachable(int x, int y, int x1, int y1){
 	return true;
 }
 
-bool Map::isReachable(point p, point p1){
+bool Map::isReachable(point p, point p1)
+{
 	return isReachable(p.getX(), p.getY(), p1.getX(), p1.getY());
 }
 
-void Map::setNotReachable(point p){
+void Map::setNotReachable(point p)
+{
 	access.at(p.getX()).at(p.getY()) = 1;
 }
 
-void Map::addLineToGrid(line l){
+void Map::addLineToGrid(line l)
+{
 	// Breseham's line algorithm
 	float aX = l.getPoint(0).getX(), bX = l.getPoint(1).getX();
 	float aY = l.getPoint(0).getY(), bY = l.getPoint(1).getY();
 
 	const bool steep = (fabs(bY - aY) > fabs(bX - aX));
-	if (steep){
+	if (steep)
+	{
 		// swap points for more comfortable calculation
 		std::swap(aX, aY);
 		std::swap(bX, bY);
 	}
 
-	if (aX > bX){
+	if (aX > bX)
+	{
 		// swap points for more comfortable calculation
 		std::swap(aX, bX);
 		std::swap(aY, bY);
@@ -397,26 +473,32 @@ void Map::addLineToGrid(line l){
 
 	const int maxX = (int)bX;
 
-	for (int x = (int)aX; x < maxX; x++){
-		if (steep){
+	for (int x = (int)aX; x < maxX; x++)
+	{
+		if (steep)
+		{
 			access.at(y).at(x) = 1;
 		}
-		else{
+		else
+		{
 			access.at(x).at(y) = 1;
 		}
 
 		error -= dY;
-		if (error < 0){
+		if (error < 0)
+		{
 			y += yStep;
 			error += dX;
 		}
 	}
 }
 
-void Map::addPolygonToMapData(polygon p){
+void Map::addPolygonToMapData(polygon p)
+{
 	std::vector<point> shape = p.getPoints();
 	if (shape.size() < 2) return; // this is not a polygon but a single point
-	for (unsigned int i = 0; i < shape.size() - 1; i++){
+	for (unsigned int i = 0; i < shape.size() - 1; i++)
+	{
 		point p1 = point(shape.at(i));
 		point p2 = point(shape.at(i + 1));
 		line l = line(p1, p2);
@@ -428,10 +510,12 @@ void Map::addPolygonToMapData(polygon p){
 	appendLine(l);
 }
 
-void Map::addPolygonToGrid(polygon p){
+void Map::addPolygonToGrid(polygon p)
+{
 	std::vector<point> shape = p.getPoints();
 	if (shape.size() < 2) return; // this is not a polygon but a single point
-	for (unsigned int i = 0; i < shape.size() - 1; i++){
+	for (unsigned int i = 0; i < shape.size() - 1; i++)
+	{
 		point p1 = point(shape.at(i));
 		point p2 = point(shape.at(i + 1));
 		line l = line(p1, p2);
@@ -443,7 +527,8 @@ void Map::addPolygonToGrid(polygon p){
 	addLineToGrid(l);
 }
 
-void Map::floodFillLocation(point node, int target, int replacement){
+void Map::floodFillLocation(point node, int target, int replacement)
+{
 	if (target == replacement) return;	// Nothing to do here
 	if (access.at(node.getX()).at(node.getY()) != target) return; // Node != target
 	access.at(node.getX()).at(node.getY()) = replacement;
@@ -459,14 +544,17 @@ void Map::floodFillLocation(point node, int target, int replacement){
 	return;
 }
 
-void Map::floodFillLocationQueue(point node, int target, int replacement){
+void Map::floodFillLocationQueue(point node, int target, int replacement)
+{
 	if (target == replacement) return;	// Nothing to do here
 	std::vector<std::pair<int, int>> myQueue;
 	myQueue.push_back(std::pair<int, int>(node.getX(), node.getY()));
-	while (myQueue.size() > 0){			// While queue not empy
+	while (myQueue.size() > 0)       // While queue not empy
+	{			
 		std::pair<int, int> tmp = myQueue.at(0);
 		myQueue.erase(myQueue.begin());	// Pop first element
-		if (access.at(tmp.first).at(tmp.second) == target){
+		if (access.at(tmp.first).at(tmp.second) == target)
+		{
 			access.at(tmp.first).at(tmp.second) = replacement;
 
 			myQueue.push_back(std::pair<int, int>(tmp.first + 1, tmp.second));

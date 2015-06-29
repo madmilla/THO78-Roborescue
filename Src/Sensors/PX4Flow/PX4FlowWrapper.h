@@ -34,7 +34,7 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "common/mavlink.h"
+#include "roborescueV1/mavlink.h"
 #include <fstream>
 #include "CImg.h"
 #include "XYProvider.h"
