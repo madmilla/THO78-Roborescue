@@ -41,6 +41,7 @@
 #include "lpc_com.h"
 #include "libserial.h"
 #include "GPIOClass.h"
+#include <math.h>
 
 class LPCCom {
 public:
@@ -51,15 +52,13 @@ public:
 
 	bool init();
 
-	void readData(double& temperature);
+	double readData();
 
 private:
 	LibSerial* uart;
 	GPIOClass* gpio;
 	const char* portName;
 	int baudRate = 38400;
-    char dataBuffer[10];
-	double temperature;
 };
 
 
