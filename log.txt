@@ -1,25 +1,19 @@
-In file included from Src/Communication/udp/Connection.h:4:0,
-                 from Src/Communication/udp/UDPSocket.h:46,
-                 from Src/Vehicles/Rosbee/Rosbee.h:47,
-                 from Src/Vehicles/Rosbee/Rosbee.cpp:1:
-c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/i686-w64-mingw32/include/winsock2.h:15:2: warning: #warning Please include winsock2.h before windows.h [-Wcpp]
- #warning Please include winsock2.h before windows.h
-  ^
-In file included from Src/Vehicles/Rosbee/Rosbee.h:49:0,
-                 from Src/Vehicles/Rosbee/Rosbee.cpp:1:
-Src/Communication/udp/RALCPEncoder.h: In instantiation of 'void RALCPEncoder::send(Args ...) [with Args = {int, int, int, int, int, int, int, ROSBEE_COMMAND_FUNCTIONS, COMMAND_DESTINATION, int, int}]':
-Src/Vehicles/Rosbee/Rosbee.cpp:28:10:   required from here
-Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#0))' from 'int' to 'float' inside { } [-Wnarrowing]
-   packet = mavlink_command_long_t{std::forward<Args>(args) ...};
-          ^
-Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#1))' from 'int' to 'float' inside { } [-Wnarrowing]
-Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#2))' from 'int' to 'float' inside { } [-Wnarrowing]
-Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#3))' from 'int' to 'float' inside { } [-Wnarrowing]
-Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#4))' from 'int' to 'float' inside { } [-Wnarrowing]
-Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#5))' from 'int' to 'float' inside { } [-Wnarrowing]
-Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#6))' from 'int' to 'float' inside { } [-Wnarrowing]
-Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#9))' from 'int' to 'uint8_t {aka unsigned char}' inside { } [-Wnarrowing]
-Src/Communication/udp/RALCPEncoder.h:60:10: warning: narrowing conversion of 'std::forward<int>((* & args#10))' from 'int' to 'uint8_t {aka unsigned char}' inside { } [-Wnarrowing]
-c:/Program Files (x86)/mingw-w64/i686-4.9.2-posix-dwarf-rt_v4-rev3/mingw32/bin/../lib/gcc/i686-w64-mingw32/4.9.2/../../../../i686-w64-mingw32/bin/ld.exe: cannot open output file mission1.exe: Permission denied
-collect2.exe: error: ld returned 1 exit status
-make: *** [mission1] Error 1
+g++ -std=c++11 -DWIN32  -IC:\Qt\Qt5.4.2\5.4\mingw491_32/include -IDeps/incl/boost_1_58_0/Windows  -ISrc/Modules/Mission1/  -ISrc/GUI/mission-gui/  -ISrc/GUI/mission-gui/quadcopter-gui/  -ISrc/GUI/mission-gui/ATV-gui/  -ISrc/GUI/mission-gui/rosbee-gui/  -ISrc/GUI/mission-gui/lidar-gui/  -ISrc/Vehicles/Quadcopter/  -ISrc/Vehicles/ATV/  -ISrc/Communication/SerialPort/  -ISrc/Communication/udp/  -ISrc/Vehicles/Rosbee/  -ISrc/Sensors/lidar/LIDAR-Basestation/  -ISrc/Strategy/pathfinding/AreaCoverage/  -ISrc/Strategy/pathfinding/AStar/  -ISrc/Strategy/pathfinding/tinyAstar/  -ISrc/Strategy/pathfinding/VSLAM/  -ISrc/Map/MapStructure/  -ISrc/Map/  -ISrc/Strategy/Common/  -ISrc/Controllers/StrategyController/  -ISrc/Communication/MavlinkExchanger/  -IDeps/incl/mavlink/  -IDeps/incl/Donahoo/ -MM -MT"Src/Map/MapStructure/Map.d" Src/Map/MapStructure/Map.cpp -MF Src/Map/MapStructure/Map.d
+g++ -std=c++11 -DWIN32  -IC:\Qt\Qt5.4.2\5.4\mingw491_32/include -IDeps/incl/boost_1_58_0/Windows  -ISrc/Modules/Mission1/  -ISrc/GUI/mission-gui/  -ISrc/GUI/mission-gui/quadcopter-gui/  -ISrc/GUI/mission-gui/ATV-gui/  -ISrc/GUI/mission-gui/rosbee-gui/  -ISrc/GUI/mission-gui/lidar-gui/  -ISrc/Vehicles/Quadcopter/  -ISrc/Vehicles/ATV/  -ISrc/Communication/SerialPort/  -ISrc/Communication/udp/  -ISrc/Vehicles/Rosbee/  -ISrc/Sensors/lidar/LIDAR-Basestation/  -ISrc/Strategy/pathfinding/AreaCoverage/  -ISrc/Strategy/pathfinding/AStar/  -ISrc/Strategy/pathfinding/tinyAstar/  -ISrc/Strategy/pathfinding/VSLAM/  -ISrc/Map/MapStructure/  -ISrc/Map/  -ISrc/Strategy/Common/  -ISrc/Controllers/StrategyController/  -ISrc/Communication/MavlinkExchanger/  -IDeps/incl/mavlink/  -IDeps/incl/Donahoo/ -MM -MT"Src/Communication/SerialPort/TCPConnection.d" Src/Communication/SerialPort/TCPConnection.cpp -MF Src/Communication/SerialPort/TCPConnection.d
+g++ -std=c++11 -DWIN32  -IC:\Qt\Qt5.4.2\5.4\mingw491_32/include -IDeps/incl/boost_1_58_0/Windows  -ISrc/Modules/Mission1/  -ISrc/GUI/mission-gui/  -ISrc/GUI/mission-gui/quadcopter-gui/  -ISrc/GUI/mission-gui/ATV-gui/  -ISrc/GUI/mission-gui/rosbee-gui/  -ISrc/GUI/mission-gui/lidar-gui/  -ISrc/Vehicles/Quadcopter/  -ISrc/Vehicles/ATV/  -ISrc/Communication/SerialPort/  -ISrc/Communication/udp/  -ISrc/Vehicles/Rosbee/  -ISrc/Sensors/lidar/LIDAR-Basestation/  -ISrc/Strategy/pathfinding/AreaCoverage/  -ISrc/Strategy/pathfinding/AStar/  -ISrc/Strategy/pathfinding/tinyAstar/  -ISrc/Strategy/pathfinding/VSLAM/  -ISrc/Map/MapStructure/  -ISrc/Map/  -ISrc/Strategy/Common/  -ISrc/Controllers/StrategyController/  -ISrc/Communication/MavlinkExchanger/  -IDeps/incl/mavlink/  -IDeps/incl/Donahoo/ -MM -MT"Src/Communication/SerialPort/SerialConnection.d" Src/Communication/SerialPort/SerialConnection.cpp -MF Src/Communication/SerialPort/SerialConnection.d
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/moc.exe Src/GUI/mission-gui/lidar-gui/lidarwindow.h -o Src/GUI/mission-gui/lidar-gui/moc_lidarwindow.cpp
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/moc.exe Src/GUI/mission-gui/rosbee-gui/rosbeewindow.h -o Src/GUI/mission-gui/rosbee-gui/moc_rosbeewindow.cpp
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/uic.exe Src/GUI/mission-gui/rosbee-gui/rosbeewindow.ui -o Src/GUI/mission-gui/rosbee-gui/ui_rosbeewindow.h
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/moc.exe Src/GUI/mission-gui/ATV-gui/atvwindow.h -o Src/GUI/mission-gui/ATV-gui/moc_atvwindow.cpp
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/moc.exe Src/GUI/mission-gui/quadcopter-gui/quadcopterwindow.h -o Src/GUI/mission-gui/quadcopter-gui/moc_quadcopterwindow.cpp
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/uic.exe Src/GUI/mission-gui/quadcopter-gui/quadcopterwindow.ui -o Src/GUI/mission-gui/quadcopter-gui/ui_quadcopterwindow.h
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/moc.exe Src/GUI/mission-gui/mainwindow.h -o Src/GUI/mission-gui/moc_mainwindow.cpp
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/moc.exe Src/GUI/mission-gui/lidar-gui/lidarwindow.h -o Src/GUI/mission-gui/lidar-gui/moc_lidarwindow.cpp
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/moc.exe Src/GUI/mission-gui/rosbee-gui/rosbeewindow.h -o Src/GUI/mission-gui/rosbee-gui/moc_rosbeewindow.cpp
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/uic.exe Src/GUI/mission-gui/rosbee-gui/rosbeewindow.ui -o Src/GUI/mission-gui/rosbee-gui/ui_rosbeewindow.h
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/moc.exe Src/GUI/mission-gui/ATV-gui/atvwindow.h -o Src/GUI/mission-gui/ATV-gui/moc_atvwindow.cpp
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/moc.exe Src/GUI/mission-gui/quadcopter-gui/quadcopterwindow.h -o Src/GUI/mission-gui/quadcopter-gui/moc_quadcopterwindow.cpp
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/uic.exe Src/GUI/mission-gui/quadcopter-gui/quadcopterwindow.ui -o Src/GUI/mission-gui/quadcopter-gui/ui_quadcopterwindow.h
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/moc.exe Src/GUI/mission-gui/mainwindow.h -o Src/GUI/mission-gui/moc_mainwindow.cpp
+C:\Qt\Qt5.4.2\5.4\mingw491_32/bin/uic.exe Src/GUI/mission-gui/mainwindow.ui -o Src/GUI/mission-gui/ui_mainwindow.h
+Makefile.inc:106: recipe for target 'Src/GUI/mission-gui/ui_mainwindow.h' failed

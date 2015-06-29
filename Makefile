@@ -2,8 +2,9 @@ include Makefile.inc
 
 .PHONY : mission1 localisationmodule lidar rosbee environmentsimulator test clean
 
-mission1 : $(UI_HEADERS) $(OBJ)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
+mission1 : 
+	@echo $(UI_HEADERS)
+	
 	
 localisationmodule : $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
@@ -12,6 +13,7 @@ lidar : $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
 	
 rosbee : 
+	
 	
 environmentsimulator : $(UI_HEADERS) $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)

@@ -22,6 +22,10 @@ endif
 ifeq ($(MAKECMDGOALS),mission1)
 	LDLIBS 	+= -lQt5Core -lQt5Widgets -lQt5Gui -lQt5Sql -lpthread -lboost_system
 	ifneq ($(OS),Windows_NT)
+		ui_%.h : %.ui
+	$(UIC) $< -o $@
+
+		
 	else
 		INCLUDES 	+= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR)
 		LDFLAGS 	+= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
