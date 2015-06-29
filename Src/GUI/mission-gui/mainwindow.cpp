@@ -91,8 +91,8 @@ void MainWindow::on_Rosbeelist_itemClicked(QListWidgetItem * item){
             rosbeewindow->show();
             rosbeewindow->setWindowTitle(item->text());
             break;
-        }*/
-    }
+        }
+    }*/
 }
 
 void MainWindow::on_Lidarlist_itemClicked(QListWidgetItem *item){
@@ -102,8 +102,8 @@ void MainWindow::on_Lidarlist_itemClicked(QListWidgetItem *item){
             lidarwindow->setWindowTitle(item->text());
             lidarwindow->show();
             break;
-        }*/
-    }
+        }
+    }*/
 }
 
 void MainWindow::ScanforRosbee(){
