@@ -38,20 +38,20 @@
 #ifndef SIMULATEMAPWINDOW_H
 #define SIMULATEMAPWINDOW_H
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include <vector>
 #include <iostream>
-#include <QGraphicsView>
-#include <QGraphicsScene>
+#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGraphicsScene>
 #include "map.h"
 #include "simulatemap.h"
 #include "values.h"
-#include <QSize>
+#include <QtCore/QSize>
 #include <QAbstractButton>
 #include <QDesktopWidget>
-#include <QMouseEvent>
-#include <QFileDialog>
-#include <QTextEdit>
+#include <QtGui/QMouseEvent>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QTextEdit>
 
 namespace Ui {
 class SimulateMapWindow;
