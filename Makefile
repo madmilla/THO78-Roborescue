@@ -10,13 +10,7 @@ generateUIHeaders: $(UI)
 	@echo UI is: $(UI)
 	@echo UI headers are: $(UI_HEADERS)
 	
-echoUIHeaders:
-	
-mission1 : 
-
-	@echo UI is: $(UI)
-	@echo UI headers are: $(UI_HEADERS)
-
+mission1 :
 	$(UI_HEADERS) $(OBJ)
 		$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
 	
