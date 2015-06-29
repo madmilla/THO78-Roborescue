@@ -43,6 +43,7 @@
 *	OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 *	ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
+#include <QtWidgets/QMainWindow>
 
 #if !defined(QOBJECTDEFS_H)
 #QOBJECTDEFS_H not defined
@@ -59,7 +60,6 @@ Q_MOC_OUTPUT_REVISION
 #ifndef MAPWINDOW_H
 #define MAPWINDOW_H
 
-#include <QtWidgets/QMainWindow>
 
 namespace Ui {
 class MapWindow;
