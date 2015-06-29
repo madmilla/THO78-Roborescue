@@ -1,11 +1,22 @@
 #include "MAVLinkExchanger.h"
 #include "TCPConnection.h"
+#include "SerialConnection.h"
 #include <iostream>
 
-MAVLinkExchanger::MAVLinkExchanger(TCPConnection& dataPort):
-dataPort( dataPort )
+MAVLinkExchanger::MAVLinkExchanger(TCPConnection* tcpPort):
+tcpPort( tcpPort )
 {
-	dataPort.async_read_some(boost::asio::buffer(receiveBuffer), 
+	tcpPort->async_read_some(boost::asio::buffer(receiveBuffer), 
+	std::bind(&MAVLinkExchanger::receiveMessage, 
+	this, 
+	std::placeholders::_1,
+	std::placeholders::_2));
+}
+
+MAVLinkExchanger::MAVLinkExchanger(SerialConnection* serialPort):
+serialPort(serialPort)
+{
+	serialPort->async_read_some(boost::asio::buffer(receiveBuffer), 
 	std::bind(&MAVLinkExchanger::receiveMessage, 
 	this, 
 	std::placeholders::_1,
@@ -58,7 +69,14 @@ void MAVLinkExchanger::sendMessage()
 {
 	unsigned char buffer[MAVLINK_NUM_NON_PAYLOAD_BYTES + sendQueue.front().len];
 	int len = mavlink_msg_to_send_buffer(buffer, &sendQueue.front());
-	dataPort.writeData(buffer, len);
+	if(tcpPort)
+	{
+		tcpPort->writeData(buffer, len);
+	}
+	else
+	{
+		serialPort->writeData(buffer, len);
+	}
 	sendQueue.pop();
 }
 
@@ -72,10 +90,21 @@ void MAVLinkExchanger::receiveMessage(const boost::system::error_code &ec, std::
 			receiveQueue.push(message);
 		}
 	}
+	if(tcpPort)
+	{
+		tcpPort->async_read_some(boost::asio::buffer(receiveBuffer), 
+		std::bind(&MAVLinkExchanger::receiveMessage, 
+		this, 
+		std::placeholders::_1,
+		std::placeholders::_2));
+	}
+	else
+	{
+		serialPort->async_read_some(boost::asio::buffer(receiveBuffer), 
+		std::bind(&MAVLinkExchanger::receiveMessage, 
+		this, 
+		std::placeholders::_1,
+		std::placeholders::_2));
+	}
 	
-	dataPort.async_read_some(boost::asio::buffer(receiveBuffer), 
-	std::bind(&MAVLinkExchanger::receiveMessage, 
-	this, 
-	std::placeholders::_1,
-	std::placeholders::_2));
 }
