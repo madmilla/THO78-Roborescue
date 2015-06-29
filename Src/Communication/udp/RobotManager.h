@@ -1,4 +1,4 @@
-/**
+﻿/**
 *               __
 *    _________ / /_  ____  ________  ____________  _____
 *   /___/ __ \/ __ \/ __ \/ ___/ _ \/ ___/ ___/ / / / _ \
@@ -41,12 +41,13 @@
 #include <vector>
 #include <exception>
 #include <sstream>
-#include "Rosbee.h"
-#include "Lidar.h"
+//#include "Rosbee.h"
+//#include "Lidar.h"
 
 class CPIUDPSocket;
-class Rosbee;
-class Lidar;
+class CPIBoundaryObject;
+//class Rosbee;
+//class Lidar;
 class RobotManager{
 public:
 	RobotManager(){}

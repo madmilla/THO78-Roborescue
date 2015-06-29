@@ -61,6 +61,44 @@ typedef enum MAV_AUTOPILOT
 } MAV_AUTOPILOT;
 #endif
 
+#ifndef HAVE_ENUM_LIDAR_COMMAND_FUNCTIONS
+#define HAVE_ENUM_LIDAR_COMMAND_FUNCTIONS
+typedef enum LIDAR_COMMAND_FUNCTIONS
+{
+	LIDAR_INIT=0, /* initialize Lidar | */
+	LIDAR_GETDEVICE=1, /* The device id | */
+	LINEDATA=2, /* Recieve line from lidar | */
+	RPM=3, /* Send RPM from lidar | */
+	START=4, /* Start the lidar | */
+	STOP=5, /* Stop the lidar | */
+	ROSBEEPOSITION=6, /* Send the current position of the rosbee | */
+	ROSBEEFLANK=7, /* Send the current flank of the rosbee | */
+	LIDAR_ENUM_END=8, /* End of lidar function enum | */
+	LIDAR_COMMAND_FUNCTIONS_ENUM_END=9, /*  | */
+} LIDAR_COMMAND_FUNCTIONS;
+#endif
+
+#ifndef HAVE_ENUM_ROSBEE_COMMAND_FUNCTIONS
+#define HAVE_ENUM_ROSBEE_COMMAND_FUNCTIONS
+typedef enum ROSBEE_COMMAND_FUNCTIONS
+{
+	ROSBEE_INIT=0, /* INITIALISE ROSBEE | */
+	GETEQUIPMENTSTATUS=1, /* DEVICES ARE READY OR NOT | */
+	STARTMISSION=2, /* START MISSION | */
+	SENDWAYPOINT=3, /* SEND THE NEXT WAYPOINT | */
+	ROSBEE_GETREQUEST=4, /* ASK INFORMATION FROM THE CPI | */
+	STOPMISSION=5, /* STOP MISSION | */
+	ABORTMISSION=6, /* CANCEL CURRENT MISSION | */
+	SONARINTERRUPT=7, /* SENDS A INTERRUPT FROM A SONAR TO THE CPI | */
+	ACKNOWLEDGE=8, /* CONFIRM ARRIVAL | */
+	BATTERYSTATUS=9, /* LEVEL OF THE BATTERY | */
+	SENDINTERRUPT=10, /* SEND A INTERRUPT TO THE MAPPING SIDE FOR A NEW WAYPOINT | */
+	GETDEVICE=11, /* WHICH DEVICE IS SENDING | */
+	ROSBEE_ENUM_END=12, /* End of Rosbee function enum | */
+	ROSBEE_COMMAND_FUNCTIONS_ENUM_END=13, /*  | */
+} ROSBEE_COMMAND_FUNCTIONS;
+#endif
+
 /** @brief  */
 #ifndef HAVE_ENUM_MAV_TYPE
 #define HAVE_ENUM_MAV_TYPE
@@ -129,6 +167,18 @@ typedef enum MAV_MODE_FLAG_DECODE_POSITION
 	MAV_MODE_FLAG_DECODE_POSITION_SAFETY=128, /* First bit:  10000000 | */
 	MAV_MODE_FLAG_DECODE_POSITION_ENUM_END=129, /*  | */
 } MAV_MODE_FLAG_DECODE_POSITION;
+#endif
+
+#ifndef HAVE_ENUM_COMMAND_DESTINATION
+#define HAVE_ENUM_COMMAND_DESTINATION
+typedef enum COMMAND_DESTINATION
+{
+	ROSBEE=1, /* The device id for the Lidar | */
+	LIDAR=2, /* The device id | */
+	CPI=3, /* The device id for the CPI | */
+	DESTINATION_ENUM_END=4, /* End of destination enum | */
+	COMMAND_DESTINATION_ENUM_END=5, /*  | */
+} COMMAND_DESTINATION;
 #endif
 
 /** @brief Override command, pauses current mission execution and moves immediately to a position */
