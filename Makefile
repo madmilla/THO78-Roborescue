@@ -3,6 +3,7 @@ include Makefile.inc
 .PHONY : mission1 localisationmodule lidar rosbee environmentsimulator test clean
 
 echoUIHeaders:
+	@echo UI is: $(UI)
 	@echo UI headers are: $(UI_HEADERS)
 mission1 : $(UI_HEADERS) $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
