@@ -1,6 +1,7 @@
 #ifndef _LIDAR_CONTROLLER_H
 #define _LIDAR_CONTROLLER_H
-#include 
+#include <vector>
+#include "roborescueV1/mavlink.h"
 
 class Lidar;
 class MAVLinkExchanger;
@@ -13,7 +14,7 @@ public:
 private:
 	Lidar& lidar;
 	MAVLinkExchanger& exchanger;
-	handleIncomingMessage(mavlink_message_t incomingMessage);
+	void handleIncomingMessage(mavlink_message_t incomingMessage);
 	
 	void sendLines(std::vector<Line>& lines);
 };
