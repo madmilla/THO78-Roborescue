@@ -85,24 +85,24 @@ void MainWindow::handleButton(){
 }
 
 void MainWindow::on_Rosbeelist_itemClicked(QListWidgetItem * item){
-    for(auto * robots : robotManager.getRobots<Rosbee>()){
+    /*for(auto * robots : robotManager.getRobots<Rosbee>()){
         if(item->text()== "Rosbee "+QString::number(robots->getId())){
             QMainWindow * rosbeewindow = new RosbeeWindow(*robots,this);
             rosbeewindow->show();
             rosbeewindow->setWindowTitle(item->text());
             break;
-        }
+        }*/
     }
 }
 
 void MainWindow::on_Lidarlist_itemClicked(QListWidgetItem *item){
-    for(auto * robots : robotManager.getRobots<Lidar>()){
+    /*for(auto * robots : robotManager.getRobots<Lidar>()){
         if(item->text() == "Lidar "+QString::number(robots->getId())){
             QMainWindow * lidarwindow = new LidarWindow(*robots,this);
             lidarwindow->setWindowTitle(item->text());
             lidarwindow->show();
             break;
-        }
+        }*/
     }
 }
 
