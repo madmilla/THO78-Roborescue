@@ -94,7 +94,9 @@ else
 	UI_HEADERS 		+= $(UI:.ui=.h)
 	OBJ 			+= $(SRC:.cpp=.o)
 endif
-
+	
+ui_%.h : %.ui
+	$(UIC) $< -o $@
 
 %.d : %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -MM -MT"$@" $< -MF $@
@@ -104,6 +106,4 @@ endif
 	
 moc_%.cpp : %.h
 	$(MOC) $< -o $@
-	
-ui_%.h : %.ui
-	$(UIC) $< -o $@
+
