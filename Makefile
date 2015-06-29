@@ -5,6 +5,10 @@ include Makefile.inc
 mission1 : $(UI_HEADERS) $(OBJ)
 	@echo UI headers are: $(UI_HEADERS)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
+
+ui_%.h : %.ui
+	$(UIC) $< -o $@
+
 	
 localisationmodule : $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
