@@ -1,1 +1,1 @@
-SRC += deps/incl/libserial/libserial.cpp
+SRC += Deps/incl/libserial/libserial.cpp

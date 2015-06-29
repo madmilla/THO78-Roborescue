@@ -1,1 +1,1 @@
-SRC += deps/incl/Donahoo/PracticalSocket.cpp
+SRC += Deps/incl/Donahoo/PracticalSocket.cpp
