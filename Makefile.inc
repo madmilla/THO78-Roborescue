@@ -9,7 +9,7 @@ LDFLAGS							=
 SRC 							= 
 UI 								+= 
 UI_HEADERS						+=
-MODULES 						= 
+MODULES 						+= 
 BOOST_INCL_DIR 					= Deps/incl/boost_1_58_0/Windows
 
 ifeq ($(OS),Windows_NT)
