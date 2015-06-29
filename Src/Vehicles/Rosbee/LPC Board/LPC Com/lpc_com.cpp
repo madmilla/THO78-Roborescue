@@ -37,6 +37,8 @@
 
 #include "lpc_com.h"
 
+using namespace std;
+
 LPCCom::LPCCom(const char* uartPort, const char* gpioPort) {
 	uart = new LibSerial();
 	gpio = new GPIOClass(gpioPort);
@@ -57,10 +59,10 @@ bool LPCCom::init(){
 
 	int portResult = uart->open(portName, baudRate);
 	if (portResult != 1){
-		std::cout << "Opening failed, error:" << portResult << std::endl;
+		std::cout << "Opening failed, error:" << portResult << endl;
 		return false;
 	}else{
-		std::cout << "Opening succesfull" << std::endl;
+		std::cout << "Opening succesfull" << endl;
 		return true;
 	}
 }
@@ -70,5 +72,6 @@ double LPCCom::readData(){
 	gpio->setval_gpio("0");
     char* data;
 	uart->read(data, 4);
+    cout << "read from port: " << data << endl;
     return atof(data);
 }
