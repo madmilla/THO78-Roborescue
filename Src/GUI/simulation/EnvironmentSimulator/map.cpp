@@ -185,8 +185,10 @@ void Map::setMapObject(int object,int y, int x){
         return;
     }
     if(x < width && y < height){
-        if(object >= 0){
-            //removePoint(x, y);
+        if(object == 0){
+            removePoint(x, y);
+        }
+        else if(object >= 0){
             Object obj;
             obj.X = x;
             obj.Y = y;
@@ -201,8 +203,10 @@ void Map::setMapObject(Map::Object obj){
         return;
     }
     if(obj.X < width && obj.Y < height){
-        if(obj.id >= 0){
-            //removePoint(obj);
+        if(obj.id == 0){
+            removePoint(obj);
+        }
+        else if(obj.id >= 0){
             mapLayout.push_back(obj);
         }
     }
@@ -239,11 +243,11 @@ std::vector< Map::Object > Map::getMapContent(){
     mapLayout = newMapLayout;
 }*/
 
-void Map::saveMap(){
+void Map::saveMap(std::string filename){
     std::sort( mapLayout.begin(), mapLayout.end() );
     mapLayout.erase( std::unique( mapLayout.begin(), mapLayout.end() ), mapLayout.end() );
     std::ofstream mapFile;
-    mapFile.open(fileName);
+    mapFile.open(filename);
     /*for(int y = 0; y < height; ++y){
         for(int x = 0; x < width; ++x){
             mapFile << mapLayout[y][x];
@@ -291,6 +295,8 @@ void Map::createNewMap(std::string fileName){
 }
 
 void Map::removePoint(int x, int y){
+    std::sort( mapLayout.begin(), mapLayout.end() );
+    mapLayout.erase( std::unique( mapLayout.begin(), mapLayout.end() ), mapLayout.end() );
     int i = 0;
     for (Map::Object o : mapLayout){
         if (o.X == x && o.Y == y){
@@ -302,6 +308,8 @@ void Map::removePoint(int x, int y){
 }
 
 void Map::removePoint(Map::Object obj){
+    std::sort( mapLayout.begin(), mapLayout.end() );
+    mapLayout.erase( std::unique( mapLayout.begin(), mapLayout.end() ), mapLayout.end() );
     int i = 0;
     for (Map::Object o : mapLayout){
         if (o.X == obj.X && o.Y == obj.Y){

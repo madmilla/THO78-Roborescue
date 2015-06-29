@@ -39,7 +39,7 @@
 #include "ui_simulatemapwindow.h"
 
 SimulateMapWindow::SimulateMapWindow(Map *map, QWidget *parent) :
-    QWidget(parent),
+    QDialog(parent),
     ui(new Ui::SimulateMapWindow),
     map(map)
 {
@@ -68,7 +68,7 @@ SimulateMapWindow::SimulateMapWindow(Map *map, QWidget *parent) :
     objectx = (canvasScreenSize.width() / map->width);
     objecty = (canvasScreenSize.height() / map->height);
 
-    //this->showFullScreen();
+    this->showFullScreen();
 }
 
 SimulateMapWindow::~SimulateMapWindow()

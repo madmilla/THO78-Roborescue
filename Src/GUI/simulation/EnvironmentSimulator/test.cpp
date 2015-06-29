@@ -26,54 +26,6 @@ int Test::run(){
 
     testResultsFile << "Enviroment Simulator test begin" << std::endl;
 
-    //Map from file
-    testResultsFile << "Enviroment Simulator test Map from file" << std::endl;
-
-    Map testFileMap("testFileMap.map");
-
-    if(testFileMap.width != size || testFileMap.height != size){
-        testResultsFile << "Error: ";
-        testResultsFile << "Map from file: " << "Map y size incorret" << std::endl;
-        ++error;
-    }
-
-    if(testFileMap.width != size || testFileMap.height != size){
-        testResultsFile << "Error: ";
-        testResultsFile << "Map from file: " << "Map x size incorret" << std::endl;
-        ++error;
-    }
-
-    for(int y = 0; y < testFileMap.height; y++){
-        for(int x = 0; x < testFileMap.width; x++){
-            if(testFileMap.getMapObject(y,x) != 0){
-                testResultsFile << "Error: ";
-                testResultsFile << "Map from file: " << "Conntent error. != 0" << std::endl;
-                ++error;
-            }
-        }
-    }
-
-    for(int y = 0; y < testFileMap.height; y++){
-        for(int x = 0; x < testFileMap.width; x++){
-            testFileMap.setMapObject(1,y,x);
-        }
-    }
-
-    for(int y = 0; y < testFileMap.height; y++){
-        for(int x = 0; x < testFileMap.width; x++){
-            if(testFileMap.getMapObject(y,x) != 1){
-                testResultsFile << "Error: ";
-                testResultsFile << "Map from file: " << "Conntent error. != 1" << std::endl;
-                ++error;
-            }
-        }
-    }
-
-    //Map from corrupt file
-    testResultsFile << "Enviroment Simulator test Map from corrupt file" << std::endl;
-    //Map corruptMap("testFileMapCorrupt.map");
-    testResultsFile << "Map from corrupt file: " << "Lets see" << std::endl;
-
     //Map not from file
     testResultsFile << "Enviroment Simulator test Map not from file" << std::endl;
     Map testMap("testMap.map", size,size);
@@ -142,7 +94,6 @@ int Test::run(){
 
     testMap.setMapObject(0,size + 1,size + 1);
     if(testMap.getMapObject(size + 1,size + 1) != -1){
-        std::cout << "HUHEU" << testMap.getMapObject(size - 1,size - (size - 1)) << std::endl;
         testResultsFile << "Error: ";
         testResultsFile << "Map not from file: " << "Object error size - 1,size - (size - 1) != -1" << std::endl;
         ++error;
@@ -150,7 +101,6 @@ int Test::run(){
 
     testMap.setMapObject(0,size,size);
     if(testMap.getMapObject(size,size) != -1){
-        std::cout << "HUHEU" << testMap.getMapObject(size - 1,size - (size - 1)) << std::endl;
         testResultsFile << "Error: ";
         testResultsFile << "Map not from file: " << "Object error size, size != -1" << std::endl;
         ++error;
@@ -165,13 +115,62 @@ int Test::run(){
 
     for(int y = 0; y < testMap.height; y++){
         for(int x = 0; x < testMap.width; x++){
-            testMap.setMapObject(1,y,x);
+            testMap.setMapObject(0,y,x);
         }
     }
 
     //Save file
     testResultsFile << "Enviroment Simulator test Save file" << std::endl;
-    testMap.saveMap();
+    testMap.saveMap("testFileMap.map");
+
+    //Map from file
+    testResultsFile << "Enviroment Simulator test Map from file" << std::endl;
+
+    Map testFileMap("testFileMap.map");
+
+    if(testFileMap.width != size || testFileMap.height != size){
+        testResultsFile << "Error: ";
+        testResultsFile << "Map from file: " << "Map y size incorret" << std::endl;
+        ++error;
+    }
+
+    if(testFileMap.width != size || testFileMap.height != size){
+        testResultsFile << "Error: ";
+        testResultsFile << "Map from file: " << "Map x size incorret" << std::endl;
+        ++error;
+    }
+
+    for(int y = 0; y < testFileMap.height; y++){
+        for(int x = 0; x < testFileMap.width; x++){
+            if(testFileMap.getMapObject(y,x) != 0){
+                testResultsFile << "Error: ";
+                testResultsFile << "Map from file: " << "Conntent error. != 0" << std::endl;
+                ++error;
+            }
+        }
+    }
+
+    for(int y = 0; y < testFileMap.height; y++){
+        for(int x = 0; x < testFileMap.width; x++){
+            testFileMap.setMapObject(1,y,x);
+        }
+    }
+
+    for(int y = 0; y < testFileMap.height; y++){
+        for(int x = 0; x < testFileMap.width; x++){
+            if(testFileMap.getMapObject(y,x) != 1){
+                testResultsFile << "Error: ";
+                testResultsFile << "Map from file: " << "Conntent error. != 1" << std::endl;
+                ++error;
+            }
+        }
+    }
+
+    //Map from corrupt file
+    testResultsFile << "Enviroment Simulator test Map from corrupt file" << std::endl;
+    //Map corruptMap("testFileMapCorrupt.map");
+    testResultsFile << "Map from corrupt file: " << "Lets see" << std::endl;
+
 
     for(int y = 0; y < testMap.height; y++){
         for(int x = 0; x < testMap.width; x++){

@@ -118,11 +118,13 @@ public:
     /*!
      * saveMap saves the map to a .map file.
      * \brief Saves all the content of a map to a .map file.
+     * @param filename: the name of the saved file
     */
-    void saveMap();
+    void saveMap(std::string filename);
     /*!
      * savePcl saves the map to a .pcl file.
      * \brief Saves all the content of a map to a .pcl file.
+     * @param filename: the name of the saved file
     */
     void savePcl(std::string filename);
     /*!
