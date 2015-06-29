@@ -8,6 +8,7 @@ echoUIHeaders:
 	@echo UI headers are: $(UI_HEADERS)
 	
 generateUIHeaders: $(UI)
+	MODULES += MAIN_GUI_MODULE QUADCOPTER_GUI_MODULE ATV_GUI_MODULE ROSBEE_GUI_MODULE LIDAR_GUI_MODULE MAP_GUI_MODULE
 	@echo MODULES is: $(MODULES)
 	@echo UI is: $(UI)
 	@echo UI headers are: $(UI_HEADERS)

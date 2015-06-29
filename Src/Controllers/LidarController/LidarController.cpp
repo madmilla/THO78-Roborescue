@@ -37,16 +37,16 @@ void LidarController::handleIncomingMessage(mavlink_message_t incomingMessage)
 	}
 }
 
-void LidarController::sendLines(std::vector<Line>& lines)
+void LidarController::sendLines(std::vector<Line> lines)
 {
 	mavlink_message_t lineMessage;
 	for(auto& line : lines)
 	{
 		auto data = line.getLine();
-		auto startX = data.begin_pos.x
-		auto startY = data.begin_pos.y
-		auto endX = data.end_pos.x
-		auto endY = data.end_pos.y
+		auto startX = data.begin_pos.x;
+		auto startY = data.begin_pos.y;
+		auto endX = data.end_pos.x;
+		auto endY = data.end_pos.y;
 		mavlink_msg_lidar_line_pack( 1, 1, &lineMessage, startX, startY, endX, endY, 0 );
 		exchanger.enqueueMessage(lineMessage);
 	}
