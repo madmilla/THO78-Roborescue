@@ -1,7 +1,7 @@
 ifeq ($(OS),Windows_NT)
-	QT_LIB_DIR 						= C:\Qt\5.4\mingw491_32/lib
-	QT_INCL_DIR 					= C:\Qt\5.4\mingw491_32/include
-	QT_BIN_DIR 						= C:\5.4\mingw491_32/bin
+	QT_LIB_DIR 						= C:\Qt\Qt5.4.2\5.4\mingw491_32/lib
+	QT_INCL_DIR 					= C:\Qt\Qt5.4.2\5.4\mingw491_32/include
+	QT_BIN_DIR 						= C:\Qt\Qt5.4.2\5.4\mingw491_32/bin
 else
-	QT_INCL_DIR= 					/usr/include/qt5/
+	#Not needed on linux based systems
 endif
