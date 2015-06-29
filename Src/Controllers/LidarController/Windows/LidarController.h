@@ -11,7 +11,7 @@ class LidarController
 {
 public:
 	LidarController(Lidar& lidar, MAVLinkExchanger& exchanger);
-	std::vector<Line> scanLines();
+	std::vector<Line> scanLines(int startX, int startY, int orientation);
 	void loop();
 private:
 	Lidar& lidar;

@@ -19,10 +19,10 @@ void LidarController::loop()
 	}
 }
 
-std::vector<Line> LidarController::scanLines()
+std::vector<Line> LidarController::scanLines(int startX, int startY, int orientation)
 {
 	mavlink_message_t message;
-	mavlink_msg_command_long_pack(1, 1, &message, 1, 1, MAV_CMD_LIDAR_START_SCAN, 0, 1, 0, 0, 0, 0, 0, 0);
+	mavlink_msg_command_long_pack(1, 1, &message, 1, 1, MAV_CMD_LIDAR_START_SCAN, 0, startX, startY, orientation, 0, 0, 0, 0);
 	exchanger.enqueueMessage(message);
 	std::vector<Line> lines;
 	while (1)
