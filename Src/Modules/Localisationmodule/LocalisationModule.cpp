@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
 			std::string message = 
 				'X' + std::to_string(Y_MAX_AR_TAG_VALUE-coordinate.getX()) +
 				'Y' + std::to_string(coordinate.getY());
-			std::cout << message <<std::endl;
+			//std::cout << message <<std::endl;
 			server.broadcast(message);
 		}		
 		}
