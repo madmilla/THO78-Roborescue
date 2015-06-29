@@ -213,13 +213,14 @@ int Map::getMapObject(int y, int x){
         return -1;
     }
     if(x < width && y < height){
-        for (Map::Object o : mapLayout){
-            if (o.X == x && o.Y == y){
-                return o.id;
+        for (int i = mapLayout.size() - 1; i >= 0; --i){
+            if (mapLayout[i].X == x && mapLayout[i].Y == y){
+                return mapLayout[i].id;
             }
         }
+        return 0;
     }
-    return 0;
+    return -1;
 }
 
 std::vector< Map::Object > Map::getMapContent(){
@@ -261,16 +262,14 @@ void Map::saveMap(){
     mapFile.close();
 }
 
-void Map::savePcl(){
-    std::sort( mapLayout.begin(), mapLayout.end() );
-    mapLayout.erase( std::unique( mapLayout.begin(), mapLayout.end() ), mapLayout.end() );
+void Map::savePcl(std::string filename){
 
     Pointcloud pC;
 
     for(Map::Object obj : mapLayout){
         pC.setPoint(obj.X, obj.Y);
     }
-    pC.savePointsToFile(fileName + ".pcl");
+    pC.savePointsToFile(filename + ".pcl");
 }
 
 void Map::createNewMap(std::string fileName){
