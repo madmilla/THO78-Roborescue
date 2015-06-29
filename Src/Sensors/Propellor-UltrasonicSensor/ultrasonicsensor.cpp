@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file ultrasonicsensor.cpp
+* @file UltrasonicSensor.cpp
 * @date Created: 25-4-2015
 * @version 2.1
 *
@@ -35,7 +35,7 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "ultrasonicsensor.h"
+#include "UltrasonicSensor.h"
 #include "simpletools.h"
 
 UltraSonicSensor::UltraSonicSensor(int pin):

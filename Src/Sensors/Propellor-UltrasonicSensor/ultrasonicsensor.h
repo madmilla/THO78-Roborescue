@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file ultrasonicsensor.h
+* @file UltrasonicSensor.h
 * @date Created: 25-4-2015
 * @version 2.1
 *

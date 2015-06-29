@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file temperaturesensor.cpp
+* @file TemperatureSensor.cpp
 * @date Created: 25-4-2015
 * @version 1.3
 *
@@ -35,7 +35,7 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "temperaturesensor.h"
+#include "TemperatureSensor.h"
 
 const static float Kelvin = 273.15;
 
