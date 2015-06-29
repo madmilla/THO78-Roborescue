@@ -216,7 +216,7 @@ std::vector<Line> Lidar::start(float pX, float pY, float orientation){
 	point.Y = pY;
 	pCloud.rotate(orientation);
 	pCloud.setOffset(point);
-	const Mat & image = sD.createImage(pCloud, SCALE);
+	Mat & image = sD.createImage(pCloud, SCALE);
 	std::vector<Line> lines = sD.searchLines(image);
 	std::vector<Circle> circles;
 	sD.showObjects(lines, circles, image, image, Line::Point{ pCloud.getMinValues().X, pCloud.getMinValues().Y })
