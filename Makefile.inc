@@ -12,6 +12,8 @@ UI_HEADERS						+=
 MODULES 						+= 
 BOOST_INCL_DIR 					= Deps/incl/boost_1_58_0/Windows
 
+MODULES += $(MAIN_GUI_MODULE) $(QUADCOPTER_GUI_MODULE) $(ATV_GUI_MODULE) $(ROSBEE_GUI_MODULE) $(LIDAR_GUI_MODULE) $(MAP_GUI_MODULE)
+
 ifeq ($(OS),Windows_NT)
 	CXXFLAGS 		+= -DWIN32
 	MOC				= $(QT_BIN_DIR)/moc.exe
