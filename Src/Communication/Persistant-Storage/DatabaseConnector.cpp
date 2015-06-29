@@ -6,10 +6,10 @@
 *
 */
 
-#include "databaseconnector.h"
+#include "DatabaseConnector.h"
 
-//FIX FOR MINGW
-//#ifdef __MINGW32_
+//This is a fix for a known bug in mingw
+#ifdef __MINGW32__
 #include <sstream>
     namespace std
     {
@@ -24,7 +24,7 @@
             return atoi(a.c_str());
         }
     }
-//#endif
+#endif
 databaseConnector::databaseConnector( std::string hostname,std::string username, std::string password, std::string schema ) {
     std::cout << "opening database" << std::endl;
     db = QSqlDatabase::addDatabase("QMYSQL","connection");

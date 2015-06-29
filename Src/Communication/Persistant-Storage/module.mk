@@ -1,1 +1,1 @@
-SRC += Src/Communication/Persistant-Storage/databaseconnector.cpp
+SRC += Src/Communication/Persistant-Storage/DatabaseConnector.cpp
