@@ -12,7 +12,7 @@
 
 #include <string>
 #include <vector>
-#include "../../Map/point.hpp"
+#include "Point.hpp"
 #include <QtSql/QtSql>
 
 /** \class databaseConnector
