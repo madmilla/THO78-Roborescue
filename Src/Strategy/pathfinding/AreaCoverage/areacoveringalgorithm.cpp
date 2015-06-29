@@ -44,13 +44,13 @@
  /** Basic constructor, This requiers a test copter and a Map to function
 */
 AreaCoveringAlgorithm::AreaCoveringAlgorithm(VirtualQuadCopter *copter, Map* mapp) {
-	mapp->setScale(5);
+	mapp->setScale(30); //make one square about quadcopter size
 	globalMap = mapp;
 	std::cout << "Start";
-	followWall(copter, mapp, 1);
+	followWall(copter, mapp, 1); //one is the number of walled squares (blocked)
 	std::cout << "followed wall";
 	getchar();
-	followCovered(copter, mapp, 1, 3);
+	followCovered(copter, mapp, 1, 3); //three is the number of seen squares
 	this->drawWayPoints(mapp);
 }
 
@@ -344,7 +344,7 @@ void AreaCoveringAlgorithm::registerLocation(Map* map,
       if (i < int(map->getScaledWidth()) && i > -1 && ii > -1 &&
 		  ii < int(map->getScaledHeight())) {
         if (map->getScaledLocationValue(i,ii) == 0) {
-          map->setScaledLocationValue(i,ii,3);
+          map->setScaledLocationValue(i,ii,3); // three is the number of covered areas 
         }
       }
     }
@@ -366,7 +366,7 @@ AreaCoveringAlgorithm::~AreaCoveringAlgorithm(){
 }
 
 void AreaCoveringAlgorithm::setCopterSquare(VirtualQuadCopter copt, Map* map) {
-	map->setScaledLocationValue(copt.getX(), copt.getY(), 10);
+	map->setScaledLocationValue(copt.getX(), copt.getY(), 10); // 10 is the value of the square that contains the copter, could be any number really.... depends on your gui
 }
 
  /** this function moves the VirtualQuadCopter back on the route and keeps track of howfar it went back */
