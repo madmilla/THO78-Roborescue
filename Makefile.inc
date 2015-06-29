@@ -28,6 +28,10 @@ ifeq ($(MAKECMDGOALS),mission1)
 	else
 		INCLUDES 	+= -I$(QT_INCL_DIR) -I$(BOOST_INCL_DIR)
 		LDFLAGS 	+= -L$(QT_LIB_DIR) -L$(BOOST_LIB_DIR)
+		INCLUDES 	+= -I$(QT_LIB_DIR)/QtWidgets
+		INCLUDES 	+= -I$(QT_LIB_DIR)/QtGui
+		INCLUDES 	+= -I$(QT_LIB_DIR)/QtCore
+		INCLUDES 	+= -I$(QT_LIB_DIR)/QtSql
 		LDLIBS 		+= -lws2_32
 	endif
 	include TargetMakefiles/Makefile.basestation
