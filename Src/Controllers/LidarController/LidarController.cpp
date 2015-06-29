@@ -31,8 +31,23 @@ void LidarController::handleIncomingMessage(mavlink_message_t incomingMessage)
 				auto startX = mavlink_msg_command_long_get_param1(*incomingMessage);
 				auto startY = mavlink_msg_command_long_get_param2(*incomingMessage);
 				auto orientation = mavlink_msg_command_long_get_param3(*incomingMessage);
-				lidar.start(startX, startY, orientation);
+				sendLines(lidar.start(startX, startY, orientation));
 			}
 			break;
+	}
+}
+
+void LidarController::sendLines(std::vector<Line>& lines)
+{
+	mavlink_message_t lineMessage;
+	for(auto& line : lines)
+	{
+		auto data = line.getLine();
+		auto startX = data.begin_pos.x
+		auto startY = data.begin_pos.y
+		auto endX = data.end_pos.x
+		auto endY = data.end_pos.y
+		mavlink_msg_lidar_line_pack( 1, 1, &lineMessage, startX, startY, endX, endY, 0 );
+		exchanger.enqueueMessage(lineMessage);
 	}
 }
