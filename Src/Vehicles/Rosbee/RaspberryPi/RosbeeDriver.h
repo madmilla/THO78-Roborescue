@@ -14,7 +14,7 @@
 * @section LICENSE
 * License: newBSD
 *
-* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

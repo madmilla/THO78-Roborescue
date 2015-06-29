@@ -15,7 +15,7 @@
 * @section LICENSE
 * License: newBSD
 *
-* Copyright Â© 2015, HU University of Applied Sciences Utrecht.
+* Copyright © 2015, HU University of Applied Sciences Utrecht.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided$
@@ -55,7 +55,7 @@ private:
 
 public:
 	/// @brief Create new ManualDriver object.
-	/// @param RosbeeDriver Rosbee driver object used control the Rosbee.
+	/// @param driver Rosbee driver object used control the Rosbee.
 	explicit ManualDriver(RosbeeDriver &driver);
 };
 
