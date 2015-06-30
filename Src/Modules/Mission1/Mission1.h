@@ -8,6 +8,8 @@ class TCPConnection;
 class Quadcopter;
 class Rosbee;
 class XYLocalisationModule;
+class LidarController;
+class SerialConnection;
 
 const std::string LOCAL_IP{"145.89.118.25"};
 const int LIDAR_PORT{ 8000 };

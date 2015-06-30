@@ -4,6 +4,8 @@
 #include "Quadcopter.h"
 #include "Rosbee.h"
 #include "XYLocalisationModule.h"
+#include "LidarController.h"
+#include "SerialConnection.h"
 
 Mission1::Mission1(boost::asio::io_service& service):
 service{ service }
