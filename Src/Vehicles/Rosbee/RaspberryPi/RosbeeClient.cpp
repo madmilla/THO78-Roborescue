@@ -39,8 +39,6 @@
 #include "RosbeeClient.h"
 #include <string>
 #include "roborescueV1/mavlink.h"
-#include "RosbeeCommandFunctions.h"
-
 
 RosbeeClient::RosbeeClient(const std::string &serverAddress, unsigned short serverPort):
 serverAddr{serverAddress.c_str(),serverPort, SocketAddress::UDP_SOCKET}

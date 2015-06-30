@@ -42,7 +42,6 @@
 #include <thread>
 #include <iostream>
 #include <roborescueV1/mavlink.h>
-#include "RosbeeCommandFunctions.h"
 
 RosbeeProtocolHandler::RosbeeProtocolHandler(RosbeeClient &nRosClient,
 		PositionController &nPosContr,
