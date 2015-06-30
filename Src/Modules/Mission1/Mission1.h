@@ -11,8 +11,10 @@ class XYLocalisationModule;
 
 const std::string LOCAL_IP{"145.89.118.25"};
 const int LIDAR_PORT{ 8000 };
-const std::string QUADCOPTER_IP{ "" };
-const int QUADCOPTER_PORT{ 8001 } ;
+const std::string QUADCOPTER_COM_PORT{ "/dev/USB0" };
+const int QUADCOPTER_BAUDRATE{ 57600};
+const int LOCALISATIONMODULE_PORT{ 8001 } ;
+const std::string 
 
 class Mission1
 {
@@ -25,7 +27,7 @@ private:
 	boost::asio::io_service& service;
 	
 	std::shared_ptr<MAVLinkExchanger> 		quadcopterExchanger;
-	std::shared_ptr<TCPConnection> 			quadcopterConnection;
+	std::shared_ptr<SerialConnection> 		quadcopterConnection;
 	std::shared_ptr<MAVLinkExchanger> 		lidarExchanger;
 	std::shared_ptr<TCPConnection> 			lidarConnection;
 	std::shared_ptr<MAVLinkExchanger> 		localisationExchanger;

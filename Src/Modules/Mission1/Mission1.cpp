@@ -15,6 +15,12 @@ void Mission1::initialize()
 	lidarConnection = std::make_shared<TCPConnection>(TCPConnection{ service });
 	lidarConnection->connect(LIDAR_PORT);
 	lidarExchanger = std::make_shared<MAVLinkExchanger>(MAVLinkExchanger{ lidarConnection });
+	
+	quadcopterConnection = std::make_shared<SerialConnection>(SerialConnection{serivce}); 
+	quadcopterConnection->open(QUADCOPTER_COM_PORT,QUADCOPTER_BAUDRATE); //TODO Check ComPort
+	quadcopterExchanger = std::make_shared<MAVLinkExchanger>(MAVLinkExchanger{quadcopterConnection});
+	
+	isInitialized = true;
 }
 
 void Mission1::run()
