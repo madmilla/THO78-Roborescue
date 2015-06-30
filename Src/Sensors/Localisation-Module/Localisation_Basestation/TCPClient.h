@@ -15,7 +15,7 @@ private:
 	tcp::resolver tcpResolver;
 	tcp::endpoint tcpEndpoint;
 	tcp::socket tcpSocket;
-	streambuf receiveBuffer;
+	boost::asio::streambuf receiveBuffer;
 
 	/**
 	* \brief Handler which is called once the io_service is done
