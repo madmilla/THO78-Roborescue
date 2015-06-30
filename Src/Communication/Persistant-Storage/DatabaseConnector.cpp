@@ -8,8 +8,7 @@
 
 #include "DatabaseConnector.h"
 
-//This is a fix for a known bug in mingw
-#ifdef __MINGW32__
+#ifdef __MINGW32_
 #include <sstream>
     namespace std
     {

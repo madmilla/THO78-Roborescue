@@ -11,7 +11,6 @@
 * @brief A factory class that will read a file and return all the lines from this file
 *
 * @author Jos Bijlenga
-* @author Robert Bezem
 *
 * @version 1.0
 *
@@ -62,8 +61,8 @@ public:
 	//! @return A vector of lines with all the lines present in the map file
 	std::vector<line> loadMapFromFile(std::string fileAddress);
 
-	std::vector<line> loadMapFromDatabase(databaseConnector & theDatabase);
-	void saveMapToDatabase(std::vector<line> theLines, databaseConnector &theDatabase);
+	Map loadMapFromDatabase(databaseConnector & theDatabase);
+	void saveMapToDatabase(Map &theMap, databaseConnector &theDatabase);
 
 private:
 	//! Will return a line from a linestring read from the map file

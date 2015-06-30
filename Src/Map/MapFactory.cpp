@@ -10,18 +10,14 @@ mapFactory::~mapFactory()
 
 std::vector<line> mapFactory::loadMapFromDatabase(databaseConnector& theDatabase){
 	std::vector<std::vector<point>> polygonsFromDatabase = theDatabase.getPolygons();
-	std::vector<line> returnMap;
+	Map returnMap;
 	for(std::vector<point> thePolygon : polygonsFromDatabase){
-		for(int i = 0; i < thePolygon.size()-1;i++){
-			returnMap.push_back(line(thePolygon.at(i),thePolygon.at(i+1)));
-		}
+		returnMap.addObject(polygon(thePolygon));	
 	}
 	return returnMap;
 }
-void mapFactory::saveMapToDatabase(std::vector<line> theLines, databaseConnector &theDatabase){
-	for(line theLine : theLines){
-		theDatabase.addPolygon(std::vector<point>{theLine.getPoint(0),theLine.getPoint(1)});
-	}
+void mapFactory::saveMapToDatabase(Map & theMap, databaseConnector &theDatabase){
+
 }
 
 std::vector<line> mapFactory::loadMapFromFile(std::string fileAddress){
