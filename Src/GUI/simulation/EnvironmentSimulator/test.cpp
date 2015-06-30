@@ -231,25 +231,25 @@ int Test::run(){
 
     Map *tM = new Map("testMap.map", size,size);
     //right side
+    tM->setMapObject(1,5,8);
+    testResultsFile << "addObject 5 8 right side from checkpoint" << std::endl;
     tM->setMapObject(1,5,9);
     testResultsFile << "addObject 5 9 right side from checkpoint" << std::endl;
-    tM->setMapObject(1,5,10);
-    testResultsFile << "addObject 5 10 right side from checkpoint" << std::endl;
     //left side
+    tM->setMapObject(1,5,6);
+    testResultsFile << "addObject 5 6 left side from checkpoint" << std::endl;
     tM->setMapObject(1,5,5);
     testResultsFile << "addObject 5 5 left side from checkpoint" << std::endl;
-    tM->setMapObject(1,5,4);
-    testResultsFile << "addObject 5 4 left side from checkpoint" << std::endl;
     //upper side
+    tM->setMapObject(1,4,7);
+    testResultsFile << "addObject 4 7 upper side from checkpoint" << std::endl;
     tM->setMapObject(1,3,7);
     testResultsFile << "addObject 3 7 upper side from checkpoint" << std::endl;
-    tM->setMapObject(1,2,7);
-    testResultsFile << "addObject 2 7 upper side from checkpoint" << std::endl;
     //lower side
+    tM->setMapObject(1,6,7);
+    testResultsFile << "addObject 7 6 lower side from checkpoint" << std::endl;
     tM->setMapObject(1,7,7);
     testResultsFile << "addObject 7 7 lower side from checkpoint" << std::endl;
-    tM->setMapObject(1,8,7);
-    testResultsFile << "addObject 8 7 lower side from checkpoint" << std::endl;
 
     //left up side diagonal
     tM->setMapObject(1,4,6);
@@ -285,22 +285,22 @@ int Test::run(){
     Pointcloud pointc = tS.getPointCloud();
 
     for(Pointcloud::Point p : *pointc.getPoints()){
-        if(p.X == 3 && p.Y == 0){
+        if(p.X == 2 && p.Y == 0){
             testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Right side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
-        else if(p.X == -3 && p.Y == 0){
+        else if(p.X == -2 && p.Y == 0){
             testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Left side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
-        else if(p.X == 0 && p.Y == 3){
+        else if(p.X == 0 && p.Y == 2){
             testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Upper side object behind object scanned. FAILURE!" << std::endl;
             ++error;
         }
-        else if(p.X == 0 && p.Y == -3){
+        else if(p.X == 0 && p.Y == -2){
             testResultsFile << "Error: ";
             testResultsFile << "PointCloud: " << "Lower side object behind object scanned. FAILURE!" << std::endl;
             ++error;
