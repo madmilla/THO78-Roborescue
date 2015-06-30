@@ -42,7 +42,6 @@
 #include "Point.hpp"
 #include "Line.hpp"
 #include "Map.hpp"
-#include "DatabaseConnector.h"
 #include <fstream>
 #include <string>
 
@@ -61,8 +60,8 @@ public:
 	//! @return A vector of lines with all the lines present in the map file
 	std::vector<line> loadMapFromFile(std::string fileAddress);
 
-	Map loadMapFromDatabase(databaseConnector & theDatabase);
-	void saveMapToDatabase(Map &theMap, databaseConnector &theDatabase);
+	//Map loadMapFromDatabase(databaseConnector & theDatabase);
+	//void saveMapToDatabase(Map &theMap, databaseConnector &theDatabase);
 
 private:
 	//! Will return a line from a linestring read from the map file

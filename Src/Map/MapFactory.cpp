@@ -16,9 +16,9 @@ mapFactory::~mapFactory()
 	}
 	return returnMap;
 }*/
-void mapFactory::saveMapToDatabase(Map & theMap, databaseConnector &theDatabase){
+/*void mapFactory::saveMapToDatabase(Map & theMap, databaseConnector &theDatabase){
 
-}
+}*/
 
 std::vector<line> mapFactory::loadMapFromFile(std::string fileAddress){
 	std::vector<line> rtn;					// The vector to return
