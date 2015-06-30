@@ -13,7 +13,7 @@ class SerialConnection;
 
 const std::string LOCAL_IP{"145.89.118.25"};
 const int LIDAR_PORT{ 8000 };
-const std::string QUADCOPTER_COM_PORT{ "/dev/USB0" };
+const std::string QUADCOPTER_COM_PORT{ "COM4" };
 const int QUADCOPTER_BAUDRATE{ 57600};
 const int LOCALISATIONMODULE_PORT{ 8001 } ;
 

@@ -13,13 +13,24 @@ service{ service }
 
 void Mission1::initialize()
 {
-	lidarConnection = std::make_shared<TCPConnection>(TCPConnection{ service });
+	lidarConnection = std::shared_ptr<TCPConnection>( new TCPConnection{ service } );
+	std::cout << "Attempting to connect with the LIDAR on port: " + std::to_string( LIDAR_PORT ) << std::endl;
 	lidarConnection->connect(LIDAR_PORT);
-	lidarExchanger = std::make_shared<MAVLinkExchanger>(MAVLinkExchanger{ lidarConnection });
+	std::cout << "Established connection with the LIDAR" << std::endl;
+	lidarExchanger = std::shared_ptr<MAVLinkExchanger>(new MAVLinkExchanger{ lidarConnection.get() } );
 	
-	quadcopterConnection = std::make_shared<SerialConnection>(SerialConnection{serivce}); 
-	quadcopterConnection->open(QUADCOPTER_COM_PORT,QUADCOPTER_BAUDRATE); //TODO Check ComPort
-	quadcopterExchanger = std::make_shared<MAVLinkExchanger>(MAVLinkExchanger{quadcopterConnection});
+	
+	quadcopterConnection = std::shared_ptr<SerialConnection>( new SerialConnection{service} ); 
+	std::cout << "Attempting to connect with the Quadcopter on COM port: " 
+	<< QUADCOPTER_COM_PORT 
+	<< " With a baudrate of: " 
+	<< QUADCOPTER_BAUDRATE 
+	<< std::to_string(QUADCOPTER_BAUDRATE) 
+	<< std::endl; 
+	quadcopterConnection->open(QUADCOPTER_COM_PORT, QUADCOPTER_BAUDRATE);
+	std::cout << "Established connection with the Quadcopter" << std::endl;
+	quadcopterExchanger = std::shared_ptr<MAVLinkExchanger>( new MAVLinkExchanger{ quadcopterConnection.get() } );
+	
 	
 	isInitialized = true;
 }
