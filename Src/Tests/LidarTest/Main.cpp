@@ -11,7 +11,7 @@ boost::asio::io_service service;
 int main()
 {
 	TCPConnection c{ service };
-	if(c.connect( "145.89.188.25", "8000" ))
+	if(c.connect( "145.89.118.25", "8000" ))
 	{
 		std::cout << "CONNECTED TO SERVER" << std::endl << std::endl;
 		MAVLinkExchanger exchanger{ &c };

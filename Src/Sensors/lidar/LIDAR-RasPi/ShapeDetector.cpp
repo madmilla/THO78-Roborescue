@@ -185,7 +185,7 @@ void ShapeDetector::writeObjectsToConsole(const std::vector<Line> & lines, const
 void ShapeDetector::showObjects(const vector<Line> & lines, const std::vector<Circle> circles, const Mat & orginal_image, Mat & custom_image, Line::Point lidarPoint){
 	drawLines(lines, custom_image, lidarPoint);
 	imwrite("newImage.png",custom_image);
-	drawCircles(circles, custom_image);
+	/*drawCircles(circles, custom_image);
 	imshow("orginal image", orginal_image);
-	imshow("detected lines & circles", custom_image);
+	imshow("detected lines & circles", custom_image);*/
 }
