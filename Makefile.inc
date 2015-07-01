@@ -20,6 +20,7 @@ ifeq ($(OS),Windows_NT)
 else
 	MOC = moc
 	UIC = uic
+	BOOST_LIB_DIR 	= Deps/lib/boost_1_58_0/RaspberryPi
 endif
 
 ifeq ($(MAKECMDGOALS),mission1)

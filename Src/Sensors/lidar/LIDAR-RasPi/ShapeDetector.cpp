@@ -46,7 +46,7 @@ std::vector<Circle> ShapeDetector::detectCircles(const Mat & image){
 	std::vector<Circle> newCircles;
 	for (int i = 0; i < circles->total; i++){ // walk through the circles
 		// round the floats to an int
-		float* p = static_cast<float*>(cvGetSeqElem(circles, i));
+		float* p = reinterpret_cast<float*>(cvGetSeqElem(circles, i));
 		Circle c(cvRound(p[0]), cvRound(p[1]), cvRound(p[2]));
 		newCircles.push_back(c);
 	}

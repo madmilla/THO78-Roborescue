@@ -33,14 +33,11 @@
 * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
-
-
+#include "Lidar.h"
 
 #ifndef _countof
 #define _countof(_Array) (int)(sizeof(_Array) / sizeof(_Array[0]))
 #endif
-
-using namespace rp::standalone::rplidar;
 
 Lidar::Lidar(const char *opt_com_path):
     opt_com_path(opt_com_path),
