@@ -70,7 +70,7 @@ ifeq ($(MAKECMDGOALS),rosbee)
 endif
 ifeq ($(MAKECMDGOALS),environmentsimulator)
 	ifneq ($(OS),Windows_NT)
-		@echo "The Environment-simulator is currently not compatible with linux bases systems"
+		@echo "The Environment-simulator is currently not compatible with linux based systems"
 		exit 1
 	else
 		include TargetMakefiles/Makefile.environmentsimulator

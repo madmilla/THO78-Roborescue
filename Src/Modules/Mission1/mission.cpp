@@ -9,11 +9,10 @@
 
 int main(int argc, char *argv[])
 {
-<<<<<<< HEAD
-	boost::asio::io_service service;
-	TCPConnection p{ service };
+    boost::asio::io_service service;
+    TCPConnection p{ service };
     MAVLinkExchanger exch{ &p };
-   	Quadcopter q{ exch };
+    Quadcopter q{ exch };
     ATV a{ exch };
     databaseConnector dbc("127.0.0.1","root","desktop","robodata");
     dbc.setMap(1);

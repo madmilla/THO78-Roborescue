@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file AreaCoverageAlgorithm.h
+* @file PairWiseMove.h
 * @date Created: 4/28/2015
 * @version 1.5
 *
@@ -35,7 +35,7 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#include "pairwisemove.h"
+#include "PairWiseMove.h"
 
 
 PairWiseMove::PairWiseMove(){}

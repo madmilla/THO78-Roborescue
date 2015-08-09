@@ -27,5 +27,7 @@ clean :
 		rm -f "$$prefix"moc_*.cpp; \
 	done
 	rm -f *.exe
+	rm -f Src/Tests/**/*.o 
+	rm -f Scr/Tests/**/*.d
 
 -include $(OBJ:.o=.d)

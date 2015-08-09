@@ -8,7 +8,7 @@ mapFactory::mapFactory()
 mapFactory::~mapFactory()
 {}
 
-std::vector<line> mapFactory::loadMapFromDatabase(databaseConnector& theDatabase){
+Map mapFactory::loadMapFromDatabase(databaseConnector& theDatabase){
 	std::vector<std::vector<point>> polygonsFromDatabase = theDatabase.getPolygons();
 	Map returnMap;
 	for(std::vector<point> thePolygon : polygonsFromDatabase){

@@ -1,0 +1,1 @@
+SRC += Src/Strategy/Common/Vehicles/Virtual-quadcopter/VirtualQuadCopter.cpp

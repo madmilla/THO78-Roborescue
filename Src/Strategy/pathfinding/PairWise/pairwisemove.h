@@ -6,7 +6,7 @@
 * /_/  \____/_.___/\____/_/   \___/____/\___/\__,_/\___/
 *
 *
-* @file AreaCoverageAlgorithm.h
+* @file PairWiseMove.h
 * @date Created: 4/28/2015
 * @version 1.5
 *
@@ -35,8 +35,8 @@
 * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-#ifndef PAIRWISEMOVE
-#define PAIRWISEMOVE
+#ifndef PAIRWISEMOVE_H
+#define PAIRWISEMOVE_H
 
 #include "WayPoint.h"
 #include "VirtualQuadCopter.h"
@@ -61,15 +61,15 @@ public:
 
     /**
      * @fn	std::vector<WayPoint> PairWiseMove::QuadCopterPairRoute(std::vector<WayPoint> atvRoute,
-     * 		ATV atv, QuadCopter copter );
+     * 		ATV atv, QuadCopter copter);
      *
      * @brief	Creates a QuadCopter route from an ATV route.
      * 			As long as the ATV is in sight of QuadCopter, QuadCopter does not move.
      * 			Else the QuadCopter moves to next ATV position, with the route calculated by AStar.
      *
-     * @param	atvRoute	an atv route.
-     * @param	atv			The atv.
-     * @param	copter  	The copter.
+     * @param	atvRoute	an ATV route.
+     * @param	atv			The ATV.
+     * @param	copter  	The quadcopter.
      * @param	map			a map.
      *
      * @return	A std::vector with WayPoints for QuadCopter;
@@ -150,4 +150,4 @@ private:
     int ATVWaypointCounter = 0;
 };
 
-#endif // PAIRWISEMOVE
+#endif // PAIRWISEMOVE_H

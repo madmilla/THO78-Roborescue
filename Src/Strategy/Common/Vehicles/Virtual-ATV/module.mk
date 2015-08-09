@@ -1,0 +1,1 @@
+SRC += Src/Strategy/Common/Vehicles/Virtual-ATV/VirtualATV.cpp
