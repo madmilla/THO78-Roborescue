@@ -33,6 +33,12 @@ QUADCOPTER_MODULE					= Src/Vehicles/Quadcopter/
 ATV_MODULE							= Src/Vehicles/ATV/
 ROSBEE_LOCAL_MODULE					= Src/Vehicles/Rosbee/
 
+VIRTUAL_QUADCOPTER					= Src/Strategy/Common/Vehicles/Virtual-quadcopter/
+VIRTUAL_ATV							= Src/Strategy/Common/Vehicles/Virtual-ATV/
+VIRTUAL_ROSBEE						= Src/Strategy/Common/Vehicles/Virtual-rosbee/
+VIRTUAL_LIDAR						= Src/Strategy/Common/Vehicles/Virtual-lidar/
+
+
 #SENSORS
 PROPELLOR_ENCODER_MODULE 			= Src/Sensors/Propellor-Encoder/
 PROPELLOR_SIRC_MODULE				= Src/Sensors/Propellor-SIRC/

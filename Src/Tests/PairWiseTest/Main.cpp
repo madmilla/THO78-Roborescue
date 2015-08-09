@@ -5,9 +5,7 @@
 #include <iostream>
 #include "Map.hpp"
 
-#define TEST
 
-#ifdef TEST
 int main()
 {
     PairWiseMove move;
@@ -132,10 +130,3 @@ int main()
 
     return error;
 }
-#else
-
-int main(int argc, char *argv[])
-{
-
-}
-#endif
