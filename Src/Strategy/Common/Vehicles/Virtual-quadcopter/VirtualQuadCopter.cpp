@@ -8,8 +8,9 @@
 *
 * @file VirtualQuadCopter.cpp
 * @date Created: 4/28/2015
-* @version 1.0
+* @version 1.3
 *
+* @author Jacob Visser
 * @author Mathijs Arends
 * @author Jeroen Steendam
 *
@@ -76,7 +77,7 @@ void VirtualQuadCopter::goTo(WayPoint* waypoint){
     this->y = waypoint->x;
 }
 
-bool VirtualQuadCopter::inView(int x, int y){
+bool VirtualQuadCopter::inView(int x, int y) const{
     //param x in range of view
     if(((this->x) -(fov.width/2) <= x) && ((this->x) + (fov.width/2) >= x)){
         //param y in range of view

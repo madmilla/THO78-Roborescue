@@ -151,7 +151,7 @@ public:
 	//! @param The x index
 	//! @param The y index
 	//! @return The result of the accessible check
-	bool isAccessible(int x, int y);
+	bool isAccessible(int x, int y) const;
 	
 	//! Check if a destination is accessible from a location
 	//! If the destination is not reachable it will be set unaccessible in the grid.
@@ -214,11 +214,11 @@ public:
 
 	//! Returns the value of the scaled width
 	//! @return the value of scaled width
-	int getScaledWidth();
+	int getScaledWidth() const;
 
 	//! Returns the value of the scaled height
 	//! @return the value of scaled height
-	int getScaledHeight();
+	int getScaledHeight() const;
 
 	//! Returns if the map contains a certain value
 	//! @param The value what will be checked
@@ -287,11 +287,11 @@ public:
 
 	//! Get the grid width
 	//! @return The width of the grid
-	int getGridWidth();
+	int getGridWidth() const;
 
 	//! Get the grid height
 	//! @return The height of the grid
-	int getGridHeight();
+	int getGridHeight() const;
 
 private:
 	//! The scale of the grid

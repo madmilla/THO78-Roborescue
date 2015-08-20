@@ -53,29 +53,36 @@ public:
 	* @brief	Constructor of the class Route.
 	*/
     Route();
+
 	/**
 	* @fn	Route(std::vector<WayPoint> waypoints);
 	*
-	* @brief	Constructor of the class Route.
+	* @brief	Constructor of the class Route. 
+	* 			Initialise route with existing vector of waypoints.
 	*
-	* @param	waypoints
+	* @param	Vector of waypoints.
 	*/
     Route(std::vector<WayPoint> waypoints);
+
 	/**
 	* @fn	~Route();
 	*
 	* @brief	Destructor of the class Route.
 	*/
     ~Route();
+
 	/**
 	* @fn	void setRouteTile(int x , int y);
 	*
 	* @brief	Function to set a location x and location y in wayPoints.
+	* 			Makes a new waypoint, should be renamed to pushWayPoint(int x, int y),
+	* 			but that breaks SLAM?
 	*
 	* @param 	x
 	* @param 	y
 	*/
     void setRouteTile(int x , int y);
+
 	/**
 	* @fn	int * getNewTile();
 	*
@@ -84,18 +91,20 @@ public:
 	* @return	tileLocation
 	*/
 	int * getNewTile();
+
 	/**
 	* @fn	int getSize();
 	*
-	* @brief	Function to get the size of wayPoints;
+	* @brief	Function to get the size of the waypoints vector;
 	*
-	* @return	int wayPoints.size();
+	* @return	int waypoint-vector size;
 	*/
-	int getSize();
+	int getSize() const;
+
 	/**
 	* @fn	void addRoutePart(Route);
 	*
-	* @brief	Function to add a route to the full route
+	* @brief	Function to add a route to this route.
 	*
 	* @param	Route
 	*/
@@ -104,18 +113,30 @@ public:
 	/**
 	* @fn	friend std::ostream & operator<<(std::ostream & os, Route & l);
 	*
-	* @brief	Operator for Route.
+	* @brief	Operator to print out a route.
 	*
 	* @param	os
 	* @param	l
 	*/
     friend std::ostream & operator<<(std::ostream & os, Route & l);
+
 	/**
 	* @fn	void scaleWaypoints();
 	*
 	* @brief	Function to scale the waypoints.
+	* 			Deprecated, use scaleWaypoints(int scale).
 	*/
     void scaleWaypoints();
+
+	/**
+	* @fn	void scaleWaypoints(int scale);
+	*
+	* @brief	Function to scale the waypoints.
+	* 			
+	* @param	scale
+	*/
+	void scaleWaypoints(int scale);
+
 	/**
 	* @fn	void randomRoute(int MapWidth, int MapHeight);
 	*
@@ -125,36 +146,46 @@ public:
 	* @param	MapHeight
 	*/	
     void randomRoute(int MapWidth, int MapHeight);
+
 	/**
 	* @fn	WayPoint* getWaypoint(int wayPoint);
 	*
-	* @brief	Function that returns a waypoint from wayPoints.
+	* @brief	Function that returns a waypoint from the std::vector<WayPoint*> wayPoints.
 	*
-	* @param	wayPoint
+	* @param	a wayPoint
 	*/	
-    WayPoint* getWaypoint(int wayPoint);
+    WayPoint* getWaypoint(int wayPoint) const;
+
 	/**
 	* @fn	void pushWayPoint(WayPoint* wayPoint);
 	*
-	* @brief	Function to set a waypoint in wayPoints.
+	* @brief	Function to add a waypoint at the back of the std::vector<WayPoint*> wayPoints.
 	*
-	* @param	wayPoint
+	* @param	a wayPoint
 	*/
     void pushWayPoint(WayPoint* wayPoint);
+
 	/**
 	* @fn	void clearRoute();
 	*
-	* @brief	Function to clear the vector std::vector <std::pair<int, int>> newRoute;
+	* @brief	Function to clear the std::vector<WayPoint*> wayPoints;
 	*/
 	void clearRoute();
+
+	/**
+	* @brief	std::vector<WayPoint> waypoints;
+	* 			Some weird application used this, ??Pathfinding?? 
+	* 		 
+	*/
+	std::vector<WayPoint> waypoints;
+
+private:
 	/**
 	* @brief std::vector<WayPoint*> wayPoints;
 	*/
 	std::vector<WayPoint*> wayPoints;
-	/**
-	* @brief std::vector<WayPoint> waypoints;
-	*/
-	std::vector<WayPoint> waypoints;
+
+
 	/**
 	* @brief int scale variable.
 	*/

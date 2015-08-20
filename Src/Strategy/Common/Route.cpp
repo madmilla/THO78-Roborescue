@@ -43,7 +43,7 @@
 */
 
 Route::Route(){
-	wayPoints.reserve(1);
+	wayPoints.reserve(1); //SLAM needs this?
 }
 
 /**
@@ -87,11 +87,18 @@ int * Route::getNewTile(){
 		tileLocation[1] = i->y;
 		// Erase waypoint from the route.
 		wayPoints.erase(wayPoints.begin());
-		// When we found a tile we can break the for loop.
-		break;
+		// When we found a tile we can break the for loop. 
+		break; //No if?? Breaks always?
 	}
 	// return the tile location.
 	return tileLocation;
+}
+
+/**
+* Function that returns the size of vector std::vector <std::pair<int, int>> newRoute;.
+*/
+int Route::getSize() const{
+	return wayPoints.size();
 }
 
 /**
@@ -108,16 +115,40 @@ void Route::addRoutePart(Route in){
 
 std::ostream & operator<<(std::ostream & os, Route & l){
 	std::stringstream output;
-	for (auto i : l.wayPoints){
-		output << i->x << " " << i->y << " ";
+	for (int i = 0; i < l.getSize(); i++){
+		WayPoint* tmp = l.getWaypoint(i);
+		output << tmp->x << " " << tmp->y << " ";
     }
 	return os << output.str();
 }
 
 /**
+* Function to scale the waypoints.
+*/
+void Route::scaleWaypoints(){
+	for (int index = 0; index < waypoints.size(); index++){
+		WayPoint point = waypoints.at(index);
+		point.x = point.x*scale; point.y = point.y *scale;
+		waypoints.at(index) = point;
+	}
+
+}
+
+/**
+* Function to scale the waypoints.
+*/
+void Route::scaleWaypoints(int scale){
+	for (int index = 0; index < waypoints.size(); index++){
+		WayPoint point = waypoints.at(index);
+		point.x = point.x*scale; point.y = point.y *scale;
+		waypoints.at(index) = point;
+	}
+
+}
+
+/**
 * Function to create a random route.
 */
-
 void Route::randomRoute(int MapWidth, int MapHeight){
 	// Create random int (0<25).
 	int waypoints = rand() % 22 + 3;
@@ -135,17 +166,10 @@ void Route::randomRoute(int MapWidth, int MapHeight){
 }
 
 /**
-* Function that returns the size of vector std::vector <std::pair<int, int>> newRoute;.
-*/
-int Route::getSize(){
-	return wayPoints.size();
-}
-
-/**
 * Function that returns a waypoint from wayPoints.
 */
 
-WayPoint* Route::getWaypoint(int wayPoint){
+WayPoint* Route::getWaypoint(int wayPoint) const{
     return wayPoints[wayPoint];
 }
 
@@ -165,15 +189,4 @@ void Route::clearRoute(){
     wayPoints.clear();
 }
 
-/**
-* Function to scale the waypoints.
-*/
 
-void Route::scaleWaypoints(){
-	for (int index = 0; index < waypoints.size(); index++){
-		WayPoint point = waypoints.at(index);
-		point.x = point.x*scale; point.y = point.y *scale; 
-		waypoints.at(index) = point;
-	}
-
-}

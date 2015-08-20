@@ -79,7 +79,7 @@ public:
 	*
 	* @return	size
 	*/
-    Dimension getSize() { return size; }
+    Dimension getSize() const { return size; }
 	/**
 	* @fn	int getX();
 	*
@@ -87,7 +87,7 @@ public:
 	*
 	* @return	x
 	*/
-    int getX() { return x; }
+	int getX() const { return x; }
 	/**
 	* @fn	int getY();
 	*
@@ -95,7 +95,7 @@ public:
 	*
 	* @return	y
 	*/
-    int getY() { return y; }
+	int getY() const { return y; }
 	/**
 	* @fn	void setSize(Dimension size);
 	*

@@ -74,7 +74,7 @@ public:
 	*	/return A vector of the coordinates of the path from start to end. will return an empty vector when
 	*		no path is found.
 	**/
-	std::vector<std::pair<int, int>> findPath(int startX, int startY, int endX, int endY, mapImplementation& theMap);
+	std::vector<std::pair<int, int>> findPath(int startX, int startY, int endX, int endY, const mapImplementation& theMap);
 
 	/**	/brief Get the distances to the endpoint around the given coordinate on the given map
 	*
@@ -84,7 +84,7 @@ public:
 	*		distance when the coordinate is out of the map bounds, is an obstacle or is a coordinate
 	*		in closedcells.
 	**/
-	std::array<std::pair<Coordinate, int>, 4> getDistances(Coordinate coordinate, mapImplementation& theMap);
+	std::array<std::pair<Coordinate, int>, 4> getDistances(Coordinate coordinate, const mapImplementation& theMap);
 
 	/**	/brief Get the shortest distance from 4 coordinates with their distances to the endpoint
 	*
@@ -92,14 +92,16 @@ public:
 	*	/return the coordinate with the closest distance to the endpoint
 	**/
 	Coordinate getShortestDistance(std::array<std::pair<Coordinate, int>, 4> distances);
+
+
 	Route getRoute(std::vector<std::pair<int, int>>);
 private:
 	std::vector<Coordinate> closedCells;
 	std::vector<Coordinate> openCells;
 	Coordinate endPoint;
 	Coordinate startPoint;
-	const int width = 60;
-	const int height = 60;
+	//const int width = 60;
+	//const int height = 60;
 	//Map map;
 };
 #endif

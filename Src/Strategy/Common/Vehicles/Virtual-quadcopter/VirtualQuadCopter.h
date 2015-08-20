@@ -8,10 +8,12 @@
 *
 * @file VirtualQuadCopter.h
 * @date Created: 4/28/2015
-* @version 1.0
+* @version 1.3
 *
+* @author Jacob Visser
 * @author Mathijs Arends
 * @author Jeroen Steendam
+* 
 *
 * @section LICENSE
 * License: newBSD
@@ -56,6 +58,7 @@ public:
 	* @param	y
 	*/
     VirtualQuadCopter(Dimension size, Dimension fov, int x, int y);
+
 	/**
 	* @fn	~VirtualQuadCopter();
 	*
@@ -63,6 +66,7 @@ public:
 	*
 	*/
     ~VirtualQuadCopter();
+
 	/**
 	* @fn	void goTo(int x, int y);
 	*
@@ -72,6 +76,7 @@ public:
 	* @param	y
 	*/
     void goTo(int x, int y);
+
     /**
     * @fn	void goTo(WayPoint* waypoint);
     *
@@ -80,6 +85,7 @@ public:
     * @param	waypoint
     */
     void goTo(WayPoint* waypoint);
+
     /**
     * @fn       bool inView(int x, int y);
     *
@@ -87,24 +93,29 @@ public:
     *
     * @param	x
     * @param    y
+    * 
+    * @return	Bool of point is in view			
     */
-    bool inView(int x, int y);
+    bool inView(int x, int y) const;
+
     /**
 	* @fn	Dimension getSize();
 	*
 	* @brief	Function to get size of Dimension.
 	*
-	* @return	size
+	* @return	Dimension of size
 	*/
-	Dimension getSize() { return size; };
+	Dimension getSize() const { return size; };
+
 	/**
 	* @fn	Dimension getFov();
 	*
-	* @brief	Function to get fov of Dimension.
+	* @brief	Function to get the dimension of the fov.
 	*
-	* @return	fov
+	* @return	Dimension of fov
 	*/
 	Dimension getFov() { return fov; };
+
 	/**
 	* @fn	int getX();
 	*
@@ -112,7 +123,8 @@ public:
 	*
 	* @return	x
 	*/
-	int getX() { return x; };
+	int getX() const { return x; };
+
 	/**
 	* @fn	int getY();
 	*
@@ -120,7 +132,8 @@ public:
 	*
 	* @return	y
 	*/
-	int getY() { return y; };
+	int getY() const { return y; };
+
 	/**
 	* @fn	void setSize(Dimension size);
 	*
@@ -129,6 +142,7 @@ public:
 	* @param	size
 	*/
 	void setSize(Dimension size) { this->size = size; };
+
 	/**
 	* @fn	void setFov(Dimension fov);
 	*
@@ -137,22 +151,24 @@ public:
 	* @param	fov
 	*/
 	void setFov(Dimension fov) { this->fov = fov; };
-	/**
-	* @fn	void setX(int x);
-	*
-	* @brief	Function to set x location of VirtualQuadCopter.
-	*
-	* @param	x
-	*/
-	void setX(int x) { this->x = x; };
-	/**
-	* @fn	void setXY(int y);
-	*
-	* @brief	Function to set y location of VirtualQuadCopter.
-	*
-	* @param	y
-	*/
-	void setY(int y) { this->y = y; };
+
+	//These functions are not needed, use goTo(x,y) instead.
+	///**
+	//* @fn	void setX(int x);
+	//*
+	//* @brief	Function to set x location of VirtualQuadCopter.
+	//*
+	//* @param	x
+	//*/
+	//void setX(int x) { this->x = x; };
+	///**
+	//* @fn	void setXY(int y);
+	//*
+	//* @brief	Function to set y location of VirtualQuadCopter.
+	//*
+	//* @param	y
+	//*/
+	//void setY(int y) { this->y = y; };
 private:
 	/**
 	* @brief Dimension size. Size of Dimension.

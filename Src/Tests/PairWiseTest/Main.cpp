@@ -14,31 +14,33 @@ int main()
     Dimension coptersize(1,1);
     Dimension searchSize(2,2);
     VirtualQuadCopter copter(coptersize,searchSize,4,4);
-    VirtualATV atv(atvsize, 0, 0);
+    VirtualATV atv(atvsize, 1, 1);
     Map mapp;
 
 
     Route atvRoute;
     //atvRoute.push_back(WayPoint(1, 1));
-
+    
 
     Route * result = move.generatePairRoute(atvRoute, atv, copter, mapp )->first;
 
     bool error = false;
 
-    if(result->getSize() == 1){ //Quad must move te atv
+    if(result->getSize() > 0){ //Quad must move te atv
         if(!(result->getWaypoint(0)->x == 0 && result->getWaypoint(0)->y == 0)){
             error = true;
             std::cout << "Quad must move to atv waypoint ERROR" << std::endl;
         }
-        std::cout << "Quad must move te atv SUCCES" << std::endl;
+		else{
+			std::cout << "Quad must move te atv SUCCES" << std::endl;
+		}
     }
     else{
         std::cout << "Quad must move te atv size ERROR" << std::endl;
     }
 
-    copter = VirtualQuadCopter(coptersize,searchSize,0,0);
-    atv = VirtualATV(atvsize, 0, 0);
+    copter = VirtualQuadCopter(coptersize,searchSize,1,1);
+    atv = VirtualATV(atvsize, 3, 3);
     atvRoute.clearRoute();
     atvRoute.pushWayPoint( new WayPoint(1, 1));
 
@@ -61,7 +63,9 @@ int main()
             error = true;
             std::cout << "Atv is just out range of quadsight waypoint ERROR"<< std::endl;
         }
-        std::cout << "Atv is just out range of quadsight SUCCES" << std::endl;
+		else{
+			std::cout << "Atv is just out range of quadsight SUCCES" << std::endl;
+		}
     }
     else{
         std::cout << "Atv is just out range of quadsight size ERROR"<< std::endl;

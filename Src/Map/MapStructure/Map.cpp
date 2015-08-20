@@ -308,7 +308,7 @@ void Map::translateToPoints()
 }
 
 //check if x,y is accessible
-bool Map::isAccessible(int x, int y)
+bool Map::isAccessible(int x, int y) const
 {
 	// check for out of bounds
 	if (x >= getGridWidth() || y >= getGridHeight()) return false;
@@ -316,18 +316,18 @@ bool Map::isAccessible(int x, int y)
 	{
 		return true;
 	}
-	else if(access.at(x).at(y) = 1)
+	else if(access.at(x).at(y) == 1)
 	{
 		return false;
 	}
 }
 
-int Map::getGridHeight()
+int Map::getGridHeight() const
 {
 	return access.size(); // columns == grid height
 }
 
-int Map::getGridWidth()
+int Map::getGridWidth() const
 {
 	return access.at(0).size(); // row size == grid width
 }
@@ -355,12 +355,12 @@ bool Map::isScaledAccessible(int x, int y )
 	return true;
 }
 
-int Map::getScaledWidth()
+int Map::getScaledWidth() const
 {
 	return access.size() / scale;
 }
 
-int Map::getScaledHeight()
+int Map::getScaledHeight() const
 {
 	return access.size() / scale;
 }
