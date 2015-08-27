@@ -8,10 +8,15 @@ MODULES		+= $(MAP_COMMON_MODULE)
 MODULES		+= $(STRATEGY_TINYASTAR_MODULE)
 MODULES		+= $(DATABASECONNECTOR_MODULE)
 MODULES		+= $(VIRTUAL_QUADCOPTER)
-INCLUDES 	+= -I$(QT_LIB_DIR)/QtSql -I$(QT_INCL_DIR)
-LDFLAGS		+= -L$(QT_LIB_DIR)
-LDLIBS 		+= -lQt5Sql -lQt5Core
 
+ifneq ($(OS),Windows_NT)
+		CXXFLAGS 	+= -fPIC
+		INCLUDES 	+= -I/usr/include/qt5/
+	else
+		INCLUDES 	+= -I$(QT_LIB_DIR)/QtSql -I$(QT_INCL_DIR)
+		LDFLAGS		+= -L$(QT_LIB_DIR)
+		LDLIBS 		+= -lQt5Sql -lQt5Core
+endif
 
 
 SRC			+= Src/Tests/PairWiseTest/Main.cpp
