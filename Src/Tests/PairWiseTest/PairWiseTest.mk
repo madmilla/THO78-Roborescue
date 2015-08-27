@@ -12,10 +12,12 @@ MODULES		+= $(VIRTUAL_QUADCOPTER)
 ifneq ($(OS),Windows_NT)
 		CXXFLAGS 	+= -fPIC
 		INCLUDES 	+= -I/usr/include/qt5/
+		LDLIBS 		+= -lQt5Sql -lQt5Core
 	else
 		INCLUDES 	+= -I$(QT_LIB_DIR)/QtSql -I$(QT_INCL_DIR)
 		LDFLAGS		+= -L$(QT_LIB_DIR)
 		LDLIBS 		+= -lQt5Sql -lQt5Core
+		
 endif
 
 
