@@ -67,7 +67,7 @@ Route::~Route(){
 */
 
 void Route::setRouteTile(int x, int y){
-	this->pushWayPoint(new WayPoint(x, y));
+	this->pushWayPoint(*(new WayPoint(x, y)));
 }
 
 /**
@@ -116,8 +116,8 @@ void Route::addRoutePart(Route in){
 std::ostream & operator<<(std::ostream & os, Route & l){
 	std::stringstream output;
 	for (int i = 0; i < l.getSize(); i++){
-		WayPoint* tmp = l.getWaypoint(i);
-		output << tmp->x << " " << tmp->y << " ";
+		WayPoint tmp = l.getWaypoint(i);
+		output << tmp.x << " " << tmp.y << " ";
     }
 	return os << output.str();
 }
@@ -169,16 +169,16 @@ void Route::randomRoute(int MapWidth, int MapHeight){
 * Function that returns a waypoint from wayPoints.
 */
 
-WayPoint* Route::getWaypoint(int wayPoint) const{
-    return wayPoints[wayPoint];
+WayPoint& Route::getWaypoint(int wayPoint) const{
+    return *wayPoints[wayPoint];
 }
 
 /**
 * Function to set a waypoint in wayPoints.
 */
 
-void Route::pushWayPoint(WayPoint* wayPoint){
-    wayPoints.push_back(wayPoint);
+void Route::pushWayPoint(WayPoint wayPoint){
+    wayPoints.push_back(new WayPoint(wayPoint.x, wayPoint.y));
 }
 
 /**

@@ -72,11 +72,21 @@ void VirtualQuadCopter::goTo(int x, int y){
 /**
  * Function to move the VirtualQuadCopter to a waypoint.
  */
-void VirtualQuadCopter::goTo(WayPoint* waypoint){
-    this->x = waypoint->x;
-    this->y = waypoint->x;
+void VirtualQuadCopter::goTo(WayPoint& waypoint){
+    this->x = waypoint.x;
+    this->y = waypoint.y;
 }
 
+/**
+* Function to get position of quadcopter.
+*/
+WayPoint VirtualQuadCopter::getPosition(){
+	return WayPoint(x, y);
+}
+
+/**
+* Function that returns of a position is in view of quadcopter.
+*/
 bool VirtualQuadCopter::inView(int x, int y) const{
     //param x in range of view
     if(((this->x) -(fov.width/2) <= x) && ((this->x) + (fov.width/2) >= x)){

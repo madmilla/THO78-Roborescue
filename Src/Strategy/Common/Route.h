@@ -148,22 +148,22 @@ public:
     void randomRoute(int MapWidth, int MapHeight);
 
 	/**
-	* @fn	WayPoint* getWaypoint(int wayPoint);
+	* @fn	WayPoint& getWaypoint(int wayPoint);
 	*
 	* @brief	Function that returns a waypoint from the std::vector<WayPoint*> wayPoints.
 	*
 	* @param	a wayPoint
 	*/	
-    WayPoint* getWaypoint(int wayPoint) const;
+    WayPoint& getWaypoint(int wayPoint) const;
 
 	/**
-	* @fn	void pushWayPoint(WayPoint* wayPoint);
+	* @fn	void pushWayPoint(WayPoint& wayPoint);
 	*
 	* @brief	Function to add a waypoint at the back of the std::vector<WayPoint*> wayPoints.
 	*
 	* @param	a wayPoint
 	*/
-    void pushWayPoint(WayPoint* wayPoint);
+    void pushWayPoint(WayPoint wayPoint);
 
 	/**
 	* @fn	void clearRoute();

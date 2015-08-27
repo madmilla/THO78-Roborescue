@@ -16,121 +16,207 @@ int main()
     VirtualQuadCopter copter(coptersize,searchSize,4,4);
     VirtualATV atv(atvsize, 1, 1);
     Map mapp;
-
-
     Route atvRoute;
-    //atvRoute.push_back(WayPoint(1, 1));
-    
+	bool error = false;
 
-    Route * result = move.generatePairRoute(atvRoute, atv, copter, mapp )->first;
-
-    bool error = false;
+   
+	Route * result = move.generatePairRoute(atvRoute, atv, copter, mapp )->first;
 
     if(result->getSize() > 0){ //Quad must move te atv
-        if(!(result->getWaypoint(0)->x == 0 && result->getWaypoint(0)->y == 0)){
+		if (!(result->getWaypoint(result->getSize() -1 ) == WayPoint(1, 1))){
             error = true;
-            std::cout << "Quad must move to atv waypoint ERROR" << std::endl;
+            std::cout << "Quad must move to atv *waypoint* ERROR" << std::endl;
         }
 		else{
 			std::cout << "Quad must move te atv SUCCES" << std::endl;
 		}
     }
     else{
-        std::cout << "Quad must move te atv size ERROR" << std::endl;
+		error = true;
+        std::cout << "Quad must move te atv route *size* ERROR" << std::endl;
     }
 
-    copter = VirtualQuadCopter(coptersize,searchSize,1,1);
-    atv = VirtualATV(atvsize, 3, 3);
-    atvRoute.clearRoute();
-    atvRoute.pushWayPoint( new WayPoint(1, 1));
 
+
+	copter.goTo(1, 1);
+    atv.goTo(2, 2);
+    atvRoute.clearRoute();
+    atvRoute.pushWayPoint(WayPoint(1, 1));
     result = move.generatePairRoute(atvRoute, atv, copter, mapp)->first;
 
+	if (result->getSize() == 1){//Atv is just in range of quadsight
+		if (!(result->getWaypoint(result->getSize() - 1) == WayPoint(1, 1))){ 
+			error = true;
+			std::cout << "Atv is just in range of quadsight *waypoint* ERROR" << std::endl;
+		}
+		else{
+			std::cout << "Atv is just in range of quadsight SUCCES" << std::endl;
+		}
+	}
+	else{
+		error = true;
+		std::cout << "Atv is just in range of quadsight route *size* ERROR" << std::endl;
+	}
 
-    if(!(result->getSize() == 0)){ //Atv is just in range of quadsight
-            error = true;
-            std::cout << "Atv is just in range of quadsight ERROR"<< std::endl;
-    }else{
-        std::cout << "Atv is just in range of quadsight SUCCES"<< std::endl;
-    }
+
 
     atvRoute.clearRoute();
-    atvRoute.pushWayPoint( new WayPoint(2, 2));
-
+    atvRoute.pushWayPoint(WayPoint(3, 3));
     result = move.generatePairRoute(atvRoute, atv, copter, mapp)->first;
-    if(result->getSize() == 1){ //Atv is just out range of quadsight
-        if(!(result->getWaypoint(0)->x == 2 && result->getWaypoint(0)->y == 2)){
+
+    if(result->getSize() == 4){ //Atv moves just out range of quadsight
+        if(!(result->getWaypoint(result->getSize() -1) == WayPoint(3, 3))){
             error = true;
-            std::cout << "Atv is just out range of quadsight waypoint ERROR"<< std::endl;
+            std::cout << "Atv moves just out range of quadsight *waypoint* ERROR"<< std::endl;
         }
 		else{
-			std::cout << "Atv is just out range of quadsight SUCCES" << std::endl;
+			std::cout << "Atv moves just out range of quadsight SUCCES" << std::endl;
 		}
     }
     else{
-        std::cout << "Atv is just out range of quadsight size ERROR"<< std::endl;
+		error = true;
+        std::cout << "Atv moves just out range of quadsight route *size* ERROR"<< std::endl;
     }
+
+
+
 
     atvRoute.clearRoute();
     result = move.generatePairRoute(atvRoute, atv, copter, mapp)->first;
-    if(!result->getSize() == 0){//Empty atv route returns...
+
+    if(result->getSize() != 0){//Empty atv route returns...
        error = true;
-       std::cout << "Empty atv route returns empty pair route ERROR"<< std::endl;
+       std::cout << "Empty atv route returns empty routePair *route* ERROR"<< std::endl;
     }else{
-        std::cout << "Empty atv route returns empty pair route SUCCES"<< std::endl;
+        std::cout << "Empty atv route returns empty routePair SUCCES"<< std::endl;
     }
 
-    copter.goTo(1, 4);
+
+
+    copter.goTo(1, 4); //ATV just outside Quadview
     result = move.generatePairRoute(atvRoute, atv, copter, mapp)->first;
-    if(!result->getSize() == 1){//Empty atv route returns...
-       error = true;
-       std::cout << "Empty atv route returns sync waypoint size ERROR"<< std::endl;
+
+    if(result->getSize() == 3){//Empty atv route returns.. but quad must move
+		if ((result->getWaypoint(result->getSize() - 1)) == WayPoint(2, 2)){
+			std::cout << "Empty atv route returns sync waypoint SUCCES" << std::endl;
+		}
+		else{
+			error = true;
+			std::cout << "Empty atv route returns sync waypoint *waypoint* ERROR" << std::endl;
+		}
     }
     else{
-        if(result->getWaypoint(0)->x == 0 && result->getWaypoint(0)->y == 0){
-            std::cout << "Empty atv route returns sync waypoint SUCCES"<< std::endl;
-        }
-        else{
-            error = true;
-            std::cout << "Empty atv route returns sync waypoint waypoint ERROR"<< std::endl;
-        }
+		error = true;
+		std::cout << "Empty atv route returns sync waypoint *size* ERROR" << std::endl;
     }
 
-    copter.goTo(0,0);
-    atvRoute.pushWayPoint(new WayPoint(1, 2));
-    atvRoute.pushWayPoint(new WayPoint(2, 3));
-    atvRoute.pushWayPoint(new WayPoint(4, 2));
-    atvRoute.pushWayPoint(new WayPoint(5, 3));
-    atvRoute.pushWayPoint(new WayPoint(-1, -1));
-    result = move.generatePairRoute(atvRoute, atv, copter, mapp)->first;
-    if(result->getSize() == 3){//Longer route
-        std::cout << "Long route size: Good, SUCCES" << std::endl;
-        if(!(result->getWaypoint(0)->x == 1 && result->getWaypoint(0)->y == 2)){
-            error = true;
-            std::cout << "  Point 1,2 ERROR" << std::endl;
-        }
-        else{
-            std::cout << "  Point 1,2 SUCCES" << std::endl;
-        }
-        if(!(result->getWaypoint(1)->x == 4 && result->getWaypoint(1)->y == 2)){
-            error = true;
-            std::cout << "  Point 4,2 ERROR" << std::endl;
-        }
-        else{
-            std::cout << "  Point 4,2 SUCCES" << std::endl;
-        }
-        if(!(result->getWaypoint(2)->x == -1 && result->getWaypoint(2)->y == -1)){
-            error = true;
-            std::cout << "  Point -1,-1 ERROR" << std::endl;
-        }
-        else{
-            std::cout << "  Point -1,-1 SUCCES" << std::endl;
-        }
-    }
-    else{
-        error = true;
-        std::cout << "Long route size: fault, ERROR" << std::endl;
-    }
+
+
+	atv.goTo(1, 1);
+	copter.goTo(1, 1);
+	atvRoute.clearRoute();
+	move.movePairWise(atvRoute, atv, copter, mapp);
+	//Empty atvRoute in MovePairWise..
+	if (atv.getPosition() == WayPoint(1, 1) && copter.getPosition() == WayPoint(1, 1)){
+		std::cout << "Empty atv route in movePairWise does nothing SUCCES" << std::endl;
+	}
+	else{
+		if (atv.getPosition() != WayPoint(1, 1)){
+			error = true;
+			std::cout << "Empty atv route in movePairWise does nothing *ATV* ERROR" << std::endl;
+		}
+		if(copter.getPosition() != WayPoint(1,1)){
+			error = true;
+			std::cout << "Empty atv route in movePairWise does nothing *quadcopter* ERROR" << std::endl;
+		}
+	}
+
+
+
+    atvRoute.pushWayPoint(WayPoint(1, 2));
+    atvRoute.pushWayPoint(WayPoint(2, 3));
+    atvRoute.pushWayPoint(WayPoint(4, 2));
+    atvRoute.pushWayPoint(WayPoint(5, 3));
+	move.movePairWise(atvRoute, atv, copter, mapp);
+	//After MovePairWise vehicles must be on end position..
+	if (atv.getPosition() == WayPoint(5, 3) && copter.getPosition() == WayPoint(5, 3)){
+		std::cout << "Filled atv route in movePairWise, vehicles on end position SUCCES" << std::endl;
+	}
+	else{
+		if (atv.getPosition() != WayPoint(5, 3)){
+			error = true;
+			std::cout << "Filled atv route in movePairWise, vehicles on end position *ATV* ERROR" << std::endl;
+		}
+		if (copter.getPosition() != WayPoint(5, 3)){
+			error = true;
+			std::cout << "Filled atv route in movePairWise, vehicles on end position *quadcopter* ERROR" << std::endl;
+		}
+	}
+
+
+	//Non initialised or out of bounds PairWiseMove must return errors..
+	if (move.nextATVWaypoint() == WayPoint(-2, -2) && move.nextQuadCopterWaypoint() == WayPoint(-2, -2)){
+		move.initPairWiseMove(atvRoute, atv, copter, mapp);
+		while (move.moveQuadCopterToNextWaypoint(copter));
+		while (move.moveATVToNextWaypoint(atv));
+		if (move.nextATVWaypoint() == WayPoint(-1, -1) && move.nextQuadCopterWaypoint() == WayPoint(-1, -1)){
+			std::cout << "atv and quadcopter nextwaypoint must return right error values SUCCES" << std::endl;
+		}
+		else{
+			error = true;
+			std::cout << "atv and quadcopter nextwaypoint must return right error values *bounds* ERROR" << std::endl;
+		}
+	}
+	else{
+		error = true;
+		std::cout << "atv and quadcopter nextwaypoint must return right error values *init* ERROR" << std::endl;
+	}
+
+
+
+	atv.goTo(1, 1);
+	copter.goTo(1, 1);
+	move.initPairWiseMove(atvRoute, atv, copter, mapp);
+	while (move.moveQuadCopterToNextWaypoint(copter));
+	while (move.moveATVToNextWaypoint(atv));
+	//After moving vehicles with ToNextWaypoint() they must be on right position..
+	if (atv.getPosition() == WayPoint(5, 3) && copter.getPosition() == WayPoint(5, 3)){
+		std::cout << "atv and quadcopter moveToNextWayPoint goTo right waypoint SUCCES" << std::endl;
+	}
+	else{
+		if (atv.getPosition() != WayPoint(5, 3)){
+			error = true;
+			std::cout << "atv and quadcopter moveToNextWayPoint goTo right waypoint *ATV* ERROR" << std::endl;
+		}
+		if (copter.getPosition() != WayPoint(5, 3)){
+			error = true;
+			std::cout << "atv and quadcopter moveToNextWayPoint goTo right waypoint *quadcopter* ERROR" << std::endl;
+		}
+	}
+
+
+
+	atv.goTo(1, 1);
+	copter.goTo(1, 1);
+	move.initPairWiseMove(atvRoute, atv, copter, mapp);
+	//InitPairWiseMovement must reset counters..
+	if (move.nextATVWaypoint() == WayPoint(1, 2) && move.nextQuadCopterWaypoint() == WayPoint(1, 1)){
+		std::cout << "InitPairWiseMovement must reset counters SUCCES" << std::endl;
+	}
+	else{
+		if (move.nextATVWaypoint() != WayPoint(1, 2)){
+			error = true;
+			std::cout << "InitPairWiseMovement must reset counters *atvcount* ERROR" << std::endl;
+		}
+		else{
+			error = true;
+			std::cout << "InitPairWiseMovement must reset counters *coptercount* ERROR" << std::endl;
+		}
+	}
+
+	if (!error){
+		std::cout << "**!!ALL TESTS SUCCESSFUL!!**" << std::endl;
+	}
 
     return error;
 }

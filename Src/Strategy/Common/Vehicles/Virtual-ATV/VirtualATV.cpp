@@ -63,9 +63,17 @@ void VirtualATV::goTo(int x, int y){
  * Function to move the VirtualATV to position x and y.
  */
 
-void VirtualATV::goTo(WayPoint* waypoint){
+void VirtualATV::goTo(WayPoint& waypoint){
 	// Set waypoint x.
-    this->x = waypoint->x;
+    this->x = waypoint.x;
 	// Set waypoint y.
-    this->y = waypoint->y;
+    this->y = waypoint.y;
+}
+
+
+/**
+* Function to get position of ATV.
+*/
+WayPoint VirtualATV::getPosition(){
+	return WayPoint(x, y);
 }

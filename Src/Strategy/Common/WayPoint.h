@@ -70,6 +70,17 @@ public:
 		else return false;
 	}
 	/**
+	* @fn	bool operator!=(const WayPoint &other) const;
+	*
+	* @brief	Operator for class WayPoint.
+	*
+	* @return	bool
+	*/
+	bool operator!=(const WayPoint& other) const {
+		return !(*this == other);
+	}
+
+	/**
 	* @brief	int x variable. Variable to store x location of WayPoint.
 	*/
 	int x;

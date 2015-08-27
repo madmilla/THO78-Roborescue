@@ -65,13 +65,13 @@ public:
 	*/
     void goTo(int x, int y);
 	/**
-	* @fn	void goTo(WayPoint* waypoint);
+	* @fn	void goTo(WayPoint& waypoint);
 	*
 	* @brief	Function to move the VirtualATV to position x and y.
 	*
 	* @param	waypoint
 	*/
-    void goTo(WayPoint* waypoint);
+    void goTo(WayPoint& waypoint);
 	/**
 	* @fn	Dimension getSize();
 	*
@@ -96,6 +96,16 @@ public:
 	* @return	y
 	*/
 	int getY() const { return y; }
+
+	/**
+	* @fn	WayPoint getPosition();
+	*
+	* @brief	Function to get the WayPoint position of VirtualQuadCopter.
+	*
+	* @return	Waypoint with position of VirtualQuadCopter.
+	*/
+	WayPoint getPosition();
+
 	/**
 	* @fn	void setSize(Dimension size);
 	*

@@ -95,10 +95,10 @@ public:
 	* @param    map			a map
 	* 
 	*/
-    void movePairWise(Route atvRoute,
-						VirtualATV atv,
-						VirtualQuadCopter copter,
-						Map map);
+    void movePairWise(const Route& atvRoute,
+						VirtualATV& atv,
+						VirtualQuadCopter& copter,
+						const Map& map);
 	
 	/**
 	* @fn	void PairWiseMove::initPairWiseMove(Route atvRoute, VirtualATV atv, VirtualQuadCopter copter,
@@ -114,42 +114,50 @@ public:
 	* @param    map			a map
 	*
 	*/
-    void initPairWiseMove(Route atvRoute,
-                          VirtualATV atv,
-                          VirtualQuadCopter copter,
-                          Map map);
+    void initPairWiseMove(const Route& atvRoute,
+                          const VirtualATV& atv,
+                          const VirtualQuadCopter& copter,
+                          const Map& map);
 	
 	/**
-	* @fn	WayPoint* PairWiseMove::nextATVWaypoint();
+	* @fn	WayPoint& PairWiseMove::nextATVWaypoint();
 	*
 	* @brief	Returns the next waypoint for the ATV.
+	* 			If next WayPoint is out of range, a WayPoint(-1, -1) is returned.
+	* 			If PairWiseMove is not initialised, a WayPoint(-2, -2) is returned.
 	* 			
 	*/
-	WayPoint* nextATVWaypoint();
+	WayPoint& nextATVWaypoint();
 	
 	/**
-	* @fn	void PairWiseMove::nextATVWaypoint();
+	* @fn	bool PairWiseMove::nextATVWaypoint();
 	*
 	* @brief	Moves the ATV to the next waypoint.
+	* 			
+	* @return	True if move successful, false and std::cout message if not.
 	*
 	*/
-    void moveATVToNextWaypoint(VirtualATV atv);
+    bool moveATVToNextWaypoint(VirtualATV& atv);
 	
 	/**
-	* @fn	WayPoint* PairWiseMove::nextQuadCopterWaypoint();
+	* @fn	WayPoint& PairWiseMove::nextQuadCopterWaypoint();
 	*
 	* @brief	Returns the next waypoint for the quadcopter.
-	*
+	* 			If next WayPoint is out of range, a WayPoint(-1, -1) is returned.
+	* 			If PairWiseMove is not initialised, a WayPoint(-2, -2) is returned.
+	* 			
 	*/
-    WayPoint* nextQuadCopterWaypoint();
+    WayPoint& nextQuadCopterWaypoint();
 	
 	/**
-	* @fn	void PairWiseMove::nextQuadCopterWaypoint();
+	* @fn	bool PairWiseMove::nextQuadCopterWaypoint();
 	*
 	* @brief	Moves the quadcopter to the next waypoint.
+	* 			
+	* @return	True if move successful, false and std::cout message if not.
 	*
 	*/
-    void moveQuadCopterToNextWaypoint(VirtualQuadCopter copter);
+    bool moveQuadCopterToNextWaypoint(VirtualQuadCopter& copter);
 
 
 private:
