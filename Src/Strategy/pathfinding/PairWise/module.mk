@@ -1,1 +1,1 @@
-SRC		+=	Src/Strategy/pathfinding/PairWise/PairWiseMove.cpp
+SRC += Src/Strategy/pathfinding/PairWise/PairWiseMove.cpp
