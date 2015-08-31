@@ -8,7 +8,7 @@
 *
 * @file PairWiseMove.h
 * @date Created: 4/28/2015
-* @version 1.5
+* @version 1.7
 *
 * @author Jacob Visser
 *
@@ -59,40 +59,44 @@ public:
     PairWiseMove();
 
     /**
-     * @fn	std::pair<Route*, Route*>* PairWiseMove::QuadCopterPairRoute(Route atvRoute,
-     * 		ATV atv, QuadCopter copter);
+     * @fn	std::pair<Route*, Route*>* PairWiseMove::generatePairRoute(const Route& atvRoute,
+						const VirtualATV& atv,
+						const VirtualQuadCopter& copter,
+						const Map& map);
      *
      * @brief	Creates two synchronised routes, one for the quadcopter and one ATV from 
      * 			an pre-calculated ATV route.
      * 			As long as the ATV is in sight of the quadCopter, the quadCopter does not move.
      * 			Else the quadCopter moves to next ATV position, following a route calculated by AStar.
-     * 			The synchronisation lies in the fact that both routes have the same amount of waypoints.'
+     * 			The synchronisation lies in the fact that both routes have the same amount of waypoints.
      * 			
      * 			The first route in the pair is the quadcopter route, the second the ATV route.
      * 			
-     * @param	atvRoute	an ATV route.
-     * @param	atv			The ATV.
-     * @param	copter  	The quadcopter.
-     * @param	map			a map.
+     * @param	const &atvRoute	an ATV route.
+     * @param	const &atv		The ATV.
+     * @param	const &copter  	The quadcopter.
+     * @param	const &map		a map.
      *
-     * @return	A std::vector with WayPoints for QuadCopter;
+     * @return	A std::pair<Route*, Route*>* with a Route for QuadCopter and a Route for ATV;
      */
 	std::pair<Route*, Route*>* generatePairRoute(const Route& atvRoute,
-		const VirtualATV& atv,
-		const VirtualQuadCopter& copter,
-		const Map& map);
+						const VirtualATV& atv,
+						const VirtualQuadCopter& copter,
+						const Map& map);
 	
 	/**
-	* @fn	 void PairWiseMove::movePairWise(Route atvRoute, VirtualATV atv, VirtualQuadCopter copter, 
-	* 		 Map map);
+	* @fn	 void PairWiseMove::movePairWise(const Route& atvRoute,
+						VirtualATV& atv,
+						VirtualQuadCopter& copter,
+						const Map& map);
 	*
 	* @brief	Runs generatePairRoute, and moves ATV and quadcopter to end position.
 	* 			Returns when both vehicles are finished.
 	*
-	* @param	atvRoute	an ATV route.
-	* @param	atv			The ATV.
-	* @param	copter  	The copter.
-	* @param    map			a map
+	* @param	const &atvRoute	an ATV route.
+	* @param	&atv			The ATV.
+	* @param	&copter  		The copter.
+	* @param    const &map		a map
 	* 
 	*/
     void movePairWise(const Route& atvRoute,
@@ -101,17 +105,19 @@ public:
 						const Map& map);
 	
 	/**
-	* @fn	void PairWiseMove::initPairWiseMove(Route atvRoute, VirtualATV atv, VirtualQuadCopter copter,
-            Map map);
+	* @fn	void PairWiseMove::initPairWiseMove(const Route& atvRoute,
+                          const VirtualATV& atv,
+                          const VirtualQuadCopter& copter,
+                          const Map& map);
 	*
 	* @brief	Sets local pairWiseRoute variable with route calculated by generatePairRoute.
 	* 			Sets both local waypoint counters to 0.
 	* 			This so you can use the functions that move the vehicles step by step.
 	*
-	* @param	atvRoute	an ATV route.
-	* @param	atv			The ATV.
-	* @param	copter  	The copter.
-	* @param    map			a map
+	* @param	const &atvRoute	an ATV route.
+    * @param	const &atv		The ATV.
+    * @param	const &copter  	The quadcopter.
+    * @param	const &map		a map.
 	*
 	*/
     void initPairWiseMove(const Route& atvRoute,
@@ -126,13 +132,17 @@ public:
 	* 			If next WayPoint is out of range, a WayPoint(-1, -1) is returned.
 	* 			If PairWiseMove is not initialised, a WayPoint(-2, -2) is returned.
 	* 			
+	* @return	If available, next ATV WayPoint, else an error WayPoint.
+	* 			
 	*/
 	WayPoint& nextATVWaypoint();
 	
 	/**
-	* @fn	bool PairWiseMove::nextATVWaypoint();
+	* @fn	bool PairWiseMove::moveATVToNextWaypoint(VirtualATV& atv);
 	*
 	* @brief	Moves the ATV to the next waypoint.
+	* 			
+	* @param	&atv	The ATV.
 	* 			
 	* @return	True if move successful, false and std::cout message if not.
 	*
@@ -146,13 +156,16 @@ public:
 	* 			If next WayPoint is out of range, a WayPoint(-1, -1) is returned.
 	* 			If PairWiseMove is not initialised, a WayPoint(-2, -2) is returned.
 	* 			
+	* @return	If available, next QuadCopter WayPoint, else an error WayPoint.
 	*/
     WayPoint& nextQuadCopterWaypoint();
 	
 	/**
-	* @fn	bool PairWiseMove::nextQuadCopterWaypoint();
+	* @fn	bool PairWiseMove::moveQuadCopterToNextWaypoint(VirtualQuadCopter& copter);
 	*
 	* @brief	Moves the quadcopter to the next waypoint.
+	* 			
+	* @param	&copter		The quadcopter.
 	* 			
 	* @return	True if move successful, false and std::cout message if not.
 	*

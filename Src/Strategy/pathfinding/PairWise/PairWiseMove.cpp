@@ -8,7 +8,7 @@
 *
 * @file PairWiseMove.cpp
 * @date Created: 4/28/2015
-* @version 1.5
+* @version 1.7
 *
 * @author Jacob Visser
 *
@@ -56,7 +56,7 @@ std::pair<Route*, Route*>* PairWiseMove::generatePairRoute(const Route& atvRoute
             atvPairRoute->pushWayPoint(WayPoint(atv.getX(), atv.getY()));
         }
     }
-    for(int i = 0; i < atvRoute.getSize(); i++){						//Loop trough ATV route
+    for(int i = 0; i < atvRoute.getSize(); ++i){						//Loop trough ATV route
         WayPoint& atvNextPosition = atvRoute.getWaypoint(i);			//Get next ATV position
         if(!copter.inView(atvNextPosition.x, atvNextPosition.y)){     //Check if ATV is in view
             auto route = routemaker.findPath(copter.getX(), copter.getY(), atvNextPosition.x, atvNextPosition.y, map);
@@ -79,15 +79,14 @@ void PairWiseMove::movePairWise(const Route& atvRoute,
 									VirtualATV& atv,
 									VirtualQuadCopter& copter, 
 									const Map& map){
+
 	std::pair<Route*, Route*>* routePair = this->generatePairRoute(atvRoute,
 																	atv, copter, map);
 
 	Route* pairQuadRoute = routePair->first;
 	Route* pairATVRoute = routePair->second;
 
-	
-
-	for (int i = 0; i < pairQuadRoute->getSize(); i++){		//Routes have the same size, so pick one
+	for (int i = 0; i < pairQuadRoute->getSize(); ++i){		//Routes have the same size, so pick one
 		copter.goTo(pairQuadRoute->getWaypoint(i));			//-> maybe return something when done?
 		atv.goTo(pairATVRoute->getWaypoint(i));				//-> maybe return something when done?
 		//Sleep?
@@ -113,7 +112,6 @@ WayPoint& PairWiseMove::nextATVWaypoint(){								//If next waypoint available
 	else if (pairWiseRoute == nullptr){									//If next not available due empty route
 		return *(new WayPoint(-2, -2));									//Return error value
 	}																	//When detected please delete waypoint
-
 	else{																//If next not available due out of range
 		return *(new WayPoint(-1, -1));									//Return error value waypoint
 	}																	//When detected please delete waypoint
